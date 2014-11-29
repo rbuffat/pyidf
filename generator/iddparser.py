@@ -3,11 +3,16 @@ Created on Oct 30, 2014
 
 @author: rene
 '''
+import logging
 import re
+import unicodedata
+
 from helper import DataObject, DataField
-
-
 class IDDParser():
+
+    object_attributes = []
+
+    field_attributes = []
 
     def _is_new_field(self, line):
         return re.search(r"^\s*[AN]\d+\s*[,;]", line) is not None
@@ -73,6 +78,7 @@ class IDDParser():
                 if line[0] == '!':
                     continue
                 line = line.strip()
+                line = unicode(line, errors='ignore')
 
 #                 print self._is_new_object(line), "\t", self._is_new_field(line), "\t", self._is_attribute(line), "\t", line
                 assert self._is_new_object(line) + self._is_new_field(line) + self._is_attribute(line) <= 1
@@ -87,7 +93,6 @@ class IDDParser():
 
                     internal_name = self._parse_object_name(line)
                     self.current_object = DataObject(internal_name)
-                    print "new object: ", internal_name, self.current_object.internal_name
                     self.current_field = None
 
                 elif self._is_new_field(line):
@@ -98,7 +103,7 @@ class IDDParser():
 
                     try:
                         ftype, internal_name = self._parse_field_name(line)
-                        self.current_field = DataField(internal_name, ftype)
+                        self.current_field = DataField(internal_name, ftype, self.current_object)
                     except Exception as e:
                         pass
 #                         print line
@@ -107,7 +112,8 @@ class IDDParser():
                 elif self._is_attribute(line):
 
                     multiple_value_attributes = ["key",
-                                                 "note"]
+                                                 "note",
+                                                 "memo"]
 
                     name, value = self._parse_attribute(line)
 
@@ -129,6 +135,9 @@ class IDDParser():
                             self.current_field.attributes[name].append(value)
                         else:
                             self.current_field.attributes[name] = value
+                else:
+                    if len(line) > 0:
+                        logging.warn(u"did not parse line: {}".format(line))
 
         if self.current_field is not None:
             self.current_object.fields.append(self.current_field)
@@ -136,11 +145,8 @@ class IDDParser():
         if self.current_object is not None:
             self.objects.append(self.current_object)
 
-        print self.objects
         for obj in self.objects:
-            print obj.internal_name
             for field in obj.fields:
-                print "\t", field.internal_name
                 field.conv_vals()
 
         return self.objects
