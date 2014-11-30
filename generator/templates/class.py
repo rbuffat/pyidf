@@ -163,9 +163,14 @@ class {{ obj.class_name }}(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        {%- for field in obj.fields %}
-        out.append(self._to_str(self.{{field.field_name}}))
-        {%- endfor %}
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
