@@ -5,9 +5,11 @@ class {{ obj.class_name }}(object):
         {{ memo }}
     {%- endfor %}
     {%- endif %}
+    
     """
     internal_name = "{{ obj.internal_name }}"
     field_count = {{ obj.fields|count }}
+    required_fields = [{{required_fields}}]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `{{ obj.internal_name }}`
@@ -138,6 +140,16 @@ class {{ obj.class_name }}(object):
 
         self._data["{{ field.internal_name }}"] = value
     {%- endfor %}
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):

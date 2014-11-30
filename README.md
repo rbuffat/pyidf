@@ -13,7 +13,6 @@ Python library to read, modify and create EnergyPlus idf files
 * handle \note fields as indicated in idd (ignore corresponding objects for the moment?)
 * unit tests
 * field comments not implemented:
-  * required-field
   * begin-extensible
   * unitsBasedOnField
   * deprecated

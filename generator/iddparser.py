@@ -74,7 +74,7 @@ class IDDParser():
             no_value_attributes = ["required-field"]
 
             if attribute_name in no_value_attributes:
-                return attribute_name, None
+                return attribute_name, True
 
             match_value = re.search(r"\s*\\[^\s]+\s?(.*)", line)
             if match_value is not None:

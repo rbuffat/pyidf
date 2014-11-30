@@ -11,8 +11,15 @@ env = Environment(loader=PackageLoader('generator', 'templates'))
 def generate_class(obj):
     template = env.get_template('class.py')
 
+    required_fields = []
+    for field in obj.fields:
+        if "required-field" in field.attributes:
+            required_fields.append('"{}"'.format(field.internal_name))
+
     context = {}
     context["obj"] = obj
+    context["required_fields"] = ", ".join(required_fields)
+
     return template.render(context)
 
 
