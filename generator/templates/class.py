@@ -60,7 +60,10 @@ class {{ obj.class_name }}(object):
                     {%- endfor %}
                     {%- endif %}
                 {%- if field.attributes.units %}
-                Unit: {{ field.attributes.units }}
+                Units: {{ field.attributes.units }}
+                {%- endif %}
+                {%- if field.attributes['ip-units'] %}
+                IP-Units: {{ field.attributes['ip-units'] }}
                 {%- endif %}
                 {%- if field.attributes.default %}
                 Default value: {{ field.attributes.default }}
