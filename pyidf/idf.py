@@ -755,8 +755,8 @@ class IDF(object):
         self._data["Output:Diagnostics"] = None
         self._data["Output:DebuggingData"] = None
         self._data["Output:PreprocessorMessage"] = None
-   
-   
+
+
     def set(self, data):
         self._data[data.internal_name] = data        
    

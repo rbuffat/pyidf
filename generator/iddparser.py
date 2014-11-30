@@ -3,14 +3,13 @@ Created on Oct 30, 2014
 
 @author: rene
 '''
+from _collections import defaultdict
 import logging
 import re
 import unicodedata
 
-from helper import normalize_field_name
 from helper import DataObject, DataField
-
-
+from helper import normalize_field_name
 class IDDParser():
 
     object_attributes = []
@@ -126,7 +125,7 @@ class IDDParser():
                         self.current_field = DataField(internal_name, ftype, self.current_object)
                     except Exception as e:
                         self.current_object.ignored = True
-                        print self.current_object.internal_name, line
+#                         print self.current_object.internal_name, line
 
                 elif self._is_attribute(line):
 
@@ -168,9 +167,18 @@ class IDDParser():
         good_objs = []
         for obj in self.objects:
             if not obj.ignored:
+                fields = defaultdict(list)
                 for field in obj.fields:
-                    if "deprecated" in field.attributes:
-                        print "deprecated: ", field.internal_name
+
+                    if field.internal_name in fields:
+                        fields[field.internal_name].append(field)
+                        logging.warn("duplicated field name: {}->{}".format(field.dataobject.internal_name,
+                                                                            field.internal_name))
+                        new_name = "{} v{}".format(field.internal_name,
+                                                   str(len(fields[field.internal_name])))
+                        field.set_internal_name(new_name)
+
+                    fields[field.internal_name].append(field)
                     field.conv_vals()
                 good_objs.append(obj)
             else:

@@ -48,10 +48,10 @@ class AirLoopHvacUnitarySystem(object):
         self._data["Supply Air Flow Rate Method When No Cooling or Heating is Required"] = None
         self._data["Supply Air Flow Rate When No Cooling or Heating is Required"] = None
         self._data["Supply Air Flow Rate Per Floor Area When No Cooling or Heating is Required"] = None
-        self._data["Fraction of Autosized Design Cooling Supply Air Flow Rate"] = None
-        self._data["Fraction of Autosized Design Heating Supply Air Flow Rate"] = None
-        self._data["Design Supply Air Flow Rate Per Unit of Capacity During Cooling Operation"] = None
-        self._data["Design Supply Air Flow Rate Per Unit of Capacity During Heating Operation"] = None
+        self._data["Fraction of Autosized Design Cooling Supply Air Flow Rate v2"] = None
+        self._data["Fraction of Autosized Design Heating Supply Air Flow Rate v2"] = None
+        self._data["Design Supply Air Flow Rate Per Unit of Capacity During Cooling Operation v2"] = None
+        self._data["Design Supply Air Flow Rate Per Unit of Capacity During Heating Operation v2"] = None
         self._data["Maximum Supply Air Temperature"] = None
         self._data["Maximum Outdoor Dry-Bulb Temperature for Supplemental Heater Operation"] = None
         self._data["Outdoor Dry-Bulb Temperature Sensor Node Name"] = None
@@ -246,24 +246,24 @@ class AirLoopHvacUnitarySystem(object):
             self.supply_air_flow_rate_per_floor_area_when_no_cooling_or_heating_is_required = vals[i]
         i += 1
         if len(vals[i]) == 0:
-            self.fraction_of_autosized_design_cooling_supply_air_flow_rate = None
+            self.fraction_of_autosized_design_cooling_supply_air_flow_rate_v2 = None
         else:
-            self.fraction_of_autosized_design_cooling_supply_air_flow_rate = vals[i]
+            self.fraction_of_autosized_design_cooling_supply_air_flow_rate_v2 = vals[i]
         i += 1
         if len(vals[i]) == 0:
-            self.fraction_of_autosized_design_heating_supply_air_flow_rate = None
+            self.fraction_of_autosized_design_heating_supply_air_flow_rate_v2 = None
         else:
-            self.fraction_of_autosized_design_heating_supply_air_flow_rate = vals[i]
+            self.fraction_of_autosized_design_heating_supply_air_flow_rate_v2 = vals[i]
         i += 1
         if len(vals[i]) == 0:
-            self.design_supply_air_flow_rate_per_unit_of_capacity_during_cooling_operation = None
+            self.design_supply_air_flow_rate_per_unit_of_capacity_during_cooling_operation_v2 = None
         else:
-            self.design_supply_air_flow_rate_per_unit_of_capacity_during_cooling_operation = vals[i]
+            self.design_supply_air_flow_rate_per_unit_of_capacity_during_cooling_operation_v2 = vals[i]
         i += 1
         if len(vals[i]) == 0:
-            self.design_supply_air_flow_rate_per_unit_of_capacity_during_heating_operation = None
+            self.design_supply_air_flow_rate_per_unit_of_capacity_during_heating_operation_v2 = None
         else:
-            self.design_supply_air_flow_rate_per_unit_of_capacity_during_heating_operation = vals[i]
+            self.design_supply_air_flow_rate_per_unit_of_capacity_during_heating_operation_v2 = vals[i]
         i += 1
         if len(vals[i]) == 0:
             self.maximum_supply_air_temperature = None
@@ -1805,22 +1805,22 @@ class AirLoopHvacUnitarySystem(object):
         self._data["Supply Air Flow Rate Per Floor Area When No Cooling or Heating is Required"] = value
 
     @property
-    def fraction_of_autosized_design_cooling_supply_air_flow_rate(self):
-        """Get fraction_of_autosized_design_cooling_supply_air_flow_rate
+    def fraction_of_autosized_design_cooling_supply_air_flow_rate_v2(self):
+        """Get fraction_of_autosized_design_cooling_supply_air_flow_rate_v2
 
         Returns:
-            float: the value of `fraction_of_autosized_design_cooling_supply_air_flow_rate` or None if not set
+            float: the value of `fraction_of_autosized_design_cooling_supply_air_flow_rate_v2` or None if not set
         """
-        return self._data["Fraction of Autosized Design Cooling Supply Air Flow Rate"]
+        return self._data["Fraction of Autosized Design Cooling Supply Air Flow Rate v2"]
 
-    @fraction_of_autosized_design_cooling_supply_air_flow_rate.setter
-    def fraction_of_autosized_design_cooling_supply_air_flow_rate(self, value=None):
-        """  Corresponds to IDD Field `fraction_of_autosized_design_cooling_supply_air_flow_rate`
+    @fraction_of_autosized_design_cooling_supply_air_flow_rate_v2.setter
+    def fraction_of_autosized_design_cooling_supply_air_flow_rate_v2(self, value=None):
+        """  Corresponds to IDD Field `fraction_of_autosized_design_cooling_supply_air_flow_rate_v2`
         Enter the supply air volume flow rate as a fraction of the cooling supply air flow rate.
         Required field when Supply air Flow Rate Method When No Cooling or Heating is Required is FractionOfAutosizedCoolingValue.
 
         Args:
-            value (float): value for IDD Field `fraction_of_autosized_design_cooling_supply_air_flow_rate`
+            value (float): value for IDD Field `fraction_of_autosized_design_cooling_supply_air_flow_rate_v2`
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -1833,30 +1833,30 @@ class AirLoopHvacUnitarySystem(object):
                 value = float(value)
             except:
                 raise ValueError('value {} need to be of type float '
-                                 'for field `fraction_of_autosized_design_cooling_supply_air_flow_rate`'.format(value))
+                                 'for field `fraction_of_autosized_design_cooling_supply_air_flow_rate_v2`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `fraction_of_autosized_design_cooling_supply_air_flow_rate`')
+                                 'for field `fraction_of_autosized_design_cooling_supply_air_flow_rate_v2`')
 
-        self._data["Fraction of Autosized Design Cooling Supply Air Flow Rate"] = value
+        self._data["Fraction of Autosized Design Cooling Supply Air Flow Rate v2"] = value
 
     @property
-    def fraction_of_autosized_design_heating_supply_air_flow_rate(self):
-        """Get fraction_of_autosized_design_heating_supply_air_flow_rate
+    def fraction_of_autosized_design_heating_supply_air_flow_rate_v2(self):
+        """Get fraction_of_autosized_design_heating_supply_air_flow_rate_v2
 
         Returns:
-            float: the value of `fraction_of_autosized_design_heating_supply_air_flow_rate` or None if not set
+            float: the value of `fraction_of_autosized_design_heating_supply_air_flow_rate_v2` or None if not set
         """
-        return self._data["Fraction of Autosized Design Heating Supply Air Flow Rate"]
+        return self._data["Fraction of Autosized Design Heating Supply Air Flow Rate v2"]
 
-    @fraction_of_autosized_design_heating_supply_air_flow_rate.setter
-    def fraction_of_autosized_design_heating_supply_air_flow_rate(self, value=None):
-        """  Corresponds to IDD Field `fraction_of_autosized_design_heating_supply_air_flow_rate`
+    @fraction_of_autosized_design_heating_supply_air_flow_rate_v2.setter
+    def fraction_of_autosized_design_heating_supply_air_flow_rate_v2(self, value=None):
+        """  Corresponds to IDD Field `fraction_of_autosized_design_heating_supply_air_flow_rate_v2`
         Enter the supply air volume flow rate as a fraction of the heating supply air flow rate.
         Required field when Supply air Flow Rate Method When No Cooling or Heating is Required is FractionOfAutosizedHeatingValue.
 
         Args:
-            value (float): value for IDD Field `fraction_of_autosized_design_heating_supply_air_flow_rate`
+            value (float): value for IDD Field `fraction_of_autosized_design_heating_supply_air_flow_rate_v2`
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -1869,30 +1869,30 @@ class AirLoopHvacUnitarySystem(object):
                 value = float(value)
             except:
                 raise ValueError('value {} need to be of type float '
-                                 'for field `fraction_of_autosized_design_heating_supply_air_flow_rate`'.format(value))
+                                 'for field `fraction_of_autosized_design_heating_supply_air_flow_rate_v2`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `fraction_of_autosized_design_heating_supply_air_flow_rate`')
+                                 'for field `fraction_of_autosized_design_heating_supply_air_flow_rate_v2`')
 
-        self._data["Fraction of Autosized Design Heating Supply Air Flow Rate"] = value
+        self._data["Fraction of Autosized Design Heating Supply Air Flow Rate v2"] = value
 
     @property
-    def design_supply_air_flow_rate_per_unit_of_capacity_during_cooling_operation(self):
-        """Get design_supply_air_flow_rate_per_unit_of_capacity_during_cooling_operation
+    def design_supply_air_flow_rate_per_unit_of_capacity_during_cooling_operation_v2(self):
+        """Get design_supply_air_flow_rate_per_unit_of_capacity_during_cooling_operation_v2
 
         Returns:
-            float: the value of `design_supply_air_flow_rate_per_unit_of_capacity_during_cooling_operation` or None if not set
+            float: the value of `design_supply_air_flow_rate_per_unit_of_capacity_during_cooling_operation_v2` or None if not set
         """
-        return self._data["Design Supply Air Flow Rate Per Unit of Capacity During Cooling Operation"]
+        return self._data["Design Supply Air Flow Rate Per Unit of Capacity During Cooling Operation v2"]
 
-    @design_supply_air_flow_rate_per_unit_of_capacity_during_cooling_operation.setter
-    def design_supply_air_flow_rate_per_unit_of_capacity_during_cooling_operation(self, value=None):
-        """  Corresponds to IDD Field `design_supply_air_flow_rate_per_unit_of_capacity_during_cooling_operation`
+    @design_supply_air_flow_rate_per_unit_of_capacity_during_cooling_operation_v2.setter
+    def design_supply_air_flow_rate_per_unit_of_capacity_during_cooling_operation_v2(self, value=None):
+        """  Corresponds to IDD Field `design_supply_air_flow_rate_per_unit_of_capacity_during_cooling_operation_v2`
         Enter the supply air volume flow rate as a fraction of the cooling capacity.
         Required field when Supply air Flow Rate Method During Heating Operation is FlowPerCoolingCapacity.
 
         Args:
-            value (float): value for IDD Field `design_supply_air_flow_rate_per_unit_of_capacity_during_cooling_operation`
+            value (float): value for IDD Field `design_supply_air_flow_rate_per_unit_of_capacity_during_cooling_operation_v2`
                 Unit: m3/s-W
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -1906,30 +1906,30 @@ class AirLoopHvacUnitarySystem(object):
                 value = float(value)
             except:
                 raise ValueError('value {} need to be of type float '
-                                 'for field `design_supply_air_flow_rate_per_unit_of_capacity_during_cooling_operation`'.format(value))
+                                 'for field `design_supply_air_flow_rate_per_unit_of_capacity_during_cooling_operation_v2`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `design_supply_air_flow_rate_per_unit_of_capacity_during_cooling_operation`')
+                                 'for field `design_supply_air_flow_rate_per_unit_of_capacity_during_cooling_operation_v2`')
 
-        self._data["Design Supply Air Flow Rate Per Unit of Capacity During Cooling Operation"] = value
+        self._data["Design Supply Air Flow Rate Per Unit of Capacity During Cooling Operation v2"] = value
 
     @property
-    def design_supply_air_flow_rate_per_unit_of_capacity_during_heating_operation(self):
-        """Get design_supply_air_flow_rate_per_unit_of_capacity_during_heating_operation
+    def design_supply_air_flow_rate_per_unit_of_capacity_during_heating_operation_v2(self):
+        """Get design_supply_air_flow_rate_per_unit_of_capacity_during_heating_operation_v2
 
         Returns:
-            float: the value of `design_supply_air_flow_rate_per_unit_of_capacity_during_heating_operation` or None if not set
+            float: the value of `design_supply_air_flow_rate_per_unit_of_capacity_during_heating_operation_v2` or None if not set
         """
-        return self._data["Design Supply Air Flow Rate Per Unit of Capacity During Heating Operation"]
+        return self._data["Design Supply Air Flow Rate Per Unit of Capacity During Heating Operation v2"]
 
-    @design_supply_air_flow_rate_per_unit_of_capacity_during_heating_operation.setter
-    def design_supply_air_flow_rate_per_unit_of_capacity_during_heating_operation(self, value=None):
-        """  Corresponds to IDD Field `design_supply_air_flow_rate_per_unit_of_capacity_during_heating_operation`
+    @design_supply_air_flow_rate_per_unit_of_capacity_during_heating_operation_v2.setter
+    def design_supply_air_flow_rate_per_unit_of_capacity_during_heating_operation_v2(self, value=None):
+        """  Corresponds to IDD Field `design_supply_air_flow_rate_per_unit_of_capacity_during_heating_operation_v2`
         Enter the supply air volume flow rate as a fraction of the heating capacity.
         Required field when Supply air Flow Rate Method During Heating Operation is FlowPerHeatingCapacity.
 
         Args:
-            value (float): value for IDD Field `design_supply_air_flow_rate_per_unit_of_capacity_during_heating_operation`
+            value (float): value for IDD Field `design_supply_air_flow_rate_per_unit_of_capacity_during_heating_operation_v2`
                 Unit: m3/s-W
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -1943,12 +1943,12 @@ class AirLoopHvacUnitarySystem(object):
                 value = float(value)
             except:
                 raise ValueError('value {} need to be of type float '
-                                 'for field `design_supply_air_flow_rate_per_unit_of_capacity_during_heating_operation`'.format(value))
+                                 'for field `design_supply_air_flow_rate_per_unit_of_capacity_during_heating_operation_v2`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `design_supply_air_flow_rate_per_unit_of_capacity_during_heating_operation`')
+                                 'for field `design_supply_air_flow_rate_per_unit_of_capacity_during_heating_operation_v2`')
 
-        self._data["Design Supply Air Flow Rate Per Unit of Capacity During Heating Operation"] = value
+        self._data["Design Supply Air Flow Rate Per Unit of Capacity During Heating Operation v2"] = value
 
     @property
     def maximum_supply_air_temperature(self):
@@ -2565,10 +2565,10 @@ class AirLoopHvacUnitarySystem(object):
         out.append(self._to_str(self.supply_air_flow_rate_method_when_no_cooling_or_heating_is_required))
         out.append(self._to_str(self.supply_air_flow_rate_when_no_cooling_or_heating_is_required))
         out.append(self._to_str(self.supply_air_flow_rate_per_floor_area_when_no_cooling_or_heating_is_required))
-        out.append(self._to_str(self.fraction_of_autosized_design_cooling_supply_air_flow_rate))
-        out.append(self._to_str(self.fraction_of_autosized_design_heating_supply_air_flow_rate))
-        out.append(self._to_str(self.design_supply_air_flow_rate_per_unit_of_capacity_during_cooling_operation))
-        out.append(self._to_str(self.design_supply_air_flow_rate_per_unit_of_capacity_during_heating_operation))
+        out.append(self._to_str(self.fraction_of_autosized_design_cooling_supply_air_flow_rate_v2))
+        out.append(self._to_str(self.fraction_of_autosized_design_heating_supply_air_flow_rate_v2))
+        out.append(self._to_str(self.design_supply_air_flow_rate_per_unit_of_capacity_during_cooling_operation_v2))
+        out.append(self._to_str(self.design_supply_air_flow_rate_per_unit_of_capacity_during_heating_operation_v2))
         out.append(self._to_str(self.maximum_supply_air_temperature))
         out.append(self._to_str(self.maximum_outdoor_drybulb_temperature_for_supplemental_heater_operation))
         out.append(self._to_str(self.outdoor_drybulb_temperature_sensor_node_name))

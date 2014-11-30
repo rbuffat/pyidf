@@ -3073,7 +3073,7 @@ class SizingSystem(object):
         self._data["Heating Design Air Flow Rate"] = None
         self._data["Supply Air Flow Rate Per Floor Area During Heating Operation"] = None
         self._data["Fraction of Autosized Design Heating Supply Air Flow Rate"] = None
-        self._data["Fraction of Autosized Design Cooling Supply Air Flow Rate"] = None
+        self._data["Fraction of Autosized Design Cooling Supply Air Flow Rate v2"] = None
         self._data["Design Supply Air Flow Rate Per Unit Heating Capacity"] = None
         self._data["System Outdoor Air Method"] = None
         self._data["Zone Maximum Outdoor Air Fraction"] = None
@@ -3214,9 +3214,9 @@ class SizingSystem(object):
             self.fraction_of_autosized_design_heating_supply_air_flow_rate = vals[i]
         i += 1
         if len(vals[i]) == 0:
-            self.fraction_of_autosized_design_cooling_supply_air_flow_rate = None
+            self.fraction_of_autosized_design_cooling_supply_air_flow_rate_v2 = None
         else:
-            self.fraction_of_autosized_design_cooling_supply_air_flow_rate = vals[i]
+            self.fraction_of_autosized_design_cooling_supply_air_flow_rate_v2 = vals[i]
         i += 1
         if len(vals[i]) == 0:
             self.design_supply_air_flow_rate_per_unit_heating_capacity = None
@@ -4171,23 +4171,23 @@ class SizingSystem(object):
         self._data["Fraction of Autosized Design Heating Supply Air Flow Rate"] = value
 
     @property
-    def fraction_of_autosized_design_cooling_supply_air_flow_rate(self):
-        """Get fraction_of_autosized_design_cooling_supply_air_flow_rate
+    def fraction_of_autosized_design_cooling_supply_air_flow_rate_v2(self):
+        """Get fraction_of_autosized_design_cooling_supply_air_flow_rate_v2
 
         Returns:
-            float: the value of `fraction_of_autosized_design_cooling_supply_air_flow_rate` or None if not set
+            float: the value of `fraction_of_autosized_design_cooling_supply_air_flow_rate_v2` or None if not set
         """
-        return self._data["Fraction of Autosized Design Cooling Supply Air Flow Rate"]
+        return self._data["Fraction of Autosized Design Cooling Supply Air Flow Rate v2"]
 
-    @fraction_of_autosized_design_cooling_supply_air_flow_rate.setter
-    def fraction_of_autosized_design_cooling_supply_air_flow_rate(self, value=None):
-        """  Corresponds to IDD Field `fraction_of_autosized_design_cooling_supply_air_flow_rate`
+    @fraction_of_autosized_design_cooling_supply_air_flow_rate_v2.setter
+    def fraction_of_autosized_design_cooling_supply_air_flow_rate_v2(self, value=None):
+        """  Corresponds to IDD Field `fraction_of_autosized_design_cooling_supply_air_flow_rate_v2`
         Enter the supply air volume flow rate as a fraction of the cooling supply air flow rate.
         Required field when Supply air Flow Rate Method during heating operation is
         FractionOfAutosizedCoolingAirflow.
 
         Args:
-            value (float): value for IDD Field `fraction_of_autosized_design_cooling_supply_air_flow_rate`
+            value (float): value for IDD Field `fraction_of_autosized_design_cooling_supply_air_flow_rate_v2`
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -4200,12 +4200,12 @@ class SizingSystem(object):
                 value = float(value)
             except:
                 raise ValueError('value {} need to be of type float '
-                                 'for field `fraction_of_autosized_design_cooling_supply_air_flow_rate`'.format(value))
+                                 'for field `fraction_of_autosized_design_cooling_supply_air_flow_rate_v2`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `fraction_of_autosized_design_cooling_supply_air_flow_rate`')
+                                 'for field `fraction_of_autosized_design_cooling_supply_air_flow_rate_v2`')
 
-        self._data["Fraction of Autosized Design Cooling Supply Air Flow Rate"] = value
+        self._data["Fraction of Autosized Design Cooling Supply Air Flow Rate v2"] = value
 
     @property
     def design_supply_air_flow_rate_per_unit_heating_capacity(self):
@@ -4694,7 +4694,7 @@ class SizingSystem(object):
         out.append(self._to_str(self.heating_design_air_flow_rate))
         out.append(self._to_str(self.supply_air_flow_rate_per_floor_area_during_heating_operation))
         out.append(self._to_str(self.fraction_of_autosized_design_heating_supply_air_flow_rate))
-        out.append(self._to_str(self.fraction_of_autosized_design_cooling_supply_air_flow_rate))
+        out.append(self._to_str(self.fraction_of_autosized_design_cooling_supply_air_flow_rate_v2))
         out.append(self._to_str(self.design_supply_air_flow_rate_per_unit_heating_capacity))
         out.append(self._to_str(self.system_outdoor_air_method))
         out.append(self._to_str(self.zone_maximum_outdoor_air_fraction))

@@ -61,11 +61,14 @@ class DataField(object):
     def __init__(self, internal_name, ftype, dataobject):
 
         self.attributes = {}
-        self.internal_name = internal_name
-        self.field_name = normalize_field_name(internal_name)
+        self.set_internal_name(internal_name)
         self.is_list = False
         self.ftype = ftype
         self.dataobject = dataobject
+
+    def set_internal_name(self, internal_name):
+        self.internal_name = internal_name
+        self.field_name = normalize_field_name(internal_name)
 
     def value2py(self, value, ftype):
         if ftype == 'alpha':
@@ -92,8 +95,7 @@ class DataField(object):
 
         # Sanity check
         if "type" in self.attributes:
-            if (self.attributes["type"] == "alpha" or self.attributes[
-                    "type"] == "choice") and self.ftype == "N":
+            if (self.attributes["type"] == "alpha") and self.ftype == "N":
                 logging.warn("alpha type is declared as number: {}->{} / {}".format(self.dataobject.internal_name,
                                                                                self.internal_name,
                                                                             self.attributes["type"]))

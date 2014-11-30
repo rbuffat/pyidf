@@ -13597,7 +13597,7 @@ class CoilCoolingDxMultiSpeed(object):
         self._data["Speed 2 Gross Rated Sensible Heat Ratio"] = None
         self._data["Speed 2 Gross Rated Cooling COP"] = None
         self._data["Speed 2 Rated Air Flow Rate"] = None
-        self._data["Rated Evaporator Fan Power Per Volume Flow Rate"] = None
+        self._data["Rated Evaporator Fan Power Per Volume Flow Rate v2"] = None
         self._data["Speed 2 Total Cooling Capacity Function of Temperature Curve Name"] = None
         self._data["Speed 2 Total Cooling Capacity Function of Flow Fraction Curve Name"] = None
         self._data["Speed 2 Energy Input Ratio Function of Temperature Curve Name"] = None
@@ -13616,7 +13616,7 @@ class CoilCoolingDxMultiSpeed(object):
         self._data["Speed 3 Gross Rated Sensible Heat Ratio"] = None
         self._data["Speed 3 Gross Rated Cooling COP"] = None
         self._data["Speed 3 Rated Air Flow Rate"] = None
-        self._data["Rated Evaporator Fan Power Per Volume Flow Rate"] = None
+        self._data["Rated Evaporator Fan Power Per Volume Flow Rate v3"] = None
         self._data["Speed 3 Total Cooling Capacity Function of Temperature Curve Name"] = None
         self._data["Speed 3 Total Cooling Capacity Function of Flow Fraction Curve Name"] = None
         self._data["Speed 3 Energy Input Ratio Function of Temperature Curve Name"] = None
@@ -13635,7 +13635,7 @@ class CoilCoolingDxMultiSpeed(object):
         self._data["Speed 4 Gross Rated Sensible Heat Ratio"] = None
         self._data["Speed 4 Gross Rated Cooling COP"] = None
         self._data["Speed 4 Rated Air Flow Rate"] = None
-        self._data["Rated Evaporator Fan Power Per Volume Flow Rate"] = None
+        self._data["Rated Evaporator Fan Power Per Volume Flow Rate v4"] = None
         self._data["Speed 4 Total Cooling Capacity Function of Temperature Curve Name"] = None
         self._data["Speed 4 Total Cooling Capacity Function of Flow Fraction Curve Name"] = None
         self._data["Speed 4 Energy Input Ratio Function of Temperature Curve Name"] = None
@@ -13859,9 +13859,9 @@ class CoilCoolingDxMultiSpeed(object):
             self.speed_2_rated_air_flow_rate = vals[i]
         i += 1
         if len(vals[i]) == 0:
-            self.rated_evaporator_fan_power_per_volume_flow_rate = None
+            self.rated_evaporator_fan_power_per_volume_flow_rate_v2 = None
         else:
-            self.rated_evaporator_fan_power_per_volume_flow_rate = vals[i]
+            self.rated_evaporator_fan_power_per_volume_flow_rate_v2 = vals[i]
         i += 1
         if len(vals[i]) == 0:
             self.speed_2_total_cooling_capacity_function_of_temperature_curve_name = None
@@ -13954,9 +13954,9 @@ class CoilCoolingDxMultiSpeed(object):
             self.speed_3_rated_air_flow_rate = vals[i]
         i += 1
         if len(vals[i]) == 0:
-            self.rated_evaporator_fan_power_per_volume_flow_rate = None
+            self.rated_evaporator_fan_power_per_volume_flow_rate_v3 = None
         else:
-            self.rated_evaporator_fan_power_per_volume_flow_rate = vals[i]
+            self.rated_evaporator_fan_power_per_volume_flow_rate_v3 = vals[i]
         i += 1
         if len(vals[i]) == 0:
             self.speed_3_total_cooling_capacity_function_of_temperature_curve_name = None
@@ -14049,9 +14049,9 @@ class CoilCoolingDxMultiSpeed(object):
             self.speed_4_rated_air_flow_rate = vals[i]
         i += 1
         if len(vals[i]) == 0:
-            self.rated_evaporator_fan_power_per_volume_flow_rate = None
+            self.rated_evaporator_fan_power_per_volume_flow_rate_v4 = None
         else:
-            self.rated_evaporator_fan_power_per_volume_flow_rate = vals[i]
+            self.rated_evaporator_fan_power_per_volume_flow_rate_v4 = vals[i]
         i += 1
         if len(vals[i]) == 0:
             self.speed_4_total_cooling_capacity_function_of_temperature_curve_name = None
@@ -15680,17 +15680,17 @@ class CoilCoolingDxMultiSpeed(object):
         self._data["Speed 2 Rated Air Flow Rate"] = value
 
     @property
-    def rated_evaporator_fan_power_per_volume_flow_rate(self):
-        """Get rated_evaporator_fan_power_per_volume_flow_rate
+    def rated_evaporator_fan_power_per_volume_flow_rate_v2(self):
+        """Get rated_evaporator_fan_power_per_volume_flow_rate_v2
 
         Returns:
-            float: the value of `rated_evaporator_fan_power_per_volume_flow_rate` or None if not set
+            float: the value of `rated_evaporator_fan_power_per_volume_flow_rate_v2` or None if not set
         """
-        return self._data["Rated Evaporator Fan Power Per Volume Flow Rate"]
+        return self._data["Rated Evaporator Fan Power Per Volume Flow Rate v2"]
 
-    @rated_evaporator_fan_power_per_volume_flow_rate.setter
-    def rated_evaporator_fan_power_per_volume_flow_rate(self, value=773.3 ):
-        """  Corresponds to IDD Field `rated_evaporator_fan_power_per_volume_flow_rate`
+    @rated_evaporator_fan_power_per_volume_flow_rate_v2.setter
+    def rated_evaporator_fan_power_per_volume_flow_rate_v2(self, value=773.3 ):
+        """  Corresponds to IDD Field `rated_evaporator_fan_power_per_volume_flow_rate_v2`
         Enter the evaporator fan power per air volume flow rate at the rated test conditions.
         The test conditions vary external static pressure based on total cooling capacity.
         This value is only used to calculate Seasonal Energy Efficiency Ratio (SEER), and the
@@ -15698,7 +15698,7 @@ class CoilCoolingDxMultiSpeed(object):
         This value is not used for modeling the evaporator fan during simulations.
 
         Args:
-            value (float): value for IDD Field `rated_evaporator_fan_power_per_volume_flow_rate`
+            value (float): value for IDD Field `rated_evaporator_fan_power_per_volume_flow_rate_v2`
                 Unit: W/(m3/s)
                 Default value: 773.3
                 value >= 0.0
@@ -15714,15 +15714,15 @@ class CoilCoolingDxMultiSpeed(object):
                 value = float(value)
             except:
                 raise ValueError('value {} need to be of type float '
-                                 'for field `rated_evaporator_fan_power_per_volume_flow_rate`'.format(value))
+                                 'for field `rated_evaporator_fan_power_per_volume_flow_rate_v2`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `rated_evaporator_fan_power_per_volume_flow_rate`')
+                                 'for field `rated_evaporator_fan_power_per_volume_flow_rate_v2`')
             if value > 1250.0:
                 raise ValueError('value need to be smaller 1250.0 '
-                                 'for field `rated_evaporator_fan_power_per_volume_flow_rate`')
+                                 'for field `rated_evaporator_fan_power_per_volume_flow_rate_v2`')
 
-        self._data["Rated Evaporator Fan Power Per Volume Flow Rate"] = value
+        self._data["Rated Evaporator Fan Power Per Volume Flow Rate v2"] = value
 
     @property
     def speed_2_total_cooling_capacity_function_of_temperature_curve_name(self):
@@ -16429,17 +16429,17 @@ class CoilCoolingDxMultiSpeed(object):
         self._data["Speed 3 Rated Air Flow Rate"] = value
 
     @property
-    def rated_evaporator_fan_power_per_volume_flow_rate(self):
-        """Get rated_evaporator_fan_power_per_volume_flow_rate
+    def rated_evaporator_fan_power_per_volume_flow_rate_v3(self):
+        """Get rated_evaporator_fan_power_per_volume_flow_rate_v3
 
         Returns:
-            float: the value of `rated_evaporator_fan_power_per_volume_flow_rate` or None if not set
+            float: the value of `rated_evaporator_fan_power_per_volume_flow_rate_v3` or None if not set
         """
-        return self._data["Rated Evaporator Fan Power Per Volume Flow Rate"]
+        return self._data["Rated Evaporator Fan Power Per Volume Flow Rate v3"]
 
-    @rated_evaporator_fan_power_per_volume_flow_rate.setter
-    def rated_evaporator_fan_power_per_volume_flow_rate(self, value=773.3 ):
-        """  Corresponds to IDD Field `rated_evaporator_fan_power_per_volume_flow_rate`
+    @rated_evaporator_fan_power_per_volume_flow_rate_v3.setter
+    def rated_evaporator_fan_power_per_volume_flow_rate_v3(self, value=773.3 ):
+        """  Corresponds to IDD Field `rated_evaporator_fan_power_per_volume_flow_rate_v3`
         Enter the evaporator fan power per air volume flow rate at the rated test conditions.
         The test conditions vary external static pressure based on total cooling capacity.
         This value is only used to calculate Seasonal Energy Efficiency Ratio (SEER), and the
@@ -16447,7 +16447,7 @@ class CoilCoolingDxMultiSpeed(object):
         This value is not used for modeling the evaporator fan during simulations.
 
         Args:
-            value (float): value for IDD Field `rated_evaporator_fan_power_per_volume_flow_rate`
+            value (float): value for IDD Field `rated_evaporator_fan_power_per_volume_flow_rate_v3`
                 Unit: W/(m3/s)
                 Default value: 773.3
                 value >= 0.0
@@ -16463,15 +16463,15 @@ class CoilCoolingDxMultiSpeed(object):
                 value = float(value)
             except:
                 raise ValueError('value {} need to be of type float '
-                                 'for field `rated_evaporator_fan_power_per_volume_flow_rate`'.format(value))
+                                 'for field `rated_evaporator_fan_power_per_volume_flow_rate_v3`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `rated_evaporator_fan_power_per_volume_flow_rate`')
+                                 'for field `rated_evaporator_fan_power_per_volume_flow_rate_v3`')
             if value > 1250.0:
                 raise ValueError('value need to be smaller 1250.0 '
-                                 'for field `rated_evaporator_fan_power_per_volume_flow_rate`')
+                                 'for field `rated_evaporator_fan_power_per_volume_flow_rate_v3`')
 
-        self._data["Rated Evaporator Fan Power Per Volume Flow Rate"] = value
+        self._data["Rated Evaporator Fan Power Per Volume Flow Rate v3"] = value
 
     @property
     def speed_3_total_cooling_capacity_function_of_temperature_curve_name(self):
@@ -17178,17 +17178,17 @@ class CoilCoolingDxMultiSpeed(object):
         self._data["Speed 4 Rated Air Flow Rate"] = value
 
     @property
-    def rated_evaporator_fan_power_per_volume_flow_rate(self):
-        """Get rated_evaporator_fan_power_per_volume_flow_rate
+    def rated_evaporator_fan_power_per_volume_flow_rate_v4(self):
+        """Get rated_evaporator_fan_power_per_volume_flow_rate_v4
 
         Returns:
-            float: the value of `rated_evaporator_fan_power_per_volume_flow_rate` or None if not set
+            float: the value of `rated_evaporator_fan_power_per_volume_flow_rate_v4` or None if not set
         """
-        return self._data["Rated Evaporator Fan Power Per Volume Flow Rate"]
+        return self._data["Rated Evaporator Fan Power Per Volume Flow Rate v4"]
 
-    @rated_evaporator_fan_power_per_volume_flow_rate.setter
-    def rated_evaporator_fan_power_per_volume_flow_rate(self, value=773.3 ):
-        """  Corresponds to IDD Field `rated_evaporator_fan_power_per_volume_flow_rate`
+    @rated_evaporator_fan_power_per_volume_flow_rate_v4.setter
+    def rated_evaporator_fan_power_per_volume_flow_rate_v4(self, value=773.3 ):
+        """  Corresponds to IDD Field `rated_evaporator_fan_power_per_volume_flow_rate_v4`
         Enter the evaporator fan power per air volume flow rate at the rated test conditions.
         The test conditions vary external static pressure based on total cooling capacity.
         This value is only used to calculate Seasonal Energy Efficiency Ratio (SEER), and the
@@ -17196,7 +17196,7 @@ class CoilCoolingDxMultiSpeed(object):
         This value is not used for modeling the evaporator fan during simulations.
 
         Args:
-            value (float): value for IDD Field `rated_evaporator_fan_power_per_volume_flow_rate`
+            value (float): value for IDD Field `rated_evaporator_fan_power_per_volume_flow_rate_v4`
                 Unit: W/(m3/s)
                 Default value: 773.3
                 value >= 0.0
@@ -17212,15 +17212,15 @@ class CoilCoolingDxMultiSpeed(object):
                 value = float(value)
             except:
                 raise ValueError('value {} need to be of type float '
-                                 'for field `rated_evaporator_fan_power_per_volume_flow_rate`'.format(value))
+                                 'for field `rated_evaporator_fan_power_per_volume_flow_rate_v4`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `rated_evaporator_fan_power_per_volume_flow_rate`')
+                                 'for field `rated_evaporator_fan_power_per_volume_flow_rate_v4`')
             if value > 1250.0:
                 raise ValueError('value need to be smaller 1250.0 '
-                                 'for field `rated_evaporator_fan_power_per_volume_flow_rate`')
+                                 'for field `rated_evaporator_fan_power_per_volume_flow_rate_v4`')
 
-        self._data["Rated Evaporator Fan Power Per Volume Flow Rate"] = value
+        self._data["Rated Evaporator Fan Power Per Volume Flow Rate v4"] = value
 
     @property
     def speed_4_total_cooling_capacity_function_of_temperature_curve_name(self):
@@ -17825,7 +17825,7 @@ class CoilCoolingDxMultiSpeed(object):
         out.append(self._to_str(self.speed_2_gross_rated_sensible_heat_ratio))
         out.append(self._to_str(self.speed_2_gross_rated_cooling_cop))
         out.append(self._to_str(self.speed_2_rated_air_flow_rate))
-        out.append(self._to_str(self.rated_evaporator_fan_power_per_volume_flow_rate))
+        out.append(self._to_str(self.rated_evaporator_fan_power_per_volume_flow_rate_v2))
         out.append(self._to_str(self.speed_2_total_cooling_capacity_function_of_temperature_curve_name))
         out.append(self._to_str(self.speed_2_total_cooling_capacity_function_of_flow_fraction_curve_name))
         out.append(self._to_str(self.speed_2_energy_input_ratio_function_of_temperature_curve_name))
@@ -17844,7 +17844,7 @@ class CoilCoolingDxMultiSpeed(object):
         out.append(self._to_str(self.speed_3_gross_rated_sensible_heat_ratio))
         out.append(self._to_str(self.speed_3_gross_rated_cooling_cop))
         out.append(self._to_str(self.speed_3_rated_air_flow_rate))
-        out.append(self._to_str(self.rated_evaporator_fan_power_per_volume_flow_rate))
+        out.append(self._to_str(self.rated_evaporator_fan_power_per_volume_flow_rate_v3))
         out.append(self._to_str(self.speed_3_total_cooling_capacity_function_of_temperature_curve_name))
         out.append(self._to_str(self.speed_3_total_cooling_capacity_function_of_flow_fraction_curve_name))
         out.append(self._to_str(self.speed_3_energy_input_ratio_function_of_temperature_curve_name))
@@ -17863,7 +17863,7 @@ class CoilCoolingDxMultiSpeed(object):
         out.append(self._to_str(self.speed_4_gross_rated_sensible_heat_ratio))
         out.append(self._to_str(self.speed_4_gross_rated_cooling_cop))
         out.append(self._to_str(self.speed_4_rated_air_flow_rate))
-        out.append(self._to_str(self.rated_evaporator_fan_power_per_volume_flow_rate))
+        out.append(self._to_str(self.rated_evaporator_fan_power_per_volume_flow_rate_v4))
         out.append(self._to_str(self.speed_4_total_cooling_capacity_function_of_temperature_curve_name))
         out.append(self._to_str(self.speed_4_total_cooling_capacity_function_of_flow_fraction_curve_name))
         out.append(self._to_str(self.speed_4_energy_input_ratio_function_of_temperature_curve_name))
