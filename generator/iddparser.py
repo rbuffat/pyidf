@@ -7,20 +7,32 @@ import logging
 import re
 import unicodedata
 
+from helper import normalize_field_name
 from helper import DataObject, DataField
+
+
 class IDDParser():
 
     object_attributes = []
 
     field_attributes = []
 
+    def _is_new_group(self, line):
+        return re.search(r"^\s*\\group", line) is not None
+
     def _is_new_field(self, line):
+        if self._is_new_group(line):
+            return False
         return re.search(r"^\s*[AN]\d+\s*[,;]", line) is not None
 
     def _is_attribute(self, line):
+        if self._is_new_group(line):
+            return False
         return re.search(r"^\s*\\", line) is not None
 
     def _is_new_object(self, line):
+        if self._is_new_group(line):
+            return False
         if self._is_new_field(line) or self._is_attribute(line):
             return False
         return re.search(r"^\s*(.*)[,;]", line) is not None
@@ -32,6 +44,11 @@ class IDDParser():
 
         internal_name = match_obj_name.group(1)
         return internal_name
+
+    def _parse_group_name(self, line):
+        match_group_name = re.search(r"^\s*\\group\w*([a-zA-Z0-9 ]*[a-zA-Z0-9])", line)
+        assert match_group_name is not None
+        return match_group_name.group(1)
 
     def _parse_field_name(self, line):
         # print "NewField:\t", line
@@ -69,6 +86,7 @@ class IDDParser():
     def __init__(self):
         self.current_object = None
         self.current_field = None
+        self.current_group = "energyplus"
         self.objects = []
 
     def parse(self, path):
@@ -80,10 +98,12 @@ class IDDParser():
                 line = line.strip()
                 line = unicode(line, errors='ignore')
 
-#                 print self._is_new_object(line), "\t", self._is_new_field(line), "\t", self._is_attribute(line), "\t", line
-                assert self._is_new_object(line) + self._is_new_field(line) + self._is_attribute(line) <= 1
+#                 print self._is_new_group(line), "\t", self._is_new_object(line), "\t", self._is_new_field(line), "\t", self._is_attribute(line), "\t", line
+                assert self._is_new_group(line) + self._is_new_object(line) + self._is_new_field(line) + self._is_attribute(line) <= 1
 
-                if self._is_new_object(line):
+                if self._is_new_group(line):
+                    self.current_group = normalize_field_name(self._parse_group_name(line))
+                elif self._is_new_object(line):
 
                     if self.current_object is not None and self.current_field is not None:
                         self.current_object.fields.append(self.current_field)
@@ -92,7 +112,7 @@ class IDDParser():
                         self.objects.append(self.current_object)
 
                     internal_name = self._parse_object_name(line)
-                    self.current_object = DataObject(internal_name)
+                    self.current_object = DataObject(internal_name, file_name=self.current_group)
                     self.current_field = None
 
                 elif self._is_new_field(line):
@@ -105,9 +125,8 @@ class IDDParser():
                         ftype, internal_name = self._parse_field_name(line)
                         self.current_field = DataField(internal_name, ftype, self.current_object)
                     except Exception as e:
-                        pass
-#                         print line
-#                         print str(e)
+                        self.current_object.ignored = True
+                        print self.current_object.internal_name, line
 
                 elif self._is_attribute(line):
 
@@ -136,8 +155,9 @@ class IDDParser():
                         else:
                             self.current_field.attributes[name] = value
                 else:
-                    if len(line) > 0:
-                        logging.warn(u"did not parse line: {}".format(line))
+                    pass
+#                     if len(line) > 0:
+#                         logging.warn(u"did not parse line: {}".format(line))
 
         if self.current_field is not None:
             self.current_object.fields.append(self.current_field)
@@ -145,11 +165,18 @@ class IDDParser():
         if self.current_object is not None:
             self.objects.append(self.current_object)
 
+        good_objs = []
         for obj in self.objects:
-            for field in obj.fields:
-                field.conv_vals()
+            if not obj.ignored:
+                for field in obj.fields:
+                    if "deprecated" in field.attributes:
+                        print "deprecated: ", field.internal_name
+                    field.conv_vals()
+                good_objs.append(obj)
+            else:
+                logging.warn("ignore object: {}".format(obj.internal_name))
 
-        return self.objects
+        return good_objs
 
 if __name__ == '__main__':
     parser = IDDParser()

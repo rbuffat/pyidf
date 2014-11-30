@@ -6,10 +6,10 @@ Created on Nov 29, 2014
 import autopep8
 from collections import defaultdict
 from docformatter import format_code
+
 from generator import generate_class
+from generator import generate_idf
 from iddparser import IDDParser
-
-
 if __name__ == '__main__':
     parser = IDDParser()
     objs = parser.parse("V8-2-0-Energy+.idd")
@@ -32,3 +32,14 @@ if __name__ == '__main__':
 #         source_file = format_code(source_file)
         with open("../pyidf/{}.py".format(fname), 'w') as f:
             f.write(source_file)
+
+    source_file = generate_idf(objs)
+#     source_file = autopep8.fix_code(
+#         source_file, options=autopep8.parse_args(['--aggressive',
+#                                                   '--aggressive',
+#                                                   '--aggressive',
+#                                                   '']))
+#     source_file = format_code(source_file)
+#  
+    with open("../pyidf/idf.py", 'w') as f:
+        f.write(source_file)

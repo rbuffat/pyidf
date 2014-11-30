@@ -17,6 +17,8 @@ def normalize_field_name(internal_name):
     name = name.replace(' ', '_')
     name = re.sub(r'[^a-zA-Z0-9_]', '', name)
     name = re.sub(r'_+', '_', name)
+    if re.search(r"^[0-9]", name) is not None:
+        name = "a_" + name
     return name
 
 
@@ -44,13 +46,14 @@ def object_filename(internal_name):
 
 class DataObject:
 
-    def __init__(self, internal_name=None):
+    def __init__(self, internal_name=None, file_name=""):
         self.internal_name = internal_name
         self.class_name = normalize_object_name(internal_name)
         self.var_name = normalize_object_var_name(internal_name)
-        self.file_name = object_filename(internal_name)
+        self.file_name = file_name
         self.fields = []
         self.attributes = {}
+        self.ignored = False
 
 
 class DataField(object):
@@ -74,7 +77,7 @@ class DataField(object):
         return value
 
     def pytype(self, ftype):
-        if ftype == 'alpha' or ftype == 'choice':
+        if ftype == 'alpha':
             return "str"
         if ftype == 'integer':
             return "int"
@@ -91,13 +94,15 @@ class DataField(object):
         if "type" in self.attributes:
             if (self.attributes["type"] == "alpha" or self.attributes[
                     "type"] == "choice") and self.ftype == "N":
-                logging.warn("alpha type is declared as number: {}->{}".format(self.dataobject.internal_name,
-                                                                               self.internal_name))
+                logging.warn("alpha type is declared as number: {}->{} / {}".format(self.dataobject.internal_name,
+                                                                               self.internal_name,
+                                                                            self.attributes["type"]))
 
             if (self.attributes["type"] == "real" or self.attributes[
                     "type"] == "integer") and self.ftype == "A":
-                logging.warn("number type as alpha: {}->{}".format(self.dataobject.internal_name,
-                                                                   self.internal_name))
+                logging.warn("number type as alpha: {}->{} {}".format(self.dataobject.internal_name,
+                                                                   self.internal_name,
+                                                                   self.attributes["type"]))
 
         # Update type if not other specified
         if "type" not in self.attributes:
@@ -119,11 +124,12 @@ class DataField(object):
                     self.attributes[attribute_name] = self.value2py(value,
                                                                     self.attributes["type"])
                 except Exception:
-                    logging.warn("cast to py value failed for {} {} {}: {}->{}".format(attribute_name,
-                                                                                       value,
-                                                                                       self.attributes["type"],
-                                                                                       self.dataobject.internal_name,
-                                                                                       self.internal_name))
+                    pass
+#                     logging.warn("cast to py value failed for {} {} {}: {}->{}".format(attribute_name,
+#                                                                                        value,
+#                                                                                        self.attributes["type"],
+#                                                                                        self.dataobject.internal_name,
+#                                                                                        self.internal_name))
 
                     self.attributes.pop(attribute_name, None)
             self.attributes["pytype"] = self.pytype(self.attributes["type"])
