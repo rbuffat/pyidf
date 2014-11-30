@@ -23,64 +23,86 @@ class AirLoopHvac(object):
         self._data["Demand Side Outlet Node Name"] = None
         self._data["Demand Side Inlet Node Names"] = None
         self._data["Supply Side Outlet Node Names"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.controller_list_name = None
         else:
             self.controller_list_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.availability_manager_list_name = None
         else:
             self.availability_manager_list_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.design_supply_air_flow_rate = None
         else:
             self.design_supply_air_flow_rate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.branch_list_name = None
         else:
             self.branch_list_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.connector_list_name = None
         else:
             self.connector_list_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.supply_side_inlet_node_name = None
         else:
             self.supply_side_inlet_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.demand_side_outlet_node_name = None
         else:
             self.demand_side_outlet_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.demand_side_inlet_node_names = None
         else:
             self.demand_side_inlet_node_names = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.supply_side_outlet_node_names = None
         else:
             self.supply_side_outlet_node_names = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -111,6 +133,9 @@ class AirLoopHvac(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -146,6 +171,9 @@ class AirLoopHvac(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `controller_list_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `controller_list_name`')
 
         self._data["Controller List Name"] = value
 
@@ -179,6 +207,9 @@ class AirLoopHvac(object):
                                  'for field `availability_manager_list_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `availability_manager_list_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `availability_manager_list_name`')
 
         self._data["Availability Manager List Name"] = value
@@ -246,6 +277,9 @@ class AirLoopHvac(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `branch_list_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `branch_list_name`')
 
         self._data["Branch List Name"] = value
 
@@ -279,6 +313,9 @@ class AirLoopHvac(object):
                                  'for field `connector_list_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `connector_list_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `connector_list_name`')
 
         self._data["Connector List Name"] = value
@@ -314,6 +351,9 @@ class AirLoopHvac(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `supply_side_inlet_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `supply_side_inlet_node_name`')
 
         self._data["Supply Side Inlet Node Name"] = value
 
@@ -347,6 +387,9 @@ class AirLoopHvac(object):
                                  'for field `demand_side_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `demand_side_outlet_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `demand_side_outlet_node_name`')
 
         self._data["Demand Side Outlet Node Name"] = value
@@ -382,6 +425,9 @@ class AirLoopHvac(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `demand_side_inlet_node_names`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `demand_side_inlet_node_names`')
 
         self._data["Demand Side Inlet Node Names"] = value
 
@@ -416,6 +462,9 @@ class AirLoopHvac(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `supply_side_outlet_node_names`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `supply_side_outlet_node_names`')
 
         self._data["Supply Side Outlet Node Names"] = value
 
@@ -441,19 +490,17 @@ class AirLoopHvac(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.controller_list_name))
-        out.append(self._to_str(self.availability_manager_list_name))
-        out.append(self._to_str(self.design_supply_air_flow_rate))
-        out.append(self._to_str(self.branch_list_name))
-        out.append(self._to_str(self.connector_list_name))
-        out.append(self._to_str(self.supply_side_inlet_node_name))
-        out.append(self._to_str(self.demand_side_outlet_node_name))
-        out.append(self._to_str(self.demand_side_inlet_node_names))
-        out.append(self._to_str(self.supply_side_outlet_node_names))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class AirLoopHvacOutdoorAirSystemEquipmentList(object):
     """ Corresponds to IDD object `AirLoopHVAC:OutdoorAirSystem:EquipmentList`
@@ -487,109 +534,149 @@ class AirLoopHvacOutdoorAirSystemEquipmentList(object):
         self._data["Component 8 Name"] = None
         self._data["Component 9 Object Type"] = None
         self._data["Component 9 Name"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.component_1_object_type = None
         else:
             self.component_1_object_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.component_1_name = None
         else:
             self.component_1_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.component_2_object_type = None
         else:
             self.component_2_object_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.component_2_name = None
         else:
             self.component_2_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.component_3_object_type = None
         else:
             self.component_3_object_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.component_3_name = None
         else:
             self.component_3_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.component_4_object_type = None
         else:
             self.component_4_object_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.component_4_name = None
         else:
             self.component_4_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.component_5_object_type = None
         else:
             self.component_5_object_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.component_5_name = None
         else:
             self.component_5_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.component_6_object_type = None
         else:
             self.component_6_object_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.component_6_name = None
         else:
             self.component_6_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.component_7_object_type = None
         else:
             self.component_7_object_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.component_7_name = None
         else:
             self.component_7_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.component_8_object_type = None
         else:
             self.component_8_object_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.component_8_name = None
         else:
             self.component_8_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.component_9_object_type = None
         else:
             self.component_9_object_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.component_9_name = None
         else:
             self.component_9_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -620,6 +707,9 @@ class AirLoopHvacOutdoorAirSystemEquipmentList(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -654,6 +744,9 @@ class AirLoopHvacOutdoorAirSystemEquipmentList(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `component_1_object_type`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `component_1_object_type`')
 
         self._data["Component 1 Object Type"] = value
 
@@ -686,6 +779,9 @@ class AirLoopHvacOutdoorAirSystemEquipmentList(object):
                                  'for field `component_1_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `component_1_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `component_1_name`')
 
         self._data["Component 1 Name"] = value
@@ -720,6 +816,9 @@ class AirLoopHvacOutdoorAirSystemEquipmentList(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `component_2_object_type`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `component_2_object_type`')
 
         self._data["Component 2 Object Type"] = value
 
@@ -752,6 +851,9 @@ class AirLoopHvacOutdoorAirSystemEquipmentList(object):
                                  'for field `component_2_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `component_2_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `component_2_name`')
 
         self._data["Component 2 Name"] = value
@@ -786,6 +888,9 @@ class AirLoopHvacOutdoorAirSystemEquipmentList(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `component_3_object_type`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `component_3_object_type`')
 
         self._data["Component 3 Object Type"] = value
 
@@ -818,6 +923,9 @@ class AirLoopHvacOutdoorAirSystemEquipmentList(object):
                                  'for field `component_3_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `component_3_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `component_3_name`')
 
         self._data["Component 3 Name"] = value
@@ -852,6 +960,9 @@ class AirLoopHvacOutdoorAirSystemEquipmentList(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `component_4_object_type`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `component_4_object_type`')
 
         self._data["Component 4 Object Type"] = value
 
@@ -884,6 +995,9 @@ class AirLoopHvacOutdoorAirSystemEquipmentList(object):
                                  'for field `component_4_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `component_4_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `component_4_name`')
 
         self._data["Component 4 Name"] = value
@@ -918,6 +1032,9 @@ class AirLoopHvacOutdoorAirSystemEquipmentList(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `component_5_object_type`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `component_5_object_type`')
 
         self._data["Component 5 Object Type"] = value
 
@@ -950,6 +1067,9 @@ class AirLoopHvacOutdoorAirSystemEquipmentList(object):
                                  'for field `component_5_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `component_5_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `component_5_name`')
 
         self._data["Component 5 Name"] = value
@@ -984,6 +1104,9 @@ class AirLoopHvacOutdoorAirSystemEquipmentList(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `component_6_object_type`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `component_6_object_type`')
 
         self._data["Component 6 Object Type"] = value
 
@@ -1016,6 +1139,9 @@ class AirLoopHvacOutdoorAirSystemEquipmentList(object):
                                  'for field `component_6_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `component_6_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `component_6_name`')
 
         self._data["Component 6 Name"] = value
@@ -1050,6 +1176,9 @@ class AirLoopHvacOutdoorAirSystemEquipmentList(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `component_7_object_type`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `component_7_object_type`')
 
         self._data["Component 7 Object Type"] = value
 
@@ -1082,6 +1211,9 @@ class AirLoopHvacOutdoorAirSystemEquipmentList(object):
                                  'for field `component_7_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `component_7_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `component_7_name`')
 
         self._data["Component 7 Name"] = value
@@ -1116,6 +1248,9 @@ class AirLoopHvacOutdoorAirSystemEquipmentList(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `component_8_object_type`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `component_8_object_type`')
 
         self._data["Component 8 Object Type"] = value
 
@@ -1148,6 +1283,9 @@ class AirLoopHvacOutdoorAirSystemEquipmentList(object):
                                  'for field `component_8_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `component_8_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `component_8_name`')
 
         self._data["Component 8 Name"] = value
@@ -1182,6 +1320,9 @@ class AirLoopHvacOutdoorAirSystemEquipmentList(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `component_9_object_type`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `component_9_object_type`')
 
         self._data["Component 9 Object Type"] = value
 
@@ -1215,6 +1356,9 @@ class AirLoopHvacOutdoorAirSystemEquipmentList(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `component_9_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `component_9_name`')
 
         self._data["Component 9 Name"] = value
 
@@ -1240,28 +1384,17 @@ class AirLoopHvacOutdoorAirSystemEquipmentList(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.component_1_object_type))
-        out.append(self._to_str(self.component_1_name))
-        out.append(self._to_str(self.component_2_object_type))
-        out.append(self._to_str(self.component_2_name))
-        out.append(self._to_str(self.component_3_object_type))
-        out.append(self._to_str(self.component_3_name))
-        out.append(self._to_str(self.component_4_object_type))
-        out.append(self._to_str(self.component_4_name))
-        out.append(self._to_str(self.component_5_object_type))
-        out.append(self._to_str(self.component_5_name))
-        out.append(self._to_str(self.component_6_object_type))
-        out.append(self._to_str(self.component_6_name))
-        out.append(self._to_str(self.component_7_object_type))
-        out.append(self._to_str(self.component_7_name))
-        out.append(self._to_str(self.component_8_object_type))
-        out.append(self._to_str(self.component_8_name))
-        out.append(self._to_str(self.component_9_object_type))
-        out.append(self._to_str(self.component_9_name))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class AirLoopHvacOutdoorAirSystem(object):
     """ Corresponds to IDD object `AirLoopHVAC:OutdoorAirSystem`
@@ -1283,34 +1416,44 @@ class AirLoopHvacOutdoorAirSystem(object):
         self._data["Controller List Name"] = None
         self._data["Outdoor Air Equipment List Name"] = None
         self._data["Availability Manager List Name"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.controller_list_name = None
         else:
             self.controller_list_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.outdoor_air_equipment_list_name = None
         else:
             self.outdoor_air_equipment_list_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.availability_manager_list_name = None
         else:
             self.availability_manager_list_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -1341,6 +1484,9 @@ class AirLoopHvacOutdoorAirSystem(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -1376,6 +1522,9 @@ class AirLoopHvacOutdoorAirSystem(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `controller_list_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `controller_list_name`')
 
         self._data["Controller List Name"] = value
 
@@ -1409,6 +1558,9 @@ class AirLoopHvacOutdoorAirSystem(object):
                                  'for field `outdoor_air_equipment_list_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `outdoor_air_equipment_list_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `outdoor_air_equipment_list_name`')
 
         self._data["Outdoor Air Equipment List Name"] = value
@@ -1444,6 +1596,9 @@ class AirLoopHvacOutdoorAirSystem(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `availability_manager_list_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `availability_manager_list_name`')
 
         self._data["Availability Manager List Name"] = value
 
@@ -1469,13 +1624,17 @@ class AirLoopHvacOutdoorAirSystem(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.controller_list_name))
-        out.append(self._to_str(self.outdoor_air_equipment_list_name))
-        out.append(self._to_str(self.availability_manager_list_name))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class OutdoorAirMixer(object):
     """ Corresponds to IDD object `OutdoorAir:Mixer`
@@ -1496,39 +1655,51 @@ class OutdoorAirMixer(object):
         self._data["Outdoor Air Stream Node Name"] = None
         self._data["Relief Air Stream Node Name"] = None
         self._data["Return Air Stream Node Name"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.mixed_air_node_name = None
         else:
             self.mixed_air_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.outdoor_air_stream_node_name = None
         else:
             self.outdoor_air_stream_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.relief_air_stream_node_name = None
         else:
             self.relief_air_stream_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.return_air_stream_node_name = None
         else:
             self.return_air_stream_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -1559,6 +1730,9 @@ class OutdoorAirMixer(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -1594,6 +1768,9 @@ class OutdoorAirMixer(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `mixed_air_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `mixed_air_node_name`')
 
         self._data["Mixed Air Node Name"] = value
 
@@ -1627,6 +1804,9 @@ class OutdoorAirMixer(object):
                                  'for field `outdoor_air_stream_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `outdoor_air_stream_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `outdoor_air_stream_node_name`')
 
         self._data["Outdoor Air Stream Node Name"] = value
@@ -1662,6 +1842,9 @@ class OutdoorAirMixer(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `relief_air_stream_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `relief_air_stream_node_name`')
 
         self._data["Relief Air Stream Node Name"] = value
 
@@ -1696,6 +1879,9 @@ class OutdoorAirMixer(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `return_air_stream_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `return_air_stream_node_name`')
 
         self._data["Return Air Stream Node Name"] = value
 
@@ -1721,14 +1907,17 @@ class OutdoorAirMixer(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.mixed_air_node_name))
-        out.append(self._to_str(self.outdoor_air_stream_node_name))
-        out.append(self._to_str(self.relief_air_stream_node_name))
-        out.append(self._to_str(self.return_air_stream_node_name))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class AirLoopHvacSupplyPath(object):
     """ Corresponds to IDD object `AirLoopHVAC:SupplyPath`
@@ -1796,274 +1985,380 @@ class AirLoopHvacSupplyPath(object):
         self._data["Component 24 Name"] = None
         self._data["Component 25 Object Type"] = None
         self._data["Component 25 Name"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.supply_air_path_inlet_node_name = None
         else:
             self.supply_air_path_inlet_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.component_1_object_type = None
         else:
             self.component_1_object_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.component_1_name = None
         else:
             self.component_1_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.component_2_object_type = None
         else:
             self.component_2_object_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.component_2_name = None
         else:
             self.component_2_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.component_3_object_type = None
         else:
             self.component_3_object_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.component_3_name = None
         else:
             self.component_3_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.component_4_object_type = None
         else:
             self.component_4_object_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.component_4_name = None
         else:
             self.component_4_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.component_5_object_type = None
         else:
             self.component_5_object_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.component_5_name = None
         else:
             self.component_5_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.component_6_object_type = None
         else:
             self.component_6_object_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.component_6_name = None
         else:
             self.component_6_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.component_7_object_type = None
         else:
             self.component_7_object_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.component_7_name = None
         else:
             self.component_7_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.component_8_object_type = None
         else:
             self.component_8_object_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.component_8_name = None
         else:
             self.component_8_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.component_9_object_type = None
         else:
             self.component_9_object_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.component_9_name = None
         else:
             self.component_9_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.component_10_object_type = None
         else:
             self.component_10_object_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.component_10_name = None
         else:
             self.component_10_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.component_11_object_type = None
         else:
             self.component_11_object_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.component_11_name = None
         else:
             self.component_11_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.component_12_object_type = None
         else:
             self.component_12_object_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.component_12_name = None
         else:
             self.component_12_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.component_13_object_type = None
         else:
             self.component_13_object_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.component_13_name = None
         else:
             self.component_13_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.component_14_object_type = None
         else:
             self.component_14_object_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.component_14_name = None
         else:
             self.component_14_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.component_15_object_type = None
         else:
             self.component_15_object_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.component_15_name = None
         else:
             self.component_15_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.component_16_object_type = None
         else:
             self.component_16_object_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.component_16_name = None
         else:
             self.component_16_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.component_17_object_type = None
         else:
             self.component_17_object_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.component_17_name = None
         else:
             self.component_17_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.component_18_object_type = None
         else:
             self.component_18_object_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.component_18_name = None
         else:
             self.component_18_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.component_19_object_type = None
         else:
             self.component_19_object_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.component_19_name = None
         else:
             self.component_19_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.component_20_object_type = None
         else:
             self.component_20_object_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.component_20_name = None
         else:
             self.component_20_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.component_21_object_type = None
         else:
             self.component_21_object_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.component_21_name = None
         else:
             self.component_21_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.component_22_object_type = None
         else:
             self.component_22_object_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.component_22_name = None
         else:
             self.component_22_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.component_23_object_type = None
         else:
             self.component_23_object_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.component_23_name = None
         else:
             self.component_23_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.component_24_object_type = None
         else:
             self.component_24_object_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.component_24_name = None
         else:
             self.component_24_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.component_25_object_type = None
         else:
             self.component_25_object_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.component_25_name = None
         else:
             self.component_25_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -2094,6 +2389,9 @@ class AirLoopHvacSupplyPath(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -2127,6 +2425,9 @@ class AirLoopHvacSupplyPath(object):
                                  'for field `supply_air_path_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `supply_air_path_inlet_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `supply_air_path_inlet_node_name`')
 
         self._data["Supply Air Path Inlet Node Name"] = value
@@ -2165,12 +2466,26 @@ class AirLoopHvacSupplyPath(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `component_1_object_type`')
-            vals = set()
-            vals.add("AirLoopHVAC:ZoneSplitter")
-            vals.add("AirLoopHVAC:SupplyPlenum")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `component_1_object_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `component_1_object_type`')
+            vals = {}
+            vals["airloophvac:zonesplitter"] = "AirLoopHVAC:ZoneSplitter"
+            vals["airloophvac:supplyplenum"] = "AirLoopHVAC:SupplyPlenum"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `component_1_object_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Component 1 Object Type"] = value
 
@@ -2203,6 +2518,9 @@ class AirLoopHvacSupplyPath(object):
                                  'for field `component_1_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `component_1_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `component_1_name`')
 
         self._data["Component 1 Name"] = value
@@ -2240,12 +2558,26 @@ class AirLoopHvacSupplyPath(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `component_2_object_type`')
-            vals = set()
-            vals.add("AirLoopHVAC:ZoneSplitter")
-            vals.add("AirLoopHVAC:SupplyPlenum")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `component_2_object_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `component_2_object_type`')
+            vals = {}
+            vals["airloophvac:zonesplitter"] = "AirLoopHVAC:ZoneSplitter"
+            vals["airloophvac:supplyplenum"] = "AirLoopHVAC:SupplyPlenum"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `component_2_object_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Component 2 Object Type"] = value
 
@@ -2278,6 +2610,9 @@ class AirLoopHvacSupplyPath(object):
                                  'for field `component_2_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `component_2_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `component_2_name`')
 
         self._data["Component 2 Name"] = value
@@ -2315,12 +2650,26 @@ class AirLoopHvacSupplyPath(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `component_3_object_type`')
-            vals = set()
-            vals.add("AirLoopHVAC:ZoneSplitter")
-            vals.add("AirLoopHVAC:SupplyPlenum")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `component_3_object_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `component_3_object_type`')
+            vals = {}
+            vals["airloophvac:zonesplitter"] = "AirLoopHVAC:ZoneSplitter"
+            vals["airloophvac:supplyplenum"] = "AirLoopHVAC:SupplyPlenum"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `component_3_object_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Component 3 Object Type"] = value
 
@@ -2353,6 +2702,9 @@ class AirLoopHvacSupplyPath(object):
                                  'for field `component_3_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `component_3_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `component_3_name`')
 
         self._data["Component 3 Name"] = value
@@ -2390,12 +2742,26 @@ class AirLoopHvacSupplyPath(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `component_4_object_type`')
-            vals = set()
-            vals.add("AirLoopHVAC:ZoneSplitter")
-            vals.add("AirLoopHVAC:SupplyPlenum")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `component_4_object_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `component_4_object_type`')
+            vals = {}
+            vals["airloophvac:zonesplitter"] = "AirLoopHVAC:ZoneSplitter"
+            vals["airloophvac:supplyplenum"] = "AirLoopHVAC:SupplyPlenum"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `component_4_object_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Component 4 Object Type"] = value
 
@@ -2428,6 +2794,9 @@ class AirLoopHvacSupplyPath(object):
                                  'for field `component_4_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `component_4_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `component_4_name`')
 
         self._data["Component 4 Name"] = value
@@ -2465,12 +2834,26 @@ class AirLoopHvacSupplyPath(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `component_5_object_type`')
-            vals = set()
-            vals.add("AirLoopHVAC:ZoneSplitter")
-            vals.add("AirLoopHVAC:SupplyPlenum")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `component_5_object_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `component_5_object_type`')
+            vals = {}
+            vals["airloophvac:zonesplitter"] = "AirLoopHVAC:ZoneSplitter"
+            vals["airloophvac:supplyplenum"] = "AirLoopHVAC:SupplyPlenum"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `component_5_object_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Component 5 Object Type"] = value
 
@@ -2503,6 +2886,9 @@ class AirLoopHvacSupplyPath(object):
                                  'for field `component_5_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `component_5_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `component_5_name`')
 
         self._data["Component 5 Name"] = value
@@ -2540,12 +2926,26 @@ class AirLoopHvacSupplyPath(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `component_6_object_type`')
-            vals = set()
-            vals.add("AirLoopHVAC:ZoneSplitter")
-            vals.add("AirLoopHVAC:SupplyPlenum")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `component_6_object_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `component_6_object_type`')
+            vals = {}
+            vals["airloophvac:zonesplitter"] = "AirLoopHVAC:ZoneSplitter"
+            vals["airloophvac:supplyplenum"] = "AirLoopHVAC:SupplyPlenum"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `component_6_object_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Component 6 Object Type"] = value
 
@@ -2578,6 +2978,9 @@ class AirLoopHvacSupplyPath(object):
                                  'for field `component_6_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `component_6_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `component_6_name`')
 
         self._data["Component 6 Name"] = value
@@ -2615,12 +3018,26 @@ class AirLoopHvacSupplyPath(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `component_7_object_type`')
-            vals = set()
-            vals.add("AirLoopHVAC:ZoneSplitter")
-            vals.add("AirLoopHVAC:SupplyPlenum")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `component_7_object_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `component_7_object_type`')
+            vals = {}
+            vals["airloophvac:zonesplitter"] = "AirLoopHVAC:ZoneSplitter"
+            vals["airloophvac:supplyplenum"] = "AirLoopHVAC:SupplyPlenum"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `component_7_object_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Component 7 Object Type"] = value
 
@@ -2653,6 +3070,9 @@ class AirLoopHvacSupplyPath(object):
                                  'for field `component_7_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `component_7_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `component_7_name`')
 
         self._data["Component 7 Name"] = value
@@ -2690,12 +3110,26 @@ class AirLoopHvacSupplyPath(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `component_8_object_type`')
-            vals = set()
-            vals.add("AirLoopHVAC:ZoneSplitter")
-            vals.add("AirLoopHVAC:SupplyPlenum")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `component_8_object_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `component_8_object_type`')
+            vals = {}
+            vals["airloophvac:zonesplitter"] = "AirLoopHVAC:ZoneSplitter"
+            vals["airloophvac:supplyplenum"] = "AirLoopHVAC:SupplyPlenum"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `component_8_object_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Component 8 Object Type"] = value
 
@@ -2728,6 +3162,9 @@ class AirLoopHvacSupplyPath(object):
                                  'for field `component_8_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `component_8_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `component_8_name`')
 
         self._data["Component 8 Name"] = value
@@ -2765,12 +3202,26 @@ class AirLoopHvacSupplyPath(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `component_9_object_type`')
-            vals = set()
-            vals.add("AirLoopHVAC:ZoneSplitter")
-            vals.add("AirLoopHVAC:SupplyPlenum")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `component_9_object_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `component_9_object_type`')
+            vals = {}
+            vals["airloophvac:zonesplitter"] = "AirLoopHVAC:ZoneSplitter"
+            vals["airloophvac:supplyplenum"] = "AirLoopHVAC:SupplyPlenum"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `component_9_object_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Component 9 Object Type"] = value
 
@@ -2803,6 +3254,9 @@ class AirLoopHvacSupplyPath(object):
                                  'for field `component_9_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `component_9_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `component_9_name`')
 
         self._data["Component 9 Name"] = value
@@ -2840,12 +3294,26 @@ class AirLoopHvacSupplyPath(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `component_10_object_type`')
-            vals = set()
-            vals.add("AirLoopHVAC:ZoneSplitter")
-            vals.add("AirLoopHVAC:SupplyPlenum")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `component_10_object_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `component_10_object_type`')
+            vals = {}
+            vals["airloophvac:zonesplitter"] = "AirLoopHVAC:ZoneSplitter"
+            vals["airloophvac:supplyplenum"] = "AirLoopHVAC:SupplyPlenum"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `component_10_object_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Component 10 Object Type"] = value
 
@@ -2878,6 +3346,9 @@ class AirLoopHvacSupplyPath(object):
                                  'for field `component_10_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `component_10_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `component_10_name`')
 
         self._data["Component 10 Name"] = value
@@ -2915,12 +3386,26 @@ class AirLoopHvacSupplyPath(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `component_11_object_type`')
-            vals = set()
-            vals.add("AirLoopHVAC:ZoneSplitter")
-            vals.add("AirLoopHVAC:SupplyPlenum")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `component_11_object_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `component_11_object_type`')
+            vals = {}
+            vals["airloophvac:zonesplitter"] = "AirLoopHVAC:ZoneSplitter"
+            vals["airloophvac:supplyplenum"] = "AirLoopHVAC:SupplyPlenum"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `component_11_object_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Component 11 Object Type"] = value
 
@@ -2953,6 +3438,9 @@ class AirLoopHvacSupplyPath(object):
                                  'for field `component_11_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `component_11_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `component_11_name`')
 
         self._data["Component 11 Name"] = value
@@ -2990,12 +3478,26 @@ class AirLoopHvacSupplyPath(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `component_12_object_type`')
-            vals = set()
-            vals.add("AirLoopHVAC:ZoneSplitter")
-            vals.add("AirLoopHVAC:SupplyPlenum")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `component_12_object_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `component_12_object_type`')
+            vals = {}
+            vals["airloophvac:zonesplitter"] = "AirLoopHVAC:ZoneSplitter"
+            vals["airloophvac:supplyplenum"] = "AirLoopHVAC:SupplyPlenum"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `component_12_object_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Component 12 Object Type"] = value
 
@@ -3028,6 +3530,9 @@ class AirLoopHvacSupplyPath(object):
                                  'for field `component_12_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `component_12_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `component_12_name`')
 
         self._data["Component 12 Name"] = value
@@ -3065,12 +3570,26 @@ class AirLoopHvacSupplyPath(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `component_13_object_type`')
-            vals = set()
-            vals.add("AirLoopHVAC:ZoneSplitter")
-            vals.add("AirLoopHVAC:SupplyPlenum")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `component_13_object_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `component_13_object_type`')
+            vals = {}
+            vals["airloophvac:zonesplitter"] = "AirLoopHVAC:ZoneSplitter"
+            vals["airloophvac:supplyplenum"] = "AirLoopHVAC:SupplyPlenum"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `component_13_object_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Component 13 Object Type"] = value
 
@@ -3103,6 +3622,9 @@ class AirLoopHvacSupplyPath(object):
                                  'for field `component_13_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `component_13_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `component_13_name`')
 
         self._data["Component 13 Name"] = value
@@ -3140,12 +3662,26 @@ class AirLoopHvacSupplyPath(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `component_14_object_type`')
-            vals = set()
-            vals.add("AirLoopHVAC:ZoneSplitter")
-            vals.add("AirLoopHVAC:SupplyPlenum")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `component_14_object_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `component_14_object_type`')
+            vals = {}
+            vals["airloophvac:zonesplitter"] = "AirLoopHVAC:ZoneSplitter"
+            vals["airloophvac:supplyplenum"] = "AirLoopHVAC:SupplyPlenum"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `component_14_object_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Component 14 Object Type"] = value
 
@@ -3178,6 +3714,9 @@ class AirLoopHvacSupplyPath(object):
                                  'for field `component_14_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `component_14_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `component_14_name`')
 
         self._data["Component 14 Name"] = value
@@ -3215,12 +3754,26 @@ class AirLoopHvacSupplyPath(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `component_15_object_type`')
-            vals = set()
-            vals.add("AirLoopHVAC:ZoneSplitter")
-            vals.add("AirLoopHVAC:SupplyPlenum")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `component_15_object_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `component_15_object_type`')
+            vals = {}
+            vals["airloophvac:zonesplitter"] = "AirLoopHVAC:ZoneSplitter"
+            vals["airloophvac:supplyplenum"] = "AirLoopHVAC:SupplyPlenum"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `component_15_object_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Component 15 Object Type"] = value
 
@@ -3253,6 +3806,9 @@ class AirLoopHvacSupplyPath(object):
                                  'for field `component_15_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `component_15_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `component_15_name`')
 
         self._data["Component 15 Name"] = value
@@ -3290,12 +3846,26 @@ class AirLoopHvacSupplyPath(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `component_16_object_type`')
-            vals = set()
-            vals.add("AirLoopHVAC:ZoneSplitter")
-            vals.add("AirLoopHVAC:SupplyPlenum")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `component_16_object_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `component_16_object_type`')
+            vals = {}
+            vals["airloophvac:zonesplitter"] = "AirLoopHVAC:ZoneSplitter"
+            vals["airloophvac:supplyplenum"] = "AirLoopHVAC:SupplyPlenum"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `component_16_object_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Component 16 Object Type"] = value
 
@@ -3328,6 +3898,9 @@ class AirLoopHvacSupplyPath(object):
                                  'for field `component_16_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `component_16_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `component_16_name`')
 
         self._data["Component 16 Name"] = value
@@ -3365,12 +3938,26 @@ class AirLoopHvacSupplyPath(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `component_17_object_type`')
-            vals = set()
-            vals.add("AirLoopHVAC:ZoneSplitter")
-            vals.add("AirLoopHVAC:SupplyPlenum")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `component_17_object_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `component_17_object_type`')
+            vals = {}
+            vals["airloophvac:zonesplitter"] = "AirLoopHVAC:ZoneSplitter"
+            vals["airloophvac:supplyplenum"] = "AirLoopHVAC:SupplyPlenum"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `component_17_object_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Component 17 Object Type"] = value
 
@@ -3403,6 +3990,9 @@ class AirLoopHvacSupplyPath(object):
                                  'for field `component_17_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `component_17_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `component_17_name`')
 
         self._data["Component 17 Name"] = value
@@ -3440,12 +4030,26 @@ class AirLoopHvacSupplyPath(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `component_18_object_type`')
-            vals = set()
-            vals.add("AirLoopHVAC:ZoneSplitter")
-            vals.add("AirLoopHVAC:SupplyPlenum")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `component_18_object_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `component_18_object_type`')
+            vals = {}
+            vals["airloophvac:zonesplitter"] = "AirLoopHVAC:ZoneSplitter"
+            vals["airloophvac:supplyplenum"] = "AirLoopHVAC:SupplyPlenum"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `component_18_object_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Component 18 Object Type"] = value
 
@@ -3478,6 +4082,9 @@ class AirLoopHvacSupplyPath(object):
                                  'for field `component_18_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `component_18_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `component_18_name`')
 
         self._data["Component 18 Name"] = value
@@ -3515,12 +4122,26 @@ class AirLoopHvacSupplyPath(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `component_19_object_type`')
-            vals = set()
-            vals.add("AirLoopHVAC:ZoneSplitter")
-            vals.add("AirLoopHVAC:SupplyPlenum")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `component_19_object_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `component_19_object_type`')
+            vals = {}
+            vals["airloophvac:zonesplitter"] = "AirLoopHVAC:ZoneSplitter"
+            vals["airloophvac:supplyplenum"] = "AirLoopHVAC:SupplyPlenum"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `component_19_object_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Component 19 Object Type"] = value
 
@@ -3553,6 +4174,9 @@ class AirLoopHvacSupplyPath(object):
                                  'for field `component_19_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `component_19_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `component_19_name`')
 
         self._data["Component 19 Name"] = value
@@ -3590,12 +4214,26 @@ class AirLoopHvacSupplyPath(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `component_20_object_type`')
-            vals = set()
-            vals.add("AirLoopHVAC:ZoneSplitter")
-            vals.add("AirLoopHVAC:SupplyPlenum")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `component_20_object_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `component_20_object_type`')
+            vals = {}
+            vals["airloophvac:zonesplitter"] = "AirLoopHVAC:ZoneSplitter"
+            vals["airloophvac:supplyplenum"] = "AirLoopHVAC:SupplyPlenum"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `component_20_object_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Component 20 Object Type"] = value
 
@@ -3628,6 +4266,9 @@ class AirLoopHvacSupplyPath(object):
                                  'for field `component_20_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `component_20_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `component_20_name`')
 
         self._data["Component 20 Name"] = value
@@ -3665,12 +4306,26 @@ class AirLoopHvacSupplyPath(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `component_21_object_type`')
-            vals = set()
-            vals.add("AirLoopHVAC:ZoneSplitter")
-            vals.add("AirLoopHVAC:SupplyPlenum")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `component_21_object_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `component_21_object_type`')
+            vals = {}
+            vals["airloophvac:zonesplitter"] = "AirLoopHVAC:ZoneSplitter"
+            vals["airloophvac:supplyplenum"] = "AirLoopHVAC:SupplyPlenum"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `component_21_object_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Component 21 Object Type"] = value
 
@@ -3703,6 +4358,9 @@ class AirLoopHvacSupplyPath(object):
                                  'for field `component_21_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `component_21_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `component_21_name`')
 
         self._data["Component 21 Name"] = value
@@ -3740,12 +4398,26 @@ class AirLoopHvacSupplyPath(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `component_22_object_type`')
-            vals = set()
-            vals.add("AirLoopHVAC:ZoneSplitter")
-            vals.add("AirLoopHVAC:SupplyPlenum")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `component_22_object_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `component_22_object_type`')
+            vals = {}
+            vals["airloophvac:zonesplitter"] = "AirLoopHVAC:ZoneSplitter"
+            vals["airloophvac:supplyplenum"] = "AirLoopHVAC:SupplyPlenum"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `component_22_object_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Component 22 Object Type"] = value
 
@@ -3778,6 +4450,9 @@ class AirLoopHvacSupplyPath(object):
                                  'for field `component_22_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `component_22_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `component_22_name`')
 
         self._data["Component 22 Name"] = value
@@ -3815,12 +4490,26 @@ class AirLoopHvacSupplyPath(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `component_23_object_type`')
-            vals = set()
-            vals.add("AirLoopHVAC:ZoneSplitter")
-            vals.add("AirLoopHVAC:SupplyPlenum")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `component_23_object_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `component_23_object_type`')
+            vals = {}
+            vals["airloophvac:zonesplitter"] = "AirLoopHVAC:ZoneSplitter"
+            vals["airloophvac:supplyplenum"] = "AirLoopHVAC:SupplyPlenum"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `component_23_object_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Component 23 Object Type"] = value
 
@@ -3853,6 +4542,9 @@ class AirLoopHvacSupplyPath(object):
                                  'for field `component_23_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `component_23_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `component_23_name`')
 
         self._data["Component 23 Name"] = value
@@ -3890,12 +4582,26 @@ class AirLoopHvacSupplyPath(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `component_24_object_type`')
-            vals = set()
-            vals.add("AirLoopHVAC:ZoneSplitter")
-            vals.add("AirLoopHVAC:SupplyPlenum")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `component_24_object_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `component_24_object_type`')
+            vals = {}
+            vals["airloophvac:zonesplitter"] = "AirLoopHVAC:ZoneSplitter"
+            vals["airloophvac:supplyplenum"] = "AirLoopHVAC:SupplyPlenum"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `component_24_object_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Component 24 Object Type"] = value
 
@@ -3928,6 +4634,9 @@ class AirLoopHvacSupplyPath(object):
                                  'for field `component_24_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `component_24_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `component_24_name`')
 
         self._data["Component 24 Name"] = value
@@ -3965,12 +4674,26 @@ class AirLoopHvacSupplyPath(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `component_25_object_type`')
-            vals = set()
-            vals.add("AirLoopHVAC:ZoneSplitter")
-            vals.add("AirLoopHVAC:SupplyPlenum")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `component_25_object_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `component_25_object_type`')
+            vals = {}
+            vals["airloophvac:zonesplitter"] = "AirLoopHVAC:ZoneSplitter"
+            vals["airloophvac:supplyplenum"] = "AirLoopHVAC:SupplyPlenum"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `component_25_object_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Component 25 Object Type"] = value
 
@@ -4004,6 +4727,9 @@ class AirLoopHvacSupplyPath(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `component_25_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `component_25_name`')
 
         self._data["Component 25 Name"] = value
 
@@ -4029,61 +4755,17 @@ class AirLoopHvacSupplyPath(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.supply_air_path_inlet_node_name))
-        out.append(self._to_str(self.component_1_object_type))
-        out.append(self._to_str(self.component_1_name))
-        out.append(self._to_str(self.component_2_object_type))
-        out.append(self._to_str(self.component_2_name))
-        out.append(self._to_str(self.component_3_object_type))
-        out.append(self._to_str(self.component_3_name))
-        out.append(self._to_str(self.component_4_object_type))
-        out.append(self._to_str(self.component_4_name))
-        out.append(self._to_str(self.component_5_object_type))
-        out.append(self._to_str(self.component_5_name))
-        out.append(self._to_str(self.component_6_object_type))
-        out.append(self._to_str(self.component_6_name))
-        out.append(self._to_str(self.component_7_object_type))
-        out.append(self._to_str(self.component_7_name))
-        out.append(self._to_str(self.component_8_object_type))
-        out.append(self._to_str(self.component_8_name))
-        out.append(self._to_str(self.component_9_object_type))
-        out.append(self._to_str(self.component_9_name))
-        out.append(self._to_str(self.component_10_object_type))
-        out.append(self._to_str(self.component_10_name))
-        out.append(self._to_str(self.component_11_object_type))
-        out.append(self._to_str(self.component_11_name))
-        out.append(self._to_str(self.component_12_object_type))
-        out.append(self._to_str(self.component_12_name))
-        out.append(self._to_str(self.component_13_object_type))
-        out.append(self._to_str(self.component_13_name))
-        out.append(self._to_str(self.component_14_object_type))
-        out.append(self._to_str(self.component_14_name))
-        out.append(self._to_str(self.component_15_object_type))
-        out.append(self._to_str(self.component_15_name))
-        out.append(self._to_str(self.component_16_object_type))
-        out.append(self._to_str(self.component_16_name))
-        out.append(self._to_str(self.component_17_object_type))
-        out.append(self._to_str(self.component_17_name))
-        out.append(self._to_str(self.component_18_object_type))
-        out.append(self._to_str(self.component_18_name))
-        out.append(self._to_str(self.component_19_object_type))
-        out.append(self._to_str(self.component_19_name))
-        out.append(self._to_str(self.component_20_object_type))
-        out.append(self._to_str(self.component_20_name))
-        out.append(self._to_str(self.component_21_object_type))
-        out.append(self._to_str(self.component_21_name))
-        out.append(self._to_str(self.component_22_object_type))
-        out.append(self._to_str(self.component_22_name))
-        out.append(self._to_str(self.component_23_object_type))
-        out.append(self._to_str(self.component_23_name))
-        out.append(self._to_str(self.component_24_object_type))
-        out.append(self._to_str(self.component_24_name))
-        out.append(self._to_str(self.component_25_object_type))
-        out.append(self._to_str(self.component_25_name))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class AirLoopHvacReturnPath(object):
     """ Corresponds to IDD object `AirLoopHVAC:ReturnPath`
@@ -4151,274 +4833,380 @@ class AirLoopHvacReturnPath(object):
         self._data["Component 24 Name"] = None
         self._data["Component 25 Object Type"] = None
         self._data["Component 25 Name"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.return_air_path_outlet_node_name = None
         else:
             self.return_air_path_outlet_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.component_1_object_type = None
         else:
             self.component_1_object_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.component_1_name = None
         else:
             self.component_1_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.component_2_object_type = None
         else:
             self.component_2_object_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.component_2_name = None
         else:
             self.component_2_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.component_3_object_type = None
         else:
             self.component_3_object_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.component_3_name = None
         else:
             self.component_3_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.component_4_object_type = None
         else:
             self.component_4_object_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.component_4_name = None
         else:
             self.component_4_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.component_5_object_type = None
         else:
             self.component_5_object_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.component_5_name = None
         else:
             self.component_5_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.component_6_object_type = None
         else:
             self.component_6_object_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.component_6_name = None
         else:
             self.component_6_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.component_7_object_type = None
         else:
             self.component_7_object_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.component_7_name = None
         else:
             self.component_7_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.component_8_object_type = None
         else:
             self.component_8_object_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.component_8_name = None
         else:
             self.component_8_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.component_9_object_type = None
         else:
             self.component_9_object_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.component_9_name = None
         else:
             self.component_9_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.component_10_object_type = None
         else:
             self.component_10_object_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.component_10_name = None
         else:
             self.component_10_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.component_11_object_type = None
         else:
             self.component_11_object_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.component_11_name = None
         else:
             self.component_11_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.component_12_object_type = None
         else:
             self.component_12_object_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.component_12_name = None
         else:
             self.component_12_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.component_13_object_type = None
         else:
             self.component_13_object_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.component_13_name = None
         else:
             self.component_13_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.component_14_object_type = None
         else:
             self.component_14_object_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.component_14_name = None
         else:
             self.component_14_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.component_15_object_type = None
         else:
             self.component_15_object_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.component_15_name = None
         else:
             self.component_15_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.component_16_object_type = None
         else:
             self.component_16_object_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.component_16_name = None
         else:
             self.component_16_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.component_17_object_type = None
         else:
             self.component_17_object_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.component_17_name = None
         else:
             self.component_17_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.component_18_object_type = None
         else:
             self.component_18_object_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.component_18_name = None
         else:
             self.component_18_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.component_19_object_type = None
         else:
             self.component_19_object_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.component_19_name = None
         else:
             self.component_19_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.component_20_object_type = None
         else:
             self.component_20_object_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.component_20_name = None
         else:
             self.component_20_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.component_21_object_type = None
         else:
             self.component_21_object_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.component_21_name = None
         else:
             self.component_21_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.component_22_object_type = None
         else:
             self.component_22_object_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.component_22_name = None
         else:
             self.component_22_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.component_23_object_type = None
         else:
             self.component_23_object_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.component_23_name = None
         else:
             self.component_23_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.component_24_object_type = None
         else:
             self.component_24_object_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.component_24_name = None
         else:
             self.component_24_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.component_25_object_type = None
         else:
             self.component_25_object_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.component_25_name = None
         else:
             self.component_25_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -4449,6 +5237,9 @@ class AirLoopHvacReturnPath(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -4482,6 +5273,9 @@ class AirLoopHvacReturnPath(object):
                                  'for field `return_air_path_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `return_air_path_outlet_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `return_air_path_outlet_node_name`')
 
         self._data["Return Air Path Outlet Node Name"] = value
@@ -4519,12 +5313,26 @@ class AirLoopHvacReturnPath(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `component_1_object_type`')
-            vals = set()
-            vals.add("AirLoopHVAC:ZoneMixer")
-            vals.add("AirLoopHVAC:ReturnPlenum")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `component_1_object_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `component_1_object_type`')
+            vals = {}
+            vals["airloophvac:zonemixer"] = "AirLoopHVAC:ZoneMixer"
+            vals["airloophvac:returnplenum"] = "AirLoopHVAC:ReturnPlenum"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `component_1_object_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Component 1 Object Type"] = value
 
@@ -4557,6 +5365,9 @@ class AirLoopHvacReturnPath(object):
                                  'for field `component_1_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `component_1_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `component_1_name`')
 
         self._data["Component 1 Name"] = value
@@ -4594,12 +5405,26 @@ class AirLoopHvacReturnPath(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `component_2_object_type`')
-            vals = set()
-            vals.add("AirLoopHVAC:ZoneMixer")
-            vals.add("AirLoopHVAC:ReturnPlenum")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `component_2_object_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `component_2_object_type`')
+            vals = {}
+            vals["airloophvac:zonemixer"] = "AirLoopHVAC:ZoneMixer"
+            vals["airloophvac:returnplenum"] = "AirLoopHVAC:ReturnPlenum"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `component_2_object_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Component 2 Object Type"] = value
 
@@ -4632,6 +5457,9 @@ class AirLoopHvacReturnPath(object):
                                  'for field `component_2_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `component_2_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `component_2_name`')
 
         self._data["Component 2 Name"] = value
@@ -4669,12 +5497,26 @@ class AirLoopHvacReturnPath(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `component_3_object_type`')
-            vals = set()
-            vals.add("AirLoopHVAC:ZoneMixer")
-            vals.add("AirLoopHVAC:ReturnPlenum")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `component_3_object_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `component_3_object_type`')
+            vals = {}
+            vals["airloophvac:zonemixer"] = "AirLoopHVAC:ZoneMixer"
+            vals["airloophvac:returnplenum"] = "AirLoopHVAC:ReturnPlenum"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `component_3_object_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Component 3 Object Type"] = value
 
@@ -4707,6 +5549,9 @@ class AirLoopHvacReturnPath(object):
                                  'for field `component_3_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `component_3_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `component_3_name`')
 
         self._data["Component 3 Name"] = value
@@ -4744,12 +5589,26 @@ class AirLoopHvacReturnPath(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `component_4_object_type`')
-            vals = set()
-            vals.add("AirLoopHVAC:ZoneMixer")
-            vals.add("AirLoopHVAC:ReturnPlenum")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `component_4_object_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `component_4_object_type`')
+            vals = {}
+            vals["airloophvac:zonemixer"] = "AirLoopHVAC:ZoneMixer"
+            vals["airloophvac:returnplenum"] = "AirLoopHVAC:ReturnPlenum"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `component_4_object_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Component 4 Object Type"] = value
 
@@ -4782,6 +5641,9 @@ class AirLoopHvacReturnPath(object):
                                  'for field `component_4_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `component_4_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `component_4_name`')
 
         self._data["Component 4 Name"] = value
@@ -4819,12 +5681,26 @@ class AirLoopHvacReturnPath(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `component_5_object_type`')
-            vals = set()
-            vals.add("AirLoopHVAC:ZoneMixer")
-            vals.add("AirLoopHVAC:ReturnPlenum")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `component_5_object_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `component_5_object_type`')
+            vals = {}
+            vals["airloophvac:zonemixer"] = "AirLoopHVAC:ZoneMixer"
+            vals["airloophvac:returnplenum"] = "AirLoopHVAC:ReturnPlenum"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `component_5_object_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Component 5 Object Type"] = value
 
@@ -4857,6 +5733,9 @@ class AirLoopHvacReturnPath(object):
                                  'for field `component_5_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `component_5_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `component_5_name`')
 
         self._data["Component 5 Name"] = value
@@ -4894,12 +5773,26 @@ class AirLoopHvacReturnPath(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `component_6_object_type`')
-            vals = set()
-            vals.add("AirLoopHVAC:ZoneMixer")
-            vals.add("AirLoopHVAC:ReturnPlenum")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `component_6_object_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `component_6_object_type`')
+            vals = {}
+            vals["airloophvac:zonemixer"] = "AirLoopHVAC:ZoneMixer"
+            vals["airloophvac:returnplenum"] = "AirLoopHVAC:ReturnPlenum"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `component_6_object_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Component 6 Object Type"] = value
 
@@ -4932,6 +5825,9 @@ class AirLoopHvacReturnPath(object):
                                  'for field `component_6_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `component_6_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `component_6_name`')
 
         self._data["Component 6 Name"] = value
@@ -4969,12 +5865,26 @@ class AirLoopHvacReturnPath(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `component_7_object_type`')
-            vals = set()
-            vals.add("AirLoopHVAC:ZoneMixer")
-            vals.add("AirLoopHVAC:ReturnPlenum")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `component_7_object_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `component_7_object_type`')
+            vals = {}
+            vals["airloophvac:zonemixer"] = "AirLoopHVAC:ZoneMixer"
+            vals["airloophvac:returnplenum"] = "AirLoopHVAC:ReturnPlenum"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `component_7_object_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Component 7 Object Type"] = value
 
@@ -5007,6 +5917,9 @@ class AirLoopHvacReturnPath(object):
                                  'for field `component_7_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `component_7_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `component_7_name`')
 
         self._data["Component 7 Name"] = value
@@ -5044,12 +5957,26 @@ class AirLoopHvacReturnPath(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `component_8_object_type`')
-            vals = set()
-            vals.add("AirLoopHVAC:ZoneMixer")
-            vals.add("AirLoopHVAC:ReturnPlenum")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `component_8_object_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `component_8_object_type`')
+            vals = {}
+            vals["airloophvac:zonemixer"] = "AirLoopHVAC:ZoneMixer"
+            vals["airloophvac:returnplenum"] = "AirLoopHVAC:ReturnPlenum"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `component_8_object_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Component 8 Object Type"] = value
 
@@ -5082,6 +6009,9 @@ class AirLoopHvacReturnPath(object):
                                  'for field `component_8_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `component_8_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `component_8_name`')
 
         self._data["Component 8 Name"] = value
@@ -5119,12 +6049,26 @@ class AirLoopHvacReturnPath(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `component_9_object_type`')
-            vals = set()
-            vals.add("AirLoopHVAC:ZoneMixer")
-            vals.add("AirLoopHVAC:ReturnPlenum")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `component_9_object_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `component_9_object_type`')
+            vals = {}
+            vals["airloophvac:zonemixer"] = "AirLoopHVAC:ZoneMixer"
+            vals["airloophvac:returnplenum"] = "AirLoopHVAC:ReturnPlenum"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `component_9_object_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Component 9 Object Type"] = value
 
@@ -5157,6 +6101,9 @@ class AirLoopHvacReturnPath(object):
                                  'for field `component_9_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `component_9_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `component_9_name`')
 
         self._data["Component 9 Name"] = value
@@ -5194,12 +6141,26 @@ class AirLoopHvacReturnPath(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `component_10_object_type`')
-            vals = set()
-            vals.add("AirLoopHVAC:ZoneMixer")
-            vals.add("AirLoopHVAC:ReturnPlenum")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `component_10_object_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `component_10_object_type`')
+            vals = {}
+            vals["airloophvac:zonemixer"] = "AirLoopHVAC:ZoneMixer"
+            vals["airloophvac:returnplenum"] = "AirLoopHVAC:ReturnPlenum"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `component_10_object_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Component 10 Object Type"] = value
 
@@ -5232,6 +6193,9 @@ class AirLoopHvacReturnPath(object):
                                  'for field `component_10_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `component_10_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `component_10_name`')
 
         self._data["Component 10 Name"] = value
@@ -5269,12 +6233,26 @@ class AirLoopHvacReturnPath(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `component_11_object_type`')
-            vals = set()
-            vals.add("AirLoopHVAC:ZoneMixer")
-            vals.add("AirLoopHVAC:ReturnPlenum")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `component_11_object_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `component_11_object_type`')
+            vals = {}
+            vals["airloophvac:zonemixer"] = "AirLoopHVAC:ZoneMixer"
+            vals["airloophvac:returnplenum"] = "AirLoopHVAC:ReturnPlenum"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `component_11_object_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Component 11 Object Type"] = value
 
@@ -5307,6 +6285,9 @@ class AirLoopHvacReturnPath(object):
                                  'for field `component_11_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `component_11_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `component_11_name`')
 
         self._data["Component 11 Name"] = value
@@ -5344,12 +6325,26 @@ class AirLoopHvacReturnPath(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `component_12_object_type`')
-            vals = set()
-            vals.add("AirLoopHVAC:ZoneMixer")
-            vals.add("AirLoopHVAC:ReturnPlenum")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `component_12_object_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `component_12_object_type`')
+            vals = {}
+            vals["airloophvac:zonemixer"] = "AirLoopHVAC:ZoneMixer"
+            vals["airloophvac:returnplenum"] = "AirLoopHVAC:ReturnPlenum"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `component_12_object_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Component 12 Object Type"] = value
 
@@ -5382,6 +6377,9 @@ class AirLoopHvacReturnPath(object):
                                  'for field `component_12_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `component_12_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `component_12_name`')
 
         self._data["Component 12 Name"] = value
@@ -5419,12 +6417,26 @@ class AirLoopHvacReturnPath(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `component_13_object_type`')
-            vals = set()
-            vals.add("AirLoopHVAC:ZoneMixer")
-            vals.add("AirLoopHVAC:ReturnPlenum")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `component_13_object_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `component_13_object_type`')
+            vals = {}
+            vals["airloophvac:zonemixer"] = "AirLoopHVAC:ZoneMixer"
+            vals["airloophvac:returnplenum"] = "AirLoopHVAC:ReturnPlenum"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `component_13_object_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Component 13 Object Type"] = value
 
@@ -5457,6 +6469,9 @@ class AirLoopHvacReturnPath(object):
                                  'for field `component_13_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `component_13_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `component_13_name`')
 
         self._data["Component 13 Name"] = value
@@ -5494,12 +6509,26 @@ class AirLoopHvacReturnPath(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `component_14_object_type`')
-            vals = set()
-            vals.add("AirLoopHVAC:ZoneMixer")
-            vals.add("AirLoopHVAC:ReturnPlenum")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `component_14_object_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `component_14_object_type`')
+            vals = {}
+            vals["airloophvac:zonemixer"] = "AirLoopHVAC:ZoneMixer"
+            vals["airloophvac:returnplenum"] = "AirLoopHVAC:ReturnPlenum"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `component_14_object_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Component 14 Object Type"] = value
 
@@ -5532,6 +6561,9 @@ class AirLoopHvacReturnPath(object):
                                  'for field `component_14_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `component_14_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `component_14_name`')
 
         self._data["Component 14 Name"] = value
@@ -5569,12 +6601,26 @@ class AirLoopHvacReturnPath(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `component_15_object_type`')
-            vals = set()
-            vals.add("AirLoopHVAC:ZoneMixer")
-            vals.add("AirLoopHVAC:ReturnPlenum")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `component_15_object_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `component_15_object_type`')
+            vals = {}
+            vals["airloophvac:zonemixer"] = "AirLoopHVAC:ZoneMixer"
+            vals["airloophvac:returnplenum"] = "AirLoopHVAC:ReturnPlenum"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `component_15_object_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Component 15 Object Type"] = value
 
@@ -5607,6 +6653,9 @@ class AirLoopHvacReturnPath(object):
                                  'for field `component_15_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `component_15_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `component_15_name`')
 
         self._data["Component 15 Name"] = value
@@ -5644,12 +6693,26 @@ class AirLoopHvacReturnPath(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `component_16_object_type`')
-            vals = set()
-            vals.add("AirLoopHVAC:ZoneMixer")
-            vals.add("AirLoopHVAC:ReturnPlenum")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `component_16_object_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `component_16_object_type`')
+            vals = {}
+            vals["airloophvac:zonemixer"] = "AirLoopHVAC:ZoneMixer"
+            vals["airloophvac:returnplenum"] = "AirLoopHVAC:ReturnPlenum"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `component_16_object_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Component 16 Object Type"] = value
 
@@ -5682,6 +6745,9 @@ class AirLoopHvacReturnPath(object):
                                  'for field `component_16_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `component_16_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `component_16_name`')
 
         self._data["Component 16 Name"] = value
@@ -5719,12 +6785,26 @@ class AirLoopHvacReturnPath(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `component_17_object_type`')
-            vals = set()
-            vals.add("AirLoopHVAC:ZoneMixer")
-            vals.add("AirLoopHVAC:ReturnPlenum")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `component_17_object_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `component_17_object_type`')
+            vals = {}
+            vals["airloophvac:zonemixer"] = "AirLoopHVAC:ZoneMixer"
+            vals["airloophvac:returnplenum"] = "AirLoopHVAC:ReturnPlenum"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `component_17_object_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Component 17 Object Type"] = value
 
@@ -5757,6 +6837,9 @@ class AirLoopHvacReturnPath(object):
                                  'for field `component_17_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `component_17_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `component_17_name`')
 
         self._data["Component 17 Name"] = value
@@ -5794,12 +6877,26 @@ class AirLoopHvacReturnPath(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `component_18_object_type`')
-            vals = set()
-            vals.add("AirLoopHVAC:ZoneMixer")
-            vals.add("AirLoopHVAC:ReturnPlenum")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `component_18_object_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `component_18_object_type`')
+            vals = {}
+            vals["airloophvac:zonemixer"] = "AirLoopHVAC:ZoneMixer"
+            vals["airloophvac:returnplenum"] = "AirLoopHVAC:ReturnPlenum"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `component_18_object_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Component 18 Object Type"] = value
 
@@ -5832,6 +6929,9 @@ class AirLoopHvacReturnPath(object):
                                  'for field `component_18_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `component_18_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `component_18_name`')
 
         self._data["Component 18 Name"] = value
@@ -5869,12 +6969,26 @@ class AirLoopHvacReturnPath(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `component_19_object_type`')
-            vals = set()
-            vals.add("AirLoopHVAC:ZoneMixer")
-            vals.add("AirLoopHVAC:ReturnPlenum")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `component_19_object_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `component_19_object_type`')
+            vals = {}
+            vals["airloophvac:zonemixer"] = "AirLoopHVAC:ZoneMixer"
+            vals["airloophvac:returnplenum"] = "AirLoopHVAC:ReturnPlenum"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `component_19_object_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Component 19 Object Type"] = value
 
@@ -5907,6 +7021,9 @@ class AirLoopHvacReturnPath(object):
                                  'for field `component_19_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `component_19_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `component_19_name`')
 
         self._data["Component 19 Name"] = value
@@ -5944,12 +7061,26 @@ class AirLoopHvacReturnPath(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `component_20_object_type`')
-            vals = set()
-            vals.add("AirLoopHVAC:ZoneMixer")
-            vals.add("AirLoopHVAC:ReturnPlenum")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `component_20_object_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `component_20_object_type`')
+            vals = {}
+            vals["airloophvac:zonemixer"] = "AirLoopHVAC:ZoneMixer"
+            vals["airloophvac:returnplenum"] = "AirLoopHVAC:ReturnPlenum"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `component_20_object_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Component 20 Object Type"] = value
 
@@ -5982,6 +7113,9 @@ class AirLoopHvacReturnPath(object):
                                  'for field `component_20_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `component_20_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `component_20_name`')
 
         self._data["Component 20 Name"] = value
@@ -6019,12 +7153,26 @@ class AirLoopHvacReturnPath(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `component_21_object_type`')
-            vals = set()
-            vals.add("AirLoopHVAC:ZoneMixer")
-            vals.add("AirLoopHVAC:ReturnPlenum")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `component_21_object_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `component_21_object_type`')
+            vals = {}
+            vals["airloophvac:zonemixer"] = "AirLoopHVAC:ZoneMixer"
+            vals["airloophvac:returnplenum"] = "AirLoopHVAC:ReturnPlenum"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `component_21_object_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Component 21 Object Type"] = value
 
@@ -6057,6 +7205,9 @@ class AirLoopHvacReturnPath(object):
                                  'for field `component_21_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `component_21_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `component_21_name`')
 
         self._data["Component 21 Name"] = value
@@ -6094,12 +7245,26 @@ class AirLoopHvacReturnPath(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `component_22_object_type`')
-            vals = set()
-            vals.add("AirLoopHVAC:ZoneMixer")
-            vals.add("AirLoopHVAC:ReturnPlenum")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `component_22_object_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `component_22_object_type`')
+            vals = {}
+            vals["airloophvac:zonemixer"] = "AirLoopHVAC:ZoneMixer"
+            vals["airloophvac:returnplenum"] = "AirLoopHVAC:ReturnPlenum"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `component_22_object_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Component 22 Object Type"] = value
 
@@ -6132,6 +7297,9 @@ class AirLoopHvacReturnPath(object):
                                  'for field `component_22_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `component_22_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `component_22_name`')
 
         self._data["Component 22 Name"] = value
@@ -6169,12 +7337,26 @@ class AirLoopHvacReturnPath(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `component_23_object_type`')
-            vals = set()
-            vals.add("AirLoopHVAC:ZoneMixer")
-            vals.add("AirLoopHVAC:ReturnPlenum")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `component_23_object_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `component_23_object_type`')
+            vals = {}
+            vals["airloophvac:zonemixer"] = "AirLoopHVAC:ZoneMixer"
+            vals["airloophvac:returnplenum"] = "AirLoopHVAC:ReturnPlenum"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `component_23_object_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Component 23 Object Type"] = value
 
@@ -6207,6 +7389,9 @@ class AirLoopHvacReturnPath(object):
                                  'for field `component_23_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `component_23_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `component_23_name`')
 
         self._data["Component 23 Name"] = value
@@ -6244,12 +7429,26 @@ class AirLoopHvacReturnPath(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `component_24_object_type`')
-            vals = set()
-            vals.add("AirLoopHVAC:ZoneMixer")
-            vals.add("AirLoopHVAC:ReturnPlenum")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `component_24_object_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `component_24_object_type`')
+            vals = {}
+            vals["airloophvac:zonemixer"] = "AirLoopHVAC:ZoneMixer"
+            vals["airloophvac:returnplenum"] = "AirLoopHVAC:ReturnPlenum"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `component_24_object_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Component 24 Object Type"] = value
 
@@ -6282,6 +7481,9 @@ class AirLoopHvacReturnPath(object):
                                  'for field `component_24_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `component_24_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `component_24_name`')
 
         self._data["Component 24 Name"] = value
@@ -6319,12 +7521,26 @@ class AirLoopHvacReturnPath(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `component_25_object_type`')
-            vals = set()
-            vals.add("AirLoopHVAC:ZoneMixer")
-            vals.add("AirLoopHVAC:ReturnPlenum")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `component_25_object_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `component_25_object_type`')
+            vals = {}
+            vals["airloophvac:zonemixer"] = "AirLoopHVAC:ZoneMixer"
+            vals["airloophvac:returnplenum"] = "AirLoopHVAC:ReturnPlenum"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `component_25_object_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Component 25 Object Type"] = value
 
@@ -6358,6 +7574,9 @@ class AirLoopHvacReturnPath(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `component_25_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `component_25_name`')
 
         self._data["Component 25 Name"] = value
 
@@ -6383,58 +7602,14 @@ class AirLoopHvacReturnPath(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.return_air_path_outlet_node_name))
-        out.append(self._to_str(self.component_1_object_type))
-        out.append(self._to_str(self.component_1_name))
-        out.append(self._to_str(self.component_2_object_type))
-        out.append(self._to_str(self.component_2_name))
-        out.append(self._to_str(self.component_3_object_type))
-        out.append(self._to_str(self.component_3_name))
-        out.append(self._to_str(self.component_4_object_type))
-        out.append(self._to_str(self.component_4_name))
-        out.append(self._to_str(self.component_5_object_type))
-        out.append(self._to_str(self.component_5_name))
-        out.append(self._to_str(self.component_6_object_type))
-        out.append(self._to_str(self.component_6_name))
-        out.append(self._to_str(self.component_7_object_type))
-        out.append(self._to_str(self.component_7_name))
-        out.append(self._to_str(self.component_8_object_type))
-        out.append(self._to_str(self.component_8_name))
-        out.append(self._to_str(self.component_9_object_type))
-        out.append(self._to_str(self.component_9_name))
-        out.append(self._to_str(self.component_10_object_type))
-        out.append(self._to_str(self.component_10_name))
-        out.append(self._to_str(self.component_11_object_type))
-        out.append(self._to_str(self.component_11_name))
-        out.append(self._to_str(self.component_12_object_type))
-        out.append(self._to_str(self.component_12_name))
-        out.append(self._to_str(self.component_13_object_type))
-        out.append(self._to_str(self.component_13_name))
-        out.append(self._to_str(self.component_14_object_type))
-        out.append(self._to_str(self.component_14_name))
-        out.append(self._to_str(self.component_15_object_type))
-        out.append(self._to_str(self.component_15_name))
-        out.append(self._to_str(self.component_16_object_type))
-        out.append(self._to_str(self.component_16_name))
-        out.append(self._to_str(self.component_17_object_type))
-        out.append(self._to_str(self.component_17_name))
-        out.append(self._to_str(self.component_18_object_type))
-        out.append(self._to_str(self.component_18_name))
-        out.append(self._to_str(self.component_19_object_type))
-        out.append(self._to_str(self.component_19_name))
-        out.append(self._to_str(self.component_20_object_type))
-        out.append(self._to_str(self.component_20_name))
-        out.append(self._to_str(self.component_21_object_type))
-        out.append(self._to_str(self.component_21_name))
-        out.append(self._to_str(self.component_22_object_type))
-        out.append(self._to_str(self.component_22_name))
-        out.append(self._to_str(self.component_23_object_type))
-        out.append(self._to_str(self.component_23_name))
-        out.append(self._to_str(self.component_24_object_type))
-        out.append(self._to_str(self.component_24_name))
-        out.append(self._to_str(self.component_25_object_type))
-        out.append(self._to_str(self.component_25_name))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])

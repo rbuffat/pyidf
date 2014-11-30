@@ -53,788 +53,788 @@ class IDF(object):
     """ Represens an EnergyPlus IDF input file
     """
 
-    required_objects = ["Building", "GlobalGeometryRules"]
+    required_objects = ["building", "globalgeometryrules"]
     unique_objects = [
-        "HVACTemplate:Plant:MixedWaterLoop",
-        "SurfaceConvectionAlgorithm:Inside",
-        "Site:Location",
-        "RunPeriodControl:DaylightSavingTime",
-        "ShadowCalculation",
-        "ZoneAirContaminantBalance",
-        "Site:GroundTemperature:Shallow",
-        "Compliance:Building",
-        "Parametric:FileNameSuffix",
-        "Site:GroundReflectance",
-        "OutputControl:Sizing:Style",
-        "ZoneAirHeatBalanceAlgorithm",
-        "OutputControl:ReportingTolerances",
-        "SurfaceConvectionAlgorithm:Outside:AdaptiveModelSelections",
-        "Output:SQLite",
-        "HeatBalanceSettings:ConductionFiniteDifference",
-        "Building",
-        "SurfaceConvectionAlgorithm:Inside:AdaptiveModelSelections",
-        "GeometryTransform",
-        "SurfaceConvectionAlgorithm:Outside",
-        "CurrencyType",
-        "Site:GroundTemperature:Deep",
-        "Output:EnergyManagementSystem",
-        "HVACTemplate:Plant:HotWaterLoop",
-        "Timestep",
-        "Parametric:Logic",
-        "Sizing:Parameters",
-        "Version",
-        "LifeCycleCost:Parameters",
-        "HeatBalanceAlgorithm",
-        "Site:WeatherStation",
-        "Output:Table:SummaryReports",
-        "AirflowNetwork:SimulationControl",
-        "Site:GroundTemperature:BuildingSurface",
-        "HVACTemplate:Plant:ChilledWaterLoop",
-        "SimulationControl",
-        "Site:GroundTemperature:FCfactorMethod",
-        "ConvergenceLimits",
-        "ZoneAirMassFlowConservation",
-        "ZoneCapacitanceMultiplier:ResearchSpecial",
-        "OutputControl:Table:Style",
-        "Parametric:RunControl",
-        "Site:SolarAndVisibleSpectrum",
-        "Output:DebuggingData",
-        "GlobalGeometryRules",
-        "OutputControl:IlluminanceMap:Style",
-        "Site:HeightVariation"]
+        "zoneairheatbalancealgorithm",
+        "surfaceconvectionalgorithm:outside:adaptivemodelselections",
+        "outputcontrol:sizing:style",
+        "runperiodcontrol:daylightsavingtime",
+        "building",
+        "zoneairmassflowconservation",
+        "zoneaircontaminantbalance",
+        "site:groundtemperature:shallow",
+        "site:solarandvisiblespectrum",
+        "output:debuggingdata",
+        "outputcontrol:illuminancemap:style",
+        "site:heightvariation",
+        "lifecyclecost:parameters",
+        "timestep",
+        "convergencelimits",
+        "heatbalancesettings:conductionfinitedifference",
+        "version",
+        "airflownetwork:simulationcontrol",
+        "site:weatherstation",
+        "globalgeometryrules",
+        "output:energymanagementsystem",
+        "shadowcalculation",
+        "site:groundreflectance",
+        "site:groundtemperature:buildingsurface",
+        "surfaceconvectionalgorithm:inside",
+        "hvactemplate:plant:chilledwaterloop",
+        "site:location",
+        "parametric:logic",
+        "parametric:runcontrol",
+        "surfaceconvectionalgorithm:inside:adaptivemodelselections",
+        "zonecapacitancemultiplier:researchspecial",
+        "compliance:building",
+        "sizing:parameters",
+        "hvactemplate:plant:hotwaterloop",
+        "site:groundtemperature:deep",
+        "hvactemplate:plant:mixedwaterloop",
+        "outputcontrol:reportingtolerances",
+        "simulationcontrol",
+        "output:sqlite",
+        "site:groundtemperature:fcfactormethod",
+        "heatbalancealgorithm",
+        "parametric:filenamesuffix",
+        "geometrytransform",
+        "outputcontrol:table:style",
+        "surfaceconvectionalgorithm:outside",
+        "output:table:summaryreports",
+        "currencytype"]
 
     def __init__(self):
         """ Inits IDF with no data dictionary set."""
         self._data = OrderedDict()
-        self._data["Lead Input"] = []
-        self._data["Simulation Data"] = []
-        self._data["Version"] = []
-        self._data["SimulationControl"] = []
-        self._data["Building"] = []
-        self._data["ShadowCalculation"] = []
-        self._data["SurfaceConvectionAlgorithm:Inside"] = []
-        self._data["SurfaceConvectionAlgorithm:Outside"] = []
-        self._data["HeatBalanceAlgorithm"] = []
-        self._data["HeatBalanceSettings:ConductionFiniteDifference"] = []
-        self._data["ZoneAirHeatBalanceAlgorithm"] = []
-        self._data["ZoneAirContaminantBalance"] = []
-        self._data["ZoneAirMassFlowConservation"] = []
-        self._data["ZoneCapacitanceMultiplier:ResearchSpecial"] = []
-        self._data["Timestep"] = []
-        self._data["ConvergenceLimits"] = []
-        self._data["ProgramControl"] = []
-        self._data["Compliance:Building"] = []
-        self._data["Site:Location"] = []
-        self._data["SizingPeriod:DesignDay"] = []
-        self._data["SizingPeriod:WeatherFileDays"] = []
-        self._data["SizingPeriod:WeatherFileConditionType"] = []
-        self._data["RunPeriod"] = []
-        self._data["RunPeriod:CustomRange"] = []
-        self._data["RunPeriodControl:SpecialDays"] = []
-        self._data["RunPeriodControl:DaylightSavingTime"] = []
-        self._data["WeatherProperty:SkyTemperature"] = []
-        self._data["Site:WeatherStation"] = []
-        self._data["Site:HeightVariation"] = []
-        self._data["Site:GroundTemperature:BuildingSurface"] = []
-        self._data["Site:GroundTemperature:FCfactorMethod"] = []
-        self._data["Site:GroundTemperature:Shallow"] = []
-        self._data["Site:GroundTemperature:Deep"] = []
-        self._data["Site:GroundDomain"] = []
-        self._data["Site:GroundReflectance"] = []
-        self._data["Site:GroundReflectance:SnowModifier"] = []
-        self._data["Site:WaterMainsTemperature"] = []
-        self._data["Site:Precipitation"] = []
-        self._data["RoofIrrigation"] = []
-        self._data["Site:SolarAndVisibleSpectrum"] = []
-        self._data["Site:SpectrumData"] = []
-        self._data["ScheduleTypeLimits"] = []
-        self._data["Schedule:Day:Hourly"] = []
-        self._data["Schedule:Day:Interval"] = []
-        self._data["Schedule:Week:Daily"] = []
-        self._data["Schedule:Week:Compact"] = []
-        self._data["Schedule:Constant"] = []
-        self._data["Schedule:File"] = []
-        self._data["Material"] = []
-        self._data["Material:NoMass"] = []
-        self._data["Material:InfraredTransparent"] = []
-        self._data["Material:AirGap"] = []
-        self._data["Material:RoofVegetation"] = []
-        self._data["WindowMaterial:SimpleGlazingSystem"] = []
-        self._data["WindowMaterial:Glazing"] = []
-        self._data["WindowMaterial:GlazingGroup:Thermochromic"] = []
-        self._data["WindowMaterial:Glazing:RefractionExtinctionMethod"] = []
-        self._data["WindowMaterial:Gas"] = []
-        self._data["WindowGap:SupportPillar"] = []
-        self._data["WindowGap:DeflectionState"] = []
-        self._data["WindowMaterial:GasMixture"] = []
-        self._data["WindowMaterial:Gap"] = []
-        self._data["WindowMaterial:Shade"] = []
-        self._data["WindowMaterial:ComplexShade"] = []
-        self._data["WindowMaterial:Blind"] = []
-        self._data["WindowMaterial:Screen"] = []
-        self._data["WindowMaterial:Shade:EquivalentLayer"] = []
-        self._data["WindowMaterial:Drape:EquivalentLayer"] = []
-        self._data["WindowMaterial:Blind:EquivalentLayer"] = []
-        self._data["WindowMaterial:Screen:EquivalentLayer"] = []
-        self._data["WindowMaterial:Glazing:EquivalentLayer"] = []
-        self._data["Construction:WindowEquivalentLayer"] = []
-        self._data["WindowMaterial:Gap:EquivalentLayer"] = []
-        self._data["MaterialProperty:MoisturePenetrationDepth:Settings"] = []
-        self._data["MaterialProperty:PhaseChange"] = []
-        self._data["MaterialProperty:VariableThermalConductivity"] = []
-        self._data["MaterialProperty:HeatAndMoistureTransfer:Settings"] = []
+        self._data["lead input"] = []
+        self._data["simulation data"] = []
+        self._data["version"] = []
+        self._data["simulationcontrol"] = []
+        self._data["building"] = []
+        self._data["shadowcalculation"] = []
+        self._data["surfaceconvectionalgorithm:inside"] = []
+        self._data["surfaceconvectionalgorithm:outside"] = []
+        self._data["heatbalancealgorithm"] = []
+        self._data["heatbalancesettings:conductionfinitedifference"] = []
+        self._data["zoneairheatbalancealgorithm"] = []
+        self._data["zoneaircontaminantbalance"] = []
+        self._data["zoneairmassflowconservation"] = []
+        self._data["zonecapacitancemultiplier:researchspecial"] = []
+        self._data["timestep"] = []
+        self._data["convergencelimits"] = []
+        self._data["programcontrol"] = []
+        self._data["compliance:building"] = []
+        self._data["site:location"] = []
+        self._data["sizingperiod:designday"] = []
+        self._data["sizingperiod:weatherfiledays"] = []
+        self._data["sizingperiod:weatherfileconditiontype"] = []
+        self._data["runperiod"] = []
+        self._data["runperiod:customrange"] = []
+        self._data["runperiodcontrol:specialdays"] = []
+        self._data["runperiodcontrol:daylightsavingtime"] = []
+        self._data["weatherproperty:skytemperature"] = []
+        self._data["site:weatherstation"] = []
+        self._data["site:heightvariation"] = []
+        self._data["site:groundtemperature:buildingsurface"] = []
+        self._data["site:groundtemperature:fcfactormethod"] = []
+        self._data["site:groundtemperature:shallow"] = []
+        self._data["site:groundtemperature:deep"] = []
+        self._data["site:grounddomain"] = []
+        self._data["site:groundreflectance"] = []
+        self._data["site:groundreflectance:snowmodifier"] = []
+        self._data["site:watermainstemperature"] = []
+        self._data["site:precipitation"] = []
+        self._data["roofirrigation"] = []
+        self._data["site:solarandvisiblespectrum"] = []
+        self._data["site:spectrumdata"] = []
+        self._data["scheduletypelimits"] = []
+        self._data["schedule:day:hourly"] = []
+        self._data["schedule:day:interval"] = []
+        self._data["schedule:week:daily"] = []
+        self._data["schedule:week:compact"] = []
+        self._data["schedule:constant"] = []
+        self._data["schedule:file"] = []
+        self._data["material"] = []
+        self._data["material:nomass"] = []
+        self._data["material:infraredtransparent"] = []
+        self._data["material:airgap"] = []
+        self._data["material:roofvegetation"] = []
+        self._data["windowmaterial:simpleglazingsystem"] = []
+        self._data["windowmaterial:glazing"] = []
+        self._data["windowmaterial:glazinggroup:thermochromic"] = []
+        self._data["windowmaterial:glazing:refractionextinctionmethod"] = []
+        self._data["windowmaterial:gas"] = []
+        self._data["windowgap:supportpillar"] = []
+        self._data["windowgap:deflectionstate"] = []
+        self._data["windowmaterial:gasmixture"] = []
+        self._data["windowmaterial:gap"] = []
+        self._data["windowmaterial:shade"] = []
+        self._data["windowmaterial:complexshade"] = []
+        self._data["windowmaterial:blind"] = []
+        self._data["windowmaterial:screen"] = []
+        self._data["windowmaterial:shade:equivalentlayer"] = []
+        self._data["windowmaterial:drape:equivalentlayer"] = []
+        self._data["windowmaterial:blind:equivalentlayer"] = []
+        self._data["windowmaterial:screen:equivalentlayer"] = []
+        self._data["windowmaterial:glazing:equivalentlayer"] = []
+        self._data["construction:windowequivalentlayer"] = []
+        self._data["windowmaterial:gap:equivalentlayer"] = []
+        self._data["materialproperty:moisturepenetrationdepth:settings"] = []
+        self._data["materialproperty:phasechange"] = []
+        self._data["materialproperty:variablethermalconductivity"] = []
+        self._data["materialproperty:heatandmoisturetransfer:settings"] = []
         self._data[
-            "MaterialProperty:HeatAndMoistureTransfer:SorptionIsotherm"] = []
-        self._data["MaterialProperty:HeatAndMoistureTransfer:Suction"] = []
+            "materialproperty:heatandmoisturetransfer:sorptionisotherm"] = []
+        self._data["materialproperty:heatandmoisturetransfer:suction"] = []
         self._data[
-            "MaterialProperty:HeatAndMoistureTransfer:Redistribution"] = []
-        self._data["MaterialProperty:HeatAndMoistureTransfer:Diffusion"] = []
+            "materialproperty:heatandmoisturetransfer:redistribution"] = []
+        self._data["materialproperty:heatandmoisturetransfer:diffusion"] = []
         self._data[
-            "MaterialProperty:HeatAndMoistureTransfer:ThermalConductivity"] = []
-        self._data["Construction"] = []
-        self._data["Construction:CfactorUndergroundWall"] = []
-        self._data["Construction:FfactorGroundFloor"] = []
-        self._data["Construction:InternalSource"] = []
-        self._data["WindowThermalModel:Params"] = []
-        self._data["Construction:ComplexFenestrationState"] = []
-        self._data["Construction:WindowDataFile"] = []
-        self._data["GlobalGeometryRules"] = []
-        self._data["GeometryTransform"] = []
-        self._data["Zone"] = []
-        self._data["ZoneGroup"] = []
-        self._data["BuildingSurface:Detailed"] = []
-        self._data["Wall:Detailed"] = []
-        self._data["RoofCeiling:Detailed"] = []
-        self._data["Floor:Detailed"] = []
-        self._data["Wall:Exterior"] = []
-        self._data["Wall:Adiabatic"] = []
-        self._data["Wall:Underground"] = []
-        self._data["Wall:Interzone"] = []
-        self._data["Roof"] = []
-        self._data["Ceiling:Adiabatic"] = []
-        self._data["Ceiling:Interzone"] = []
-        self._data["Floor:GroundContact"] = []
-        self._data["Floor:Adiabatic"] = []
-        self._data["Floor:Interzone"] = []
-        self._data["FenestrationSurface:Detailed"] = []
-        self._data["Window"] = []
-        self._data["Door"] = []
-        self._data["GlazedDoor"] = []
-        self._data["Window:Interzone"] = []
-        self._data["Door:Interzone"] = []
-        self._data["GlazedDoor:Interzone"] = []
-        self._data["WindowProperty:ShadingControl"] = []
-        self._data["WindowProperty:FrameAndDivider"] = []
-        self._data["WindowProperty:AirflowControl"] = []
-        self._data["WindowProperty:StormWindow"] = []
-        self._data["InternalMass"] = []
-        self._data["Shading:Site"] = []
-        self._data["Shading:Building"] = []
-        self._data["Shading:Site:Detailed"] = []
-        self._data["Shading:Building:Detailed"] = []
-        self._data["Shading:Overhang"] = []
-        self._data["Shading:Overhang:Projection"] = []
-        self._data["Shading:Fin"] = []
-        self._data["Shading:Fin:Projection"] = []
-        self._data["Shading:Zone:Detailed"] = []
-        self._data["ShadingProperty:Reflectance"] = []
-        self._data["SurfaceProperty:HeatTransferAlgorithm"] = []
+            "materialproperty:heatandmoisturetransfer:thermalconductivity"] = []
+        self._data["construction"] = []
+        self._data["construction:cfactorundergroundwall"] = []
+        self._data["construction:ffactorgroundfloor"] = []
+        self._data["construction:internalsource"] = []
+        self._data["windowthermalmodel:params"] = []
+        self._data["construction:complexfenestrationstate"] = []
+        self._data["construction:windowdatafile"] = []
+        self._data["globalgeometryrules"] = []
+        self._data["geometrytransform"] = []
+        self._data["zone"] = []
+        self._data["zonegroup"] = []
+        self._data["buildingsurface:detailed"] = []
+        self._data["wall:detailed"] = []
+        self._data["roofceiling:detailed"] = []
+        self._data["floor:detailed"] = []
+        self._data["wall:exterior"] = []
+        self._data["wall:adiabatic"] = []
+        self._data["wall:underground"] = []
+        self._data["wall:interzone"] = []
+        self._data["roof"] = []
+        self._data["ceiling:adiabatic"] = []
+        self._data["ceiling:interzone"] = []
+        self._data["floor:groundcontact"] = []
+        self._data["floor:adiabatic"] = []
+        self._data["floor:interzone"] = []
+        self._data["fenestrationsurface:detailed"] = []
+        self._data["window"] = []
+        self._data["door"] = []
+        self._data["glazeddoor"] = []
+        self._data["window:interzone"] = []
+        self._data["door:interzone"] = []
+        self._data["glazeddoor:interzone"] = []
+        self._data["windowproperty:shadingcontrol"] = []
+        self._data["windowproperty:frameanddivider"] = []
+        self._data["windowproperty:airflowcontrol"] = []
+        self._data["windowproperty:stormwindow"] = []
+        self._data["internalmass"] = []
+        self._data["shading:site"] = []
+        self._data["shading:building"] = []
+        self._data["shading:site:detailed"] = []
+        self._data["shading:building:detailed"] = []
+        self._data["shading:overhang"] = []
+        self._data["shading:overhang:projection"] = []
+        self._data["shading:fin"] = []
+        self._data["shading:fin:projection"] = []
+        self._data["shading:zone:detailed"] = []
+        self._data["shadingproperty:reflectance"] = []
+        self._data["surfaceproperty:heattransferalgorithm"] = []
         self._data[
-            "SurfaceProperty:HeatTransferAlgorithm:MultipleSurface"] = []
-        self._data["SurfaceProperty:HeatTransferAlgorithm:SurfaceList"] = []
-        self._data["SurfaceProperty:HeatTransferAlgorithm:Construction"] = []
-        self._data["SurfaceControl:MovableInsulation"] = []
-        self._data["SurfaceProperty:OtherSideCoefficients"] = []
-        self._data["SurfaceProperty:OtherSideConditionsModel"] = []
+            "surfaceproperty:heattransferalgorithm:multiplesurface"] = []
+        self._data["surfaceproperty:heattransferalgorithm:surfacelist"] = []
+        self._data["surfaceproperty:heattransferalgorithm:construction"] = []
+        self._data["surfacecontrol:movableinsulation"] = []
+        self._data["surfaceproperty:othersidecoefficients"] = []
+        self._data["surfaceproperty:othersideconditionsmodel"] = []
         self._data[
-            "SurfaceConvectionAlgorithm:Inside:AdaptiveModelSelections"] = []
+            "surfaceconvectionalgorithm:inside:adaptivemodelselections"] = []
         self._data[
-            "SurfaceConvectionAlgorithm:Outside:AdaptiveModelSelections"] = []
-        self._data["SurfaceConvectionAlgorithm:Inside:UserCurve"] = []
-        self._data["SurfaceConvectionAlgorithm:Outside:UserCurve"] = []
-        self._data["SurfaceProperty:ConvectionCoefficients"] = []
+            "surfaceconvectionalgorithm:outside:adaptivemodelselections"] = []
+        self._data["surfaceconvectionalgorithm:inside:usercurve"] = []
+        self._data["surfaceconvectionalgorithm:outside:usercurve"] = []
+        self._data["surfaceproperty:convectioncoefficients"] = []
         self._data[
-            "SurfaceProperty:ConvectionCoefficients:MultipleSurface"] = []
-        self._data["SurfaceProperties:VaporCoefficients"] = []
-        self._data["SurfaceProperty:ExteriorNaturalVentedCavity"] = []
-        self._data["SurfaceProperty:SolarIncidentInside"] = []
-        self._data["ComplexFenestrationProperty:SolarAbsorbedLayers"] = []
-        self._data["ZoneProperty:UserViewFactors:bySurfaceName"] = []
-        self._data["GroundHeatTransfer:Control"] = []
-        self._data["GroundHeatTransfer:Slab:Materials"] = []
-        self._data["GroundHeatTransfer:Slab:MatlProps"] = []
-        self._data["GroundHeatTransfer:Slab:BoundConds"] = []
-        self._data["GroundHeatTransfer:Slab:BldgProps"] = []
-        self._data["GroundHeatTransfer:Slab:Insulation"] = []
-        self._data["GroundHeatTransfer:Slab:EquivalentSlab"] = []
-        self._data["GroundHeatTransfer:Slab:AutoGrid"] = []
-        self._data["GroundHeatTransfer:Slab:ManualGrid"] = []
-        self._data["GroundHeatTransfer:Basement:SimParameters"] = []
-        self._data["GroundHeatTransfer:Basement:MatlProps"] = []
-        self._data["GroundHeatTransfer:Basement:Insulation"] = []
-        self._data["GroundHeatTransfer:Basement:SurfaceProps"] = []
-        self._data["GroundHeatTransfer:Basement:BldgData"] = []
-        self._data["GroundHeatTransfer:Basement:Interior"] = []
-        self._data["GroundHeatTransfer:Basement:ComBldg"] = []
-        self._data["GroundHeatTransfer:Basement:EquivSlab"] = []
-        self._data["GroundHeatTransfer:Basement:EquivAutoGrid"] = []
-        self._data["GroundHeatTransfer:Basement:AutoGrid"] = []
-        self._data["GroundHeatTransfer:Basement:ManualGrid"] = []
-        self._data["RoomAirModelType"] = []
-        self._data["RoomAir:TemperaturePattern:UserDefined"] = []
-        self._data["RoomAir:TemperaturePattern:ConstantGradient"] = []
-        self._data["RoomAir:TemperaturePattern:TwoGradient"] = []
-        self._data["RoomAir:TemperaturePattern:NondimensionalHeight"] = []
-        self._data["RoomAir:TemperaturePattern:SurfaceMapping"] = []
-        self._data["RoomAir:Node"] = []
-        self._data["RoomAirSettings:OneNodeDisplacementVentilation"] = []
-        self._data["RoomAirSettings:ThreeNodeDisplacementVentilation"] = []
-        self._data["RoomAirSettings:CrossVentilation"] = []
-        self._data["RoomAirSettings:UnderFloorAirDistributionInterior"] = []
-        self._data["RoomAirSettings:UnderFloorAirDistributionExterior"] = []
-        self._data["People"] = []
-        self._data["ComfortViewFactorAngles"] = []
-        self._data["Lights"] = []
-        self._data["ElectricEquipment"] = []
-        self._data["GasEquipment"] = []
-        self._data["HotWaterEquipment"] = []
-        self._data["SteamEquipment"] = []
-        self._data["OtherEquipment"] = []
-        self._data["ZoneBaseboard:OutdoorTemperatureControlled"] = []
-        self._data["ZoneContaminantSourceAndSink:CarbonDioxide"] = []
-        self._data["ZoneContaminantSourceAndSink:Generic:Constant"] = []
+            "surfaceproperty:convectioncoefficients:multiplesurface"] = []
+        self._data["surfaceproperties:vaporcoefficients"] = []
+        self._data["surfaceproperty:exteriornaturalventedcavity"] = []
+        self._data["surfaceproperty:solarincidentinside"] = []
+        self._data["complexfenestrationproperty:solarabsorbedlayers"] = []
+        self._data["zoneproperty:userviewfactors:bysurfacename"] = []
+        self._data["groundheattransfer:control"] = []
+        self._data["groundheattransfer:slab:materials"] = []
+        self._data["groundheattransfer:slab:matlprops"] = []
+        self._data["groundheattransfer:slab:boundconds"] = []
+        self._data["groundheattransfer:slab:bldgprops"] = []
+        self._data["groundheattransfer:slab:insulation"] = []
+        self._data["groundheattransfer:slab:equivalentslab"] = []
+        self._data["groundheattransfer:slab:autogrid"] = []
+        self._data["groundheattransfer:slab:manualgrid"] = []
+        self._data["groundheattransfer:basement:simparameters"] = []
+        self._data["groundheattransfer:basement:matlprops"] = []
+        self._data["groundheattransfer:basement:insulation"] = []
+        self._data["groundheattransfer:basement:surfaceprops"] = []
+        self._data["groundheattransfer:basement:bldgdata"] = []
+        self._data["groundheattransfer:basement:interior"] = []
+        self._data["groundheattransfer:basement:combldg"] = []
+        self._data["groundheattransfer:basement:equivslab"] = []
+        self._data["groundheattransfer:basement:equivautogrid"] = []
+        self._data["groundheattransfer:basement:autogrid"] = []
+        self._data["groundheattransfer:basement:manualgrid"] = []
+        self._data["roomairmodeltype"] = []
+        self._data["roomair:temperaturepattern:userdefined"] = []
+        self._data["roomair:temperaturepattern:constantgradient"] = []
+        self._data["roomair:temperaturepattern:twogradient"] = []
+        self._data["roomair:temperaturepattern:nondimensionalheight"] = []
+        self._data["roomair:temperaturepattern:surfacemapping"] = []
+        self._data["roomair:node"] = []
+        self._data["roomairsettings:onenodedisplacementventilation"] = []
+        self._data["roomairsettings:threenodedisplacementventilation"] = []
+        self._data["roomairsettings:crossventilation"] = []
+        self._data["roomairsettings:underfloorairdistributioninterior"] = []
+        self._data["roomairsettings:underfloorairdistributionexterior"] = []
+        self._data["people"] = []
+        self._data["comfortviewfactorangles"] = []
+        self._data["lights"] = []
+        self._data["electricequipment"] = []
+        self._data["gasequipment"] = []
+        self._data["hotwaterequipment"] = []
+        self._data["steamequipment"] = []
+        self._data["otherequipment"] = []
+        self._data["zonebaseboard:outdoortemperaturecontrolled"] = []
+        self._data["zonecontaminantsourceandsink:carbondioxide"] = []
+        self._data["zonecontaminantsourceandsink:generic:constant"] = []
         self._data[
-            "SurfaceContaminantSourceAndSink:Generic:PressureDriven"] = []
-        self._data["ZoneContaminantSourceAndSink:Generic:CutoffModel"] = []
-        self._data["ZoneContaminantSourceAndSink:Generic:DecaySource"] = []
+            "surfacecontaminantsourceandsink:generic:pressuredriven"] = []
+        self._data["zonecontaminantsourceandsink:generic:cutoffmodel"] = []
+        self._data["zonecontaminantsourceandsink:generic:decaysource"] = []
         self._data[
-            "SurfaceContaminantSourceAndSink:Generic:BoundaryLayerDiffusion"] = []
+            "surfacecontaminantsourceandsink:generic:boundarylayerdiffusion"] = []
         self._data[
-            "SurfaceContaminantSourceAndSink:Generic:DepositionVelocitySink"] = []
+            "surfacecontaminantsourceandsink:generic:depositionvelocitysink"] = []
         self._data[
-            "ZoneContaminantSourceAndSink:Generic:DepositionRateSink"] = []
-        self._data["Daylighting:Controls"] = []
-        self._data["Daylighting:DELight:Controls"] = []
-        self._data["Daylighting:DELight:ReferencePoint"] = []
-        self._data["Daylighting:DELight:ComplexFenestration"] = []
-        self._data["DaylightingDevice:Tubular"] = []
-        self._data["DaylightingDevice:Shelf"] = []
-        self._data["DaylightingDevice:LightWell"] = []
-        self._data["Output:DaylightFactors"] = []
-        self._data["Output:IlluminanceMap"] = []
-        self._data["OutputControl:IlluminanceMap:Style"] = []
-        self._data["ZoneInfiltration:DesignFlowRate"] = []
-        self._data["ZoneInfiltration:EffectiveLeakageArea"] = []
-        self._data["ZoneInfiltration:FlowCoefficient"] = []
-        self._data["ZoneVentilation:DesignFlowRate"] = []
-        self._data["ZoneVentilation:WindandStackOpenArea"] = []
-        self._data["ZoneAirBalance:OutdoorAir"] = []
-        self._data["ZoneMixing"] = []
-        self._data["ZoneCrossMixing"] = []
-        self._data["ZoneRefrigerationDoorMixing"] = []
-        self._data["ZoneEarthtube"] = []
-        self._data["ZoneCoolTower:Shower"] = []
-        self._data["ZoneThermalChimney"] = []
-        self._data["AirflowNetwork:SimulationControl"] = []
-        self._data["AirflowNetwork:MultiZone:Zone"] = []
-        self._data["AirflowNetwork:MultiZone:Surface"] = []
-        self._data["AirflowNetwork:MultiZone:ReferenceCrackConditions"] = []
-        self._data["AirflowNetwork:MultiZone:Surface:Crack"] = []
+            "zonecontaminantsourceandsink:generic:depositionratesink"] = []
+        self._data["daylighting:controls"] = []
+        self._data["daylighting:delight:controls"] = []
+        self._data["daylighting:delight:referencepoint"] = []
+        self._data["daylighting:delight:complexfenestration"] = []
+        self._data["daylightingdevice:tubular"] = []
+        self._data["daylightingdevice:shelf"] = []
+        self._data["daylightingdevice:lightwell"] = []
+        self._data["output:daylightfactors"] = []
+        self._data["output:illuminancemap"] = []
+        self._data["outputcontrol:illuminancemap:style"] = []
+        self._data["zoneinfiltration:designflowrate"] = []
+        self._data["zoneinfiltration:effectiveleakagearea"] = []
+        self._data["zoneinfiltration:flowcoefficient"] = []
+        self._data["zoneventilation:designflowrate"] = []
+        self._data["zoneventilation:windandstackopenarea"] = []
+        self._data["zoneairbalance:outdoorair"] = []
+        self._data["zonemixing"] = []
+        self._data["zonecrossmixing"] = []
+        self._data["zonerefrigerationdoormixing"] = []
+        self._data["zoneearthtube"] = []
+        self._data["zonecooltower:shower"] = []
+        self._data["zonethermalchimney"] = []
+        self._data["airflownetwork:simulationcontrol"] = []
+        self._data["airflownetwork:multizone:zone"] = []
+        self._data["airflownetwork:multizone:surface"] = []
+        self._data["airflownetwork:multizone:referencecrackconditions"] = []
+        self._data["airflownetwork:multizone:surface:crack"] = []
         self._data[
-            "AirflowNetwork:MultiZone:Surface:EffectiveLeakageArea"] = []
-        self._data["AirflowNetwork:MultiZone:Component:DetailedOpening"] = []
-        self._data["AirflowNetwork:MultiZone:Component:SimpleOpening"] = []
-        self._data["AirflowNetwork:MultiZone:Component:HorizontalOpening"] = []
-        self._data["AirflowNetwork:MultiZone:Component:ZoneExhaustFan"] = []
-        self._data["AirflowNetwork:MultiZone:ExternalNode"] = []
+            "airflownetwork:multizone:surface:effectiveleakagearea"] = []
+        self._data["airflownetwork:multizone:component:detailedopening"] = []
+        self._data["airflownetwork:multizone:component:simpleopening"] = []
+        self._data["airflownetwork:multizone:component:horizontalopening"] = []
+        self._data["airflownetwork:multizone:component:zoneexhaustfan"] = []
+        self._data["airflownetwork:multizone:externalnode"] = []
         self._data[
-            "AirflowNetwork:MultiZone:WindPressureCoefficientArray"] = []
+            "airflownetwork:multizone:windpressurecoefficientarray"] = []
         self._data[
-            "AirflowNetwork:MultiZone:WindPressureCoefficientValues"] = []
-        self._data["AirflowNetwork:Distribution:Node"] = []
-        self._data["AirflowNetwork:Distribution:Component:Leak"] = []
-        self._data["AirflowNetwork:Distribution:Component:LeakageRatio"] = []
-        self._data["AirflowNetwork:Distribution:Component:Duct"] = []
-        self._data["AirflowNetwork:Distribution:Component:Fan"] = []
-        self._data["AirflowNetwork:Distribution:Component:Coil"] = []
-        self._data["AirflowNetwork:Distribution:Component:HeatExchanger"] = []
-        self._data["AirflowNetwork:Distribution:Component:TerminalUnit"] = []
+            "airflownetwork:multizone:windpressurecoefficientvalues"] = []
+        self._data["airflownetwork:distribution:node"] = []
+        self._data["airflownetwork:distribution:component:leak"] = []
+        self._data["airflownetwork:distribution:component:leakageratio"] = []
+        self._data["airflownetwork:distribution:component:duct"] = []
+        self._data["airflownetwork:distribution:component:fan"] = []
+        self._data["airflownetwork:distribution:component:coil"] = []
+        self._data["airflownetwork:distribution:component:heatexchanger"] = []
+        self._data["airflownetwork:distribution:component:terminalunit"] = []
         self._data[
-            "AirflowNetwork:Distribution:Component:ConstantPressureDrop"] = []
-        self._data["AirflowNetwork:Distribution:Linkage"] = []
-        self._data["Exterior:Lights"] = []
-        self._data["Exterior:FuelEquipment"] = []
-        self._data["Exterior:WaterEquipment"] = []
-        self._data["HVACTemplate:Thermostat"] = []
-        self._data["HVACTemplate:Zone:IdealLoadsAirSystem"] = []
-        self._data["HVACTemplate:Zone:BaseboardHeat"] = []
-        self._data["HVACTemplate:Zone:FanCoil"] = []
-        self._data["HVACTemplate:Zone:PTAC"] = []
-        self._data["HVACTemplate:Zone:PTHP"] = []
-        self._data["HVACTemplate:Zone:WaterToAirHeatPump"] = []
-        self._data["HVACTemplate:Zone:VRF"] = []
-        self._data["HVACTemplate:Zone:Unitary"] = []
-        self._data["HVACTemplate:Zone:VAV"] = []
-        self._data["HVACTemplate:Zone:VAV:FanPowered"] = []
-        self._data["HVACTemplate:Zone:VAV:HeatAndCool"] = []
-        self._data["HVACTemplate:Zone:ConstantVolume"] = []
-        self._data["HVACTemplate:Zone:DualDuct"] = []
-        self._data["HVACTemplate:System:VRF"] = []
-        self._data["HVACTemplate:System:Unitary"] = []
-        self._data["HVACTemplate:System:UnitaryHeatPump:AirToAir"] = []
-        self._data["HVACTemplate:System:UnitarySystem"] = []
-        self._data["HVACTemplate:System:VAV"] = []
-        self._data["HVACTemplate:System:PackagedVAV"] = []
-        self._data["HVACTemplate:System:ConstantVolume"] = []
-        self._data["HVACTemplate:System:DualDuct"] = []
-        self._data["HVACTemplate:System:DedicatedOutdoorAir"] = []
-        self._data["HVACTemplate:Plant:ChilledWaterLoop"] = []
-        self._data["HVACTemplate:Plant:Chiller"] = []
-        self._data["HVACTemplate:Plant:Chiller:ObjectReference"] = []
-        self._data["HVACTemplate:Plant:Tower"] = []
-        self._data["HVACTemplate:Plant:Tower:ObjectReference"] = []
-        self._data["HVACTemplate:Plant:HotWaterLoop"] = []
-        self._data["HVACTemplate:Plant:Boiler"] = []
-        self._data["HVACTemplate:Plant:Boiler:ObjectReference"] = []
-        self._data["HVACTemplate:Plant:MixedWaterLoop"] = []
-        self._data["DesignSpecification:OutdoorAir"] = []
-        self._data["DesignSpecification:ZoneAirDistribution"] = []
-        self._data["Sizing:Parameters"] = []
-        self._data["Sizing:Zone"] = []
-        self._data["DesignSpecification:ZoneHVAC:Sizing"] = []
-        self._data["Sizing:System"] = []
-        self._data["Sizing:Plant"] = []
-        self._data["OutputControl:Sizing:Style"] = []
-        self._data["ZoneControl:Humidistat"] = []
-        self._data["ZoneControl:Thermostat"] = []
-        self._data["ZoneControl:Thermostat:OperativeTemperature"] = []
-        self._data["ZoneControl:Thermostat:ThermalComfort"] = []
-        self._data["ZoneControl:Thermostat:TemperatureAndHumidity"] = []
-        self._data["ThermostatSetpoint:SingleHeating"] = []
-        self._data["ThermostatSetpoint:SingleCooling"] = []
-        self._data["ThermostatSetpoint:SingleHeatingOrCooling"] = []
-        self._data["ThermostatSetpoint:DualSetpoint"] = []
+            "airflownetwork:distribution:component:constantpressuredrop"] = []
+        self._data["airflownetwork:distribution:linkage"] = []
+        self._data["exterior:lights"] = []
+        self._data["exterior:fuelequipment"] = []
+        self._data["exterior:waterequipment"] = []
+        self._data["hvactemplate:thermostat"] = []
+        self._data["hvactemplate:zone:idealloadsairsystem"] = []
+        self._data["hvactemplate:zone:baseboardheat"] = []
+        self._data["hvactemplate:zone:fancoil"] = []
+        self._data["hvactemplate:zone:ptac"] = []
+        self._data["hvactemplate:zone:pthp"] = []
+        self._data["hvactemplate:zone:watertoairheatpump"] = []
+        self._data["hvactemplate:zone:vrf"] = []
+        self._data["hvactemplate:zone:unitary"] = []
+        self._data["hvactemplate:zone:vav"] = []
+        self._data["hvactemplate:zone:vav:fanpowered"] = []
+        self._data["hvactemplate:zone:vav:heatandcool"] = []
+        self._data["hvactemplate:zone:constantvolume"] = []
+        self._data["hvactemplate:zone:dualduct"] = []
+        self._data["hvactemplate:system:vrf"] = []
+        self._data["hvactemplate:system:unitary"] = []
+        self._data["hvactemplate:system:unitaryheatpump:airtoair"] = []
+        self._data["hvactemplate:system:unitarysystem"] = []
+        self._data["hvactemplate:system:vav"] = []
+        self._data["hvactemplate:system:packagedvav"] = []
+        self._data["hvactemplate:system:constantvolume"] = []
+        self._data["hvactemplate:system:dualduct"] = []
+        self._data["hvactemplate:system:dedicatedoutdoorair"] = []
+        self._data["hvactemplate:plant:chilledwaterloop"] = []
+        self._data["hvactemplate:plant:chiller"] = []
+        self._data["hvactemplate:plant:chiller:objectreference"] = []
+        self._data["hvactemplate:plant:tower"] = []
+        self._data["hvactemplate:plant:tower:objectreference"] = []
+        self._data["hvactemplate:plant:hotwaterloop"] = []
+        self._data["hvactemplate:plant:boiler"] = []
+        self._data["hvactemplate:plant:boiler:objectreference"] = []
+        self._data["hvactemplate:plant:mixedwaterloop"] = []
+        self._data["designspecification:outdoorair"] = []
+        self._data["designspecification:zoneairdistribution"] = []
+        self._data["sizing:parameters"] = []
+        self._data["sizing:zone"] = []
+        self._data["designspecification:zonehvac:sizing"] = []
+        self._data["sizing:system"] = []
+        self._data["sizing:plant"] = []
+        self._data["outputcontrol:sizing:style"] = []
+        self._data["zonecontrol:humidistat"] = []
+        self._data["zonecontrol:thermostat"] = []
+        self._data["zonecontrol:thermostat:operativetemperature"] = []
+        self._data["zonecontrol:thermostat:thermalcomfort"] = []
+        self._data["zonecontrol:thermostat:temperatureandhumidity"] = []
+        self._data["thermostatsetpoint:singleheating"] = []
+        self._data["thermostatsetpoint:singlecooling"] = []
+        self._data["thermostatsetpoint:singleheatingorcooling"] = []
+        self._data["thermostatsetpoint:dualsetpoint"] = []
         self._data[
-            "ThermostatSetpoint:ThermalComfort:Fanger:SingleHeating"] = []
+            "thermostatsetpoint:thermalcomfort:fanger:singleheating"] = []
         self._data[
-            "ThermostatSetpoint:ThermalComfort:Fanger:SingleCooling"] = []
+            "thermostatsetpoint:thermalcomfort:fanger:singlecooling"] = []
         self._data[
-            "ThermostatSetpoint:ThermalComfort:Fanger:SingleHeatingOrCooling"] = []
+            "thermostatsetpoint:thermalcomfort:fanger:singleheatingorcooling"] = []
         self._data[
-            "ThermostatSetpoint:ThermalComfort:Fanger:DualSetpoint"] = []
-        self._data["ZoneControl:Thermostat:StagedDualSetpoint"] = []
-        self._data["ZoneControl:ContaminantController"] = []
-        self._data["ZoneHVAC:IdealLoadsAirSystem"] = []
-        self._data["ZoneHVAC:FourPipeFanCoil"] = []
-        self._data["ZoneHVAC:WindowAirConditioner"] = []
-        self._data["ZoneHVAC:PackagedTerminalAirConditioner"] = []
-        self._data["ZoneHVAC:PackagedTerminalHeatPump"] = []
-        self._data["ZoneHVAC:WaterToAirHeatPump"] = []
-        self._data["ZoneHVAC:Dehumidifier:DX"] = []
-        self._data["ZoneHVAC:EnergyRecoveryVentilator"] = []
-        self._data["ZoneHVAC:EnergyRecoveryVentilator:Controller"] = []
-        self._data["ZoneHVAC:UnitVentilator"] = []
-        self._data["ZoneHVAC:UnitHeater"] = []
-        self._data["ZoneHVAC:EvaporativeCoolerUnit"] = []
-        self._data["ZoneHVAC:OutdoorAirUnit"] = []
-        self._data["ZoneHVAC:OutdoorAirUnit:EquipmentList"] = []
-        self._data["ZoneHVAC:TerminalUnit:VariableRefrigerantFlow"] = []
-        self._data["ZoneHVAC:Baseboard:RadiantConvective:Water"] = []
-        self._data["ZoneHVAC:Baseboard:RadiantConvective:Steam"] = []
-        self._data["ZoneHVAC:Baseboard:RadiantConvective:Electric"] = []
-        self._data["ZoneHVAC:Baseboard:Convective:Water"] = []
-        self._data["ZoneHVAC:Baseboard:Convective:Electric"] = []
-        self._data["ZoneHVAC:LowTemperatureRadiant:VariableFlow"] = []
-        self._data["ZoneHVAC:LowTemperatureRadiant:ConstantFlow"] = []
-        self._data["ZoneHVAC:LowTemperatureRadiant:Electric"] = []
-        self._data["ZoneHVAC:LowTemperatureRadiant:SurfaceGroup"] = []
-        self._data["ZoneHVAC:HighTemperatureRadiant"] = []
-        self._data["ZoneHVAC:VentilatedSlab"] = []
-        self._data["ZoneHVAC:VentilatedSlab:SlabGroup"] = []
-        self._data["AirTerminal:SingleDuct:Uncontrolled"] = []
-        self._data["AirTerminal:SingleDuct:ConstantVolume:Reheat"] = []
-        self._data["AirTerminal:SingleDuct:VAV:NoReheat"] = []
-        self._data["AirTerminal:SingleDuct:VAV:Reheat"] = []
-        self._data["AirTerminal:SingleDuct:VAV:Reheat:VariableSpeedFan"] = []
-        self._data["AirTerminal:SingleDuct:VAV:HeatAndCool:NoReheat"] = []
-        self._data["AirTerminal:SingleDuct:VAV:HeatAndCool:Reheat"] = []
-        self._data["AirTerminal:SingleDuct:SeriesPIU:Reheat"] = []
-        self._data["AirTerminal:SingleDuct:ParallelPIU:Reheat"] = []
+            "thermostatsetpoint:thermalcomfort:fanger:dualsetpoint"] = []
+        self._data["zonecontrol:thermostat:stageddualsetpoint"] = []
+        self._data["zonecontrol:contaminantcontroller"] = []
+        self._data["zonehvac:idealloadsairsystem"] = []
+        self._data["zonehvac:fourpipefancoil"] = []
+        self._data["zonehvac:windowairconditioner"] = []
+        self._data["zonehvac:packagedterminalairconditioner"] = []
+        self._data["zonehvac:packagedterminalheatpump"] = []
+        self._data["zonehvac:watertoairheatpump"] = []
+        self._data["zonehvac:dehumidifier:dx"] = []
+        self._data["zonehvac:energyrecoveryventilator"] = []
+        self._data["zonehvac:energyrecoveryventilator:controller"] = []
+        self._data["zonehvac:unitventilator"] = []
+        self._data["zonehvac:unitheater"] = []
+        self._data["zonehvac:evaporativecoolerunit"] = []
+        self._data["zonehvac:outdoorairunit"] = []
+        self._data["zonehvac:outdoorairunit:equipmentlist"] = []
+        self._data["zonehvac:terminalunit:variablerefrigerantflow"] = []
+        self._data["zonehvac:baseboard:radiantconvective:water"] = []
+        self._data["zonehvac:baseboard:radiantconvective:steam"] = []
+        self._data["zonehvac:baseboard:radiantconvective:electric"] = []
+        self._data["zonehvac:baseboard:convective:water"] = []
+        self._data["zonehvac:baseboard:convective:electric"] = []
+        self._data["zonehvac:lowtemperatureradiant:variableflow"] = []
+        self._data["zonehvac:lowtemperatureradiant:constantflow"] = []
+        self._data["zonehvac:lowtemperatureradiant:electric"] = []
+        self._data["zonehvac:lowtemperatureradiant:surfacegroup"] = []
+        self._data["zonehvac:hightemperatureradiant"] = []
+        self._data["zonehvac:ventilatedslab"] = []
+        self._data["zonehvac:ventilatedslab:slabgroup"] = []
+        self._data["airterminal:singleduct:uncontrolled"] = []
+        self._data["airterminal:singleduct:constantvolume:reheat"] = []
+        self._data["airterminal:singleduct:vav:noreheat"] = []
+        self._data["airterminal:singleduct:vav:reheat"] = []
+        self._data["airterminal:singleduct:vav:reheat:variablespeedfan"] = []
+        self._data["airterminal:singleduct:vav:heatandcool:noreheat"] = []
+        self._data["airterminal:singleduct:vav:heatandcool:reheat"] = []
+        self._data["airterminal:singleduct:seriespiu:reheat"] = []
+        self._data["airterminal:singleduct:parallelpiu:reheat"] = []
         self._data[
-            "AirTerminal:SingleDuct:ConstantVolume:FourPipeInduction"] = []
-        self._data["AirTerminal:SingleDuct:ConstantVolume:CooledBeam"] = []
-        self._data["AirTerminal:SingleDuct:InletSideMixer"] = []
-        self._data["AirTerminal:SingleDuct:SupplySideMixer"] = []
-        self._data["AirTerminal:DualDuct:ConstantVolume"] = []
-        self._data["AirTerminal:DualDuct:VAV"] = []
-        self._data["AirTerminal:DualDuct:VAV:OutdoorAir"] = []
-        self._data["ZoneHVAC:AirDistributionUnit"] = []
-        self._data["ZoneHVAC:EquipmentList"] = []
-        self._data["ZoneHVAC:EquipmentConnections"] = []
-        self._data["Fan:ConstantVolume"] = []
-        self._data["Fan:VariableVolume"] = []
-        self._data["Fan:OnOff"] = []
-        self._data["Fan:ZoneExhaust"] = []
-        self._data["FanPerformance:NightVentilation"] = []
-        self._data["Fan:ComponentModel"] = []
-        self._data["Coil:Cooling:Water"] = []
-        self._data["Coil:Cooling:Water:DetailedGeometry"] = []
-        self._data["Coil:Cooling:DX:SingleSpeed"] = []
-        self._data["Coil:Cooling:DX:TwoSpeed"] = []
-        self._data["Coil:Cooling:DX:MultiSpeed"] = []
-        self._data["Coil:Cooling:DX:VariableSpeed"] = []
-        self._data["Coil:Cooling:DX:TwoStageWithHumidityControlMode"] = []
-        self._data["CoilPerformance:DX:Cooling"] = []
-        self._data["Coil:Cooling:DX:VariableRefrigerantFlow"] = []
-        self._data["Coil:Heating:DX:VariableRefrigerantFlow"] = []
-        self._data["Coil:Heating:Water"] = []
-        self._data["Coil:Heating:Steam"] = []
-        self._data["Coil:Heating:Electric"] = []
-        self._data["Coil:Heating:Electric:MultiStage"] = []
-        self._data["Coil:Heating:Gas"] = []
-        self._data["Coil:Heating:Gas:MultiStage"] = []
-        self._data["Coil:Heating:Desuperheater"] = []
-        self._data["Coil:Heating:DX:SingleSpeed"] = []
-        self._data["Coil:Heating:DX:MultiSpeed"] = []
-        self._data["Coil:Heating:DX:VariableSpeed"] = []
-        self._data["Coil:Cooling:WaterToAirHeatPump:ParameterEstimation"] = []
-        self._data["Coil:Heating:WaterToAirHeatPump:ParameterEstimation"] = []
-        self._data["Coil:Cooling:WaterToAirHeatPump:EquationFit"] = []
+            "airterminal:singleduct:constantvolume:fourpipeinduction"] = []
+        self._data["airterminal:singleduct:constantvolume:cooledbeam"] = []
+        self._data["airterminal:singleduct:inletsidemixer"] = []
+        self._data["airterminal:singleduct:supplysidemixer"] = []
+        self._data["airterminal:dualduct:constantvolume"] = []
+        self._data["airterminal:dualduct:vav"] = []
+        self._data["airterminal:dualduct:vav:outdoorair"] = []
+        self._data["zonehvac:airdistributionunit"] = []
+        self._data["zonehvac:equipmentlist"] = []
+        self._data["zonehvac:equipmentconnections"] = []
+        self._data["fan:constantvolume"] = []
+        self._data["fan:variablevolume"] = []
+        self._data["fan:onoff"] = []
+        self._data["fan:zoneexhaust"] = []
+        self._data["fanperformance:nightventilation"] = []
+        self._data["fan:componentmodel"] = []
+        self._data["coil:cooling:water"] = []
+        self._data["coil:cooling:water:detailedgeometry"] = []
+        self._data["coil:cooling:dx:singlespeed"] = []
+        self._data["coil:cooling:dx:twospeed"] = []
+        self._data["coil:cooling:dx:multispeed"] = []
+        self._data["coil:cooling:dx:variablespeed"] = []
+        self._data["coil:cooling:dx:twostagewithhumiditycontrolmode"] = []
+        self._data["coilperformance:dx:cooling"] = []
+        self._data["coil:cooling:dx:variablerefrigerantflow"] = []
+        self._data["coil:heating:dx:variablerefrigerantflow"] = []
+        self._data["coil:heating:water"] = []
+        self._data["coil:heating:steam"] = []
+        self._data["coil:heating:electric"] = []
+        self._data["coil:heating:electric:multistage"] = []
+        self._data["coil:heating:gas"] = []
+        self._data["coil:heating:gas:multistage"] = []
+        self._data["coil:heating:desuperheater"] = []
+        self._data["coil:heating:dx:singlespeed"] = []
+        self._data["coil:heating:dx:multispeed"] = []
+        self._data["coil:heating:dx:variablespeed"] = []
+        self._data["coil:cooling:watertoairheatpump:parameterestimation"] = []
+        self._data["coil:heating:watertoairheatpump:parameterestimation"] = []
+        self._data["coil:cooling:watertoairheatpump:equationfit"] = []
         self._data[
-            "Coil:Cooling:WaterToAirHeatPump:VariableSpeedEquationFit"] = []
-        self._data["Coil:Heating:WaterToAirHeatPump:EquationFit"] = []
+            "coil:cooling:watertoairheatpump:variablespeedequationfit"] = []
+        self._data["coil:heating:watertoairheatpump:equationfit"] = []
         self._data[
-            "Coil:Heating:WaterToAirHeatPump:VariableSpeedEquationFit"] = []
-        self._data["Coil:WaterHeating:AirToWaterHeatPump"] = []
-        self._data["Coil:WaterHeating:Desuperheater"] = []
-        self._data["CoilSystem:Cooling:DX"] = []
-        self._data["CoilSystem:Heating:DX"] = []
-        self._data["CoilSystem:Cooling:Water:HeatExchangerAssisted"] = []
-        self._data["CoilSystem:Cooling:DX:HeatExchangerAssisted"] = []
-        self._data["Coil:Cooling:DX:SingleSpeed:ThermalStorage"] = []
-        self._data["Humidifier:Steam:Electric"] = []
-        self._data["Dehumidifier:Desiccant:NoFans"] = []
-        self._data["Dehumidifier:Desiccant:System"] = []
-        self._data["HeatExchanger:AirToAir:FlatPlate"] = []
-        self._data["HeatExchanger:AirToAir:SensibleAndLatent"] = []
-        self._data["HeatExchanger:Desiccant:BalancedFlow"] = []
+            "coil:heating:watertoairheatpump:variablespeedequationfit"] = []
+        self._data["coil:waterheating:airtowaterheatpump"] = []
+        self._data["coil:waterheating:desuperheater"] = []
+        self._data["coilsystem:cooling:dx"] = []
+        self._data["coilsystem:heating:dx"] = []
+        self._data["coilsystem:cooling:water:heatexchangerassisted"] = []
+        self._data["coilsystem:cooling:dx:heatexchangerassisted"] = []
+        self._data["coil:cooling:dx:singlespeed:thermalstorage"] = []
+        self._data["humidifier:steam:electric"] = []
+        self._data["dehumidifier:desiccant:nofans"] = []
+        self._data["dehumidifier:desiccant:system"] = []
+        self._data["heatexchanger:airtoair:flatplate"] = []
+        self._data["heatexchanger:airtoair:sensibleandlatent"] = []
+        self._data["heatexchanger:desiccant:balancedflow"] = []
         self._data[
-            "HeatExchanger:Desiccant:BalancedFlow:PerformanceDataType1"] = []
-        self._data["AirLoopHVAC:UnitarySystem"] = []
-        self._data["UnitarySystemPerformance:HeatPump:Multispeed"] = []
-        self._data["AirLoopHVAC:Unitary:Furnace:HeatOnly"] = []
-        self._data["AirLoopHVAC:Unitary:Furnace:HeatCool"] = []
-        self._data["AirLoopHVAC:UnitaryHeatOnly"] = []
-        self._data["AirLoopHVAC:UnitaryHeatCool"] = []
-        self._data["AirLoopHVAC:UnitaryHeatPump:AirToAir"] = []
-        self._data["AirLoopHVAC:UnitaryHeatPump:WaterToAir"] = []
-        self._data["AirLoopHVAC:UnitaryHeatCool:VAVChangeoverBypass"] = []
-        self._data["AirLoopHVAC:UnitaryHeatPump:AirToAir:MultiSpeed"] = []
-        self._data["AirConditioner:VariableRefrigerantFlow"] = []
-        self._data["ZoneTerminalUnitList"] = []
-        self._data["Controller:WaterCoil"] = []
-        self._data["Controller:OutdoorAir"] = []
-        self._data["Controller:MechanicalVentilation"] = []
-        self._data["AirLoopHVAC:ControllerList"] = []
-        self._data["AirLoopHVAC"] = []
-        self._data["AirLoopHVAC:OutdoorAirSystem:EquipmentList"] = []
-        self._data["AirLoopHVAC:OutdoorAirSystem"] = []
-        self._data["OutdoorAir:Mixer"] = []
-        self._data["AirLoopHVAC:SupplyPath"] = []
-        self._data["AirLoopHVAC:ReturnPath"] = []
-        self._data["Branch"] = []
-        self._data["ConnectorList"] = []
-        self._data["OutdoorAir:Node"] = []
-        self._data["Pipe:Adiabatic"] = []
-        self._data["Pipe:Adiabatic:Steam"] = []
-        self._data["Pipe:Indoor"] = []
-        self._data["Pipe:Outdoor"] = []
-        self._data["Pipe:Underground"] = []
-        self._data["PipingSystem:Underground:Domain"] = []
-        self._data["PipingSystem:Underground:PipeCircuit"] = []
-        self._data["PipingSystem:Underground:PipeSegment"] = []
-        self._data["Duct"] = []
-        self._data["Pump:VariableSpeed"] = []
-        self._data["Pump:ConstantSpeed"] = []
-        self._data["Pump:VariableSpeed:Condensate"] = []
-        self._data["HeaderedPumps:ConstantSpeed"] = []
-        self._data["TemperingValve"] = []
-        self._data["LoadProfile:Plant"] = []
-        self._data["SolarCollectorPerformance:FlatPlate"] = []
-        self._data["SolarCollector:FlatPlate:Water"] = []
-        self._data["SolarCollectorPerformance:PhotovoltaicThermal:Simple"] = []
-        self._data["SolarCollector:IntegralCollectorStorage"] = []
-        self._data["SolarCollectorPerformance:IntegralCollectorStorage"] = []
-        self._data["SolarCollector:UnglazedTranspired"] = []
-        self._data["SolarCollector:UnglazedTranspired:Multisystem"] = []
-        self._data["Boiler:HotWater"] = []
-        self._data["Boiler:Steam"] = []
-        self._data["Chiller:Electric:EIR"] = []
-        self._data["Chiller:Electric:ReformulatedEIR"] = []
-        self._data["Chiller:Electric"] = []
-        self._data["Chiller:Absorption:Indirect"] = []
-        self._data["Chiller:Absorption"] = []
-        self._data["Chiller:ConstantCOP"] = []
-        self._data["Chiller:EngineDriven"] = []
-        self._data["Chiller:CombustionTurbine"] = []
-        self._data["ChillerHeater:Absorption:DirectFired"] = []
-        self._data["ChillerHeater:Absorption:DoubleEffect"] = []
-        self._data["HeatPump:WaterToWater:EquationFit:Heating"] = []
-        self._data["HeatPump:WaterToWater:EquationFit:Cooling"] = []
-        self._data["HeatPump:WaterToWater:ParameterEstimation:Cooling"] = []
-        self._data["HeatPump:WaterToWater:ParameterEstimation:Heating"] = []
-        self._data["DistrictCooling"] = []
-        self._data["DistrictHeating"] = []
-        self._data["PlantComponent:TemperatureSource"] = []
-        self._data["CentralHeatPumpSystem"] = []
-        self._data["ChillerHeaterPerformance:Electric:EIR"] = []
-        self._data["CoolingTower:SingleSpeed"] = []
-        self._data["CoolingTower:TwoSpeed"] = []
-        self._data["CoolingTower:VariableSpeed:Merkel"] = []
-        self._data["CoolingTower:VariableSpeed"] = []
-        self._data["CoolingTowerPerformance:CoolTools"] = []
-        self._data["CoolingTowerPerformance:YorkCalc"] = []
-        self._data["EvaporativeFluidCooler:SingleSpeed"] = []
-        self._data["EvaporativeFluidCooler:TwoSpeed"] = []
-        self._data["FluidCooler:SingleSpeed"] = []
-        self._data["FluidCooler:TwoSpeed"] = []
-        self._data["GroundHeatExchanger:Vertical"] = []
-        self._data["GroundHeatExchanger:Pond"] = []
-        self._data["GroundHeatExchanger:Surface"] = []
-        self._data["GroundHeatExchanger:HorizontalTrench"] = []
-        self._data["HeatExchanger:FluidToFluid"] = []
-        self._data["WaterHeater:Mixed"] = []
-        self._data["WaterHeater:Stratified"] = []
-        self._data["WaterHeater:Sizing"] = []
-        self._data["WaterHeater:HeatPump"] = []
-        self._data["ThermalStorage:Ice:Simple"] = []
-        self._data["ThermalStorage:Ice:Detailed"] = []
-        self._data["ThermalStorage:ChilledWater:Mixed"] = []
-        self._data["ThermalStorage:ChilledWater:Stratified"] = []
-        self._data["PlantLoop"] = []
-        self._data["CondenserLoop"] = []
-        self._data["PlantEquipmentList"] = []
-        self._data["CondenserEquipmentList"] = []
-        self._data["PlantEquipmentOperation:Uncontrolled"] = []
-        self._data["PlantEquipmentOperation:CoolingLoad"] = []
-        self._data["PlantEquipmentOperation:HeatingLoad"] = []
-        self._data["PlantEquipmentOperation:OutdoorDryBulb"] = []
-        self._data["PlantEquipmentOperation:OutdoorWetBulb"] = []
-        self._data["PlantEquipmentOperation:OutdoorRelativeHumidity"] = []
-        self._data["PlantEquipmentOperation:OutdoorDewpoint"] = []
-        self._data["PlantEquipmentOperation:ComponentSetpoint"] = []
-        self._data["PlantEquipmentOperation:OutdoorDryBulbDifference"] = []
-        self._data["PlantEquipmentOperation:OutdoorWetBulbDifference"] = []
-        self._data["PlantEquipmentOperation:OutdoorDewpointDifference"] = []
-        self._data["PlantEquipmentOperationSchemes"] = []
-        self._data["CondenserEquipmentOperationSchemes"] = []
-        self._data["EnergyManagementSystem:Sensor"] = []
-        self._data["EnergyManagementSystem:Actuator"] = []
-        self._data["EnergyManagementSystem:ProgramCallingManager"] = []
-        self._data["EnergyManagementSystem:OutputVariable"] = []
-        self._data["EnergyManagementSystem:MeteredOutputVariable"] = []
-        self._data["EnergyManagementSystem:TrendVariable"] = []
-        self._data["EnergyManagementSystem:InternalVariable"] = []
-        self._data["EnergyManagementSystem:CurveOrTableIndexVariable"] = []
-        self._data["EnergyManagementSystem:ConstructionIndexVariable"] = []
-        self._data["ExternalInterface"] = []
-        self._data["ExternalInterface:Schedule"] = []
-        self._data["ExternalInterface:Variable"] = []
-        self._data["ExternalInterface:Actuator"] = []
-        self._data["ExternalInterface:FunctionalMockupUnitImport"] = []
+            "heatexchanger:desiccant:balancedflow:performancedatatype1"] = []
+        self._data["airloophvac:unitarysystem"] = []
+        self._data["unitarysystemperformance:heatpump:multispeed"] = []
+        self._data["airloophvac:unitary:furnace:heatonly"] = []
+        self._data["airloophvac:unitary:furnace:heatcool"] = []
+        self._data["airloophvac:unitaryheatonly"] = []
+        self._data["airloophvac:unitaryheatcool"] = []
+        self._data["airloophvac:unitaryheatpump:airtoair"] = []
+        self._data["airloophvac:unitaryheatpump:watertoair"] = []
+        self._data["airloophvac:unitaryheatcool:vavchangeoverbypass"] = []
+        self._data["airloophvac:unitaryheatpump:airtoair:multispeed"] = []
+        self._data["airconditioner:variablerefrigerantflow"] = []
+        self._data["zoneterminalunitlist"] = []
+        self._data["controller:watercoil"] = []
+        self._data["controller:outdoorair"] = []
+        self._data["controller:mechanicalventilation"] = []
+        self._data["airloophvac:controllerlist"] = []
+        self._data["airloophvac"] = []
+        self._data["airloophvac:outdoorairsystem:equipmentlist"] = []
+        self._data["airloophvac:outdoorairsystem"] = []
+        self._data["outdoorair:mixer"] = []
+        self._data["airloophvac:supplypath"] = []
+        self._data["airloophvac:returnpath"] = []
+        self._data["branch"] = []
+        self._data["connectorlist"] = []
+        self._data["outdoorair:node"] = []
+        self._data["pipe:adiabatic"] = []
+        self._data["pipe:adiabatic:steam"] = []
+        self._data["pipe:indoor"] = []
+        self._data["pipe:outdoor"] = []
+        self._data["pipe:underground"] = []
+        self._data["pipingsystem:underground:domain"] = []
+        self._data["pipingsystem:underground:pipecircuit"] = []
+        self._data["pipingsystem:underground:pipesegment"] = []
+        self._data["duct"] = []
+        self._data["pump:variablespeed"] = []
+        self._data["pump:constantspeed"] = []
+        self._data["pump:variablespeed:condensate"] = []
+        self._data["headeredpumps:constantspeed"] = []
+        self._data["temperingvalve"] = []
+        self._data["loadprofile:plant"] = []
+        self._data["solarcollectorperformance:flatplate"] = []
+        self._data["solarcollector:flatplate:water"] = []
+        self._data["solarcollectorperformance:photovoltaicthermal:simple"] = []
+        self._data["solarcollector:integralcollectorstorage"] = []
+        self._data["solarcollectorperformance:integralcollectorstorage"] = []
+        self._data["solarcollector:unglazedtranspired"] = []
+        self._data["solarcollector:unglazedtranspired:multisystem"] = []
+        self._data["boiler:hotwater"] = []
+        self._data["boiler:steam"] = []
+        self._data["chiller:electric:eir"] = []
+        self._data["chiller:electric:reformulatedeir"] = []
+        self._data["chiller:electric"] = []
+        self._data["chiller:absorption:indirect"] = []
+        self._data["chiller:absorption"] = []
+        self._data["chiller:constantcop"] = []
+        self._data["chiller:enginedriven"] = []
+        self._data["chiller:combustionturbine"] = []
+        self._data["chillerheater:absorption:directfired"] = []
+        self._data["chillerheater:absorption:doubleeffect"] = []
+        self._data["heatpump:watertowater:equationfit:heating"] = []
+        self._data["heatpump:watertowater:equationfit:cooling"] = []
+        self._data["heatpump:watertowater:parameterestimation:cooling"] = []
+        self._data["heatpump:watertowater:parameterestimation:heating"] = []
+        self._data["districtcooling"] = []
+        self._data["districtheating"] = []
+        self._data["plantcomponent:temperaturesource"] = []
+        self._data["centralheatpumpsystem"] = []
+        self._data["chillerheaterperformance:electric:eir"] = []
+        self._data["coolingtower:singlespeed"] = []
+        self._data["coolingtower:twospeed"] = []
+        self._data["coolingtower:variablespeed:merkel"] = []
+        self._data["coolingtower:variablespeed"] = []
+        self._data["coolingtowerperformance:cooltools"] = []
+        self._data["coolingtowerperformance:yorkcalc"] = []
+        self._data["evaporativefluidcooler:singlespeed"] = []
+        self._data["evaporativefluidcooler:twospeed"] = []
+        self._data["fluidcooler:singlespeed"] = []
+        self._data["fluidcooler:twospeed"] = []
+        self._data["groundheatexchanger:vertical"] = []
+        self._data["groundheatexchanger:pond"] = []
+        self._data["groundheatexchanger:surface"] = []
+        self._data["groundheatexchanger:horizontaltrench"] = []
+        self._data["heatexchanger:fluidtofluid"] = []
+        self._data["waterheater:mixed"] = []
+        self._data["waterheater:stratified"] = []
+        self._data["waterheater:sizing"] = []
+        self._data["waterheater:heatpump"] = []
+        self._data["thermalstorage:ice:simple"] = []
+        self._data["thermalstorage:ice:detailed"] = []
+        self._data["thermalstorage:chilledwater:mixed"] = []
+        self._data["thermalstorage:chilledwater:stratified"] = []
+        self._data["plantloop"] = []
+        self._data["condenserloop"] = []
+        self._data["plantequipmentlist"] = []
+        self._data["condenserequipmentlist"] = []
+        self._data["plantequipmentoperation:uncontrolled"] = []
+        self._data["plantequipmentoperation:coolingload"] = []
+        self._data["plantequipmentoperation:heatingload"] = []
+        self._data["plantequipmentoperation:outdoordrybulb"] = []
+        self._data["plantequipmentoperation:outdoorwetbulb"] = []
+        self._data["plantequipmentoperation:outdoorrelativehumidity"] = []
+        self._data["plantequipmentoperation:outdoordewpoint"] = []
+        self._data["plantequipmentoperation:componentsetpoint"] = []
+        self._data["plantequipmentoperation:outdoordrybulbdifference"] = []
+        self._data["plantequipmentoperation:outdoorwetbulbdifference"] = []
+        self._data["plantequipmentoperation:outdoordewpointdifference"] = []
+        self._data["plantequipmentoperationschemes"] = []
+        self._data["condenserequipmentoperationschemes"] = []
+        self._data["energymanagementsystem:sensor"] = []
+        self._data["energymanagementsystem:actuator"] = []
+        self._data["energymanagementsystem:programcallingmanager"] = []
+        self._data["energymanagementsystem:outputvariable"] = []
+        self._data["energymanagementsystem:meteredoutputvariable"] = []
+        self._data["energymanagementsystem:trendvariable"] = []
+        self._data["energymanagementsystem:internalvariable"] = []
+        self._data["energymanagementsystem:curveortableindexvariable"] = []
+        self._data["energymanagementsystem:constructionindexvariable"] = []
+        self._data["externalinterface"] = []
+        self._data["externalinterface:schedule"] = []
+        self._data["externalinterface:variable"] = []
+        self._data["externalinterface:actuator"] = []
+        self._data["externalinterface:functionalmockupunitimport"] = []
         self._data[
-            "ExternalInterface:FunctionalMockupUnitImport:From:Variable"] = []
+            "externalinterface:functionalmockupunitimport:from:variable"] = []
         self._data[
-            "ExternalInterface:FunctionalMockupUnitImport:To:Schedule"] = []
+            "externalinterface:functionalmockupunitimport:to:schedule"] = []
         self._data[
-            "ExternalInterface:FunctionalMockupUnitImport:To:Actuator"] = []
+            "externalinterface:functionalmockupunitimport:to:actuator"] = []
         self._data[
-            "ExternalInterface:FunctionalMockupUnitImport:To:Variable"] = []
+            "externalinterface:functionalmockupunitimport:to:variable"] = []
         self._data[
-            "ExternalInterface:FunctionalMockupUnitExport:From:Variable"] = []
+            "externalinterface:functionalmockupunitexport:from:variable"] = []
         self._data[
-            "ExternalInterface:FunctionalMockupUnitExport:To:Schedule"] = []
+            "externalinterface:functionalmockupunitexport:to:schedule"] = []
         self._data[
-            "ExternalInterface:FunctionalMockupUnitExport:To:Actuator"] = []
+            "externalinterface:functionalmockupunitexport:to:actuator"] = []
         self._data[
-            "ExternalInterface:FunctionalMockupUnitExport:To:Variable"] = []
-        self._data["ZoneHVAC:ForcedAir:UserDefined"] = []
-        self._data["AirTerminal:SingleDuct:UserDefined"] = []
-        self._data["Coil:UserDefined"] = []
-        self._data["PlantComponent:UserDefined"] = []
-        self._data["PlantEquipmentOperation:UserDefined"] = []
-        self._data["AvailabilityManager:Scheduled"] = []
-        self._data["AvailabilityManager:ScheduledOn"] = []
-        self._data["AvailabilityManager:ScheduledOff"] = []
-        self._data["AvailabilityManager:OptimumStart"] = []
-        self._data["AvailabilityManager:NightCycle"] = []
-        self._data["AvailabilityManager:DifferentialThermostat"] = []
-        self._data["AvailabilityManager:HighTemperatureTurnOff"] = []
-        self._data["AvailabilityManager:HighTemperatureTurnOn"] = []
-        self._data["AvailabilityManager:LowTemperatureTurnOff"] = []
-        self._data["AvailabilityManager:LowTemperatureTurnOn"] = []
-        self._data["AvailabilityManager:NightVentilation"] = []
-        self._data["AvailabilityManager:HybridVentilation"] = []
-        self._data["AvailabilityManagerAssignmentList"] = []
-        self._data["SetpointManager:Scheduled"] = []
-        self._data["SetpointManager:Scheduled:DualSetpoint"] = []
-        self._data["SetpointManager:OutdoorAirReset"] = []
-        self._data["SetpointManager:SingleZone:Reheat"] = []
-        self._data["SetpointManager:SingleZone:Heating"] = []
-        self._data["SetpointManager:SingleZone:Cooling"] = []
-        self._data["SetpointManager:SingleZone:Humidity:Minimum"] = []
-        self._data["SetpointManager:SingleZone:Humidity:Maximum"] = []
-        self._data["SetpointManager:MixedAir"] = []
-        self._data["SetpointManager:OutdoorAirPretreat"] = []
-        self._data["SetpointManager:Warmest"] = []
-        self._data["SetpointManager:Coldest"] = []
-        self._data["SetpointManager:ReturnAirBypassFlow"] = []
-        self._data["SetpointManager:WarmestTemperatureFlow"] = []
-        self._data["SetpointManager:MultiZone:Heating:Average"] = []
-        self._data["SetpointManager:MultiZone:Cooling:Average"] = []
-        self._data["SetpointManager:MultiZone:MinimumHumidity:Average"] = []
-        self._data["SetpointManager:MultiZone:MaximumHumidity:Average"] = []
-        self._data["SetpointManager:MultiZone:Humidity:Minimum"] = []
-        self._data["SetpointManager:MultiZone:Humidity:Maximum"] = []
-        self._data["SetpointManager:FollowOutdoorAirTemperature"] = []
-        self._data["SetpointManager:FollowSystemNodeTemperature"] = []
-        self._data["SetpointManager:FollowGroundTemperature"] = []
-        self._data["SetpointManager:CondenserEnteringReset"] = []
-        self._data["SetpointManager:CondenserEnteringReset:Ideal"] = []
-        self._data["SetpointManager:SingleZone:OneStageCooling"] = []
-        self._data["SetpointManager:SingleZone:OneStageHeating"] = []
-        self._data["Refrigeration:Case"] = []
-        self._data["Refrigeration:CompressorRack"] = []
-        self._data["Refrigeration:CaseAndWalkInList"] = []
-        self._data["Refrigeration:Condenser:AirCooled"] = []
-        self._data["Refrigeration:Condenser:EvaporativeCooled"] = []
-        self._data["Refrigeration:Condenser:WaterCooled"] = []
-        self._data["Refrigeration:Condenser:Cascade"] = []
-        self._data["Refrigeration:GasCooler:AirCooled"] = []
-        self._data["Refrigeration:TransferLoadList"] = []
-        self._data["Refrigeration:Subcooler"] = []
-        self._data["Refrigeration:Compressor"] = []
-        self._data["Refrigeration:CompressorList"] = []
-        self._data["Refrigeration:System"] = []
-        self._data["Refrigeration:TranscriticalSystem"] = []
-        self._data["Refrigeration:SecondarySystem"] = []
-        self._data["Refrigeration:WalkIn"] = []
-        self._data["Refrigeration:AirChiller"] = []
-        self._data["DemandManagerAssignmentList"] = []
-        self._data["DemandManager:ExteriorLights"] = []
-        self._data["DemandManager:Lights"] = []
-        self._data["DemandManager:ElectricEquipment"] = []
-        self._data["DemandManager:Thermostats"] = []
-        self._data["Generator:InternalCombustionEngine"] = []
-        self._data["Generator:CombustionTurbine"] = []
-        self._data["Generator:MicroTurbine"] = []
-        self._data["Generator:Photovoltaic"] = []
-        self._data["PhotovoltaicPerformance:Simple"] = []
-        self._data["PhotovoltaicPerformance:EquivalentOne-Diode"] = []
-        self._data["PhotovoltaicPerformance:Sandia"] = []
-        self._data["Generator:FuelCell"] = []
-        self._data["Generator:FuelCell:PowerModule"] = []
-        self._data["Generator:FuelCell:AirSupply"] = []
-        self._data["Generator:FuelCell:WaterSupply"] = []
-        self._data["Generator:FuelCell:AuxiliaryHeater"] = []
-        self._data["Generator:FuelCell:ExhaustGasToWaterHeatExchanger"] = []
-        self._data["Generator:FuelCell:ElectricalStorage"] = []
-        self._data["Generator:FuelCell:Inverter"] = []
-        self._data["Generator:FuelCell:StackCooler"] = []
-        self._data["Generator:MicroCHP"] = []
-        self._data["Generator:MicroCHP:NonNormalizedParameters"] = []
-        self._data["Generator:FuelSupply"] = []
-        self._data["Generator:WindTurbine"] = []
-        self._data["ElectricLoadCenter:Generators"] = []
-        self._data["ElectricLoadCenter:Inverter:Simple"] = []
-        self._data["ElectricLoadCenter:Inverter:FunctionOfPower"] = []
-        self._data["ElectricLoadCenter:Inverter:LookUpTable"] = []
-        self._data["ElectricLoadCenter:Storage:Simple"] = []
-        self._data["ElectricLoadCenter:Storage:Battery"] = []
-        self._data["ElectricLoadCenter:Transformer"] = []
-        self._data["ElectricLoadCenter:Distribution"] = []
-        self._data["WaterUse:Equipment"] = []
-        self._data["WaterUse:Connections"] = []
-        self._data["WaterUse:Storage"] = []
-        self._data["WaterUse:Well"] = []
-        self._data["WaterUse:RainCollector"] = []
-        self._data["FaultModel:TemperatureSensorOffset:OutdoorAir"] = []
-        self._data["FaultModel:HumiditySensorOffset:OutdoorAir"] = []
-        self._data["FaultModel:EnthalpySensorOffset:OutdoorAir"] = []
-        self._data["FaultModel:PressureSensorOffset:OutdoorAir"] = []
-        self._data["FaultModel:TemperatureSensorOffset:ReturnAir"] = []
-        self._data["FaultModel:EnthalpySensorOffset:ReturnAir"] = []
-        self._data["FaultModel:Fouling:Coil"] = []
-        self._data["Curve:Linear"] = []
-        self._data["Curve:QuadLinear"] = []
-        self._data["Curve:Quadratic"] = []
-        self._data["Curve:Cubic"] = []
-        self._data["Curve:Quartic"] = []
-        self._data["Curve:Exponent"] = []
-        self._data["Curve:Bicubic"] = []
-        self._data["Curve:Biquadratic"] = []
-        self._data["Curve:QuadraticLinear"] = []
-        self._data["Curve:Triquadratic"] = []
-        self._data["Curve:Functional:PressureDrop"] = []
-        self._data["Curve:FanPressureRise"] = []
-        self._data["Curve:ExponentialSkewNormal"] = []
-        self._data["Curve:Sigmoid"] = []
-        self._data["Curve:RectangularHyperbola1"] = []
-        self._data["Curve:RectangularHyperbola2"] = []
-        self._data["Curve:ExponentialDecay"] = []
-        self._data["Curve:DoubleExponentialDecay"] = []
-        self._data["FluidProperties:Name"] = []
-        self._data["FluidProperties:GlycolConcentration"] = []
-        self._data["FluidProperties:Temperatures"] = []
-        self._data["FluidProperties:Saturated"] = []
-        self._data["FluidProperties:Superheated"] = []
-        self._data["FluidProperties:Concentration"] = []
-        self._data["CurrencyType"] = []
-        self._data["ComponentCost:Adjustments"] = []
-        self._data["ComponentCost:Reference"] = []
-        self._data["ComponentCost:LineItem"] = []
-        self._data["UtilityCost:Tariff"] = []
-        self._data["UtilityCost:Qualify"] = []
-        self._data["UtilityCost:Charge:Simple"] = []
-        self._data["UtilityCost:Charge:Block"] = []
-        self._data["UtilityCost:Ratchet"] = []
-        self._data["UtilityCost:Variable"] = []
-        self._data["UtilityCost:Computation"] = []
-        self._data["LifeCycleCost:Parameters"] = []
-        self._data["LifeCycleCost:RecurringCosts"] = []
-        self._data["LifeCycleCost:NonrecurringCost"] = []
-        self._data["LifeCycleCost:UsePriceEscalation"] = []
-        self._data["LifeCycleCost:UseAdjustment"] = []
-        self._data["Parametric:SetValueForRun"] = []
-        self._data["Parametric:Logic"] = []
-        self._data["Parametric:RunControl"] = []
-        self._data["Parametric:FileNameSuffix"] = []
-        self._data["Output:VariableDictionary"] = []
-        self._data["Output:Surfaces:List"] = []
-        self._data["Output:Surfaces:Drawing"] = []
-        self._data["Output:Schedules"] = []
-        self._data["Output:Constructions"] = []
-        self._data["Output:EnergyManagementSystem"] = []
-        self._data["OutputControl:SurfaceColorScheme"] = []
-        self._data["Output:Table:SummaryReports"] = []
-        self._data["Output:Table:TimeBins"] = []
-        self._data["Output:Table:Monthly"] = []
-        self._data["OutputControl:Table:Style"] = []
-        self._data["OutputControl:ReportingTolerances"] = []
-        self._data["Output:Variable"] = []
-        self._data["Output:Meter"] = []
-        self._data["Output:Meter:MeterFileOnly"] = []
-        self._data["Output:Meter:Cumulative"] = []
-        self._data["Output:Meter:Cumulative:MeterFileOnly"] = []
-        self._data["Meter:Custom"] = []
-        self._data["Meter:CustomDecrement"] = []
-        self._data["Output:SQLite"] = []
-        self._data["Output:EnvironmentalImpactFactors"] = []
-        self._data["EnvironmentalImpactFactors"] = []
-        self._data["FuelFactors"] = []
-        self._data["Output:Diagnostics"] = []
-        self._data["Output:DebuggingData"] = []
-        self._data["Output:PreprocessorMessage"] = []
+            "externalinterface:functionalmockupunitexport:to:variable"] = []
+        self._data["zonehvac:forcedair:userdefined"] = []
+        self._data["airterminal:singleduct:userdefined"] = []
+        self._data["coil:userdefined"] = []
+        self._data["plantcomponent:userdefined"] = []
+        self._data["plantequipmentoperation:userdefined"] = []
+        self._data["availabilitymanager:scheduled"] = []
+        self._data["availabilitymanager:scheduledon"] = []
+        self._data["availabilitymanager:scheduledoff"] = []
+        self._data["availabilitymanager:optimumstart"] = []
+        self._data["availabilitymanager:nightcycle"] = []
+        self._data["availabilitymanager:differentialthermostat"] = []
+        self._data["availabilitymanager:hightemperatureturnoff"] = []
+        self._data["availabilitymanager:hightemperatureturnon"] = []
+        self._data["availabilitymanager:lowtemperatureturnoff"] = []
+        self._data["availabilitymanager:lowtemperatureturnon"] = []
+        self._data["availabilitymanager:nightventilation"] = []
+        self._data["availabilitymanager:hybridventilation"] = []
+        self._data["availabilitymanagerassignmentlist"] = []
+        self._data["setpointmanager:scheduled"] = []
+        self._data["setpointmanager:scheduled:dualsetpoint"] = []
+        self._data["setpointmanager:outdoorairreset"] = []
+        self._data["setpointmanager:singlezone:reheat"] = []
+        self._data["setpointmanager:singlezone:heating"] = []
+        self._data["setpointmanager:singlezone:cooling"] = []
+        self._data["setpointmanager:singlezone:humidity:minimum"] = []
+        self._data["setpointmanager:singlezone:humidity:maximum"] = []
+        self._data["setpointmanager:mixedair"] = []
+        self._data["setpointmanager:outdoorairpretreat"] = []
+        self._data["setpointmanager:warmest"] = []
+        self._data["setpointmanager:coldest"] = []
+        self._data["setpointmanager:returnairbypassflow"] = []
+        self._data["setpointmanager:warmesttemperatureflow"] = []
+        self._data["setpointmanager:multizone:heating:average"] = []
+        self._data["setpointmanager:multizone:cooling:average"] = []
+        self._data["setpointmanager:multizone:minimumhumidity:average"] = []
+        self._data["setpointmanager:multizone:maximumhumidity:average"] = []
+        self._data["setpointmanager:multizone:humidity:minimum"] = []
+        self._data["setpointmanager:multizone:humidity:maximum"] = []
+        self._data["setpointmanager:followoutdoorairtemperature"] = []
+        self._data["setpointmanager:followsystemnodetemperature"] = []
+        self._data["setpointmanager:followgroundtemperature"] = []
+        self._data["setpointmanager:condenserenteringreset"] = []
+        self._data["setpointmanager:condenserenteringreset:ideal"] = []
+        self._data["setpointmanager:singlezone:onestagecooling"] = []
+        self._data["setpointmanager:singlezone:onestageheating"] = []
+        self._data["refrigeration:case"] = []
+        self._data["refrigeration:compressorrack"] = []
+        self._data["refrigeration:caseandwalkinlist"] = []
+        self._data["refrigeration:condenser:aircooled"] = []
+        self._data["refrigeration:condenser:evaporativecooled"] = []
+        self._data["refrigeration:condenser:watercooled"] = []
+        self._data["refrigeration:condenser:cascade"] = []
+        self._data["refrigeration:gascooler:aircooled"] = []
+        self._data["refrigeration:transferloadlist"] = []
+        self._data["refrigeration:subcooler"] = []
+        self._data["refrigeration:compressor"] = []
+        self._data["refrigeration:compressorlist"] = []
+        self._data["refrigeration:system"] = []
+        self._data["refrigeration:transcriticalsystem"] = []
+        self._data["refrigeration:secondarysystem"] = []
+        self._data["refrigeration:walkin"] = []
+        self._data["refrigeration:airchiller"] = []
+        self._data["demandmanagerassignmentlist"] = []
+        self._data["demandmanager:exteriorlights"] = []
+        self._data["demandmanager:lights"] = []
+        self._data["demandmanager:electricequipment"] = []
+        self._data["demandmanager:thermostats"] = []
+        self._data["generator:internalcombustionengine"] = []
+        self._data["generator:combustionturbine"] = []
+        self._data["generator:microturbine"] = []
+        self._data["generator:photovoltaic"] = []
+        self._data["photovoltaicperformance:simple"] = []
+        self._data["photovoltaicperformance:equivalentone-diode"] = []
+        self._data["photovoltaicperformance:sandia"] = []
+        self._data["generator:fuelcell"] = []
+        self._data["generator:fuelcell:powermodule"] = []
+        self._data["generator:fuelcell:airsupply"] = []
+        self._data["generator:fuelcell:watersupply"] = []
+        self._data["generator:fuelcell:auxiliaryheater"] = []
+        self._data["generator:fuelcell:exhaustgastowaterheatexchanger"] = []
+        self._data["generator:fuelcell:electricalstorage"] = []
+        self._data["generator:fuelcell:inverter"] = []
+        self._data["generator:fuelcell:stackcooler"] = []
+        self._data["generator:microchp"] = []
+        self._data["generator:microchp:nonnormalizedparameters"] = []
+        self._data["generator:fuelsupply"] = []
+        self._data["generator:windturbine"] = []
+        self._data["electricloadcenter:generators"] = []
+        self._data["electricloadcenter:inverter:simple"] = []
+        self._data["electricloadcenter:inverter:functionofpower"] = []
+        self._data["electricloadcenter:inverter:lookuptable"] = []
+        self._data["electricloadcenter:storage:simple"] = []
+        self._data["electricloadcenter:storage:battery"] = []
+        self._data["electricloadcenter:transformer"] = []
+        self._data["electricloadcenter:distribution"] = []
+        self._data["wateruse:equipment"] = []
+        self._data["wateruse:connections"] = []
+        self._data["wateruse:storage"] = []
+        self._data["wateruse:well"] = []
+        self._data["wateruse:raincollector"] = []
+        self._data["faultmodel:temperaturesensoroffset:outdoorair"] = []
+        self._data["faultmodel:humiditysensoroffset:outdoorair"] = []
+        self._data["faultmodel:enthalpysensoroffset:outdoorair"] = []
+        self._data["faultmodel:pressuresensoroffset:outdoorair"] = []
+        self._data["faultmodel:temperaturesensoroffset:returnair"] = []
+        self._data["faultmodel:enthalpysensoroffset:returnair"] = []
+        self._data["faultmodel:fouling:coil"] = []
+        self._data["curve:linear"] = []
+        self._data["curve:quadlinear"] = []
+        self._data["curve:quadratic"] = []
+        self._data["curve:cubic"] = []
+        self._data["curve:quartic"] = []
+        self._data["curve:exponent"] = []
+        self._data["curve:bicubic"] = []
+        self._data["curve:biquadratic"] = []
+        self._data["curve:quadraticlinear"] = []
+        self._data["curve:triquadratic"] = []
+        self._data["curve:functional:pressuredrop"] = []
+        self._data["curve:fanpressurerise"] = []
+        self._data["curve:exponentialskewnormal"] = []
+        self._data["curve:sigmoid"] = []
+        self._data["curve:rectangularhyperbola1"] = []
+        self._data["curve:rectangularhyperbola2"] = []
+        self._data["curve:exponentialdecay"] = []
+        self._data["curve:doubleexponentialdecay"] = []
+        self._data["fluidproperties:name"] = []
+        self._data["fluidproperties:glycolconcentration"] = []
+        self._data["fluidproperties:temperatures"] = []
+        self._data["fluidproperties:saturated"] = []
+        self._data["fluidproperties:superheated"] = []
+        self._data["fluidproperties:concentration"] = []
+        self._data["currencytype"] = []
+        self._data["componentcost:adjustments"] = []
+        self._data["componentcost:reference"] = []
+        self._data["componentcost:lineitem"] = []
+        self._data["utilitycost:tariff"] = []
+        self._data["utilitycost:qualify"] = []
+        self._data["utilitycost:charge:simple"] = []
+        self._data["utilitycost:charge:block"] = []
+        self._data["utilitycost:ratchet"] = []
+        self._data["utilitycost:variable"] = []
+        self._data["utilitycost:computation"] = []
+        self._data["lifecyclecost:parameters"] = []
+        self._data["lifecyclecost:recurringcosts"] = []
+        self._data["lifecyclecost:nonrecurringcost"] = []
+        self._data["lifecyclecost:usepriceescalation"] = []
+        self._data["lifecyclecost:useadjustment"] = []
+        self._data["parametric:setvalueforrun"] = []
+        self._data["parametric:logic"] = []
+        self._data["parametric:runcontrol"] = []
+        self._data["parametric:filenamesuffix"] = []
+        self._data["output:variabledictionary"] = []
+        self._data["output:surfaces:list"] = []
+        self._data["output:surfaces:drawing"] = []
+        self._data["output:schedules"] = []
+        self._data["output:constructions"] = []
+        self._data["output:energymanagementsystem"] = []
+        self._data["outputcontrol:surfacecolorscheme"] = []
+        self._data["output:table:summaryreports"] = []
+        self._data["output:table:timebins"] = []
+        self._data["output:table:monthly"] = []
+        self._data["outputcontrol:table:style"] = []
+        self._data["outputcontrol:reportingtolerances"] = []
+        self._data["output:variable"] = []
+        self._data["output:meter"] = []
+        self._data["output:meter:meterfileonly"] = []
+        self._data["output:meter:cumulative"] = []
+        self._data["output:meter:cumulative:meterfileonly"] = []
+        self._data["meter:custom"] = []
+        self._data["meter:customdecrement"] = []
+        self._data["output:sqlite"] = []
+        self._data["output:environmentalimpactfactors"] = []
+        self._data["environmentalimpactfactors"] = []
+        self._data["fuelfactors"] = []
+        self._data["output:diagnostics"] = []
+        self._data["output:debuggingdata"] = []
+        self._data["output:preprocessormessage"] = []
 
     def set(self, data):
         self._data[data.internal_name].append(data)
@@ -875,1401 +875,1552 @@ class IDF(object):
             Raises:
                 ValueError: if `internal_name` cannot be matched to a data dictionary object
         """
-        if internal_name == "Lead Input":
+        if internal_name.lower() == "lead input":
             return LeadInput()
-        if internal_name == "Simulation Data":
+        if internal_name.lower() == "simulation data":
             return SimulationData()
-        if internal_name == "Version":
+        if internal_name.lower() == "version":
             return Version()
-        if internal_name == "SimulationControl":
+        if internal_name.lower() == "simulationcontrol":
             return SimulationControl()
-        if internal_name == "Building":
+        if internal_name.lower() == "building":
             return Building()
-        if internal_name == "ShadowCalculation":
+        if internal_name.lower() == "shadowcalculation":
             return ShadowCalculation()
-        if internal_name == "SurfaceConvectionAlgorithm:Inside":
+        if internal_name.lower() == "surfaceconvectionalgorithm:inside":
             return SurfaceConvectionAlgorithmInside()
-        if internal_name == "SurfaceConvectionAlgorithm:Outside":
+        if internal_name.lower() == "surfaceconvectionalgorithm:outside":
             return SurfaceConvectionAlgorithmOutside()
-        if internal_name == "HeatBalanceAlgorithm":
+        if internal_name.lower() == "heatbalancealgorithm":
             return HeatBalanceAlgorithm()
-        if internal_name == "HeatBalanceSettings:ConductionFiniteDifference":
+        if internal_name.lower(
+        ) == "heatbalancesettings:conductionfinitedifference":
             return HeatBalanceSettingsConductionFiniteDifference()
-        if internal_name == "ZoneAirHeatBalanceAlgorithm":
+        if internal_name.lower() == "zoneairheatbalancealgorithm":
             return ZoneAirHeatBalanceAlgorithm()
-        if internal_name == "ZoneAirContaminantBalance":
+        if internal_name.lower() == "zoneaircontaminantbalance":
             return ZoneAirContaminantBalance()
-        if internal_name == "ZoneAirMassFlowConservation":
+        if internal_name.lower() == "zoneairmassflowconservation":
             return ZoneAirMassFlowConservation()
-        if internal_name == "ZoneCapacitanceMultiplier:ResearchSpecial":
+        if internal_name.lower(
+        ) == "zonecapacitancemultiplier:researchspecial":
             return ZoneCapacitanceMultiplierResearchSpecial()
-        if internal_name == "Timestep":
+        if internal_name.lower() == "timestep":
             return Timestep()
-        if internal_name == "ConvergenceLimits":
+        if internal_name.lower() == "convergencelimits":
             return ConvergenceLimits()
-        if internal_name == "ProgramControl":
+        if internal_name.lower() == "programcontrol":
             return ProgramControl()
-        if internal_name == "Compliance:Building":
+        if internal_name.lower() == "compliance:building":
             return ComplianceBuilding()
-        if internal_name == "Site:Location":
+        if internal_name.lower() == "site:location":
             return SiteLocation()
-        if internal_name == "SizingPeriod:DesignDay":
+        if internal_name.lower() == "sizingperiod:designday":
             return SizingPeriodDesignDay()
-        if internal_name == "SizingPeriod:WeatherFileDays":
+        if internal_name.lower() == "sizingperiod:weatherfiledays":
             return SizingPeriodWeatherFileDays()
-        if internal_name == "SizingPeriod:WeatherFileConditionType":
+        if internal_name.lower() == "sizingperiod:weatherfileconditiontype":
             return SizingPeriodWeatherFileConditionType()
-        if internal_name == "RunPeriod":
+        if internal_name.lower() == "runperiod":
             return RunPeriod()
-        if internal_name == "RunPeriod:CustomRange":
+        if internal_name.lower() == "runperiod:customrange":
             return RunPeriodCustomRange()
-        if internal_name == "RunPeriodControl:SpecialDays":
+        if internal_name.lower() == "runperiodcontrol:specialdays":
             return RunPeriodControlSpecialDays()
-        if internal_name == "RunPeriodControl:DaylightSavingTime":
+        if internal_name.lower() == "runperiodcontrol:daylightsavingtime":
             return RunPeriodControlDaylightSavingTime()
-        if internal_name == "WeatherProperty:SkyTemperature":
+        if internal_name.lower() == "weatherproperty:skytemperature":
             return WeatherPropertySkyTemperature()
-        if internal_name == "Site:WeatherStation":
+        if internal_name.lower() == "site:weatherstation":
             return SiteWeatherStation()
-        if internal_name == "Site:HeightVariation":
+        if internal_name.lower() == "site:heightvariation":
             return SiteHeightVariation()
-        if internal_name == "Site:GroundTemperature:BuildingSurface":
+        if internal_name.lower() == "site:groundtemperature:buildingsurface":
             return SiteGroundTemperatureBuildingSurface()
-        if internal_name == "Site:GroundTemperature:FCfactorMethod":
+        if internal_name.lower() == "site:groundtemperature:fcfactormethod":
             return SiteGroundTemperatureFcfactorMethod()
-        if internal_name == "Site:GroundTemperature:Shallow":
+        if internal_name.lower() == "site:groundtemperature:shallow":
             return SiteGroundTemperatureShallow()
-        if internal_name == "Site:GroundTemperature:Deep":
+        if internal_name.lower() == "site:groundtemperature:deep":
             return SiteGroundTemperatureDeep()
-        if internal_name == "Site:GroundDomain":
+        if internal_name.lower() == "site:grounddomain":
             return SiteGroundDomain()
-        if internal_name == "Site:GroundReflectance":
+        if internal_name.lower() == "site:groundreflectance":
             return SiteGroundReflectance()
-        if internal_name == "Site:GroundReflectance:SnowModifier":
+        if internal_name.lower() == "site:groundreflectance:snowmodifier":
             return SiteGroundReflectanceSnowModifier()
-        if internal_name == "Site:WaterMainsTemperature":
+        if internal_name.lower() == "site:watermainstemperature":
             return SiteWaterMainsTemperature()
-        if internal_name == "Site:Precipitation":
+        if internal_name.lower() == "site:precipitation":
             return SitePrecipitation()
-        if internal_name == "RoofIrrigation":
+        if internal_name.lower() == "roofirrigation":
             return RoofIrrigation()
-        if internal_name == "Site:SolarAndVisibleSpectrum":
+        if internal_name.lower() == "site:solarandvisiblespectrum":
             return SiteSolarAndVisibleSpectrum()
-        if internal_name == "Site:SpectrumData":
+        if internal_name.lower() == "site:spectrumdata":
             return SiteSpectrumData()
-        if internal_name == "ScheduleTypeLimits":
+        if internal_name.lower() == "scheduletypelimits":
             return ScheduleTypeLimits()
-        if internal_name == "Schedule:Day:Hourly":
+        if internal_name.lower() == "schedule:day:hourly":
             return ScheduleDayHourly()
-        if internal_name == "Schedule:Day:Interval":
+        if internal_name.lower() == "schedule:day:interval":
             return ScheduleDayInterval()
-        if internal_name == "Schedule:Week:Daily":
+        if internal_name.lower() == "schedule:week:daily":
             return ScheduleWeekDaily()
-        if internal_name == "Schedule:Week:Compact":
+        if internal_name.lower() == "schedule:week:compact":
             return ScheduleWeekCompact()
-        if internal_name == "Schedule:Constant":
+        if internal_name.lower() == "schedule:constant":
             return ScheduleConstant()
-        if internal_name == "Schedule:File":
+        if internal_name.lower() == "schedule:file":
             return ScheduleFile()
-        if internal_name == "Material":
+        if internal_name.lower() == "material":
             return Material()
-        if internal_name == "Material:NoMass":
+        if internal_name.lower() == "material:nomass":
             return MaterialNoMass()
-        if internal_name == "Material:InfraredTransparent":
+        if internal_name.lower() == "material:infraredtransparent":
             return MaterialInfraredTransparent()
-        if internal_name == "Material:AirGap":
+        if internal_name.lower() == "material:airgap":
             return MaterialAirGap()
-        if internal_name == "Material:RoofVegetation":
+        if internal_name.lower() == "material:roofvegetation":
             return MaterialRoofVegetation()
-        if internal_name == "WindowMaterial:SimpleGlazingSystem":
+        if internal_name.lower() == "windowmaterial:simpleglazingsystem":
             return WindowMaterialSimpleGlazingSystem()
-        if internal_name == "WindowMaterial:Glazing":
+        if internal_name.lower() == "windowmaterial:glazing":
             return WindowMaterialGlazing()
-        if internal_name == "WindowMaterial:GlazingGroup:Thermochromic":
+        if internal_name.lower(
+        ) == "windowmaterial:glazinggroup:thermochromic":
             return WindowMaterialGlazingGroupThermochromic()
-        if internal_name == "WindowMaterial:Glazing:RefractionExtinctionMethod":
+        if internal_name.lower(
+        ) == "windowmaterial:glazing:refractionextinctionmethod":
             return WindowMaterialGlazingRefractionExtinctionMethod()
-        if internal_name == "WindowMaterial:Gas":
+        if internal_name.lower() == "windowmaterial:gas":
             return WindowMaterialGas()
-        if internal_name == "WindowGap:SupportPillar":
+        if internal_name.lower() == "windowgap:supportpillar":
             return WindowGapSupportPillar()
-        if internal_name == "WindowGap:DeflectionState":
+        if internal_name.lower() == "windowgap:deflectionstate":
             return WindowGapDeflectionState()
-        if internal_name == "WindowMaterial:GasMixture":
+        if internal_name.lower() == "windowmaterial:gasmixture":
             return WindowMaterialGasMixture()
-        if internal_name == "WindowMaterial:Gap":
+        if internal_name.lower() == "windowmaterial:gap":
             return WindowMaterialGap()
-        if internal_name == "WindowMaterial:Shade":
+        if internal_name.lower() == "windowmaterial:shade":
             return WindowMaterialShade()
-        if internal_name == "WindowMaterial:ComplexShade":
+        if internal_name.lower() == "windowmaterial:complexshade":
             return WindowMaterialComplexShade()
-        if internal_name == "WindowMaterial:Blind":
+        if internal_name.lower() == "windowmaterial:blind":
             return WindowMaterialBlind()
-        if internal_name == "WindowMaterial:Screen":
+        if internal_name.lower() == "windowmaterial:screen":
             return WindowMaterialScreen()
-        if internal_name == "WindowMaterial:Shade:EquivalentLayer":
+        if internal_name.lower() == "windowmaterial:shade:equivalentlayer":
             return WindowMaterialShadeEquivalentLayer()
-        if internal_name == "WindowMaterial:Drape:EquivalentLayer":
+        if internal_name.lower() == "windowmaterial:drape:equivalentlayer":
             return WindowMaterialDrapeEquivalentLayer()
-        if internal_name == "WindowMaterial:Blind:EquivalentLayer":
+        if internal_name.lower() == "windowmaterial:blind:equivalentlayer":
             return WindowMaterialBlindEquivalentLayer()
-        if internal_name == "WindowMaterial:Screen:EquivalentLayer":
+        if internal_name.lower() == "windowmaterial:screen:equivalentlayer":
             return WindowMaterialScreenEquivalentLayer()
-        if internal_name == "WindowMaterial:Glazing:EquivalentLayer":
+        if internal_name.lower() == "windowmaterial:glazing:equivalentlayer":
             return WindowMaterialGlazingEquivalentLayer()
-        if internal_name == "Construction:WindowEquivalentLayer":
+        if internal_name.lower() == "construction:windowequivalentlayer":
             return ConstructionWindowEquivalentLayer()
-        if internal_name == "WindowMaterial:Gap:EquivalentLayer":
+        if internal_name.lower() == "windowmaterial:gap:equivalentlayer":
             return WindowMaterialGapEquivalentLayer()
-        if internal_name == "MaterialProperty:MoisturePenetrationDepth:Settings":
+        if internal_name.lower(
+        ) == "materialproperty:moisturepenetrationdepth:settings":
             return MaterialPropertyMoisturePenetrationDepthSettings()
-        if internal_name == "MaterialProperty:PhaseChange":
+        if internal_name.lower() == "materialproperty:phasechange":
             return MaterialPropertyPhaseChange()
-        if internal_name == "MaterialProperty:VariableThermalConductivity":
+        if internal_name.lower(
+        ) == "materialproperty:variablethermalconductivity":
             return MaterialPropertyVariableThermalConductivity()
-        if internal_name == "MaterialProperty:HeatAndMoistureTransfer:Settings":
+        if internal_name.lower(
+        ) == "materialproperty:heatandmoisturetransfer:settings":
             return MaterialPropertyHeatAndMoistureTransferSettings()
-        if internal_name == "MaterialProperty:HeatAndMoistureTransfer:SorptionIsotherm":
+        if internal_name.lower(
+        ) == "materialproperty:heatandmoisturetransfer:sorptionisotherm":
             return MaterialPropertyHeatAndMoistureTransferSorptionIsotherm()
-        if internal_name == "MaterialProperty:HeatAndMoistureTransfer:Suction":
+        if internal_name.lower(
+        ) == "materialproperty:heatandmoisturetransfer:suction":
             return MaterialPropertyHeatAndMoistureTransferSuction()
-        if internal_name == "MaterialProperty:HeatAndMoistureTransfer:Redistribution":
+        if internal_name.lower(
+        ) == "materialproperty:heatandmoisturetransfer:redistribution":
             return MaterialPropertyHeatAndMoistureTransferRedistribution()
-        if internal_name == "MaterialProperty:HeatAndMoistureTransfer:Diffusion":
+        if internal_name.lower(
+        ) == "materialproperty:heatandmoisturetransfer:diffusion":
             return MaterialPropertyHeatAndMoistureTransferDiffusion()
-        if internal_name == "MaterialProperty:HeatAndMoistureTransfer:ThermalConductivity":
+        if internal_name.lower(
+        ) == "materialproperty:heatandmoisturetransfer:thermalconductivity":
             return MaterialPropertyHeatAndMoistureTransferThermalConductivity()
-        if internal_name == "Construction":
+        if internal_name.lower() == "construction":
             return Construction()
-        if internal_name == "Construction:CfactorUndergroundWall":
+        if internal_name.lower() == "construction:cfactorundergroundwall":
             return ConstructionCfactorUndergroundWall()
-        if internal_name == "Construction:FfactorGroundFloor":
+        if internal_name.lower() == "construction:ffactorgroundfloor":
             return ConstructionFfactorGroundFloor()
-        if internal_name == "Construction:InternalSource":
+        if internal_name.lower() == "construction:internalsource":
             return ConstructionInternalSource()
-        if internal_name == "WindowThermalModel:Params":
+        if internal_name.lower() == "windowthermalmodel:params":
             return WindowThermalModelParams()
-        if internal_name == "Construction:ComplexFenestrationState":
+        if internal_name.lower() == "construction:complexfenestrationstate":
             return ConstructionComplexFenestrationState()
-        if internal_name == "Construction:WindowDataFile":
+        if internal_name.lower() == "construction:windowdatafile":
             return ConstructionWindowDataFile()
-        if internal_name == "GlobalGeometryRules":
+        if internal_name.lower() == "globalgeometryrules":
             return GlobalGeometryRules()
-        if internal_name == "GeometryTransform":
+        if internal_name.lower() == "geometrytransform":
             return GeometryTransform()
-        if internal_name == "Zone":
+        if internal_name.lower() == "zone":
             return Zone()
-        if internal_name == "ZoneGroup":
+        if internal_name.lower() == "zonegroup":
             return ZoneGroup()
-        if internal_name == "BuildingSurface:Detailed":
+        if internal_name.lower() == "buildingsurface:detailed":
             return BuildingSurfaceDetailed()
-        if internal_name == "Wall:Detailed":
+        if internal_name.lower() == "wall:detailed":
             return WallDetailed()
-        if internal_name == "RoofCeiling:Detailed":
+        if internal_name.lower() == "roofceiling:detailed":
             return RoofCeilingDetailed()
-        if internal_name == "Floor:Detailed":
+        if internal_name.lower() == "floor:detailed":
             return FloorDetailed()
-        if internal_name == "Wall:Exterior":
+        if internal_name.lower() == "wall:exterior":
             return WallExterior()
-        if internal_name == "Wall:Adiabatic":
+        if internal_name.lower() == "wall:adiabatic":
             return WallAdiabatic()
-        if internal_name == "Wall:Underground":
+        if internal_name.lower() == "wall:underground":
             return WallUnderground()
-        if internal_name == "Wall:Interzone":
+        if internal_name.lower() == "wall:interzone":
             return WallInterzone()
-        if internal_name == "Roof":
+        if internal_name.lower() == "roof":
             return Roof()
-        if internal_name == "Ceiling:Adiabatic":
+        if internal_name.lower() == "ceiling:adiabatic":
             return CeilingAdiabatic()
-        if internal_name == "Ceiling:Interzone":
+        if internal_name.lower() == "ceiling:interzone":
             return CeilingInterzone()
-        if internal_name == "Floor:GroundContact":
+        if internal_name.lower() == "floor:groundcontact":
             return FloorGroundContact()
-        if internal_name == "Floor:Adiabatic":
+        if internal_name.lower() == "floor:adiabatic":
             return FloorAdiabatic()
-        if internal_name == "Floor:Interzone":
+        if internal_name.lower() == "floor:interzone":
             return FloorInterzone()
-        if internal_name == "FenestrationSurface:Detailed":
+        if internal_name.lower() == "fenestrationsurface:detailed":
             return FenestrationSurfaceDetailed()
-        if internal_name == "Window":
+        if internal_name.lower() == "window":
             return Window()
-        if internal_name == "Door":
+        if internal_name.lower() == "door":
             return Door()
-        if internal_name == "GlazedDoor":
+        if internal_name.lower() == "glazeddoor":
             return GlazedDoor()
-        if internal_name == "Window:Interzone":
+        if internal_name.lower() == "window:interzone":
             return WindowInterzone()
-        if internal_name == "Door:Interzone":
+        if internal_name.lower() == "door:interzone":
             return DoorInterzone()
-        if internal_name == "GlazedDoor:Interzone":
+        if internal_name.lower() == "glazeddoor:interzone":
             return GlazedDoorInterzone()
-        if internal_name == "WindowProperty:ShadingControl":
+        if internal_name.lower() == "windowproperty:shadingcontrol":
             return WindowPropertyShadingControl()
-        if internal_name == "WindowProperty:FrameAndDivider":
+        if internal_name.lower() == "windowproperty:frameanddivider":
             return WindowPropertyFrameAndDivider()
-        if internal_name == "WindowProperty:AirflowControl":
+        if internal_name.lower() == "windowproperty:airflowcontrol":
             return WindowPropertyAirflowControl()
-        if internal_name == "WindowProperty:StormWindow":
+        if internal_name.lower() == "windowproperty:stormwindow":
             return WindowPropertyStormWindow()
-        if internal_name == "InternalMass":
+        if internal_name.lower() == "internalmass":
             return InternalMass()
-        if internal_name == "Shading:Site":
+        if internal_name.lower() == "shading:site":
             return ShadingSite()
-        if internal_name == "Shading:Building":
+        if internal_name.lower() == "shading:building":
             return ShadingBuilding()
-        if internal_name == "Shading:Site:Detailed":
+        if internal_name.lower() == "shading:site:detailed":
             return ShadingSiteDetailed()
-        if internal_name == "Shading:Building:Detailed":
+        if internal_name.lower() == "shading:building:detailed":
             return ShadingBuildingDetailed()
-        if internal_name == "Shading:Overhang":
+        if internal_name.lower() == "shading:overhang":
             return ShadingOverhang()
-        if internal_name == "Shading:Overhang:Projection":
+        if internal_name.lower() == "shading:overhang:projection":
             return ShadingOverhangProjection()
-        if internal_name == "Shading:Fin":
+        if internal_name.lower() == "shading:fin":
             return ShadingFin()
-        if internal_name == "Shading:Fin:Projection":
+        if internal_name.lower() == "shading:fin:projection":
             return ShadingFinProjection()
-        if internal_name == "Shading:Zone:Detailed":
+        if internal_name.lower() == "shading:zone:detailed":
             return ShadingZoneDetailed()
-        if internal_name == "ShadingProperty:Reflectance":
+        if internal_name.lower() == "shadingproperty:reflectance":
             return ShadingPropertyReflectance()
-        if internal_name == "SurfaceProperty:HeatTransferAlgorithm":
+        if internal_name.lower() == "surfaceproperty:heattransferalgorithm":
             return SurfacePropertyHeatTransferAlgorithm()
-        if internal_name == "SurfaceProperty:HeatTransferAlgorithm:MultipleSurface":
+        if internal_name.lower(
+        ) == "surfaceproperty:heattransferalgorithm:multiplesurface":
             return SurfacePropertyHeatTransferAlgorithmMultipleSurface()
-        if internal_name == "SurfaceProperty:HeatTransferAlgorithm:SurfaceList":
+        if internal_name.lower(
+        ) == "surfaceproperty:heattransferalgorithm:surfacelist":
             return SurfacePropertyHeatTransferAlgorithmSurfaceList()
-        if internal_name == "SurfaceProperty:HeatTransferAlgorithm:Construction":
+        if internal_name.lower(
+        ) == "surfaceproperty:heattransferalgorithm:construction":
             return SurfacePropertyHeatTransferAlgorithmConstruction()
-        if internal_name == "SurfaceControl:MovableInsulation":
+        if internal_name.lower() == "surfacecontrol:movableinsulation":
             return SurfaceControlMovableInsulation()
-        if internal_name == "SurfaceProperty:OtherSideCoefficients":
+        if internal_name.lower() == "surfaceproperty:othersidecoefficients":
             return SurfacePropertyOtherSideCoefficients()
-        if internal_name == "SurfaceProperty:OtherSideConditionsModel":
+        if internal_name.lower() == "surfaceproperty:othersideconditionsmodel":
             return SurfacePropertyOtherSideConditionsModel()
-        if internal_name == "SurfaceConvectionAlgorithm:Inside:AdaptiveModelSelections":
+        if internal_name.lower(
+        ) == "surfaceconvectionalgorithm:inside:adaptivemodelselections":
             return SurfaceConvectionAlgorithmInsideAdaptiveModelSelections()
-        if internal_name == "SurfaceConvectionAlgorithm:Outside:AdaptiveModelSelections":
+        if internal_name.lower(
+        ) == "surfaceconvectionalgorithm:outside:adaptivemodelselections":
             return SurfaceConvectionAlgorithmOutsideAdaptiveModelSelections()
-        if internal_name == "SurfaceConvectionAlgorithm:Inside:UserCurve":
+        if internal_name.lower(
+        ) == "surfaceconvectionalgorithm:inside:usercurve":
             return SurfaceConvectionAlgorithmInsideUserCurve()
-        if internal_name == "SurfaceConvectionAlgorithm:Outside:UserCurve":
+        if internal_name.lower(
+        ) == "surfaceconvectionalgorithm:outside:usercurve":
             return SurfaceConvectionAlgorithmOutsideUserCurve()
-        if internal_name == "SurfaceProperty:ConvectionCoefficients":
+        if internal_name.lower() == "surfaceproperty:convectioncoefficients":
             return SurfacePropertyConvectionCoefficients()
-        if internal_name == "SurfaceProperty:ConvectionCoefficients:MultipleSurface":
+        if internal_name.lower(
+        ) == "surfaceproperty:convectioncoefficients:multiplesurface":
             return SurfacePropertyConvectionCoefficientsMultipleSurface()
-        if internal_name == "SurfaceProperties:VaporCoefficients":
+        if internal_name.lower() == "surfaceproperties:vaporcoefficients":
             return SurfacePropertiesVaporCoefficients()
-        if internal_name == "SurfaceProperty:ExteriorNaturalVentedCavity":
+        if internal_name.lower(
+        ) == "surfaceproperty:exteriornaturalventedcavity":
             return SurfacePropertyExteriorNaturalVentedCavity()
-        if internal_name == "SurfaceProperty:SolarIncidentInside":
+        if internal_name.lower() == "surfaceproperty:solarincidentinside":
             return SurfacePropertySolarIncidentInside()
-        if internal_name == "ComplexFenestrationProperty:SolarAbsorbedLayers":
+        if internal_name.lower(
+        ) == "complexfenestrationproperty:solarabsorbedlayers":
             return ComplexFenestrationPropertySolarAbsorbedLayers()
-        if internal_name == "ZoneProperty:UserViewFactors:bySurfaceName":
+        if internal_name.lower(
+        ) == "zoneproperty:userviewfactors:bysurfacename":
             return ZonePropertyUserViewFactorsBySurfaceName()
-        if internal_name == "GroundHeatTransfer:Control":
+        if internal_name.lower() == "groundheattransfer:control":
             return GroundHeatTransferControl()
-        if internal_name == "GroundHeatTransfer:Slab:Materials":
+        if internal_name.lower() == "groundheattransfer:slab:materials":
             return GroundHeatTransferSlabMaterials()
-        if internal_name == "GroundHeatTransfer:Slab:MatlProps":
+        if internal_name.lower() == "groundheattransfer:slab:matlprops":
             return GroundHeatTransferSlabMatlProps()
-        if internal_name == "GroundHeatTransfer:Slab:BoundConds":
+        if internal_name.lower() == "groundheattransfer:slab:boundconds":
             return GroundHeatTransferSlabBoundConds()
-        if internal_name == "GroundHeatTransfer:Slab:BldgProps":
+        if internal_name.lower() == "groundheattransfer:slab:bldgprops":
             return GroundHeatTransferSlabBldgProps()
-        if internal_name == "GroundHeatTransfer:Slab:Insulation":
+        if internal_name.lower() == "groundheattransfer:slab:insulation":
             return GroundHeatTransferSlabInsulation()
-        if internal_name == "GroundHeatTransfer:Slab:EquivalentSlab":
+        if internal_name.lower() == "groundheattransfer:slab:equivalentslab":
             return GroundHeatTransferSlabEquivalentSlab()
-        if internal_name == "GroundHeatTransfer:Slab:AutoGrid":
+        if internal_name.lower() == "groundheattransfer:slab:autogrid":
             return GroundHeatTransferSlabAutoGrid()
-        if internal_name == "GroundHeatTransfer:Slab:ManualGrid":
+        if internal_name.lower() == "groundheattransfer:slab:manualgrid":
             return GroundHeatTransferSlabManualGrid()
-        if internal_name == "GroundHeatTransfer:Basement:SimParameters":
+        if internal_name.lower(
+        ) == "groundheattransfer:basement:simparameters":
             return GroundHeatTransferBasementSimParameters()
-        if internal_name == "GroundHeatTransfer:Basement:MatlProps":
+        if internal_name.lower() == "groundheattransfer:basement:matlprops":
             return GroundHeatTransferBasementMatlProps()
-        if internal_name == "GroundHeatTransfer:Basement:Insulation":
+        if internal_name.lower() == "groundheattransfer:basement:insulation":
             return GroundHeatTransferBasementInsulation()
-        if internal_name == "GroundHeatTransfer:Basement:SurfaceProps":
+        if internal_name.lower() == "groundheattransfer:basement:surfaceprops":
             return GroundHeatTransferBasementSurfaceProps()
-        if internal_name == "GroundHeatTransfer:Basement:BldgData":
+        if internal_name.lower() == "groundheattransfer:basement:bldgdata":
             return GroundHeatTransferBasementBldgData()
-        if internal_name == "GroundHeatTransfer:Basement:Interior":
+        if internal_name.lower() == "groundheattransfer:basement:interior":
             return GroundHeatTransferBasementInterior()
-        if internal_name == "GroundHeatTransfer:Basement:ComBldg":
+        if internal_name.lower() == "groundheattransfer:basement:combldg":
             return GroundHeatTransferBasementComBldg()
-        if internal_name == "GroundHeatTransfer:Basement:EquivSlab":
+        if internal_name.lower() == "groundheattransfer:basement:equivslab":
             return GroundHeatTransferBasementEquivSlab()
-        if internal_name == "GroundHeatTransfer:Basement:EquivAutoGrid":
+        if internal_name.lower(
+        ) == "groundheattransfer:basement:equivautogrid":
             return GroundHeatTransferBasementEquivAutoGrid()
-        if internal_name == "GroundHeatTransfer:Basement:AutoGrid":
+        if internal_name.lower() == "groundheattransfer:basement:autogrid":
             return GroundHeatTransferBasementAutoGrid()
-        if internal_name == "GroundHeatTransfer:Basement:ManualGrid":
+        if internal_name.lower() == "groundheattransfer:basement:manualgrid":
             return GroundHeatTransferBasementManualGrid()
-        if internal_name == "RoomAirModelType":
+        if internal_name.lower() == "roomairmodeltype":
             return RoomAirModelType()
-        if internal_name == "RoomAir:TemperaturePattern:UserDefined":
+        if internal_name.lower() == "roomair:temperaturepattern:userdefined":
             return RoomAirTemperaturePatternUserDefined()
-        if internal_name == "RoomAir:TemperaturePattern:ConstantGradient":
+        if internal_name.lower(
+        ) == "roomair:temperaturepattern:constantgradient":
             return RoomAirTemperaturePatternConstantGradient()
-        if internal_name == "RoomAir:TemperaturePattern:TwoGradient":
+        if internal_name.lower() == "roomair:temperaturepattern:twogradient":
             return RoomAirTemperaturePatternTwoGradient()
-        if internal_name == "RoomAir:TemperaturePattern:NondimensionalHeight":
+        if internal_name.lower(
+        ) == "roomair:temperaturepattern:nondimensionalheight":
             return RoomAirTemperaturePatternNondimensionalHeight()
-        if internal_name == "RoomAir:TemperaturePattern:SurfaceMapping":
+        if internal_name.lower(
+        ) == "roomair:temperaturepattern:surfacemapping":
             return RoomAirTemperaturePatternSurfaceMapping()
-        if internal_name == "RoomAir:Node":
+        if internal_name.lower() == "roomair:node":
             return RoomAirNode()
-        if internal_name == "RoomAirSettings:OneNodeDisplacementVentilation":
+        if internal_name.lower(
+        ) == "roomairsettings:onenodedisplacementventilation":
             return RoomAirSettingsOneNodeDisplacementVentilation()
-        if internal_name == "RoomAirSettings:ThreeNodeDisplacementVentilation":
+        if internal_name.lower(
+        ) == "roomairsettings:threenodedisplacementventilation":
             return RoomAirSettingsThreeNodeDisplacementVentilation()
-        if internal_name == "RoomAirSettings:CrossVentilation":
+        if internal_name.lower() == "roomairsettings:crossventilation":
             return RoomAirSettingsCrossVentilation()
-        if internal_name == "RoomAirSettings:UnderFloorAirDistributionInterior":
+        if internal_name.lower(
+        ) == "roomairsettings:underfloorairdistributioninterior":
             return RoomAirSettingsUnderFloorAirDistributionInterior()
-        if internal_name == "RoomAirSettings:UnderFloorAirDistributionExterior":
+        if internal_name.lower(
+        ) == "roomairsettings:underfloorairdistributionexterior":
             return RoomAirSettingsUnderFloorAirDistributionExterior()
-        if internal_name == "People":
+        if internal_name.lower() == "people":
             return People()
-        if internal_name == "ComfortViewFactorAngles":
+        if internal_name.lower() == "comfortviewfactorangles":
             return ComfortViewFactorAngles()
-        if internal_name == "Lights":
+        if internal_name.lower() == "lights":
             return Lights()
-        if internal_name == "ElectricEquipment":
+        if internal_name.lower() == "electricequipment":
             return ElectricEquipment()
-        if internal_name == "GasEquipment":
+        if internal_name.lower() == "gasequipment":
             return GasEquipment()
-        if internal_name == "HotWaterEquipment":
+        if internal_name.lower() == "hotwaterequipment":
             return HotWaterEquipment()
-        if internal_name == "SteamEquipment":
+        if internal_name.lower() == "steamequipment":
             return SteamEquipment()
-        if internal_name == "OtherEquipment":
+        if internal_name.lower() == "otherequipment":
             return OtherEquipment()
-        if internal_name == "ZoneBaseboard:OutdoorTemperatureControlled":
+        if internal_name.lower(
+        ) == "zonebaseboard:outdoortemperaturecontrolled":
             return ZoneBaseboardOutdoorTemperatureControlled()
-        if internal_name == "ZoneContaminantSourceAndSink:CarbonDioxide":
+        if internal_name.lower(
+        ) == "zonecontaminantsourceandsink:carbondioxide":
             return ZoneContaminantSourceAndSinkCarbonDioxide()
-        if internal_name == "ZoneContaminantSourceAndSink:Generic:Constant":
+        if internal_name.lower(
+        ) == "zonecontaminantsourceandsink:generic:constant":
             return ZoneContaminantSourceAndSinkGenericConstant()
-        if internal_name == "SurfaceContaminantSourceAndSink:Generic:PressureDriven":
+        if internal_name.lower(
+        ) == "surfacecontaminantsourceandsink:generic:pressuredriven":
             return SurfaceContaminantSourceAndSinkGenericPressureDriven()
-        if internal_name == "ZoneContaminantSourceAndSink:Generic:CutoffModel":
+        if internal_name.lower(
+        ) == "zonecontaminantsourceandsink:generic:cutoffmodel":
             return ZoneContaminantSourceAndSinkGenericCutoffModel()
-        if internal_name == "ZoneContaminantSourceAndSink:Generic:DecaySource":
+        if internal_name.lower(
+        ) == "zonecontaminantsourceandsink:generic:decaysource":
             return ZoneContaminantSourceAndSinkGenericDecaySource()
-        if internal_name == "SurfaceContaminantSourceAndSink:Generic:BoundaryLayerDiffusion":
+        if internal_name.lower(
+        ) == "surfacecontaminantsourceandsink:generic:boundarylayerdiffusion":
             return SurfaceContaminantSourceAndSinkGenericBoundaryLayerDiffusion()
-        if internal_name == "SurfaceContaminantSourceAndSink:Generic:DepositionVelocitySink":
+        if internal_name.lower(
+        ) == "surfacecontaminantsourceandsink:generic:depositionvelocitysink":
             return SurfaceContaminantSourceAndSinkGenericDepositionVelocitySink()
-        if internal_name == "ZoneContaminantSourceAndSink:Generic:DepositionRateSink":
+        if internal_name.lower(
+        ) == "zonecontaminantsourceandsink:generic:depositionratesink":
             return ZoneContaminantSourceAndSinkGenericDepositionRateSink()
-        if internal_name == "Daylighting:Controls":
+        if internal_name.lower() == "daylighting:controls":
             return DaylightingControls()
-        if internal_name == "Daylighting:DELight:Controls":
+        if internal_name.lower() == "daylighting:delight:controls":
             return DaylightingDelightControls()
-        if internal_name == "Daylighting:DELight:ReferencePoint":
+        if internal_name.lower() == "daylighting:delight:referencepoint":
             return DaylightingDelightReferencePoint()
-        if internal_name == "Daylighting:DELight:ComplexFenestration":
+        if internal_name.lower() == "daylighting:delight:complexfenestration":
             return DaylightingDelightComplexFenestration()
-        if internal_name == "DaylightingDevice:Tubular":
+        if internal_name.lower() == "daylightingdevice:tubular":
             return DaylightingDeviceTubular()
-        if internal_name == "DaylightingDevice:Shelf":
+        if internal_name.lower() == "daylightingdevice:shelf":
             return DaylightingDeviceShelf()
-        if internal_name == "DaylightingDevice:LightWell":
+        if internal_name.lower() == "daylightingdevice:lightwell":
             return DaylightingDeviceLightWell()
-        if internal_name == "Output:DaylightFactors":
+        if internal_name.lower() == "output:daylightfactors":
             return OutputDaylightFactors()
-        if internal_name == "Output:IlluminanceMap":
+        if internal_name.lower() == "output:illuminancemap":
             return OutputIlluminanceMap()
-        if internal_name == "OutputControl:IlluminanceMap:Style":
+        if internal_name.lower() == "outputcontrol:illuminancemap:style":
             return OutputControlIlluminanceMapStyle()
-        if internal_name == "ZoneInfiltration:DesignFlowRate":
+        if internal_name.lower() == "zoneinfiltration:designflowrate":
             return ZoneInfiltrationDesignFlowRate()
-        if internal_name == "ZoneInfiltration:EffectiveLeakageArea":
+        if internal_name.lower() == "zoneinfiltration:effectiveleakagearea":
             return ZoneInfiltrationEffectiveLeakageArea()
-        if internal_name == "ZoneInfiltration:FlowCoefficient":
+        if internal_name.lower() == "zoneinfiltration:flowcoefficient":
             return ZoneInfiltrationFlowCoefficient()
-        if internal_name == "ZoneVentilation:DesignFlowRate":
+        if internal_name.lower() == "zoneventilation:designflowrate":
             return ZoneVentilationDesignFlowRate()
-        if internal_name == "ZoneVentilation:WindandStackOpenArea":
+        if internal_name.lower() == "zoneventilation:windandstackopenarea":
             return ZoneVentilationWindandStackOpenArea()
-        if internal_name == "ZoneAirBalance:OutdoorAir":
+        if internal_name.lower() == "zoneairbalance:outdoorair":
             return ZoneAirBalanceOutdoorAir()
-        if internal_name == "ZoneMixing":
+        if internal_name.lower() == "zonemixing":
             return ZoneMixing()
-        if internal_name == "ZoneCrossMixing":
+        if internal_name.lower() == "zonecrossmixing":
             return ZoneCrossMixing()
-        if internal_name == "ZoneRefrigerationDoorMixing":
+        if internal_name.lower() == "zonerefrigerationdoormixing":
             return ZoneRefrigerationDoorMixing()
-        if internal_name == "ZoneEarthtube":
+        if internal_name.lower() == "zoneearthtube":
             return ZoneEarthtube()
-        if internal_name == "ZoneCoolTower:Shower":
+        if internal_name.lower() == "zonecooltower:shower":
             return ZoneCoolTowerShower()
-        if internal_name == "ZoneThermalChimney":
+        if internal_name.lower() == "zonethermalchimney":
             return ZoneThermalChimney()
-        if internal_name == "AirflowNetwork:SimulationControl":
+        if internal_name.lower() == "airflownetwork:simulationcontrol":
             return AirflowNetworkSimulationControl()
-        if internal_name == "AirflowNetwork:MultiZone:Zone":
+        if internal_name.lower() == "airflownetwork:multizone:zone":
             return AirflowNetworkMultiZoneZone()
-        if internal_name == "AirflowNetwork:MultiZone:Surface":
+        if internal_name.lower() == "airflownetwork:multizone:surface":
             return AirflowNetworkMultiZoneSurface()
-        if internal_name == "AirflowNetwork:MultiZone:ReferenceCrackConditions":
+        if internal_name.lower(
+        ) == "airflownetwork:multizone:referencecrackconditions":
             return AirflowNetworkMultiZoneReferenceCrackConditions()
-        if internal_name == "AirflowNetwork:MultiZone:Surface:Crack":
+        if internal_name.lower() == "airflownetwork:multizone:surface:crack":
             return AirflowNetworkMultiZoneSurfaceCrack()
-        if internal_name == "AirflowNetwork:MultiZone:Surface:EffectiveLeakageArea":
+        if internal_name.lower(
+        ) == "airflownetwork:multizone:surface:effectiveleakagearea":
             return AirflowNetworkMultiZoneSurfaceEffectiveLeakageArea()
-        if internal_name == "AirflowNetwork:MultiZone:Component:DetailedOpening":
+        if internal_name.lower(
+        ) == "airflownetwork:multizone:component:detailedopening":
             return AirflowNetworkMultiZoneComponentDetailedOpening()
-        if internal_name == "AirflowNetwork:MultiZone:Component:SimpleOpening":
+        if internal_name.lower(
+        ) == "airflownetwork:multizone:component:simpleopening":
             return AirflowNetworkMultiZoneComponentSimpleOpening()
-        if internal_name == "AirflowNetwork:MultiZone:Component:HorizontalOpening":
+        if internal_name.lower(
+        ) == "airflownetwork:multizone:component:horizontalopening":
             return AirflowNetworkMultiZoneComponentHorizontalOpening()
-        if internal_name == "AirflowNetwork:MultiZone:Component:ZoneExhaustFan":
+        if internal_name.lower(
+        ) == "airflownetwork:multizone:component:zoneexhaustfan":
             return AirflowNetworkMultiZoneComponentZoneExhaustFan()
-        if internal_name == "AirflowNetwork:MultiZone:ExternalNode":
+        if internal_name.lower() == "airflownetwork:multizone:externalnode":
             return AirflowNetworkMultiZoneExternalNode()
-        if internal_name == "AirflowNetwork:MultiZone:WindPressureCoefficientArray":
+        if internal_name.lower(
+        ) == "airflownetwork:multizone:windpressurecoefficientarray":
             return AirflowNetworkMultiZoneWindPressureCoefficientArray()
-        if internal_name == "AirflowNetwork:MultiZone:WindPressureCoefficientValues":
+        if internal_name.lower(
+        ) == "airflownetwork:multizone:windpressurecoefficientvalues":
             return AirflowNetworkMultiZoneWindPressureCoefficientValues()
-        if internal_name == "AirflowNetwork:Distribution:Node":
+        if internal_name.lower() == "airflownetwork:distribution:node":
             return AirflowNetworkDistributionNode()
-        if internal_name == "AirflowNetwork:Distribution:Component:Leak":
+        if internal_name.lower(
+        ) == "airflownetwork:distribution:component:leak":
             return AirflowNetworkDistributionComponentLeak()
-        if internal_name == "AirflowNetwork:Distribution:Component:LeakageRatio":
+        if internal_name.lower(
+        ) == "airflownetwork:distribution:component:leakageratio":
             return AirflowNetworkDistributionComponentLeakageRatio()
-        if internal_name == "AirflowNetwork:Distribution:Component:Duct":
+        if internal_name.lower(
+        ) == "airflownetwork:distribution:component:duct":
             return AirflowNetworkDistributionComponentDuct()
-        if internal_name == "AirflowNetwork:Distribution:Component:Fan":
+        if internal_name.lower(
+        ) == "airflownetwork:distribution:component:fan":
             return AirflowNetworkDistributionComponentFan()
-        if internal_name == "AirflowNetwork:Distribution:Component:Coil":
+        if internal_name.lower(
+        ) == "airflownetwork:distribution:component:coil":
             return AirflowNetworkDistributionComponentCoil()
-        if internal_name == "AirflowNetwork:Distribution:Component:HeatExchanger":
+        if internal_name.lower(
+        ) == "airflownetwork:distribution:component:heatexchanger":
             return AirflowNetworkDistributionComponentHeatExchanger()
-        if internal_name == "AirflowNetwork:Distribution:Component:TerminalUnit":
+        if internal_name.lower(
+        ) == "airflownetwork:distribution:component:terminalunit":
             return AirflowNetworkDistributionComponentTerminalUnit()
-        if internal_name == "AirflowNetwork:Distribution:Component:ConstantPressureDrop":
+        if internal_name.lower(
+        ) == "airflownetwork:distribution:component:constantpressuredrop":
             return AirflowNetworkDistributionComponentConstantPressureDrop()
-        if internal_name == "AirflowNetwork:Distribution:Linkage":
+        if internal_name.lower() == "airflownetwork:distribution:linkage":
             return AirflowNetworkDistributionLinkage()
-        if internal_name == "Exterior:Lights":
+        if internal_name.lower() == "exterior:lights":
             return ExteriorLights()
-        if internal_name == "Exterior:FuelEquipment":
+        if internal_name.lower() == "exterior:fuelequipment":
             return ExteriorFuelEquipment()
-        if internal_name == "Exterior:WaterEquipment":
+        if internal_name.lower() == "exterior:waterequipment":
             return ExteriorWaterEquipment()
-        if internal_name == "HVACTemplate:Thermostat":
+        if internal_name.lower() == "hvactemplate:thermostat":
             return HvactemplateThermostat()
-        if internal_name == "HVACTemplate:Zone:IdealLoadsAirSystem":
+        if internal_name.lower() == "hvactemplate:zone:idealloadsairsystem":
             return HvactemplateZoneIdealLoadsAirSystem()
-        if internal_name == "HVACTemplate:Zone:BaseboardHeat":
+        if internal_name.lower() == "hvactemplate:zone:baseboardheat":
             return HvactemplateZoneBaseboardHeat()
-        if internal_name == "HVACTemplate:Zone:FanCoil":
+        if internal_name.lower() == "hvactemplate:zone:fancoil":
             return HvactemplateZoneFanCoil()
-        if internal_name == "HVACTemplate:Zone:PTAC":
+        if internal_name.lower() == "hvactemplate:zone:ptac":
             return HvactemplateZonePtac()
-        if internal_name == "HVACTemplate:Zone:PTHP":
+        if internal_name.lower() == "hvactemplate:zone:pthp":
             return HvactemplateZonePthp()
-        if internal_name == "HVACTemplate:Zone:WaterToAirHeatPump":
+        if internal_name.lower() == "hvactemplate:zone:watertoairheatpump":
             return HvactemplateZoneWaterToAirHeatPump()
-        if internal_name == "HVACTemplate:Zone:VRF":
+        if internal_name.lower() == "hvactemplate:zone:vrf":
             return HvactemplateZoneVrf()
-        if internal_name == "HVACTemplate:Zone:Unitary":
+        if internal_name.lower() == "hvactemplate:zone:unitary":
             return HvactemplateZoneUnitary()
-        if internal_name == "HVACTemplate:Zone:VAV":
+        if internal_name.lower() == "hvactemplate:zone:vav":
             return HvactemplateZoneVav()
-        if internal_name == "HVACTemplate:Zone:VAV:FanPowered":
+        if internal_name.lower() == "hvactemplate:zone:vav:fanpowered":
             return HvactemplateZoneVavFanPowered()
-        if internal_name == "HVACTemplate:Zone:VAV:HeatAndCool":
+        if internal_name.lower() == "hvactemplate:zone:vav:heatandcool":
             return HvactemplateZoneVavHeatAndCool()
-        if internal_name == "HVACTemplate:Zone:ConstantVolume":
+        if internal_name.lower() == "hvactemplate:zone:constantvolume":
             return HvactemplateZoneConstantVolume()
-        if internal_name == "HVACTemplate:Zone:DualDuct":
+        if internal_name.lower() == "hvactemplate:zone:dualduct":
             return HvactemplateZoneDualDuct()
-        if internal_name == "HVACTemplate:System:VRF":
+        if internal_name.lower() == "hvactemplate:system:vrf":
             return HvactemplateSystemVrf()
-        if internal_name == "HVACTemplate:System:Unitary":
+        if internal_name.lower() == "hvactemplate:system:unitary":
             return HvactemplateSystemUnitary()
-        if internal_name == "HVACTemplate:System:UnitaryHeatPump:AirToAir":
+        if internal_name.lower(
+        ) == "hvactemplate:system:unitaryheatpump:airtoair":
             return HvactemplateSystemUnitaryHeatPumpAirToAir()
-        if internal_name == "HVACTemplate:System:UnitarySystem":
+        if internal_name.lower() == "hvactemplate:system:unitarysystem":
             return HvactemplateSystemUnitarySystem()
-        if internal_name == "HVACTemplate:System:VAV":
+        if internal_name.lower() == "hvactemplate:system:vav":
             return HvactemplateSystemVav()
-        if internal_name == "HVACTemplate:System:PackagedVAV":
+        if internal_name.lower() == "hvactemplate:system:packagedvav":
             return HvactemplateSystemPackagedVav()
-        if internal_name == "HVACTemplate:System:ConstantVolume":
+        if internal_name.lower() == "hvactemplate:system:constantvolume":
             return HvactemplateSystemConstantVolume()
-        if internal_name == "HVACTemplate:System:DualDuct":
+        if internal_name.lower() == "hvactemplate:system:dualduct":
             return HvactemplateSystemDualDuct()
-        if internal_name == "HVACTemplate:System:DedicatedOutdoorAir":
+        if internal_name.lower() == "hvactemplate:system:dedicatedoutdoorair":
             return HvactemplateSystemDedicatedOutdoorAir()
-        if internal_name == "HVACTemplate:Plant:ChilledWaterLoop":
+        if internal_name.lower() == "hvactemplate:plant:chilledwaterloop":
             return HvactemplatePlantChilledWaterLoop()
-        if internal_name == "HVACTemplate:Plant:Chiller":
+        if internal_name.lower() == "hvactemplate:plant:chiller":
             return HvactemplatePlantChiller()
-        if internal_name == "HVACTemplate:Plant:Chiller:ObjectReference":
+        if internal_name.lower(
+        ) == "hvactemplate:plant:chiller:objectreference":
             return HvactemplatePlantChillerObjectReference()
-        if internal_name == "HVACTemplate:Plant:Tower":
+        if internal_name.lower() == "hvactemplate:plant:tower":
             return HvactemplatePlantTower()
-        if internal_name == "HVACTemplate:Plant:Tower:ObjectReference":
+        if internal_name.lower() == "hvactemplate:plant:tower:objectreference":
             return HvactemplatePlantTowerObjectReference()
-        if internal_name == "HVACTemplate:Plant:HotWaterLoop":
+        if internal_name.lower() == "hvactemplate:plant:hotwaterloop":
             return HvactemplatePlantHotWaterLoop()
-        if internal_name == "HVACTemplate:Plant:Boiler":
+        if internal_name.lower() == "hvactemplate:plant:boiler":
             return HvactemplatePlantBoiler()
-        if internal_name == "HVACTemplate:Plant:Boiler:ObjectReference":
+        if internal_name.lower(
+        ) == "hvactemplate:plant:boiler:objectreference":
             return HvactemplatePlantBoilerObjectReference()
-        if internal_name == "HVACTemplate:Plant:MixedWaterLoop":
+        if internal_name.lower() == "hvactemplate:plant:mixedwaterloop":
             return HvactemplatePlantMixedWaterLoop()
-        if internal_name == "DesignSpecification:OutdoorAir":
+        if internal_name.lower() == "designspecification:outdoorair":
             return DesignSpecificationOutdoorAir()
-        if internal_name == "DesignSpecification:ZoneAirDistribution":
+        if internal_name.lower() == "designspecification:zoneairdistribution":
             return DesignSpecificationZoneAirDistribution()
-        if internal_name == "Sizing:Parameters":
+        if internal_name.lower() == "sizing:parameters":
             return SizingParameters()
-        if internal_name == "Sizing:Zone":
+        if internal_name.lower() == "sizing:zone":
             return SizingZone()
-        if internal_name == "DesignSpecification:ZoneHVAC:Sizing":
+        if internal_name.lower() == "designspecification:zonehvac:sizing":
             return DesignSpecificationZoneHvacSizing()
-        if internal_name == "Sizing:System":
+        if internal_name.lower() == "sizing:system":
             return SizingSystem()
-        if internal_name == "Sizing:Plant":
+        if internal_name.lower() == "sizing:plant":
             return SizingPlant()
-        if internal_name == "OutputControl:Sizing:Style":
+        if internal_name.lower() == "outputcontrol:sizing:style":
             return OutputControlSizingStyle()
-        if internal_name == "ZoneControl:Humidistat":
+        if internal_name.lower() == "zonecontrol:humidistat":
             return ZoneControlHumidistat()
-        if internal_name == "ZoneControl:Thermostat":
+        if internal_name.lower() == "zonecontrol:thermostat":
             return ZoneControlThermostat()
-        if internal_name == "ZoneControl:Thermostat:OperativeTemperature":
+        if internal_name.lower(
+        ) == "zonecontrol:thermostat:operativetemperature":
             return ZoneControlThermostatOperativeTemperature()
-        if internal_name == "ZoneControl:Thermostat:ThermalComfort":
+        if internal_name.lower() == "zonecontrol:thermostat:thermalcomfort":
             return ZoneControlThermostatThermalComfort()
-        if internal_name == "ZoneControl:Thermostat:TemperatureAndHumidity":
+        if internal_name.lower(
+        ) == "zonecontrol:thermostat:temperatureandhumidity":
             return ZoneControlThermostatTemperatureAndHumidity()
-        if internal_name == "ThermostatSetpoint:SingleHeating":
+        if internal_name.lower() == "thermostatsetpoint:singleheating":
             return ThermostatSetpointSingleHeating()
-        if internal_name == "ThermostatSetpoint:SingleCooling":
+        if internal_name.lower() == "thermostatsetpoint:singlecooling":
             return ThermostatSetpointSingleCooling()
-        if internal_name == "ThermostatSetpoint:SingleHeatingOrCooling":
+        if internal_name.lower(
+        ) == "thermostatsetpoint:singleheatingorcooling":
             return ThermostatSetpointSingleHeatingOrCooling()
-        if internal_name == "ThermostatSetpoint:DualSetpoint":
+        if internal_name.lower() == "thermostatsetpoint:dualsetpoint":
             return ThermostatSetpointDualSetpoint()
-        if internal_name == "ThermostatSetpoint:ThermalComfort:Fanger:SingleHeating":
+        if internal_name.lower(
+        ) == "thermostatsetpoint:thermalcomfort:fanger:singleheating":
             return ThermostatSetpointThermalComfortFangerSingleHeating()
-        if internal_name == "ThermostatSetpoint:ThermalComfort:Fanger:SingleCooling":
+        if internal_name.lower(
+        ) == "thermostatsetpoint:thermalcomfort:fanger:singlecooling":
             return ThermostatSetpointThermalComfortFangerSingleCooling()
-        if internal_name == "ThermostatSetpoint:ThermalComfort:Fanger:SingleHeatingOrCooling":
+        if internal_name.lower(
+        ) == "thermostatsetpoint:thermalcomfort:fanger:singleheatingorcooling":
             return ThermostatSetpointThermalComfortFangerSingleHeatingOrCooling()
-        if internal_name == "ThermostatSetpoint:ThermalComfort:Fanger:DualSetpoint":
+        if internal_name.lower(
+        ) == "thermostatsetpoint:thermalcomfort:fanger:dualsetpoint":
             return ThermostatSetpointThermalComfortFangerDualSetpoint()
-        if internal_name == "ZoneControl:Thermostat:StagedDualSetpoint":
+        if internal_name.lower(
+        ) == "zonecontrol:thermostat:stageddualsetpoint":
             return ZoneControlThermostatStagedDualSetpoint()
-        if internal_name == "ZoneControl:ContaminantController":
+        if internal_name.lower() == "zonecontrol:contaminantcontroller":
             return ZoneControlContaminantController()
-        if internal_name == "ZoneHVAC:IdealLoadsAirSystem":
+        if internal_name.lower() == "zonehvac:idealloadsairsystem":
             return ZoneHvacIdealLoadsAirSystem()
-        if internal_name == "ZoneHVAC:FourPipeFanCoil":
+        if internal_name.lower() == "zonehvac:fourpipefancoil":
             return ZoneHvacFourPipeFanCoil()
-        if internal_name == "ZoneHVAC:WindowAirConditioner":
+        if internal_name.lower() == "zonehvac:windowairconditioner":
             return ZoneHvacWindowAirConditioner()
-        if internal_name == "ZoneHVAC:PackagedTerminalAirConditioner":
+        if internal_name.lower() == "zonehvac:packagedterminalairconditioner":
             return ZoneHvacPackagedTerminalAirConditioner()
-        if internal_name == "ZoneHVAC:PackagedTerminalHeatPump":
+        if internal_name.lower() == "zonehvac:packagedterminalheatpump":
             return ZoneHvacPackagedTerminalHeatPump()
-        if internal_name == "ZoneHVAC:WaterToAirHeatPump":
+        if internal_name.lower() == "zonehvac:watertoairheatpump":
             return ZoneHvacWaterToAirHeatPump()
-        if internal_name == "ZoneHVAC:Dehumidifier:DX":
+        if internal_name.lower() == "zonehvac:dehumidifier:dx":
             return ZoneHvacDehumidifierDx()
-        if internal_name == "ZoneHVAC:EnergyRecoveryVentilator":
+        if internal_name.lower() == "zonehvac:energyrecoveryventilator":
             return ZoneHvacEnergyRecoveryVentilator()
-        if internal_name == "ZoneHVAC:EnergyRecoveryVentilator:Controller":
+        if internal_name.lower(
+        ) == "zonehvac:energyrecoveryventilator:controller":
             return ZoneHvacEnergyRecoveryVentilatorController()
-        if internal_name == "ZoneHVAC:UnitVentilator":
+        if internal_name.lower() == "zonehvac:unitventilator":
             return ZoneHvacUnitVentilator()
-        if internal_name == "ZoneHVAC:UnitHeater":
+        if internal_name.lower() == "zonehvac:unitheater":
             return ZoneHvacUnitHeater()
-        if internal_name == "ZoneHVAC:EvaporativeCoolerUnit":
+        if internal_name.lower() == "zonehvac:evaporativecoolerunit":
             return ZoneHvacEvaporativeCoolerUnit()
-        if internal_name == "ZoneHVAC:OutdoorAirUnit":
+        if internal_name.lower() == "zonehvac:outdoorairunit":
             return ZoneHvacOutdoorAirUnit()
-        if internal_name == "ZoneHVAC:OutdoorAirUnit:EquipmentList":
+        if internal_name.lower() == "zonehvac:outdoorairunit:equipmentlist":
             return ZoneHvacOutdoorAirUnitEquipmentList()
-        if internal_name == "ZoneHVAC:TerminalUnit:VariableRefrigerantFlow":
+        if internal_name.lower(
+        ) == "zonehvac:terminalunit:variablerefrigerantflow":
             return ZoneHvacTerminalUnitVariableRefrigerantFlow()
-        if internal_name == "ZoneHVAC:Baseboard:RadiantConvective:Water":
+        if internal_name.lower(
+        ) == "zonehvac:baseboard:radiantconvective:water":
             return ZoneHvacBaseboardRadiantConvectiveWater()
-        if internal_name == "ZoneHVAC:Baseboard:RadiantConvective:Steam":
+        if internal_name.lower(
+        ) == "zonehvac:baseboard:radiantconvective:steam":
             return ZoneHvacBaseboardRadiantConvectiveSteam()
-        if internal_name == "ZoneHVAC:Baseboard:RadiantConvective:Electric":
+        if internal_name.lower(
+        ) == "zonehvac:baseboard:radiantconvective:electric":
             return ZoneHvacBaseboardRadiantConvectiveElectric()
-        if internal_name == "ZoneHVAC:Baseboard:Convective:Water":
+        if internal_name.lower() == "zonehvac:baseboard:convective:water":
             return ZoneHvacBaseboardConvectiveWater()
-        if internal_name == "ZoneHVAC:Baseboard:Convective:Electric":
+        if internal_name.lower() == "zonehvac:baseboard:convective:electric":
             return ZoneHvacBaseboardConvectiveElectric()
-        if internal_name == "ZoneHVAC:LowTemperatureRadiant:VariableFlow":
+        if internal_name.lower(
+        ) == "zonehvac:lowtemperatureradiant:variableflow":
             return ZoneHvacLowTemperatureRadiantVariableFlow()
-        if internal_name == "ZoneHVAC:LowTemperatureRadiant:ConstantFlow":
+        if internal_name.lower(
+        ) == "zonehvac:lowtemperatureradiant:constantflow":
             return ZoneHvacLowTemperatureRadiantConstantFlow()
-        if internal_name == "ZoneHVAC:LowTemperatureRadiant:Electric":
+        if internal_name.lower() == "zonehvac:lowtemperatureradiant:electric":
             return ZoneHvacLowTemperatureRadiantElectric()
-        if internal_name == "ZoneHVAC:LowTemperatureRadiant:SurfaceGroup":
+        if internal_name.lower(
+        ) == "zonehvac:lowtemperatureradiant:surfacegroup":
             return ZoneHvacLowTemperatureRadiantSurfaceGroup()
-        if internal_name == "ZoneHVAC:HighTemperatureRadiant":
+        if internal_name.lower() == "zonehvac:hightemperatureradiant":
             return ZoneHvacHighTemperatureRadiant()
-        if internal_name == "ZoneHVAC:VentilatedSlab":
+        if internal_name.lower() == "zonehvac:ventilatedslab":
             return ZoneHvacVentilatedSlab()
-        if internal_name == "ZoneHVAC:VentilatedSlab:SlabGroup":
+        if internal_name.lower() == "zonehvac:ventilatedslab:slabgroup":
             return ZoneHvacVentilatedSlabSlabGroup()
-        if internal_name == "AirTerminal:SingleDuct:Uncontrolled":
+        if internal_name.lower() == "airterminal:singleduct:uncontrolled":
             return AirTerminalSingleDuctUncontrolled()
-        if internal_name == "AirTerminal:SingleDuct:ConstantVolume:Reheat":
+        if internal_name.lower(
+        ) == "airterminal:singleduct:constantvolume:reheat":
             return AirTerminalSingleDuctConstantVolumeReheat()
-        if internal_name == "AirTerminal:SingleDuct:VAV:NoReheat":
+        if internal_name.lower() == "airterminal:singleduct:vav:noreheat":
             return AirTerminalSingleDuctVavNoReheat()
-        if internal_name == "AirTerminal:SingleDuct:VAV:Reheat":
+        if internal_name.lower() == "airterminal:singleduct:vav:reheat":
             return AirTerminalSingleDuctVavReheat()
-        if internal_name == "AirTerminal:SingleDuct:VAV:Reheat:VariableSpeedFan":
+        if internal_name.lower(
+        ) == "airterminal:singleduct:vav:reheat:variablespeedfan":
             return AirTerminalSingleDuctVavReheatVariableSpeedFan()
-        if internal_name == "AirTerminal:SingleDuct:VAV:HeatAndCool:NoReheat":
+        if internal_name.lower(
+        ) == "airterminal:singleduct:vav:heatandcool:noreheat":
             return AirTerminalSingleDuctVavHeatAndCoolNoReheat()
-        if internal_name == "AirTerminal:SingleDuct:VAV:HeatAndCool:Reheat":
+        if internal_name.lower(
+        ) == "airterminal:singleduct:vav:heatandcool:reheat":
             return AirTerminalSingleDuctVavHeatAndCoolReheat()
-        if internal_name == "AirTerminal:SingleDuct:SeriesPIU:Reheat":
+        if internal_name.lower() == "airterminal:singleduct:seriespiu:reheat":
             return AirTerminalSingleDuctSeriesPiuReheat()
-        if internal_name == "AirTerminal:SingleDuct:ParallelPIU:Reheat":
+        if internal_name.lower(
+        ) == "airterminal:singleduct:parallelpiu:reheat":
             return AirTerminalSingleDuctParallelPiuReheat()
-        if internal_name == "AirTerminal:SingleDuct:ConstantVolume:FourPipeInduction":
+        if internal_name.lower(
+        ) == "airterminal:singleduct:constantvolume:fourpipeinduction":
             return AirTerminalSingleDuctConstantVolumeFourPipeInduction()
-        if internal_name == "AirTerminal:SingleDuct:ConstantVolume:CooledBeam":
+        if internal_name.lower(
+        ) == "airterminal:singleduct:constantvolume:cooledbeam":
             return AirTerminalSingleDuctConstantVolumeCooledBeam()
-        if internal_name == "AirTerminal:SingleDuct:InletSideMixer":
+        if internal_name.lower() == "airterminal:singleduct:inletsidemixer":
             return AirTerminalSingleDuctInletSideMixer()
-        if internal_name == "AirTerminal:SingleDuct:SupplySideMixer":
+        if internal_name.lower() == "airterminal:singleduct:supplysidemixer":
             return AirTerminalSingleDuctSupplySideMixer()
-        if internal_name == "AirTerminal:DualDuct:ConstantVolume":
+        if internal_name.lower() == "airterminal:dualduct:constantvolume":
             return AirTerminalDualDuctConstantVolume()
-        if internal_name == "AirTerminal:DualDuct:VAV":
+        if internal_name.lower() == "airterminal:dualduct:vav":
             return AirTerminalDualDuctVav()
-        if internal_name == "AirTerminal:DualDuct:VAV:OutdoorAir":
+        if internal_name.lower() == "airterminal:dualduct:vav:outdoorair":
             return AirTerminalDualDuctVavOutdoorAir()
-        if internal_name == "ZoneHVAC:AirDistributionUnit":
+        if internal_name.lower() == "zonehvac:airdistributionunit":
             return ZoneHvacAirDistributionUnit()
-        if internal_name == "ZoneHVAC:EquipmentList":
+        if internal_name.lower() == "zonehvac:equipmentlist":
             return ZoneHvacEquipmentList()
-        if internal_name == "ZoneHVAC:EquipmentConnections":
+        if internal_name.lower() == "zonehvac:equipmentconnections":
             return ZoneHvacEquipmentConnections()
-        if internal_name == "Fan:ConstantVolume":
+        if internal_name.lower() == "fan:constantvolume":
             return FanConstantVolume()
-        if internal_name == "Fan:VariableVolume":
+        if internal_name.lower() == "fan:variablevolume":
             return FanVariableVolume()
-        if internal_name == "Fan:OnOff":
+        if internal_name.lower() == "fan:onoff":
             return FanOnOff()
-        if internal_name == "Fan:ZoneExhaust":
+        if internal_name.lower() == "fan:zoneexhaust":
             return FanZoneExhaust()
-        if internal_name == "FanPerformance:NightVentilation":
+        if internal_name.lower() == "fanperformance:nightventilation":
             return FanPerformanceNightVentilation()
-        if internal_name == "Fan:ComponentModel":
+        if internal_name.lower() == "fan:componentmodel":
             return FanComponentModel()
-        if internal_name == "Coil:Cooling:Water":
+        if internal_name.lower() == "coil:cooling:water":
             return CoilCoolingWater()
-        if internal_name == "Coil:Cooling:Water:DetailedGeometry":
+        if internal_name.lower() == "coil:cooling:water:detailedgeometry":
             return CoilCoolingWaterDetailedGeometry()
-        if internal_name == "Coil:Cooling:DX:SingleSpeed":
+        if internal_name.lower() == "coil:cooling:dx:singlespeed":
             return CoilCoolingDxSingleSpeed()
-        if internal_name == "Coil:Cooling:DX:TwoSpeed":
+        if internal_name.lower() == "coil:cooling:dx:twospeed":
             return CoilCoolingDxTwoSpeed()
-        if internal_name == "Coil:Cooling:DX:MultiSpeed":
+        if internal_name.lower() == "coil:cooling:dx:multispeed":
             return CoilCoolingDxMultiSpeed()
-        if internal_name == "Coil:Cooling:DX:VariableSpeed":
+        if internal_name.lower() == "coil:cooling:dx:variablespeed":
             return CoilCoolingDxVariableSpeed()
-        if internal_name == "Coil:Cooling:DX:TwoStageWithHumidityControlMode":
+        if internal_name.lower(
+        ) == "coil:cooling:dx:twostagewithhumiditycontrolmode":
             return CoilCoolingDxTwoStageWithHumidityControlMode()
-        if internal_name == "CoilPerformance:DX:Cooling":
+        if internal_name.lower() == "coilperformance:dx:cooling":
             return CoilPerformanceDxCooling()
-        if internal_name == "Coil:Cooling:DX:VariableRefrigerantFlow":
+        if internal_name.lower() == "coil:cooling:dx:variablerefrigerantflow":
             return CoilCoolingDxVariableRefrigerantFlow()
-        if internal_name == "Coil:Heating:DX:VariableRefrigerantFlow":
+        if internal_name.lower() == "coil:heating:dx:variablerefrigerantflow":
             return CoilHeatingDxVariableRefrigerantFlow()
-        if internal_name == "Coil:Heating:Water":
+        if internal_name.lower() == "coil:heating:water":
             return CoilHeatingWater()
-        if internal_name == "Coil:Heating:Steam":
+        if internal_name.lower() == "coil:heating:steam":
             return CoilHeatingSteam()
-        if internal_name == "Coil:Heating:Electric":
+        if internal_name.lower() == "coil:heating:electric":
             return CoilHeatingElectric()
-        if internal_name == "Coil:Heating:Electric:MultiStage":
+        if internal_name.lower() == "coil:heating:electric:multistage":
             return CoilHeatingElectricMultiStage()
-        if internal_name == "Coil:Heating:Gas":
+        if internal_name.lower() == "coil:heating:gas":
             return CoilHeatingGas()
-        if internal_name == "Coil:Heating:Gas:MultiStage":
+        if internal_name.lower() == "coil:heating:gas:multistage":
             return CoilHeatingGasMultiStage()
-        if internal_name == "Coil:Heating:Desuperheater":
+        if internal_name.lower() == "coil:heating:desuperheater":
             return CoilHeatingDesuperheater()
-        if internal_name == "Coil:Heating:DX:SingleSpeed":
+        if internal_name.lower() == "coil:heating:dx:singlespeed":
             return CoilHeatingDxSingleSpeed()
-        if internal_name == "Coil:Heating:DX:MultiSpeed":
+        if internal_name.lower() == "coil:heating:dx:multispeed":
             return CoilHeatingDxMultiSpeed()
-        if internal_name == "Coil:Heating:DX:VariableSpeed":
+        if internal_name.lower() == "coil:heating:dx:variablespeed":
             return CoilHeatingDxVariableSpeed()
-        if internal_name == "Coil:Cooling:WaterToAirHeatPump:ParameterEstimation":
+        if internal_name.lower(
+        ) == "coil:cooling:watertoairheatpump:parameterestimation":
             return CoilCoolingWaterToAirHeatPumpParameterEstimation()
-        if internal_name == "Coil:Heating:WaterToAirHeatPump:ParameterEstimation":
+        if internal_name.lower(
+        ) == "coil:heating:watertoairheatpump:parameterestimation":
             return CoilHeatingWaterToAirHeatPumpParameterEstimation()
-        if internal_name == "Coil:Cooling:WaterToAirHeatPump:EquationFit":
+        if internal_name.lower(
+        ) == "coil:cooling:watertoairheatpump:equationfit":
             return CoilCoolingWaterToAirHeatPumpEquationFit()
-        if internal_name == "Coil:Cooling:WaterToAirHeatPump:VariableSpeedEquationFit":
+        if internal_name.lower(
+        ) == "coil:cooling:watertoairheatpump:variablespeedequationfit":
             return CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit()
-        if internal_name == "Coil:Heating:WaterToAirHeatPump:EquationFit":
+        if internal_name.lower(
+        ) == "coil:heating:watertoairheatpump:equationfit":
             return CoilHeatingWaterToAirHeatPumpEquationFit()
-        if internal_name == "Coil:Heating:WaterToAirHeatPump:VariableSpeedEquationFit":
+        if internal_name.lower(
+        ) == "coil:heating:watertoairheatpump:variablespeedequationfit":
             return CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit()
-        if internal_name == "Coil:WaterHeating:AirToWaterHeatPump":
+        if internal_name.lower() == "coil:waterheating:airtowaterheatpump":
             return CoilWaterHeatingAirToWaterHeatPump()
-        if internal_name == "Coil:WaterHeating:Desuperheater":
+        if internal_name.lower() == "coil:waterheating:desuperheater":
             return CoilWaterHeatingDesuperheater()
-        if internal_name == "CoilSystem:Cooling:DX":
+        if internal_name.lower() == "coilsystem:cooling:dx":
             return CoilSystemCoolingDx()
-        if internal_name == "CoilSystem:Heating:DX":
+        if internal_name.lower() == "coilsystem:heating:dx":
             return CoilSystemHeatingDx()
-        if internal_name == "CoilSystem:Cooling:Water:HeatExchangerAssisted":
+        if internal_name.lower(
+        ) == "coilsystem:cooling:water:heatexchangerassisted":
             return CoilSystemCoolingWaterHeatExchangerAssisted()
-        if internal_name == "CoilSystem:Cooling:DX:HeatExchangerAssisted":
+        if internal_name.lower(
+        ) == "coilsystem:cooling:dx:heatexchangerassisted":
             return CoilSystemCoolingDxHeatExchangerAssisted()
-        if internal_name == "Coil:Cooling:DX:SingleSpeed:ThermalStorage":
+        if internal_name.lower(
+        ) == "coil:cooling:dx:singlespeed:thermalstorage":
             return CoilCoolingDxSingleSpeedThermalStorage()
-        if internal_name == "Humidifier:Steam:Electric":
+        if internal_name.lower() == "humidifier:steam:electric":
             return HumidifierSteamElectric()
-        if internal_name == "Dehumidifier:Desiccant:NoFans":
+        if internal_name.lower() == "dehumidifier:desiccant:nofans":
             return DehumidifierDesiccantNoFans()
-        if internal_name == "Dehumidifier:Desiccant:System":
+        if internal_name.lower() == "dehumidifier:desiccant:system":
             return DehumidifierDesiccantSystem()
-        if internal_name == "HeatExchanger:AirToAir:FlatPlate":
+        if internal_name.lower() == "heatexchanger:airtoair:flatplate":
             return HeatExchangerAirToAirFlatPlate()
-        if internal_name == "HeatExchanger:AirToAir:SensibleAndLatent":
+        if internal_name.lower() == "heatexchanger:airtoair:sensibleandlatent":
             return HeatExchangerAirToAirSensibleAndLatent()
-        if internal_name == "HeatExchanger:Desiccant:BalancedFlow":
+        if internal_name.lower() == "heatexchanger:desiccant:balancedflow":
             return HeatExchangerDesiccantBalancedFlow()
-        if internal_name == "HeatExchanger:Desiccant:BalancedFlow:PerformanceDataType1":
+        if internal_name.lower(
+        ) == "heatexchanger:desiccant:balancedflow:performancedatatype1":
             return HeatExchangerDesiccantBalancedFlowPerformanceDataType1()
-        if internal_name == "AirLoopHVAC:UnitarySystem":
+        if internal_name.lower() == "airloophvac:unitarysystem":
             return AirLoopHvacUnitarySystem()
-        if internal_name == "UnitarySystemPerformance:HeatPump:Multispeed":
+        if internal_name.lower(
+        ) == "unitarysystemperformance:heatpump:multispeed":
             return UnitarySystemPerformanceHeatPumpMultispeed()
-        if internal_name == "AirLoopHVAC:Unitary:Furnace:HeatOnly":
+        if internal_name.lower() == "airloophvac:unitary:furnace:heatonly":
             return AirLoopHvacUnitaryFurnaceHeatOnly()
-        if internal_name == "AirLoopHVAC:Unitary:Furnace:HeatCool":
+        if internal_name.lower() == "airloophvac:unitary:furnace:heatcool":
             return AirLoopHvacUnitaryFurnaceHeatCool()
-        if internal_name == "AirLoopHVAC:UnitaryHeatOnly":
+        if internal_name.lower() == "airloophvac:unitaryheatonly":
             return AirLoopHvacUnitaryHeatOnly()
-        if internal_name == "AirLoopHVAC:UnitaryHeatCool":
+        if internal_name.lower() == "airloophvac:unitaryheatcool":
             return AirLoopHvacUnitaryHeatCool()
-        if internal_name == "AirLoopHVAC:UnitaryHeatPump:AirToAir":
+        if internal_name.lower() == "airloophvac:unitaryheatpump:airtoair":
             return AirLoopHvacUnitaryHeatPumpAirToAir()
-        if internal_name == "AirLoopHVAC:UnitaryHeatPump:WaterToAir":
+        if internal_name.lower() == "airloophvac:unitaryheatpump:watertoair":
             return AirLoopHvacUnitaryHeatPumpWaterToAir()
-        if internal_name == "AirLoopHVAC:UnitaryHeatCool:VAVChangeoverBypass":
+        if internal_name.lower(
+        ) == "airloophvac:unitaryheatcool:vavchangeoverbypass":
             return AirLoopHvacUnitaryHeatCoolVavchangeoverBypass()
-        if internal_name == "AirLoopHVAC:UnitaryHeatPump:AirToAir:MultiSpeed":
+        if internal_name.lower(
+        ) == "airloophvac:unitaryheatpump:airtoair:multispeed":
             return AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed()
-        if internal_name == "AirConditioner:VariableRefrigerantFlow":
+        if internal_name.lower() == "airconditioner:variablerefrigerantflow":
             return AirConditionerVariableRefrigerantFlow()
-        if internal_name == "ZoneTerminalUnitList":
+        if internal_name.lower() == "zoneterminalunitlist":
             return ZoneTerminalUnitList()
-        if internal_name == "Controller:WaterCoil":
+        if internal_name.lower() == "controller:watercoil":
             return ControllerWaterCoil()
-        if internal_name == "Controller:OutdoorAir":
+        if internal_name.lower() == "controller:outdoorair":
             return ControllerOutdoorAir()
-        if internal_name == "Controller:MechanicalVentilation":
+        if internal_name.lower() == "controller:mechanicalventilation":
             return ControllerMechanicalVentilation()
-        if internal_name == "AirLoopHVAC:ControllerList":
+        if internal_name.lower() == "airloophvac:controllerlist":
             return AirLoopHvacControllerList()
-        if internal_name == "AirLoopHVAC":
+        if internal_name.lower() == "airloophvac":
             return AirLoopHvac()
-        if internal_name == "AirLoopHVAC:OutdoorAirSystem:EquipmentList":
+        if internal_name.lower(
+        ) == "airloophvac:outdoorairsystem:equipmentlist":
             return AirLoopHvacOutdoorAirSystemEquipmentList()
-        if internal_name == "AirLoopHVAC:OutdoorAirSystem":
+        if internal_name.lower() == "airloophvac:outdoorairsystem":
             return AirLoopHvacOutdoorAirSystem()
-        if internal_name == "OutdoorAir:Mixer":
+        if internal_name.lower() == "outdoorair:mixer":
             return OutdoorAirMixer()
-        if internal_name == "AirLoopHVAC:SupplyPath":
+        if internal_name.lower() == "airloophvac:supplypath":
             return AirLoopHvacSupplyPath()
-        if internal_name == "AirLoopHVAC:ReturnPath":
+        if internal_name.lower() == "airloophvac:returnpath":
             return AirLoopHvacReturnPath()
-        if internal_name == "Branch":
+        if internal_name.lower() == "branch":
             return Branch()
-        if internal_name == "ConnectorList":
+        if internal_name.lower() == "connectorlist":
             return ConnectorList()
-        if internal_name == "OutdoorAir:Node":
+        if internal_name.lower() == "outdoorair:node":
             return OutdoorAirNode()
-        if internal_name == "Pipe:Adiabatic":
+        if internal_name.lower() == "pipe:adiabatic":
             return PipeAdiabatic()
-        if internal_name == "Pipe:Adiabatic:Steam":
+        if internal_name.lower() == "pipe:adiabatic:steam":
             return PipeAdiabaticSteam()
-        if internal_name == "Pipe:Indoor":
+        if internal_name.lower() == "pipe:indoor":
             return PipeIndoor()
-        if internal_name == "Pipe:Outdoor":
+        if internal_name.lower() == "pipe:outdoor":
             return PipeOutdoor()
-        if internal_name == "Pipe:Underground":
+        if internal_name.lower() == "pipe:underground":
             return PipeUnderground()
-        if internal_name == "PipingSystem:Underground:Domain":
+        if internal_name.lower() == "pipingsystem:underground:domain":
             return PipingSystemUndergroundDomain()
-        if internal_name == "PipingSystem:Underground:PipeCircuit":
+        if internal_name.lower() == "pipingsystem:underground:pipecircuit":
             return PipingSystemUndergroundPipeCircuit()
-        if internal_name == "PipingSystem:Underground:PipeSegment":
+        if internal_name.lower() == "pipingsystem:underground:pipesegment":
             return PipingSystemUndergroundPipeSegment()
-        if internal_name == "Duct":
+        if internal_name.lower() == "duct":
             return Duct()
-        if internal_name == "Pump:VariableSpeed":
+        if internal_name.lower() == "pump:variablespeed":
             return PumpVariableSpeed()
-        if internal_name == "Pump:ConstantSpeed":
+        if internal_name.lower() == "pump:constantspeed":
             return PumpConstantSpeed()
-        if internal_name == "Pump:VariableSpeed:Condensate":
+        if internal_name.lower() == "pump:variablespeed:condensate":
             return PumpVariableSpeedCondensate()
-        if internal_name == "HeaderedPumps:ConstantSpeed":
+        if internal_name.lower() == "headeredpumps:constantspeed":
             return HeaderedPumpsConstantSpeed()
-        if internal_name == "TemperingValve":
+        if internal_name.lower() == "temperingvalve":
             return TemperingValve()
-        if internal_name == "LoadProfile:Plant":
+        if internal_name.lower() == "loadprofile:plant":
             return LoadProfilePlant()
-        if internal_name == "SolarCollectorPerformance:FlatPlate":
+        if internal_name.lower() == "solarcollectorperformance:flatplate":
             return SolarCollectorPerformanceFlatPlate()
-        if internal_name == "SolarCollector:FlatPlate:Water":
+        if internal_name.lower() == "solarcollector:flatplate:water":
             return SolarCollectorFlatPlateWater()
-        if internal_name == "SolarCollectorPerformance:PhotovoltaicThermal:Simple":
+        if internal_name.lower(
+        ) == "solarcollectorperformance:photovoltaicthermal:simple":
             return SolarCollectorPerformancePhotovoltaicThermalSimple()
-        if internal_name == "SolarCollector:IntegralCollectorStorage":
+        if internal_name.lower() == "solarcollector:integralcollectorstorage":
             return SolarCollectorIntegralCollectorStorage()
-        if internal_name == "SolarCollectorPerformance:IntegralCollectorStorage":
+        if internal_name.lower(
+        ) == "solarcollectorperformance:integralcollectorstorage":
             return SolarCollectorPerformanceIntegralCollectorStorage()
-        if internal_name == "SolarCollector:UnglazedTranspired":
+        if internal_name.lower() == "solarcollector:unglazedtranspired":
             return SolarCollectorUnglazedTranspired()
-        if internal_name == "SolarCollector:UnglazedTranspired:Multisystem":
+        if internal_name.lower(
+        ) == "solarcollector:unglazedtranspired:multisystem":
             return SolarCollectorUnglazedTranspiredMultisystem()
-        if internal_name == "Boiler:HotWater":
+        if internal_name.lower() == "boiler:hotwater":
             return BoilerHotWater()
-        if internal_name == "Boiler:Steam":
+        if internal_name.lower() == "boiler:steam":
             return BoilerSteam()
-        if internal_name == "Chiller:Electric:EIR":
+        if internal_name.lower() == "chiller:electric:eir":
             return ChillerElectricEir()
-        if internal_name == "Chiller:Electric:ReformulatedEIR":
+        if internal_name.lower() == "chiller:electric:reformulatedeir":
             return ChillerElectricReformulatedEir()
-        if internal_name == "Chiller:Electric":
+        if internal_name.lower() == "chiller:electric":
             return ChillerElectric()
-        if internal_name == "Chiller:Absorption:Indirect":
+        if internal_name.lower() == "chiller:absorption:indirect":
             return ChillerAbsorptionIndirect()
-        if internal_name == "Chiller:Absorption":
+        if internal_name.lower() == "chiller:absorption":
             return ChillerAbsorption()
-        if internal_name == "Chiller:ConstantCOP":
+        if internal_name.lower() == "chiller:constantcop":
             return ChillerConstantCop()
-        if internal_name == "Chiller:EngineDriven":
+        if internal_name.lower() == "chiller:enginedriven":
             return ChillerEngineDriven()
-        if internal_name == "Chiller:CombustionTurbine":
+        if internal_name.lower() == "chiller:combustionturbine":
             return ChillerCombustionTurbine()
-        if internal_name == "ChillerHeater:Absorption:DirectFired":
+        if internal_name.lower() == "chillerheater:absorption:directfired":
             return ChillerHeaterAbsorptionDirectFired()
-        if internal_name == "ChillerHeater:Absorption:DoubleEffect":
+        if internal_name.lower() == "chillerheater:absorption:doubleeffect":
             return ChillerHeaterAbsorptionDoubleEffect()
-        if internal_name == "HeatPump:WaterToWater:EquationFit:Heating":
+        if internal_name.lower(
+        ) == "heatpump:watertowater:equationfit:heating":
             return HeatPumpWaterToWaterEquationFitHeating()
-        if internal_name == "HeatPump:WaterToWater:EquationFit:Cooling":
+        if internal_name.lower(
+        ) == "heatpump:watertowater:equationfit:cooling":
             return HeatPumpWaterToWaterEquationFitCooling()
-        if internal_name == "HeatPump:WaterToWater:ParameterEstimation:Cooling":
+        if internal_name.lower(
+        ) == "heatpump:watertowater:parameterestimation:cooling":
             return HeatPumpWaterToWaterParameterEstimationCooling()
-        if internal_name == "HeatPump:WaterToWater:ParameterEstimation:Heating":
+        if internal_name.lower(
+        ) == "heatpump:watertowater:parameterestimation:heating":
             return HeatPumpWaterToWaterParameterEstimationHeating()
-        if internal_name == "DistrictCooling":
+        if internal_name.lower() == "districtcooling":
             return DistrictCooling()
-        if internal_name == "DistrictHeating":
+        if internal_name.lower() == "districtheating":
             return DistrictHeating()
-        if internal_name == "PlantComponent:TemperatureSource":
+        if internal_name.lower() == "plantcomponent:temperaturesource":
             return PlantComponentTemperatureSource()
-        if internal_name == "CentralHeatPumpSystem":
+        if internal_name.lower() == "centralheatpumpsystem":
             return CentralHeatPumpSystem()
-        if internal_name == "ChillerHeaterPerformance:Electric:EIR":
+        if internal_name.lower() == "chillerheaterperformance:electric:eir":
             return ChillerHeaterPerformanceElectricEir()
-        if internal_name == "CoolingTower:SingleSpeed":
+        if internal_name.lower() == "coolingtower:singlespeed":
             return CoolingTowerSingleSpeed()
-        if internal_name == "CoolingTower:TwoSpeed":
+        if internal_name.lower() == "coolingtower:twospeed":
             return CoolingTowerTwoSpeed()
-        if internal_name == "CoolingTower:VariableSpeed:Merkel":
+        if internal_name.lower() == "coolingtower:variablespeed:merkel":
             return CoolingTowerVariableSpeedMerkel()
-        if internal_name == "CoolingTower:VariableSpeed":
+        if internal_name.lower() == "coolingtower:variablespeed":
             return CoolingTowerVariableSpeed()
-        if internal_name == "CoolingTowerPerformance:CoolTools":
+        if internal_name.lower() == "coolingtowerperformance:cooltools":
             return CoolingTowerPerformanceCoolTools()
-        if internal_name == "CoolingTowerPerformance:YorkCalc":
+        if internal_name.lower() == "coolingtowerperformance:yorkcalc":
             return CoolingTowerPerformanceYorkCalc()
-        if internal_name == "EvaporativeFluidCooler:SingleSpeed":
+        if internal_name.lower() == "evaporativefluidcooler:singlespeed":
             return EvaporativeFluidCoolerSingleSpeed()
-        if internal_name == "EvaporativeFluidCooler:TwoSpeed":
+        if internal_name.lower() == "evaporativefluidcooler:twospeed":
             return EvaporativeFluidCoolerTwoSpeed()
-        if internal_name == "FluidCooler:SingleSpeed":
+        if internal_name.lower() == "fluidcooler:singlespeed":
             return FluidCoolerSingleSpeed()
-        if internal_name == "FluidCooler:TwoSpeed":
+        if internal_name.lower() == "fluidcooler:twospeed":
             return FluidCoolerTwoSpeed()
-        if internal_name == "GroundHeatExchanger:Vertical":
+        if internal_name.lower() == "groundheatexchanger:vertical":
             return GroundHeatExchangerVertical()
-        if internal_name == "GroundHeatExchanger:Pond":
+        if internal_name.lower() == "groundheatexchanger:pond":
             return GroundHeatExchangerPond()
-        if internal_name == "GroundHeatExchanger:Surface":
+        if internal_name.lower() == "groundheatexchanger:surface":
             return GroundHeatExchangerSurface()
-        if internal_name == "GroundHeatExchanger:HorizontalTrench":
+        if internal_name.lower() == "groundheatexchanger:horizontaltrench":
             return GroundHeatExchangerHorizontalTrench()
-        if internal_name == "HeatExchanger:FluidToFluid":
+        if internal_name.lower() == "heatexchanger:fluidtofluid":
             return HeatExchangerFluidToFluid()
-        if internal_name == "WaterHeater:Mixed":
+        if internal_name.lower() == "waterheater:mixed":
             return WaterHeaterMixed()
-        if internal_name == "WaterHeater:Stratified":
+        if internal_name.lower() == "waterheater:stratified":
             return WaterHeaterStratified()
-        if internal_name == "WaterHeater:Sizing":
+        if internal_name.lower() == "waterheater:sizing":
             return WaterHeaterSizing()
-        if internal_name == "WaterHeater:HeatPump":
+        if internal_name.lower() == "waterheater:heatpump":
             return WaterHeaterHeatPump()
-        if internal_name == "ThermalStorage:Ice:Simple":
+        if internal_name.lower() == "thermalstorage:ice:simple":
             return ThermalStorageIceSimple()
-        if internal_name == "ThermalStorage:Ice:Detailed":
+        if internal_name.lower() == "thermalstorage:ice:detailed":
             return ThermalStorageIceDetailed()
-        if internal_name == "ThermalStorage:ChilledWater:Mixed":
+        if internal_name.lower() == "thermalstorage:chilledwater:mixed":
             return ThermalStorageChilledWaterMixed()
-        if internal_name == "ThermalStorage:ChilledWater:Stratified":
+        if internal_name.lower() == "thermalstorage:chilledwater:stratified":
             return ThermalStorageChilledWaterStratified()
-        if internal_name == "PlantLoop":
+        if internal_name.lower() == "plantloop":
             return PlantLoop()
-        if internal_name == "CondenserLoop":
+        if internal_name.lower() == "condenserloop":
             return CondenserLoop()
-        if internal_name == "PlantEquipmentList":
+        if internal_name.lower() == "plantequipmentlist":
             return PlantEquipmentList()
-        if internal_name == "CondenserEquipmentList":
+        if internal_name.lower() == "condenserequipmentlist":
             return CondenserEquipmentList()
-        if internal_name == "PlantEquipmentOperation:Uncontrolled":
+        if internal_name.lower() == "plantequipmentoperation:uncontrolled":
             return PlantEquipmentOperationUncontrolled()
-        if internal_name == "PlantEquipmentOperation:CoolingLoad":
+        if internal_name.lower() == "plantequipmentoperation:coolingload":
             return PlantEquipmentOperationCoolingLoad()
-        if internal_name == "PlantEquipmentOperation:HeatingLoad":
+        if internal_name.lower() == "plantequipmentoperation:heatingload":
             return PlantEquipmentOperationHeatingLoad()
-        if internal_name == "PlantEquipmentOperation:OutdoorDryBulb":
+        if internal_name.lower() == "plantequipmentoperation:outdoordrybulb":
             return PlantEquipmentOperationOutdoorDryBulb()
-        if internal_name == "PlantEquipmentOperation:OutdoorWetBulb":
+        if internal_name.lower() == "plantequipmentoperation:outdoorwetbulb":
             return PlantEquipmentOperationOutdoorWetBulb()
-        if internal_name == "PlantEquipmentOperation:OutdoorRelativeHumidity":
+        if internal_name.lower(
+        ) == "plantequipmentoperation:outdoorrelativehumidity":
             return PlantEquipmentOperationOutdoorRelativeHumidity()
-        if internal_name == "PlantEquipmentOperation:OutdoorDewpoint":
+        if internal_name.lower() == "plantequipmentoperation:outdoordewpoint":
             return PlantEquipmentOperationOutdoorDewpoint()
-        if internal_name == "PlantEquipmentOperation:ComponentSetpoint":
+        if internal_name.lower(
+        ) == "plantequipmentoperation:componentsetpoint":
             return PlantEquipmentOperationComponentSetpoint()
-        if internal_name == "PlantEquipmentOperation:OutdoorDryBulbDifference":
+        if internal_name.lower(
+        ) == "plantequipmentoperation:outdoordrybulbdifference":
             return PlantEquipmentOperationOutdoorDryBulbDifference()
-        if internal_name == "PlantEquipmentOperation:OutdoorWetBulbDifference":
+        if internal_name.lower(
+        ) == "plantequipmentoperation:outdoorwetbulbdifference":
             return PlantEquipmentOperationOutdoorWetBulbDifference()
-        if internal_name == "PlantEquipmentOperation:OutdoorDewpointDifference":
+        if internal_name.lower(
+        ) == "plantequipmentoperation:outdoordewpointdifference":
             return PlantEquipmentOperationOutdoorDewpointDifference()
-        if internal_name == "PlantEquipmentOperationSchemes":
+        if internal_name.lower() == "plantequipmentoperationschemes":
             return PlantEquipmentOperationSchemes()
-        if internal_name == "CondenserEquipmentOperationSchemes":
+        if internal_name.lower() == "condenserequipmentoperationschemes":
             return CondenserEquipmentOperationSchemes()
-        if internal_name == "EnergyManagementSystem:Sensor":
+        if internal_name.lower() == "energymanagementsystem:sensor":
             return EnergyManagementSystemSensor()
-        if internal_name == "EnergyManagementSystem:Actuator":
+        if internal_name.lower() == "energymanagementsystem:actuator":
             return EnergyManagementSystemActuator()
-        if internal_name == "EnergyManagementSystem:ProgramCallingManager":
+        if internal_name.lower(
+        ) == "energymanagementsystem:programcallingmanager":
             return EnergyManagementSystemProgramCallingManager()
-        if internal_name == "EnergyManagementSystem:OutputVariable":
+        if internal_name.lower() == "energymanagementsystem:outputvariable":
             return EnergyManagementSystemOutputVariable()
-        if internal_name == "EnergyManagementSystem:MeteredOutputVariable":
+        if internal_name.lower(
+        ) == "energymanagementsystem:meteredoutputvariable":
             return EnergyManagementSystemMeteredOutputVariable()
-        if internal_name == "EnergyManagementSystem:TrendVariable":
+        if internal_name.lower() == "energymanagementsystem:trendvariable":
             return EnergyManagementSystemTrendVariable()
-        if internal_name == "EnergyManagementSystem:InternalVariable":
+        if internal_name.lower() == "energymanagementsystem:internalvariable":
             return EnergyManagementSystemInternalVariable()
-        if internal_name == "EnergyManagementSystem:CurveOrTableIndexVariable":
+        if internal_name.lower(
+        ) == "energymanagementsystem:curveortableindexvariable":
             return EnergyManagementSystemCurveOrTableIndexVariable()
-        if internal_name == "EnergyManagementSystem:ConstructionIndexVariable":
+        if internal_name.lower(
+        ) == "energymanagementsystem:constructionindexvariable":
             return EnergyManagementSystemConstructionIndexVariable()
-        if internal_name == "ExternalInterface":
+        if internal_name.lower() == "externalinterface":
             return ExternalInterface()
-        if internal_name == "ExternalInterface:Schedule":
+        if internal_name.lower() == "externalinterface:schedule":
             return ExternalInterfaceSchedule()
-        if internal_name == "ExternalInterface:Variable":
+        if internal_name.lower() == "externalinterface:variable":
             return ExternalInterfaceVariable()
-        if internal_name == "ExternalInterface:Actuator":
+        if internal_name.lower() == "externalinterface:actuator":
             return ExternalInterfaceActuator()
-        if internal_name == "ExternalInterface:FunctionalMockupUnitImport":
+        if internal_name.lower(
+        ) == "externalinterface:functionalmockupunitimport":
             return ExternalInterfaceFunctionalMockupUnitImport()
-        if internal_name == "ExternalInterface:FunctionalMockupUnitImport:From:Variable":
+        if internal_name.lower(
+        ) == "externalinterface:functionalmockupunitimport:from:variable":
             return ExternalInterfaceFunctionalMockupUnitImportFromVariable()
-        if internal_name == "ExternalInterface:FunctionalMockupUnitImport:To:Schedule":
+        if internal_name.lower(
+        ) == "externalinterface:functionalmockupunitimport:to:schedule":
             return ExternalInterfaceFunctionalMockupUnitImportToSchedule()
-        if internal_name == "ExternalInterface:FunctionalMockupUnitImport:To:Actuator":
+        if internal_name.lower(
+        ) == "externalinterface:functionalmockupunitimport:to:actuator":
             return ExternalInterfaceFunctionalMockupUnitImportToActuator()
-        if internal_name == "ExternalInterface:FunctionalMockupUnitImport:To:Variable":
+        if internal_name.lower(
+        ) == "externalinterface:functionalmockupunitimport:to:variable":
             return ExternalInterfaceFunctionalMockupUnitImportToVariable()
-        if internal_name == "ExternalInterface:FunctionalMockupUnitExport:From:Variable":
+        if internal_name.lower(
+        ) == "externalinterface:functionalmockupunitexport:from:variable":
             return ExternalInterfaceFunctionalMockupUnitExportFromVariable()
-        if internal_name == "ExternalInterface:FunctionalMockupUnitExport:To:Schedule":
+        if internal_name.lower(
+        ) == "externalinterface:functionalmockupunitexport:to:schedule":
             return ExternalInterfaceFunctionalMockupUnitExportToSchedule()
-        if internal_name == "ExternalInterface:FunctionalMockupUnitExport:To:Actuator":
+        if internal_name.lower(
+        ) == "externalinterface:functionalmockupunitexport:to:actuator":
             return ExternalInterfaceFunctionalMockupUnitExportToActuator()
-        if internal_name == "ExternalInterface:FunctionalMockupUnitExport:To:Variable":
+        if internal_name.lower(
+        ) == "externalinterface:functionalmockupunitexport:to:variable":
             return ExternalInterfaceFunctionalMockupUnitExportToVariable()
-        if internal_name == "ZoneHVAC:ForcedAir:UserDefined":
+        if internal_name.lower() == "zonehvac:forcedair:userdefined":
             return ZoneHvacForcedAirUserDefined()
-        if internal_name == "AirTerminal:SingleDuct:UserDefined":
+        if internal_name.lower() == "airterminal:singleduct:userdefined":
             return AirTerminalSingleDuctUserDefined()
-        if internal_name == "Coil:UserDefined":
+        if internal_name.lower() == "coil:userdefined":
             return CoilUserDefined()
-        if internal_name == "PlantComponent:UserDefined":
+        if internal_name.lower() == "plantcomponent:userdefined":
             return PlantComponentUserDefined()
-        if internal_name == "PlantEquipmentOperation:UserDefined":
+        if internal_name.lower() == "plantequipmentoperation:userdefined":
             return PlantEquipmentOperationUserDefined()
-        if internal_name == "AvailabilityManager:Scheduled":
+        if internal_name.lower() == "availabilitymanager:scheduled":
             return AvailabilityManagerScheduled()
-        if internal_name == "AvailabilityManager:ScheduledOn":
+        if internal_name.lower() == "availabilitymanager:scheduledon":
             return AvailabilityManagerScheduledOn()
-        if internal_name == "AvailabilityManager:ScheduledOff":
+        if internal_name.lower() == "availabilitymanager:scheduledoff":
             return AvailabilityManagerScheduledOff()
-        if internal_name == "AvailabilityManager:OptimumStart":
+        if internal_name.lower() == "availabilitymanager:optimumstart":
             return AvailabilityManagerOptimumStart()
-        if internal_name == "AvailabilityManager:NightCycle":
+        if internal_name.lower() == "availabilitymanager:nightcycle":
             return AvailabilityManagerNightCycle()
-        if internal_name == "AvailabilityManager:DifferentialThermostat":
+        if internal_name.lower(
+        ) == "availabilitymanager:differentialthermostat":
             return AvailabilityManagerDifferentialThermostat()
-        if internal_name == "AvailabilityManager:HighTemperatureTurnOff":
+        if internal_name.lower(
+        ) == "availabilitymanager:hightemperatureturnoff":
             return AvailabilityManagerHighTemperatureTurnOff()
-        if internal_name == "AvailabilityManager:HighTemperatureTurnOn":
+        if internal_name.lower(
+        ) == "availabilitymanager:hightemperatureturnon":
             return AvailabilityManagerHighTemperatureTurnOn()
-        if internal_name == "AvailabilityManager:LowTemperatureTurnOff":
+        if internal_name.lower(
+        ) == "availabilitymanager:lowtemperatureturnoff":
             return AvailabilityManagerLowTemperatureTurnOff()
-        if internal_name == "AvailabilityManager:LowTemperatureTurnOn":
+        if internal_name.lower() == "availabilitymanager:lowtemperatureturnon":
             return AvailabilityManagerLowTemperatureTurnOn()
-        if internal_name == "AvailabilityManager:NightVentilation":
+        if internal_name.lower() == "availabilitymanager:nightventilation":
             return AvailabilityManagerNightVentilation()
-        if internal_name == "AvailabilityManager:HybridVentilation":
+        if internal_name.lower() == "availabilitymanager:hybridventilation":
             return AvailabilityManagerHybridVentilation()
-        if internal_name == "AvailabilityManagerAssignmentList":
+        if internal_name.lower() == "availabilitymanagerassignmentlist":
             return AvailabilityManagerAssignmentList()
-        if internal_name == "SetpointManager:Scheduled":
+        if internal_name.lower() == "setpointmanager:scheduled":
             return SetpointManagerScheduled()
-        if internal_name == "SetpointManager:Scheduled:DualSetpoint":
+        if internal_name.lower() == "setpointmanager:scheduled:dualsetpoint":
             return SetpointManagerScheduledDualSetpoint()
-        if internal_name == "SetpointManager:OutdoorAirReset":
+        if internal_name.lower() == "setpointmanager:outdoorairreset":
             return SetpointManagerOutdoorAirReset()
-        if internal_name == "SetpointManager:SingleZone:Reheat":
+        if internal_name.lower() == "setpointmanager:singlezone:reheat":
             return SetpointManagerSingleZoneReheat()
-        if internal_name == "SetpointManager:SingleZone:Heating":
+        if internal_name.lower() == "setpointmanager:singlezone:heating":
             return SetpointManagerSingleZoneHeating()
-        if internal_name == "SetpointManager:SingleZone:Cooling":
+        if internal_name.lower() == "setpointmanager:singlezone:cooling":
             return SetpointManagerSingleZoneCooling()
-        if internal_name == "SetpointManager:SingleZone:Humidity:Minimum":
+        if internal_name.lower(
+        ) == "setpointmanager:singlezone:humidity:minimum":
             return SetpointManagerSingleZoneHumidityMinimum()
-        if internal_name == "SetpointManager:SingleZone:Humidity:Maximum":
+        if internal_name.lower(
+        ) == "setpointmanager:singlezone:humidity:maximum":
             return SetpointManagerSingleZoneHumidityMaximum()
-        if internal_name == "SetpointManager:MixedAir":
+        if internal_name.lower() == "setpointmanager:mixedair":
             return SetpointManagerMixedAir()
-        if internal_name == "SetpointManager:OutdoorAirPretreat":
+        if internal_name.lower() == "setpointmanager:outdoorairpretreat":
             return SetpointManagerOutdoorAirPretreat()
-        if internal_name == "SetpointManager:Warmest":
+        if internal_name.lower() == "setpointmanager:warmest":
             return SetpointManagerWarmest()
-        if internal_name == "SetpointManager:Coldest":
+        if internal_name.lower() == "setpointmanager:coldest":
             return SetpointManagerColdest()
-        if internal_name == "SetpointManager:ReturnAirBypassFlow":
+        if internal_name.lower() == "setpointmanager:returnairbypassflow":
             return SetpointManagerReturnAirBypassFlow()
-        if internal_name == "SetpointManager:WarmestTemperatureFlow":
+        if internal_name.lower() == "setpointmanager:warmesttemperatureflow":
             return SetpointManagerWarmestTemperatureFlow()
-        if internal_name == "SetpointManager:MultiZone:Heating:Average":
+        if internal_name.lower(
+        ) == "setpointmanager:multizone:heating:average":
             return SetpointManagerMultiZoneHeatingAverage()
-        if internal_name == "SetpointManager:MultiZone:Cooling:Average":
+        if internal_name.lower(
+        ) == "setpointmanager:multizone:cooling:average":
             return SetpointManagerMultiZoneCoolingAverage()
-        if internal_name == "SetpointManager:MultiZone:MinimumHumidity:Average":
+        if internal_name.lower(
+        ) == "setpointmanager:multizone:minimumhumidity:average":
             return SetpointManagerMultiZoneMinimumHumidityAverage()
-        if internal_name == "SetpointManager:MultiZone:MaximumHumidity:Average":
+        if internal_name.lower(
+        ) == "setpointmanager:multizone:maximumhumidity:average":
             return SetpointManagerMultiZoneMaximumHumidityAverage()
-        if internal_name == "SetpointManager:MultiZone:Humidity:Minimum":
+        if internal_name.lower(
+        ) == "setpointmanager:multizone:humidity:minimum":
             return SetpointManagerMultiZoneHumidityMinimum()
-        if internal_name == "SetpointManager:MultiZone:Humidity:Maximum":
+        if internal_name.lower(
+        ) == "setpointmanager:multizone:humidity:maximum":
             return SetpointManagerMultiZoneHumidityMaximum()
-        if internal_name == "SetpointManager:FollowOutdoorAirTemperature":
+        if internal_name.lower(
+        ) == "setpointmanager:followoutdoorairtemperature":
             return SetpointManagerFollowOutdoorAirTemperature()
-        if internal_name == "SetpointManager:FollowSystemNodeTemperature":
+        if internal_name.lower(
+        ) == "setpointmanager:followsystemnodetemperature":
             return SetpointManagerFollowSystemNodeTemperature()
-        if internal_name == "SetpointManager:FollowGroundTemperature":
+        if internal_name.lower() == "setpointmanager:followgroundtemperature":
             return SetpointManagerFollowGroundTemperature()
-        if internal_name == "SetpointManager:CondenserEnteringReset":
+        if internal_name.lower() == "setpointmanager:condenserenteringreset":
             return SetpointManagerCondenserEnteringReset()
-        if internal_name == "SetpointManager:CondenserEnteringReset:Ideal":
+        if internal_name.lower(
+        ) == "setpointmanager:condenserenteringreset:ideal":
             return SetpointManagerCondenserEnteringResetIdeal()
-        if internal_name == "SetpointManager:SingleZone:OneStageCooling":
+        if internal_name.lower(
+        ) == "setpointmanager:singlezone:onestagecooling":
             return SetpointManagerSingleZoneOneStageCooling()
-        if internal_name == "SetpointManager:SingleZone:OneStageHeating":
+        if internal_name.lower(
+        ) == "setpointmanager:singlezone:onestageheating":
             return SetpointManagerSingleZoneOneStageHeating()
-        if internal_name == "Refrigeration:Case":
+        if internal_name.lower() == "refrigeration:case":
             return RefrigerationCase()
-        if internal_name == "Refrigeration:CompressorRack":
+        if internal_name.lower() == "refrigeration:compressorrack":
             return RefrigerationCompressorRack()
-        if internal_name == "Refrigeration:CaseAndWalkInList":
+        if internal_name.lower() == "refrigeration:caseandwalkinlist":
             return RefrigerationCaseAndWalkInList()
-        if internal_name == "Refrigeration:Condenser:AirCooled":
+        if internal_name.lower() == "refrigeration:condenser:aircooled":
             return RefrigerationCondenserAirCooled()
-        if internal_name == "Refrigeration:Condenser:EvaporativeCooled":
+        if internal_name.lower(
+        ) == "refrigeration:condenser:evaporativecooled":
             return RefrigerationCondenserEvaporativeCooled()
-        if internal_name == "Refrigeration:Condenser:WaterCooled":
+        if internal_name.lower() == "refrigeration:condenser:watercooled":
             return RefrigerationCondenserWaterCooled()
-        if internal_name == "Refrigeration:Condenser:Cascade":
+        if internal_name.lower() == "refrigeration:condenser:cascade":
             return RefrigerationCondenserCascade()
-        if internal_name == "Refrigeration:GasCooler:AirCooled":
+        if internal_name.lower() == "refrigeration:gascooler:aircooled":
             return RefrigerationGasCoolerAirCooled()
-        if internal_name == "Refrigeration:TransferLoadList":
+        if internal_name.lower() == "refrigeration:transferloadlist":
             return RefrigerationTransferLoadList()
-        if internal_name == "Refrigeration:Subcooler":
+        if internal_name.lower() == "refrigeration:subcooler":
             return RefrigerationSubcooler()
-        if internal_name == "Refrigeration:Compressor":
+        if internal_name.lower() == "refrigeration:compressor":
             return RefrigerationCompressor()
-        if internal_name == "Refrigeration:CompressorList":
+        if internal_name.lower() == "refrigeration:compressorlist":
             return RefrigerationCompressorList()
-        if internal_name == "Refrigeration:System":
+        if internal_name.lower() == "refrigeration:system":
             return RefrigerationSystem()
-        if internal_name == "Refrigeration:TranscriticalSystem":
+        if internal_name.lower() == "refrigeration:transcriticalsystem":
             return RefrigerationTranscriticalSystem()
-        if internal_name == "Refrigeration:SecondarySystem":
+        if internal_name.lower() == "refrigeration:secondarysystem":
             return RefrigerationSecondarySystem()
-        if internal_name == "Refrigeration:WalkIn":
+        if internal_name.lower() == "refrigeration:walkin":
             return RefrigerationWalkIn()
-        if internal_name == "Refrigeration:AirChiller":
+        if internal_name.lower() == "refrigeration:airchiller":
             return RefrigerationAirChiller()
-        if internal_name == "DemandManagerAssignmentList":
+        if internal_name.lower() == "demandmanagerassignmentlist":
             return DemandManagerAssignmentList()
-        if internal_name == "DemandManager:ExteriorLights":
+        if internal_name.lower() == "demandmanager:exteriorlights":
             return DemandManagerExteriorLights()
-        if internal_name == "DemandManager:Lights":
+        if internal_name.lower() == "demandmanager:lights":
             return DemandManagerLights()
-        if internal_name == "DemandManager:ElectricEquipment":
+        if internal_name.lower() == "demandmanager:electricequipment":
             return DemandManagerElectricEquipment()
-        if internal_name == "DemandManager:Thermostats":
+        if internal_name.lower() == "demandmanager:thermostats":
             return DemandManagerThermostats()
-        if internal_name == "Generator:InternalCombustionEngine":
+        if internal_name.lower() == "generator:internalcombustionengine":
             return GeneratorInternalCombustionEngine()
-        if internal_name == "Generator:CombustionTurbine":
+        if internal_name.lower() == "generator:combustionturbine":
             return GeneratorCombustionTurbine()
-        if internal_name == "Generator:MicroTurbine":
+        if internal_name.lower() == "generator:microturbine":
             return GeneratorMicroTurbine()
-        if internal_name == "Generator:Photovoltaic":
+        if internal_name.lower() == "generator:photovoltaic":
             return GeneratorPhotovoltaic()
-        if internal_name == "PhotovoltaicPerformance:Simple":
+        if internal_name.lower() == "photovoltaicperformance:simple":
             return PhotovoltaicPerformanceSimple()
-        if internal_name == "PhotovoltaicPerformance:EquivalentOne-Diode":
+        if internal_name.lower(
+        ) == "photovoltaicperformance:equivalentone-diode":
             return PhotovoltaicPerformanceEquivalentOneDiode()
-        if internal_name == "PhotovoltaicPerformance:Sandia":
+        if internal_name.lower() == "photovoltaicperformance:sandia":
             return PhotovoltaicPerformanceSandia()
-        if internal_name == "Generator:FuelCell":
+        if internal_name.lower() == "generator:fuelcell":
             return GeneratorFuelCell()
-        if internal_name == "Generator:FuelCell:PowerModule":
+        if internal_name.lower() == "generator:fuelcell:powermodule":
             return GeneratorFuelCellPowerModule()
-        if internal_name == "Generator:FuelCell:AirSupply":
+        if internal_name.lower() == "generator:fuelcell:airsupply":
             return GeneratorFuelCellAirSupply()
-        if internal_name == "Generator:FuelCell:WaterSupply":
+        if internal_name.lower() == "generator:fuelcell:watersupply":
             return GeneratorFuelCellWaterSupply()
-        if internal_name == "Generator:FuelCell:AuxiliaryHeater":
+        if internal_name.lower() == "generator:fuelcell:auxiliaryheater":
             return GeneratorFuelCellAuxiliaryHeater()
-        if internal_name == "Generator:FuelCell:ExhaustGasToWaterHeatExchanger":
+        if internal_name.lower(
+        ) == "generator:fuelcell:exhaustgastowaterheatexchanger":
             return GeneratorFuelCellExhaustGasToWaterHeatExchanger()
-        if internal_name == "Generator:FuelCell:ElectricalStorage":
+        if internal_name.lower() == "generator:fuelcell:electricalstorage":
             return GeneratorFuelCellElectricalStorage()
-        if internal_name == "Generator:FuelCell:Inverter":
+        if internal_name.lower() == "generator:fuelcell:inverter":
             return GeneratorFuelCellInverter()
-        if internal_name == "Generator:FuelCell:StackCooler":
+        if internal_name.lower() == "generator:fuelcell:stackcooler":
             return GeneratorFuelCellStackCooler()
-        if internal_name == "Generator:MicroCHP":
+        if internal_name.lower() == "generator:microchp":
             return GeneratorMicroChp()
-        if internal_name == "Generator:MicroCHP:NonNormalizedParameters":
+        if internal_name.lower(
+        ) == "generator:microchp:nonnormalizedparameters":
             return GeneratorMicroChpNonNormalizedParameters()
-        if internal_name == "Generator:FuelSupply":
+        if internal_name.lower() == "generator:fuelsupply":
             return GeneratorFuelSupply()
-        if internal_name == "Generator:WindTurbine":
+        if internal_name.lower() == "generator:windturbine":
             return GeneratorWindTurbine()
-        if internal_name == "ElectricLoadCenter:Generators":
+        if internal_name.lower() == "electricloadcenter:generators":
             return ElectricLoadCenterGenerators()
-        if internal_name == "ElectricLoadCenter:Inverter:Simple":
+        if internal_name.lower() == "electricloadcenter:inverter:simple":
             return ElectricLoadCenterInverterSimple()
-        if internal_name == "ElectricLoadCenter:Inverter:FunctionOfPower":
+        if internal_name.lower(
+        ) == "electricloadcenter:inverter:functionofpower":
             return ElectricLoadCenterInverterFunctionOfPower()
-        if internal_name == "ElectricLoadCenter:Inverter:LookUpTable":
+        if internal_name.lower() == "electricloadcenter:inverter:lookuptable":
             return ElectricLoadCenterInverterLookUpTable()
-        if internal_name == "ElectricLoadCenter:Storage:Simple":
+        if internal_name.lower() == "electricloadcenter:storage:simple":
             return ElectricLoadCenterStorageSimple()
-        if internal_name == "ElectricLoadCenter:Storage:Battery":
+        if internal_name.lower() == "electricloadcenter:storage:battery":
             return ElectricLoadCenterStorageBattery()
-        if internal_name == "ElectricLoadCenter:Transformer":
+        if internal_name.lower() == "electricloadcenter:transformer":
             return ElectricLoadCenterTransformer()
-        if internal_name == "ElectricLoadCenter:Distribution":
+        if internal_name.lower() == "electricloadcenter:distribution":
             return ElectricLoadCenterDistribution()
-        if internal_name == "WaterUse:Equipment":
+        if internal_name.lower() == "wateruse:equipment":
             return WaterUseEquipment()
-        if internal_name == "WaterUse:Connections":
+        if internal_name.lower() == "wateruse:connections":
             return WaterUseConnections()
-        if internal_name == "WaterUse:Storage":
+        if internal_name.lower() == "wateruse:storage":
             return WaterUseStorage()
-        if internal_name == "WaterUse:Well":
+        if internal_name.lower() == "wateruse:well":
             return WaterUseWell()
-        if internal_name == "WaterUse:RainCollector":
+        if internal_name.lower() == "wateruse:raincollector":
             return WaterUseRainCollector()
-        if internal_name == "FaultModel:TemperatureSensorOffset:OutdoorAir":
+        if internal_name.lower(
+        ) == "faultmodel:temperaturesensoroffset:outdoorair":
             return FaultModelTemperatureSensorOffsetOutdoorAir()
-        if internal_name == "FaultModel:HumiditySensorOffset:OutdoorAir":
+        if internal_name.lower(
+        ) == "faultmodel:humiditysensoroffset:outdoorair":
             return FaultModelHumiditySensorOffsetOutdoorAir()
-        if internal_name == "FaultModel:EnthalpySensorOffset:OutdoorAir":
+        if internal_name.lower(
+        ) == "faultmodel:enthalpysensoroffset:outdoorair":
             return FaultModelEnthalpySensorOffsetOutdoorAir()
-        if internal_name == "FaultModel:PressureSensorOffset:OutdoorAir":
+        if internal_name.lower(
+        ) == "faultmodel:pressuresensoroffset:outdoorair":
             return FaultModelPressureSensorOffsetOutdoorAir()
-        if internal_name == "FaultModel:TemperatureSensorOffset:ReturnAir":
+        if internal_name.lower(
+        ) == "faultmodel:temperaturesensoroffset:returnair":
             return FaultModelTemperatureSensorOffsetReturnAir()
-        if internal_name == "FaultModel:EnthalpySensorOffset:ReturnAir":
+        if internal_name.lower(
+        ) == "faultmodel:enthalpysensoroffset:returnair":
             return FaultModelEnthalpySensorOffsetReturnAir()
-        if internal_name == "FaultModel:Fouling:Coil":
+        if internal_name.lower() == "faultmodel:fouling:coil":
             return FaultModelFoulingCoil()
-        if internal_name == "Curve:Linear":
+        if internal_name.lower() == "curve:linear":
             return CurveLinear()
-        if internal_name == "Curve:QuadLinear":
+        if internal_name.lower() == "curve:quadlinear":
             return CurveQuadLinear()
-        if internal_name == "Curve:Quadratic":
+        if internal_name.lower() == "curve:quadratic":
             return CurveQuadratic()
-        if internal_name == "Curve:Cubic":
+        if internal_name.lower() == "curve:cubic":
             return CurveCubic()
-        if internal_name == "Curve:Quartic":
+        if internal_name.lower() == "curve:quartic":
             return CurveQuartic()
-        if internal_name == "Curve:Exponent":
+        if internal_name.lower() == "curve:exponent":
             return CurveExponent()
-        if internal_name == "Curve:Bicubic":
+        if internal_name.lower() == "curve:bicubic":
             return CurveBicubic()
-        if internal_name == "Curve:Biquadratic":
+        if internal_name.lower() == "curve:biquadratic":
             return CurveBiquadratic()
-        if internal_name == "Curve:QuadraticLinear":
+        if internal_name.lower() == "curve:quadraticlinear":
             return CurveQuadraticLinear()
-        if internal_name == "Curve:Triquadratic":
+        if internal_name.lower() == "curve:triquadratic":
             return CurveTriquadratic()
-        if internal_name == "Curve:Functional:PressureDrop":
+        if internal_name.lower() == "curve:functional:pressuredrop":
             return CurveFunctionalPressureDrop()
-        if internal_name == "Curve:FanPressureRise":
+        if internal_name.lower() == "curve:fanpressurerise":
             return CurveFanPressureRise()
-        if internal_name == "Curve:ExponentialSkewNormal":
+        if internal_name.lower() == "curve:exponentialskewnormal":
             return CurveExponentialSkewNormal()
-        if internal_name == "Curve:Sigmoid":
+        if internal_name.lower() == "curve:sigmoid":
             return CurveSigmoid()
-        if internal_name == "Curve:RectangularHyperbola1":
+        if internal_name.lower() == "curve:rectangularhyperbola1":
             return CurveRectangularHyperbola1()
-        if internal_name == "Curve:RectangularHyperbola2":
+        if internal_name.lower() == "curve:rectangularhyperbola2":
             return CurveRectangularHyperbola2()
-        if internal_name == "Curve:ExponentialDecay":
+        if internal_name.lower() == "curve:exponentialdecay":
             return CurveExponentialDecay()
-        if internal_name == "Curve:DoubleExponentialDecay":
+        if internal_name.lower() == "curve:doubleexponentialdecay":
             return CurveDoubleExponentialDecay()
-        if internal_name == "FluidProperties:Name":
+        if internal_name.lower() == "fluidproperties:name":
             return FluidPropertiesName()
-        if internal_name == "FluidProperties:GlycolConcentration":
+        if internal_name.lower() == "fluidproperties:glycolconcentration":
             return FluidPropertiesGlycolConcentration()
-        if internal_name == "FluidProperties:Temperatures":
+        if internal_name.lower() == "fluidproperties:temperatures":
             return FluidPropertiesTemperatures()
-        if internal_name == "FluidProperties:Saturated":
+        if internal_name.lower() == "fluidproperties:saturated":
             return FluidPropertiesSaturated()
-        if internal_name == "FluidProperties:Superheated":
+        if internal_name.lower() == "fluidproperties:superheated":
             return FluidPropertiesSuperheated()
-        if internal_name == "FluidProperties:Concentration":
+        if internal_name.lower() == "fluidproperties:concentration":
             return FluidPropertiesConcentration()
-        if internal_name == "CurrencyType":
+        if internal_name.lower() == "currencytype":
             return CurrencyType()
-        if internal_name == "ComponentCost:Adjustments":
+        if internal_name.lower() == "componentcost:adjustments":
             return ComponentCostAdjustments()
-        if internal_name == "ComponentCost:Reference":
+        if internal_name.lower() == "componentcost:reference":
             return ComponentCostReference()
-        if internal_name == "ComponentCost:LineItem":
+        if internal_name.lower() == "componentcost:lineitem":
             return ComponentCostLineItem()
-        if internal_name == "UtilityCost:Tariff":
+        if internal_name.lower() == "utilitycost:tariff":
             return UtilityCostTariff()
-        if internal_name == "UtilityCost:Qualify":
+        if internal_name.lower() == "utilitycost:qualify":
             return UtilityCostQualify()
-        if internal_name == "UtilityCost:Charge:Simple":
+        if internal_name.lower() == "utilitycost:charge:simple":
             return UtilityCostChargeSimple()
-        if internal_name == "UtilityCost:Charge:Block":
+        if internal_name.lower() == "utilitycost:charge:block":
             return UtilityCostChargeBlock()
-        if internal_name == "UtilityCost:Ratchet":
+        if internal_name.lower() == "utilitycost:ratchet":
             return UtilityCostRatchet()
-        if internal_name == "UtilityCost:Variable":
+        if internal_name.lower() == "utilitycost:variable":
             return UtilityCostVariable()
-        if internal_name == "UtilityCost:Computation":
+        if internal_name.lower() == "utilitycost:computation":
             return UtilityCostComputation()
-        if internal_name == "LifeCycleCost:Parameters":
+        if internal_name.lower() == "lifecyclecost:parameters":
             return LifeCycleCostParameters()
-        if internal_name == "LifeCycleCost:RecurringCosts":
+        if internal_name.lower() == "lifecyclecost:recurringcosts":
             return LifeCycleCostRecurringCosts()
-        if internal_name == "LifeCycleCost:NonrecurringCost":
+        if internal_name.lower() == "lifecyclecost:nonrecurringcost":
             return LifeCycleCostNonrecurringCost()
-        if internal_name == "LifeCycleCost:UsePriceEscalation":
+        if internal_name.lower() == "lifecyclecost:usepriceescalation":
             return LifeCycleCostUsePriceEscalation()
-        if internal_name == "LifeCycleCost:UseAdjustment":
+        if internal_name.lower() == "lifecyclecost:useadjustment":
             return LifeCycleCostUseAdjustment()
-        if internal_name == "Parametric:SetValueForRun":
+        if internal_name.lower() == "parametric:setvalueforrun":
             return ParametricSetValueForRun()
-        if internal_name == "Parametric:Logic":
+        if internal_name.lower() == "parametric:logic":
             return ParametricLogic()
-        if internal_name == "Parametric:RunControl":
+        if internal_name.lower() == "parametric:runcontrol":
             return ParametricRunControl()
-        if internal_name == "Parametric:FileNameSuffix":
+        if internal_name.lower() == "parametric:filenamesuffix":
             return ParametricFileNameSuffix()
-        if internal_name == "Output:VariableDictionary":
+        if internal_name.lower() == "output:variabledictionary":
             return OutputVariableDictionary()
-        if internal_name == "Output:Surfaces:List":
+        if internal_name.lower() == "output:surfaces:list":
             return OutputSurfacesList()
-        if internal_name == "Output:Surfaces:Drawing":
+        if internal_name.lower() == "output:surfaces:drawing":
             return OutputSurfacesDrawing()
-        if internal_name == "Output:Schedules":
+        if internal_name.lower() == "output:schedules":
             return OutputSchedules()
-        if internal_name == "Output:Constructions":
+        if internal_name.lower() == "output:constructions":
             return OutputConstructions()
-        if internal_name == "Output:EnergyManagementSystem":
+        if internal_name.lower() == "output:energymanagementsystem":
             return OutputEnergyManagementSystem()
-        if internal_name == "OutputControl:SurfaceColorScheme":
+        if internal_name.lower() == "outputcontrol:surfacecolorscheme":
             return OutputControlSurfaceColorScheme()
-        if internal_name == "Output:Table:SummaryReports":
+        if internal_name.lower() == "output:table:summaryreports":
             return OutputTableSummaryReports()
-        if internal_name == "Output:Table:TimeBins":
+        if internal_name.lower() == "output:table:timebins":
             return OutputTableTimeBins()
-        if internal_name == "Output:Table:Monthly":
+        if internal_name.lower() == "output:table:monthly":
             return OutputTableMonthly()
-        if internal_name == "OutputControl:Table:Style":
+        if internal_name.lower() == "outputcontrol:table:style":
             return OutputControlTableStyle()
-        if internal_name == "OutputControl:ReportingTolerances":
+        if internal_name.lower() == "outputcontrol:reportingtolerances":
             return OutputControlReportingTolerances()
-        if internal_name == "Output:Variable":
+        if internal_name.lower() == "output:variable":
             return OutputVariable()
-        if internal_name == "Output:Meter":
+        if internal_name.lower() == "output:meter":
             return OutputMeter()
-        if internal_name == "Output:Meter:MeterFileOnly":
+        if internal_name.lower() == "output:meter:meterfileonly":
             return OutputMeterMeterFileOnly()
-        if internal_name == "Output:Meter:Cumulative":
+        if internal_name.lower() == "output:meter:cumulative":
             return OutputMeterCumulative()
-        if internal_name == "Output:Meter:Cumulative:MeterFileOnly":
+        if internal_name.lower() == "output:meter:cumulative:meterfileonly":
             return OutputMeterCumulativeMeterFileOnly()
-        if internal_name == "Meter:Custom":
+        if internal_name.lower() == "meter:custom":
             return MeterCustom()
-        if internal_name == "Meter:CustomDecrement":
+        if internal_name.lower() == "meter:customdecrement":
             return MeterCustomDecrement()
-        if internal_name == "Output:SQLite":
+        if internal_name.lower() == "output:sqlite":
             return OutputSqlite()
-        if internal_name == "Output:EnvironmentalImpactFactors":
+        if internal_name.lower() == "output:environmentalimpactfactors":
             return OutputEnvironmentalImpactFactors()
-        if internal_name == "EnvironmentalImpactFactors":
+        if internal_name.lower() == "environmentalimpactfactors":
             return EnvironmentalImpactFactors()
-        if internal_name == "FuelFactors":
+        if internal_name.lower() == "fuelfactors":
             return FuelFactors()
-        if internal_name == "Output:Diagnostics":
+        if internal_name.lower() == "output:diagnostics":
             return OutputDiagnostics()
-        if internal_name == "Output:DebuggingData":
+        if internal_name.lower() == "output:debuggingdata":
             return OutputDebuggingData()
-        if internal_name == "Output:PreprocessorMessage":
+        if internal_name.lower() == "output:preprocessormessage":
             return OutputPreprocessorMessage()
         raise ValueError(
             "No DataDictionary known for {}".format(internal_name))
@@ -2281,14 +2432,62 @@ class IDF(object):
                path (str): path to read data from
         """
         with open(path, "r") as f:
+            current_object = None
+            current_vals = []
+
             for line in f:
+
                 line = line.strip()
-                match_obj_name = re.search(r"^([A-Z][A-Z/ \d]+),", line)
-                if match_obj_name is not None:
-                    internal_name = match_obj_name.group(1)
-                    if internal_name in self._data:
-                        self._data[internal_name] = self._create_datadict(
-                            internal_name)
-                        data_line = line[len(internal_name) + 1:]
-                        vals = data_line.strip().split(',')
-                        self._data[internal_name].read(vals)
+                if re.search(r"^\s*!", line) is not None:
+                    continue
+                if len(line) == 0:
+                    continue
+
+                line_comments = line.split("!")
+                line_match = re.search(r"\s*([\S ]*[,;])\s*", line_comments[0])
+                if line_match is None:
+                    print "Not matched: ", line
+                    continue
+                else:
+                    line = line_match.group(1)
+
+                splits = line.split(";")
+
+                for i, split in enumerate(splits):
+
+                    split = split.strip()
+                    if len(split) > 0 and split[-1] == ',':
+                        split = split[:-1]
+
+                    splitvals = split.split(",")
+
+                    if i > 1 and len(split) == 0:
+                        continue
+
+                    for j, val in enumerate(splitvals):
+
+                        val = val.strip()
+
+                        if j == len(splitvals) and len(val) == 0:
+                            continue
+
+                        if val == '' and current_object is None:
+                            continue
+
+                        if current_object is None:
+                            current_object = val.lower()
+                        else:
+                            current_vals.append(val)
+
+                    if len(splits) > 1 and current_object is not None:
+
+                        if current_object not in self._data:
+                            print "{} is not a valid data dictionary name".format(current_object)
+#                             raise ValueError("{} is not a valid data dictionary name".format(current_object))
+                        else:
+                            data_object = self._create_datadict(current_object)
+                            data_object.read(current_vals)
+                            self._data[current_object].append(data_object)
+
+                        current_object = None
+                        current_vals = []

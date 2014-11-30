@@ -18,39 +18,51 @@ class ScheduleTypeLimits(object):
         self._data["Upper Limit Value"] = None
         self._data["Numeric Type"] = None
         self._data["Unit Type"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.lower_limit_value = None
         else:
             self.lower_limit_value = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.upper_limit_value = None
         else:
             self.upper_limit_value = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.numeric_type = None
         else:
             self.numeric_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.unit_type = None
         else:
             self.unit_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -82,6 +94,9 @@ class ScheduleTypeLimits(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -185,12 +200,26 @@ class ScheduleTypeLimits(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `numeric_type`')
-            vals = set()
-            vals.add("Continuous")
-            vals.add("Discrete")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `numeric_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `numeric_type`')
+            vals = {}
+            vals["continuous"] = "Continuous"
+            vals["discrete"] = "Discrete"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `numeric_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Numeric Type"] = value
 
@@ -249,24 +278,38 @@ class ScheduleTypeLimits(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `unit_type`')
-            vals = set()
-            vals.add("Dimensionless")
-            vals.add("Temperature")
-            vals.add("DeltaTemperature")
-            vals.add("PrecipitationRate")
-            vals.add("Angle")
-            vals.add("ConvectionCoefficient")
-            vals.add("ActivityLevel")
-            vals.add("Velocity")
-            vals.add("Capacity")
-            vals.add("Power")
-            vals.add("Availability")
-            vals.add("Percent")
-            vals.add("Control")
-            vals.add("Mode")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `unit_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `unit_type`')
+            vals = {}
+            vals["dimensionless"] = "Dimensionless"
+            vals["temperature"] = "Temperature"
+            vals["deltatemperature"] = "DeltaTemperature"
+            vals["precipitationrate"] = "PrecipitationRate"
+            vals["angle"] = "Angle"
+            vals["convectioncoefficient"] = "ConvectionCoefficient"
+            vals["activitylevel"] = "ActivityLevel"
+            vals["velocity"] = "Velocity"
+            vals["capacity"] = "Capacity"
+            vals["power"] = "Power"
+            vals["availability"] = "Availability"
+            vals["percent"] = "Percent"
+            vals["control"] = "Control"
+            vals["mode"] = "Mode"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `unit_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Unit Type"] = value
 
@@ -292,14 +335,17 @@ class ScheduleTypeLimits(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.lower_limit_value))
-        out.append(self._to_str(self.upper_limit_value))
-        out.append(self._to_str(self.numeric_type))
-        out.append(self._to_str(self.unit_type))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class ScheduleDayHourly(object):
     """ Corresponds to IDD object `Schedule:Day:Hourly`
@@ -340,144 +386,198 @@ class ScheduleDayHourly(object):
         self._data["Hour 22"] = None
         self._data["Hour 23"] = None
         self._data["Hour 24"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.schedule_type_limits_name = None
         else:
             self.schedule_type_limits_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.hour_1 = None
         else:
             self.hour_1 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.hour_2 = None
         else:
             self.hour_2 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.hour_3 = None
         else:
             self.hour_3 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.hour_4 = None
         else:
             self.hour_4 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.hour_5 = None
         else:
             self.hour_5 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.hour_6 = None
         else:
             self.hour_6 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.hour_7 = None
         else:
             self.hour_7 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.hour_8 = None
         else:
             self.hour_8 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.hour_9 = None
         else:
             self.hour_9 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.hour_10 = None
         else:
             self.hour_10 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.hour_11 = None
         else:
             self.hour_11 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.hour_12 = None
         else:
             self.hour_12 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.hour_13 = None
         else:
             self.hour_13 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.hour_14 = None
         else:
             self.hour_14 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.hour_15 = None
         else:
             self.hour_15 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.hour_16 = None
         else:
             self.hour_16 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.hour_17 = None
         else:
             self.hour_17 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.hour_18 = None
         else:
             self.hour_18 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.hour_19 = None
         else:
             self.hour_19 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.hour_20 = None
         else:
             self.hour_20 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.hour_21 = None
         else:
             self.hour_21 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.hour_22 = None
         else:
             self.hour_22 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.hour_23 = None
         else:
             self.hour_23 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.hour_24 = None
         else:
             self.hour_24 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -508,6 +608,9 @@ class ScheduleDayHourly(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -541,6 +644,9 @@ class ScheduleDayHourly(object):
                                  'for field `schedule_type_limits_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `schedule_type_limits_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `schedule_type_limits_name`')
 
         self._data["Schedule Type Limits Name"] = value
@@ -1311,35 +1417,17 @@ class ScheduleDayHourly(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.schedule_type_limits_name))
-        out.append(self._to_str(self.hour_1))
-        out.append(self._to_str(self.hour_2))
-        out.append(self._to_str(self.hour_3))
-        out.append(self._to_str(self.hour_4))
-        out.append(self._to_str(self.hour_5))
-        out.append(self._to_str(self.hour_6))
-        out.append(self._to_str(self.hour_7))
-        out.append(self._to_str(self.hour_8))
-        out.append(self._to_str(self.hour_9))
-        out.append(self._to_str(self.hour_10))
-        out.append(self._to_str(self.hour_11))
-        out.append(self._to_str(self.hour_12))
-        out.append(self._to_str(self.hour_13))
-        out.append(self._to_str(self.hour_14))
-        out.append(self._to_str(self.hour_15))
-        out.append(self._to_str(self.hour_16))
-        out.append(self._to_str(self.hour_17))
-        out.append(self._to_str(self.hour_18))
-        out.append(self._to_str(self.hour_19))
-        out.append(self._to_str(self.hour_20))
-        out.append(self._to_str(self.hour_21))
-        out.append(self._to_str(self.hour_22))
-        out.append(self._to_str(self.hour_23))
-        out.append(self._to_str(self.hour_24))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class ScheduleDayInterval(object):
     """ Corresponds to IDD object `Schedule:Day:Interval`
@@ -1646,1469 +1734,2053 @@ class ScheduleDayInterval(object):
         self._data["Value Until Time 143"] = None
         self._data["Time 144"] = None
         self._data["Value Until Time 144"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.schedule_type_limits_name = None
         else:
             self.schedule_type_limits_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.interpolate_to_timestep = None
         else:
             self.interpolate_to_timestep = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.time_1 = None
         else:
             self.time_1 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.value_until_time_1 = None
         else:
             self.value_until_time_1 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.time_2 = None
         else:
             self.time_2 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.value_until_time_2 = None
         else:
             self.value_until_time_2 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.time_3 = None
         else:
             self.time_3 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.value_until_time_3 = None
         else:
             self.value_until_time_3 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.time_4 = None
         else:
             self.time_4 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.value_until_time_4 = None
         else:
             self.value_until_time_4 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.time_5 = None
         else:
             self.time_5 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.value_until_time_5 = None
         else:
             self.value_until_time_5 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.time_6 = None
         else:
             self.time_6 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.value_until_time_6 = None
         else:
             self.value_until_time_6 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.time_7 = None
         else:
             self.time_7 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.value_until_time_7 = None
         else:
             self.value_until_time_7 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.time_8 = None
         else:
             self.time_8 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.value_until_time_8 = None
         else:
             self.value_until_time_8 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.time_9 = None
         else:
             self.time_9 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.value_until_time_9 = None
         else:
             self.value_until_time_9 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.time_10 = None
         else:
             self.time_10 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.value_until_time_10 = None
         else:
             self.value_until_time_10 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.time_11 = None
         else:
             self.time_11 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.value_until_time_11 = None
         else:
             self.value_until_time_11 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.time_12 = None
         else:
             self.time_12 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.value_until_time_12 = None
         else:
             self.value_until_time_12 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.time_13 = None
         else:
             self.time_13 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.value_until_time_13 = None
         else:
             self.value_until_time_13 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.time_14 = None
         else:
             self.time_14 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.value_until_time_14 = None
         else:
             self.value_until_time_14 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.time_15 = None
         else:
             self.time_15 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.value_until_time_15 = None
         else:
             self.value_until_time_15 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.time_16 = None
         else:
             self.time_16 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.value_until_time_16 = None
         else:
             self.value_until_time_16 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.time_17 = None
         else:
             self.time_17 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.value_until_time_17 = None
         else:
             self.value_until_time_17 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.time_18 = None
         else:
             self.time_18 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.value_until_time_18 = None
         else:
             self.value_until_time_18 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.time_19 = None
         else:
             self.time_19 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.value_until_time_19 = None
         else:
             self.value_until_time_19 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.time_20 = None
         else:
             self.time_20 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.value_until_time_20 = None
         else:
             self.value_until_time_20 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.time_21 = None
         else:
             self.time_21 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.value_until_time_21 = None
         else:
             self.value_until_time_21 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.time_22 = None
         else:
             self.time_22 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.value_until_time_22 = None
         else:
             self.value_until_time_22 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.time_23 = None
         else:
             self.time_23 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.value_until_time_23 = None
         else:
             self.value_until_time_23 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.time_24 = None
         else:
             self.time_24 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.value_until_time_24 = None
         else:
             self.value_until_time_24 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.time_25 = None
         else:
             self.time_25 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.value_until_time_25 = None
         else:
             self.value_until_time_25 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.time_26 = None
         else:
             self.time_26 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.value_until_time_26 = None
         else:
             self.value_until_time_26 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.time_27 = None
         else:
             self.time_27 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.value_until_time_27 = None
         else:
             self.value_until_time_27 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.time_28 = None
         else:
             self.time_28 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.value_until_time_28 = None
         else:
             self.value_until_time_28 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.time_29 = None
         else:
             self.time_29 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.value_until_time_29 = None
         else:
             self.value_until_time_29 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.time_30 = None
         else:
             self.time_30 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.value_until_time_30 = None
         else:
             self.value_until_time_30 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.time_31 = None
         else:
             self.time_31 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.value_until_time_31 = None
         else:
             self.value_until_time_31 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.time_32 = None
         else:
             self.time_32 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.value_until_time_32 = None
         else:
             self.value_until_time_32 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.time_33 = None
         else:
             self.time_33 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.value_until_time_33 = None
         else:
             self.value_until_time_33 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.time_34 = None
         else:
             self.time_34 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.value_until_time_34 = None
         else:
             self.value_until_time_34 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.time_35 = None
         else:
             self.time_35 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.value_until_time_35 = None
         else:
             self.value_until_time_35 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.time_36 = None
         else:
             self.time_36 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.value_until_time_36 = None
         else:
             self.value_until_time_36 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.time_37 = None
         else:
             self.time_37 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.value_until_time_37 = None
         else:
             self.value_until_time_37 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.time_38 = None
         else:
             self.time_38 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.value_until_time_38 = None
         else:
             self.value_until_time_38 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.time_39 = None
         else:
             self.time_39 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.value_until_time_39 = None
         else:
             self.value_until_time_39 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.time_40 = None
         else:
             self.time_40 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.value_until_time_40 = None
         else:
             self.value_until_time_40 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.time_41 = None
         else:
             self.time_41 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.value_until_time_41 = None
         else:
             self.value_until_time_41 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.time_42 = None
         else:
             self.time_42 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.value_until_time_42 = None
         else:
             self.value_until_time_42 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.time_43 = None
         else:
             self.time_43 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.value_until_time_43 = None
         else:
             self.value_until_time_43 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.time_44 = None
         else:
             self.time_44 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.value_until_time_44 = None
         else:
             self.value_until_time_44 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.time_45 = None
         else:
             self.time_45 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.value_until_time_45 = None
         else:
             self.value_until_time_45 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.time_46 = None
         else:
             self.time_46 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.value_until_time_46 = None
         else:
             self.value_until_time_46 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.time_47 = None
         else:
             self.time_47 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.value_until_time_47 = None
         else:
             self.value_until_time_47 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.time_48 = None
         else:
             self.time_48 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.value_until_time_48 = None
         else:
             self.value_until_time_48 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.time_49 = None
         else:
             self.time_49 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.value_until_time_49 = None
         else:
             self.value_until_time_49 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.time_50 = None
         else:
             self.time_50 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.value_until_time_50 = None
         else:
             self.value_until_time_50 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.time_51 = None
         else:
             self.time_51 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.value_until_time_51 = None
         else:
             self.value_until_time_51 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.time_52 = None
         else:
             self.time_52 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.value_until_time_52 = None
         else:
             self.value_until_time_52 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.time_53 = None
         else:
             self.time_53 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.value_until_time_53 = None
         else:
             self.value_until_time_53 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.time_54 = None
         else:
             self.time_54 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.value_until_time_54 = None
         else:
             self.value_until_time_54 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.time_55 = None
         else:
             self.time_55 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.value_until_time_55 = None
         else:
             self.value_until_time_55 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.time_56 = None
         else:
             self.time_56 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.value_until_time_56 = None
         else:
             self.value_until_time_56 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.time_57 = None
         else:
             self.time_57 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.value_until_time_57 = None
         else:
             self.value_until_time_57 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.time_58 = None
         else:
             self.time_58 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.value_until_time_58 = None
         else:
             self.value_until_time_58 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.time_59 = None
         else:
             self.time_59 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.value_until_time_59 = None
         else:
             self.value_until_time_59 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.time_60 = None
         else:
             self.time_60 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.value_until_time_60 = None
         else:
             self.value_until_time_60 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.time_61 = None
         else:
             self.time_61 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.value_until_time_61 = None
         else:
             self.value_until_time_61 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.time_62 = None
         else:
             self.time_62 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.value_until_time_62 = None
         else:
             self.value_until_time_62 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.time_63 = None
         else:
             self.time_63 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.value_until_time_63 = None
         else:
             self.value_until_time_63 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.time_64 = None
         else:
             self.time_64 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.value_until_time_64 = None
         else:
             self.value_until_time_64 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.time_65 = None
         else:
             self.time_65 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.value_until_time_65 = None
         else:
             self.value_until_time_65 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.time_66 = None
         else:
             self.time_66 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.value_until_time_66 = None
         else:
             self.value_until_time_66 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.time_67 = None
         else:
             self.time_67 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.value_until_time_67 = None
         else:
             self.value_until_time_67 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.time_68 = None
         else:
             self.time_68 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.value_until_time_68 = None
         else:
             self.value_until_time_68 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.time_69 = None
         else:
             self.time_69 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.value_until_time_69 = None
         else:
             self.value_until_time_69 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.time_70 = None
         else:
             self.time_70 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.value_until_time_70 = None
         else:
             self.value_until_time_70 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.time_71 = None
         else:
             self.time_71 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.value_until_time_71 = None
         else:
             self.value_until_time_71 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.time_72 = None
         else:
             self.time_72 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.value_until_time_72 = None
         else:
             self.value_until_time_72 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.time_73 = None
         else:
             self.time_73 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.value_until_time_73 = None
         else:
             self.value_until_time_73 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.time_74 = None
         else:
             self.time_74 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.value_until_time_74 = None
         else:
             self.value_until_time_74 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.time_75 = None
         else:
             self.time_75 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.value_until_time_75 = None
         else:
             self.value_until_time_75 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.time_76 = None
         else:
             self.time_76 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.value_until_time_76 = None
         else:
             self.value_until_time_76 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.time_77 = None
         else:
             self.time_77 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.value_until_time_77 = None
         else:
             self.value_until_time_77 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.time_78 = None
         else:
             self.time_78 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.value_until_time_78 = None
         else:
             self.value_until_time_78 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.time_79 = None
         else:
             self.time_79 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.value_until_time_79 = None
         else:
             self.value_until_time_79 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.time_80 = None
         else:
             self.time_80 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.value_until_time_80 = None
         else:
             self.value_until_time_80 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.time_81 = None
         else:
             self.time_81 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.value_until_time_81 = None
         else:
             self.value_until_time_81 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.time_82 = None
         else:
             self.time_82 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.value_until_time_82 = None
         else:
             self.value_until_time_82 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.time_83 = None
         else:
             self.time_83 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.value_until_time_83 = None
         else:
             self.value_until_time_83 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.time_84 = None
         else:
             self.time_84 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.value_until_time_84 = None
         else:
             self.value_until_time_84 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.time_85 = None
         else:
             self.time_85 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.value_until_time_85 = None
         else:
             self.value_until_time_85 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.time_86 = None
         else:
             self.time_86 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.value_until_time_86 = None
         else:
             self.value_until_time_86 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.time_87 = None
         else:
             self.time_87 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.value_until_time_87 = None
         else:
             self.value_until_time_87 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.time_88 = None
         else:
             self.time_88 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.value_until_time_88 = None
         else:
             self.value_until_time_88 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.time_89 = None
         else:
             self.time_89 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.value_until_time_89 = None
         else:
             self.value_until_time_89 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.time_90 = None
         else:
             self.time_90 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.value_until_time_90 = None
         else:
             self.value_until_time_90 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.time_91 = None
         else:
             self.time_91 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.value_until_time_91 = None
         else:
             self.value_until_time_91 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.time_92 = None
         else:
             self.time_92 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.value_until_time_92 = None
         else:
             self.value_until_time_92 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.time_93 = None
         else:
             self.time_93 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.value_until_time_93 = None
         else:
             self.value_until_time_93 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.time_94 = None
         else:
             self.time_94 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.value_until_time_94 = None
         else:
             self.value_until_time_94 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.time_95 = None
         else:
             self.time_95 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.value_until_time_95 = None
         else:
             self.value_until_time_95 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.time_96 = None
         else:
             self.time_96 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.value_until_time_96 = None
         else:
             self.value_until_time_96 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.time_97 = None
         else:
             self.time_97 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.value_until_time_97 = None
         else:
             self.value_until_time_97 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.time_98 = None
         else:
             self.time_98 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.value_until_time_98 = None
         else:
             self.value_until_time_98 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.time_99 = None
         else:
             self.time_99 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.value_until_time_99 = None
         else:
             self.value_until_time_99 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.time_100 = None
         else:
             self.time_100 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.value_until_time_100 = None
         else:
             self.value_until_time_100 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.time_101 = None
         else:
             self.time_101 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.value_until_time_101 = None
         else:
             self.value_until_time_101 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.time_102 = None
         else:
             self.time_102 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.value_until_time_102 = None
         else:
             self.value_until_time_102 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.time_103 = None
         else:
             self.time_103 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.value_until_time_103 = None
         else:
             self.value_until_time_103 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.time_104 = None
         else:
             self.time_104 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.value_until_time_104 = None
         else:
             self.value_until_time_104 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.time_105 = None
         else:
             self.time_105 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.value_until_time_105 = None
         else:
             self.value_until_time_105 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.time_106 = None
         else:
             self.time_106 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.value_until_time_106 = None
         else:
             self.value_until_time_106 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.time_107 = None
         else:
             self.time_107 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.value_until_time_107 = None
         else:
             self.value_until_time_107 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.time_108 = None
         else:
             self.time_108 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.value_until_time_108 = None
         else:
             self.value_until_time_108 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.time_109 = None
         else:
             self.time_109 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.value_until_time_109 = None
         else:
             self.value_until_time_109 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.time_110 = None
         else:
             self.time_110 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.value_until_time_110 = None
         else:
             self.value_until_time_110 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.time_111 = None
         else:
             self.time_111 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.value_until_time_111 = None
         else:
             self.value_until_time_111 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.time_112 = None
         else:
             self.time_112 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.value_until_time_112 = None
         else:
             self.value_until_time_112 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.time_113 = None
         else:
             self.time_113 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.value_until_time_113 = None
         else:
             self.value_until_time_113 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.time_114 = None
         else:
             self.time_114 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.value_until_time_114 = None
         else:
             self.value_until_time_114 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.time_115 = None
         else:
             self.time_115 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.value_until_time_115 = None
         else:
             self.value_until_time_115 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.time_116 = None
         else:
             self.time_116 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.value_until_time_116 = None
         else:
             self.value_until_time_116 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.time_117 = None
         else:
             self.time_117 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.value_until_time_117 = None
         else:
             self.value_until_time_117 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.time_118 = None
         else:
             self.time_118 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.value_until_time_118 = None
         else:
             self.value_until_time_118 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.time_119 = None
         else:
             self.time_119 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.value_until_time_119 = None
         else:
             self.value_until_time_119 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.time_120 = None
         else:
             self.time_120 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.value_until_time_120 = None
         else:
             self.value_until_time_120 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.time_121 = None
         else:
             self.time_121 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.value_until_time_121 = None
         else:
             self.value_until_time_121 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.time_122 = None
         else:
             self.time_122 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.value_until_time_122 = None
         else:
             self.value_until_time_122 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.time_123 = None
         else:
             self.time_123 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.value_until_time_123 = None
         else:
             self.value_until_time_123 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.time_124 = None
         else:
             self.time_124 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.value_until_time_124 = None
         else:
             self.value_until_time_124 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.time_125 = None
         else:
             self.time_125 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.value_until_time_125 = None
         else:
             self.value_until_time_125 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.time_126 = None
         else:
             self.time_126 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.value_until_time_126 = None
         else:
             self.value_until_time_126 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.time_127 = None
         else:
             self.time_127 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.value_until_time_127 = None
         else:
             self.value_until_time_127 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.time_128 = None
         else:
             self.time_128 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.value_until_time_128 = None
         else:
             self.value_until_time_128 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.time_129 = None
         else:
             self.time_129 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.value_until_time_129 = None
         else:
             self.value_until_time_129 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.time_130 = None
         else:
             self.time_130 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.value_until_time_130 = None
         else:
             self.value_until_time_130 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.time_131 = None
         else:
             self.time_131 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.value_until_time_131 = None
         else:
             self.value_until_time_131 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.time_132 = None
         else:
             self.time_132 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.value_until_time_132 = None
         else:
             self.value_until_time_132 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.time_133 = None
         else:
             self.time_133 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.value_until_time_133 = None
         else:
             self.value_until_time_133 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.time_134 = None
         else:
             self.time_134 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.value_until_time_134 = None
         else:
             self.value_until_time_134 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.time_135 = None
         else:
             self.time_135 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.value_until_time_135 = None
         else:
             self.value_until_time_135 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.time_136 = None
         else:
             self.time_136 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.value_until_time_136 = None
         else:
             self.value_until_time_136 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.time_137 = None
         else:
             self.time_137 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.value_until_time_137 = None
         else:
             self.value_until_time_137 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.time_138 = None
         else:
             self.time_138 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.value_until_time_138 = None
         else:
             self.value_until_time_138 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.time_139 = None
         else:
             self.time_139 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.value_until_time_139 = None
         else:
             self.value_until_time_139 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.time_140 = None
         else:
             self.time_140 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.value_until_time_140 = None
         else:
             self.value_until_time_140 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.time_141 = None
         else:
             self.time_141 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.value_until_time_141 = None
         else:
             self.value_until_time_141 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.time_142 = None
         else:
             self.time_142 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.value_until_time_142 = None
         else:
             self.value_until_time_142 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.time_143 = None
         else:
             self.time_143 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.value_until_time_143 = None
         else:
             self.value_until_time_143 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.time_144 = None
         else:
             self.time_144 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.value_until_time_144 = None
         else:
             self.value_until_time_144 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -3139,6 +3811,9 @@ class ScheduleDayInterval(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -3172,6 +3847,9 @@ class ScheduleDayInterval(object):
                                  'for field `schedule_type_limits_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `schedule_type_limits_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `schedule_type_limits_name`')
 
         self._data["Schedule Type Limits Name"] = value
@@ -3213,12 +3891,26 @@ class ScheduleDayInterval(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `interpolate_to_timestep`')
-            vals = set()
-            vals.add("Yes")
-            vals.add("No")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `interpolate_to_timestep`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `interpolate_to_timestep`')
+            vals = {}
+            vals["yes"] = "Yes"
+            vals["no"] = "No"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `interpolate_to_timestep`'.format(value))
+            value = vals[value_lower]
 
         self._data["Interpolate to Timestep"] = value
 
@@ -3253,6 +3945,9 @@ class ScheduleDayInterval(object):
                                  'for field `time_1`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `time_1`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `time_1`')
 
         self._data["Time 1"] = value
@@ -3319,6 +4014,9 @@ class ScheduleDayInterval(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `time_2`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `time_2`')
 
         self._data["Time 2"] = value
 
@@ -3383,6 +4081,9 @@ class ScheduleDayInterval(object):
                                  'for field `time_3`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `time_3`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `time_3`')
 
         self._data["Time 3"] = value
@@ -3449,6 +4150,9 @@ class ScheduleDayInterval(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `time_4`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `time_4`')
 
         self._data["Time 4"] = value
 
@@ -3513,6 +4217,9 @@ class ScheduleDayInterval(object):
                                  'for field `time_5`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `time_5`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `time_5`')
 
         self._data["Time 5"] = value
@@ -3579,6 +4286,9 @@ class ScheduleDayInterval(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `time_6`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `time_6`')
 
         self._data["Time 6"] = value
 
@@ -3643,6 +4353,9 @@ class ScheduleDayInterval(object):
                                  'for field `time_7`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `time_7`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `time_7`')
 
         self._data["Time 7"] = value
@@ -3709,6 +4422,9 @@ class ScheduleDayInterval(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `time_8`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `time_8`')
 
         self._data["Time 8"] = value
 
@@ -3773,6 +4489,9 @@ class ScheduleDayInterval(object):
                                  'for field `time_9`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `time_9`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `time_9`')
 
         self._data["Time 9"] = value
@@ -3839,6 +4558,9 @@ class ScheduleDayInterval(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `time_10`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `time_10`')
 
         self._data["Time 10"] = value
 
@@ -3903,6 +4625,9 @@ class ScheduleDayInterval(object):
                                  'for field `time_11`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `time_11`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `time_11`')
 
         self._data["Time 11"] = value
@@ -3969,6 +4694,9 @@ class ScheduleDayInterval(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `time_12`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `time_12`')
 
         self._data["Time 12"] = value
 
@@ -4033,6 +4761,9 @@ class ScheduleDayInterval(object):
                                  'for field `time_13`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `time_13`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `time_13`')
 
         self._data["Time 13"] = value
@@ -4099,6 +4830,9 @@ class ScheduleDayInterval(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `time_14`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `time_14`')
 
         self._data["Time 14"] = value
 
@@ -4163,6 +4897,9 @@ class ScheduleDayInterval(object):
                                  'for field `time_15`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `time_15`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `time_15`')
 
         self._data["Time 15"] = value
@@ -4229,6 +4966,9 @@ class ScheduleDayInterval(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `time_16`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `time_16`')
 
         self._data["Time 16"] = value
 
@@ -4293,6 +5033,9 @@ class ScheduleDayInterval(object):
                                  'for field `time_17`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `time_17`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `time_17`')
 
         self._data["Time 17"] = value
@@ -4359,6 +5102,9 @@ class ScheduleDayInterval(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `time_18`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `time_18`')
 
         self._data["Time 18"] = value
 
@@ -4423,6 +5169,9 @@ class ScheduleDayInterval(object):
                                  'for field `time_19`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `time_19`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `time_19`')
 
         self._data["Time 19"] = value
@@ -4489,6 +5238,9 @@ class ScheduleDayInterval(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `time_20`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `time_20`')
 
         self._data["Time 20"] = value
 
@@ -4553,6 +5305,9 @@ class ScheduleDayInterval(object):
                                  'for field `time_21`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `time_21`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `time_21`')
 
         self._data["Time 21"] = value
@@ -4619,6 +5374,9 @@ class ScheduleDayInterval(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `time_22`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `time_22`')
 
         self._data["Time 22"] = value
 
@@ -4683,6 +5441,9 @@ class ScheduleDayInterval(object):
                                  'for field `time_23`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `time_23`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `time_23`')
 
         self._data["Time 23"] = value
@@ -4749,6 +5510,9 @@ class ScheduleDayInterval(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `time_24`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `time_24`')
 
         self._data["Time 24"] = value
 
@@ -4813,6 +5577,9 @@ class ScheduleDayInterval(object):
                                  'for field `time_25`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `time_25`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `time_25`')
 
         self._data["Time 25"] = value
@@ -4879,6 +5646,9 @@ class ScheduleDayInterval(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `time_26`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `time_26`')
 
         self._data["Time 26"] = value
 
@@ -4943,6 +5713,9 @@ class ScheduleDayInterval(object):
                                  'for field `time_27`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `time_27`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `time_27`')
 
         self._data["Time 27"] = value
@@ -5009,6 +5782,9 @@ class ScheduleDayInterval(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `time_28`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `time_28`')
 
         self._data["Time 28"] = value
 
@@ -5073,6 +5849,9 @@ class ScheduleDayInterval(object):
                                  'for field `time_29`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `time_29`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `time_29`')
 
         self._data["Time 29"] = value
@@ -5139,6 +5918,9 @@ class ScheduleDayInterval(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `time_30`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `time_30`')
 
         self._data["Time 30"] = value
 
@@ -5203,6 +5985,9 @@ class ScheduleDayInterval(object):
                                  'for field `time_31`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `time_31`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `time_31`')
 
         self._data["Time 31"] = value
@@ -5269,6 +6054,9 @@ class ScheduleDayInterval(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `time_32`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `time_32`')
 
         self._data["Time 32"] = value
 
@@ -5333,6 +6121,9 @@ class ScheduleDayInterval(object):
                                  'for field `time_33`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `time_33`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `time_33`')
 
         self._data["Time 33"] = value
@@ -5399,6 +6190,9 @@ class ScheduleDayInterval(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `time_34`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `time_34`')
 
         self._data["Time 34"] = value
 
@@ -5463,6 +6257,9 @@ class ScheduleDayInterval(object):
                                  'for field `time_35`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `time_35`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `time_35`')
 
         self._data["Time 35"] = value
@@ -5529,6 +6326,9 @@ class ScheduleDayInterval(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `time_36`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `time_36`')
 
         self._data["Time 36"] = value
 
@@ -5593,6 +6393,9 @@ class ScheduleDayInterval(object):
                                  'for field `time_37`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `time_37`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `time_37`')
 
         self._data["Time 37"] = value
@@ -5659,6 +6462,9 @@ class ScheduleDayInterval(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `time_38`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `time_38`')
 
         self._data["Time 38"] = value
 
@@ -5723,6 +6529,9 @@ class ScheduleDayInterval(object):
                                  'for field `time_39`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `time_39`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `time_39`')
 
         self._data["Time 39"] = value
@@ -5789,6 +6598,9 @@ class ScheduleDayInterval(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `time_40`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `time_40`')
 
         self._data["Time 40"] = value
 
@@ -5853,6 +6665,9 @@ class ScheduleDayInterval(object):
                                  'for field `time_41`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `time_41`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `time_41`')
 
         self._data["Time 41"] = value
@@ -5919,6 +6734,9 @@ class ScheduleDayInterval(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `time_42`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `time_42`')
 
         self._data["Time 42"] = value
 
@@ -5983,6 +6801,9 @@ class ScheduleDayInterval(object):
                                  'for field `time_43`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `time_43`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `time_43`')
 
         self._data["Time 43"] = value
@@ -6049,6 +6870,9 @@ class ScheduleDayInterval(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `time_44`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `time_44`')
 
         self._data["Time 44"] = value
 
@@ -6113,6 +6937,9 @@ class ScheduleDayInterval(object):
                                  'for field `time_45`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `time_45`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `time_45`')
 
         self._data["Time 45"] = value
@@ -6179,6 +7006,9 @@ class ScheduleDayInterval(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `time_46`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `time_46`')
 
         self._data["Time 46"] = value
 
@@ -6243,6 +7073,9 @@ class ScheduleDayInterval(object):
                                  'for field `time_47`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `time_47`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `time_47`')
 
         self._data["Time 47"] = value
@@ -6309,6 +7142,9 @@ class ScheduleDayInterval(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `time_48`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `time_48`')
 
         self._data["Time 48"] = value
 
@@ -6373,6 +7209,9 @@ class ScheduleDayInterval(object):
                                  'for field `time_49`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `time_49`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `time_49`')
 
         self._data["Time 49"] = value
@@ -6439,6 +7278,9 @@ class ScheduleDayInterval(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `time_50`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `time_50`')
 
         self._data["Time 50"] = value
 
@@ -6503,6 +7345,9 @@ class ScheduleDayInterval(object):
                                  'for field `time_51`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `time_51`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `time_51`')
 
         self._data["Time 51"] = value
@@ -6569,6 +7414,9 @@ class ScheduleDayInterval(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `time_52`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `time_52`')
 
         self._data["Time 52"] = value
 
@@ -6633,6 +7481,9 @@ class ScheduleDayInterval(object):
                                  'for field `time_53`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `time_53`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `time_53`')
 
         self._data["Time 53"] = value
@@ -6699,6 +7550,9 @@ class ScheduleDayInterval(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `time_54`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `time_54`')
 
         self._data["Time 54"] = value
 
@@ -6763,6 +7617,9 @@ class ScheduleDayInterval(object):
                                  'for field `time_55`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `time_55`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `time_55`')
 
         self._data["Time 55"] = value
@@ -6829,6 +7686,9 @@ class ScheduleDayInterval(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `time_56`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `time_56`')
 
         self._data["Time 56"] = value
 
@@ -6893,6 +7753,9 @@ class ScheduleDayInterval(object):
                                  'for field `time_57`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `time_57`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `time_57`')
 
         self._data["Time 57"] = value
@@ -6959,6 +7822,9 @@ class ScheduleDayInterval(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `time_58`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `time_58`')
 
         self._data["Time 58"] = value
 
@@ -7023,6 +7889,9 @@ class ScheduleDayInterval(object):
                                  'for field `time_59`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `time_59`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `time_59`')
 
         self._data["Time 59"] = value
@@ -7089,6 +7958,9 @@ class ScheduleDayInterval(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `time_60`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `time_60`')
 
         self._data["Time 60"] = value
 
@@ -7153,6 +8025,9 @@ class ScheduleDayInterval(object):
                                  'for field `time_61`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `time_61`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `time_61`')
 
         self._data["Time 61"] = value
@@ -7219,6 +8094,9 @@ class ScheduleDayInterval(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `time_62`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `time_62`')
 
         self._data["Time 62"] = value
 
@@ -7283,6 +8161,9 @@ class ScheduleDayInterval(object):
                                  'for field `time_63`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `time_63`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `time_63`')
 
         self._data["Time 63"] = value
@@ -7349,6 +8230,9 @@ class ScheduleDayInterval(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `time_64`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `time_64`')
 
         self._data["Time 64"] = value
 
@@ -7413,6 +8297,9 @@ class ScheduleDayInterval(object):
                                  'for field `time_65`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `time_65`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `time_65`')
 
         self._data["Time 65"] = value
@@ -7479,6 +8366,9 @@ class ScheduleDayInterval(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `time_66`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `time_66`')
 
         self._data["Time 66"] = value
 
@@ -7543,6 +8433,9 @@ class ScheduleDayInterval(object):
                                  'for field `time_67`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `time_67`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `time_67`')
 
         self._data["Time 67"] = value
@@ -7609,6 +8502,9 @@ class ScheduleDayInterval(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `time_68`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `time_68`')
 
         self._data["Time 68"] = value
 
@@ -7673,6 +8569,9 @@ class ScheduleDayInterval(object):
                                  'for field `time_69`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `time_69`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `time_69`')
 
         self._data["Time 69"] = value
@@ -7739,6 +8638,9 @@ class ScheduleDayInterval(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `time_70`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `time_70`')
 
         self._data["Time 70"] = value
 
@@ -7803,6 +8705,9 @@ class ScheduleDayInterval(object):
                                  'for field `time_71`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `time_71`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `time_71`')
 
         self._data["Time 71"] = value
@@ -7869,6 +8774,9 @@ class ScheduleDayInterval(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `time_72`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `time_72`')
 
         self._data["Time 72"] = value
 
@@ -7933,6 +8841,9 @@ class ScheduleDayInterval(object):
                                  'for field `time_73`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `time_73`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `time_73`')
 
         self._data["Time 73"] = value
@@ -7999,6 +8910,9 @@ class ScheduleDayInterval(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `time_74`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `time_74`')
 
         self._data["Time 74"] = value
 
@@ -8063,6 +8977,9 @@ class ScheduleDayInterval(object):
                                  'for field `time_75`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `time_75`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `time_75`')
 
         self._data["Time 75"] = value
@@ -8129,6 +9046,9 @@ class ScheduleDayInterval(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `time_76`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `time_76`')
 
         self._data["Time 76"] = value
 
@@ -8193,6 +9113,9 @@ class ScheduleDayInterval(object):
                                  'for field `time_77`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `time_77`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `time_77`')
 
         self._data["Time 77"] = value
@@ -8259,6 +9182,9 @@ class ScheduleDayInterval(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `time_78`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `time_78`')
 
         self._data["Time 78"] = value
 
@@ -8323,6 +9249,9 @@ class ScheduleDayInterval(object):
                                  'for field `time_79`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `time_79`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `time_79`')
 
         self._data["Time 79"] = value
@@ -8389,6 +9318,9 @@ class ScheduleDayInterval(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `time_80`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `time_80`')
 
         self._data["Time 80"] = value
 
@@ -8453,6 +9385,9 @@ class ScheduleDayInterval(object):
                                  'for field `time_81`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `time_81`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `time_81`')
 
         self._data["Time 81"] = value
@@ -8519,6 +9454,9 @@ class ScheduleDayInterval(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `time_82`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `time_82`')
 
         self._data["Time 82"] = value
 
@@ -8583,6 +9521,9 @@ class ScheduleDayInterval(object):
                                  'for field `time_83`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `time_83`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `time_83`')
 
         self._data["Time 83"] = value
@@ -8649,6 +9590,9 @@ class ScheduleDayInterval(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `time_84`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `time_84`')
 
         self._data["Time 84"] = value
 
@@ -8713,6 +9657,9 @@ class ScheduleDayInterval(object):
                                  'for field `time_85`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `time_85`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `time_85`')
 
         self._data["Time 85"] = value
@@ -8779,6 +9726,9 @@ class ScheduleDayInterval(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `time_86`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `time_86`')
 
         self._data["Time 86"] = value
 
@@ -8843,6 +9793,9 @@ class ScheduleDayInterval(object):
                                  'for field `time_87`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `time_87`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `time_87`')
 
         self._data["Time 87"] = value
@@ -8909,6 +9862,9 @@ class ScheduleDayInterval(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `time_88`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `time_88`')
 
         self._data["Time 88"] = value
 
@@ -8973,6 +9929,9 @@ class ScheduleDayInterval(object):
                                  'for field `time_89`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `time_89`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `time_89`')
 
         self._data["Time 89"] = value
@@ -9039,6 +9998,9 @@ class ScheduleDayInterval(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `time_90`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `time_90`')
 
         self._data["Time 90"] = value
 
@@ -9103,6 +10065,9 @@ class ScheduleDayInterval(object):
                                  'for field `time_91`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `time_91`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `time_91`')
 
         self._data["Time 91"] = value
@@ -9169,6 +10134,9 @@ class ScheduleDayInterval(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `time_92`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `time_92`')
 
         self._data["Time 92"] = value
 
@@ -9233,6 +10201,9 @@ class ScheduleDayInterval(object):
                                  'for field `time_93`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `time_93`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `time_93`')
 
         self._data["Time 93"] = value
@@ -9299,6 +10270,9 @@ class ScheduleDayInterval(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `time_94`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `time_94`')
 
         self._data["Time 94"] = value
 
@@ -9363,6 +10337,9 @@ class ScheduleDayInterval(object):
                                  'for field `time_95`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `time_95`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `time_95`')
 
         self._data["Time 95"] = value
@@ -9429,6 +10406,9 @@ class ScheduleDayInterval(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `time_96`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `time_96`')
 
         self._data["Time 96"] = value
 
@@ -9493,6 +10473,9 @@ class ScheduleDayInterval(object):
                                  'for field `time_97`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `time_97`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `time_97`')
 
         self._data["Time 97"] = value
@@ -9559,6 +10542,9 @@ class ScheduleDayInterval(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `time_98`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `time_98`')
 
         self._data["Time 98"] = value
 
@@ -9623,6 +10609,9 @@ class ScheduleDayInterval(object):
                                  'for field `time_99`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `time_99`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `time_99`')
 
         self._data["Time 99"] = value
@@ -9689,6 +10678,9 @@ class ScheduleDayInterval(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `time_100`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `time_100`')
 
         self._data["Time 100"] = value
 
@@ -9753,6 +10745,9 @@ class ScheduleDayInterval(object):
                                  'for field `time_101`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `time_101`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `time_101`')
 
         self._data["Time 101"] = value
@@ -9819,6 +10814,9 @@ class ScheduleDayInterval(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `time_102`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `time_102`')
 
         self._data["Time 102"] = value
 
@@ -9883,6 +10881,9 @@ class ScheduleDayInterval(object):
                                  'for field `time_103`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `time_103`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `time_103`')
 
         self._data["Time 103"] = value
@@ -9949,6 +10950,9 @@ class ScheduleDayInterval(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `time_104`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `time_104`')
 
         self._data["Time 104"] = value
 
@@ -10013,6 +11017,9 @@ class ScheduleDayInterval(object):
                                  'for field `time_105`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `time_105`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `time_105`')
 
         self._data["Time 105"] = value
@@ -10079,6 +11086,9 @@ class ScheduleDayInterval(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `time_106`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `time_106`')
 
         self._data["Time 106"] = value
 
@@ -10143,6 +11153,9 @@ class ScheduleDayInterval(object):
                                  'for field `time_107`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `time_107`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `time_107`')
 
         self._data["Time 107"] = value
@@ -10209,6 +11222,9 @@ class ScheduleDayInterval(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `time_108`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `time_108`')
 
         self._data["Time 108"] = value
 
@@ -10273,6 +11289,9 @@ class ScheduleDayInterval(object):
                                  'for field `time_109`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `time_109`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `time_109`')
 
         self._data["Time 109"] = value
@@ -10339,6 +11358,9 @@ class ScheduleDayInterval(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `time_110`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `time_110`')
 
         self._data["Time 110"] = value
 
@@ -10403,6 +11425,9 @@ class ScheduleDayInterval(object):
                                  'for field `time_111`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `time_111`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `time_111`')
 
         self._data["Time 111"] = value
@@ -10469,6 +11494,9 @@ class ScheduleDayInterval(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `time_112`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `time_112`')
 
         self._data["Time 112"] = value
 
@@ -10533,6 +11561,9 @@ class ScheduleDayInterval(object):
                                  'for field `time_113`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `time_113`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `time_113`')
 
         self._data["Time 113"] = value
@@ -10599,6 +11630,9 @@ class ScheduleDayInterval(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `time_114`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `time_114`')
 
         self._data["Time 114"] = value
 
@@ -10663,6 +11697,9 @@ class ScheduleDayInterval(object):
                                  'for field `time_115`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `time_115`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `time_115`')
 
         self._data["Time 115"] = value
@@ -10729,6 +11766,9 @@ class ScheduleDayInterval(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `time_116`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `time_116`')
 
         self._data["Time 116"] = value
 
@@ -10793,6 +11833,9 @@ class ScheduleDayInterval(object):
                                  'for field `time_117`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `time_117`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `time_117`')
 
         self._data["Time 117"] = value
@@ -10859,6 +11902,9 @@ class ScheduleDayInterval(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `time_118`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `time_118`')
 
         self._data["Time 118"] = value
 
@@ -10923,6 +11969,9 @@ class ScheduleDayInterval(object):
                                  'for field `time_119`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `time_119`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `time_119`')
 
         self._data["Time 119"] = value
@@ -10989,6 +12038,9 @@ class ScheduleDayInterval(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `time_120`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `time_120`')
 
         self._data["Time 120"] = value
 
@@ -11053,6 +12105,9 @@ class ScheduleDayInterval(object):
                                  'for field `time_121`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `time_121`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `time_121`')
 
         self._data["Time 121"] = value
@@ -11119,6 +12174,9 @@ class ScheduleDayInterval(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `time_122`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `time_122`')
 
         self._data["Time 122"] = value
 
@@ -11183,6 +12241,9 @@ class ScheduleDayInterval(object):
                                  'for field `time_123`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `time_123`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `time_123`')
 
         self._data["Time 123"] = value
@@ -11249,6 +12310,9 @@ class ScheduleDayInterval(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `time_124`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `time_124`')
 
         self._data["Time 124"] = value
 
@@ -11313,6 +12377,9 @@ class ScheduleDayInterval(object):
                                  'for field `time_125`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `time_125`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `time_125`')
 
         self._data["Time 125"] = value
@@ -11379,6 +12446,9 @@ class ScheduleDayInterval(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `time_126`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `time_126`')
 
         self._data["Time 126"] = value
 
@@ -11443,6 +12513,9 @@ class ScheduleDayInterval(object):
                                  'for field `time_127`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `time_127`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `time_127`')
 
         self._data["Time 127"] = value
@@ -11509,6 +12582,9 @@ class ScheduleDayInterval(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `time_128`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `time_128`')
 
         self._data["Time 128"] = value
 
@@ -11573,6 +12649,9 @@ class ScheduleDayInterval(object):
                                  'for field `time_129`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `time_129`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `time_129`')
 
         self._data["Time 129"] = value
@@ -11639,6 +12718,9 @@ class ScheduleDayInterval(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `time_130`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `time_130`')
 
         self._data["Time 130"] = value
 
@@ -11703,6 +12785,9 @@ class ScheduleDayInterval(object):
                                  'for field `time_131`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `time_131`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `time_131`')
 
         self._data["Time 131"] = value
@@ -11769,6 +12854,9 @@ class ScheduleDayInterval(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `time_132`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `time_132`')
 
         self._data["Time 132"] = value
 
@@ -11833,6 +12921,9 @@ class ScheduleDayInterval(object):
                                  'for field `time_133`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `time_133`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `time_133`')
 
         self._data["Time 133"] = value
@@ -11899,6 +12990,9 @@ class ScheduleDayInterval(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `time_134`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `time_134`')
 
         self._data["Time 134"] = value
 
@@ -11963,6 +13057,9 @@ class ScheduleDayInterval(object):
                                  'for field `time_135`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `time_135`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `time_135`')
 
         self._data["Time 135"] = value
@@ -12029,6 +13126,9 @@ class ScheduleDayInterval(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `time_136`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `time_136`')
 
         self._data["Time 136"] = value
 
@@ -12093,6 +13193,9 @@ class ScheduleDayInterval(object):
                                  'for field `time_137`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `time_137`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `time_137`')
 
         self._data["Time 137"] = value
@@ -12159,6 +13262,9 @@ class ScheduleDayInterval(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `time_138`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `time_138`')
 
         self._data["Time 138"] = value
 
@@ -12223,6 +13329,9 @@ class ScheduleDayInterval(object):
                                  'for field `time_139`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `time_139`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `time_139`')
 
         self._data["Time 139"] = value
@@ -12289,6 +13398,9 @@ class ScheduleDayInterval(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `time_140`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `time_140`')
 
         self._data["Time 140"] = value
 
@@ -12353,6 +13465,9 @@ class ScheduleDayInterval(object):
                                  'for field `time_141`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `time_141`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `time_141`')
 
         self._data["Time 141"] = value
@@ -12419,6 +13534,9 @@ class ScheduleDayInterval(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `time_142`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `time_142`')
 
         self._data["Time 142"] = value
 
@@ -12483,6 +13601,9 @@ class ScheduleDayInterval(object):
                                  'for field `time_143`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `time_143`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `time_143`')
 
         self._data["Time 143"] = value
@@ -12549,6 +13670,9 @@ class ScheduleDayInterval(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `time_144`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `time_144`')
 
         self._data["Time 144"] = value
 
@@ -12604,300 +13728,17 @@ class ScheduleDayInterval(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.schedule_type_limits_name))
-        out.append(self._to_str(self.interpolate_to_timestep))
-        out.append(self._to_str(self.time_1))
-        out.append(self._to_str(self.value_until_time_1))
-        out.append(self._to_str(self.time_2))
-        out.append(self._to_str(self.value_until_time_2))
-        out.append(self._to_str(self.time_3))
-        out.append(self._to_str(self.value_until_time_3))
-        out.append(self._to_str(self.time_4))
-        out.append(self._to_str(self.value_until_time_4))
-        out.append(self._to_str(self.time_5))
-        out.append(self._to_str(self.value_until_time_5))
-        out.append(self._to_str(self.time_6))
-        out.append(self._to_str(self.value_until_time_6))
-        out.append(self._to_str(self.time_7))
-        out.append(self._to_str(self.value_until_time_7))
-        out.append(self._to_str(self.time_8))
-        out.append(self._to_str(self.value_until_time_8))
-        out.append(self._to_str(self.time_9))
-        out.append(self._to_str(self.value_until_time_9))
-        out.append(self._to_str(self.time_10))
-        out.append(self._to_str(self.value_until_time_10))
-        out.append(self._to_str(self.time_11))
-        out.append(self._to_str(self.value_until_time_11))
-        out.append(self._to_str(self.time_12))
-        out.append(self._to_str(self.value_until_time_12))
-        out.append(self._to_str(self.time_13))
-        out.append(self._to_str(self.value_until_time_13))
-        out.append(self._to_str(self.time_14))
-        out.append(self._to_str(self.value_until_time_14))
-        out.append(self._to_str(self.time_15))
-        out.append(self._to_str(self.value_until_time_15))
-        out.append(self._to_str(self.time_16))
-        out.append(self._to_str(self.value_until_time_16))
-        out.append(self._to_str(self.time_17))
-        out.append(self._to_str(self.value_until_time_17))
-        out.append(self._to_str(self.time_18))
-        out.append(self._to_str(self.value_until_time_18))
-        out.append(self._to_str(self.time_19))
-        out.append(self._to_str(self.value_until_time_19))
-        out.append(self._to_str(self.time_20))
-        out.append(self._to_str(self.value_until_time_20))
-        out.append(self._to_str(self.time_21))
-        out.append(self._to_str(self.value_until_time_21))
-        out.append(self._to_str(self.time_22))
-        out.append(self._to_str(self.value_until_time_22))
-        out.append(self._to_str(self.time_23))
-        out.append(self._to_str(self.value_until_time_23))
-        out.append(self._to_str(self.time_24))
-        out.append(self._to_str(self.value_until_time_24))
-        out.append(self._to_str(self.time_25))
-        out.append(self._to_str(self.value_until_time_25))
-        out.append(self._to_str(self.time_26))
-        out.append(self._to_str(self.value_until_time_26))
-        out.append(self._to_str(self.time_27))
-        out.append(self._to_str(self.value_until_time_27))
-        out.append(self._to_str(self.time_28))
-        out.append(self._to_str(self.value_until_time_28))
-        out.append(self._to_str(self.time_29))
-        out.append(self._to_str(self.value_until_time_29))
-        out.append(self._to_str(self.time_30))
-        out.append(self._to_str(self.value_until_time_30))
-        out.append(self._to_str(self.time_31))
-        out.append(self._to_str(self.value_until_time_31))
-        out.append(self._to_str(self.time_32))
-        out.append(self._to_str(self.value_until_time_32))
-        out.append(self._to_str(self.time_33))
-        out.append(self._to_str(self.value_until_time_33))
-        out.append(self._to_str(self.time_34))
-        out.append(self._to_str(self.value_until_time_34))
-        out.append(self._to_str(self.time_35))
-        out.append(self._to_str(self.value_until_time_35))
-        out.append(self._to_str(self.time_36))
-        out.append(self._to_str(self.value_until_time_36))
-        out.append(self._to_str(self.time_37))
-        out.append(self._to_str(self.value_until_time_37))
-        out.append(self._to_str(self.time_38))
-        out.append(self._to_str(self.value_until_time_38))
-        out.append(self._to_str(self.time_39))
-        out.append(self._to_str(self.value_until_time_39))
-        out.append(self._to_str(self.time_40))
-        out.append(self._to_str(self.value_until_time_40))
-        out.append(self._to_str(self.time_41))
-        out.append(self._to_str(self.value_until_time_41))
-        out.append(self._to_str(self.time_42))
-        out.append(self._to_str(self.value_until_time_42))
-        out.append(self._to_str(self.time_43))
-        out.append(self._to_str(self.value_until_time_43))
-        out.append(self._to_str(self.time_44))
-        out.append(self._to_str(self.value_until_time_44))
-        out.append(self._to_str(self.time_45))
-        out.append(self._to_str(self.value_until_time_45))
-        out.append(self._to_str(self.time_46))
-        out.append(self._to_str(self.value_until_time_46))
-        out.append(self._to_str(self.time_47))
-        out.append(self._to_str(self.value_until_time_47))
-        out.append(self._to_str(self.time_48))
-        out.append(self._to_str(self.value_until_time_48))
-        out.append(self._to_str(self.time_49))
-        out.append(self._to_str(self.value_until_time_49))
-        out.append(self._to_str(self.time_50))
-        out.append(self._to_str(self.value_until_time_50))
-        out.append(self._to_str(self.time_51))
-        out.append(self._to_str(self.value_until_time_51))
-        out.append(self._to_str(self.time_52))
-        out.append(self._to_str(self.value_until_time_52))
-        out.append(self._to_str(self.time_53))
-        out.append(self._to_str(self.value_until_time_53))
-        out.append(self._to_str(self.time_54))
-        out.append(self._to_str(self.value_until_time_54))
-        out.append(self._to_str(self.time_55))
-        out.append(self._to_str(self.value_until_time_55))
-        out.append(self._to_str(self.time_56))
-        out.append(self._to_str(self.value_until_time_56))
-        out.append(self._to_str(self.time_57))
-        out.append(self._to_str(self.value_until_time_57))
-        out.append(self._to_str(self.time_58))
-        out.append(self._to_str(self.value_until_time_58))
-        out.append(self._to_str(self.time_59))
-        out.append(self._to_str(self.value_until_time_59))
-        out.append(self._to_str(self.time_60))
-        out.append(self._to_str(self.value_until_time_60))
-        out.append(self._to_str(self.time_61))
-        out.append(self._to_str(self.value_until_time_61))
-        out.append(self._to_str(self.time_62))
-        out.append(self._to_str(self.value_until_time_62))
-        out.append(self._to_str(self.time_63))
-        out.append(self._to_str(self.value_until_time_63))
-        out.append(self._to_str(self.time_64))
-        out.append(self._to_str(self.value_until_time_64))
-        out.append(self._to_str(self.time_65))
-        out.append(self._to_str(self.value_until_time_65))
-        out.append(self._to_str(self.time_66))
-        out.append(self._to_str(self.value_until_time_66))
-        out.append(self._to_str(self.time_67))
-        out.append(self._to_str(self.value_until_time_67))
-        out.append(self._to_str(self.time_68))
-        out.append(self._to_str(self.value_until_time_68))
-        out.append(self._to_str(self.time_69))
-        out.append(self._to_str(self.value_until_time_69))
-        out.append(self._to_str(self.time_70))
-        out.append(self._to_str(self.value_until_time_70))
-        out.append(self._to_str(self.time_71))
-        out.append(self._to_str(self.value_until_time_71))
-        out.append(self._to_str(self.time_72))
-        out.append(self._to_str(self.value_until_time_72))
-        out.append(self._to_str(self.time_73))
-        out.append(self._to_str(self.value_until_time_73))
-        out.append(self._to_str(self.time_74))
-        out.append(self._to_str(self.value_until_time_74))
-        out.append(self._to_str(self.time_75))
-        out.append(self._to_str(self.value_until_time_75))
-        out.append(self._to_str(self.time_76))
-        out.append(self._to_str(self.value_until_time_76))
-        out.append(self._to_str(self.time_77))
-        out.append(self._to_str(self.value_until_time_77))
-        out.append(self._to_str(self.time_78))
-        out.append(self._to_str(self.value_until_time_78))
-        out.append(self._to_str(self.time_79))
-        out.append(self._to_str(self.value_until_time_79))
-        out.append(self._to_str(self.time_80))
-        out.append(self._to_str(self.value_until_time_80))
-        out.append(self._to_str(self.time_81))
-        out.append(self._to_str(self.value_until_time_81))
-        out.append(self._to_str(self.time_82))
-        out.append(self._to_str(self.value_until_time_82))
-        out.append(self._to_str(self.time_83))
-        out.append(self._to_str(self.value_until_time_83))
-        out.append(self._to_str(self.time_84))
-        out.append(self._to_str(self.value_until_time_84))
-        out.append(self._to_str(self.time_85))
-        out.append(self._to_str(self.value_until_time_85))
-        out.append(self._to_str(self.time_86))
-        out.append(self._to_str(self.value_until_time_86))
-        out.append(self._to_str(self.time_87))
-        out.append(self._to_str(self.value_until_time_87))
-        out.append(self._to_str(self.time_88))
-        out.append(self._to_str(self.value_until_time_88))
-        out.append(self._to_str(self.time_89))
-        out.append(self._to_str(self.value_until_time_89))
-        out.append(self._to_str(self.time_90))
-        out.append(self._to_str(self.value_until_time_90))
-        out.append(self._to_str(self.time_91))
-        out.append(self._to_str(self.value_until_time_91))
-        out.append(self._to_str(self.time_92))
-        out.append(self._to_str(self.value_until_time_92))
-        out.append(self._to_str(self.time_93))
-        out.append(self._to_str(self.value_until_time_93))
-        out.append(self._to_str(self.time_94))
-        out.append(self._to_str(self.value_until_time_94))
-        out.append(self._to_str(self.time_95))
-        out.append(self._to_str(self.value_until_time_95))
-        out.append(self._to_str(self.time_96))
-        out.append(self._to_str(self.value_until_time_96))
-        out.append(self._to_str(self.time_97))
-        out.append(self._to_str(self.value_until_time_97))
-        out.append(self._to_str(self.time_98))
-        out.append(self._to_str(self.value_until_time_98))
-        out.append(self._to_str(self.time_99))
-        out.append(self._to_str(self.value_until_time_99))
-        out.append(self._to_str(self.time_100))
-        out.append(self._to_str(self.value_until_time_100))
-        out.append(self._to_str(self.time_101))
-        out.append(self._to_str(self.value_until_time_101))
-        out.append(self._to_str(self.time_102))
-        out.append(self._to_str(self.value_until_time_102))
-        out.append(self._to_str(self.time_103))
-        out.append(self._to_str(self.value_until_time_103))
-        out.append(self._to_str(self.time_104))
-        out.append(self._to_str(self.value_until_time_104))
-        out.append(self._to_str(self.time_105))
-        out.append(self._to_str(self.value_until_time_105))
-        out.append(self._to_str(self.time_106))
-        out.append(self._to_str(self.value_until_time_106))
-        out.append(self._to_str(self.time_107))
-        out.append(self._to_str(self.value_until_time_107))
-        out.append(self._to_str(self.time_108))
-        out.append(self._to_str(self.value_until_time_108))
-        out.append(self._to_str(self.time_109))
-        out.append(self._to_str(self.value_until_time_109))
-        out.append(self._to_str(self.time_110))
-        out.append(self._to_str(self.value_until_time_110))
-        out.append(self._to_str(self.time_111))
-        out.append(self._to_str(self.value_until_time_111))
-        out.append(self._to_str(self.time_112))
-        out.append(self._to_str(self.value_until_time_112))
-        out.append(self._to_str(self.time_113))
-        out.append(self._to_str(self.value_until_time_113))
-        out.append(self._to_str(self.time_114))
-        out.append(self._to_str(self.value_until_time_114))
-        out.append(self._to_str(self.time_115))
-        out.append(self._to_str(self.value_until_time_115))
-        out.append(self._to_str(self.time_116))
-        out.append(self._to_str(self.value_until_time_116))
-        out.append(self._to_str(self.time_117))
-        out.append(self._to_str(self.value_until_time_117))
-        out.append(self._to_str(self.time_118))
-        out.append(self._to_str(self.value_until_time_118))
-        out.append(self._to_str(self.time_119))
-        out.append(self._to_str(self.value_until_time_119))
-        out.append(self._to_str(self.time_120))
-        out.append(self._to_str(self.value_until_time_120))
-        out.append(self._to_str(self.time_121))
-        out.append(self._to_str(self.value_until_time_121))
-        out.append(self._to_str(self.time_122))
-        out.append(self._to_str(self.value_until_time_122))
-        out.append(self._to_str(self.time_123))
-        out.append(self._to_str(self.value_until_time_123))
-        out.append(self._to_str(self.time_124))
-        out.append(self._to_str(self.value_until_time_124))
-        out.append(self._to_str(self.time_125))
-        out.append(self._to_str(self.value_until_time_125))
-        out.append(self._to_str(self.time_126))
-        out.append(self._to_str(self.value_until_time_126))
-        out.append(self._to_str(self.time_127))
-        out.append(self._to_str(self.value_until_time_127))
-        out.append(self._to_str(self.time_128))
-        out.append(self._to_str(self.value_until_time_128))
-        out.append(self._to_str(self.time_129))
-        out.append(self._to_str(self.value_until_time_129))
-        out.append(self._to_str(self.time_130))
-        out.append(self._to_str(self.value_until_time_130))
-        out.append(self._to_str(self.time_131))
-        out.append(self._to_str(self.value_until_time_131))
-        out.append(self._to_str(self.time_132))
-        out.append(self._to_str(self.value_until_time_132))
-        out.append(self._to_str(self.time_133))
-        out.append(self._to_str(self.value_until_time_133))
-        out.append(self._to_str(self.time_134))
-        out.append(self._to_str(self.value_until_time_134))
-        out.append(self._to_str(self.time_135))
-        out.append(self._to_str(self.value_until_time_135))
-        out.append(self._to_str(self.time_136))
-        out.append(self._to_str(self.value_until_time_136))
-        out.append(self._to_str(self.time_137))
-        out.append(self._to_str(self.value_until_time_137))
-        out.append(self._to_str(self.time_138))
-        out.append(self._to_str(self.value_until_time_138))
-        out.append(self._to_str(self.time_139))
-        out.append(self._to_str(self.value_until_time_139))
-        out.append(self._to_str(self.time_140))
-        out.append(self._to_str(self.value_until_time_140))
-        out.append(self._to_str(self.time_141))
-        out.append(self._to_str(self.value_until_time_141))
-        out.append(self._to_str(self.time_142))
-        out.append(self._to_str(self.value_until_time_142))
-        out.append(self._to_str(self.time_143))
-        out.append(self._to_str(self.value_until_time_143))
-        out.append(self._to_str(self.time_144))
-        out.append(self._to_str(self.value_until_time_144))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class ScheduleWeekDaily(object):
     """ Corresponds to IDD object `Schedule:Week:Daily`
@@ -12925,79 +13766,107 @@ class ScheduleWeekDaily(object):
         self._data["WinterDesignDay Schedule:Day Name"] = None
         self._data["CustomDay1 Schedule:Day Name"] = None
         self._data["CustomDay2 Schedule:Day Name"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.sunday_scheduleday_name = None
         else:
             self.sunday_scheduleday_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.monday_scheduleday_name = None
         else:
             self.monday_scheduleday_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.tuesday_scheduleday_name = None
         else:
             self.tuesday_scheduleday_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wednesday_scheduleday_name = None
         else:
             self.wednesday_scheduleday_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.thursday_scheduleday_name = None
         else:
             self.thursday_scheduleday_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.friday_scheduleday_name = None
         else:
             self.friday_scheduleday_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.saturday_scheduleday_name = None
         else:
             self.saturday_scheduleday_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.holiday_scheduleday_name = None
         else:
             self.holiday_scheduleday_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.summerdesignday_scheduleday_name = None
         else:
             self.summerdesignday_scheduleday_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.winterdesignday_scheduleday_name = None
         else:
             self.winterdesignday_scheduleday_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.customday1_scheduleday_name = None
         else:
             self.customday1_scheduleday_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.customday2_scheduleday_name = None
         else:
             self.customday2_scheduleday_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -13028,6 +13897,9 @@ class ScheduleWeekDaily(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -13062,6 +13934,9 @@ class ScheduleWeekDaily(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `sunday_scheduleday_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `sunday_scheduleday_name`')
 
         self._data["Sunday Schedule:Day Name"] = value
 
@@ -13094,6 +13969,9 @@ class ScheduleWeekDaily(object):
                                  'for field `monday_scheduleday_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `monday_scheduleday_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `monday_scheduleday_name`')
 
         self._data["Monday Schedule:Day Name"] = value
@@ -13128,6 +14006,9 @@ class ScheduleWeekDaily(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `tuesday_scheduleday_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `tuesday_scheduleday_name`')
 
         self._data["Tuesday Schedule:Day Name"] = value
 
@@ -13160,6 +14041,9 @@ class ScheduleWeekDaily(object):
                                  'for field `wednesday_scheduleday_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `wednesday_scheduleday_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `wednesday_scheduleday_name`')
 
         self._data["Wednesday Schedule:Day Name"] = value
@@ -13194,6 +14078,9 @@ class ScheduleWeekDaily(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `thursday_scheduleday_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `thursday_scheduleday_name`')
 
         self._data["Thursday Schedule:Day Name"] = value
 
@@ -13226,6 +14113,9 @@ class ScheduleWeekDaily(object):
                                  'for field `friday_scheduleday_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `friday_scheduleday_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `friday_scheduleday_name`')
 
         self._data["Friday Schedule:Day Name"] = value
@@ -13260,6 +14150,9 @@ class ScheduleWeekDaily(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `saturday_scheduleday_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `saturday_scheduleday_name`')
 
         self._data["Saturday Schedule:Day Name"] = value
 
@@ -13292,6 +14185,9 @@ class ScheduleWeekDaily(object):
                                  'for field `holiday_scheduleday_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `holiday_scheduleday_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `holiday_scheduleday_name`')
 
         self._data["Holiday Schedule:Day Name"] = value
@@ -13326,6 +14222,9 @@ class ScheduleWeekDaily(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `summerdesignday_scheduleday_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `summerdesignday_scheduleday_name`')
 
         self._data["SummerDesignDay Schedule:Day Name"] = value
 
@@ -13358,6 +14257,9 @@ class ScheduleWeekDaily(object):
                                  'for field `winterdesignday_scheduleday_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `winterdesignday_scheduleday_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `winterdesignday_scheduleday_name`')
 
         self._data["WinterDesignDay Schedule:Day Name"] = value
@@ -13392,6 +14294,9 @@ class ScheduleWeekDaily(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `customday1_scheduleday_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `customday1_scheduleday_name`')
 
         self._data["CustomDay1 Schedule:Day Name"] = value
 
@@ -13425,6 +14330,9 @@ class ScheduleWeekDaily(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `customday2_scheduleday_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `customday2_scheduleday_name`')
 
         self._data["CustomDay2 Schedule:Day Name"] = value
 
@@ -13450,22 +14358,17 @@ class ScheduleWeekDaily(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.sunday_scheduleday_name))
-        out.append(self._to_str(self.monday_scheduleday_name))
-        out.append(self._to_str(self.tuesday_scheduleday_name))
-        out.append(self._to_str(self.wednesday_scheduleday_name))
-        out.append(self._to_str(self.thursday_scheduleday_name))
-        out.append(self._to_str(self.friday_scheduleday_name))
-        out.append(self._to_str(self.saturday_scheduleday_name))
-        out.append(self._to_str(self.holiday_scheduleday_name))
-        out.append(self._to_str(self.summerdesignday_scheduleday_name))
-        out.append(self._to_str(self.winterdesignday_scheduleday_name))
-        out.append(self._to_str(self.customday1_scheduleday_name))
-        out.append(self._to_str(self.customday2_scheduleday_name))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class ScheduleWeekCompact(object):
     """ Corresponds to IDD object `Schedule:Week:Compact`
@@ -13491,69 +14394,93 @@ class ScheduleWeekCompact(object):
         self._data["Schedule:Day Name 4"] = None
         self._data["DayType List 5"] = None
         self._data["Schedule:Day Name 5"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.daytype_list_1 = None
         else:
             self.daytype_list_1 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.scheduleday_name_1 = None
         else:
             self.scheduleday_name_1 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.daytype_list_2 = None
         else:
             self.daytype_list_2 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.scheduleday_name_2 = None
         else:
             self.scheduleday_name_2 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.daytype_list_3 = None
         else:
             self.daytype_list_3 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.scheduleday_name_3 = None
         else:
             self.scheduleday_name_3 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.daytype_list_4 = None
         else:
             self.daytype_list_4 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.scheduleday_name_4 = None
         else:
             self.scheduleday_name_4 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.daytype_list_5 = None
         else:
             self.daytype_list_5 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.scheduleday_name_5 = None
         else:
             self.scheduleday_name_5 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -13584,6 +14511,9 @@ class ScheduleWeekCompact(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -13637,25 +14567,39 @@ class ScheduleWeekCompact(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `daytype_list_1`')
-            vals = set()
-            vals.add("AllDays")
-            vals.add("Weekdays")
-            vals.add("Weekends")
-            vals.add("Sunday")
-            vals.add("Monday")
-            vals.add("Tuesday")
-            vals.add("Wednesday")
-            vals.add("Thursday")
-            vals.add("Friday")
-            vals.add("Saturday")
-            vals.add("Holiday")
-            vals.add("SummerDesignDay")
-            vals.add("WinterDesignDay")
-            vals.add("CustomDay1")
-            vals.add("CustomDay2")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `daytype_list_1`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `daytype_list_1`')
+            vals = {}
+            vals["alldays"] = "AllDays"
+            vals["weekdays"] = "Weekdays"
+            vals["weekends"] = "Weekends"
+            vals["sunday"] = "Sunday"
+            vals["monday"] = "Monday"
+            vals["tuesday"] = "Tuesday"
+            vals["wednesday"] = "Wednesday"
+            vals["thursday"] = "Thursday"
+            vals["friday"] = "Friday"
+            vals["saturday"] = "Saturday"
+            vals["holiday"] = "Holiday"
+            vals["summerdesignday"] = "SummerDesignDay"
+            vals["winterdesignday"] = "WinterDesignDay"
+            vals["customday1"] = "CustomDay1"
+            vals["customday2"] = "CustomDay2"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `daytype_list_1`'.format(value))
+            value = vals[value_lower]
 
         self._data["DayType List 1"] = value
 
@@ -13688,6 +14632,9 @@ class ScheduleWeekCompact(object):
                                  'for field `scheduleday_name_1`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `scheduleday_name_1`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `scheduleday_name_1`')
 
         self._data["Schedule:Day Name 1"] = value
@@ -13738,25 +14685,39 @@ class ScheduleWeekCompact(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `daytype_list_2`')
-            vals = set()
-            vals.add("AllOtherDays")
-            vals.add("Weekdays")
-            vals.add("Weekends")
-            vals.add("Sunday")
-            vals.add("Monday")
-            vals.add("Tuesday")
-            vals.add("Wednesday")
-            vals.add("Thursday")
-            vals.add("Friday")
-            vals.add("Saturday")
-            vals.add("Holiday")
-            vals.add("SummerDesignDay")
-            vals.add("WinterDesignDay")
-            vals.add("CustomDay1")
-            vals.add("CustomDay2")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `daytype_list_2`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `daytype_list_2`')
+            vals = {}
+            vals["allotherdays"] = "AllOtherDays"
+            vals["weekdays"] = "Weekdays"
+            vals["weekends"] = "Weekends"
+            vals["sunday"] = "Sunday"
+            vals["monday"] = "Monday"
+            vals["tuesday"] = "Tuesday"
+            vals["wednesday"] = "Wednesday"
+            vals["thursday"] = "Thursday"
+            vals["friday"] = "Friday"
+            vals["saturday"] = "Saturday"
+            vals["holiday"] = "Holiday"
+            vals["summerdesignday"] = "SummerDesignDay"
+            vals["winterdesignday"] = "WinterDesignDay"
+            vals["customday1"] = "CustomDay1"
+            vals["customday2"] = "CustomDay2"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `daytype_list_2`'.format(value))
+            value = vals[value_lower]
 
         self._data["DayType List 2"] = value
 
@@ -13789,6 +14750,9 @@ class ScheduleWeekCompact(object):
                                  'for field `scheduleday_name_2`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `scheduleday_name_2`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `scheduleday_name_2`')
 
         self._data["Schedule:Day Name 2"] = value
@@ -13839,25 +14803,39 @@ class ScheduleWeekCompact(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `daytype_list_3`')
-            vals = set()
-            vals.add("AllOtherDays")
-            vals.add("Weekdays")
-            vals.add("Weekends")
-            vals.add("Sunday")
-            vals.add("Monday")
-            vals.add("Tuesday")
-            vals.add("Wednesday")
-            vals.add("Thursday")
-            vals.add("Friday")
-            vals.add("Saturday")
-            vals.add("Holiday")
-            vals.add("SummerDesignDay")
-            vals.add("WinterDesignDay")
-            vals.add("CustomDay1")
-            vals.add("CustomDay2")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `daytype_list_3`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `daytype_list_3`')
+            vals = {}
+            vals["allotherdays"] = "AllOtherDays"
+            vals["weekdays"] = "Weekdays"
+            vals["weekends"] = "Weekends"
+            vals["sunday"] = "Sunday"
+            vals["monday"] = "Monday"
+            vals["tuesday"] = "Tuesday"
+            vals["wednesday"] = "Wednesday"
+            vals["thursday"] = "Thursday"
+            vals["friday"] = "Friday"
+            vals["saturday"] = "Saturday"
+            vals["holiday"] = "Holiday"
+            vals["summerdesignday"] = "SummerDesignDay"
+            vals["winterdesignday"] = "WinterDesignDay"
+            vals["customday1"] = "CustomDay1"
+            vals["customday2"] = "CustomDay2"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `daytype_list_3`'.format(value))
+            value = vals[value_lower]
 
         self._data["DayType List 3"] = value
 
@@ -13890,6 +14868,9 @@ class ScheduleWeekCompact(object):
                                  'for field `scheduleday_name_3`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `scheduleday_name_3`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `scheduleday_name_3`')
 
         self._data["Schedule:Day Name 3"] = value
@@ -13940,25 +14921,39 @@ class ScheduleWeekCompact(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `daytype_list_4`')
-            vals = set()
-            vals.add("AllOtherDays")
-            vals.add("Weekdays")
-            vals.add("Weekends")
-            vals.add("Sunday")
-            vals.add("Monday")
-            vals.add("Tuesday")
-            vals.add("Wednesday")
-            vals.add("Thursday")
-            vals.add("Friday")
-            vals.add("Saturday")
-            vals.add("Holiday")
-            vals.add("SummerDesignDay")
-            vals.add("WinterDesignDay")
-            vals.add("CustomDay1")
-            vals.add("CustomDay2")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `daytype_list_4`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `daytype_list_4`')
+            vals = {}
+            vals["allotherdays"] = "AllOtherDays"
+            vals["weekdays"] = "Weekdays"
+            vals["weekends"] = "Weekends"
+            vals["sunday"] = "Sunday"
+            vals["monday"] = "Monday"
+            vals["tuesday"] = "Tuesday"
+            vals["wednesday"] = "Wednesday"
+            vals["thursday"] = "Thursday"
+            vals["friday"] = "Friday"
+            vals["saturday"] = "Saturday"
+            vals["holiday"] = "Holiday"
+            vals["summerdesignday"] = "SummerDesignDay"
+            vals["winterdesignday"] = "WinterDesignDay"
+            vals["customday1"] = "CustomDay1"
+            vals["customday2"] = "CustomDay2"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `daytype_list_4`'.format(value))
+            value = vals[value_lower]
 
         self._data["DayType List 4"] = value
 
@@ -13991,6 +14986,9 @@ class ScheduleWeekCompact(object):
                                  'for field `scheduleday_name_4`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `scheduleday_name_4`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `scheduleday_name_4`')
 
         self._data["Schedule:Day Name 4"] = value
@@ -14041,25 +15039,39 @@ class ScheduleWeekCompact(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `daytype_list_5`')
-            vals = set()
-            vals.add("AllOtherDays")
-            vals.add("Weekdays")
-            vals.add("Weekends")
-            vals.add("Sunday")
-            vals.add("Monday")
-            vals.add("Tuesday")
-            vals.add("Wednesday")
-            vals.add("Thursday")
-            vals.add("Friday")
-            vals.add("Saturday")
-            vals.add("Holiday")
-            vals.add("SummerDesignDay")
-            vals.add("WinterDesignDay")
-            vals.add("CustomDay1")
-            vals.add("CustomDay2")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `daytype_list_5`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `daytype_list_5`')
+            vals = {}
+            vals["allotherdays"] = "AllOtherDays"
+            vals["weekdays"] = "Weekdays"
+            vals["weekends"] = "Weekends"
+            vals["sunday"] = "Sunday"
+            vals["monday"] = "Monday"
+            vals["tuesday"] = "Tuesday"
+            vals["wednesday"] = "Wednesday"
+            vals["thursday"] = "Thursday"
+            vals["friday"] = "Friday"
+            vals["saturday"] = "Saturday"
+            vals["holiday"] = "Holiday"
+            vals["summerdesignday"] = "SummerDesignDay"
+            vals["winterdesignday"] = "WinterDesignDay"
+            vals["customday1"] = "CustomDay1"
+            vals["customday2"] = "CustomDay2"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `daytype_list_5`'.format(value))
+            value = vals[value_lower]
 
         self._data["DayType List 5"] = value
 
@@ -14093,6 +15105,9 @@ class ScheduleWeekCompact(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `scheduleday_name_5`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `scheduleday_name_5`')
 
         self._data["Schedule:Day Name 5"] = value
 
@@ -14118,20 +15133,17 @@ class ScheduleWeekCompact(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.daytype_list_1))
-        out.append(self._to_str(self.scheduleday_name_1))
-        out.append(self._to_str(self.daytype_list_2))
-        out.append(self._to_str(self.scheduleday_name_2))
-        out.append(self._to_str(self.daytype_list_3))
-        out.append(self._to_str(self.scheduleday_name_3))
-        out.append(self._to_str(self.daytype_list_4))
-        out.append(self._to_str(self.scheduleday_name_4))
-        out.append(self._to_str(self.daytype_list_5))
-        out.append(self._to_str(self.scheduleday_name_5))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class ScheduleConstant(object):
     """ Corresponds to IDD object `Schedule:Constant`
@@ -14149,29 +15161,37 @@ class ScheduleConstant(object):
         self._data["Name"] = None
         self._data["Schedule Type Limits Name"] = None
         self._data["Hourly Value"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.schedule_type_limits_name = None
         else:
             self.schedule_type_limits_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.hourly_value = None
         else:
             self.hourly_value = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -14202,6 +15222,9 @@ class ScheduleConstant(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -14235,6 +15258,9 @@ class ScheduleConstant(object):
                                  'for field `schedule_type_limits_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `schedule_type_limits_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `schedule_type_limits_name`')
 
         self._data["Schedule Type Limits Name"] = value
@@ -14292,12 +15318,17 @@ class ScheduleConstant(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.schedule_type_limits_name))
-        out.append(self._to_str(self.hourly_value))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class ScheduleFile(object):
     """ Corresponds to IDD object `Schedule:File`
@@ -14321,59 +15352,79 @@ class ScheduleFile(object):
         self._data["Column Separator"] = None
         self._data["Interpolate to Timestep"] = None
         self._data["Minutes per Item"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.schedule_type_limits_name = None
         else:
             self.schedule_type_limits_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.file_name = None
         else:
             self.file_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.column_number = None
         else:
             self.column_number = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.rows_to_skip_at_top = None
         else:
             self.rows_to_skip_at_top = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.number_of_hours_of_data = None
         else:
             self.number_of_hours_of_data = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.column_separator = None
         else:
             self.column_separator = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.interpolate_to_timestep = None
         else:
             self.interpolate_to_timestep = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.minutes_per_item = None
         else:
             self.minutes_per_item = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -14404,6 +15455,9 @@ class ScheduleFile(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -14438,6 +15492,9 @@ class ScheduleFile(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `schedule_type_limits_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `schedule_type_limits_name`')
 
         self._data["Schedule Type Limits Name"] = value
 
@@ -14470,6 +15527,9 @@ class ScheduleFile(object):
                                  'for field `file_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `file_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `file_name`')
 
         self._data["File Name"] = value
@@ -14619,14 +15679,28 @@ class ScheduleFile(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `column_separator`')
-            vals = set()
-            vals.add("Comma")
-            vals.add("Tab")
-            vals.add("Fixed")
-            vals.add("Semicolon")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `column_separator`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `column_separator`')
+            vals = {}
+            vals["comma"] = "Comma"
+            vals["tab"] = "Tab"
+            vals["fixed"] = "Fixed"
+            vals["semicolon"] = "Semicolon"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `column_separator`'.format(value))
+            value = vals[value_lower]
 
         self._data["Column Separator"] = value
 
@@ -14667,12 +15741,26 @@ class ScheduleFile(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `interpolate_to_timestep`')
-            vals = set()
-            vals.add("Yes")
-            vals.add("No")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `interpolate_to_timestep`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `interpolate_to_timestep`')
+            vals = {}
+            vals["yes"] = "Yes"
+            vals["no"] = "No"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `interpolate_to_timestep`'.format(value))
+            value = vals[value_lower]
 
         self._data["Interpolate to Timestep"] = value
 
@@ -14737,15 +15825,14 @@ class ScheduleFile(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.schedule_type_limits_name))
-        out.append(self._to_str(self.file_name))
-        out.append(self._to_str(self.column_number))
-        out.append(self._to_str(self.rows_to_skip_at_top))
-        out.append(self._to_str(self.number_of_hours_of_data))
-        out.append(self._to_str(self.column_separator))
-        out.append(self._to_str(self.interpolate_to_timestep))
-        out.append(self._to_str(self.minutes_per_item))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])

@@ -73,304 +73,422 @@ class Branch(object):
         self._data["Component 11 Inlet Node Name"] = None
         self._data["Component 11 Outlet Node Name"] = None
         self._data["Component 11 Branch Control Type"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.maximum_flow_rate = None
         else:
             self.maximum_flow_rate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.pressure_drop_curve_name = None
         else:
             self.pressure_drop_curve_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.component_1_object_type = None
         else:
             self.component_1_object_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.component_1_name = None
         else:
             self.component_1_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.component_1_inlet_node_name = None
         else:
             self.component_1_inlet_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.component_1_outlet_node_name = None
         else:
             self.component_1_outlet_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.component_1_branch_control_type = None
         else:
             self.component_1_branch_control_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.component_2_object_type = None
         else:
             self.component_2_object_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.component_2_name = None
         else:
             self.component_2_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.component_2_inlet_node_name = None
         else:
             self.component_2_inlet_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.component_2_outlet_node_name = None
         else:
             self.component_2_outlet_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.component_2_branch_control_type = None
         else:
             self.component_2_branch_control_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.component_3_object_type = None
         else:
             self.component_3_object_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.component_3_name = None
         else:
             self.component_3_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.component_3_inlet_node_name = None
         else:
             self.component_3_inlet_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.component_3_outlet_node_name = None
         else:
             self.component_3_outlet_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.component_3_branch_control_type = None
         else:
             self.component_3_branch_control_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.component_4_object_type = None
         else:
             self.component_4_object_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.component_4_name = None
         else:
             self.component_4_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.component_4_inlet_node_name = None
         else:
             self.component_4_inlet_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.component_4_outlet_node_name = None
         else:
             self.component_4_outlet_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.component_4_branch_control_type = None
         else:
             self.component_4_branch_control_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.component_5_object_type = None
         else:
             self.component_5_object_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.component_5_name = None
         else:
             self.component_5_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.component_5_inlet_node_name = None
         else:
             self.component_5_inlet_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.component_5_outlet_node_name = None
         else:
             self.component_5_outlet_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.component_5_branch_control_type = None
         else:
             self.component_5_branch_control_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.component_6_object_type = None
         else:
             self.component_6_object_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.component_6_name = None
         else:
             self.component_6_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.component_6_inlet_node_name = None
         else:
             self.component_6_inlet_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.component_6_outlet_node_name = None
         else:
             self.component_6_outlet_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.component_6_branch_control_type = None
         else:
             self.component_6_branch_control_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.component_7_object_type = None
         else:
             self.component_7_object_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.component_7_name = None
         else:
             self.component_7_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.component_7_inlet_node_name = None
         else:
             self.component_7_inlet_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.component_7_outlet_node_name = None
         else:
             self.component_7_outlet_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.component_7_branch_control_type = None
         else:
             self.component_7_branch_control_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.component_8_object_type = None
         else:
             self.component_8_object_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.component_8_name = None
         else:
             self.component_8_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.component_8_inlet_node_name = None
         else:
             self.component_8_inlet_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.component_8_outlet_node_name = None
         else:
             self.component_8_outlet_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.component_8_branch_control_type = None
         else:
             self.component_8_branch_control_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.component_9_object_type = None
         else:
             self.component_9_object_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.component_9_name = None
         else:
             self.component_9_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.component_9_inlet_node_name = None
         else:
             self.component_9_inlet_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.component_9_outlet_node_name = None
         else:
             self.component_9_outlet_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.component_9_branch_control_type = None
         else:
             self.component_9_branch_control_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.component_10_object_type = None
         else:
             self.component_10_object_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.component_10_name = None
         else:
             self.component_10_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.component_10_inlet_node_name = None
         else:
             self.component_10_inlet_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.component_10_outlet_node_name = None
         else:
             self.component_10_outlet_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.component_10_branch_control_type = None
         else:
             self.component_10_branch_control_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.component_11_object_type = None
         else:
             self.component_11_object_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.component_11_name = None
         else:
             self.component_11_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.component_11_inlet_node_name = None
         else:
             self.component_11_inlet_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.component_11_outlet_node_name = None
         else:
             self.component_11_outlet_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.component_11_branch_control_type = None
         else:
             self.component_11_branch_control_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -401,6 +519,9 @@ class Branch(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -477,6 +598,9 @@ class Branch(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `pressure_drop_curve_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `pressure_drop_curve_name`')
 
         self._data["Pressure Drop Curve Name"] = value
 
@@ -509,6 +633,9 @@ class Branch(object):
                                  'for field `component_1_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `component_1_object_type`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `component_1_object_type`')
 
         self._data["Component 1 Object Type"] = value
@@ -543,6 +670,9 @@ class Branch(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `component_1_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `component_1_name`')
 
         self._data["Component 1 Name"] = value
 
@@ -576,6 +706,9 @@ class Branch(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `component_1_inlet_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `component_1_inlet_node_name`')
 
         self._data["Component 1 Inlet Node Name"] = value
 
@@ -608,6 +741,9 @@ class Branch(object):
                                  'for field `component_1_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `component_1_outlet_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `component_1_outlet_node_name`')
 
         self._data["Component 1 Outlet Node Name"] = value
@@ -643,6 +779,9 @@ class Branch(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `component_1_branch_control_type`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `component_1_branch_control_type`')
 
         self._data["Component 1 Branch Control Type"] = value
 
@@ -675,6 +814,9 @@ class Branch(object):
                                  'for field `component_2_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `component_2_object_type`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `component_2_object_type`')
 
         self._data["Component 2 Object Type"] = value
@@ -709,6 +851,9 @@ class Branch(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `component_2_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `component_2_name`')
 
         self._data["Component 2 Name"] = value
 
@@ -742,6 +887,9 @@ class Branch(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `component_2_inlet_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `component_2_inlet_node_name`')
 
         self._data["Component 2 Inlet Node Name"] = value
 
@@ -774,6 +922,9 @@ class Branch(object):
                                  'for field `component_2_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `component_2_outlet_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `component_2_outlet_node_name`')
 
         self._data["Component 2 Outlet Node Name"] = value
@@ -809,6 +960,9 @@ class Branch(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `component_2_branch_control_type`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `component_2_branch_control_type`')
 
         self._data["Component 2 Branch Control Type"] = value
 
@@ -841,6 +995,9 @@ class Branch(object):
                                  'for field `component_3_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `component_3_object_type`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `component_3_object_type`')
 
         self._data["Component 3 Object Type"] = value
@@ -875,6 +1032,9 @@ class Branch(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `component_3_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `component_3_name`')
 
         self._data["Component 3 Name"] = value
 
@@ -908,6 +1068,9 @@ class Branch(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `component_3_inlet_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `component_3_inlet_node_name`')
 
         self._data["Component 3 Inlet Node Name"] = value
 
@@ -940,6 +1103,9 @@ class Branch(object):
                                  'for field `component_3_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `component_3_outlet_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `component_3_outlet_node_name`')
 
         self._data["Component 3 Outlet Node Name"] = value
@@ -975,6 +1141,9 @@ class Branch(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `component_3_branch_control_type`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `component_3_branch_control_type`')
 
         self._data["Component 3 Branch Control Type"] = value
 
@@ -1007,6 +1176,9 @@ class Branch(object):
                                  'for field `component_4_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `component_4_object_type`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `component_4_object_type`')
 
         self._data["Component 4 Object Type"] = value
@@ -1041,6 +1213,9 @@ class Branch(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `component_4_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `component_4_name`')
 
         self._data["Component 4 Name"] = value
 
@@ -1074,6 +1249,9 @@ class Branch(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `component_4_inlet_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `component_4_inlet_node_name`')
 
         self._data["Component 4 Inlet Node Name"] = value
 
@@ -1106,6 +1284,9 @@ class Branch(object):
                                  'for field `component_4_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `component_4_outlet_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `component_4_outlet_node_name`')
 
         self._data["Component 4 Outlet Node Name"] = value
@@ -1141,6 +1322,9 @@ class Branch(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `component_4_branch_control_type`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `component_4_branch_control_type`')
 
         self._data["Component 4 Branch Control Type"] = value
 
@@ -1173,6 +1357,9 @@ class Branch(object):
                                  'for field `component_5_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `component_5_object_type`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `component_5_object_type`')
 
         self._data["Component 5 Object Type"] = value
@@ -1207,6 +1394,9 @@ class Branch(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `component_5_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `component_5_name`')
 
         self._data["Component 5 Name"] = value
 
@@ -1240,6 +1430,9 @@ class Branch(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `component_5_inlet_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `component_5_inlet_node_name`')
 
         self._data["Component 5 Inlet Node Name"] = value
 
@@ -1272,6 +1465,9 @@ class Branch(object):
                                  'for field `component_5_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `component_5_outlet_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `component_5_outlet_node_name`')
 
         self._data["Component 5 Outlet Node Name"] = value
@@ -1307,6 +1503,9 @@ class Branch(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `component_5_branch_control_type`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `component_5_branch_control_type`')
 
         self._data["Component 5 Branch Control Type"] = value
 
@@ -1339,6 +1538,9 @@ class Branch(object):
                                  'for field `component_6_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `component_6_object_type`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `component_6_object_type`')
 
         self._data["Component 6 Object Type"] = value
@@ -1373,6 +1575,9 @@ class Branch(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `component_6_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `component_6_name`')
 
         self._data["Component 6 Name"] = value
 
@@ -1406,6 +1611,9 @@ class Branch(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `component_6_inlet_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `component_6_inlet_node_name`')
 
         self._data["Component 6 Inlet Node Name"] = value
 
@@ -1438,6 +1646,9 @@ class Branch(object):
                                  'for field `component_6_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `component_6_outlet_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `component_6_outlet_node_name`')
 
         self._data["Component 6 Outlet Node Name"] = value
@@ -1473,6 +1684,9 @@ class Branch(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `component_6_branch_control_type`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `component_6_branch_control_type`')
 
         self._data["Component 6 Branch Control Type"] = value
 
@@ -1505,6 +1719,9 @@ class Branch(object):
                                  'for field `component_7_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `component_7_object_type`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `component_7_object_type`')
 
         self._data["Component 7 Object Type"] = value
@@ -1539,6 +1756,9 @@ class Branch(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `component_7_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `component_7_name`')
 
         self._data["Component 7 Name"] = value
 
@@ -1572,6 +1792,9 @@ class Branch(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `component_7_inlet_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `component_7_inlet_node_name`')
 
         self._data["Component 7 Inlet Node Name"] = value
 
@@ -1604,6 +1827,9 @@ class Branch(object):
                                  'for field `component_7_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `component_7_outlet_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `component_7_outlet_node_name`')
 
         self._data["Component 7 Outlet Node Name"] = value
@@ -1639,6 +1865,9 @@ class Branch(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `component_7_branch_control_type`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `component_7_branch_control_type`')
 
         self._data["Component 7 Branch Control Type"] = value
 
@@ -1671,6 +1900,9 @@ class Branch(object):
                                  'for field `component_8_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `component_8_object_type`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `component_8_object_type`')
 
         self._data["Component 8 Object Type"] = value
@@ -1705,6 +1937,9 @@ class Branch(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `component_8_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `component_8_name`')
 
         self._data["Component 8 Name"] = value
 
@@ -1738,6 +1973,9 @@ class Branch(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `component_8_inlet_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `component_8_inlet_node_name`')
 
         self._data["Component 8 Inlet Node Name"] = value
 
@@ -1770,6 +2008,9 @@ class Branch(object):
                                  'for field `component_8_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `component_8_outlet_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `component_8_outlet_node_name`')
 
         self._data["Component 8 Outlet Node Name"] = value
@@ -1805,6 +2046,9 @@ class Branch(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `component_8_branch_control_type`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `component_8_branch_control_type`')
 
         self._data["Component 8 Branch Control Type"] = value
 
@@ -1837,6 +2081,9 @@ class Branch(object):
                                  'for field `component_9_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `component_9_object_type`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `component_9_object_type`')
 
         self._data["Component 9 Object Type"] = value
@@ -1871,6 +2118,9 @@ class Branch(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `component_9_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `component_9_name`')
 
         self._data["Component 9 Name"] = value
 
@@ -1904,6 +2154,9 @@ class Branch(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `component_9_inlet_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `component_9_inlet_node_name`')
 
         self._data["Component 9 Inlet Node Name"] = value
 
@@ -1936,6 +2189,9 @@ class Branch(object):
                                  'for field `component_9_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `component_9_outlet_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `component_9_outlet_node_name`')
 
         self._data["Component 9 Outlet Node Name"] = value
@@ -1971,6 +2227,9 @@ class Branch(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `component_9_branch_control_type`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `component_9_branch_control_type`')
 
         self._data["Component 9 Branch Control Type"] = value
 
@@ -2003,6 +2262,9 @@ class Branch(object):
                                  'for field `component_10_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `component_10_object_type`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `component_10_object_type`')
 
         self._data["Component 10 Object Type"] = value
@@ -2037,6 +2299,9 @@ class Branch(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `component_10_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `component_10_name`')
 
         self._data["Component 10 Name"] = value
 
@@ -2070,6 +2335,9 @@ class Branch(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `component_10_inlet_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `component_10_inlet_node_name`')
 
         self._data["Component 10 Inlet Node Name"] = value
 
@@ -2102,6 +2370,9 @@ class Branch(object):
                                  'for field `component_10_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `component_10_outlet_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `component_10_outlet_node_name`')
 
         self._data["Component 10 Outlet Node Name"] = value
@@ -2137,6 +2408,9 @@ class Branch(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `component_10_branch_control_type`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `component_10_branch_control_type`')
 
         self._data["Component 10 Branch Control Type"] = value
 
@@ -2169,6 +2443,9 @@ class Branch(object):
                                  'for field `component_11_object_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `component_11_object_type`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `component_11_object_type`')
 
         self._data["Component 11 Object Type"] = value
@@ -2203,6 +2480,9 @@ class Branch(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `component_11_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `component_11_name`')
 
         self._data["Component 11 Name"] = value
 
@@ -2236,6 +2516,9 @@ class Branch(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `component_11_inlet_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `component_11_inlet_node_name`')
 
         self._data["Component 11 Inlet Node Name"] = value
 
@@ -2268,6 +2551,9 @@ class Branch(object):
                                  'for field `component_11_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `component_11_outlet_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `component_11_outlet_node_name`')
 
         self._data["Component 11 Outlet Node Name"] = value
@@ -2303,6 +2589,9 @@ class Branch(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `component_11_branch_control_type`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `component_11_branch_control_type`')
 
         self._data["Component 11 Branch Control Type"] = value
 
@@ -2328,67 +2617,17 @@ class Branch(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.maximum_flow_rate))
-        out.append(self._to_str(self.pressure_drop_curve_name))
-        out.append(self._to_str(self.component_1_object_type))
-        out.append(self._to_str(self.component_1_name))
-        out.append(self._to_str(self.component_1_inlet_node_name))
-        out.append(self._to_str(self.component_1_outlet_node_name))
-        out.append(self._to_str(self.component_1_branch_control_type))
-        out.append(self._to_str(self.component_2_object_type))
-        out.append(self._to_str(self.component_2_name))
-        out.append(self._to_str(self.component_2_inlet_node_name))
-        out.append(self._to_str(self.component_2_outlet_node_name))
-        out.append(self._to_str(self.component_2_branch_control_type))
-        out.append(self._to_str(self.component_3_object_type))
-        out.append(self._to_str(self.component_3_name))
-        out.append(self._to_str(self.component_3_inlet_node_name))
-        out.append(self._to_str(self.component_3_outlet_node_name))
-        out.append(self._to_str(self.component_3_branch_control_type))
-        out.append(self._to_str(self.component_4_object_type))
-        out.append(self._to_str(self.component_4_name))
-        out.append(self._to_str(self.component_4_inlet_node_name))
-        out.append(self._to_str(self.component_4_outlet_node_name))
-        out.append(self._to_str(self.component_4_branch_control_type))
-        out.append(self._to_str(self.component_5_object_type))
-        out.append(self._to_str(self.component_5_name))
-        out.append(self._to_str(self.component_5_inlet_node_name))
-        out.append(self._to_str(self.component_5_outlet_node_name))
-        out.append(self._to_str(self.component_5_branch_control_type))
-        out.append(self._to_str(self.component_6_object_type))
-        out.append(self._to_str(self.component_6_name))
-        out.append(self._to_str(self.component_6_inlet_node_name))
-        out.append(self._to_str(self.component_6_outlet_node_name))
-        out.append(self._to_str(self.component_6_branch_control_type))
-        out.append(self._to_str(self.component_7_object_type))
-        out.append(self._to_str(self.component_7_name))
-        out.append(self._to_str(self.component_7_inlet_node_name))
-        out.append(self._to_str(self.component_7_outlet_node_name))
-        out.append(self._to_str(self.component_7_branch_control_type))
-        out.append(self._to_str(self.component_8_object_type))
-        out.append(self._to_str(self.component_8_name))
-        out.append(self._to_str(self.component_8_inlet_node_name))
-        out.append(self._to_str(self.component_8_outlet_node_name))
-        out.append(self._to_str(self.component_8_branch_control_type))
-        out.append(self._to_str(self.component_9_object_type))
-        out.append(self._to_str(self.component_9_name))
-        out.append(self._to_str(self.component_9_inlet_node_name))
-        out.append(self._to_str(self.component_9_outlet_node_name))
-        out.append(self._to_str(self.component_9_branch_control_type))
-        out.append(self._to_str(self.component_10_object_type))
-        out.append(self._to_str(self.component_10_name))
-        out.append(self._to_str(self.component_10_inlet_node_name))
-        out.append(self._to_str(self.component_10_outlet_node_name))
-        out.append(self._to_str(self.component_10_branch_control_type))
-        out.append(self._to_str(self.component_11_object_type))
-        out.append(self._to_str(self.component_11_name))
-        out.append(self._to_str(self.component_11_inlet_node_name))
-        out.append(self._to_str(self.component_11_outlet_node_name))
-        out.append(self._to_str(self.component_11_branch_control_type))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class ConnectorList(object):
     """ Corresponds to IDD object `ConnectorList`
@@ -2409,39 +2648,51 @@ class ConnectorList(object):
         self._data["Connector 1 Name"] = None
         self._data["Connector 2 Object Type"] = None
         self._data["Connector 2 Name"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.connector_1_object_type = None
         else:
             self.connector_1_object_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.connector_1_name = None
         else:
             self.connector_1_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.connector_2_object_type = None
         else:
             self.connector_2_object_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.connector_2_name = None
         else:
             self.connector_2_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -2472,6 +2723,9 @@ class ConnectorList(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -2509,12 +2763,26 @@ class ConnectorList(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `connector_1_object_type`')
-            vals = set()
-            vals.add("Connector:Splitter")
-            vals.add("Connector:Mixer")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `connector_1_object_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `connector_1_object_type`')
+            vals = {}
+            vals["connector:splitter"] = "Connector:Splitter"
+            vals["connector:mixer"] = "Connector:Mixer"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `connector_1_object_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Connector 1 Object Type"] = value
 
@@ -2547,6 +2815,9 @@ class ConnectorList(object):
                                  'for field `connector_1_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `connector_1_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `connector_1_name`')
 
         self._data["Connector 1 Name"] = value
@@ -2584,12 +2855,26 @@ class ConnectorList(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `connector_2_object_type`')
-            vals = set()
-            vals.add("Connector:Splitter")
-            vals.add("Connector:Mixer")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `connector_2_object_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `connector_2_object_type`')
+            vals = {}
+            vals["connector:splitter"] = "Connector:Splitter"
+            vals["connector:mixer"] = "Connector:Mixer"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `connector_2_object_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Connector 2 Object Type"] = value
 
@@ -2623,6 +2908,9 @@ class ConnectorList(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `connector_2_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `connector_2_name`')
 
         self._data["Connector 2 Name"] = value
 
@@ -2648,14 +2936,17 @@ class ConnectorList(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.connector_1_object_type))
-        out.append(self._to_str(self.connector_1_name))
-        out.append(self._to_str(self.connector_2_object_type))
-        out.append(self._to_str(self.connector_2_name))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class OutdoorAirNode(object):
     """ Corresponds to IDD object `OutdoorAir:Node`
@@ -2676,24 +2967,30 @@ class OutdoorAirNode(object):
         self._data = OrderedDict()
         self._data["Name"] = None
         self._data["Height Above Ground"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.height_above_ground = None
         else:
             self.height_above_ground = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -2724,6 +3021,9 @@ class OutdoorAirNode(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -2783,11 +3083,17 @@ class OutdoorAirNode(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.height_above_ground))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class PipeAdiabatic(object):
     """ Corresponds to IDD object `Pipe:Adiabatic`
@@ -2805,29 +3111,37 @@ class PipeAdiabatic(object):
         self._data["Name"] = None
         self._data["Inlet Node Name"] = None
         self._data["Outlet Node Name"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.inlet_node_name = None
         else:
             self.inlet_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.outlet_node_name = None
         else:
             self.outlet_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -2858,6 +3172,9 @@ class PipeAdiabatic(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -2892,6 +3209,9 @@ class PipeAdiabatic(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `inlet_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `inlet_node_name`')
 
         self._data["Inlet Node Name"] = value
 
@@ -2925,6 +3245,9 @@ class PipeAdiabatic(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `outlet_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `outlet_node_name`')
 
         self._data["Outlet Node Name"] = value
 
@@ -2950,12 +3273,17 @@ class PipeAdiabatic(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.inlet_node_name))
-        out.append(self._to_str(self.outlet_node_name))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class PipeAdiabaticSteam(object):
     """ Corresponds to IDD object `Pipe:Adiabatic:Steam`
@@ -2973,29 +3301,37 @@ class PipeAdiabaticSteam(object):
         self._data["Name"] = None
         self._data["Inlet Node Name"] = None
         self._data["Outlet Node Name"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.inlet_node_name = None
         else:
             self.inlet_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.outlet_node_name = None
         else:
             self.outlet_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -3026,6 +3362,9 @@ class PipeAdiabaticSteam(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -3060,6 +3399,9 @@ class PipeAdiabaticSteam(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `inlet_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `inlet_node_name`')
 
         self._data["Inlet Node Name"] = value
 
@@ -3093,6 +3435,9 @@ class PipeAdiabaticSteam(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `outlet_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `outlet_node_name`')
 
         self._data["Outlet Node Name"] = value
 
@@ -3118,12 +3463,17 @@ class PipeAdiabaticSteam(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.inlet_node_name))
-        out.append(self._to_str(self.outlet_node_name))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class PipeIndoor(object):
     """ Corresponds to IDD object `Pipe:Indoor`
@@ -3148,64 +3498,86 @@ class PipeIndoor(object):
         self._data["Ambient Air Velocity Schedule Name"] = None
         self._data["Pipe Inside Diameter"] = None
         self._data["Pipe Length"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.construction_name = None
         else:
             self.construction_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fluid_inlet_node_name = None
         else:
             self.fluid_inlet_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fluid_outlet_node_name = None
         else:
             self.fluid_outlet_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.environment_type = None
         else:
             self.environment_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.ambient_temperature_zone_name = None
         else:
             self.ambient_temperature_zone_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.ambient_temperature_schedule_name = None
         else:
             self.ambient_temperature_schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.ambient_air_velocity_schedule_name = None
         else:
             self.ambient_air_velocity_schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.pipe_inside_diameter = None
         else:
             self.pipe_inside_diameter = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.pipe_length = None
         else:
             self.pipe_length = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -3236,6 +3608,9 @@ class PipeIndoor(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -3270,6 +3645,9 @@ class PipeIndoor(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `construction_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `construction_name`')
 
         self._data["Construction Name"] = value
 
@@ -3303,6 +3681,9 @@ class PipeIndoor(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `fluid_inlet_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `fluid_inlet_node_name`')
 
         self._data["Fluid Inlet Node Name"] = value
 
@@ -3335,6 +3716,9 @@ class PipeIndoor(object):
                                  'for field `fluid_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `fluid_outlet_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `fluid_outlet_node_name`')
 
         self._data["Fluid Outlet Node Name"] = value
@@ -3373,12 +3757,26 @@ class PipeIndoor(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `environment_type`')
-            vals = set()
-            vals.add("Zone")
-            vals.add("Schedule")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `environment_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `environment_type`')
+            vals = {}
+            vals["zone"] = "Zone"
+            vals["schedule"] = "Schedule"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `environment_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Environment Type"] = value
 
@@ -3411,6 +3809,9 @@ class PipeIndoor(object):
                                  'for field `ambient_temperature_zone_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `ambient_temperature_zone_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `ambient_temperature_zone_name`')
 
         self._data["Ambient Temperature Zone Name"] = value
@@ -3445,6 +3846,9 @@ class PipeIndoor(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `ambient_temperature_schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `ambient_temperature_schedule_name`')
 
         self._data["Ambient Temperature Schedule Name"] = value
 
@@ -3477,6 +3881,9 @@ class PipeIndoor(object):
                                  'for field `ambient_air_velocity_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `ambient_air_velocity_schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `ambient_air_velocity_schedule_name`')
 
         self._data["Ambient Air Velocity Schedule Name"] = value
@@ -3574,19 +3981,17 @@ class PipeIndoor(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.construction_name))
-        out.append(self._to_str(self.fluid_inlet_node_name))
-        out.append(self._to_str(self.fluid_outlet_node_name))
-        out.append(self._to_str(self.environment_type))
-        out.append(self._to_str(self.ambient_temperature_zone_name))
-        out.append(self._to_str(self.ambient_temperature_schedule_name))
-        out.append(self._to_str(self.ambient_air_velocity_schedule_name))
-        out.append(self._to_str(self.pipe_inside_diameter))
-        out.append(self._to_str(self.pipe_length))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class PipeOutdoor(object):
     """ Corresponds to IDD object `Pipe:Outdoor`
@@ -3608,49 +4013,65 @@ class PipeOutdoor(object):
         self._data["Ambient Temperature Outdoor Air Node Name"] = None
         self._data["Pipe Inside Diameter"] = None
         self._data["Pipe Length"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.construction_name = None
         else:
             self.construction_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fluid_inlet_node_name = None
         else:
             self.fluid_inlet_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fluid_outlet_node_name = None
         else:
             self.fluid_outlet_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.ambient_temperature_outdoor_air_node_name = None
         else:
             self.ambient_temperature_outdoor_air_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.pipe_inside_diameter = None
         else:
             self.pipe_inside_diameter = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.pipe_length = None
         else:
             self.pipe_length = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -3681,6 +4102,9 @@ class PipeOutdoor(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -3715,6 +4139,9 @@ class PipeOutdoor(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `construction_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `construction_name`')
 
         self._data["Construction Name"] = value
 
@@ -3747,6 +4174,9 @@ class PipeOutdoor(object):
                                  'for field `fluid_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `fluid_inlet_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `fluid_inlet_node_name`')
 
         self._data["Fluid Inlet Node Name"] = value
@@ -3781,6 +4211,9 @@ class PipeOutdoor(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `fluid_outlet_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `fluid_outlet_node_name`')
 
         self._data["Fluid Outlet Node Name"] = value
 
@@ -3813,6 +4246,9 @@ class PipeOutdoor(object):
                                  'for field `ambient_temperature_outdoor_air_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `ambient_temperature_outdoor_air_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `ambient_temperature_outdoor_air_node_name`')
 
         self._data["Ambient Temperature Outdoor Air Node Name"] = value
@@ -3910,16 +4346,17 @@ class PipeOutdoor(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.construction_name))
-        out.append(self._to_str(self.fluid_inlet_node_name))
-        out.append(self._to_str(self.fluid_outlet_node_name))
-        out.append(self._to_str(self.ambient_temperature_outdoor_air_node_name))
-        out.append(self._to_str(self.pipe_inside_diameter))
-        out.append(self._to_str(self.pipe_length))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class PipeUnderground(object):
     """ Corresponds to IDD object `Pipe:Underground`
@@ -3947,69 +4384,93 @@ class PipeUnderground(object):
         self._data["Average Soil Surface Temperature"] = None
         self._data["Amplitude of Soil Surface Temperature"] = None
         self._data["Phase Constant of Soil Surface Temperature"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.construction_name = None
         else:
             self.construction_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fluid_inlet_node_name = None
         else:
             self.fluid_inlet_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fluid_outlet_node_name = None
         else:
             self.fluid_outlet_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.sun_exposure = None
         else:
             self.sun_exposure = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.pipe_inside_diameter = None
         else:
             self.pipe_inside_diameter = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.pipe_length = None
         else:
             self.pipe_length = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.soil_material_name = None
         else:
             self.soil_material_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.average_soil_surface_temperature = None
         else:
             self.average_soil_surface_temperature = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.amplitude_of_soil_surface_temperature = None
         else:
             self.amplitude_of_soil_surface_temperature = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.phase_constant_of_soil_surface_temperature = None
         else:
             self.phase_constant_of_soil_surface_temperature = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -4040,6 +4501,9 @@ class PipeUnderground(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -4074,6 +4538,9 @@ class PipeUnderground(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `construction_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `construction_name`')
 
         self._data["Construction Name"] = value
 
@@ -4107,6 +4574,9 @@ class PipeUnderground(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `fluid_inlet_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `fluid_inlet_node_name`')
 
         self._data["Fluid Inlet Node Name"] = value
 
@@ -4139,6 +4609,9 @@ class PipeUnderground(object):
                                  'for field `fluid_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `fluid_outlet_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `fluid_outlet_node_name`')
 
         self._data["Fluid Outlet Node Name"] = value
@@ -4176,12 +4649,26 @@ class PipeUnderground(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `sun_exposure`')
-            vals = set()
-            vals.add("SunExposed")
-            vals.add("NoSun")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `sun_exposure`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `sun_exposure`')
+            vals = {}
+            vals["sunexposed"] = "SunExposed"
+            vals["nosun"] = "NoSun"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `sun_exposure`'.format(value))
+            value = vals[value_lower]
 
         self._data["Sun Exposure"] = value
 
@@ -4286,6 +4773,9 @@ class PipeUnderground(object):
                                  'for field `soil_material_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `soil_material_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `soil_material_name`')
 
         self._data["Soil Material Name"] = value
@@ -4419,20 +4909,17 @@ class PipeUnderground(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.construction_name))
-        out.append(self._to_str(self.fluid_inlet_node_name))
-        out.append(self._to_str(self.fluid_outlet_node_name))
-        out.append(self._to_str(self.sun_exposure))
-        out.append(self._to_str(self.pipe_inside_diameter))
-        out.append(self._to_str(self.pipe_length))
-        out.append(self._to_str(self.soil_material_name))
-        out.append(self._to_str(self.average_soil_surface_temperature))
-        out.append(self._to_str(self.amplitude_of_soil_surface_temperature))
-        out.append(self._to_str(self.phase_constant_of_soil_surface_temperature))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class PipingSystemUndergroundDomain(object):
     """ Corresponds to IDD object `PipingSystem:Underground:Domain`
@@ -4484,199 +4971,275 @@ class PipingSystemUndergroundDomain(object):
         self._data["Pipe Circuit 4"] = None
         self._data["Pipe Circuit 5"] = None
         self._data["Pipe Circuit 6"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.xmax = None
         else:
             self.xmax = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.ymax = None
         else:
             self.ymax = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.zmax = None
         else:
             self.zmax = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.xdirection_mesh_density_parameter = None
         else:
             self.xdirection_mesh_density_parameter = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.xdirection_mesh_type = None
         else:
             self.xdirection_mesh_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.xdirection_geometric_coefficient = None
         else:
             self.xdirection_geometric_coefficient = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.ydirection_mesh_density_parameter = None
         else:
             self.ydirection_mesh_density_parameter = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.ydirection_mesh_type = None
         else:
             self.ydirection_mesh_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.ydirection_geometric_coefficient = None
         else:
             self.ydirection_geometric_coefficient = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.zdirection_mesh_density_parameter = None
         else:
             self.zdirection_mesh_density_parameter = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.zdirection_mesh_type = None
         else:
             self.zdirection_mesh_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.zdirection_geometric_coefficient = None
         else:
             self.zdirection_geometric_coefficient = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.soil_thermal_conductivity = None
         else:
             self.soil_thermal_conductivity = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.soil_density = None
         else:
             self.soil_density = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.soil_specific_heat = None
         else:
             self.soil_specific_heat = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.soil_moisture_content_volume_fraction = None
         else:
             self.soil_moisture_content_volume_fraction = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.soil_moisture_content_volume_fraction_at_saturation = None
         else:
             self.soil_moisture_content_volume_fraction_at_saturation = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.kusudaachenbach_average_surface_temperature = None
         else:
             self.kusudaachenbach_average_surface_temperature = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.kusudaachenbach_average_amplitude_of_surface_temperature = None
         else:
             self.kusudaachenbach_average_amplitude_of_surface_temperature = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.kusudaachenbach_phase_shift_of_minimum_surface_temperature = None
         else:
             self.kusudaachenbach_phase_shift_of_minimum_surface_temperature = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.this_domain_includes_basement_surface_interaction = None
         else:
             self.this_domain_includes_basement_surface_interaction = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.width_of_basement_floor_in_ground_domain = None
         else:
             self.width_of_basement_floor_in_ground_domain = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.depth_of_basement_wall_in_ground_domain = None
         else:
             self.depth_of_basement_wall_in_ground_domain = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.shift_pipe_x_coordinates_by_basement_width = None
         else:
             self.shift_pipe_x_coordinates_by_basement_width = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.name_of_basement_wall_boundary_condition_model = None
         else:
             self.name_of_basement_wall_boundary_condition_model = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.name_of_basement_floor_boundary_condition_model = None
         else:
             self.name_of_basement_floor_boundary_condition_model = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.convergence_criterion_for_the_outer_cartesian_domain_iteration_loop = None
         else:
             self.convergence_criterion_for_the_outer_cartesian_domain_iteration_loop = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.maximum_iterations_in_the_outer_cartesian_domain_iteration_loop = None
         else:
             self.maximum_iterations_in_the_outer_cartesian_domain_iteration_loop = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.evapotranspiration_ground_cover_parameter = None
         else:
             self.evapotranspiration_ground_cover_parameter = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.number_of_pipe_circuits_entered_for_this_domain = None
         else:
             self.number_of_pipe_circuits_entered_for_this_domain = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.pipe_circuit_1 = None
         else:
             self.pipe_circuit_1 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.pipe_circuit_2 = None
         else:
             self.pipe_circuit_2 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.pipe_circuit_3 = None
         else:
             self.pipe_circuit_3 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.pipe_circuit_4 = None
         else:
             self.pipe_circuit_4 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.pipe_circuit_5 = None
         else:
             self.pipe_circuit_5 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.pipe_circuit_6 = None
         else:
             self.pipe_circuit_6 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -4707,6 +5270,9 @@ class PipingSystemUndergroundDomain(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -4888,12 +5454,26 @@ class PipingSystemUndergroundDomain(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `xdirection_mesh_type`')
-            vals = set()
-            vals.add("Uniform")
-            vals.add("SymmetricGeometric")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `xdirection_mesh_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `xdirection_mesh_type`')
+            vals = {}
+            vals["uniform"] = "Uniform"
+            vals["symmetricgeometric"] = "SymmetricGeometric"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `xdirection_mesh_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["X-Direction Mesh Type"] = value
 
@@ -5007,12 +5587,26 @@ class PipingSystemUndergroundDomain(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `ydirection_mesh_type`')
-            vals = set()
-            vals.add("Uniform")
-            vals.add("SymmetricGeometric")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `ydirection_mesh_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `ydirection_mesh_type`')
+            vals = {}
+            vals["uniform"] = "Uniform"
+            vals["symmetricgeometric"] = "SymmetricGeometric"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `ydirection_mesh_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Y-Direction Mesh Type"] = value
 
@@ -5126,12 +5720,26 @@ class PipingSystemUndergroundDomain(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `zdirection_mesh_type`')
-            vals = set()
-            vals.add("Uniform")
-            vals.add("SymmetricGeometric")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `zdirection_mesh_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `zdirection_mesh_type`')
+            vals = {}
+            vals["uniform"] = "Uniform"
+            vals["symmetricgeometric"] = "SymmetricGeometric"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `zdirection_mesh_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Z-Direction Mesh Type"] = value
 
@@ -5492,12 +6100,26 @@ class PipingSystemUndergroundDomain(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `this_domain_includes_basement_surface_interaction`')
-            vals = set()
-            vals.add("Yes")
-            vals.add("No")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `this_domain_includes_basement_surface_interaction`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `this_domain_includes_basement_surface_interaction`')
+            vals = {}
+            vals["yes"] = "Yes"
+            vals["no"] = "No"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `this_domain_includes_basement_surface_interaction`'.format(value))
+            value = vals[value_lower]
 
         self._data["This Domain Includes Basement Surface Interaction"] = value
 
@@ -5599,12 +6221,26 @@ class PipingSystemUndergroundDomain(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `shift_pipe_x_coordinates_by_basement_width`')
-            vals = set()
-            vals.add("Yes")
-            vals.add("No")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `shift_pipe_x_coordinates_by_basement_width`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `shift_pipe_x_coordinates_by_basement_width`')
+            vals = {}
+            vals["yes"] = "Yes"
+            vals["no"] = "No"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `shift_pipe_x_coordinates_by_basement_width`'.format(value))
+            value = vals[value_lower]
 
         self._data["Shift Pipe X Coordinates By Basement Width"] = value
 
@@ -5639,6 +6275,9 @@ class PipingSystemUndergroundDomain(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `name_of_basement_wall_boundary_condition_model`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `name_of_basement_wall_boundary_condition_model`')
 
         self._data["Name of Basement Wall Boundary Condition Model"] = value
 
@@ -5672,6 +6311,9 @@ class PipingSystemUndergroundDomain(object):
                                  'for field `name_of_basement_floor_boundary_condition_model`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name_of_basement_floor_boundary_condition_model`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name_of_basement_floor_boundary_condition_model`')
 
         self._data["Name of Basement Floor Boundary Condition Model"] = value
@@ -5865,6 +6507,9 @@ class PipingSystemUndergroundDomain(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `pipe_circuit_1`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `pipe_circuit_1`')
 
         self._data["Pipe Circuit 1"] = value
 
@@ -5899,6 +6544,9 @@ class PipingSystemUndergroundDomain(object):
                                  'for field `pipe_circuit_2`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `pipe_circuit_2`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `pipe_circuit_2`')
 
         self._data["Pipe Circuit 2"] = value
@@ -5935,6 +6583,9 @@ class PipingSystemUndergroundDomain(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `pipe_circuit_3`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `pipe_circuit_3`')
 
         self._data["Pipe Circuit 3"] = value
 
@@ -5969,6 +6620,9 @@ class PipingSystemUndergroundDomain(object):
                                  'for field `pipe_circuit_4`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `pipe_circuit_4`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `pipe_circuit_4`')
 
         self._data["Pipe Circuit 4"] = value
@@ -6005,6 +6659,9 @@ class PipingSystemUndergroundDomain(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `pipe_circuit_5`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `pipe_circuit_5`')
 
         self._data["Pipe Circuit 5"] = value
 
@@ -6040,6 +6697,9 @@ class PipingSystemUndergroundDomain(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `pipe_circuit_6`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `pipe_circuit_6`')
 
         self._data["Pipe Circuit 6"] = value
 
@@ -6065,46 +6725,17 @@ class PipingSystemUndergroundDomain(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.xmax))
-        out.append(self._to_str(self.ymax))
-        out.append(self._to_str(self.zmax))
-        out.append(self._to_str(self.xdirection_mesh_density_parameter))
-        out.append(self._to_str(self.xdirection_mesh_type))
-        out.append(self._to_str(self.xdirection_geometric_coefficient))
-        out.append(self._to_str(self.ydirection_mesh_density_parameter))
-        out.append(self._to_str(self.ydirection_mesh_type))
-        out.append(self._to_str(self.ydirection_geometric_coefficient))
-        out.append(self._to_str(self.zdirection_mesh_density_parameter))
-        out.append(self._to_str(self.zdirection_mesh_type))
-        out.append(self._to_str(self.zdirection_geometric_coefficient))
-        out.append(self._to_str(self.soil_thermal_conductivity))
-        out.append(self._to_str(self.soil_density))
-        out.append(self._to_str(self.soil_specific_heat))
-        out.append(self._to_str(self.soil_moisture_content_volume_fraction))
-        out.append(self._to_str(self.soil_moisture_content_volume_fraction_at_saturation))
-        out.append(self._to_str(self.kusudaachenbach_average_surface_temperature))
-        out.append(self._to_str(self.kusudaachenbach_average_amplitude_of_surface_temperature))
-        out.append(self._to_str(self.kusudaachenbach_phase_shift_of_minimum_surface_temperature))
-        out.append(self._to_str(self.this_domain_includes_basement_surface_interaction))
-        out.append(self._to_str(self.width_of_basement_floor_in_ground_domain))
-        out.append(self._to_str(self.depth_of_basement_wall_in_ground_domain))
-        out.append(self._to_str(self.shift_pipe_x_coordinates_by_basement_width))
-        out.append(self._to_str(self.name_of_basement_wall_boundary_condition_model))
-        out.append(self._to_str(self.name_of_basement_floor_boundary_condition_model))
-        out.append(self._to_str(self.convergence_criterion_for_the_outer_cartesian_domain_iteration_loop))
-        out.append(self._to_str(self.maximum_iterations_in_the_outer_cartesian_domain_iteration_loop))
-        out.append(self._to_str(self.evapotranspiration_ground_cover_parameter))
-        out.append(self._to_str(self.number_of_pipe_circuits_entered_for_this_domain))
-        out.append(self._to_str(self.pipe_circuit_1))
-        out.append(self._to_str(self.pipe_circuit_2))
-        out.append(self._to_str(self.pipe_circuit_3))
-        out.append(self._to_str(self.pipe_circuit_4))
-        out.append(self._to_str(self.pipe_circuit_5))
-        out.append(self._to_str(self.pipe_circuit_6))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class PipingSystemUndergroundPipeCircuit(object):
     """ Corresponds to IDD object `PipingSystem:Underground:PipeCircuit`
@@ -6141,114 +6772,156 @@ class PipingSystemUndergroundPipeCircuit(object):
         self._data["Pipe Segment 4"] = None
         self._data["Pipe Segment 5"] = None
         self._data["Pipe Segment 6"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.pipe_thermal_conductivity = None
         else:
             self.pipe_thermal_conductivity = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.pipe_density = None
         else:
             self.pipe_density = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.pipe_specific_heat = None
         else:
             self.pipe_specific_heat = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.pipe_inner_diameter = None
         else:
             self.pipe_inner_diameter = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.pipe_outer_diameter = None
         else:
             self.pipe_outer_diameter = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.design_flow_rate = None
         else:
             self.design_flow_rate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.circuit_inlet_node = None
         else:
             self.circuit_inlet_node = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.circuit_outlet_node = None
         else:
             self.circuit_outlet_node = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.convergence_criterion_for_the_inner_radial_iteration_loop = None
         else:
             self.convergence_criterion_for_the_inner_radial_iteration_loop = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.maximum_iterations_in_the_inner_radial_iteration_loop = None
         else:
             self.maximum_iterations_in_the_inner_radial_iteration_loop = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.number_of_soil_nodes_in_the_inner_radial_near_pipe_mesh_region = None
         else:
             self.number_of_soil_nodes_in_the_inner_radial_near_pipe_mesh_region = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.radial_thickness_of_inner_radial_near_pipe_mesh_region = None
         else:
             self.radial_thickness_of_inner_radial_near_pipe_mesh_region = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.number_of_pipe_segments_entered_for_this_pipe_circuit = None
         else:
             self.number_of_pipe_segments_entered_for_this_pipe_circuit = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.pipe_segment_1 = None
         else:
             self.pipe_segment_1 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.pipe_segment_2 = None
         else:
             self.pipe_segment_2 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.pipe_segment_3 = None
         else:
             self.pipe_segment_3 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.pipe_segment_4 = None
         else:
             self.pipe_segment_4 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.pipe_segment_5 = None
         else:
             self.pipe_segment_5 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.pipe_segment_6 = None
         else:
             self.pipe_segment_6 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -6279,6 +6952,9 @@ class PipingSystemUndergroundPipeCircuit(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -6523,6 +7199,9 @@ class PipingSystemUndergroundPipeCircuit(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `circuit_inlet_node`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `circuit_inlet_node`')
 
         self._data["Circuit Inlet Node"] = value
 
@@ -6555,6 +7234,9 @@ class PipingSystemUndergroundPipeCircuit(object):
                                  'for field `circuit_outlet_node`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `circuit_outlet_node`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `circuit_outlet_node`')
 
         self._data["Circuit Outlet Node"] = value
@@ -6778,6 +7460,9 @@ class PipingSystemUndergroundPipeCircuit(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `pipe_segment_1`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `pipe_segment_1`')
 
         self._data["Pipe Segment 1"] = value
 
@@ -6812,6 +7497,9 @@ class PipingSystemUndergroundPipeCircuit(object):
                                  'for field `pipe_segment_2`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `pipe_segment_2`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `pipe_segment_2`')
 
         self._data["Pipe Segment 2"] = value
@@ -6848,6 +7536,9 @@ class PipingSystemUndergroundPipeCircuit(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `pipe_segment_3`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `pipe_segment_3`')
 
         self._data["Pipe Segment 3"] = value
 
@@ -6882,6 +7573,9 @@ class PipingSystemUndergroundPipeCircuit(object):
                                  'for field `pipe_segment_4`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `pipe_segment_4`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `pipe_segment_4`')
 
         self._data["Pipe Segment 4"] = value
@@ -6918,6 +7612,9 @@ class PipingSystemUndergroundPipeCircuit(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `pipe_segment_5`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `pipe_segment_5`')
 
         self._data["Pipe Segment 5"] = value
 
@@ -6953,6 +7650,9 @@ class PipingSystemUndergroundPipeCircuit(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `pipe_segment_6`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `pipe_segment_6`')
 
         self._data["Pipe Segment 6"] = value
 
@@ -6978,29 +7678,17 @@ class PipingSystemUndergroundPipeCircuit(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.pipe_thermal_conductivity))
-        out.append(self._to_str(self.pipe_density))
-        out.append(self._to_str(self.pipe_specific_heat))
-        out.append(self._to_str(self.pipe_inner_diameter))
-        out.append(self._to_str(self.pipe_outer_diameter))
-        out.append(self._to_str(self.design_flow_rate))
-        out.append(self._to_str(self.circuit_inlet_node))
-        out.append(self._to_str(self.circuit_outlet_node))
-        out.append(self._to_str(self.convergence_criterion_for_the_inner_radial_iteration_loop))
-        out.append(self._to_str(self.maximum_iterations_in_the_inner_radial_iteration_loop))
-        out.append(self._to_str(self.number_of_soil_nodes_in_the_inner_radial_near_pipe_mesh_region))
-        out.append(self._to_str(self.radial_thickness_of_inner_radial_near_pipe_mesh_region))
-        out.append(self._to_str(self.number_of_pipe_segments_entered_for_this_pipe_circuit))
-        out.append(self._to_str(self.pipe_segment_1))
-        out.append(self._to_str(self.pipe_segment_2))
-        out.append(self._to_str(self.pipe_segment_3))
-        out.append(self._to_str(self.pipe_segment_4))
-        out.append(self._to_str(self.pipe_segment_5))
-        out.append(self._to_str(self.pipe_segment_6))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class PipingSystemUndergroundPipeSegment(object):
     """ Corresponds to IDD object `PipingSystem:Underground:PipeSegment`
@@ -7021,34 +7709,44 @@ class PipingSystemUndergroundPipeSegment(object):
         self._data["X Position"] = None
         self._data["Y Position"] = None
         self._data["Flow Direction"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.x_position = None
         else:
             self.x_position = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.y_position = None
         else:
             self.y_position = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.flow_direction = None
         else:
             self.flow_direction = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -7079,6 +7777,9 @@ class PipingSystemUndergroundPipeSegment(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -7196,12 +7897,26 @@ class PipingSystemUndergroundPipeSegment(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `flow_direction`')
-            vals = set()
-            vals.add("IncreasingZ")
-            vals.add("DecreasingZ")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `flow_direction`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `flow_direction`')
+            vals = {}
+            vals["increasingz"] = "IncreasingZ"
+            vals["decreasingz"] = "DecreasingZ"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `flow_direction`'.format(value))
+            value = vals[value_lower]
 
         self._data["Flow Direction"] = value
 
@@ -7227,13 +7942,17 @@ class PipingSystemUndergroundPipeSegment(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.x_position))
-        out.append(self._to_str(self.y_position))
-        out.append(self._to_str(self.flow_direction))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class Duct(object):
     """ Corresponds to IDD object `Duct`
@@ -7251,29 +7970,37 @@ class Duct(object):
         self._data["Name"] = None
         self._data["Inlet Node Name"] = None
         self._data["Outlet Node Name"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.inlet_node_name = None
         else:
             self.inlet_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.outlet_node_name = None
         else:
             self.outlet_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -7304,6 +8031,9 @@ class Duct(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -7338,6 +8068,9 @@ class Duct(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `inlet_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `inlet_node_name`')
 
         self._data["Inlet Node Name"] = value
 
@@ -7371,6 +8104,9 @@ class Duct(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `outlet_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `outlet_node_name`')
 
         self._data["Outlet Node Name"] = value
 
@@ -7396,12 +8132,17 @@ class Duct(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.inlet_node_name))
-        out.append(self._to_str(self.outlet_node_name))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class PumpVariableSpeed(object):
     """ Corresponds to IDD object `Pump:VariableSpeed`
@@ -7441,139 +8182,191 @@ class PumpVariableSpeed(object):
         self._data["Maximum RPM Schedule"] = None
         self._data["Zone Name"] = None
         self._data["Skin Loss Radiative Fraction"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.inlet_node_name = None
         else:
             self.inlet_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.outlet_node_name = None
         else:
             self.outlet_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.rated_flow_rate = None
         else:
             self.rated_flow_rate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.rated_pump_head = None
         else:
             self.rated_pump_head = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.rated_power_consumption = None
         else:
             self.rated_power_consumption = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.motor_efficiency = None
         else:
             self.motor_efficiency = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_motor_inefficiencies_to_fluid_stream = None
         else:
             self.fraction_of_motor_inefficiencies_to_fluid_stream = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.coefficient_1_of_the_part_load_performance_curve = None
         else:
             self.coefficient_1_of_the_part_load_performance_curve = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.coefficient_2_of_the_part_load_performance_curve = None
         else:
             self.coefficient_2_of_the_part_load_performance_curve = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.coefficient_3_of_the_part_load_performance_curve = None
         else:
             self.coefficient_3_of_the_part_load_performance_curve = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.coefficient_4_of_the_part_load_performance_curve = None
         else:
             self.coefficient_4_of_the_part_load_performance_curve = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.minimum_flow_rate = None
         else:
             self.minimum_flow_rate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.pump_control_type = None
         else:
             self.pump_control_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.pump_flow_rate_schedule_name = None
         else:
             self.pump_flow_rate_schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.pump_curve_name = None
         else:
             self.pump_curve_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.impeller_diameter = None
         else:
             self.impeller_diameter = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vfd_control_type = None
         else:
             self.vfd_control_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.pump_rpm_schedule_name = None
         else:
             self.pump_rpm_schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.minimum_pressure_schedule = None
         else:
             self.minimum_pressure_schedule = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.maximum_pressure_schedule = None
         else:
             self.maximum_pressure_schedule = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.minimum_rpm_schedule = None
         else:
             self.minimum_rpm_schedule = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.maximum_rpm_schedule = None
         else:
             self.maximum_rpm_schedule = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.zone_name = None
         else:
             self.zone_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.skin_loss_radiative_fraction = None
         else:
             self.skin_loss_radiative_fraction = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -7604,6 +8397,9 @@ class PumpVariableSpeed(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -7638,6 +8434,9 @@ class PumpVariableSpeed(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `inlet_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `inlet_node_name`')
 
         self._data["Inlet Node Name"] = value
 
@@ -7670,6 +8469,9 @@ class PumpVariableSpeed(object):
                                  'for field `outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `outlet_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `outlet_node_name`')
 
         self._data["Outlet Node Name"] = value
@@ -8050,12 +8852,26 @@ class PumpVariableSpeed(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `pump_control_type`')
-            vals = set()
-            vals.add("Continuous")
-            vals.add("Intermittent")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `pump_control_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `pump_control_type`')
+            vals = {}
+            vals["continuous"] = "Continuous"
+            vals["intermittent"] = "Intermittent"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `pump_control_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Pump Control Type"] = value
 
@@ -8091,6 +8907,9 @@ class PumpVariableSpeed(object):
                                  'for field `pump_flow_rate_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `pump_flow_rate_schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `pump_flow_rate_schedule_name`')
 
         self._data["Pump Flow Rate Schedule Name"] = value
@@ -8133,6 +8952,9 @@ class PumpVariableSpeed(object):
                                  'for field `pump_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `pump_curve_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `pump_curve_name`')
 
         self._data["Pump Curve Name"] = value
@@ -8202,12 +9024,26 @@ class PumpVariableSpeed(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `vfd_control_type`')
-            vals = set()
-            vals.add("ManualControl")
-            vals.add("PressureSetpointControl")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `vfd_control_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `vfd_control_type`')
+            vals = {}
+            vals["manualcontrol"] = "ManualControl"
+            vals["pressuresetpointcontrol"] = "PressureSetpointControl"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `vfd_control_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["VFD Control Type"] = value
 
@@ -8244,6 +9080,9 @@ class PumpVariableSpeed(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `pump_rpm_schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `pump_rpm_schedule_name`')
 
         self._data["Pump rpm Schedule Name"] = value
 
@@ -8277,6 +9116,9 @@ class PumpVariableSpeed(object):
                                  'for field `minimum_pressure_schedule`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `minimum_pressure_schedule`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `minimum_pressure_schedule`')
 
         self._data["Minimum Pressure Schedule"] = value
@@ -8312,6 +9154,9 @@ class PumpVariableSpeed(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `maximum_pressure_schedule`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `maximum_pressure_schedule`')
 
         self._data["Maximum Pressure Schedule"] = value
 
@@ -8345,6 +9190,9 @@ class PumpVariableSpeed(object):
                                  'for field `minimum_rpm_schedule`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `minimum_rpm_schedule`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `minimum_rpm_schedule`')
 
         self._data["Minimum RPM Schedule"] = value
@@ -8380,6 +9228,9 @@ class PumpVariableSpeed(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `maximum_rpm_schedule`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `maximum_rpm_schedule`')
 
         self._data["Maximum RPM Schedule"] = value
 
@@ -8413,6 +9264,9 @@ class PumpVariableSpeed(object):
                                  'for field `zone_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `zone_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `zone_name`')
 
         self._data["Zone Name"] = value
@@ -8479,34 +9333,17 @@ class PumpVariableSpeed(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.inlet_node_name))
-        out.append(self._to_str(self.outlet_node_name))
-        out.append(self._to_str(self.rated_flow_rate))
-        out.append(self._to_str(self.rated_pump_head))
-        out.append(self._to_str(self.rated_power_consumption))
-        out.append(self._to_str(self.motor_efficiency))
-        out.append(self._to_str(self.fraction_of_motor_inefficiencies_to_fluid_stream))
-        out.append(self._to_str(self.coefficient_1_of_the_part_load_performance_curve))
-        out.append(self._to_str(self.coefficient_2_of_the_part_load_performance_curve))
-        out.append(self._to_str(self.coefficient_3_of_the_part_load_performance_curve))
-        out.append(self._to_str(self.coefficient_4_of_the_part_load_performance_curve))
-        out.append(self._to_str(self.minimum_flow_rate))
-        out.append(self._to_str(self.pump_control_type))
-        out.append(self._to_str(self.pump_flow_rate_schedule_name))
-        out.append(self._to_str(self.pump_curve_name))
-        out.append(self._to_str(self.impeller_diameter))
-        out.append(self._to_str(self.vfd_control_type))
-        out.append(self._to_str(self.pump_rpm_schedule_name))
-        out.append(self._to_str(self.minimum_pressure_schedule))
-        out.append(self._to_str(self.maximum_pressure_schedule))
-        out.append(self._to_str(self.minimum_rpm_schedule))
-        out.append(self._to_str(self.maximum_rpm_schedule))
-        out.append(self._to_str(self.zone_name))
-        out.append(self._to_str(self.skin_loss_radiative_fraction))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class PumpConstantSpeed(object):
     """ Corresponds to IDD object `Pump:ConstantSpeed`
@@ -8536,89 +9373,121 @@ class PumpConstantSpeed(object):
         self._data["Rotational Speed"] = None
         self._data["Zone Name"] = None
         self._data["Skin Loss Radiative Fraction"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.inlet_node_name = None
         else:
             self.inlet_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.outlet_node_name = None
         else:
             self.outlet_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.rated_flow_rate = None
         else:
             self.rated_flow_rate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.rated_pump_head = None
         else:
             self.rated_pump_head = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.rated_power_consumption = None
         else:
             self.rated_power_consumption = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.motor_efficiency = None
         else:
             self.motor_efficiency = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_motor_inefficiencies_to_fluid_stream = None
         else:
             self.fraction_of_motor_inefficiencies_to_fluid_stream = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.pump_control_type = None
         else:
             self.pump_control_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.pump_flow_rate_schedule_name = None
         else:
             self.pump_flow_rate_schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.pump_curve_name = None
         else:
             self.pump_curve_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.impeller_diameter = None
         else:
             self.impeller_diameter = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.rotational_speed = None
         else:
             self.rotational_speed = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.zone_name = None
         else:
             self.zone_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.skin_loss_radiative_fraction = None
         else:
             self.skin_loss_radiative_fraction = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -8649,6 +9518,9 @@ class PumpConstantSpeed(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -8683,6 +9555,9 @@ class PumpConstantSpeed(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `inlet_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `inlet_node_name`')
 
         self._data["Inlet Node Name"] = value
 
@@ -8715,6 +9590,9 @@ class PumpConstantSpeed(object):
                                  'for field `outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `outlet_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `outlet_node_name`')
 
         self._data["Outlet Node Name"] = value
@@ -8937,12 +9815,26 @@ class PumpConstantSpeed(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `pump_control_type`')
-            vals = set()
-            vals.add("Continuous")
-            vals.add("Intermittent")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `pump_control_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `pump_control_type`')
+            vals = {}
+            vals["continuous"] = "Continuous"
+            vals["intermittent"] = "Intermittent"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `pump_control_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Pump Control Type"] = value
 
@@ -8978,6 +9870,9 @@ class PumpConstantSpeed(object):
                                  'for field `pump_flow_rate_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `pump_flow_rate_schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `pump_flow_rate_schedule_name`')
 
         self._data["Pump Flow Rate Schedule Name"] = value
@@ -9020,6 +9915,9 @@ class PumpConstantSpeed(object):
                                  'for field `pump_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `pump_curve_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `pump_curve_name`')
 
         self._data["Pump Curve Name"] = value
@@ -9119,6 +10017,9 @@ class PumpConstantSpeed(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `zone_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `zone_name`')
 
         self._data["Zone Name"] = value
 
@@ -9184,24 +10085,17 @@ class PumpConstantSpeed(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.inlet_node_name))
-        out.append(self._to_str(self.outlet_node_name))
-        out.append(self._to_str(self.rated_flow_rate))
-        out.append(self._to_str(self.rated_pump_head))
-        out.append(self._to_str(self.rated_power_consumption))
-        out.append(self._to_str(self.motor_efficiency))
-        out.append(self._to_str(self.fraction_of_motor_inefficiencies_to_fluid_stream))
-        out.append(self._to_str(self.pump_control_type))
-        out.append(self._to_str(self.pump_flow_rate_schedule_name))
-        out.append(self._to_str(self.pump_curve_name))
-        out.append(self._to_str(self.impeller_diameter))
-        out.append(self._to_str(self.rotational_speed))
-        out.append(self._to_str(self.zone_name))
-        out.append(self._to_str(self.skin_loss_radiative_fraction))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class PumpVariableSpeedCondensate(object):
     """ Corresponds to IDD object `Pump:VariableSpeed:Condensate`
@@ -9232,89 +10126,121 @@ class PumpVariableSpeedCondensate(object):
         self._data["Pump Flow Rate Schedule Name"] = None
         self._data["Zone Name"] = None
         self._data["Skin Loss Radiative Fraction"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.inlet_node_name = None
         else:
             self.inlet_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.outlet_node_name = None
         else:
             self.outlet_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.rated_flow_rate = None
         else:
             self.rated_flow_rate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.rated_pump_head = None
         else:
             self.rated_pump_head = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.rated_power_consumption = None
         else:
             self.rated_power_consumption = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.motor_efficiency = None
         else:
             self.motor_efficiency = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_motor_inefficiencies_to_fluid_stream = None
         else:
             self.fraction_of_motor_inefficiencies_to_fluid_stream = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.coefficient_1_of_the_part_load_performance_curve = None
         else:
             self.coefficient_1_of_the_part_load_performance_curve = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.coefficient_2_of_the_part_load_performance_curve = None
         else:
             self.coefficient_2_of_the_part_load_performance_curve = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.coefficient_3_of_the_part_load_performance_curve = None
         else:
             self.coefficient_3_of_the_part_load_performance_curve = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.coefficient_4_of_the_part_load_performance_curve = None
         else:
             self.coefficient_4_of_the_part_load_performance_curve = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.pump_flow_rate_schedule_name = None
         else:
             self.pump_flow_rate_schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.zone_name = None
         else:
             self.zone_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.skin_loss_radiative_fraction = None
         else:
             self.skin_loss_radiative_fraction = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -9345,6 +10271,9 @@ class PumpVariableSpeedCondensate(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -9379,6 +10308,9 @@ class PumpVariableSpeedCondensate(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `inlet_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `inlet_node_name`')
 
         self._data["Inlet Node Name"] = value
 
@@ -9411,6 +10343,9 @@ class PumpVariableSpeedCondensate(object):
                                  'for field `outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `outlet_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `outlet_node_name`')
 
         self._data["Outlet Node Name"] = value
@@ -9756,6 +10691,9 @@ class PumpVariableSpeedCondensate(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `pump_flow_rate_schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `pump_flow_rate_schedule_name`')
 
         self._data["Pump Flow Rate Schedule Name"] = value
 
@@ -9789,6 +10727,9 @@ class PumpVariableSpeedCondensate(object):
                                  'for field `zone_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `zone_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `zone_name`')
 
         self._data["Zone Name"] = value
@@ -9855,24 +10796,17 @@ class PumpVariableSpeedCondensate(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.inlet_node_name))
-        out.append(self._to_str(self.outlet_node_name))
-        out.append(self._to_str(self.rated_flow_rate))
-        out.append(self._to_str(self.rated_pump_head))
-        out.append(self._to_str(self.rated_power_consumption))
-        out.append(self._to_str(self.motor_efficiency))
-        out.append(self._to_str(self.fraction_of_motor_inefficiencies_to_fluid_stream))
-        out.append(self._to_str(self.coefficient_1_of_the_part_load_performance_curve))
-        out.append(self._to_str(self.coefficient_2_of_the_part_load_performance_curve))
-        out.append(self._to_str(self.coefficient_3_of_the_part_load_performance_curve))
-        out.append(self._to_str(self.coefficient_4_of_the_part_load_performance_curve))
-        out.append(self._to_str(self.pump_flow_rate_schedule_name))
-        out.append(self._to_str(self.zone_name))
-        out.append(self._to_str(self.skin_loss_radiative_fraction))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class HeaderedPumpsConstantSpeed(object):
     """ Corresponds to IDD object `HeaderedPumps:ConstantSpeed`
@@ -9901,84 +10835,114 @@ class HeaderedPumpsConstantSpeed(object):
         self._data["Pump Flow Rate Schedule Name"] = None
         self._data["Zone Name"] = None
         self._data["Skin Loss Radiative Fraction"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.inlet_node_name = None
         else:
             self.inlet_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.outlet_node_name = None
         else:
             self.outlet_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.total_rated_flow_rate = None
         else:
             self.total_rated_flow_rate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.number_of_pumps_in_bank = None
         else:
             self.number_of_pumps_in_bank = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.flow_sequencing_control_scheme = None
         else:
             self.flow_sequencing_control_scheme = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.rated_pump_head = None
         else:
             self.rated_pump_head = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.rated_power_consumption = None
         else:
             self.rated_power_consumption = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.motor_efficiency = None
         else:
             self.motor_efficiency = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_motor_inefficiencies_to_fluid_stream = None
         else:
             self.fraction_of_motor_inefficiencies_to_fluid_stream = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.pump_control_type = None
         else:
             self.pump_control_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.pump_flow_rate_schedule_name = None
         else:
             self.pump_flow_rate_schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.zone_name = None
         else:
             self.zone_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.skin_loss_radiative_fraction = None
         else:
             self.skin_loss_radiative_fraction = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -10009,6 +10973,9 @@ class HeaderedPumpsConstantSpeed(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -10043,6 +11010,9 @@ class HeaderedPumpsConstantSpeed(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `inlet_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `inlet_node_name`')
 
         self._data["Inlet Node Name"] = value
 
@@ -10075,6 +11045,9 @@ class HeaderedPumpsConstantSpeed(object):
                                  'for field `outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `outlet_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `outlet_node_name`')
 
         self._data["Outlet Node Name"] = value
@@ -10180,11 +11153,25 @@ class HeaderedPumpsConstantSpeed(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `flow_sequencing_control_scheme`')
-            vals = set()
-            vals.add("Sequential")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `flow_sequencing_control_scheme`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `flow_sequencing_control_scheme`')
+            vals = {}
+            vals["sequential"] = "Sequential"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `flow_sequencing_control_scheme`'.format(value))
+            value = vals[value_lower]
 
         self._data["Flow Sequencing Control Scheme"] = value
 
@@ -10372,12 +11359,26 @@ class HeaderedPumpsConstantSpeed(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `pump_control_type`')
-            vals = set()
-            vals.add("Continuous")
-            vals.add("Intermittent")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `pump_control_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `pump_control_type`')
+            vals = {}
+            vals["continuous"] = "Continuous"
+            vals["intermittent"] = "Intermittent"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `pump_control_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Pump Control Type"] = value
 
@@ -10414,6 +11415,9 @@ class HeaderedPumpsConstantSpeed(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `pump_flow_rate_schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `pump_flow_rate_schedule_name`')
 
         self._data["Pump Flow Rate Schedule Name"] = value
 
@@ -10447,6 +11451,9 @@ class HeaderedPumpsConstantSpeed(object):
                                  'for field `zone_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `zone_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `zone_name`')
 
         self._data["Zone Name"] = value
@@ -10513,20 +11520,14 @@ class HeaderedPumpsConstantSpeed(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.inlet_node_name))
-        out.append(self._to_str(self.outlet_node_name))
-        out.append(self._to_str(self.total_rated_flow_rate))
-        out.append(self._to_str(self.number_of_pumps_in_bank))
-        out.append(self._to_str(self.flow_sequencing_control_scheme))
-        out.append(self._to_str(self.rated_pump_head))
-        out.append(self._to_str(self.rated_power_consumption))
-        out.append(self._to_str(self.motor_efficiency))
-        out.append(self._to_str(self.fraction_of_motor_inefficiencies_to_fluid_stream))
-        out.append(self._to_str(self.pump_control_type))
-        out.append(self._to_str(self.pump_flow_rate_schedule_name))
-        out.append(self._to_str(self.zone_name))
-        out.append(self._to_str(self.skin_loss_radiative_fraction))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])

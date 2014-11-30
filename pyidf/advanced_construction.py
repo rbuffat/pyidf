@@ -20,24 +20,30 @@ class SurfacePropertyHeatTransferAlgorithm(object):
         self._data = OrderedDict()
         self._data["Surface Name"] = None
         self._data["Algorithm"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.surface_name = None
         else:
             self.surface_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.algorithm = None
         else:
             self.algorithm = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def surface_name(self):
@@ -68,6 +74,9 @@ class SurfacePropertyHeatTransferAlgorithm(object):
                                  'for field `surface_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_name`')
 
         self._data["Surface Name"] = value
@@ -108,14 +117,28 @@ class SurfacePropertyHeatTransferAlgorithm(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `algorithm`')
-            vals = set()
-            vals.add("ConductionTransferFunction")
-            vals.add("MoisturePenetrationDepthConductionTransferFunction")
-            vals.add("ConductionFiniteDifference")
-            vals.add("CombinedHeatAndMoistureFiniteElement")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `algorithm`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `algorithm`')
+            vals = {}
+            vals["conductiontransferfunction"] = "ConductionTransferFunction"
+            vals["moisturepenetrationdepthconductiontransferfunction"] = "MoisturePenetrationDepthConductionTransferFunction"
+            vals["conductionfinitedifference"] = "ConductionFiniteDifference"
+            vals["combinedheatandmoisturefiniteelement"] = "CombinedHeatAndMoistureFiniteElement"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `algorithm`'.format(value))
+            value = vals[value_lower]
 
         self._data["Algorithm"] = value
 
@@ -141,11 +164,17 @@ class SurfacePropertyHeatTransferAlgorithm(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.surface_name))
-        out.append(self._to_str(self.algorithm))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class SurfacePropertyHeatTransferAlgorithmMultipleSurface(object):
     """ Corresponds to IDD object `SurfaceProperty:HeatTransferAlgorithm:MultipleSurface`
@@ -168,29 +197,37 @@ class SurfacePropertyHeatTransferAlgorithmMultipleSurface(object):
         self._data["Name"] = None
         self._data["Surface Type"] = None
         self._data["Algorithm"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_type = None
         else:
             self.surface_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.algorithm = None
         else:
             self.algorithm = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -221,6 +258,9 @@ class SurfacePropertyHeatTransferAlgorithmMultipleSurface(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -265,19 +305,33 @@ class SurfacePropertyHeatTransferAlgorithmMultipleSurface(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_type`')
-            vals = set()
-            vals.add("AllExteriorSurfaces")
-            vals.add("AllExteriorWalls")
-            vals.add("AllExteriorRoofs")
-            vals.add("AllExteriorFloors")
-            vals.add("AllGroundContactSurfaces")
-            vals.add("AllInteriorSurfaces")
-            vals.add("AllInteriorWalls")
-            vals.add("AllInteriorCeilings")
-            vals.add("AllInteriorFloors")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `surface_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_type`')
+            vals = {}
+            vals["allexteriorsurfaces"] = "AllExteriorSurfaces"
+            vals["allexteriorwalls"] = "AllExteriorWalls"
+            vals["allexteriorroofs"] = "AllExteriorRoofs"
+            vals["allexteriorfloors"] = "AllExteriorFloors"
+            vals["allgroundcontactsurfaces"] = "AllGroundContactSurfaces"
+            vals["allinteriorsurfaces"] = "AllInteriorSurfaces"
+            vals["allinteriorwalls"] = "AllInteriorWalls"
+            vals["allinteriorceilings"] = "AllInteriorCeilings"
+            vals["allinteriorfloors"] = "AllInteriorFloors"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `surface_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Surface Type"] = value
 
@@ -317,14 +371,28 @@ class SurfacePropertyHeatTransferAlgorithmMultipleSurface(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `algorithm`')
-            vals = set()
-            vals.add("ConductionTransferFunction")
-            vals.add("MoisturePenetrationDepthConductionTransferFunction")
-            vals.add("ConductionFiniteDifference")
-            vals.add("CombinedHeatAndMoistureFiniteElement")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `algorithm`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `algorithm`')
+            vals = {}
+            vals["conductiontransferfunction"] = "ConductionTransferFunction"
+            vals["moisturepenetrationdepthconductiontransferfunction"] = "MoisturePenetrationDepthConductionTransferFunction"
+            vals["conductionfinitedifference"] = "ConductionFiniteDifference"
+            vals["combinedheatandmoisturefiniteelement"] = "CombinedHeatAndMoistureFiniteElement"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `algorithm`'.format(value))
+            value = vals[value_lower]
 
         self._data["Algorithm"] = value
 
@@ -350,12 +418,17 @@ class SurfacePropertyHeatTransferAlgorithmMultipleSurface(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.surface_type))
-        out.append(self._to_str(self.algorithm))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class SurfacePropertyHeatTransferAlgorithmSurfaceList(object):
     """ Corresponds to IDD object `SurfaceProperty:HeatTransferAlgorithm:SurfaceList`
@@ -383,54 +456,72 @@ class SurfacePropertyHeatTransferAlgorithmSurfaceList(object):
         self._data["Surface Name 4"] = None
         self._data["Surface Name 5"] = None
         self._data["Surface Name 6"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.algorithm = None
         else:
             self.algorithm = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_name_1 = None
         else:
             self.surface_name_1 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_name_2 = None
         else:
             self.surface_name_2 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_name_3 = None
         else:
             self.surface_name_3 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_name_4 = None
         else:
             self.surface_name_4 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_name_5 = None
         else:
             self.surface_name_5 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_name_6 = None
         else:
             self.surface_name_6 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -461,6 +552,9 @@ class SurfacePropertyHeatTransferAlgorithmSurfaceList(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -501,14 +595,28 @@ class SurfacePropertyHeatTransferAlgorithmSurfaceList(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `algorithm`')
-            vals = set()
-            vals.add("ConductionTransferFunction")
-            vals.add("MoisturePenetrationDepthConductionTransferFunction")
-            vals.add("ConductionFiniteDifference")
-            vals.add("CombinedHeatAndMoistureFiniteElement")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `algorithm`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `algorithm`')
+            vals = {}
+            vals["conductiontransferfunction"] = "ConductionTransferFunction"
+            vals["moisturepenetrationdepthconductiontransferfunction"] = "MoisturePenetrationDepthConductionTransferFunction"
+            vals["conductionfinitedifference"] = "ConductionFiniteDifference"
+            vals["combinedheatandmoisturefiniteelement"] = "CombinedHeatAndMoistureFiniteElement"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `algorithm`'.format(value))
+            value = vals[value_lower]
 
         self._data["Algorithm"] = value
 
@@ -541,6 +649,9 @@ class SurfacePropertyHeatTransferAlgorithmSurfaceList(object):
                                  'for field `surface_name_1`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_name_1`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_name_1`')
 
         self._data["Surface Name 1"] = value
@@ -575,6 +686,9 @@ class SurfacePropertyHeatTransferAlgorithmSurfaceList(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_name_2`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_name_2`')
 
         self._data["Surface Name 2"] = value
 
@@ -607,6 +721,9 @@ class SurfacePropertyHeatTransferAlgorithmSurfaceList(object):
                                  'for field `surface_name_3`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_name_3`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_name_3`')
 
         self._data["Surface Name 3"] = value
@@ -641,6 +758,9 @@ class SurfacePropertyHeatTransferAlgorithmSurfaceList(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_name_4`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_name_4`')
 
         self._data["Surface Name 4"] = value
 
@@ -673,6 +793,9 @@ class SurfacePropertyHeatTransferAlgorithmSurfaceList(object):
                                  'for field `surface_name_5`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_name_5`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_name_5`')
 
         self._data["Surface Name 5"] = value
@@ -707,6 +830,9 @@ class SurfacePropertyHeatTransferAlgorithmSurfaceList(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_name_6`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_name_6`')
 
         self._data["Surface Name 6"] = value
 
@@ -732,17 +858,17 @@ class SurfacePropertyHeatTransferAlgorithmSurfaceList(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.algorithm))
-        out.append(self._to_str(self.surface_name_1))
-        out.append(self._to_str(self.surface_name_2))
-        out.append(self._to_str(self.surface_name_3))
-        out.append(self._to_str(self.surface_name_4))
-        out.append(self._to_str(self.surface_name_5))
-        out.append(self._to_str(self.surface_name_6))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class SurfacePropertyHeatTransferAlgorithmConstruction(object):
     """ Corresponds to IDD object `SurfaceProperty:HeatTransferAlgorithm:Construction`
@@ -765,29 +891,37 @@ class SurfacePropertyHeatTransferAlgorithmConstruction(object):
         self._data["Name"] = None
         self._data["Algorithm"] = None
         self._data["Construction Name"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.algorithm = None
         else:
             self.algorithm = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.construction_name = None
         else:
             self.construction_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -818,6 +952,9 @@ class SurfacePropertyHeatTransferAlgorithmConstruction(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -858,14 +995,28 @@ class SurfacePropertyHeatTransferAlgorithmConstruction(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `algorithm`')
-            vals = set()
-            vals.add("ConductionTransferFunction")
-            vals.add("MoisturePenetrationDepthConductionTransferFunction")
-            vals.add("ConductionFiniteDifference")
-            vals.add("CombinedHeatAndMoistureFiniteElement")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `algorithm`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `algorithm`')
+            vals = {}
+            vals["conductiontransferfunction"] = "ConductionTransferFunction"
+            vals["moisturepenetrationdepthconductiontransferfunction"] = "MoisturePenetrationDepthConductionTransferFunction"
+            vals["conductionfinitedifference"] = "ConductionFiniteDifference"
+            vals["combinedheatandmoisturefiniteelement"] = "CombinedHeatAndMoistureFiniteElement"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `algorithm`'.format(value))
+            value = vals[value_lower]
 
         self._data["Algorithm"] = value
 
@@ -899,6 +1050,9 @@ class SurfacePropertyHeatTransferAlgorithmConstruction(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `construction_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `construction_name`')
 
         self._data["Construction Name"] = value
 
@@ -924,12 +1078,17 @@ class SurfacePropertyHeatTransferAlgorithmConstruction(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.algorithm))
-        out.append(self._to_str(self.construction_name))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class SurfaceControlMovableInsulation(object):
     """ Corresponds to IDD object `SurfaceControl:MovableInsulation`
@@ -948,34 +1107,44 @@ class SurfaceControlMovableInsulation(object):
         self._data["Surface Name"] = None
         self._data["Material Name"] = None
         self._data["Schedule Name"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.insulation_type = None
         else:
             self.insulation_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_name = None
         else:
             self.surface_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.material_name = None
         else:
             self.material_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.schedule_name = None
         else:
             self.schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def insulation_type(self):
@@ -1010,12 +1179,26 @@ class SurfaceControlMovableInsulation(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `insulation_type`')
-            vals = set()
-            vals.add("Outside")
-            vals.add("Inside")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `insulation_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `insulation_type`')
+            vals = {}
+            vals["outside"] = "Outside"
+            vals["inside"] = "Inside"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `insulation_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Insulation Type"] = value
 
@@ -1048,6 +1231,9 @@ class SurfaceControlMovableInsulation(object):
                                  'for field `surface_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_name`')
 
         self._data["Surface Name"] = value
@@ -1082,6 +1268,9 @@ class SurfaceControlMovableInsulation(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `material_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `material_name`')
 
         self._data["Material Name"] = value
 
@@ -1115,6 +1304,9 @@ class SurfaceControlMovableInsulation(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `schedule_name`')
 
         self._data["Schedule Name"] = value
 
@@ -1140,13 +1332,17 @@ class SurfaceControlMovableInsulation(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.insulation_type))
-        out.append(self._to_str(self.surface_name))
-        out.append(self._to_str(self.material_name))
-        out.append(self._to_str(self.schedule_name))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class SurfacePropertyOtherSideCoefficients(object):
     """ Corresponds to IDD object `SurfaceProperty:OtherSideCoefficients`
@@ -1175,84 +1371,114 @@ class SurfacePropertyOtherSideCoefficients(object):
         self._data["Previous Other Side Temperature Coefficient"] = None
         self._data["Minimum Other Side Temperature Limit"] = None
         self._data["Maximum Other Side Temperature Limit"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.combined_convective_or_radiative_film_coefficient = None
         else:
             self.combined_convective_or_radiative_film_coefficient = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.constant_temperature = None
         else:
             self.constant_temperature = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.constant_temperature_coefficient = None
         else:
             self.constant_temperature_coefficient = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.external_drybulb_temperature_coefficient = None
         else:
             self.external_drybulb_temperature_coefficient = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.ground_temperature_coefficient = None
         else:
             self.ground_temperature_coefficient = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wind_speed_coefficient = None
         else:
             self.wind_speed_coefficient = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.zone_air_temperature_coefficient = None
         else:
             self.zone_air_temperature_coefficient = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.constant_temperature_schedule_name = None
         else:
             self.constant_temperature_schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.sinusoidal_variation_of_constant_temperature_coefficient = None
         else:
             self.sinusoidal_variation_of_constant_temperature_coefficient = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.period_of_sinusoidal_variation = None
         else:
             self.period_of_sinusoidal_variation = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.previous_other_side_temperature_coefficient = None
         else:
             self.previous_other_side_temperature_coefficient = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.minimum_other_side_temperature_limit = None
         else:
             self.minimum_other_side_temperature_limit = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.maximum_other_side_temperature_limit = None
         else:
             self.maximum_other_side_temperature_limit = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -1283,6 +1509,9 @@ class SurfacePropertyOtherSideCoefficients(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -1546,6 +1775,9 @@ class SurfacePropertyOtherSideCoefficients(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `constant_temperature_schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `constant_temperature_schedule_name`')
 
         self._data["Constant Temperature Schedule Name"] = value
 
@@ -1584,12 +1816,26 @@ class SurfacePropertyOtherSideCoefficients(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `sinusoidal_variation_of_constant_temperature_coefficient`')
-            vals = set()
-            vals.add("Yes")
-            vals.add("No")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `sinusoidal_variation_of_constant_temperature_coefficient`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `sinusoidal_variation_of_constant_temperature_coefficient`')
+            vals = {}
+            vals["yes"] = "Yes"
+            vals["no"] = "No"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `sinusoidal_variation_of_constant_temperature_coefficient`'.format(value))
+            value = vals[value_lower]
 
         self._data["Sinusoidal Variation of Constant Temperature Coefficient"] = value
 
@@ -1751,23 +1997,17 @@ class SurfacePropertyOtherSideCoefficients(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.combined_convective_or_radiative_film_coefficient))
-        out.append(self._to_str(self.constant_temperature))
-        out.append(self._to_str(self.constant_temperature_coefficient))
-        out.append(self._to_str(self.external_drybulb_temperature_coefficient))
-        out.append(self._to_str(self.ground_temperature_coefficient))
-        out.append(self._to_str(self.wind_speed_coefficient))
-        out.append(self._to_str(self.zone_air_temperature_coefficient))
-        out.append(self._to_str(self.constant_temperature_schedule_name))
-        out.append(self._to_str(self.sinusoidal_variation_of_constant_temperature_coefficient))
-        out.append(self._to_str(self.period_of_sinusoidal_variation))
-        out.append(self._to_str(self.previous_other_side_temperature_coefficient))
-        out.append(self._to_str(self.minimum_other_side_temperature_limit))
-        out.append(self._to_str(self.maximum_other_side_temperature_limit))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class SurfacePropertyOtherSideConditionsModel(object):
     """ Corresponds to IDD object `SurfaceProperty:OtherSideConditionsModel`
@@ -1784,24 +2024,30 @@ class SurfacePropertyOtherSideConditionsModel(object):
         self._data = OrderedDict()
         self._data["Name"] = None
         self._data["Type of Modeling"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.type_of_modeling = None
         else:
             self.type_of_modeling = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -1832,6 +2078,9 @@ class SurfacePropertyOtherSideConditionsModel(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -1878,13 +2127,27 @@ class SurfacePropertyOtherSideConditionsModel(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `type_of_modeling`')
-            vals = set()
-            vals.add("GapConvectionRadiation")
-            vals.add("UndergroundPipingSystemSurface")
-            vals.add("GroundCoupledSurface")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `type_of_modeling`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `type_of_modeling`')
+            vals = {}
+            vals["gapconvectionradiation"] = "GapConvectionRadiation"
+            vals["undergroundpipingsystemsurface"] = "UndergroundPipingSystemSurface"
+            vals["groundcoupledsurface"] = "GroundCoupledSurface"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `type_of_modeling`'.format(value))
+            value = vals[value_lower]
 
         self._data["Type of Modeling"] = value
 
@@ -1910,11 +2173,17 @@ class SurfacePropertyOtherSideConditionsModel(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.type_of_modeling))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
     """ Corresponds to IDD object `SurfaceConvectionAlgorithm:Inside:AdaptiveModelSelections`
@@ -2022,469 +2291,653 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
         self._data["Mixed Regime Unstable Ceiling Equation User Curve Name"] = None
         self._data["Mixed Regime Window Equation Source"] = None
         self._data["Mixed Regime Window Equation User Curve Name"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.simple_bouyancy_vertical_wall_equation_source = None
         else:
             self.simple_bouyancy_vertical_wall_equation_source = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.simple_bouyancy_vertical_wall_user_curve_name = None
         else:
             self.simple_bouyancy_vertical_wall_user_curve_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.simple_bouyancy_stable_horizontal_equation_source = None
         else:
             self.simple_bouyancy_stable_horizontal_equation_source = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.simple_bouyancy_stable_horizontal_equation_user_curve_name = None
         else:
             self.simple_bouyancy_stable_horizontal_equation_user_curve_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.simple_bouyancy_unstable_horizontal_equation_source = None
         else:
             self.simple_bouyancy_unstable_horizontal_equation_source = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.simple_bouyancy_unstable_horizontal_equation_user_curve_name = None
         else:
             self.simple_bouyancy_unstable_horizontal_equation_user_curve_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.simple_bouyancy_stable_tilted_equation_source = None
         else:
             self.simple_bouyancy_stable_tilted_equation_source = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.simple_bouyancy_stable_tilted_equation_user_curve_name = None
         else:
             self.simple_bouyancy_stable_tilted_equation_user_curve_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.simple_bouyancy_unstable_tilted_equation_source = None
         else:
             self.simple_bouyancy_unstable_tilted_equation_source = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.simple_bouyancy_unstable_tilted_equation_user_curve_name = None
         else:
             self.simple_bouyancy_unstable_tilted_equation_user_curve_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.simple_bouyancy_windows_equation_source = None
         else:
             self.simple_bouyancy_windows_equation_source = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.simple_bouyancy_windows_equation_user_curve_name = None
         else:
             self.simple_bouyancy_windows_equation_user_curve_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.floor_heat_ceiling_cool_vertical_wall_equation_source = None
         else:
             self.floor_heat_ceiling_cool_vertical_wall_equation_source = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.floor_heat_ceiling_cool_vertical_wall_equation_user_curve_name = None
         else:
             self.floor_heat_ceiling_cool_vertical_wall_equation_user_curve_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.floor_heat_ceiling_cool_stable_horizontal_equation_source = None
         else:
             self.floor_heat_ceiling_cool_stable_horizontal_equation_source = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.floor_heat_ceiling_cool_stable_horizontal_equation_user_curve_name = None
         else:
             self.floor_heat_ceiling_cool_stable_horizontal_equation_user_curve_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.floor_heat_ceiling_cool_unstable_horizontal_equation_source = None
         else:
             self.floor_heat_ceiling_cool_unstable_horizontal_equation_source = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.floor_heat_ceiling_cool_unstable_horizontal_equation_user_curve_name = None
         else:
             self.floor_heat_ceiling_cool_unstable_horizontal_equation_user_curve_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.floor_heat_ceiling_cool_heated_floor_equation_source = None
         else:
             self.floor_heat_ceiling_cool_heated_floor_equation_source = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.floor_heat_ceiling_cool_heated_floor_equation_user_curve_name = None
         else:
             self.floor_heat_ceiling_cool_heated_floor_equation_user_curve_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.floor_heat_ceiling_cool_chilled_ceiling_equation_source = None
         else:
             self.floor_heat_ceiling_cool_chilled_ceiling_equation_source = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.floor_heat_ceiling_cool_chilled_ceiling_equation_user_curve_name = None
         else:
             self.floor_heat_ceiling_cool_chilled_ceiling_equation_user_curve_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.floor_heat_ceiling_cool_stable_tilted_equation_source = None
         else:
             self.floor_heat_ceiling_cool_stable_tilted_equation_source = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.floor_heat_ceiling_cool_stable_tilted_equation_user_curve_name = None
         else:
             self.floor_heat_ceiling_cool_stable_tilted_equation_user_curve_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.floor_heat_ceiling_cool_unstable_tilted_equation_source = None
         else:
             self.floor_heat_ceiling_cool_unstable_tilted_equation_source = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.floor_heat_ceiling_cool_unstable_tilted_equation_user_curve_name = None
         else:
             self.floor_heat_ceiling_cool_unstable_tilted_equation_user_curve_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.floor_heat_ceiling_cool_window_equation_source = None
         else:
             self.floor_heat_ceiling_cool_window_equation_source = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.floor_heat_ceiling_cool_window_equation_user_curve_name = None
         else:
             self.floor_heat_ceiling_cool_window_equation_user_curve_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wall_panel_heating_vertical_wall_equation_source = None
         else:
             self.wall_panel_heating_vertical_wall_equation_source = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wall_panel_heating_vertical_wall_equation_user_curve_name = None
         else:
             self.wall_panel_heating_vertical_wall_equation_user_curve_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wall_panel_heating_heated_wall_equation_source = None
         else:
             self.wall_panel_heating_heated_wall_equation_source = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wall_panel_heating_heated_wall_equation_user_curve_name = None
         else:
             self.wall_panel_heating_heated_wall_equation_user_curve_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wall_panel_heating_stable_horizontal_equation_source = None
         else:
             self.wall_panel_heating_stable_horizontal_equation_source = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wall_panel_heating_stable_horizontal_equation_user_curve_name = None
         else:
             self.wall_panel_heating_stable_horizontal_equation_user_curve_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wall_panel_heating_unstable_horizontal_equation_source = None
         else:
             self.wall_panel_heating_unstable_horizontal_equation_source = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wall_panel_heating_unstable_horizontal_equation_user_curve_name = None
         else:
             self.wall_panel_heating_unstable_horizontal_equation_user_curve_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wall_panel_heating_stable_tilted_equation_source = None
         else:
             self.wall_panel_heating_stable_tilted_equation_source = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wall_panel_heating_stable_tilted_equation_user_curve_name = None
         else:
             self.wall_panel_heating_stable_tilted_equation_user_curve_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wall_panel_heating_unstable_tilted_equation_source = None
         else:
             self.wall_panel_heating_unstable_tilted_equation_source = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wall_panel_heating_unstable_tilted_equation_user_curve_name = None
         else:
             self.wall_panel_heating_unstable_tilted_equation_user_curve_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wall_panel_heating_window_equation_source = None
         else:
             self.wall_panel_heating_window_equation_source = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wall_panel_heating_window_equation_user_curve_name = None
         else:
             self.wall_panel_heating_window_equation_user_curve_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.convective_zone_heater_vertical_wall_equation_source = None
         else:
             self.convective_zone_heater_vertical_wall_equation_source = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.convective_zone_heater_vertical_wall_equation_user_curve_name = None
         else:
             self.convective_zone_heater_vertical_wall_equation_user_curve_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.convective_zone_heater_vertical_walls_near_heater_equation_source = None
         else:
             self.convective_zone_heater_vertical_walls_near_heater_equation_source = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.convective_zone_heater_vertical_walls_near_heater_equation_user_curve_name = None
         else:
             self.convective_zone_heater_vertical_walls_near_heater_equation_user_curve_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.convective_zone_heater_stable_horizontal_equation_source = None
         else:
             self.convective_zone_heater_stable_horizontal_equation_source = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.convective_zone_heater_stable_horizontal_equation_user_curve_name = None
         else:
             self.convective_zone_heater_stable_horizontal_equation_user_curve_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.convective_zone_heater_unstable_horizontal_equation_source = None
         else:
             self.convective_zone_heater_unstable_horizontal_equation_source = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.convective_zone_heater_unstable_horizontal_equation_user_curve_name = None
         else:
             self.convective_zone_heater_unstable_horizontal_equation_user_curve_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.convective_zone_heater_stable_tilted_equation_source = None
         else:
             self.convective_zone_heater_stable_tilted_equation_source = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.convective_zone_heater_stable_tilted_equation_user_curve_name = None
         else:
             self.convective_zone_heater_stable_tilted_equation_user_curve_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.convective_zone_heater_unstable_tilted_equation_source = None
         else:
             self.convective_zone_heater_unstable_tilted_equation_source = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.convective_zone_heater_unstable_tilted_equation_user_curve_name = None
         else:
             self.convective_zone_heater_unstable_tilted_equation_user_curve_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.convective_zone_heater_windows_equation_source = None
         else:
             self.convective_zone_heater_windows_equation_source = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.convective_zone_heater_windows_equation_user_curve_name = None
         else:
             self.convective_zone_heater_windows_equation_user_curve_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.central_air_diffuser_wall_equation_source = None
         else:
             self.central_air_diffuser_wall_equation_source = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.central_air_diffuser_wall_equation_user_curve_name = None
         else:
             self.central_air_diffuser_wall_equation_user_curve_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.central_air_diffuser_ceiling_equation_source = None
         else:
             self.central_air_diffuser_ceiling_equation_source = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.central_air_diffuser_ceiling_equation_user_curve_name = None
         else:
             self.central_air_diffuser_ceiling_equation_user_curve_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.central_air_diffuser_floor_equation_source = None
         else:
             self.central_air_diffuser_floor_equation_source = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.central_air_diffuser_floor_equation_user_curve_name = None
         else:
             self.central_air_diffuser_floor_equation_user_curve_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.central_air_diffuser_window_equation_source = None
         else:
             self.central_air_diffuser_window_equation_source = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.central_air_diffuser_window_equation_user_curve_name = None
         else:
             self.central_air_diffuser_window_equation_user_curve_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.mechanical_zone_fan_circulation_vertical_wall_equation_source = None
         else:
             self.mechanical_zone_fan_circulation_vertical_wall_equation_source = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.mechanical_zone_fan_circulation_vertical_wall_equation_user_curve_name = None
         else:
             self.mechanical_zone_fan_circulation_vertical_wall_equation_user_curve_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.mechanical_zone_fan_circulation_stable_horizontal_equation_source = None
         else:
             self.mechanical_zone_fan_circulation_stable_horizontal_equation_source = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.mechanical_zone_fan_circulation_stable_horizontal_equation_user_curve_name = None
         else:
             self.mechanical_zone_fan_circulation_stable_horizontal_equation_user_curve_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.mechanical_zone_fan_circulation_unstable_horizontal_equation_source = None
         else:
             self.mechanical_zone_fan_circulation_unstable_horizontal_equation_source = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.mechanical_zone_fan_circulation_unstable_horizontal_equation_user_curve_name = None
         else:
             self.mechanical_zone_fan_circulation_unstable_horizontal_equation_user_curve_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.mechanical_zone_fan_circulation_stable_tilted_equation_source = None
         else:
             self.mechanical_zone_fan_circulation_stable_tilted_equation_source = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.mechanical_zone_fan_circulation_stable_tilted_equation_user_curve_name = None
         else:
             self.mechanical_zone_fan_circulation_stable_tilted_equation_user_curve_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.mechanical_zone_fan_circulation_unstable_tilted_equation_source = None
         else:
             self.mechanical_zone_fan_circulation_unstable_tilted_equation_source = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.mechanical_zone_fan_circulation_unstable_tilted_equation_user_curve_name = None
         else:
             self.mechanical_zone_fan_circulation_unstable_tilted_equation_user_curve_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.mechanical_zone_fan_circulation_window_equation_source = None
         else:
             self.mechanical_zone_fan_circulation_window_equation_source = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.mechanical_zone_fan_circulation_window_equation_user_curve_name = None
         else:
             self.mechanical_zone_fan_circulation_window_equation_user_curve_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.mixed_regime_bouyancy_assisting_flow_on_walls_equation_source = None
         else:
             self.mixed_regime_bouyancy_assisting_flow_on_walls_equation_source = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.mixed_regime_bouyancy_assisting_flow_on_walls_equation_user_curve_name = None
         else:
             self.mixed_regime_bouyancy_assisting_flow_on_walls_equation_user_curve_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.mixed_regime_bouyancy_oppossing_flow_on_walls_equation_source = None
         else:
             self.mixed_regime_bouyancy_oppossing_flow_on_walls_equation_source = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.mixed_regime_bouyancy_oppossing_flow_on_walls_equation_user_curve_name = None
         else:
             self.mixed_regime_bouyancy_oppossing_flow_on_walls_equation_user_curve_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.mixed_regime_stable_floor_equation_source = None
         else:
             self.mixed_regime_stable_floor_equation_source = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.mixed_regime_stable_floor_equation_user_curve_name = None
         else:
             self.mixed_regime_stable_floor_equation_user_curve_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.mixed_regime_unstable_floor_equation_source = None
         else:
             self.mixed_regime_unstable_floor_equation_source = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.mixed_regime_unstable_floor_equation_user_curve_name = None
         else:
             self.mixed_regime_unstable_floor_equation_user_curve_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.mixed_regime_stable_ceiling_equation_source = None
         else:
             self.mixed_regime_stable_ceiling_equation_source = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.mixed_regime_stable_ceiling_equation_user_curve_name = None
         else:
             self.mixed_regime_stable_ceiling_equation_user_curve_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.mixed_regime_unstable_ceiling_equation_source = None
         else:
             self.mixed_regime_unstable_ceiling_equation_source = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.mixed_regime_unstable_ceiling_equation_user_curve_name = None
         else:
             self.mixed_regime_unstable_ceiling_equation_user_curve_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.mixed_regime_window_equation_source = None
         else:
             self.mixed_regime_window_equation_source = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.mixed_regime_window_equation_user_curve_name = None
         else:
             self.mixed_regime_window_equation_user_curve_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -2515,6 +2968,9 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -2560,17 +3016,31 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `simple_bouyancy_vertical_wall_equation_source`')
-            vals = set()
-            vals.add("ASHRAEVerticalWall")
-            vals.add("AlamdariHammondVerticalWall")
-            vals.add("KhalifaEq3WallAwayFromHeat")
-            vals.add("KhalifaEq6NonHeatedWalls")
-            vals.add("FohannoPolidoriVerticalWall")
-            vals.add("ISO15099Windows")
-            vals.add("UserCurve")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `simple_bouyancy_vertical_wall_equation_source`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `simple_bouyancy_vertical_wall_equation_source`')
+            vals = {}
+            vals["ashraeverticalwall"] = "ASHRAEVerticalWall"
+            vals["alamdarihammondverticalwall"] = "AlamdariHammondVerticalWall"
+            vals["khalifaeq3wallawayfromheat"] = "KhalifaEq3WallAwayFromHeat"
+            vals["khalifaeq6nonheatedwalls"] = "KhalifaEq6NonHeatedWalls"
+            vals["fohannopolidoriverticalwall"] = "FohannoPolidoriVerticalWall"
+            vals["iso15099windows"] = "ISO15099Windows"
+            vals["usercurve"] = "UserCurve"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `simple_bouyancy_vertical_wall_equation_source`'.format(value))
+            value = vals[value_lower]
 
         self._data["Simple Bouyancy Vertical Wall Equation Source"] = value
 
@@ -2604,6 +3074,9 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
                                  'for field `simple_bouyancy_vertical_wall_user_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `simple_bouyancy_vertical_wall_user_curve_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `simple_bouyancy_vertical_wall_user_curve_name`')
 
         self._data["Simple Bouyancy Vertical Wall User Curve Name"] = value
@@ -2645,13 +3118,27 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `simple_bouyancy_stable_horizontal_equation_source`')
-            vals = set()
-            vals.add("WaltonStableHorizontalOrTilt")
-            vals.add("AlamdariHammondStableHorizontal")
-            vals.add("UserCurve")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `simple_bouyancy_stable_horizontal_equation_source`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `simple_bouyancy_stable_horizontal_equation_source`')
+            vals = {}
+            vals["waltonstablehorizontalortilt"] = "WaltonStableHorizontalOrTilt"
+            vals["alamdarihammondstablehorizontal"] = "AlamdariHammondStableHorizontal"
+            vals["usercurve"] = "UserCurve"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `simple_bouyancy_stable_horizontal_equation_source`'.format(value))
+            value = vals[value_lower]
 
         self._data["Simple Bouyancy Stable Horizontal Equation Source"] = value
 
@@ -2685,6 +3172,9 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
                                  'for field `simple_bouyancy_stable_horizontal_equation_user_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `simple_bouyancy_stable_horizontal_equation_user_curve_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `simple_bouyancy_stable_horizontal_equation_user_curve_name`')
 
         self._data["Simple Bouyancy Stable Horizontal Equation User Curve Name"] = value
@@ -2726,13 +3216,27 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `simple_bouyancy_unstable_horizontal_equation_source`')
-            vals = set()
-            vals.add("WaltonUnstableHorizontalOrTilt")
-            vals.add("AlamdariHammondUnstableHorizontal")
-            vals.add("UserCurve")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `simple_bouyancy_unstable_horizontal_equation_source`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `simple_bouyancy_unstable_horizontal_equation_source`')
+            vals = {}
+            vals["waltonunstablehorizontalortilt"] = "WaltonUnstableHorizontalOrTilt"
+            vals["alamdarihammondunstablehorizontal"] = "AlamdariHammondUnstableHorizontal"
+            vals["usercurve"] = "UserCurve"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `simple_bouyancy_unstable_horizontal_equation_source`'.format(value))
+            value = vals[value_lower]
 
         self._data["Simple Bouyancy Unstable Horizontal Equation Source"] = value
 
@@ -2766,6 +3270,9 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
                                  'for field `simple_bouyancy_unstable_horizontal_equation_user_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `simple_bouyancy_unstable_horizontal_equation_user_curve_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `simple_bouyancy_unstable_horizontal_equation_user_curve_name`')
 
         self._data["Simple Bouyancy Unstable Horizontal Equation User Curve Name"] = value
@@ -2807,13 +3314,27 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `simple_bouyancy_stable_tilted_equation_source`')
-            vals = set()
-            vals.add("WaltonStableHorizontalOrTilt")
-            vals.add("AlamdariHammondStableHorizontal")
-            vals.add("UserCurve")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `simple_bouyancy_stable_tilted_equation_source`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `simple_bouyancy_stable_tilted_equation_source`')
+            vals = {}
+            vals["waltonstablehorizontalortilt"] = "WaltonStableHorizontalOrTilt"
+            vals["alamdarihammondstablehorizontal"] = "AlamdariHammondStableHorizontal"
+            vals["usercurve"] = "UserCurve"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `simple_bouyancy_stable_tilted_equation_source`'.format(value))
+            value = vals[value_lower]
 
         self._data["Simple Bouyancy Stable Tilted Equation Source"] = value
 
@@ -2847,6 +3368,9 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
                                  'for field `simple_bouyancy_stable_tilted_equation_user_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `simple_bouyancy_stable_tilted_equation_user_curve_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `simple_bouyancy_stable_tilted_equation_user_curve_name`')
 
         self._data["Simple Bouyancy Stable Tilted Equation User Curve Name"] = value
@@ -2888,13 +3412,27 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `simple_bouyancy_unstable_tilted_equation_source`')
-            vals = set()
-            vals.add("WaltonUnstableHorizontalOrTilt")
-            vals.add("AlamdariHammondUnstableHorizontal")
-            vals.add("UserCurve")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `simple_bouyancy_unstable_tilted_equation_source`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `simple_bouyancy_unstable_tilted_equation_source`')
+            vals = {}
+            vals["waltonunstablehorizontalortilt"] = "WaltonUnstableHorizontalOrTilt"
+            vals["alamdarihammondunstablehorizontal"] = "AlamdariHammondUnstableHorizontal"
+            vals["usercurve"] = "UserCurve"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `simple_bouyancy_unstable_tilted_equation_source`'.format(value))
+            value = vals[value_lower]
 
         self._data["Simple Bouyancy Unstable Tilted Equation Source"] = value
 
@@ -2928,6 +3466,9 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
                                  'for field `simple_bouyancy_unstable_tilted_equation_user_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `simple_bouyancy_unstable_tilted_equation_user_curve_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `simple_bouyancy_unstable_tilted_equation_user_curve_name`')
 
         self._data["Simple Bouyancy Unstable Tilted Equation User Curve Name"] = value
@@ -2972,16 +3513,30 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `simple_bouyancy_windows_equation_source`')
-            vals = set()
-            vals.add("ASHRAEVerticalWall")
-            vals.add("AlamdariHammondVerticalWall")
-            vals.add("FohannoPolidoriVerticalWall")
-            vals.add("KaradagChilledCeiling")
-            vals.add("ISO15099Windows")
-            vals.add("UserCurve")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `simple_bouyancy_windows_equation_source`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `simple_bouyancy_windows_equation_source`')
+            vals = {}
+            vals["ashraeverticalwall"] = "ASHRAEVerticalWall"
+            vals["alamdarihammondverticalwall"] = "AlamdariHammondVerticalWall"
+            vals["fohannopolidoriverticalwall"] = "FohannoPolidoriVerticalWall"
+            vals["karadagchilledceiling"] = "KaradagChilledCeiling"
+            vals["iso15099windows"] = "ISO15099Windows"
+            vals["usercurve"] = "UserCurve"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `simple_bouyancy_windows_equation_source`'.format(value))
+            value = vals[value_lower]
 
         self._data["Simple Bouyancy Windows Equation Source"] = value
 
@@ -3015,6 +3570,9 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
                                  'for field `simple_bouyancy_windows_equation_user_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `simple_bouyancy_windows_equation_user_curve_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `simple_bouyancy_windows_equation_user_curve_name`')
 
         self._data["Simple Bouyancy Windows Equation User Curve Name"] = value
@@ -3059,16 +3617,30 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `floor_heat_ceiling_cool_vertical_wall_equation_source`')
-            vals = set()
-            vals.add("ASHRAEVerticalWall")
-            vals.add("AlamdariHammondVerticalWall")
-            vals.add("KhalifaEq3WallAwayFromHeat")
-            vals.add("FohannoPolidoriVerticalWall")
-            vals.add("ISO15099Windows")
-            vals.add("UserCurve")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `floor_heat_ceiling_cool_vertical_wall_equation_source`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `floor_heat_ceiling_cool_vertical_wall_equation_source`')
+            vals = {}
+            vals["ashraeverticalwall"] = "ASHRAEVerticalWall"
+            vals["alamdarihammondverticalwall"] = "AlamdariHammondVerticalWall"
+            vals["khalifaeq3wallawayfromheat"] = "KhalifaEq3WallAwayFromHeat"
+            vals["fohannopolidoriverticalwall"] = "FohannoPolidoriVerticalWall"
+            vals["iso15099windows"] = "ISO15099Windows"
+            vals["usercurve"] = "UserCurve"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `floor_heat_ceiling_cool_vertical_wall_equation_source`'.format(value))
+            value = vals[value_lower]
 
         self._data["Floor Heat Ceiling Cool Vertical Wall Equation Source"] = value
 
@@ -3102,6 +3674,9 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
                                  'for field `floor_heat_ceiling_cool_vertical_wall_equation_user_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `floor_heat_ceiling_cool_vertical_wall_equation_user_curve_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `floor_heat_ceiling_cool_vertical_wall_equation_user_curve_name`')
 
         self._data["Floor Heat Ceiling Cool Vertical Wall Equation User Curve Name"] = value
@@ -3143,13 +3718,27 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `floor_heat_ceiling_cool_stable_horizontal_equation_source`')
-            vals = set()
-            vals.add("WaltonStableHorizontalOrTilt")
-            vals.add("AlamdariHammondStableHorizontal")
-            vals.add("UserCurve")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `floor_heat_ceiling_cool_stable_horizontal_equation_source`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `floor_heat_ceiling_cool_stable_horizontal_equation_source`')
+            vals = {}
+            vals["waltonstablehorizontalortilt"] = "WaltonStableHorizontalOrTilt"
+            vals["alamdarihammondstablehorizontal"] = "AlamdariHammondStableHorizontal"
+            vals["usercurve"] = "UserCurve"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `floor_heat_ceiling_cool_stable_horizontal_equation_source`'.format(value))
+            value = vals[value_lower]
 
         self._data["Floor Heat Ceiling Cool Stable Horizontal Equation Source"] = value
 
@@ -3183,6 +3772,9 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
                                  'for field `floor_heat_ceiling_cool_stable_horizontal_equation_user_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `floor_heat_ceiling_cool_stable_horizontal_equation_user_curve_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `floor_heat_ceiling_cool_stable_horizontal_equation_user_curve_name`')
 
         self._data["Floor Heat Ceiling Cool Stable Horizontal Equation User Curve Name"] = value
@@ -3225,14 +3817,28 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `floor_heat_ceiling_cool_unstable_horizontal_equation_source`')
-            vals = set()
-            vals.add("WaltonUnstableHorizontalOrTilt")
-            vals.add("AlamdariHammondUnstableHorizontal")
-            vals.add("KhalifaEq4CeilingAwayFromHeat")
-            vals.add("UserCurve")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `floor_heat_ceiling_cool_unstable_horizontal_equation_source`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `floor_heat_ceiling_cool_unstable_horizontal_equation_source`')
+            vals = {}
+            vals["waltonunstablehorizontalortilt"] = "WaltonUnstableHorizontalOrTilt"
+            vals["alamdarihammondunstablehorizontal"] = "AlamdariHammondUnstableHorizontal"
+            vals["khalifaeq4ceilingawayfromheat"] = "KhalifaEq4CeilingAwayFromHeat"
+            vals["usercurve"] = "UserCurve"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `floor_heat_ceiling_cool_unstable_horizontal_equation_source`'.format(value))
+            value = vals[value_lower]
 
         self._data["Floor Heat Ceiling Cool Unstable Horizontal Equation Source"] = value
 
@@ -3266,6 +3872,9 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
                                  'for field `floor_heat_ceiling_cool_unstable_horizontal_equation_user_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `floor_heat_ceiling_cool_unstable_horizontal_equation_user_curve_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `floor_heat_ceiling_cool_unstable_horizontal_equation_user_curve_name`')
 
         self._data["Floor Heat Ceiling Cool Unstable Horizontal Equation User Curve Name"] = value
@@ -3308,14 +3917,28 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `floor_heat_ceiling_cool_heated_floor_equation_source`')
-            vals = set()
-            vals.add("WaltonUnstableHorizontalOrTilt")
-            vals.add("AlamdariHammondUnstableHorizontal")
-            vals.add("AwbiHattonHeatedFloor")
-            vals.add("UserCurve")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `floor_heat_ceiling_cool_heated_floor_equation_source`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `floor_heat_ceiling_cool_heated_floor_equation_source`')
+            vals = {}
+            vals["waltonunstablehorizontalortilt"] = "WaltonUnstableHorizontalOrTilt"
+            vals["alamdarihammondunstablehorizontal"] = "AlamdariHammondUnstableHorizontal"
+            vals["awbihattonheatedfloor"] = "AwbiHattonHeatedFloor"
+            vals["usercurve"] = "UserCurve"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `floor_heat_ceiling_cool_heated_floor_equation_source`'.format(value))
+            value = vals[value_lower]
 
         self._data["Floor Heat Ceiling Cool Heated Floor Equation Source"] = value
 
@@ -3349,6 +3972,9 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
                                  'for field `floor_heat_ceiling_cool_heated_floor_equation_user_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `floor_heat_ceiling_cool_heated_floor_equation_user_curve_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `floor_heat_ceiling_cool_heated_floor_equation_user_curve_name`')
 
         self._data["Floor Heat Ceiling Cool Heated Floor Equation User Curve Name"] = value
@@ -3391,14 +4017,28 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `floor_heat_ceiling_cool_chilled_ceiling_equation_source`')
-            vals = set()
-            vals.add("WaltonUnstableHorizontalOrTilt")
-            vals.add("AlamdariHammondUnstableHorizontal")
-            vals.add("KaradagChilledCeiling")
-            vals.add("UserCurve")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `floor_heat_ceiling_cool_chilled_ceiling_equation_source`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `floor_heat_ceiling_cool_chilled_ceiling_equation_source`')
+            vals = {}
+            vals["waltonunstablehorizontalortilt"] = "WaltonUnstableHorizontalOrTilt"
+            vals["alamdarihammondunstablehorizontal"] = "AlamdariHammondUnstableHorizontal"
+            vals["karadagchilledceiling"] = "KaradagChilledCeiling"
+            vals["usercurve"] = "UserCurve"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `floor_heat_ceiling_cool_chilled_ceiling_equation_source`'.format(value))
+            value = vals[value_lower]
 
         self._data["Floor Heat Ceiling Cool Chilled Ceiling Equation Source"] = value
 
@@ -3432,6 +4072,9 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
                                  'for field `floor_heat_ceiling_cool_chilled_ceiling_equation_user_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `floor_heat_ceiling_cool_chilled_ceiling_equation_user_curve_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `floor_heat_ceiling_cool_chilled_ceiling_equation_user_curve_name`')
 
         self._data["Floor Heat Ceiling Cool Chilled Ceiling Equation User Curve Name"] = value
@@ -3474,14 +4117,28 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `floor_heat_ceiling_cool_stable_tilted_equation_source`')
-            vals = set()
-            vals.add("WaltonStableHorizontalOrTilt")
-            vals.add("AlamdariHammondStableHorizontal")
-            vals.add("ISO15099Windows")
-            vals.add("UserCurve")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `floor_heat_ceiling_cool_stable_tilted_equation_source`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `floor_heat_ceiling_cool_stable_tilted_equation_source`')
+            vals = {}
+            vals["waltonstablehorizontalortilt"] = "WaltonStableHorizontalOrTilt"
+            vals["alamdarihammondstablehorizontal"] = "AlamdariHammondStableHorizontal"
+            vals["iso15099windows"] = "ISO15099Windows"
+            vals["usercurve"] = "UserCurve"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `floor_heat_ceiling_cool_stable_tilted_equation_source`'.format(value))
+            value = vals[value_lower]
 
         self._data["Floor Heat Ceiling Cool Stable Tilted Equation Source"] = value
 
@@ -3515,6 +4172,9 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
                                  'for field `floor_heat_ceiling_cool_stable_tilted_equation_user_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `floor_heat_ceiling_cool_stable_tilted_equation_user_curve_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `floor_heat_ceiling_cool_stable_tilted_equation_user_curve_name`')
 
         self._data["Floor Heat Ceiling Cool Stable Tilted Equation User Curve Name"] = value
@@ -3557,14 +4217,28 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `floor_heat_ceiling_cool_unstable_tilted_equation_source`')
-            vals = set()
-            vals.add("WaltonUnstableHorizontalOrTilt")
-            vals.add("AlamdariHammondUnstableHorizontal")
-            vals.add("ISO15099Windows")
-            vals.add("UserCurve")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `floor_heat_ceiling_cool_unstable_tilted_equation_source`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `floor_heat_ceiling_cool_unstable_tilted_equation_source`')
+            vals = {}
+            vals["waltonunstablehorizontalortilt"] = "WaltonUnstableHorizontalOrTilt"
+            vals["alamdarihammondunstablehorizontal"] = "AlamdariHammondUnstableHorizontal"
+            vals["iso15099windows"] = "ISO15099Windows"
+            vals["usercurve"] = "UserCurve"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `floor_heat_ceiling_cool_unstable_tilted_equation_source`'.format(value))
+            value = vals[value_lower]
 
         self._data["Floor Heat Ceiling Cool Unstable Tilted Equation Source"] = value
 
@@ -3598,6 +4272,9 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
                                  'for field `floor_heat_ceiling_cool_unstable_tilted_equation_user_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `floor_heat_ceiling_cool_unstable_tilted_equation_user_curve_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `floor_heat_ceiling_cool_unstable_tilted_equation_user_curve_name`')
 
         self._data["Floor Heat Ceiling Cool Unstable Tilted Equation User Curve Name"] = value
@@ -3640,14 +4317,28 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `floor_heat_ceiling_cool_window_equation_source`')
-            vals = set()
-            vals.add("ASHRAEVerticalWall")
-            vals.add("AlamdariHammondVerticalWall")
-            vals.add("ISO15099Windows")
-            vals.add("UserCurve")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `floor_heat_ceiling_cool_window_equation_source`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `floor_heat_ceiling_cool_window_equation_source`')
+            vals = {}
+            vals["ashraeverticalwall"] = "ASHRAEVerticalWall"
+            vals["alamdarihammondverticalwall"] = "AlamdariHammondVerticalWall"
+            vals["iso15099windows"] = "ISO15099Windows"
+            vals["usercurve"] = "UserCurve"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `floor_heat_ceiling_cool_window_equation_source`'.format(value))
+            value = vals[value_lower]
 
         self._data["Floor Heat Ceiling Cool Window Equation Source"] = value
 
@@ -3681,6 +4372,9 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
                                  'for field `floor_heat_ceiling_cool_window_equation_user_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `floor_heat_ceiling_cool_window_equation_user_curve_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `floor_heat_ceiling_cool_window_equation_user_curve_name`')
 
         self._data["Floor Heat Ceiling Cool Window Equation User Curve Name"] = value
@@ -3725,16 +4419,30 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `wall_panel_heating_vertical_wall_equation_source`')
-            vals = set()
-            vals.add("ASHRAEVerticalWall")
-            vals.add("AlamdariHammondVerticalWall")
-            vals.add("KhalifaEq6NonHeatedWalls")
-            vals.add("FohannoPolidoriVerticalWall")
-            vals.add("ISO15099Windows")
-            vals.add("UserCurve")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `wall_panel_heating_vertical_wall_equation_source`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `wall_panel_heating_vertical_wall_equation_source`')
+            vals = {}
+            vals["ashraeverticalwall"] = "ASHRAEVerticalWall"
+            vals["alamdarihammondverticalwall"] = "AlamdariHammondVerticalWall"
+            vals["khalifaeq6nonheatedwalls"] = "KhalifaEq6NonHeatedWalls"
+            vals["fohannopolidoriverticalwall"] = "FohannoPolidoriVerticalWall"
+            vals["iso15099windows"] = "ISO15099Windows"
+            vals["usercurve"] = "UserCurve"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `wall_panel_heating_vertical_wall_equation_source`'.format(value))
+            value = vals[value_lower]
 
         self._data["Wall Panel Heating Vertical Wall Equation Source"] = value
 
@@ -3768,6 +4476,9 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
                                  'for field `wall_panel_heating_vertical_wall_equation_user_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `wall_panel_heating_vertical_wall_equation_user_curve_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `wall_panel_heating_vertical_wall_equation_user_curve_name`')
 
         self._data["Wall Panel Heating Vertical Wall Equation User Curve Name"] = value
@@ -3813,17 +4524,31 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `wall_panel_heating_heated_wall_equation_source`')
-            vals = set()
-            vals.add("ASHRAEVerticalWall")
-            vals.add("AlamdariHammondVerticalWall")
-            vals.add("KhalifaEq5WallNearHeat")
-            vals.add("AwbiHattonHeatedWall")
-            vals.add("FohannoPolidoriVerticalWall")
-            vals.add("ISO15099Windows")
-            vals.add("UserCurve")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `wall_panel_heating_heated_wall_equation_source`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `wall_panel_heating_heated_wall_equation_source`')
+            vals = {}
+            vals["ashraeverticalwall"] = "ASHRAEVerticalWall"
+            vals["alamdarihammondverticalwall"] = "AlamdariHammondVerticalWall"
+            vals["khalifaeq5wallnearheat"] = "KhalifaEq5WallNearHeat"
+            vals["awbihattonheatedwall"] = "AwbiHattonHeatedWall"
+            vals["fohannopolidoriverticalwall"] = "FohannoPolidoriVerticalWall"
+            vals["iso15099windows"] = "ISO15099Windows"
+            vals["usercurve"] = "UserCurve"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `wall_panel_heating_heated_wall_equation_source`'.format(value))
+            value = vals[value_lower]
 
         self._data["Wall Panel Heating Heated Wall Equation Source"] = value
 
@@ -3857,6 +4582,9 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
                                  'for field `wall_panel_heating_heated_wall_equation_user_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `wall_panel_heating_heated_wall_equation_user_curve_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `wall_panel_heating_heated_wall_equation_user_curve_name`')
 
         self._data["Wall Panel Heating Heated Wall Equation User Curve Name"] = value
@@ -3898,13 +4626,27 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `wall_panel_heating_stable_horizontal_equation_source`')
-            vals = set()
-            vals.add("WaltonStableHorizontalOrTilt")
-            vals.add("AlamdariHammondStableHorizontal")
-            vals.add("UserCurve")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `wall_panel_heating_stable_horizontal_equation_source`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `wall_panel_heating_stable_horizontal_equation_source`')
+            vals = {}
+            vals["waltonstablehorizontalortilt"] = "WaltonStableHorizontalOrTilt"
+            vals["alamdarihammondstablehorizontal"] = "AlamdariHammondStableHorizontal"
+            vals["usercurve"] = "UserCurve"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `wall_panel_heating_stable_horizontal_equation_source`'.format(value))
+            value = vals[value_lower]
 
         self._data["Wall Panel Heating Stable Horizontal Equation Source"] = value
 
@@ -3938,6 +4680,9 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
                                  'for field `wall_panel_heating_stable_horizontal_equation_user_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `wall_panel_heating_stable_horizontal_equation_user_curve_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `wall_panel_heating_stable_horizontal_equation_user_curve_name`')
 
         self._data["Wall Panel Heating Stable Horizontal Equation User Curve Name"] = value
@@ -3982,16 +4727,30 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `wall_panel_heating_unstable_horizontal_equation_source`')
-            vals = set()
-            vals.add("ASHRAEVerticalWall")
-            vals.add("WaltonUnstableHorizontalOrTilt")
-            vals.add("AlamdariHammondUnstableHorizontal")
-            vals.add("KhalifaEq7Ceiling")
-            vals.add("KaradagChilledCeiling")
-            vals.add("UserCurve")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `wall_panel_heating_unstable_horizontal_equation_source`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `wall_panel_heating_unstable_horizontal_equation_source`')
+            vals = {}
+            vals["ashraeverticalwall"] = "ASHRAEVerticalWall"
+            vals["waltonunstablehorizontalortilt"] = "WaltonUnstableHorizontalOrTilt"
+            vals["alamdarihammondunstablehorizontal"] = "AlamdariHammondUnstableHorizontal"
+            vals["khalifaeq7ceiling"] = "KhalifaEq7Ceiling"
+            vals["karadagchilledceiling"] = "KaradagChilledCeiling"
+            vals["usercurve"] = "UserCurve"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `wall_panel_heating_unstable_horizontal_equation_source`'.format(value))
+            value = vals[value_lower]
 
         self._data["Wall Panel Heating Unstable Horizontal Equation Source"] = value
 
@@ -4025,6 +4784,9 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
                                  'for field `wall_panel_heating_unstable_horizontal_equation_user_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `wall_panel_heating_unstable_horizontal_equation_user_curve_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `wall_panel_heating_unstable_horizontal_equation_user_curve_name`')
 
         self._data["Wall Panel Heating Unstable Horizontal Equation User Curve Name"] = value
@@ -4067,14 +4829,28 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `wall_panel_heating_stable_tilted_equation_source`')
-            vals = set()
-            vals.add("WaltonStableHorizontalOrTilt")
-            vals.add("AlamdariHammondStableHorizontal")
-            vals.add("ISO15099Windows")
-            vals.add("UserCurve")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `wall_panel_heating_stable_tilted_equation_source`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `wall_panel_heating_stable_tilted_equation_source`')
+            vals = {}
+            vals["waltonstablehorizontalortilt"] = "WaltonStableHorizontalOrTilt"
+            vals["alamdarihammondstablehorizontal"] = "AlamdariHammondStableHorizontal"
+            vals["iso15099windows"] = "ISO15099Windows"
+            vals["usercurve"] = "UserCurve"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `wall_panel_heating_stable_tilted_equation_source`'.format(value))
+            value = vals[value_lower]
 
         self._data["Wall Panel Heating Stable Tilted Equation Source"] = value
 
@@ -4108,6 +4884,9 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
                                  'for field `wall_panel_heating_stable_tilted_equation_user_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `wall_panel_heating_stable_tilted_equation_user_curve_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `wall_panel_heating_stable_tilted_equation_user_curve_name`')
 
         self._data["Wall Panel Heating Stable Tilted Equation User Curve Name"] = value
@@ -4150,14 +4929,28 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `wall_panel_heating_unstable_tilted_equation_source`')
-            vals = set()
-            vals.add("WaltonUnstableHorizontalOrTilt")
-            vals.add("AlamdariHammondUnstableHorizontal")
-            vals.add("ISO15099Windows")
-            vals.add("UserCurve")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `wall_panel_heating_unstable_tilted_equation_source`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `wall_panel_heating_unstable_tilted_equation_source`')
+            vals = {}
+            vals["waltonunstablehorizontalortilt"] = "WaltonUnstableHorizontalOrTilt"
+            vals["alamdarihammondunstablehorizontal"] = "AlamdariHammondUnstableHorizontal"
+            vals["iso15099windows"] = "ISO15099Windows"
+            vals["usercurve"] = "UserCurve"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `wall_panel_heating_unstable_tilted_equation_source`'.format(value))
+            value = vals[value_lower]
 
         self._data["Wall Panel Heating Unstable Tilted Equation Source"] = value
 
@@ -4191,6 +4984,9 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
                                  'for field `wall_panel_heating_unstable_tilted_equation_user_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `wall_panel_heating_unstable_tilted_equation_user_curve_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `wall_panel_heating_unstable_tilted_equation_user_curve_name`')
 
         self._data["Wall Panel Heating Unstable Tilted Equation User Curve Name"] = value
@@ -4234,15 +5030,29 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `wall_panel_heating_window_equation_source`')
-            vals = set()
-            vals.add("ASHRAEVerticalWall")
-            vals.add("AlamdariHammondVerticalWall")
-            vals.add("FohannoPolidoriVerticalWall")
-            vals.add("ISO15099Windows")
-            vals.add("UserCurve")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `wall_panel_heating_window_equation_source`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `wall_panel_heating_window_equation_source`')
+            vals = {}
+            vals["ashraeverticalwall"] = "ASHRAEVerticalWall"
+            vals["alamdarihammondverticalwall"] = "AlamdariHammondVerticalWall"
+            vals["fohannopolidoriverticalwall"] = "FohannoPolidoriVerticalWall"
+            vals["iso15099windows"] = "ISO15099Windows"
+            vals["usercurve"] = "UserCurve"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `wall_panel_heating_window_equation_source`'.format(value))
+            value = vals[value_lower]
 
         self._data["Wall Panel Heating Window Equation Source"] = value
 
@@ -4276,6 +5086,9 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
                                  'for field `wall_panel_heating_window_equation_user_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `wall_panel_heating_window_equation_user_curve_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `wall_panel_heating_window_equation_user_curve_name`')
 
         self._data["Wall Panel Heating Window Equation User Curve Name"] = value
@@ -4321,17 +5134,31 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `convective_zone_heater_vertical_wall_equation_source`')
-            vals = set()
-            vals.add("ASHRAEVerticalWall")
-            vals.add("AlamdariHammondVerticalWall")
-            vals.add("KhalifaEq3WallAwayFromHeat")
-            vals.add("KhalifaEq6NonHeatedWalls")
-            vals.add("FohannoPolidoriVerticalWall")
-            vals.add("ISO15099Windows")
-            vals.add("UserCurve")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `convective_zone_heater_vertical_wall_equation_source`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `convective_zone_heater_vertical_wall_equation_source`')
+            vals = {}
+            vals["ashraeverticalwall"] = "ASHRAEVerticalWall"
+            vals["alamdarihammondverticalwall"] = "AlamdariHammondVerticalWall"
+            vals["khalifaeq3wallawayfromheat"] = "KhalifaEq3WallAwayFromHeat"
+            vals["khalifaeq6nonheatedwalls"] = "KhalifaEq6NonHeatedWalls"
+            vals["fohannopolidoriverticalwall"] = "FohannoPolidoriVerticalWall"
+            vals["iso15099windows"] = "ISO15099Windows"
+            vals["usercurve"] = "UserCurve"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `convective_zone_heater_vertical_wall_equation_source`'.format(value))
+            value = vals[value_lower]
 
         self._data["Convective Zone Heater Vertical Wall Equation Source"] = value
 
@@ -4365,6 +5192,9 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
                                  'for field `convective_zone_heater_vertical_wall_equation_user_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `convective_zone_heater_vertical_wall_equation_user_curve_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `convective_zone_heater_vertical_wall_equation_user_curve_name`')
 
         self._data["Convective Zone Heater Vertical Wall Equation User Curve Name"] = value
@@ -4411,17 +5241,31 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `convective_zone_heater_vertical_walls_near_heater_equation_source`')
-            vals = set()
-            vals.add("ASHRAEVerticalWall")
-            vals.add("AlamdariHammondVerticalWall")
-            vals.add("KhalifaEq5WallNearHeat")
-            vals.add("AwbiHattonHeatedWall")
-            vals.add("FohannoPolidoriVerticalWall")
-            vals.add("ISO15099Windows")
-            vals.add("UserCurve")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `convective_zone_heater_vertical_walls_near_heater_equation_source`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `convective_zone_heater_vertical_walls_near_heater_equation_source`')
+            vals = {}
+            vals["ashraeverticalwall"] = "ASHRAEVerticalWall"
+            vals["alamdarihammondverticalwall"] = "AlamdariHammondVerticalWall"
+            vals["khalifaeq5wallnearheat"] = "KhalifaEq5WallNearHeat"
+            vals["awbihattonheatedwall"] = "AwbiHattonHeatedWall"
+            vals["fohannopolidoriverticalwall"] = "FohannoPolidoriVerticalWall"
+            vals["iso15099windows"] = "ISO15099Windows"
+            vals["usercurve"] = "UserCurve"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `convective_zone_heater_vertical_walls_near_heater_equation_source`'.format(value))
+            value = vals[value_lower]
 
         self._data["Convective Zone Heater Vertical Walls Near Heater Equation Source"] = value
 
@@ -4455,6 +5299,9 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
                                  'for field `convective_zone_heater_vertical_walls_near_heater_equation_user_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `convective_zone_heater_vertical_walls_near_heater_equation_user_curve_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `convective_zone_heater_vertical_walls_near_heater_equation_user_curve_name`')
 
         self._data["Convective Zone Heater Vertical Walls Near Heater Equation User Curve Name"] = value
@@ -4496,13 +5343,27 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `convective_zone_heater_stable_horizontal_equation_source`')
-            vals = set()
-            vals.add("WaltonStableHorizontalOrTilt")
-            vals.add("AlamdariHammondStableHorizontal")
-            vals.add("UserCurve")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `convective_zone_heater_stable_horizontal_equation_source`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `convective_zone_heater_stable_horizontal_equation_source`')
+            vals = {}
+            vals["waltonstablehorizontalortilt"] = "WaltonStableHorizontalOrTilt"
+            vals["alamdarihammondstablehorizontal"] = "AlamdariHammondStableHorizontal"
+            vals["usercurve"] = "UserCurve"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `convective_zone_heater_stable_horizontal_equation_source`'.format(value))
+            value = vals[value_lower]
 
         self._data["Convective Zone Heater Stable Horizontal Equation Source"] = value
 
@@ -4536,6 +5397,9 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
                                  'for field `convective_zone_heater_stable_horizontal_equation_user_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `convective_zone_heater_stable_horizontal_equation_user_curve_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `convective_zone_heater_stable_horizontal_equation_user_curve_name`')
 
         self._data["Convective Zone Heater Stable Horizontal Equation User Curve Name"] = value
@@ -4579,15 +5443,29 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `convective_zone_heater_unstable_horizontal_equation_source`')
-            vals = set()
-            vals.add("WaltonUnstableHorizontalOrTilt")
-            vals.add("AlamdariHammondUnstableHorizontal")
-            vals.add("KhalifaEq4CeilingAwayFromHeat")
-            vals.add("KhalifaEq7Ceiling")
-            vals.add("UserCurve")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `convective_zone_heater_unstable_horizontal_equation_source`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `convective_zone_heater_unstable_horizontal_equation_source`')
+            vals = {}
+            vals["waltonunstablehorizontalortilt"] = "WaltonUnstableHorizontalOrTilt"
+            vals["alamdarihammondunstablehorizontal"] = "AlamdariHammondUnstableHorizontal"
+            vals["khalifaeq4ceilingawayfromheat"] = "KhalifaEq4CeilingAwayFromHeat"
+            vals["khalifaeq7ceiling"] = "KhalifaEq7Ceiling"
+            vals["usercurve"] = "UserCurve"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `convective_zone_heater_unstable_horizontal_equation_source`'.format(value))
+            value = vals[value_lower]
 
         self._data["Convective Zone Heater Unstable Horizontal Equation Source"] = value
 
@@ -4621,6 +5499,9 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
                                  'for field `convective_zone_heater_unstable_horizontal_equation_user_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `convective_zone_heater_unstable_horizontal_equation_user_curve_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `convective_zone_heater_unstable_horizontal_equation_user_curve_name`')
 
         self._data["Convective Zone Heater Unstable Horizontal Equation User Curve Name"] = value
@@ -4662,13 +5543,27 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `convective_zone_heater_stable_tilted_equation_source`')
-            vals = set()
-            vals.add("WaltonStableHorizontalOrTilt")
-            vals.add("AlamdariHammondStableHorizontal")
-            vals.add("UserCurve")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `convective_zone_heater_stable_tilted_equation_source`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `convective_zone_heater_stable_tilted_equation_source`')
+            vals = {}
+            vals["waltonstablehorizontalortilt"] = "WaltonStableHorizontalOrTilt"
+            vals["alamdarihammondstablehorizontal"] = "AlamdariHammondStableHorizontal"
+            vals["usercurve"] = "UserCurve"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `convective_zone_heater_stable_tilted_equation_source`'.format(value))
+            value = vals[value_lower]
 
         self._data["Convective Zone Heater Stable Tilted Equation Source"] = value
 
@@ -4702,6 +5597,9 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
                                  'for field `convective_zone_heater_stable_tilted_equation_user_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `convective_zone_heater_stable_tilted_equation_user_curve_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `convective_zone_heater_stable_tilted_equation_user_curve_name`')
 
         self._data["Convective Zone Heater Stable Tilted Equation User Curve Name"] = value
@@ -4743,13 +5641,27 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `convective_zone_heater_unstable_tilted_equation_source`')
-            vals = set()
-            vals.add("WaltonUnstableHorizontalOrTilt")
-            vals.add("AlamdariHammondUnstableHorizontal")
-            vals.add("UserCurve")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `convective_zone_heater_unstable_tilted_equation_source`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `convective_zone_heater_unstable_tilted_equation_source`')
+            vals = {}
+            vals["waltonunstablehorizontalortilt"] = "WaltonUnstableHorizontalOrTilt"
+            vals["alamdarihammondunstablehorizontal"] = "AlamdariHammondUnstableHorizontal"
+            vals["usercurve"] = "UserCurve"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `convective_zone_heater_unstable_tilted_equation_source`'.format(value))
+            value = vals[value_lower]
 
         self._data["Convective Zone Heater Unstable Tilted Equation Source"] = value
 
@@ -4783,6 +5695,9 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
                                  'for field `convective_zone_heater_unstable_tilted_equation_user_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `convective_zone_heater_unstable_tilted_equation_user_curve_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `convective_zone_heater_unstable_tilted_equation_user_curve_name`')
 
         self._data["Convective Zone Heater Unstable Tilted Equation User Curve Name"] = value
@@ -4827,16 +5742,30 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `convective_zone_heater_windows_equation_source`')
-            vals = set()
-            vals.add("ASHRAEVerticalWall")
-            vals.add("AlamdariHammondVerticalWall")
-            vals.add("KhalifaEq3WallAwayFromHeat")
-            vals.add("FohannoPolidoriVerticalWall")
-            vals.add("ISO15099Windows")
-            vals.add("UserCurve")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `convective_zone_heater_windows_equation_source`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `convective_zone_heater_windows_equation_source`')
+            vals = {}
+            vals["ashraeverticalwall"] = "ASHRAEVerticalWall"
+            vals["alamdarihammondverticalwall"] = "AlamdariHammondVerticalWall"
+            vals["khalifaeq3wallawayfromheat"] = "KhalifaEq3WallAwayFromHeat"
+            vals["fohannopolidoriverticalwall"] = "FohannoPolidoriVerticalWall"
+            vals["iso15099windows"] = "ISO15099Windows"
+            vals["usercurve"] = "UserCurve"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `convective_zone_heater_windows_equation_source`'.format(value))
+            value = vals[value_lower]
 
         self._data["Convective Zone Heater Windows Equation Source"] = value
 
@@ -4870,6 +5799,9 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
                                  'for field `convective_zone_heater_windows_equation_user_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `convective_zone_heater_windows_equation_user_curve_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `convective_zone_heater_windows_equation_user_curve_name`')
 
         self._data["Convective Zone Heater Windows Equation User Curve Name"] = value
@@ -4917,19 +5849,33 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `central_air_diffuser_wall_equation_source`')
-            vals = set()
-            vals.add("ASHRAEVerticalWall")
-            vals.add("FisherPedersenCeilingDiffuserWalls")
-            vals.add("AlamdariHammondVerticalWall")
-            vals.add("BeausoleilMorrisonMixedAssistedWall")
-            vals.add("BeausoleilMorrisonMixedOpposingWall")
-            vals.add("FohannoPolidoriVerticalWall")
-            vals.add("ISO15099Windows")
-            vals.add("GoldsteinNovoselacCeilingDiffuserWalls")
-            vals.add("UserCurve")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `central_air_diffuser_wall_equation_source`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `central_air_diffuser_wall_equation_source`')
+            vals = {}
+            vals["ashraeverticalwall"] = "ASHRAEVerticalWall"
+            vals["fisherpedersenceilingdiffuserwalls"] = "FisherPedersenCeilingDiffuserWalls"
+            vals["alamdarihammondverticalwall"] = "AlamdariHammondVerticalWall"
+            vals["beausoleilmorrisonmixedassistedwall"] = "BeausoleilMorrisonMixedAssistedWall"
+            vals["beausoleilmorrisonmixedopposingwall"] = "BeausoleilMorrisonMixedOpposingWall"
+            vals["fohannopolidoriverticalwall"] = "FohannoPolidoriVerticalWall"
+            vals["iso15099windows"] = "ISO15099Windows"
+            vals["goldsteinnovoselacceilingdiffuserwalls"] = "GoldsteinNovoselacCeilingDiffuserWalls"
+            vals["usercurve"] = "UserCurve"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `central_air_diffuser_wall_equation_source`'.format(value))
+            value = vals[value_lower]
 
         self._data["Central Air Diffuser Wall Equation Source"] = value
 
@@ -4963,6 +5909,9 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
                                  'for field `central_air_diffuser_wall_equation_user_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `central_air_diffuser_wall_equation_user_curve_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `central_air_diffuser_wall_equation_user_curve_name`')
 
         self._data["Central Air Diffuser Wall Equation User Curve Name"] = value
@@ -5005,14 +5954,28 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `central_air_diffuser_ceiling_equation_source`')
-            vals = set()
-            vals.add("FisherPedersenCeilingDiffuserCeiling")
-            vals.add("BeausoleilMorrisonMixedStableCeiling")
-            vals.add("BeausoleilMorrisonMixedUnstableCeiling")
-            vals.add("UserCurve")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `central_air_diffuser_ceiling_equation_source`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `central_air_diffuser_ceiling_equation_source`')
+            vals = {}
+            vals["fisherpedersenceilingdiffuserceiling"] = "FisherPedersenCeilingDiffuserCeiling"
+            vals["beausoleilmorrisonmixedstableceiling"] = "BeausoleilMorrisonMixedStableCeiling"
+            vals["beausoleilmorrisonmixedunstableceiling"] = "BeausoleilMorrisonMixedUnstableCeiling"
+            vals["usercurve"] = "UserCurve"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `central_air_diffuser_ceiling_equation_source`'.format(value))
+            value = vals[value_lower]
 
         self._data["Central Air Diffuser Ceiling Equation Source"] = value
 
@@ -5046,6 +6009,9 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
                                  'for field `central_air_diffuser_ceiling_equation_user_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `central_air_diffuser_ceiling_equation_user_curve_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `central_air_diffuser_ceiling_equation_user_curve_name`')
 
         self._data["Central Air Diffuser Ceiling Equation User Curve Name"] = value
@@ -5089,15 +6055,29 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `central_air_diffuser_floor_equation_source`')
-            vals = set()
-            vals.add("FisherPedersenCeilingDiffuserFloor")
-            vals.add("BeausoleilMorrisonMixedStableFloor")
-            vals.add("BeausoleilMorrisonMixedUnstableFloor")
-            vals.add("GoldsteinNovoselacCeilingDiffuserFloor")
-            vals.add("UserCurve")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `central_air_diffuser_floor_equation_source`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `central_air_diffuser_floor_equation_source`')
+            vals = {}
+            vals["fisherpedersenceilingdiffuserfloor"] = "FisherPedersenCeilingDiffuserFloor"
+            vals["beausoleilmorrisonmixedstablefloor"] = "BeausoleilMorrisonMixedStableFloor"
+            vals["beausoleilmorrisonmixedunstablefloor"] = "BeausoleilMorrisonMixedUnstableFloor"
+            vals["goldsteinnovoselacceilingdiffuserfloor"] = "GoldsteinNovoselacCeilingDiffuserFloor"
+            vals["usercurve"] = "UserCurve"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `central_air_diffuser_floor_equation_source`'.format(value))
+            value = vals[value_lower]
 
         self._data["Central Air Diffuser Floor Equation Source"] = value
 
@@ -5131,6 +6111,9 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
                                  'for field `central_air_diffuser_floor_equation_user_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `central_air_diffuser_floor_equation_user_curve_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `central_air_diffuser_floor_equation_user_curve_name`')
 
         self._data["Central Air Diffuser Floor Equation User Curve Name"] = value
@@ -5178,19 +6161,33 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `central_air_diffuser_window_equation_source`')
-            vals = set()
-            vals.add("ASHRAEVerticalWall")
-            vals.add("FisherPedersenCeilingDiffuserWalls")
-            vals.add("BeausoleilMorrisonMixedAssistedWall")
-            vals.add("BeausoleilMorrisonMixedOpposingWall")
-            vals.add("FohannoPolidoriVerticalWall")
-            vals.add("AlamdariHammondVerticalWall")
-            vals.add("ISO15099Windows")
-            vals.add("GoldsteinNovoselacCeilingDiffuserWindow")
-            vals.add("UserCurve")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `central_air_diffuser_window_equation_source`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `central_air_diffuser_window_equation_source`')
+            vals = {}
+            vals["ashraeverticalwall"] = "ASHRAEVerticalWall"
+            vals["fisherpedersenceilingdiffuserwalls"] = "FisherPedersenCeilingDiffuserWalls"
+            vals["beausoleilmorrisonmixedassistedwall"] = "BeausoleilMorrisonMixedAssistedWall"
+            vals["beausoleilmorrisonmixedopposingwall"] = "BeausoleilMorrisonMixedOpposingWall"
+            vals["fohannopolidoriverticalwall"] = "FohannoPolidoriVerticalWall"
+            vals["alamdarihammondverticalwall"] = "AlamdariHammondVerticalWall"
+            vals["iso15099windows"] = "ISO15099Windows"
+            vals["goldsteinnovoselacceilingdiffuserwindow"] = "GoldsteinNovoselacCeilingDiffuserWindow"
+            vals["usercurve"] = "UserCurve"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `central_air_diffuser_window_equation_source`'.format(value))
+            value = vals[value_lower]
 
         self._data["Central Air Diffuser Window Equation Source"] = value
 
@@ -5224,6 +6221,9 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
                                  'for field `central_air_diffuser_window_equation_user_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `central_air_diffuser_window_equation_user_curve_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `central_air_diffuser_window_equation_user_curve_name`')
 
         self._data["Central Air Diffuser Window Equation User Curve Name"] = value
@@ -5271,20 +6271,34 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `mechanical_zone_fan_circulation_vertical_wall_equation_source`')
-            vals = set()
-            vals.add("KhalifaEq3WallAwayFromHeat")
-            vals.add("ASHRAEVerticalWall")
-            vals.add("FisherPedersenCeilingDiffuserWalls")
-            vals.add("AlamdariHammondVerticalWall")
-            vals.add("BeausoleilMorrisonMixedAssistedWall")
-            vals.add("BeausoleilMorrisonMixedOpposingWall")
-            vals.add("FohannoPolidoriVerticalWall")
-            vals.add("ISO15099Windows")
-            vals.add("GoldsteinNovoselacCeilingDiffuserWalls")
-            vals.add("UserCurve")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `mechanical_zone_fan_circulation_vertical_wall_equation_source`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `mechanical_zone_fan_circulation_vertical_wall_equation_source`')
+            vals = {}
+            vals["khalifaeq3wallawayfromheat"] = "KhalifaEq3WallAwayFromHeat"
+            vals["ashraeverticalwall"] = "ASHRAEVerticalWall"
+            vals["fisherpedersenceilingdiffuserwalls"] = "FisherPedersenCeilingDiffuserWalls"
+            vals["alamdarihammondverticalwall"] = "AlamdariHammondVerticalWall"
+            vals["beausoleilmorrisonmixedassistedwall"] = "BeausoleilMorrisonMixedAssistedWall"
+            vals["beausoleilmorrisonmixedopposingwall"] = "BeausoleilMorrisonMixedOpposingWall"
+            vals["fohannopolidoriverticalwall"] = "FohannoPolidoriVerticalWall"
+            vals["iso15099windows"] = "ISO15099Windows"
+            vals["goldsteinnovoselacceilingdiffuserwalls"] = "GoldsteinNovoselacCeilingDiffuserWalls"
+            vals["usercurve"] = "UserCurve"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `mechanical_zone_fan_circulation_vertical_wall_equation_source`'.format(value))
+            value = vals[value_lower]
 
         self._data["Mechanical Zone Fan Circulation Vertical Wall Equation Source"] = value
 
@@ -5318,6 +6332,9 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
                                  'for field `mechanical_zone_fan_circulation_vertical_wall_equation_user_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `mechanical_zone_fan_circulation_vertical_wall_equation_user_curve_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `mechanical_zone_fan_circulation_vertical_wall_equation_user_curve_name`')
 
         self._data["Mechanical Zone Fan Circulation Vertical Wall Equation User Curve Name"] = value
@@ -5358,13 +6375,27 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `mechanical_zone_fan_circulation_stable_horizontal_equation_source`')
-            vals = set()
-            vals.add("WaltonStableHorizontalOrTilt")
-            vals.add("AlamdariHammondStableHorizontal")
-            vals.add("UserCurve")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `mechanical_zone_fan_circulation_stable_horizontal_equation_source`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `mechanical_zone_fan_circulation_stable_horizontal_equation_source`')
+            vals = {}
+            vals["waltonstablehorizontalortilt"] = "WaltonStableHorizontalOrTilt"
+            vals["alamdarihammondstablehorizontal"] = "AlamdariHammondStableHorizontal"
+            vals["usercurve"] = "UserCurve"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `mechanical_zone_fan_circulation_stable_horizontal_equation_source`'.format(value))
+            value = vals[value_lower]
 
         self._data["Mechanical Zone Fan Circulation Stable Horizontal Equation Source"] = value
 
@@ -5398,6 +6429,9 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
                                  'for field `mechanical_zone_fan_circulation_stable_horizontal_equation_user_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `mechanical_zone_fan_circulation_stable_horizontal_equation_user_curve_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `mechanical_zone_fan_circulation_stable_horizontal_equation_user_curve_name`')
 
         self._data["Mechanical Zone Fan Circulation Stable Horizontal Equation User Curve Name"] = value
@@ -5439,14 +6473,28 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `mechanical_zone_fan_circulation_unstable_horizontal_equation_source`')
-            vals = set()
-            vals.add("KhalifaEq4CeilingAwayFromHeat")
-            vals.add("WaltonUnstableHorizontalOrTilt")
-            vals.add("AlamdariHammondUnstableHorizontal")
-            vals.add("UserCurve")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `mechanical_zone_fan_circulation_unstable_horizontal_equation_source`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `mechanical_zone_fan_circulation_unstable_horizontal_equation_source`')
+            vals = {}
+            vals["khalifaeq4ceilingawayfromheat"] = "KhalifaEq4CeilingAwayFromHeat"
+            vals["waltonunstablehorizontalortilt"] = "WaltonUnstableHorizontalOrTilt"
+            vals["alamdarihammondunstablehorizontal"] = "AlamdariHammondUnstableHorizontal"
+            vals["usercurve"] = "UserCurve"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `mechanical_zone_fan_circulation_unstable_horizontal_equation_source`'.format(value))
+            value = vals[value_lower]
 
         self._data["Mechanical Zone Fan Circulation Unstable Horizontal Equation Source"] = value
 
@@ -5480,6 +6528,9 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
                                  'for field `mechanical_zone_fan_circulation_unstable_horizontal_equation_user_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `mechanical_zone_fan_circulation_unstable_horizontal_equation_user_curve_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `mechanical_zone_fan_circulation_unstable_horizontal_equation_user_curve_name`')
 
         self._data["Mechanical Zone Fan Circulation Unstable Horizontal Equation User Curve Name"] = value
@@ -5519,12 +6570,26 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `mechanical_zone_fan_circulation_stable_tilted_equation_source`')
-            vals = set()
-            vals.add("WaltonStableHorizontalOrTilt")
-            vals.add("UserCurve")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `mechanical_zone_fan_circulation_stable_tilted_equation_source`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `mechanical_zone_fan_circulation_stable_tilted_equation_source`')
+            vals = {}
+            vals["waltonstablehorizontalortilt"] = "WaltonStableHorizontalOrTilt"
+            vals["usercurve"] = "UserCurve"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `mechanical_zone_fan_circulation_stable_tilted_equation_source`'.format(value))
+            value = vals[value_lower]
 
         self._data["Mechanical Zone Fan Circulation Stable Tilted Equation Source"] = value
 
@@ -5558,6 +6623,9 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
                                  'for field `mechanical_zone_fan_circulation_stable_tilted_equation_user_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `mechanical_zone_fan_circulation_stable_tilted_equation_user_curve_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `mechanical_zone_fan_circulation_stable_tilted_equation_user_curve_name`')
 
         self._data["Mechanical Zone Fan Circulation Stable Tilted Equation User Curve Name"] = value
@@ -5598,13 +6666,27 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `mechanical_zone_fan_circulation_unstable_tilted_equation_source`')
-            vals = set()
-            vals.add("WaltonUnstableHorizontalOrTilt")
-            vals.add("AlamdariHammondUnstableHorizontal")
-            vals.add("UserCurve")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `mechanical_zone_fan_circulation_unstable_tilted_equation_source`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `mechanical_zone_fan_circulation_unstable_tilted_equation_source`')
+            vals = {}
+            vals["waltonunstablehorizontalortilt"] = "WaltonUnstableHorizontalOrTilt"
+            vals["alamdarihammondunstablehorizontal"] = "AlamdariHammondUnstableHorizontal"
+            vals["usercurve"] = "UserCurve"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `mechanical_zone_fan_circulation_unstable_tilted_equation_source`'.format(value))
+            value = vals[value_lower]
 
         self._data["Mechanical Zone Fan Circulation Unstable Tilted Equation Source"] = value
 
@@ -5638,6 +6720,9 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
                                  'for field `mechanical_zone_fan_circulation_unstable_tilted_equation_user_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `mechanical_zone_fan_circulation_unstable_tilted_equation_user_curve_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `mechanical_zone_fan_circulation_unstable_tilted_equation_user_curve_name`')
 
         self._data["Mechanical Zone Fan Circulation Unstable Tilted Equation User Curve Name"] = value
@@ -5681,16 +6766,30 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `mechanical_zone_fan_circulation_window_equation_source`')
-            vals = set()
-            vals.add("ASHRAEVerticalWall")
-            vals.add("AlamdariHammondVerticalWall")
-            vals.add("FohannoPolidoriVerticalWall")
-            vals.add("ISO15099Windows")
-            vals.add("GoldsteinNovoselacCeilingDiffuserWindow")
-            vals.add("UserCurve")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `mechanical_zone_fan_circulation_window_equation_source`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `mechanical_zone_fan_circulation_window_equation_source`')
+            vals = {}
+            vals["ashraeverticalwall"] = "ASHRAEVerticalWall"
+            vals["alamdarihammondverticalwall"] = "AlamdariHammondVerticalWall"
+            vals["fohannopolidoriverticalwall"] = "FohannoPolidoriVerticalWall"
+            vals["iso15099windows"] = "ISO15099Windows"
+            vals["goldsteinnovoselacceilingdiffuserwindow"] = "GoldsteinNovoselacCeilingDiffuserWindow"
+            vals["usercurve"] = "UserCurve"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `mechanical_zone_fan_circulation_window_equation_source`'.format(value))
+            value = vals[value_lower]
 
         self._data["Mechanical Zone Fan Circulation Window Equation Source"] = value
 
@@ -5724,6 +6823,9 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
                                  'for field `mechanical_zone_fan_circulation_window_equation_user_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `mechanical_zone_fan_circulation_window_equation_user_curve_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `mechanical_zone_fan_circulation_window_equation_user_curve_name`')
 
         self._data["Mechanical Zone Fan Circulation Window Equation User Curve Name"] = value
@@ -5768,17 +6870,31 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `mixed_regime_bouyancy_assisting_flow_on_walls_equation_source`')
-            vals = set()
-            vals.add("BeausoleilMorrisonMixedAssistedWall")
-            vals.add("AlamdariHammondVerticalWall")
-            vals.add("FohannoPolidoriVerticalWall")
-            vals.add("ASHRAEVerticalWall")
-            vals.add("FisherPedersenCeilingDiffuserWalls")
-            vals.add("GoldsteinNovoselacCeilingDiffuserWalls")
-            vals.add("UserCurve")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `mixed_regime_bouyancy_assisting_flow_on_walls_equation_source`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `mixed_regime_bouyancy_assisting_flow_on_walls_equation_source`')
+            vals = {}
+            vals["beausoleilmorrisonmixedassistedwall"] = "BeausoleilMorrisonMixedAssistedWall"
+            vals["alamdarihammondverticalwall"] = "AlamdariHammondVerticalWall"
+            vals["fohannopolidoriverticalwall"] = "FohannoPolidoriVerticalWall"
+            vals["ashraeverticalwall"] = "ASHRAEVerticalWall"
+            vals["fisherpedersenceilingdiffuserwalls"] = "FisherPedersenCeilingDiffuserWalls"
+            vals["goldsteinnovoselacceilingdiffuserwalls"] = "GoldsteinNovoselacCeilingDiffuserWalls"
+            vals["usercurve"] = "UserCurve"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `mixed_regime_bouyancy_assisting_flow_on_walls_equation_source`'.format(value))
+            value = vals[value_lower]
 
         self._data["Mixed Regime Bouyancy Assisting Flow on Walls Equation Source"] = value
 
@@ -5812,6 +6928,9 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
                                  'for field `mixed_regime_bouyancy_assisting_flow_on_walls_equation_user_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `mixed_regime_bouyancy_assisting_flow_on_walls_equation_user_curve_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `mixed_regime_bouyancy_assisting_flow_on_walls_equation_user_curve_name`')
 
         self._data["Mixed Regime Bouyancy Assisting Flow on Walls Equation User Curve Name"] = value
@@ -5856,17 +6975,31 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `mixed_regime_bouyancy_oppossing_flow_on_walls_equation_source`')
-            vals = set()
-            vals.add("BeausoleilMorrisonMixedOpposingWall")
-            vals.add("AlamdariHammondVerticalWall")
-            vals.add("FohannoPolidoriVerticalWall")
-            vals.add("ASHRAEVerticalWall")
-            vals.add("FisherPedersenCeilingDiffuserWalls")
-            vals.add("GoldsteinNovoselacCeilingDiffuserWalls")
-            vals.add("UserCurve")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `mixed_regime_bouyancy_oppossing_flow_on_walls_equation_source`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `mixed_regime_bouyancy_oppossing_flow_on_walls_equation_source`')
+            vals = {}
+            vals["beausoleilmorrisonmixedopposingwall"] = "BeausoleilMorrisonMixedOpposingWall"
+            vals["alamdarihammondverticalwall"] = "AlamdariHammondVerticalWall"
+            vals["fohannopolidoriverticalwall"] = "FohannoPolidoriVerticalWall"
+            vals["ashraeverticalwall"] = "ASHRAEVerticalWall"
+            vals["fisherpedersenceilingdiffuserwalls"] = "FisherPedersenCeilingDiffuserWalls"
+            vals["goldsteinnovoselacceilingdiffuserwalls"] = "GoldsteinNovoselacCeilingDiffuserWalls"
+            vals["usercurve"] = "UserCurve"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `mixed_regime_bouyancy_oppossing_flow_on_walls_equation_source`'.format(value))
+            value = vals[value_lower]
 
         self._data["Mixed Regime Bouyancy Oppossing Flow on Walls Equation Source"] = value
 
@@ -5900,6 +7033,9 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
                                  'for field `mixed_regime_bouyancy_oppossing_flow_on_walls_equation_user_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `mixed_regime_bouyancy_oppossing_flow_on_walls_equation_user_curve_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `mixed_regime_bouyancy_oppossing_flow_on_walls_equation_user_curve_name`')
 
         self._data["Mixed Regime Bouyancy Oppossing Flow on Walls Equation User Curve Name"] = value
@@ -5941,14 +7077,28 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `mixed_regime_stable_floor_equation_source`')
-            vals = set()
-            vals.add("BeausoleilMorrisonMixedStableFloor")
-            vals.add("WaltonStableHorizontalOrTilt")
-            vals.add("AlamdariHammondStableHorizontal")
-            vals.add("UserCurve")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `mixed_regime_stable_floor_equation_source`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `mixed_regime_stable_floor_equation_source`')
+            vals = {}
+            vals["beausoleilmorrisonmixedstablefloor"] = "BeausoleilMorrisonMixedStableFloor"
+            vals["waltonstablehorizontalortilt"] = "WaltonStableHorizontalOrTilt"
+            vals["alamdarihammondstablehorizontal"] = "AlamdariHammondStableHorizontal"
+            vals["usercurve"] = "UserCurve"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `mixed_regime_stable_floor_equation_source`'.format(value))
+            value = vals[value_lower]
 
         self._data["Mixed Regime Stable Floor Equation Source"] = value
 
@@ -5982,6 +7132,9 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
                                  'for field `mixed_regime_stable_floor_equation_user_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `mixed_regime_stable_floor_equation_user_curve_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `mixed_regime_stable_floor_equation_user_curve_name`')
 
         self._data["Mixed Regime Stable Floor Equation User Curve Name"] = value
@@ -6023,14 +7176,28 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `mixed_regime_unstable_floor_equation_source`')
-            vals = set()
-            vals.add("BeausoleilMorrisonMixedUnstableFloor")
-            vals.add("WaltonUnstableHorizontalOrTilt")
-            vals.add("AlamdariHammondUnstableHorizontal")
-            vals.add("UserCurve")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `mixed_regime_unstable_floor_equation_source`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `mixed_regime_unstable_floor_equation_source`')
+            vals = {}
+            vals["beausoleilmorrisonmixedunstablefloor"] = "BeausoleilMorrisonMixedUnstableFloor"
+            vals["waltonunstablehorizontalortilt"] = "WaltonUnstableHorizontalOrTilt"
+            vals["alamdarihammondunstablehorizontal"] = "AlamdariHammondUnstableHorizontal"
+            vals["usercurve"] = "UserCurve"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `mixed_regime_unstable_floor_equation_source`'.format(value))
+            value = vals[value_lower]
 
         self._data["Mixed Regime Unstable Floor Equation Source"] = value
 
@@ -6064,6 +7231,9 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
                                  'for field `mixed_regime_unstable_floor_equation_user_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `mixed_regime_unstable_floor_equation_user_curve_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `mixed_regime_unstable_floor_equation_user_curve_name`')
 
         self._data["Mixed Regime Unstable Floor Equation User Curve Name"] = value
@@ -6105,14 +7275,28 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `mixed_regime_stable_ceiling_equation_source`')
-            vals = set()
-            vals.add("BeausoleilMorrisonMixedStableCeiling")
-            vals.add("WaltonStableHorizontalOrTilt")
-            vals.add("AlamdariHammondStableHorizontal")
-            vals.add("UserCurve")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `mixed_regime_stable_ceiling_equation_source`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `mixed_regime_stable_ceiling_equation_source`')
+            vals = {}
+            vals["beausoleilmorrisonmixedstableceiling"] = "BeausoleilMorrisonMixedStableCeiling"
+            vals["waltonstablehorizontalortilt"] = "WaltonStableHorizontalOrTilt"
+            vals["alamdarihammondstablehorizontal"] = "AlamdariHammondStableHorizontal"
+            vals["usercurve"] = "UserCurve"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `mixed_regime_stable_ceiling_equation_source`'.format(value))
+            value = vals[value_lower]
 
         self._data["Mixed Regime Stable Ceiling Equation Source"] = value
 
@@ -6146,6 +7330,9 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
                                  'for field `mixed_regime_stable_ceiling_equation_user_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `mixed_regime_stable_ceiling_equation_user_curve_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `mixed_regime_stable_ceiling_equation_user_curve_name`')
 
         self._data["Mixed Regime Stable Ceiling Equation User Curve Name"] = value
@@ -6187,14 +7374,28 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `mixed_regime_unstable_ceiling_equation_source`')
-            vals = set()
-            vals.add("BeausoleilMorrisonMixedUnstableCeiling")
-            vals.add("WaltonUnstableHorizontalOrTilt")
-            vals.add("AlamdariHammondUnstableHorizontal")
-            vals.add("UserCurve")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `mixed_regime_unstable_ceiling_equation_source`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `mixed_regime_unstable_ceiling_equation_source`')
+            vals = {}
+            vals["beausoleilmorrisonmixedunstableceiling"] = "BeausoleilMorrisonMixedUnstableCeiling"
+            vals["waltonunstablehorizontalortilt"] = "WaltonUnstableHorizontalOrTilt"
+            vals["alamdarihammondunstablehorizontal"] = "AlamdariHammondUnstableHorizontal"
+            vals["usercurve"] = "UserCurve"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `mixed_regime_unstable_ceiling_equation_source`'.format(value))
+            value = vals[value_lower]
 
         self._data["Mixed Regime Unstable Ceiling Equation Source"] = value
 
@@ -6228,6 +7429,9 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
                                  'for field `mixed_regime_unstable_ceiling_equation_user_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `mixed_regime_unstable_ceiling_equation_user_curve_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `mixed_regime_unstable_ceiling_equation_user_curve_name`')
 
         self._data["Mixed Regime Unstable Ceiling Equation User Curve Name"] = value
@@ -6268,13 +7472,27 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `mixed_regime_window_equation_source`')
-            vals = set()
-            vals.add("GoldsteinNovoselacCeilingDiffuserWindow")
-            vals.add("ISO15099Windows")
-            vals.add("UserCurve")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `mixed_regime_window_equation_source`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `mixed_regime_window_equation_source`')
+            vals = {}
+            vals["goldsteinnovoselacceilingdiffuserwindow"] = "GoldsteinNovoselacCeilingDiffuserWindow"
+            vals["iso15099windows"] = "ISO15099Windows"
+            vals["usercurve"] = "UserCurve"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `mixed_regime_window_equation_source`'.format(value))
+            value = vals[value_lower]
 
         self._data["Mixed Regime Window Equation Source"] = value
 
@@ -6309,6 +7527,9 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `mixed_regime_window_equation_user_curve_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `mixed_regime_window_equation_user_curve_name`')
 
         self._data["Mixed Regime Window Equation User Curve Name"] = value
 
@@ -6334,100 +7555,17 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.simple_bouyancy_vertical_wall_equation_source))
-        out.append(self._to_str(self.simple_bouyancy_vertical_wall_user_curve_name))
-        out.append(self._to_str(self.simple_bouyancy_stable_horizontal_equation_source))
-        out.append(self._to_str(self.simple_bouyancy_stable_horizontal_equation_user_curve_name))
-        out.append(self._to_str(self.simple_bouyancy_unstable_horizontal_equation_source))
-        out.append(self._to_str(self.simple_bouyancy_unstable_horizontal_equation_user_curve_name))
-        out.append(self._to_str(self.simple_bouyancy_stable_tilted_equation_source))
-        out.append(self._to_str(self.simple_bouyancy_stable_tilted_equation_user_curve_name))
-        out.append(self._to_str(self.simple_bouyancy_unstable_tilted_equation_source))
-        out.append(self._to_str(self.simple_bouyancy_unstable_tilted_equation_user_curve_name))
-        out.append(self._to_str(self.simple_bouyancy_windows_equation_source))
-        out.append(self._to_str(self.simple_bouyancy_windows_equation_user_curve_name))
-        out.append(self._to_str(self.floor_heat_ceiling_cool_vertical_wall_equation_source))
-        out.append(self._to_str(self.floor_heat_ceiling_cool_vertical_wall_equation_user_curve_name))
-        out.append(self._to_str(self.floor_heat_ceiling_cool_stable_horizontal_equation_source))
-        out.append(self._to_str(self.floor_heat_ceiling_cool_stable_horizontal_equation_user_curve_name))
-        out.append(self._to_str(self.floor_heat_ceiling_cool_unstable_horizontal_equation_source))
-        out.append(self._to_str(self.floor_heat_ceiling_cool_unstable_horizontal_equation_user_curve_name))
-        out.append(self._to_str(self.floor_heat_ceiling_cool_heated_floor_equation_source))
-        out.append(self._to_str(self.floor_heat_ceiling_cool_heated_floor_equation_user_curve_name))
-        out.append(self._to_str(self.floor_heat_ceiling_cool_chilled_ceiling_equation_source))
-        out.append(self._to_str(self.floor_heat_ceiling_cool_chilled_ceiling_equation_user_curve_name))
-        out.append(self._to_str(self.floor_heat_ceiling_cool_stable_tilted_equation_source))
-        out.append(self._to_str(self.floor_heat_ceiling_cool_stable_tilted_equation_user_curve_name))
-        out.append(self._to_str(self.floor_heat_ceiling_cool_unstable_tilted_equation_source))
-        out.append(self._to_str(self.floor_heat_ceiling_cool_unstable_tilted_equation_user_curve_name))
-        out.append(self._to_str(self.floor_heat_ceiling_cool_window_equation_source))
-        out.append(self._to_str(self.floor_heat_ceiling_cool_window_equation_user_curve_name))
-        out.append(self._to_str(self.wall_panel_heating_vertical_wall_equation_source))
-        out.append(self._to_str(self.wall_panel_heating_vertical_wall_equation_user_curve_name))
-        out.append(self._to_str(self.wall_panel_heating_heated_wall_equation_source))
-        out.append(self._to_str(self.wall_panel_heating_heated_wall_equation_user_curve_name))
-        out.append(self._to_str(self.wall_panel_heating_stable_horizontal_equation_source))
-        out.append(self._to_str(self.wall_panel_heating_stable_horizontal_equation_user_curve_name))
-        out.append(self._to_str(self.wall_panel_heating_unstable_horizontal_equation_source))
-        out.append(self._to_str(self.wall_panel_heating_unstable_horizontal_equation_user_curve_name))
-        out.append(self._to_str(self.wall_panel_heating_stable_tilted_equation_source))
-        out.append(self._to_str(self.wall_panel_heating_stable_tilted_equation_user_curve_name))
-        out.append(self._to_str(self.wall_panel_heating_unstable_tilted_equation_source))
-        out.append(self._to_str(self.wall_panel_heating_unstable_tilted_equation_user_curve_name))
-        out.append(self._to_str(self.wall_panel_heating_window_equation_source))
-        out.append(self._to_str(self.wall_panel_heating_window_equation_user_curve_name))
-        out.append(self._to_str(self.convective_zone_heater_vertical_wall_equation_source))
-        out.append(self._to_str(self.convective_zone_heater_vertical_wall_equation_user_curve_name))
-        out.append(self._to_str(self.convective_zone_heater_vertical_walls_near_heater_equation_source))
-        out.append(self._to_str(self.convective_zone_heater_vertical_walls_near_heater_equation_user_curve_name))
-        out.append(self._to_str(self.convective_zone_heater_stable_horizontal_equation_source))
-        out.append(self._to_str(self.convective_zone_heater_stable_horizontal_equation_user_curve_name))
-        out.append(self._to_str(self.convective_zone_heater_unstable_horizontal_equation_source))
-        out.append(self._to_str(self.convective_zone_heater_unstable_horizontal_equation_user_curve_name))
-        out.append(self._to_str(self.convective_zone_heater_stable_tilted_equation_source))
-        out.append(self._to_str(self.convective_zone_heater_stable_tilted_equation_user_curve_name))
-        out.append(self._to_str(self.convective_zone_heater_unstable_tilted_equation_source))
-        out.append(self._to_str(self.convective_zone_heater_unstable_tilted_equation_user_curve_name))
-        out.append(self._to_str(self.convective_zone_heater_windows_equation_source))
-        out.append(self._to_str(self.convective_zone_heater_windows_equation_user_curve_name))
-        out.append(self._to_str(self.central_air_diffuser_wall_equation_source))
-        out.append(self._to_str(self.central_air_diffuser_wall_equation_user_curve_name))
-        out.append(self._to_str(self.central_air_diffuser_ceiling_equation_source))
-        out.append(self._to_str(self.central_air_diffuser_ceiling_equation_user_curve_name))
-        out.append(self._to_str(self.central_air_diffuser_floor_equation_source))
-        out.append(self._to_str(self.central_air_diffuser_floor_equation_user_curve_name))
-        out.append(self._to_str(self.central_air_diffuser_window_equation_source))
-        out.append(self._to_str(self.central_air_diffuser_window_equation_user_curve_name))
-        out.append(self._to_str(self.mechanical_zone_fan_circulation_vertical_wall_equation_source))
-        out.append(self._to_str(self.mechanical_zone_fan_circulation_vertical_wall_equation_user_curve_name))
-        out.append(self._to_str(self.mechanical_zone_fan_circulation_stable_horizontal_equation_source))
-        out.append(self._to_str(self.mechanical_zone_fan_circulation_stable_horizontal_equation_user_curve_name))
-        out.append(self._to_str(self.mechanical_zone_fan_circulation_unstable_horizontal_equation_source))
-        out.append(self._to_str(self.mechanical_zone_fan_circulation_unstable_horizontal_equation_user_curve_name))
-        out.append(self._to_str(self.mechanical_zone_fan_circulation_stable_tilted_equation_source))
-        out.append(self._to_str(self.mechanical_zone_fan_circulation_stable_tilted_equation_user_curve_name))
-        out.append(self._to_str(self.mechanical_zone_fan_circulation_unstable_tilted_equation_source))
-        out.append(self._to_str(self.mechanical_zone_fan_circulation_unstable_tilted_equation_user_curve_name))
-        out.append(self._to_str(self.mechanical_zone_fan_circulation_window_equation_source))
-        out.append(self._to_str(self.mechanical_zone_fan_circulation_window_equation_user_curve_name))
-        out.append(self._to_str(self.mixed_regime_bouyancy_assisting_flow_on_walls_equation_source))
-        out.append(self._to_str(self.mixed_regime_bouyancy_assisting_flow_on_walls_equation_user_curve_name))
-        out.append(self._to_str(self.mixed_regime_bouyancy_oppossing_flow_on_walls_equation_source))
-        out.append(self._to_str(self.mixed_regime_bouyancy_oppossing_flow_on_walls_equation_user_curve_name))
-        out.append(self._to_str(self.mixed_regime_stable_floor_equation_source))
-        out.append(self._to_str(self.mixed_regime_stable_floor_equation_user_curve_name))
-        out.append(self._to_str(self.mixed_regime_unstable_floor_equation_source))
-        out.append(self._to_str(self.mixed_regime_unstable_floor_equation_user_curve_name))
-        out.append(self._to_str(self.mixed_regime_stable_ceiling_equation_source))
-        out.append(self._to_str(self.mixed_regime_stable_ceiling_equation_user_curve_name))
-        out.append(self._to_str(self.mixed_regime_unstable_ceiling_equation_source))
-        out.append(self._to_str(self.mixed_regime_unstable_ceiling_equation_user_curve_name))
-        out.append(self._to_str(self.mixed_regime_window_equation_source))
-        out.append(self._to_str(self.mixed_regime_window_equation_user_curve_name))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class SurfaceConvectionAlgorithmOutsideAdaptiveModelSelections(object):
     """ Corresponds to IDD object `SurfaceConvectionAlgorithm:Outside:AdaptiveModelSelections`
@@ -6457,79 +7595,107 @@ class SurfaceConvectionAlgorithmOutsideAdaptiveModelSelections(object):
         self._data["Natural Convection Stable Horizontal Equation User Curve Name"] = None
         self._data["Natural Convection Unstable Horizontal Equation Source"] = None
         self._data["Natural Convection Unstable Horizontal Equation User Curve Name"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wind_convection_windward_vertical_wall_equation_source = None
         else:
             self.wind_convection_windward_vertical_wall_equation_source = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wind_convection_windward_equation_vertical_wall_user_curve_name = None
         else:
             self.wind_convection_windward_equation_vertical_wall_user_curve_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wind_convection_leeward_vertical_wall_equation_source = None
         else:
             self.wind_convection_leeward_vertical_wall_equation_source = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wind_convection_leeward_vertical_wall_equation_user_curve_name = None
         else:
             self.wind_convection_leeward_vertical_wall_equation_user_curve_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wind_convection_horizontal_roof_equation_source = None
         else:
             self.wind_convection_horizontal_roof_equation_source = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wind_convection_horizontal_roof_user_curve_name = None
         else:
             self.wind_convection_horizontal_roof_user_curve_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.natural_convection_vertical_wall_equation_source = None
         else:
             self.natural_convection_vertical_wall_equation_source = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.natural_convection_vertical_wall_equation_user_curve_name = None
         else:
             self.natural_convection_vertical_wall_equation_user_curve_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.natural_convection_stable_horizontal_equation_source = None
         else:
             self.natural_convection_stable_horizontal_equation_source = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.natural_convection_stable_horizontal_equation_user_curve_name = None
         else:
             self.natural_convection_stable_horizontal_equation_user_curve_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.natural_convection_unstable_horizontal_equation_source = None
         else:
             self.natural_convection_unstable_horizontal_equation_source = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.natural_convection_unstable_horizontal_equation_user_curve_name = None
         else:
             self.natural_convection_unstable_horizontal_equation_user_curve_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -6560,6 +7726,9 @@ class SurfaceConvectionAlgorithmOutsideAdaptiveModelSelections(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -6606,20 +7775,34 @@ class SurfaceConvectionAlgorithmOutsideAdaptiveModelSelections(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `wind_convection_windward_vertical_wall_equation_source`')
-            vals = set()
-            vals.add("SimpleCombined")
-            vals.add("TARPWindward")
-            vals.add("MoWiTTWindward")
-            vals.add("DOE2Windward")
-            vals.add("NusseltJurges")
-            vals.add("McAdams")
-            vals.add("Mitchell")
-            vals.add("BlockenWindward")
-            vals.add("EmmelVertical")
-            vals.add("UserCurve")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `wind_convection_windward_vertical_wall_equation_source`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `wind_convection_windward_vertical_wall_equation_source`')
+            vals = {}
+            vals["simplecombined"] = "SimpleCombined"
+            vals["tarpwindward"] = "TARPWindward"
+            vals["mowittwindward"] = "MoWiTTWindward"
+            vals["doe2windward"] = "DOE2Windward"
+            vals["nusseltjurges"] = "NusseltJurges"
+            vals["mcadams"] = "McAdams"
+            vals["mitchell"] = "Mitchell"
+            vals["blockenwindward"] = "BlockenWindward"
+            vals["emmelvertical"] = "EmmelVertical"
+            vals["usercurve"] = "UserCurve"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `wind_convection_windward_vertical_wall_equation_source`'.format(value))
+            value = vals[value_lower]
 
         self._data["Wind Convection Windward Vertical Wall Equation Source"] = value
 
@@ -6653,6 +7836,9 @@ class SurfaceConvectionAlgorithmOutsideAdaptiveModelSelections(object):
                                  'for field `wind_convection_windward_equation_vertical_wall_user_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `wind_convection_windward_equation_vertical_wall_user_curve_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `wind_convection_windward_equation_vertical_wall_user_curve_name`')
 
         self._data["Wind Convection Windward Equation Vertical Wall User Curve Name"] = value
@@ -6698,19 +7884,33 @@ class SurfaceConvectionAlgorithmOutsideAdaptiveModelSelections(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `wind_convection_leeward_vertical_wall_equation_source`')
-            vals = set()
-            vals.add("SimpleCombined")
-            vals.add("TARPLeeward")
-            vals.add("MoWiTTLeeward")
-            vals.add("DOE2Leeward")
-            vals.add("EmmelVertical")
-            vals.add("NusseltJurges")
-            vals.add("McAdams")
-            vals.add("Mitchell")
-            vals.add("UserCurve")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `wind_convection_leeward_vertical_wall_equation_source`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `wind_convection_leeward_vertical_wall_equation_source`')
+            vals = {}
+            vals["simplecombined"] = "SimpleCombined"
+            vals["tarpleeward"] = "TARPLeeward"
+            vals["mowittleeward"] = "MoWiTTLeeward"
+            vals["doe2leeward"] = "DOE2Leeward"
+            vals["emmelvertical"] = "EmmelVertical"
+            vals["nusseltjurges"] = "NusseltJurges"
+            vals["mcadams"] = "McAdams"
+            vals["mitchell"] = "Mitchell"
+            vals["usercurve"] = "UserCurve"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `wind_convection_leeward_vertical_wall_equation_source`'.format(value))
+            value = vals[value_lower]
 
         self._data["Wind Convection Leeward Vertical Wall Equation Source"] = value
 
@@ -6744,6 +7944,9 @@ class SurfaceConvectionAlgorithmOutsideAdaptiveModelSelections(object):
                                  'for field `wind_convection_leeward_vertical_wall_equation_user_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `wind_convection_leeward_vertical_wall_equation_user_curve_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `wind_convection_leeward_vertical_wall_equation_user_curve_name`')
 
         self._data["Wind Convection Leeward Vertical Wall Equation User Curve Name"] = value
@@ -6791,21 +7994,35 @@ class SurfaceConvectionAlgorithmOutsideAdaptiveModelSelections(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `wind_convection_horizontal_roof_equation_source`')
-            vals = set()
-            vals.add("SimpleCombined")
-            vals.add("TARPWindward")
-            vals.add("MoWiTTWindward")
-            vals.add("DOE2Windward")
-            vals.add("NusseltJurges")
-            vals.add("McAdams")
-            vals.add("Mitchell")
-            vals.add("BlockenWindward")
-            vals.add("EmmelRoof")
-            vals.add("ClearRoof")
-            vals.add("UserCurve")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `wind_convection_horizontal_roof_equation_source`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `wind_convection_horizontal_roof_equation_source`')
+            vals = {}
+            vals["simplecombined"] = "SimpleCombined"
+            vals["tarpwindward"] = "TARPWindward"
+            vals["mowittwindward"] = "MoWiTTWindward"
+            vals["doe2windward"] = "DOE2Windward"
+            vals["nusseltjurges"] = "NusseltJurges"
+            vals["mcadams"] = "McAdams"
+            vals["mitchell"] = "Mitchell"
+            vals["blockenwindward"] = "BlockenWindward"
+            vals["emmelroof"] = "EmmelRoof"
+            vals["clearroof"] = "ClearRoof"
+            vals["usercurve"] = "UserCurve"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `wind_convection_horizontal_roof_equation_source`'.format(value))
+            value = vals[value_lower]
 
         self._data["Wind Convection Horizontal Roof Equation Source"] = value
 
@@ -6839,6 +8056,9 @@ class SurfaceConvectionAlgorithmOutsideAdaptiveModelSelections(object):
                                  'for field `wind_convection_horizontal_roof_user_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `wind_convection_horizontal_roof_user_curve_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `wind_convection_horizontal_roof_user_curve_name`')
 
         self._data["Wind Convection Horizontal Roof User Curve Name"] = value
@@ -6882,16 +8102,30 @@ class SurfaceConvectionAlgorithmOutsideAdaptiveModelSelections(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `natural_convection_vertical_wall_equation_source`')
-            vals = set()
-            vals.add("ASHRAEVerticalWall")
-            vals.add("AlamdariHammondVerticalWall")
-            vals.add("FohannoPolidoriVerticalWall")
-            vals.add("ISO15099Windows")
-            vals.add("UserCurve")
-            vals.add("None")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `natural_convection_vertical_wall_equation_source`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `natural_convection_vertical_wall_equation_source`')
+            vals = {}
+            vals["ashraeverticalwall"] = "ASHRAEVerticalWall"
+            vals["alamdarihammondverticalwall"] = "AlamdariHammondVerticalWall"
+            vals["fohannopolidoriverticalwall"] = "FohannoPolidoriVerticalWall"
+            vals["iso15099windows"] = "ISO15099Windows"
+            vals["usercurve"] = "UserCurve"
+            vals["none"] = "None"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `natural_convection_vertical_wall_equation_source`'.format(value))
+            value = vals[value_lower]
 
         self._data["Natural Convection Vertical Wall Equation Source"] = value
 
@@ -6925,6 +8159,9 @@ class SurfaceConvectionAlgorithmOutsideAdaptiveModelSelections(object):
                                  'for field `natural_convection_vertical_wall_equation_user_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `natural_convection_vertical_wall_equation_user_curve_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `natural_convection_vertical_wall_equation_user_curve_name`')
 
         self._data["Natural Convection Vertical Wall Equation User Curve Name"] = value
@@ -6966,14 +8203,28 @@ class SurfaceConvectionAlgorithmOutsideAdaptiveModelSelections(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `natural_convection_stable_horizontal_equation_source`')
-            vals = set()
-            vals.add("WaltonStableHorizontalOrTilt")
-            vals.add("AlamdariHammondStableHorizontal")
-            vals.add("UserCurve")
-            vals.add("None")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `natural_convection_stable_horizontal_equation_source`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `natural_convection_stable_horizontal_equation_source`')
+            vals = {}
+            vals["waltonstablehorizontalortilt"] = "WaltonStableHorizontalOrTilt"
+            vals["alamdarihammondstablehorizontal"] = "AlamdariHammondStableHorizontal"
+            vals["usercurve"] = "UserCurve"
+            vals["none"] = "None"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `natural_convection_stable_horizontal_equation_source`'.format(value))
+            value = vals[value_lower]
 
         self._data["Natural Convection Stable Horizontal Equation Source"] = value
 
@@ -7007,6 +8258,9 @@ class SurfaceConvectionAlgorithmOutsideAdaptiveModelSelections(object):
                                  'for field `natural_convection_stable_horizontal_equation_user_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `natural_convection_stable_horizontal_equation_user_curve_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `natural_convection_stable_horizontal_equation_user_curve_name`')
 
         self._data["Natural Convection Stable Horizontal Equation User Curve Name"] = value
@@ -7047,14 +8301,28 @@ class SurfaceConvectionAlgorithmOutsideAdaptiveModelSelections(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `natural_convection_unstable_horizontal_equation_source`')
-            vals = set()
-            vals.add("WaltonUnstableHorizontalOrTilt")
-            vals.add("AlamdariHammondUnstableHorizontal")
-            vals.add("UserCurve")
-            vals.add("None")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `natural_convection_unstable_horizontal_equation_source`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `natural_convection_unstable_horizontal_equation_source`')
+            vals = {}
+            vals["waltonunstablehorizontalortilt"] = "WaltonUnstableHorizontalOrTilt"
+            vals["alamdarihammondunstablehorizontal"] = "AlamdariHammondUnstableHorizontal"
+            vals["usercurve"] = "UserCurve"
+            vals["none"] = "None"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `natural_convection_unstable_horizontal_equation_source`'.format(value))
+            value = vals[value_lower]
 
         self._data["Natural Convection Unstable Horizontal Equation Source"] = value
 
@@ -7089,6 +8357,9 @@ class SurfaceConvectionAlgorithmOutsideAdaptiveModelSelections(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `natural_convection_unstable_horizontal_equation_user_curve_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `natural_convection_unstable_horizontal_equation_user_curve_name`')
 
         self._data["Natural Convection Unstable Horizontal Equation User Curve Name"] = value
 
@@ -7114,22 +8385,17 @@ class SurfaceConvectionAlgorithmOutsideAdaptiveModelSelections(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.wind_convection_windward_vertical_wall_equation_source))
-        out.append(self._to_str(self.wind_convection_windward_equation_vertical_wall_user_curve_name))
-        out.append(self._to_str(self.wind_convection_leeward_vertical_wall_equation_source))
-        out.append(self._to_str(self.wind_convection_leeward_vertical_wall_equation_user_curve_name))
-        out.append(self._to_str(self.wind_convection_horizontal_roof_equation_source))
-        out.append(self._to_str(self.wind_convection_horizontal_roof_user_curve_name))
-        out.append(self._to_str(self.natural_convection_vertical_wall_equation_source))
-        out.append(self._to_str(self.natural_convection_vertical_wall_equation_user_curve_name))
-        out.append(self._to_str(self.natural_convection_stable_horizontal_equation_source))
-        out.append(self._to_str(self.natural_convection_stable_horizontal_equation_user_curve_name))
-        out.append(self._to_str(self.natural_convection_unstable_horizontal_equation_source))
-        out.append(self._to_str(self.natural_convection_unstable_horizontal_equation_user_curve_name))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class SurfaceConvectionAlgorithmInsideUserCurve(object):
     """ Corresponds to IDD object `SurfaceConvectionAlgorithm:Inside:UserCurve`
@@ -7151,44 +8417,58 @@ class SurfaceConvectionAlgorithmInsideUserCurve(object):
         self._data["Hc Function of Temperature Difference Divided by Height Curve Name"] = None
         self._data["Hc Function of Air Change Rate Curve Name"] = None
         self._data["Hc Function of Air System Volume Flow Rate Divided by Zone Perimeter Length Curve Name"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.reference_temperature_for_convection_heat_transfer = None
         else:
             self.reference_temperature_for_convection_heat_transfer = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.hc_function_of_temperature_difference_curve_name = None
         else:
             self.hc_function_of_temperature_difference_curve_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.hc_function_of_temperature_difference_divided_by_height_curve_name = None
         else:
             self.hc_function_of_temperature_difference_divided_by_height_curve_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.hc_function_of_air_change_rate_curve_name = None
         else:
             self.hc_function_of_air_change_rate_curve_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.hc_function_of_air_system_volume_flow_rate_divided_by_zone_perimeter_length_curve_name = None
         else:
             self.hc_function_of_air_system_volume_flow_rate_divided_by_zone_perimeter_length_curve_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -7219,6 +8499,9 @@ class SurfaceConvectionAlgorithmInsideUserCurve(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -7258,13 +8541,27 @@ class SurfaceConvectionAlgorithmInsideUserCurve(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `reference_temperature_for_convection_heat_transfer`')
-            vals = set()
-            vals.add("MeanAirTemperature")
-            vals.add("AdjacentAirTemperature")
-            vals.add("SupplyAirTemperature")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `reference_temperature_for_convection_heat_transfer`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `reference_temperature_for_convection_heat_transfer`')
+            vals = {}
+            vals["meanairtemperature"] = "MeanAirTemperature"
+            vals["adjacentairtemperature"] = "AdjacentAirTemperature"
+            vals["supplyairtemperature"] = "SupplyAirTemperature"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `reference_temperature_for_convection_heat_transfer`'.format(value))
+            value = vals[value_lower]
 
         self._data["Reference Temperature for Convection Heat Transfer"] = value
 
@@ -7299,6 +8596,9 @@ class SurfaceConvectionAlgorithmInsideUserCurve(object):
                                  'for field `hc_function_of_temperature_difference_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `hc_function_of_temperature_difference_curve_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `hc_function_of_temperature_difference_curve_name`')
 
         self._data["Hc Function of Temperature Difference Curve Name"] = value
@@ -7336,6 +8636,9 @@ class SurfaceConvectionAlgorithmInsideUserCurve(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `hc_function_of_temperature_difference_divided_by_height_curve_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `hc_function_of_temperature_difference_divided_by_height_curve_name`')
 
         self._data["Hc Function of Temperature Difference Divided by Height Curve Name"] = value
 
@@ -7370,6 +8673,9 @@ class SurfaceConvectionAlgorithmInsideUserCurve(object):
                                  'for field `hc_function_of_air_change_rate_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `hc_function_of_air_change_rate_curve_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `hc_function_of_air_change_rate_curve_name`')
 
         self._data["Hc Function of Air Change Rate Curve Name"] = value
@@ -7407,6 +8713,9 @@ class SurfaceConvectionAlgorithmInsideUserCurve(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `hc_function_of_air_system_volume_flow_rate_divided_by_zone_perimeter_length_curve_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `hc_function_of_air_system_volume_flow_rate_divided_by_zone_perimeter_length_curve_name`')
 
         self._data["Hc Function of Air System Volume Flow Rate Divided by Zone Perimeter Length Curve Name"] = value
 
@@ -7432,15 +8741,17 @@ class SurfaceConvectionAlgorithmInsideUserCurve(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.reference_temperature_for_convection_heat_transfer))
-        out.append(self._to_str(self.hc_function_of_temperature_difference_curve_name))
-        out.append(self._to_str(self.hc_function_of_temperature_difference_divided_by_height_curve_name))
-        out.append(self._to_str(self.hc_function_of_air_change_rate_curve_name))
-        out.append(self._to_str(self.hc_function_of_air_system_volume_flow_rate_divided_by_zone_perimeter_length_curve_name))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class SurfaceConvectionAlgorithmOutsideUserCurve(object):
     """ Corresponds to IDD object `SurfaceConvectionAlgorithm:Outside:UserCurve`
@@ -7461,39 +8772,51 @@ class SurfaceConvectionAlgorithmOutsideUserCurve(object):
         self._data["Hf Function of Wind Speed Curve Name"] = None
         self._data["Hn Function of Temperature Difference Curve Name"] = None
         self._data["Hn Function of Temperature Difference Divided by Height Curve Name"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wind_speed_type_for_curve = None
         else:
             self.wind_speed_type_for_curve = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.hf_function_of_wind_speed_curve_name = None
         else:
             self.hf_function_of_wind_speed_curve_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.hn_function_of_temperature_difference_curve_name = None
         else:
             self.hn_function_of_temperature_difference_curve_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.hn_function_of_temperature_difference_divided_by_height_curve_name = None
         else:
             self.hn_function_of_temperature_difference_divided_by_height_curve_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -7524,6 +8847,9 @@ class SurfaceConvectionAlgorithmOutsideUserCurve(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -7564,14 +8890,28 @@ class SurfaceConvectionAlgorithmOutsideUserCurve(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `wind_speed_type_for_curve`')
-            vals = set()
-            vals.add("WeatherFile")
-            vals.add("HeightAdjust")
-            vals.add("ParallelComponent")
-            vals.add("ParallelComponentHeightAdjust")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `wind_speed_type_for_curve`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `wind_speed_type_for_curve`')
+            vals = {}
+            vals["weatherfile"] = "WeatherFile"
+            vals["heightadjust"] = "HeightAdjust"
+            vals["parallelcomponent"] = "ParallelComponent"
+            vals["parallelcomponentheightadjust"] = "ParallelComponentHeightAdjust"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `wind_speed_type_for_curve`'.format(value))
+            value = vals[value_lower]
 
         self._data["Wind Speed Type for Curve"] = value
 
@@ -7607,6 +8947,9 @@ class SurfaceConvectionAlgorithmOutsideUserCurve(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `hf_function_of_wind_speed_curve_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `hf_function_of_wind_speed_curve_name`')
 
         self._data["Hf Function of Wind Speed Curve Name"] = value
 
@@ -7641,6 +8984,9 @@ class SurfaceConvectionAlgorithmOutsideUserCurve(object):
                                  'for field `hn_function_of_temperature_difference_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `hn_function_of_temperature_difference_curve_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `hn_function_of_temperature_difference_curve_name`')
 
         self._data["Hn Function of Temperature Difference Curve Name"] = value
@@ -7678,6 +9024,9 @@ class SurfaceConvectionAlgorithmOutsideUserCurve(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `hn_function_of_temperature_difference_divided_by_height_curve_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `hn_function_of_temperature_difference_divided_by_height_curve_name`')
 
         self._data["Hn Function of Temperature Difference Divided by Height Curve Name"] = value
 
@@ -7703,14 +9052,17 @@ class SurfaceConvectionAlgorithmOutsideUserCurve(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.wind_speed_type_for_curve))
-        out.append(self._to_str(self.hf_function_of_wind_speed_curve_name))
-        out.append(self._to_str(self.hn_function_of_temperature_difference_curve_name))
-        out.append(self._to_str(self.hn_function_of_temperature_difference_divided_by_height_curve_name))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class SurfacePropertyConvectionCoefficients(object):
     """ Corresponds to IDD object `SurfaceProperty:ConvectionCoefficients`
@@ -7742,69 +9094,93 @@ class SurfacePropertyConvectionCoefficients(object):
         self._data["Convection Coefficient 2"] = None
         self._data["Convection Coefficient 2 Schedule Name"] = None
         self._data["Convection Coefficient 2 User Curve Name"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.surface_name = None
         else:
             self.surface_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.convection_coefficient_1_location = None
         else:
             self.convection_coefficient_1_location = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.convection_coefficient_1_type = None
         else:
             self.convection_coefficient_1_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.convection_coefficient_1 = None
         else:
             self.convection_coefficient_1 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.convection_coefficient_1_schedule_name = None
         else:
             self.convection_coefficient_1_schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.convection_coefficient_1_user_curve_name = None
         else:
             self.convection_coefficient_1_user_curve_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.convection_coefficient_2_location = None
         else:
             self.convection_coefficient_2_location = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.convection_coefficient_2_type = None
         else:
             self.convection_coefficient_2_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.convection_coefficient_2 = None
         else:
             self.convection_coefficient_2 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.convection_coefficient_2_schedule_name = None
         else:
             self.convection_coefficient_2_schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.convection_coefficient_2_user_curve_name = None
         else:
             self.convection_coefficient_2_user_curve_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def surface_name(self):
@@ -7835,6 +9211,9 @@ class SurfacePropertyConvectionCoefficients(object):
                                  'for field `surface_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_name`')
 
         self._data["Surface Name"] = value
@@ -7872,12 +9251,26 @@ class SurfacePropertyConvectionCoefficients(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `convection_coefficient_1_location`')
-            vals = set()
-            vals.add("Outside")
-            vals.add("Inside")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `convection_coefficient_1_location`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `convection_coefficient_1_location`')
+            vals = {}
+            vals["outside"] = "Outside"
+            vals["inside"] = "Inside"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `convection_coefficient_1_location`'.format(value))
+            value = vals[value_lower]
 
         self._data["Convection Coefficient 1 Location"] = value
 
@@ -7955,53 +9348,67 @@ class SurfacePropertyConvectionCoefficients(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `convection_coefficient_1_type`')
-            vals = set()
-            vals.add("Value")
-            vals.add("Schedule")
-            vals.add("UserCurve")
-            vals.add("Simple")
-            vals.add("SimpleCombined")
-            vals.add("TARP")
-            vals.add("DOE-2")
-            vals.add("MoWitt")
-            vals.add("AdaptiveConvectionAlgorithm")
-            vals.add("ASHRAEVerticalWall")
-            vals.add("WaltonUnstableHorizontalOrTilt")
-            vals.add("WaltonStableHorizontalOrTilt")
-            vals.add("FisherPedersenCeilingDiffuserWalls")
-            vals.add("FisherPedersenCeilingDiffuserCeiling")
-            vals.add("FisherPedersenCeilingDiffuserFloor")
-            vals.add("AlamdariHammondStableHorizontal")
-            vals.add("AlamdariHammondUnstableHorizontal")
-            vals.add("AlamdariHammondVerticalWall")
-            vals.add("KhalifaEq3WallAwayFromHeat")
-            vals.add("KhalifaEq4CeilingAwayFromHeat")
-            vals.add("KhalifaEq5WallNearHeat")
-            vals.add("KhalifaEq6NonHeatedWalls")
-            vals.add("KhalifaEq7Ceiling")
-            vals.add("AwbiHattonHeatedFloor")
-            vals.add("AwbiHattonHeatedWall")
-            vals.add("BeausoleilMorrisonMixedAssistedWall")
-            vals.add("BeausoleilMorrisonMixedOpposingWall")
-            vals.add("BeausoleilMorrisonMixedStableFloor")
-            vals.add("BeausoleilMorrisonMixedUnstableFloor")
-            vals.add("BeausoleilMorrisonMixedStableCeiling")
-            vals.add("BeausoleilMorrisonMixedUnstableCeiling")
-            vals.add("FohannoPolidoriVerticalWall")
-            vals.add("KaradagChilledCeiling")
-            vals.add("ISO15099Windows")
-            vals.add("GoldsteinNovoselacCeilingDiffuserWindow")
-            vals.add("GoldsteinNovoselacCeilingDiffuserWalls")
-            vals.add("GoldsteinNovoselacCeilingDiffuserFloor")
-            vals.add("NusseltJurges")
-            vals.add("McAdams")
-            vals.add("Mitchell")
-            vals.add("EmmelVertical")
-            vals.add("EmmelRoof")
-            vals.add("ClearRoof")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `convection_coefficient_1_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `convection_coefficient_1_type`')
+            vals = {}
+            vals["value"] = "Value"
+            vals["schedule"] = "Schedule"
+            vals["usercurve"] = "UserCurve"
+            vals["simple"] = "Simple"
+            vals["simplecombined"] = "SimpleCombined"
+            vals["tarp"] = "TARP"
+            vals["doe-2"] = "DOE-2"
+            vals["mowitt"] = "MoWitt"
+            vals["adaptiveconvectionalgorithm"] = "AdaptiveConvectionAlgorithm"
+            vals["ashraeverticalwall"] = "ASHRAEVerticalWall"
+            vals["waltonunstablehorizontalortilt"] = "WaltonUnstableHorizontalOrTilt"
+            vals["waltonstablehorizontalortilt"] = "WaltonStableHorizontalOrTilt"
+            vals["fisherpedersenceilingdiffuserwalls"] = "FisherPedersenCeilingDiffuserWalls"
+            vals["fisherpedersenceilingdiffuserceiling"] = "FisherPedersenCeilingDiffuserCeiling"
+            vals["fisherpedersenceilingdiffuserfloor"] = "FisherPedersenCeilingDiffuserFloor"
+            vals["alamdarihammondstablehorizontal"] = "AlamdariHammondStableHorizontal"
+            vals["alamdarihammondunstablehorizontal"] = "AlamdariHammondUnstableHorizontal"
+            vals["alamdarihammondverticalwall"] = "AlamdariHammondVerticalWall"
+            vals["khalifaeq3wallawayfromheat"] = "KhalifaEq3WallAwayFromHeat"
+            vals["khalifaeq4ceilingawayfromheat"] = "KhalifaEq4CeilingAwayFromHeat"
+            vals["khalifaeq5wallnearheat"] = "KhalifaEq5WallNearHeat"
+            vals["khalifaeq6nonheatedwalls"] = "KhalifaEq6NonHeatedWalls"
+            vals["khalifaeq7ceiling"] = "KhalifaEq7Ceiling"
+            vals["awbihattonheatedfloor"] = "AwbiHattonHeatedFloor"
+            vals["awbihattonheatedwall"] = "AwbiHattonHeatedWall"
+            vals["beausoleilmorrisonmixedassistedwall"] = "BeausoleilMorrisonMixedAssistedWall"
+            vals["beausoleilmorrisonmixedopposingwall"] = "BeausoleilMorrisonMixedOpposingWall"
+            vals["beausoleilmorrisonmixedstablefloor"] = "BeausoleilMorrisonMixedStableFloor"
+            vals["beausoleilmorrisonmixedunstablefloor"] = "BeausoleilMorrisonMixedUnstableFloor"
+            vals["beausoleilmorrisonmixedstableceiling"] = "BeausoleilMorrisonMixedStableCeiling"
+            vals["beausoleilmorrisonmixedunstableceiling"] = "BeausoleilMorrisonMixedUnstableCeiling"
+            vals["fohannopolidoriverticalwall"] = "FohannoPolidoriVerticalWall"
+            vals["karadagchilledceiling"] = "KaradagChilledCeiling"
+            vals["iso15099windows"] = "ISO15099Windows"
+            vals["goldsteinnovoselacceilingdiffuserwindow"] = "GoldsteinNovoselacCeilingDiffuserWindow"
+            vals["goldsteinnovoselacceilingdiffuserwalls"] = "GoldsteinNovoselacCeilingDiffuserWalls"
+            vals["goldsteinnovoselacceilingdiffuserfloor"] = "GoldsteinNovoselacCeilingDiffuserFloor"
+            vals["nusseltjurges"] = "NusseltJurges"
+            vals["mcadams"] = "McAdams"
+            vals["mitchell"] = "Mitchell"
+            vals["emmelvertical"] = "EmmelVertical"
+            vals["emmelroof"] = "EmmelRoof"
+            vals["clearroof"] = "ClearRoof"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `convection_coefficient_1_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Convection Coefficient 1 Type"] = value
 
@@ -8070,6 +9477,9 @@ class SurfacePropertyConvectionCoefficients(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `convection_coefficient_1_schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `convection_coefficient_1_schedule_name`')
 
         self._data["Convection Coefficient 1 Schedule Name"] = value
 
@@ -8103,6 +9513,9 @@ class SurfacePropertyConvectionCoefficients(object):
                                  'for field `convection_coefficient_1_user_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `convection_coefficient_1_user_curve_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `convection_coefficient_1_user_curve_name`')
 
         self._data["Convection Coefficient 1 User Curve Name"] = value
@@ -8140,12 +9553,26 @@ class SurfacePropertyConvectionCoefficients(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `convection_coefficient_2_location`')
-            vals = set()
-            vals.add("Outside")
-            vals.add("Inside")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `convection_coefficient_2_location`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `convection_coefficient_2_location`')
+            vals = {}
+            vals["outside"] = "Outside"
+            vals["inside"] = "Inside"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `convection_coefficient_2_location`'.format(value))
+            value = vals[value_lower]
 
         self._data["Convection Coefficient 2 Location"] = value
 
@@ -8223,53 +9650,67 @@ class SurfacePropertyConvectionCoefficients(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `convection_coefficient_2_type`')
-            vals = set()
-            vals.add("Value")
-            vals.add("Schedule")
-            vals.add("UserCurve")
-            vals.add("Simple")
-            vals.add("SimpleCombined")
-            vals.add("TARP")
-            vals.add("DOE-2")
-            vals.add("MoWitt")
-            vals.add("AdaptiveConvectionAlgorithm")
-            vals.add("ASHRAEVerticalWall")
-            vals.add("WaltonUnstableHorizontalOrTilt")
-            vals.add("WaltonStableHorizontalOrTilt")
-            vals.add("FisherPedersenCeilingDiffuserWalls")
-            vals.add("FisherPedersenCeilingDiffuserCeiling")
-            vals.add("FisherPedersenCeilingDiffuserFloor")
-            vals.add("AlamdariHammondStableHorizontal")
-            vals.add("AlamdariHammondUnstableHorizontal")
-            vals.add("AlamdariHammondVerticalWall")
-            vals.add("KhalifaEq3WallAwayFromHeat")
-            vals.add("KhalifaEq4CeilingAwayFromHeat")
-            vals.add("KhalifaEq5WallNearHeat")
-            vals.add("KhalifaEq6NonHeatedWalls")
-            vals.add("KhalifaEq7Ceiling")
-            vals.add("AwbiHattonHeatedFloor")
-            vals.add("AwbiHattonHeatedWall")
-            vals.add("BeausoleilMorrisonMixedAssistedWall")
-            vals.add("BeausoleilMorrisonMixedOpposingWall")
-            vals.add("BeausoleilMorrisonMixedStableFloor")
-            vals.add("BeausoleilMorrisonMixedUnstableFloor")
-            vals.add("BeausoleilMorrisonMixedStableCeiling")
-            vals.add("BeausoleilMorrisonMixedUnstableCeiling")
-            vals.add("FohannoPolidoriVerticalWall")
-            vals.add("KaradagChilledCeiling")
-            vals.add("ISO15099Windows")
-            vals.add("GoldsteinNovoselacCeilingDiffuserWindow")
-            vals.add("GoldsteinNovoselacCeilingDiffuserWalls")
-            vals.add("GoldsteinNovoselacCeilingDiffuserFloor")
-            vals.add("NusseltJurges")
-            vals.add("McAdams")
-            vals.add("Mitchell")
-            vals.add("EmmelVertical")
-            vals.add("EmmelRoof")
-            vals.add("ClearRoof")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `convection_coefficient_2_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `convection_coefficient_2_type`')
+            vals = {}
+            vals["value"] = "Value"
+            vals["schedule"] = "Schedule"
+            vals["usercurve"] = "UserCurve"
+            vals["simple"] = "Simple"
+            vals["simplecombined"] = "SimpleCombined"
+            vals["tarp"] = "TARP"
+            vals["doe-2"] = "DOE-2"
+            vals["mowitt"] = "MoWitt"
+            vals["adaptiveconvectionalgorithm"] = "AdaptiveConvectionAlgorithm"
+            vals["ashraeverticalwall"] = "ASHRAEVerticalWall"
+            vals["waltonunstablehorizontalortilt"] = "WaltonUnstableHorizontalOrTilt"
+            vals["waltonstablehorizontalortilt"] = "WaltonStableHorizontalOrTilt"
+            vals["fisherpedersenceilingdiffuserwalls"] = "FisherPedersenCeilingDiffuserWalls"
+            vals["fisherpedersenceilingdiffuserceiling"] = "FisherPedersenCeilingDiffuserCeiling"
+            vals["fisherpedersenceilingdiffuserfloor"] = "FisherPedersenCeilingDiffuserFloor"
+            vals["alamdarihammondstablehorizontal"] = "AlamdariHammondStableHorizontal"
+            vals["alamdarihammondunstablehorizontal"] = "AlamdariHammondUnstableHorizontal"
+            vals["alamdarihammondverticalwall"] = "AlamdariHammondVerticalWall"
+            vals["khalifaeq3wallawayfromheat"] = "KhalifaEq3WallAwayFromHeat"
+            vals["khalifaeq4ceilingawayfromheat"] = "KhalifaEq4CeilingAwayFromHeat"
+            vals["khalifaeq5wallnearheat"] = "KhalifaEq5WallNearHeat"
+            vals["khalifaeq6nonheatedwalls"] = "KhalifaEq6NonHeatedWalls"
+            vals["khalifaeq7ceiling"] = "KhalifaEq7Ceiling"
+            vals["awbihattonheatedfloor"] = "AwbiHattonHeatedFloor"
+            vals["awbihattonheatedwall"] = "AwbiHattonHeatedWall"
+            vals["beausoleilmorrisonmixedassistedwall"] = "BeausoleilMorrisonMixedAssistedWall"
+            vals["beausoleilmorrisonmixedopposingwall"] = "BeausoleilMorrisonMixedOpposingWall"
+            vals["beausoleilmorrisonmixedstablefloor"] = "BeausoleilMorrisonMixedStableFloor"
+            vals["beausoleilmorrisonmixedunstablefloor"] = "BeausoleilMorrisonMixedUnstableFloor"
+            vals["beausoleilmorrisonmixedstableceiling"] = "BeausoleilMorrisonMixedStableCeiling"
+            vals["beausoleilmorrisonmixedunstableceiling"] = "BeausoleilMorrisonMixedUnstableCeiling"
+            vals["fohannopolidoriverticalwall"] = "FohannoPolidoriVerticalWall"
+            vals["karadagchilledceiling"] = "KaradagChilledCeiling"
+            vals["iso15099windows"] = "ISO15099Windows"
+            vals["goldsteinnovoselacceilingdiffuserwindow"] = "GoldsteinNovoselacCeilingDiffuserWindow"
+            vals["goldsteinnovoselacceilingdiffuserwalls"] = "GoldsteinNovoselacCeilingDiffuserWalls"
+            vals["goldsteinnovoselacceilingdiffuserfloor"] = "GoldsteinNovoselacCeilingDiffuserFloor"
+            vals["nusseltjurges"] = "NusseltJurges"
+            vals["mcadams"] = "McAdams"
+            vals["mitchell"] = "Mitchell"
+            vals["emmelvertical"] = "EmmelVertical"
+            vals["emmelroof"] = "EmmelRoof"
+            vals["clearroof"] = "ClearRoof"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `convection_coefficient_2_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Convection Coefficient 2 Type"] = value
 
@@ -8339,6 +9780,9 @@ class SurfacePropertyConvectionCoefficients(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `convection_coefficient_2_schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `convection_coefficient_2_schedule_name`')
 
         self._data["Convection Coefficient 2 Schedule Name"] = value
 
@@ -8373,6 +9817,9 @@ class SurfacePropertyConvectionCoefficients(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `convection_coefficient_2_user_curve_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `convection_coefficient_2_user_curve_name`')
 
         self._data["Convection Coefficient 2 User Curve Name"] = value
 
@@ -8398,20 +9845,17 @@ class SurfacePropertyConvectionCoefficients(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.surface_name))
-        out.append(self._to_str(self.convection_coefficient_1_location))
-        out.append(self._to_str(self.convection_coefficient_1_type))
-        out.append(self._to_str(self.convection_coefficient_1))
-        out.append(self._to_str(self.convection_coefficient_1_schedule_name))
-        out.append(self._to_str(self.convection_coefficient_1_user_curve_name))
-        out.append(self._to_str(self.convection_coefficient_2_location))
-        out.append(self._to_str(self.convection_coefficient_2_type))
-        out.append(self._to_str(self.convection_coefficient_2))
-        out.append(self._to_str(self.convection_coefficient_2_schedule_name))
-        out.append(self._to_str(self.convection_coefficient_2_user_curve_name))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class SurfacePropertyConvectionCoefficientsMultipleSurface(object):
     """ Corresponds to IDD object `SurfaceProperty:ConvectionCoefficients:MultipleSurface`
@@ -8443,69 +9887,93 @@ class SurfacePropertyConvectionCoefficientsMultipleSurface(object):
         self._data["Convection Coefficient 2"] = None
         self._data["Convection Coefficient 2 Schedule Name"] = None
         self._data["Convection Coefficient 2 User Curve Name"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.surface_type = None
         else:
             self.surface_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.convection_coefficient_1_location = None
         else:
             self.convection_coefficient_1_location = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.convection_coefficient_1_type = None
         else:
             self.convection_coefficient_1_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.convection_coefficient_1 = None
         else:
             self.convection_coefficient_1 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.convection_coefficient_1_schedule_name = None
         else:
             self.convection_coefficient_1_schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.convection_coefficient_1_user_curve_name = None
         else:
             self.convection_coefficient_1_user_curve_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.convection_coefficient_2_location = None
         else:
             self.convection_coefficient_2_location = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.convection_coefficient_2_type = None
         else:
             self.convection_coefficient_2_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.convection_coefficient_2 = None
         else:
             self.convection_coefficient_2 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.convection_coefficient_2_schedule_name = None
         else:
             self.convection_coefficient_2_schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.convection_coefficient_2_user_curve_name = None
         else:
             self.convection_coefficient_2_user_curve_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def surface_type(self):
@@ -8548,20 +10016,34 @@ class SurfacePropertyConvectionCoefficientsMultipleSurface(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_type`')
-            vals = set()
-            vals.add("AllExteriorSurfaces")
-            vals.add("AllExteriorWindows")
-            vals.add("AllExteriorWalls")
-            vals.add("AllExteriorRoofs")
-            vals.add("AllExteriorFloors")
-            vals.add("AllInteriorSurfaces")
-            vals.add("AllInteriorWalls")
-            vals.add("AllInteriorWindows")
-            vals.add("AllInteriorCeilings")
-            vals.add("AllInteriorFloors")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `surface_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_type`')
+            vals = {}
+            vals["allexteriorsurfaces"] = "AllExteriorSurfaces"
+            vals["allexteriorwindows"] = "AllExteriorWindows"
+            vals["allexteriorwalls"] = "AllExteriorWalls"
+            vals["allexteriorroofs"] = "AllExteriorRoofs"
+            vals["allexteriorfloors"] = "AllExteriorFloors"
+            vals["allinteriorsurfaces"] = "AllInteriorSurfaces"
+            vals["allinteriorwalls"] = "AllInteriorWalls"
+            vals["allinteriorwindows"] = "AllInteriorWindows"
+            vals["allinteriorceilings"] = "AllInteriorCeilings"
+            vals["allinteriorfloors"] = "AllInteriorFloors"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `surface_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Surface Type"] = value
 
@@ -8598,12 +10080,26 @@ class SurfacePropertyConvectionCoefficientsMultipleSurface(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `convection_coefficient_1_location`')
-            vals = set()
-            vals.add("Outside")
-            vals.add("Inside")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `convection_coefficient_1_location`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `convection_coefficient_1_location`')
+            vals = {}
+            vals["outside"] = "Outside"
+            vals["inside"] = "Inside"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `convection_coefficient_1_location`'.format(value))
+            value = vals[value_lower]
 
         self._data["Convection Coefficient 1 Location"] = value
 
@@ -8682,54 +10178,68 @@ class SurfacePropertyConvectionCoefficientsMultipleSurface(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `convection_coefficient_1_type`')
-            vals = set()
-            vals.add("Value")
-            vals.add("Schedule")
-            vals.add("Simple")
-            vals.add("SimpleCombined")
-            vals.add("TARP")
-            vals.add("DOE-2")
-            vals.add("MoWitt")
-            vals.add("AdaptiveConvectionAlgorithm")
-            vals.add("ASHRAEVerticalWall")
-            vals.add("WaltonUnstableHorizontalOrTilt")
-            vals.add("WaltonStableHorizontalOrTilt")
-            vals.add("FisherPedersenCeilingDiffuserWalls")
-            vals.add("FisherPedersenCeilingDiffuserCeiling")
-            vals.add("FisherPedersenCeilingDiffuserFloor")
-            vals.add("AlamdariHammondStableHorizontal")
-            vals.add("AlamdariHammondUnstableHorizontal")
-            vals.add("AlamdariHammondVerticalWall")
-            vals.add("KhalifaEq3WallAwayFromHeat")
-            vals.add("KhalifaEq4CeilingAwayFromHeat")
-            vals.add("KhalifaEq5WallNearHeat")
-            vals.add("KhalifaEq6NonHeatedWalls")
-            vals.add("KhalifaEq7Ceiling")
-            vals.add("AwbiHattonHeatedFloor")
-            vals.add("AwbiHattonHeatedWall")
-            vals.add("BeausoleilMorrisonMixedAssistedWall")
-            vals.add("BeausoleilMorrisonMixedOpposingWall")
-            vals.add("BeausoleilMorrisonMixedStableFloor")
-            vals.add("BeausoleilMorrisonMixedUnstableFloor")
-            vals.add("BeausoleilMorrisonMixedStableCeiling")
-            vals.add("BeausoleilMorrisonMixedUnstableCeiling")
-            vals.add("FohannoPolidoriVerticalWall")
-            vals.add("KaradagChilledCeiling")
-            vals.add("ISO15099Windows")
-            vals.add("GoldsteinNovoselacCeilingDiffuserWindow")
-            vals.add("GoldsteinNovoselacCeilingDiffuserWalls")
-            vals.add("GoldsteinNovoselacCeilingDiffuserFloor")
-            vals.add("NusseltJurges")
-            vals.add("McAdams")
-            vals.add("Mitchell")
-            vals.add("BlockenWindard")
-            vals.add("EmmelVertical")
-            vals.add("EmmelRoof")
-            vals.add("ClearRoof")
-            vals.add("UserCurve")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `convection_coefficient_1_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `convection_coefficient_1_type`')
+            vals = {}
+            vals["value"] = "Value"
+            vals["schedule"] = "Schedule"
+            vals["simple"] = "Simple"
+            vals["simplecombined"] = "SimpleCombined"
+            vals["tarp"] = "TARP"
+            vals["doe-2"] = "DOE-2"
+            vals["mowitt"] = "MoWitt"
+            vals["adaptiveconvectionalgorithm"] = "AdaptiveConvectionAlgorithm"
+            vals["ashraeverticalwall"] = "ASHRAEVerticalWall"
+            vals["waltonunstablehorizontalortilt"] = "WaltonUnstableHorizontalOrTilt"
+            vals["waltonstablehorizontalortilt"] = "WaltonStableHorizontalOrTilt"
+            vals["fisherpedersenceilingdiffuserwalls"] = "FisherPedersenCeilingDiffuserWalls"
+            vals["fisherpedersenceilingdiffuserceiling"] = "FisherPedersenCeilingDiffuserCeiling"
+            vals["fisherpedersenceilingdiffuserfloor"] = "FisherPedersenCeilingDiffuserFloor"
+            vals["alamdarihammondstablehorizontal"] = "AlamdariHammondStableHorizontal"
+            vals["alamdarihammondunstablehorizontal"] = "AlamdariHammondUnstableHorizontal"
+            vals["alamdarihammondverticalwall"] = "AlamdariHammondVerticalWall"
+            vals["khalifaeq3wallawayfromheat"] = "KhalifaEq3WallAwayFromHeat"
+            vals["khalifaeq4ceilingawayfromheat"] = "KhalifaEq4CeilingAwayFromHeat"
+            vals["khalifaeq5wallnearheat"] = "KhalifaEq5WallNearHeat"
+            vals["khalifaeq6nonheatedwalls"] = "KhalifaEq6NonHeatedWalls"
+            vals["khalifaeq7ceiling"] = "KhalifaEq7Ceiling"
+            vals["awbihattonheatedfloor"] = "AwbiHattonHeatedFloor"
+            vals["awbihattonheatedwall"] = "AwbiHattonHeatedWall"
+            vals["beausoleilmorrisonmixedassistedwall"] = "BeausoleilMorrisonMixedAssistedWall"
+            vals["beausoleilmorrisonmixedopposingwall"] = "BeausoleilMorrisonMixedOpposingWall"
+            vals["beausoleilmorrisonmixedstablefloor"] = "BeausoleilMorrisonMixedStableFloor"
+            vals["beausoleilmorrisonmixedunstablefloor"] = "BeausoleilMorrisonMixedUnstableFloor"
+            vals["beausoleilmorrisonmixedstableceiling"] = "BeausoleilMorrisonMixedStableCeiling"
+            vals["beausoleilmorrisonmixedunstableceiling"] = "BeausoleilMorrisonMixedUnstableCeiling"
+            vals["fohannopolidoriverticalwall"] = "FohannoPolidoriVerticalWall"
+            vals["karadagchilledceiling"] = "KaradagChilledCeiling"
+            vals["iso15099windows"] = "ISO15099Windows"
+            vals["goldsteinnovoselacceilingdiffuserwindow"] = "GoldsteinNovoselacCeilingDiffuserWindow"
+            vals["goldsteinnovoselacceilingdiffuserwalls"] = "GoldsteinNovoselacCeilingDiffuserWalls"
+            vals["goldsteinnovoselacceilingdiffuserfloor"] = "GoldsteinNovoselacCeilingDiffuserFloor"
+            vals["nusseltjurges"] = "NusseltJurges"
+            vals["mcadams"] = "McAdams"
+            vals["mitchell"] = "Mitchell"
+            vals["blockenwindard"] = "BlockenWindard"
+            vals["emmelvertical"] = "EmmelVertical"
+            vals["emmelroof"] = "EmmelRoof"
+            vals["clearroof"] = "ClearRoof"
+            vals["usercurve"] = "UserCurve"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `convection_coefficient_1_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Convection Coefficient 1 Type"] = value
 
@@ -8798,6 +10308,9 @@ class SurfacePropertyConvectionCoefficientsMultipleSurface(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `convection_coefficient_1_schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `convection_coefficient_1_schedule_name`')
 
         self._data["Convection Coefficient 1 Schedule Name"] = value
 
@@ -8831,6 +10344,9 @@ class SurfacePropertyConvectionCoefficientsMultipleSurface(object):
                                  'for field `convection_coefficient_1_user_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `convection_coefficient_1_user_curve_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `convection_coefficient_1_user_curve_name`')
 
         self._data["Convection Coefficient 1 User Curve Name"] = value
@@ -8868,12 +10384,26 @@ class SurfacePropertyConvectionCoefficientsMultipleSurface(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `convection_coefficient_2_location`')
-            vals = set()
-            vals.add("Outside")
-            vals.add("Inside")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `convection_coefficient_2_location`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `convection_coefficient_2_location`')
+            vals = {}
+            vals["outside"] = "Outside"
+            vals["inside"] = "Inside"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `convection_coefficient_2_location`'.format(value))
+            value = vals[value_lower]
 
         self._data["Convection Coefficient 2 Location"] = value
 
@@ -8952,54 +10482,68 @@ class SurfacePropertyConvectionCoefficientsMultipleSurface(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `convection_coefficient_2_type`')
-            vals = set()
-            vals.add("Value")
-            vals.add("Schedule")
-            vals.add("Simple")
-            vals.add("SimpleCombined")
-            vals.add("TARP")
-            vals.add("DOE-2")
-            vals.add("MoWitt")
-            vals.add("AdaptiveConvectionAlgorithm")
-            vals.add("ASHRAEVerticalWall")
-            vals.add("WaltonUnstableHorizontalOrTilt")
-            vals.add("WaltonStableHorizontalOrTilt")
-            vals.add("FisherPedersenCeilingDiffuserWalls")
-            vals.add("FisherPedersenCeilingDiffuserCeiling")
-            vals.add("FisherPedersenCeilingDiffuserFloor")
-            vals.add("AlamdariHammondStableHorizontal")
-            vals.add("AlamdariHammondUnstableHorizontal")
-            vals.add("AlamdariHammondVerticalWall")
-            vals.add("KhalifaEq3WallAwayFromHeat")
-            vals.add("KhalifaEq4CeilingAwayFromHeat")
-            vals.add("KhalifaEq5WallNearHeat")
-            vals.add("KhalifaEq6NonHeatedWalls")
-            vals.add("KhalifaEq7Ceiling")
-            vals.add("AwbiHattonHeatedFloor")
-            vals.add("AwbiHattonHeatedWall")
-            vals.add("BeausoleilMorrisonMixedAssistedWall")
-            vals.add("BeausoleilMorrisonMixedOpposingWall")
-            vals.add("BeausoleilMorrisonMixedStableFloor")
-            vals.add("BeausoleilMorrisonMixedUnstableFloor")
-            vals.add("BeausoleilMorrisonMixedStableCeiling")
-            vals.add("BeausoleilMorrisonMixedUnstableCeiling")
-            vals.add("FohannoPolidoriVerticalWall")
-            vals.add("KaradagChilledCeiling")
-            vals.add("ISO15099Windows")
-            vals.add("GoldsteinNovoselacCeilingDiffuserWindow")
-            vals.add("GoldsteinNovoselacCeilingDiffuserWalls")
-            vals.add("GoldsteinNovoselacCeilingDiffuserFloor")
-            vals.add("NusseltJurges")
-            vals.add("McAdams")
-            vals.add("Mitchell")
-            vals.add("BlockenWindard")
-            vals.add("EmmelVertical")
-            vals.add("EmmelRoof")
-            vals.add("ClearRoof")
-            vals.add("UserCurve")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `convection_coefficient_2_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `convection_coefficient_2_type`')
+            vals = {}
+            vals["value"] = "Value"
+            vals["schedule"] = "Schedule"
+            vals["simple"] = "Simple"
+            vals["simplecombined"] = "SimpleCombined"
+            vals["tarp"] = "TARP"
+            vals["doe-2"] = "DOE-2"
+            vals["mowitt"] = "MoWitt"
+            vals["adaptiveconvectionalgorithm"] = "AdaptiveConvectionAlgorithm"
+            vals["ashraeverticalwall"] = "ASHRAEVerticalWall"
+            vals["waltonunstablehorizontalortilt"] = "WaltonUnstableHorizontalOrTilt"
+            vals["waltonstablehorizontalortilt"] = "WaltonStableHorizontalOrTilt"
+            vals["fisherpedersenceilingdiffuserwalls"] = "FisherPedersenCeilingDiffuserWalls"
+            vals["fisherpedersenceilingdiffuserceiling"] = "FisherPedersenCeilingDiffuserCeiling"
+            vals["fisherpedersenceilingdiffuserfloor"] = "FisherPedersenCeilingDiffuserFloor"
+            vals["alamdarihammondstablehorizontal"] = "AlamdariHammondStableHorizontal"
+            vals["alamdarihammondunstablehorizontal"] = "AlamdariHammondUnstableHorizontal"
+            vals["alamdarihammondverticalwall"] = "AlamdariHammondVerticalWall"
+            vals["khalifaeq3wallawayfromheat"] = "KhalifaEq3WallAwayFromHeat"
+            vals["khalifaeq4ceilingawayfromheat"] = "KhalifaEq4CeilingAwayFromHeat"
+            vals["khalifaeq5wallnearheat"] = "KhalifaEq5WallNearHeat"
+            vals["khalifaeq6nonheatedwalls"] = "KhalifaEq6NonHeatedWalls"
+            vals["khalifaeq7ceiling"] = "KhalifaEq7Ceiling"
+            vals["awbihattonheatedfloor"] = "AwbiHattonHeatedFloor"
+            vals["awbihattonheatedwall"] = "AwbiHattonHeatedWall"
+            vals["beausoleilmorrisonmixedassistedwall"] = "BeausoleilMorrisonMixedAssistedWall"
+            vals["beausoleilmorrisonmixedopposingwall"] = "BeausoleilMorrisonMixedOpposingWall"
+            vals["beausoleilmorrisonmixedstablefloor"] = "BeausoleilMorrisonMixedStableFloor"
+            vals["beausoleilmorrisonmixedunstablefloor"] = "BeausoleilMorrisonMixedUnstableFloor"
+            vals["beausoleilmorrisonmixedstableceiling"] = "BeausoleilMorrisonMixedStableCeiling"
+            vals["beausoleilmorrisonmixedunstableceiling"] = "BeausoleilMorrisonMixedUnstableCeiling"
+            vals["fohannopolidoriverticalwall"] = "FohannoPolidoriVerticalWall"
+            vals["karadagchilledceiling"] = "KaradagChilledCeiling"
+            vals["iso15099windows"] = "ISO15099Windows"
+            vals["goldsteinnovoselacceilingdiffuserwindow"] = "GoldsteinNovoselacCeilingDiffuserWindow"
+            vals["goldsteinnovoselacceilingdiffuserwalls"] = "GoldsteinNovoselacCeilingDiffuserWalls"
+            vals["goldsteinnovoselacceilingdiffuserfloor"] = "GoldsteinNovoselacCeilingDiffuserFloor"
+            vals["nusseltjurges"] = "NusseltJurges"
+            vals["mcadams"] = "McAdams"
+            vals["mitchell"] = "Mitchell"
+            vals["blockenwindard"] = "BlockenWindard"
+            vals["emmelvertical"] = "EmmelVertical"
+            vals["emmelroof"] = "EmmelRoof"
+            vals["clearroof"] = "ClearRoof"
+            vals["usercurve"] = "UserCurve"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `convection_coefficient_2_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Convection Coefficient 2 Type"] = value
 
@@ -9069,6 +10613,9 @@ class SurfacePropertyConvectionCoefficientsMultipleSurface(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `convection_coefficient_2_schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `convection_coefficient_2_schedule_name`')
 
         self._data["Convection Coefficient 2 Schedule Name"] = value
 
@@ -9103,6 +10650,9 @@ class SurfacePropertyConvectionCoefficientsMultipleSurface(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `convection_coefficient_2_user_curve_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `convection_coefficient_2_user_curve_name`')
 
         self._data["Convection Coefficient 2 User Curve Name"] = value
 
@@ -9128,20 +10678,17 @@ class SurfacePropertyConvectionCoefficientsMultipleSurface(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.surface_type))
-        out.append(self._to_str(self.convection_coefficient_1_location))
-        out.append(self._to_str(self.convection_coefficient_1_type))
-        out.append(self._to_str(self.convection_coefficient_1))
-        out.append(self._to_str(self.convection_coefficient_1_schedule_name))
-        out.append(self._to_str(self.convection_coefficient_1_user_curve_name))
-        out.append(self._to_str(self.convection_coefficient_2_location))
-        out.append(self._to_str(self.convection_coefficient_2_type))
-        out.append(self._to_str(self.convection_coefficient_2))
-        out.append(self._to_str(self.convection_coefficient_2_schedule_name))
-        out.append(self._to_str(self.convection_coefficient_2_user_curve_name))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class SurfacePropertiesVaporCoefficients(object):
     """ Corresponds to IDD object `SurfaceProperties:VaporCoefficients`
@@ -9166,39 +10713,51 @@ class SurfacePropertiesVaporCoefficients(object):
         self._data["External Vapor Coefficient Value"] = None
         self._data["Constant Internal vapor Transfer Coefficient"] = None
         self._data["Internal Vapor Coefficient Value"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.surface_name = None
         else:
             self.surface_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.constant_external_vapor_transfer_coefficient = None
         else:
             self.constant_external_vapor_transfer_coefficient = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.external_vapor_coefficient_value = None
         else:
             self.external_vapor_coefficient_value = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.constant_internal_vapor_transfer_coefficient = None
         else:
             self.constant_internal_vapor_transfer_coefficient = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.internal_vapor_coefficient_value = None
         else:
             self.internal_vapor_coefficient_value = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def surface_name(self):
@@ -9229,6 +10788,9 @@ class SurfacePropertiesVaporCoefficients(object):
                                  'for field `surface_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_name`')
 
         self._data["Surface Name"] = value
@@ -9267,12 +10829,26 @@ class SurfacePropertiesVaporCoefficients(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `constant_external_vapor_transfer_coefficient`')
-            vals = set()
-            vals.add("Yes")
-            vals.add("No")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `constant_external_vapor_transfer_coefficient`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `constant_external_vapor_transfer_coefficient`')
+            vals = {}
+            vals["yes"] = "Yes"
+            vals["no"] = "No"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `constant_external_vapor_transfer_coefficient`'.format(value))
+            value = vals[value_lower]
 
         self._data["Constant External Vapor Transfer Coefficient"] = value
 
@@ -9346,12 +10922,26 @@ class SurfacePropertiesVaporCoefficients(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `constant_internal_vapor_transfer_coefficient`')
-            vals = set()
-            vals.add("Yes")
-            vals.add("No")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `constant_internal_vapor_transfer_coefficient`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `constant_internal_vapor_transfer_coefficient`')
+            vals = {}
+            vals["yes"] = "Yes"
+            vals["no"] = "No"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `constant_internal_vapor_transfer_coefficient`'.format(value))
+            value = vals[value_lower]
 
         self._data["Constant Internal vapor Transfer Coefficient"] = value
 
@@ -9413,14 +11003,17 @@ class SurfacePropertiesVaporCoefficients(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.surface_name))
-        out.append(self._to_str(self.constant_external_vapor_transfer_coefficient))
-        out.append(self._to_str(self.external_vapor_coefficient_value))
-        out.append(self._to_str(self.constant_internal_vapor_transfer_coefficient))
-        out.append(self._to_str(self.internal_vapor_coefficient_value))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class SurfacePropertyExteriorNaturalVentedCavity(object):
     """ Corresponds to IDD object `SurfaceProperty:ExteriorNaturalVentedCavity`
@@ -9458,119 +11051,163 @@ class SurfacePropertyExteriorNaturalVentedCavity(object):
         self._data["Surface 8 Name"] = None
         self._data["Surface 9 Name"] = None
         self._data["Surface 10 Name"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.boundary_conditions_model_name = None
         else:
             self.boundary_conditions_model_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.area_fraction_of_openings = None
         else:
             self.area_fraction_of_openings = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.thermal_emissivity_of_exterior_baffle_material = None
         else:
             self.thermal_emissivity_of_exterior_baffle_material = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.solar_absorbtivity_of_exterior_baffle = None
         else:
             self.solar_absorbtivity_of_exterior_baffle = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.height_scale_for_buoyancydriven_ventilation = None
         else:
             self.height_scale_for_buoyancydriven_ventilation = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.effective_thickness_of_cavity_behind_exterior_baffle = None
         else:
             self.effective_thickness_of_cavity_behind_exterior_baffle = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.ratio_of_actual_surface_area_to_projected_surface_area = None
         else:
             self.ratio_of_actual_surface_area_to_projected_surface_area = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.roughness_of_exterior_surface = None
         else:
             self.roughness_of_exterior_surface = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.effectiveness_for_perforations_with_respect_to_wind = None
         else:
             self.effectiveness_for_perforations_with_respect_to_wind = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.discharge_coefficient_for_openings_with_respect_to_buoyancy_driven_flow = None
         else:
             self.discharge_coefficient_for_openings_with_respect_to_buoyancy_driven_flow = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_1_name = None
         else:
             self.surface_1_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_2_name = None
         else:
             self.surface_2_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_3_name = None
         else:
             self.surface_3_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_4_name = None
         else:
             self.surface_4_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_5_name = None
         else:
             self.surface_5_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_6_name = None
         else:
             self.surface_6_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_7_name = None
         else:
             self.surface_7_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_8_name = None
         else:
             self.surface_8_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_9_name = None
         else:
             self.surface_9_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_10_name = None
         else:
             self.surface_10_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -9601,6 +11238,9 @@ class SurfacePropertyExteriorNaturalVentedCavity(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -9635,6 +11275,9 @@ class SurfacePropertyExteriorNaturalVentedCavity(object):
                                  'for field `boundary_conditions_model_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `boundary_conditions_model_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `boundary_conditions_model_name`')
 
         self._data["Boundary Conditions Model Name"] = value
@@ -9905,16 +11548,30 @@ class SurfacePropertyExteriorNaturalVentedCavity(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `roughness_of_exterior_surface`')
-            vals = set()
-            vals.add("VeryRough")
-            vals.add("Rough")
-            vals.add("MediumRough")
-            vals.add("MediumSmooth")
-            vals.add("Smooth")
-            vals.add("VerySmooth")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `roughness_of_exterior_surface`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `roughness_of_exterior_surface`')
+            vals = {}
+            vals["veryrough"] = "VeryRough"
+            vals["rough"] = "Rough"
+            vals["mediumrough"] = "MediumRough"
+            vals["mediumsmooth"] = "MediumSmooth"
+            vals["smooth"] = "Smooth"
+            vals["verysmooth"] = "VerySmooth"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `roughness_of_exterior_surface`'.format(value))
+            value = vals[value_lower]
 
         self._data["Roughness of Exterior Surface"] = value
 
@@ -10028,6 +11685,9 @@ class SurfacePropertyExteriorNaturalVentedCavity(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_1_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_1_name`')
 
         self._data["Surface 1 Name"] = value
 
@@ -10060,6 +11720,9 @@ class SurfacePropertyExteriorNaturalVentedCavity(object):
                                  'for field `surface_2_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_2_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_2_name`')
 
         self._data["Surface 2 Name"] = value
@@ -10094,6 +11757,9 @@ class SurfacePropertyExteriorNaturalVentedCavity(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_3_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_3_name`')
 
         self._data["Surface 3 Name"] = value
 
@@ -10126,6 +11792,9 @@ class SurfacePropertyExteriorNaturalVentedCavity(object):
                                  'for field `surface_4_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_4_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_4_name`')
 
         self._data["Surface 4 Name"] = value
@@ -10160,6 +11829,9 @@ class SurfacePropertyExteriorNaturalVentedCavity(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_5_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_5_name`')
 
         self._data["Surface 5 Name"] = value
 
@@ -10192,6 +11864,9 @@ class SurfacePropertyExteriorNaturalVentedCavity(object):
                                  'for field `surface_6_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_6_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_6_name`')
 
         self._data["Surface 6 Name"] = value
@@ -10226,6 +11901,9 @@ class SurfacePropertyExteriorNaturalVentedCavity(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_7_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_7_name`')
 
         self._data["Surface 7 Name"] = value
 
@@ -10258,6 +11936,9 @@ class SurfacePropertyExteriorNaturalVentedCavity(object):
                                  'for field `surface_8_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_8_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_8_name`')
 
         self._data["Surface 8 Name"] = value
@@ -10292,6 +11973,9 @@ class SurfacePropertyExteriorNaturalVentedCavity(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_9_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_9_name`')
 
         self._data["Surface 9 Name"] = value
 
@@ -10325,6 +12009,9 @@ class SurfacePropertyExteriorNaturalVentedCavity(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_10_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_10_name`')
 
         self._data["Surface 10 Name"] = value
 
@@ -10350,30 +12037,17 @@ class SurfacePropertyExteriorNaturalVentedCavity(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.boundary_conditions_model_name))
-        out.append(self._to_str(self.area_fraction_of_openings))
-        out.append(self._to_str(self.thermal_emissivity_of_exterior_baffle_material))
-        out.append(self._to_str(self.solar_absorbtivity_of_exterior_baffle))
-        out.append(self._to_str(self.height_scale_for_buoyancydriven_ventilation))
-        out.append(self._to_str(self.effective_thickness_of_cavity_behind_exterior_baffle))
-        out.append(self._to_str(self.ratio_of_actual_surface_area_to_projected_surface_area))
-        out.append(self._to_str(self.roughness_of_exterior_surface))
-        out.append(self._to_str(self.effectiveness_for_perforations_with_respect_to_wind))
-        out.append(self._to_str(self.discharge_coefficient_for_openings_with_respect_to_buoyancy_driven_flow))
-        out.append(self._to_str(self.surface_1_name))
-        out.append(self._to_str(self.surface_2_name))
-        out.append(self._to_str(self.surface_3_name))
-        out.append(self._to_str(self.surface_4_name))
-        out.append(self._to_str(self.surface_5_name))
-        out.append(self._to_str(self.surface_6_name))
-        out.append(self._to_str(self.surface_7_name))
-        out.append(self._to_str(self.surface_8_name))
-        out.append(self._to_str(self.surface_9_name))
-        out.append(self._to_str(self.surface_10_name))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class SurfacePropertySolarIncidentInside(object):
     """ Corresponds to IDD object `SurfaceProperty:SolarIncidentInside`
@@ -10393,34 +12067,44 @@ class SurfacePropertySolarIncidentInside(object):
         self._data["Surface Name"] = None
         self._data["Construction Name"] = None
         self._data["Inside Surface Incident Sun Solar Radiation Schedule Name"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_name = None
         else:
             self.surface_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.construction_name = None
         else:
             self.construction_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.inside_surface_incident_sun_solar_radiation_schedule_name = None
         else:
             self.inside_surface_incident_sun_solar_radiation_schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -10451,6 +12135,9 @@ class SurfacePropertySolarIncidentInside(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -10485,6 +12172,9 @@ class SurfacePropertySolarIncidentInside(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_name`')
 
         self._data["Surface Name"] = value
 
@@ -10517,6 +12207,9 @@ class SurfacePropertySolarIncidentInside(object):
                                  'for field `construction_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `construction_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `construction_name`')
 
         self._data["Construction Name"] = value
@@ -10551,6 +12244,9 @@ class SurfacePropertySolarIncidentInside(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `inside_surface_incident_sun_solar_radiation_schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `inside_surface_incident_sun_solar_radiation_schedule_name`')
 
         self._data["Inside Surface Incident Sun Solar Radiation Schedule Name"] = value
 
@@ -10576,13 +12272,17 @@ class SurfacePropertySolarIncidentInside(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.surface_name))
-        out.append(self._to_str(self.construction_name))
-        out.append(self._to_str(self.inside_surface_incident_sun_solar_radiation_schedule_name))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class ComplexFenestrationPropertySolarAbsorbedLayers(object):
     """ Corresponds to IDD object `ComplexFenestrationProperty:SolarAbsorbedLayers`
@@ -10606,54 +12306,72 @@ class ComplexFenestrationPropertySolarAbsorbedLayers(object):
         self._data["Layer 3 Solar Radiation Absorbed Schedule Name"] = None
         self._data["Layer 4 Solar Radiation Absorbed Schedule Name"] = None
         self._data["Layer 5 Solar Radiation Absorbed Schedule Name"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fenestration_surface = None
         else:
             self.fenestration_surface = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.construction_name = None
         else:
             self.construction_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.layer_1_solar_radiation_absorbed_schedule_name = None
         else:
             self.layer_1_solar_radiation_absorbed_schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.layer_2_solar_radiation_absorbed_schedule_name = None
         else:
             self.layer_2_solar_radiation_absorbed_schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.layer_3_solar_radiation_absorbed_schedule_name = None
         else:
             self.layer_3_solar_radiation_absorbed_schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.layer_4_solar_radiation_absorbed_schedule_name = None
         else:
             self.layer_4_solar_radiation_absorbed_schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.layer_5_solar_radiation_absorbed_schedule_name = None
         else:
             self.layer_5_solar_radiation_absorbed_schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -10684,6 +12402,9 @@ class ComplexFenestrationPropertySolarAbsorbedLayers(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -10718,6 +12439,9 @@ class ComplexFenestrationPropertySolarAbsorbedLayers(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `fenestration_surface`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `fenestration_surface`')
 
         self._data["Fenestration Surface"] = value
 
@@ -10750,6 +12474,9 @@ class ComplexFenestrationPropertySolarAbsorbedLayers(object):
                                  'for field `construction_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `construction_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `construction_name`')
 
         self._data["Construction Name"] = value
@@ -10784,6 +12511,9 @@ class ComplexFenestrationPropertySolarAbsorbedLayers(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `layer_1_solar_radiation_absorbed_schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `layer_1_solar_radiation_absorbed_schedule_name`')
 
         self._data["Layer 1 Solar Radiation Absorbed Schedule Name"] = value
 
@@ -10816,6 +12546,9 @@ class ComplexFenestrationPropertySolarAbsorbedLayers(object):
                                  'for field `layer_2_solar_radiation_absorbed_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `layer_2_solar_radiation_absorbed_schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `layer_2_solar_radiation_absorbed_schedule_name`')
 
         self._data["Layer 2 Solar Radiation Absorbed Schedule Name"] = value
@@ -10850,6 +12583,9 @@ class ComplexFenestrationPropertySolarAbsorbedLayers(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `layer_3_solar_radiation_absorbed_schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `layer_3_solar_radiation_absorbed_schedule_name`')
 
         self._data["Layer 3 Solar Radiation Absorbed Schedule Name"] = value
 
@@ -10882,6 +12618,9 @@ class ComplexFenestrationPropertySolarAbsorbedLayers(object):
                                  'for field `layer_4_solar_radiation_absorbed_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `layer_4_solar_radiation_absorbed_schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `layer_4_solar_radiation_absorbed_schedule_name`')
 
         self._data["Layer 4 Solar Radiation Absorbed Schedule Name"] = value
@@ -10916,6 +12655,9 @@ class ComplexFenestrationPropertySolarAbsorbedLayers(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `layer_5_solar_radiation_absorbed_schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `layer_5_solar_radiation_absorbed_schedule_name`')
 
         self._data["Layer 5 Solar Radiation Absorbed Schedule Name"] = value
 
@@ -10941,17 +12683,17 @@ class ComplexFenestrationPropertySolarAbsorbedLayers(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.fenestration_surface))
-        out.append(self._to_str(self.construction_name))
-        out.append(self._to_str(self.layer_1_solar_radiation_absorbed_schedule_name))
-        out.append(self._to_str(self.layer_2_solar_radiation_absorbed_schedule_name))
-        out.append(self._to_str(self.layer_3_solar_radiation_absorbed_schedule_name))
-        out.append(self._to_str(self.layer_4_solar_radiation_absorbed_schedule_name))
-        out.append(self._to_str(self.layer_5_solar_radiation_absorbed_schedule_name))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class ZonePropertyUserViewFactorsBySurfaceName(object):
     """ Corresponds to IDD object `ZoneProperty:UserViewFactors:bySurfaceName`
@@ -11331,1834 +13073,2564 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         self._data["From Surface 121"] = None
         self._data["To Surface 121"] = None
         self._data["View Factor 121"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.zone_name = None
         else:
             self.zone_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.from_surface_1 = None
         else:
             self.from_surface_1 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.to_surface_1 = None
         else:
             self.to_surface_1 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.view_factor_1 = None
         else:
             self.view_factor_1 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.from_surface_2 = None
         else:
             self.from_surface_2 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.to_surface_2 = None
         else:
             self.to_surface_2 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.view_factor_2 = None
         else:
             self.view_factor_2 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.from_surface_3 = None
         else:
             self.from_surface_3 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.to_surface_3 = None
         else:
             self.to_surface_3 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.view_factor_3 = None
         else:
             self.view_factor_3 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.from_surface_4 = None
         else:
             self.from_surface_4 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.to_surface_4 = None
         else:
             self.to_surface_4 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.view_factor_4 = None
         else:
             self.view_factor_4 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.from_surface_5 = None
         else:
             self.from_surface_5 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.to_surface_5 = None
         else:
             self.to_surface_5 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.view_factor_5 = None
         else:
             self.view_factor_5 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.from_surface_6 = None
         else:
             self.from_surface_6 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.to_surface_6 = None
         else:
             self.to_surface_6 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.view_factor_6 = None
         else:
             self.view_factor_6 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.from_surface_7 = None
         else:
             self.from_surface_7 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.to_surface_7 = None
         else:
             self.to_surface_7 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.view_factor_7 = None
         else:
             self.view_factor_7 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.from_surface_8 = None
         else:
             self.from_surface_8 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.to_surface_8 = None
         else:
             self.to_surface_8 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.view_factor_8 = None
         else:
             self.view_factor_8 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.from_surface_9 = None
         else:
             self.from_surface_9 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.to_surface_9 = None
         else:
             self.to_surface_9 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.view_factor_9 = None
         else:
             self.view_factor_9 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.from_surface_10 = None
         else:
             self.from_surface_10 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.to_surface_10 = None
         else:
             self.to_surface_10 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.view_factor_10 = None
         else:
             self.view_factor_10 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.from_surface_11 = None
         else:
             self.from_surface_11 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.to_surface_11 = None
         else:
             self.to_surface_11 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.view_factor_11 = None
         else:
             self.view_factor_11 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.from_surface_12 = None
         else:
             self.from_surface_12 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.to_surface_12 = None
         else:
             self.to_surface_12 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.view_factor_12 = None
         else:
             self.view_factor_12 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.from_surface_13 = None
         else:
             self.from_surface_13 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.to_surface_13 = None
         else:
             self.to_surface_13 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.view_factor_13 = None
         else:
             self.view_factor_13 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.from_surface_14 = None
         else:
             self.from_surface_14 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.to_surface_14 = None
         else:
             self.to_surface_14 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.view_factor_14 = None
         else:
             self.view_factor_14 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.from_surface_15 = None
         else:
             self.from_surface_15 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.to_surface_15 = None
         else:
             self.to_surface_15 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.view_factor_15 = None
         else:
             self.view_factor_15 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.from_surface_16 = None
         else:
             self.from_surface_16 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.to_surface_16 = None
         else:
             self.to_surface_16 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.view_factor_16 = None
         else:
             self.view_factor_16 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.from_surface_17 = None
         else:
             self.from_surface_17 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.to_surface_17 = None
         else:
             self.to_surface_17 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.view_factor_17 = None
         else:
             self.view_factor_17 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.from_surface_18 = None
         else:
             self.from_surface_18 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.to_surface_18 = None
         else:
             self.to_surface_18 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.view_factor_18 = None
         else:
             self.view_factor_18 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.from_surface_19 = None
         else:
             self.from_surface_19 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.to_surface_19 = None
         else:
             self.to_surface_19 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.view_factor_19 = None
         else:
             self.view_factor_19 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.from_surface_20 = None
         else:
             self.from_surface_20 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.to_surface_20 = None
         else:
             self.to_surface_20 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.view_factor_20 = None
         else:
             self.view_factor_20 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.from_surface_21 = None
         else:
             self.from_surface_21 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.to_surface_21 = None
         else:
             self.to_surface_21 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.view_factor_21 = None
         else:
             self.view_factor_21 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.from_surface_22 = None
         else:
             self.from_surface_22 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.to_surface_22 = None
         else:
             self.to_surface_22 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.view_factor_22 = None
         else:
             self.view_factor_22 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.from_surface_23 = None
         else:
             self.from_surface_23 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.to_surface_23 = None
         else:
             self.to_surface_23 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.view_factor_23 = None
         else:
             self.view_factor_23 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.from_surface_24 = None
         else:
             self.from_surface_24 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.to_surface_24 = None
         else:
             self.to_surface_24 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.view_factor_24 = None
         else:
             self.view_factor_24 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.from_surface_25 = None
         else:
             self.from_surface_25 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.to_surface_25 = None
         else:
             self.to_surface_25 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.view_factor_25 = None
         else:
             self.view_factor_25 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.from_surface_26 = None
         else:
             self.from_surface_26 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.to_surface_26 = None
         else:
             self.to_surface_26 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.view_factor_26 = None
         else:
             self.view_factor_26 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.from_surface_27 = None
         else:
             self.from_surface_27 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.to_surface_27 = None
         else:
             self.to_surface_27 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.view_factor_27 = None
         else:
             self.view_factor_27 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.from_surface_28 = None
         else:
             self.from_surface_28 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.to_surface_28 = None
         else:
             self.to_surface_28 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.view_factor_28 = None
         else:
             self.view_factor_28 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.from_surface_29 = None
         else:
             self.from_surface_29 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.to_surface_29 = None
         else:
             self.to_surface_29 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.view_factor_29 = None
         else:
             self.view_factor_29 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.from_surface_30 = None
         else:
             self.from_surface_30 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.to_surface_30 = None
         else:
             self.to_surface_30 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.view_factor_30 = None
         else:
             self.view_factor_30 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.from_surface_31 = None
         else:
             self.from_surface_31 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.to_surface_31 = None
         else:
             self.to_surface_31 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.view_factor_31 = None
         else:
             self.view_factor_31 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.from_surface_32 = None
         else:
             self.from_surface_32 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.to_surface_32 = None
         else:
             self.to_surface_32 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.view_factor_32 = None
         else:
             self.view_factor_32 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.from_surface_33 = None
         else:
             self.from_surface_33 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.to_surface_33 = None
         else:
             self.to_surface_33 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.view_factor_33 = None
         else:
             self.view_factor_33 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.from_surface_34 = None
         else:
             self.from_surface_34 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.to_surface_34 = None
         else:
             self.to_surface_34 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.view_factor_34 = None
         else:
             self.view_factor_34 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.from_surface_35 = None
         else:
             self.from_surface_35 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.to_surface_35 = None
         else:
             self.to_surface_35 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.view_factor_35 = None
         else:
             self.view_factor_35 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.from_surface_36 = None
         else:
             self.from_surface_36 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.to_surface_36 = None
         else:
             self.to_surface_36 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.view_factor_36 = None
         else:
             self.view_factor_36 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.from_surface_37 = None
         else:
             self.from_surface_37 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.to_surface_37 = None
         else:
             self.to_surface_37 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.view_factor_37 = None
         else:
             self.view_factor_37 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.from_surface_38 = None
         else:
             self.from_surface_38 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.to_surface_38 = None
         else:
             self.to_surface_38 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.view_factor_38 = None
         else:
             self.view_factor_38 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.from_surface_39 = None
         else:
             self.from_surface_39 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.to_surface_39 = None
         else:
             self.to_surface_39 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.view_factor_39 = None
         else:
             self.view_factor_39 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.from_surface_40 = None
         else:
             self.from_surface_40 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.to_surface_40 = None
         else:
             self.to_surface_40 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.view_factor_40 = None
         else:
             self.view_factor_40 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.from_surface_41 = None
         else:
             self.from_surface_41 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.to_surface_41 = None
         else:
             self.to_surface_41 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.view_factor_41 = None
         else:
             self.view_factor_41 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.from_surface_42 = None
         else:
             self.from_surface_42 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.to_surface_42 = None
         else:
             self.to_surface_42 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.view_factor_42 = None
         else:
             self.view_factor_42 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.from_surface_43 = None
         else:
             self.from_surface_43 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.to_surface_43 = None
         else:
             self.to_surface_43 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.view_factor_43 = None
         else:
             self.view_factor_43 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.from_surface_44 = None
         else:
             self.from_surface_44 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.to_surface_44 = None
         else:
             self.to_surface_44 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.view_factor_44 = None
         else:
             self.view_factor_44 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.from_surface_45 = None
         else:
             self.from_surface_45 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.to_surface_45 = None
         else:
             self.to_surface_45 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.view_factor_45 = None
         else:
             self.view_factor_45 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.from_surface_46 = None
         else:
             self.from_surface_46 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.to_surface_46 = None
         else:
             self.to_surface_46 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.view_factor_46 = None
         else:
             self.view_factor_46 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.from_surface_47 = None
         else:
             self.from_surface_47 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.to_surface_47 = None
         else:
             self.to_surface_47 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.view_factor_47 = None
         else:
             self.view_factor_47 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.from_surface_48 = None
         else:
             self.from_surface_48 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.to_surface_48 = None
         else:
             self.to_surface_48 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.view_factor_48 = None
         else:
             self.view_factor_48 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.from_surface_49 = None
         else:
             self.from_surface_49 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.to_surface_49 = None
         else:
             self.to_surface_49 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.view_factor_49 = None
         else:
             self.view_factor_49 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.from_surface_50 = None
         else:
             self.from_surface_50 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.to_surface_50 = None
         else:
             self.to_surface_50 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.view_factor_50 = None
         else:
             self.view_factor_50 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.from_surface_51 = None
         else:
             self.from_surface_51 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.to_surface_51 = None
         else:
             self.to_surface_51 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.view_factor_51 = None
         else:
             self.view_factor_51 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.from_surface_52 = None
         else:
             self.from_surface_52 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.to_surface_52 = None
         else:
             self.to_surface_52 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.view_factor_52 = None
         else:
             self.view_factor_52 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.from_surface_53 = None
         else:
             self.from_surface_53 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.to_surface_53 = None
         else:
             self.to_surface_53 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.view_factor_53 = None
         else:
             self.view_factor_53 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.from_surface_54 = None
         else:
             self.from_surface_54 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.to_surface_54 = None
         else:
             self.to_surface_54 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.view_factor_54 = None
         else:
             self.view_factor_54 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.from_surface_55 = None
         else:
             self.from_surface_55 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.to_surface_55 = None
         else:
             self.to_surface_55 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.view_factor_55 = None
         else:
             self.view_factor_55 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.from_surface_56 = None
         else:
             self.from_surface_56 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.to_surface_56 = None
         else:
             self.to_surface_56 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.view_factor_56 = None
         else:
             self.view_factor_56 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.from_surface_57 = None
         else:
             self.from_surface_57 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.to_surface_57 = None
         else:
             self.to_surface_57 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.view_factor_57 = None
         else:
             self.view_factor_57 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.from_surface_58 = None
         else:
             self.from_surface_58 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.to_surface_58 = None
         else:
             self.to_surface_58 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.view_factor_58 = None
         else:
             self.view_factor_58 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.from_surface_59 = None
         else:
             self.from_surface_59 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.to_surface_59 = None
         else:
             self.to_surface_59 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.view_factor_59 = None
         else:
             self.view_factor_59 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.from_surface_60 = None
         else:
             self.from_surface_60 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.to_surface_60 = None
         else:
             self.to_surface_60 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.view_factor_60 = None
         else:
             self.view_factor_60 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.from_surface_61 = None
         else:
             self.from_surface_61 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.to_surface_61 = None
         else:
             self.to_surface_61 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.view_factor_61 = None
         else:
             self.view_factor_61 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.from_surface_62 = None
         else:
             self.from_surface_62 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.to_surface_62 = None
         else:
             self.to_surface_62 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.view_factor_62 = None
         else:
             self.view_factor_62 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.from_surface_63 = None
         else:
             self.from_surface_63 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.to_surface_63 = None
         else:
             self.to_surface_63 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.view_factor_63 = None
         else:
             self.view_factor_63 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.from_surface_64 = None
         else:
             self.from_surface_64 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.to_surface_64 = None
         else:
             self.to_surface_64 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.view_factor_64 = None
         else:
             self.view_factor_64 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.from_surface_65 = None
         else:
             self.from_surface_65 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.to_surface_65 = None
         else:
             self.to_surface_65 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.view_factor_65 = None
         else:
             self.view_factor_65 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.from_surface_66 = None
         else:
             self.from_surface_66 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.to_surface_66 = None
         else:
             self.to_surface_66 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.view_factor_66 = None
         else:
             self.view_factor_66 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.from_surface_67 = None
         else:
             self.from_surface_67 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.to_surface_67 = None
         else:
             self.to_surface_67 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.view_factor_67 = None
         else:
             self.view_factor_67 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.from_surface_68 = None
         else:
             self.from_surface_68 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.to_surface_68 = None
         else:
             self.to_surface_68 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.view_factor_68 = None
         else:
             self.view_factor_68 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.from_surface_69 = None
         else:
             self.from_surface_69 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.to_surface_69 = None
         else:
             self.to_surface_69 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.view_factor_69 = None
         else:
             self.view_factor_69 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.from_surface_70 = None
         else:
             self.from_surface_70 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.to_surface_70 = None
         else:
             self.to_surface_70 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.view_factor_70 = None
         else:
             self.view_factor_70 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.from_surface_71 = None
         else:
             self.from_surface_71 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.to_surface_71 = None
         else:
             self.to_surface_71 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.view_factor_71 = None
         else:
             self.view_factor_71 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.from_surface_72 = None
         else:
             self.from_surface_72 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.to_surface_72 = None
         else:
             self.to_surface_72 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.view_factor_72 = None
         else:
             self.view_factor_72 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.from_surface_73 = None
         else:
             self.from_surface_73 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.to_surface_73 = None
         else:
             self.to_surface_73 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.view_factor_73 = None
         else:
             self.view_factor_73 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.from_surface_74 = None
         else:
             self.from_surface_74 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.to_surface_74 = None
         else:
             self.to_surface_74 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.view_factor_74 = None
         else:
             self.view_factor_74 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.from_surface_75 = None
         else:
             self.from_surface_75 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.to_surface_75 = None
         else:
             self.to_surface_75 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.view_factor_75 = None
         else:
             self.view_factor_75 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.from_surface_76 = None
         else:
             self.from_surface_76 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.to_surface_76 = None
         else:
             self.to_surface_76 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.view_factor_76 = None
         else:
             self.view_factor_76 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.from_surface_77 = None
         else:
             self.from_surface_77 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.to_surface_77 = None
         else:
             self.to_surface_77 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.view_factor_77 = None
         else:
             self.view_factor_77 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.from_surface_78 = None
         else:
             self.from_surface_78 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.to_surface_78 = None
         else:
             self.to_surface_78 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.view_factor_78 = None
         else:
             self.view_factor_78 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.from_surface_79 = None
         else:
             self.from_surface_79 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.to_surface_79 = None
         else:
             self.to_surface_79 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.view_factor_79 = None
         else:
             self.view_factor_79 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.from_surface_80 = None
         else:
             self.from_surface_80 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.to_surface_80 = None
         else:
             self.to_surface_80 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.view_factor_80 = None
         else:
             self.view_factor_80 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.from_surface_81 = None
         else:
             self.from_surface_81 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.to_surface_81 = None
         else:
             self.to_surface_81 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.view_factor_81 = None
         else:
             self.view_factor_81 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.from_surface_82 = None
         else:
             self.from_surface_82 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.to_surface_82 = None
         else:
             self.to_surface_82 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.view_factor_82 = None
         else:
             self.view_factor_82 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.from_surface_83 = None
         else:
             self.from_surface_83 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.to_surface_83 = None
         else:
             self.to_surface_83 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.view_factor_83 = None
         else:
             self.view_factor_83 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.from_surface_84 = None
         else:
             self.from_surface_84 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.to_surface_84 = None
         else:
             self.to_surface_84 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.view_factor_84 = None
         else:
             self.view_factor_84 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.from_surface_85 = None
         else:
             self.from_surface_85 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.to_surface_85 = None
         else:
             self.to_surface_85 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.view_factor_85 = None
         else:
             self.view_factor_85 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.from_surface_86 = None
         else:
             self.from_surface_86 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.to_surface_86 = None
         else:
             self.to_surface_86 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.view_factor_86 = None
         else:
             self.view_factor_86 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.from_surface_87 = None
         else:
             self.from_surface_87 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.to_surface_87 = None
         else:
             self.to_surface_87 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.view_factor_87 = None
         else:
             self.view_factor_87 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.from_surface_88 = None
         else:
             self.from_surface_88 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.to_surface_88 = None
         else:
             self.to_surface_88 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.view_factor_88 = None
         else:
             self.view_factor_88 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.from_surface_89 = None
         else:
             self.from_surface_89 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.to_surface_89 = None
         else:
             self.to_surface_89 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.view_factor_89 = None
         else:
             self.view_factor_89 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.from_surface_90 = None
         else:
             self.from_surface_90 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.to_surface_90 = None
         else:
             self.to_surface_90 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.view_factor_90 = None
         else:
             self.view_factor_90 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.from_surface_91 = None
         else:
             self.from_surface_91 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.to_surface_91 = None
         else:
             self.to_surface_91 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.view_factor_91 = None
         else:
             self.view_factor_91 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.from_surface_92 = None
         else:
             self.from_surface_92 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.to_surface_92 = None
         else:
             self.to_surface_92 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.view_factor_92 = None
         else:
             self.view_factor_92 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.from_surface_93 = None
         else:
             self.from_surface_93 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.to_surface_93 = None
         else:
             self.to_surface_93 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.view_factor_93 = None
         else:
             self.view_factor_93 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.from_surface_94 = None
         else:
             self.from_surface_94 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.to_surface_94 = None
         else:
             self.to_surface_94 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.view_factor_94 = None
         else:
             self.view_factor_94 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.from_surface_95 = None
         else:
             self.from_surface_95 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.to_surface_95 = None
         else:
             self.to_surface_95 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.view_factor_95 = None
         else:
             self.view_factor_95 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.from_surface_96 = None
         else:
             self.from_surface_96 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.to_surface_96 = None
         else:
             self.to_surface_96 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.view_factor_96 = None
         else:
             self.view_factor_96 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.from_surface_97 = None
         else:
             self.from_surface_97 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.to_surface_97 = None
         else:
             self.to_surface_97 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.view_factor_97 = None
         else:
             self.view_factor_97 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.from_surface_98 = None
         else:
             self.from_surface_98 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.to_surface_98 = None
         else:
             self.to_surface_98 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.view_factor_98 = None
         else:
             self.view_factor_98 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.from_surface_99 = None
         else:
             self.from_surface_99 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.to_surface_99 = None
         else:
             self.to_surface_99 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.view_factor_99 = None
         else:
             self.view_factor_99 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.from_surface_100 = None
         else:
             self.from_surface_100 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.to_surface_100 = None
         else:
             self.to_surface_100 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.view_factor_100 = None
         else:
             self.view_factor_100 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.from_surface_101 = None
         else:
             self.from_surface_101 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.to_surface_101 = None
         else:
             self.to_surface_101 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.view_factor_101 = None
         else:
             self.view_factor_101 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.from_surface_102 = None
         else:
             self.from_surface_102 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.to_surface_102 = None
         else:
             self.to_surface_102 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.view_factor_102 = None
         else:
             self.view_factor_102 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.from_surface_103 = None
         else:
             self.from_surface_103 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.to_surface_103 = None
         else:
             self.to_surface_103 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.view_factor_103 = None
         else:
             self.view_factor_103 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.from_surface_104 = None
         else:
             self.from_surface_104 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.to_surface_104 = None
         else:
             self.to_surface_104 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.view_factor_104 = None
         else:
             self.view_factor_104 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.from_surface_105 = None
         else:
             self.from_surface_105 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.to_surface_105 = None
         else:
             self.to_surface_105 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.view_factor_105 = None
         else:
             self.view_factor_105 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.from_surface_106 = None
         else:
             self.from_surface_106 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.to_surface_106 = None
         else:
             self.to_surface_106 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.view_factor_106 = None
         else:
             self.view_factor_106 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.from_surface_107 = None
         else:
             self.from_surface_107 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.to_surface_107 = None
         else:
             self.to_surface_107 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.view_factor_107 = None
         else:
             self.view_factor_107 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.from_surface_108 = None
         else:
             self.from_surface_108 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.to_surface_108 = None
         else:
             self.to_surface_108 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.view_factor_108 = None
         else:
             self.view_factor_108 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.from_surface_109 = None
         else:
             self.from_surface_109 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.to_surface_109 = None
         else:
             self.to_surface_109 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.view_factor_109 = None
         else:
             self.view_factor_109 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.from_surface_110 = None
         else:
             self.from_surface_110 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.to_surface_110 = None
         else:
             self.to_surface_110 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.view_factor_110 = None
         else:
             self.view_factor_110 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.from_surface_111 = None
         else:
             self.from_surface_111 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.to_surface_111 = None
         else:
             self.to_surface_111 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.view_factor_111 = None
         else:
             self.view_factor_111 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.from_surface_112 = None
         else:
             self.from_surface_112 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.to_surface_112 = None
         else:
             self.to_surface_112 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.view_factor_112 = None
         else:
             self.view_factor_112 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.from_surface_113 = None
         else:
             self.from_surface_113 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.to_surface_113 = None
         else:
             self.to_surface_113 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.view_factor_113 = None
         else:
             self.view_factor_113 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.from_surface_114 = None
         else:
             self.from_surface_114 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.to_surface_114 = None
         else:
             self.to_surface_114 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.view_factor_114 = None
         else:
             self.view_factor_114 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.from_surface_115 = None
         else:
             self.from_surface_115 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.to_surface_115 = None
         else:
             self.to_surface_115 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.view_factor_115 = None
         else:
             self.view_factor_115 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.from_surface_116 = None
         else:
             self.from_surface_116 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.to_surface_116 = None
         else:
             self.to_surface_116 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.view_factor_116 = None
         else:
             self.view_factor_116 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.from_surface_117 = None
         else:
             self.from_surface_117 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.to_surface_117 = None
         else:
             self.to_surface_117 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.view_factor_117 = None
         else:
             self.view_factor_117 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.from_surface_118 = None
         else:
             self.from_surface_118 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.to_surface_118 = None
         else:
             self.to_surface_118 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.view_factor_118 = None
         else:
             self.view_factor_118 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.from_surface_119 = None
         else:
             self.from_surface_119 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.to_surface_119 = None
         else:
             self.to_surface_119 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.view_factor_119 = None
         else:
             self.view_factor_119 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.from_surface_120 = None
         else:
             self.from_surface_120 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.to_surface_120 = None
         else:
             self.to_surface_120 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.view_factor_120 = None
         else:
             self.view_factor_120 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.from_surface_121 = None
         else:
             self.from_surface_121 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.to_surface_121 = None
         else:
             self.to_surface_121 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.view_factor_121 = None
         else:
             self.view_factor_121 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def zone_name(self):
@@ -13189,6 +15661,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
                                  'for field `zone_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `zone_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `zone_name`')
 
         self._data["Zone Name"] = value
@@ -13223,6 +15698,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `from_surface_1`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `from_surface_1`')
 
         self._data["From Surface 1"] = value
 
@@ -13255,6 +15733,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
                                  'for field `to_surface_1`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `to_surface_1`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `to_surface_1`')
 
         self._data["To Surface 1"] = value
@@ -13324,6 +15805,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `from_surface_2`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `from_surface_2`')
 
         self._data["From Surface 2"] = value
 
@@ -13356,6 +15840,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
                                  'for field `to_surface_2`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `to_surface_2`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `to_surface_2`')
 
         self._data["To Surface 2"] = value
@@ -13425,6 +15912,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `from_surface_3`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `from_surface_3`')
 
         self._data["From Surface 3"] = value
 
@@ -13457,6 +15947,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
                                  'for field `to_surface_3`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `to_surface_3`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `to_surface_3`')
 
         self._data["To Surface 3"] = value
@@ -13526,6 +16019,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `from_surface_4`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `from_surface_4`')
 
         self._data["From Surface 4"] = value
 
@@ -13558,6 +16054,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
                                  'for field `to_surface_4`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `to_surface_4`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `to_surface_4`')
 
         self._data["To Surface 4"] = value
@@ -13627,6 +16126,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `from_surface_5`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `from_surface_5`')
 
         self._data["From Surface 5"] = value
 
@@ -13659,6 +16161,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
                                  'for field `to_surface_5`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `to_surface_5`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `to_surface_5`')
 
         self._data["To Surface 5"] = value
@@ -13728,6 +16233,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `from_surface_6`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `from_surface_6`')
 
         self._data["From Surface 6"] = value
 
@@ -13760,6 +16268,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
                                  'for field `to_surface_6`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `to_surface_6`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `to_surface_6`')
 
         self._data["To Surface 6"] = value
@@ -13829,6 +16340,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `from_surface_7`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `from_surface_7`')
 
         self._data["From Surface 7"] = value
 
@@ -13861,6 +16375,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
                                  'for field `to_surface_7`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `to_surface_7`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `to_surface_7`')
 
         self._data["To Surface 7"] = value
@@ -13930,6 +16447,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `from_surface_8`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `from_surface_8`')
 
         self._data["From Surface 8"] = value
 
@@ -13962,6 +16482,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
                                  'for field `to_surface_8`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `to_surface_8`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `to_surface_8`')
 
         self._data["To Surface 8"] = value
@@ -14031,6 +16554,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `from_surface_9`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `from_surface_9`')
 
         self._data["From Surface 9"] = value
 
@@ -14063,6 +16589,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
                                  'for field `to_surface_9`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `to_surface_9`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `to_surface_9`')
 
         self._data["To Surface 9"] = value
@@ -14132,6 +16661,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `from_surface_10`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `from_surface_10`')
 
         self._data["From Surface 10"] = value
 
@@ -14164,6 +16696,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
                                  'for field `to_surface_10`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `to_surface_10`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `to_surface_10`')
 
         self._data["To Surface 10"] = value
@@ -14233,6 +16768,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `from_surface_11`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `from_surface_11`')
 
         self._data["From Surface 11"] = value
 
@@ -14265,6 +16803,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
                                  'for field `to_surface_11`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `to_surface_11`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `to_surface_11`')
 
         self._data["To Surface 11"] = value
@@ -14334,6 +16875,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `from_surface_12`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `from_surface_12`')
 
         self._data["From Surface 12"] = value
 
@@ -14366,6 +16910,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
                                  'for field `to_surface_12`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `to_surface_12`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `to_surface_12`')
 
         self._data["To Surface 12"] = value
@@ -14435,6 +16982,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `from_surface_13`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `from_surface_13`')
 
         self._data["From Surface 13"] = value
 
@@ -14467,6 +17017,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
                                  'for field `to_surface_13`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `to_surface_13`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `to_surface_13`')
 
         self._data["To Surface 13"] = value
@@ -14536,6 +17089,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `from_surface_14`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `from_surface_14`')
 
         self._data["From Surface 14"] = value
 
@@ -14568,6 +17124,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
                                  'for field `to_surface_14`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `to_surface_14`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `to_surface_14`')
 
         self._data["To Surface 14"] = value
@@ -14637,6 +17196,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `from_surface_15`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `from_surface_15`')
 
         self._data["From Surface 15"] = value
 
@@ -14669,6 +17231,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
                                  'for field `to_surface_15`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `to_surface_15`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `to_surface_15`')
 
         self._data["To Surface 15"] = value
@@ -14738,6 +17303,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `from_surface_16`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `from_surface_16`')
 
         self._data["From Surface 16"] = value
 
@@ -14770,6 +17338,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
                                  'for field `to_surface_16`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `to_surface_16`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `to_surface_16`')
 
         self._data["To Surface 16"] = value
@@ -14839,6 +17410,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `from_surface_17`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `from_surface_17`')
 
         self._data["From Surface 17"] = value
 
@@ -14871,6 +17445,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
                                  'for field `to_surface_17`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `to_surface_17`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `to_surface_17`')
 
         self._data["To Surface 17"] = value
@@ -14940,6 +17517,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `from_surface_18`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `from_surface_18`')
 
         self._data["From Surface 18"] = value
 
@@ -14972,6 +17552,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
                                  'for field `to_surface_18`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `to_surface_18`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `to_surface_18`')
 
         self._data["To Surface 18"] = value
@@ -15041,6 +17624,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `from_surface_19`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `from_surface_19`')
 
         self._data["From Surface 19"] = value
 
@@ -15073,6 +17659,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
                                  'for field `to_surface_19`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `to_surface_19`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `to_surface_19`')
 
         self._data["To Surface 19"] = value
@@ -15142,6 +17731,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `from_surface_20`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `from_surface_20`')
 
         self._data["From Surface 20"] = value
 
@@ -15174,6 +17766,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
                                  'for field `to_surface_20`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `to_surface_20`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `to_surface_20`')
 
         self._data["To Surface 20"] = value
@@ -15243,6 +17838,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `from_surface_21`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `from_surface_21`')
 
         self._data["From Surface 21"] = value
 
@@ -15275,6 +17873,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
                                  'for field `to_surface_21`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `to_surface_21`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `to_surface_21`')
 
         self._data["To Surface 21"] = value
@@ -15344,6 +17945,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `from_surface_22`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `from_surface_22`')
 
         self._data["From Surface 22"] = value
 
@@ -15376,6 +17980,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
                                  'for field `to_surface_22`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `to_surface_22`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `to_surface_22`')
 
         self._data["To Surface 22"] = value
@@ -15445,6 +18052,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `from_surface_23`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `from_surface_23`')
 
         self._data["From Surface 23"] = value
 
@@ -15477,6 +18087,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
                                  'for field `to_surface_23`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `to_surface_23`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `to_surface_23`')
 
         self._data["To Surface 23"] = value
@@ -15546,6 +18159,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `from_surface_24`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `from_surface_24`')
 
         self._data["From Surface 24"] = value
 
@@ -15578,6 +18194,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
                                  'for field `to_surface_24`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `to_surface_24`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `to_surface_24`')
 
         self._data["To Surface 24"] = value
@@ -15647,6 +18266,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `from_surface_25`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `from_surface_25`')
 
         self._data["From Surface 25"] = value
 
@@ -15679,6 +18301,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
                                  'for field `to_surface_25`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `to_surface_25`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `to_surface_25`')
 
         self._data["To Surface 25"] = value
@@ -15748,6 +18373,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `from_surface_26`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `from_surface_26`')
 
         self._data["From Surface 26"] = value
 
@@ -15780,6 +18408,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
                                  'for field `to_surface_26`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `to_surface_26`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `to_surface_26`')
 
         self._data["To Surface 26"] = value
@@ -15849,6 +18480,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `from_surface_27`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `from_surface_27`')
 
         self._data["From Surface 27"] = value
 
@@ -15881,6 +18515,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
                                  'for field `to_surface_27`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `to_surface_27`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `to_surface_27`')
 
         self._data["To Surface 27"] = value
@@ -15950,6 +18587,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `from_surface_28`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `from_surface_28`')
 
         self._data["From Surface 28"] = value
 
@@ -15982,6 +18622,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
                                  'for field `to_surface_28`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `to_surface_28`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `to_surface_28`')
 
         self._data["To Surface 28"] = value
@@ -16051,6 +18694,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `from_surface_29`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `from_surface_29`')
 
         self._data["From Surface 29"] = value
 
@@ -16083,6 +18729,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
                                  'for field `to_surface_29`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `to_surface_29`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `to_surface_29`')
 
         self._data["To Surface 29"] = value
@@ -16152,6 +18801,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `from_surface_30`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `from_surface_30`')
 
         self._data["From Surface 30"] = value
 
@@ -16184,6 +18836,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
                                  'for field `to_surface_30`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `to_surface_30`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `to_surface_30`')
 
         self._data["To Surface 30"] = value
@@ -16253,6 +18908,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `from_surface_31`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `from_surface_31`')
 
         self._data["From Surface 31"] = value
 
@@ -16285,6 +18943,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
                                  'for field `to_surface_31`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `to_surface_31`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `to_surface_31`')
 
         self._data["To Surface 31"] = value
@@ -16354,6 +19015,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `from_surface_32`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `from_surface_32`')
 
         self._data["From Surface 32"] = value
 
@@ -16386,6 +19050,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
                                  'for field `to_surface_32`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `to_surface_32`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `to_surface_32`')
 
         self._data["To Surface 32"] = value
@@ -16455,6 +19122,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `from_surface_33`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `from_surface_33`')
 
         self._data["From Surface 33"] = value
 
@@ -16487,6 +19157,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
                                  'for field `to_surface_33`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `to_surface_33`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `to_surface_33`')
 
         self._data["To Surface 33"] = value
@@ -16556,6 +19229,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `from_surface_34`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `from_surface_34`')
 
         self._data["From Surface 34"] = value
 
@@ -16588,6 +19264,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
                                  'for field `to_surface_34`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `to_surface_34`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `to_surface_34`')
 
         self._data["To Surface 34"] = value
@@ -16657,6 +19336,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `from_surface_35`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `from_surface_35`')
 
         self._data["From Surface 35"] = value
 
@@ -16689,6 +19371,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
                                  'for field `to_surface_35`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `to_surface_35`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `to_surface_35`')
 
         self._data["To Surface 35"] = value
@@ -16758,6 +19443,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `from_surface_36`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `from_surface_36`')
 
         self._data["From Surface 36"] = value
 
@@ -16790,6 +19478,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
                                  'for field `to_surface_36`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `to_surface_36`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `to_surface_36`')
 
         self._data["To Surface 36"] = value
@@ -16859,6 +19550,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `from_surface_37`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `from_surface_37`')
 
         self._data["From Surface 37"] = value
 
@@ -16891,6 +19585,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
                                  'for field `to_surface_37`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `to_surface_37`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `to_surface_37`')
 
         self._data["To Surface 37"] = value
@@ -16960,6 +19657,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `from_surface_38`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `from_surface_38`')
 
         self._data["From Surface 38"] = value
 
@@ -16992,6 +19692,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
                                  'for field `to_surface_38`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `to_surface_38`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `to_surface_38`')
 
         self._data["To Surface 38"] = value
@@ -17061,6 +19764,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `from_surface_39`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `from_surface_39`')
 
         self._data["From Surface 39"] = value
 
@@ -17093,6 +19799,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
                                  'for field `to_surface_39`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `to_surface_39`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `to_surface_39`')
 
         self._data["To Surface 39"] = value
@@ -17162,6 +19871,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `from_surface_40`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `from_surface_40`')
 
         self._data["From Surface 40"] = value
 
@@ -17194,6 +19906,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
                                  'for field `to_surface_40`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `to_surface_40`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `to_surface_40`')
 
         self._data["To Surface 40"] = value
@@ -17263,6 +19978,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `from_surface_41`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `from_surface_41`')
 
         self._data["From Surface 41"] = value
 
@@ -17295,6 +20013,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
                                  'for field `to_surface_41`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `to_surface_41`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `to_surface_41`')
 
         self._data["To Surface 41"] = value
@@ -17364,6 +20085,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `from_surface_42`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `from_surface_42`')
 
         self._data["From Surface 42"] = value
 
@@ -17396,6 +20120,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
                                  'for field `to_surface_42`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `to_surface_42`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `to_surface_42`')
 
         self._data["To Surface 42"] = value
@@ -17465,6 +20192,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `from_surface_43`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `from_surface_43`')
 
         self._data["From Surface 43"] = value
 
@@ -17497,6 +20227,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
                                  'for field `to_surface_43`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `to_surface_43`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `to_surface_43`')
 
         self._data["To Surface 43"] = value
@@ -17566,6 +20299,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `from_surface_44`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `from_surface_44`')
 
         self._data["From Surface 44"] = value
 
@@ -17598,6 +20334,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
                                  'for field `to_surface_44`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `to_surface_44`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `to_surface_44`')
 
         self._data["To Surface 44"] = value
@@ -17667,6 +20406,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `from_surface_45`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `from_surface_45`')
 
         self._data["From Surface 45"] = value
 
@@ -17699,6 +20441,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
                                  'for field `to_surface_45`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `to_surface_45`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `to_surface_45`')
 
         self._data["To Surface 45"] = value
@@ -17768,6 +20513,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `from_surface_46`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `from_surface_46`')
 
         self._data["From Surface 46"] = value
 
@@ -17800,6 +20548,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
                                  'for field `to_surface_46`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `to_surface_46`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `to_surface_46`')
 
         self._data["To Surface 46"] = value
@@ -17869,6 +20620,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `from_surface_47`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `from_surface_47`')
 
         self._data["From Surface 47"] = value
 
@@ -17901,6 +20655,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
                                  'for field `to_surface_47`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `to_surface_47`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `to_surface_47`')
 
         self._data["To Surface 47"] = value
@@ -17970,6 +20727,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `from_surface_48`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `from_surface_48`')
 
         self._data["From Surface 48"] = value
 
@@ -18002,6 +20762,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
                                  'for field `to_surface_48`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `to_surface_48`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `to_surface_48`')
 
         self._data["To Surface 48"] = value
@@ -18071,6 +20834,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `from_surface_49`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `from_surface_49`')
 
         self._data["From Surface 49"] = value
 
@@ -18103,6 +20869,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
                                  'for field `to_surface_49`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `to_surface_49`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `to_surface_49`')
 
         self._data["To Surface 49"] = value
@@ -18172,6 +20941,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `from_surface_50`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `from_surface_50`')
 
         self._data["From Surface 50"] = value
 
@@ -18204,6 +20976,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
                                  'for field `to_surface_50`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `to_surface_50`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `to_surface_50`')
 
         self._data["To Surface 50"] = value
@@ -18273,6 +21048,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `from_surface_51`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `from_surface_51`')
 
         self._data["From Surface 51"] = value
 
@@ -18305,6 +21083,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
                                  'for field `to_surface_51`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `to_surface_51`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `to_surface_51`')
 
         self._data["To Surface 51"] = value
@@ -18374,6 +21155,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `from_surface_52`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `from_surface_52`')
 
         self._data["From Surface 52"] = value
 
@@ -18406,6 +21190,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
                                  'for field `to_surface_52`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `to_surface_52`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `to_surface_52`')
 
         self._data["To Surface 52"] = value
@@ -18475,6 +21262,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `from_surface_53`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `from_surface_53`')
 
         self._data["From Surface 53"] = value
 
@@ -18507,6 +21297,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
                                  'for field `to_surface_53`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `to_surface_53`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `to_surface_53`')
 
         self._data["To Surface 53"] = value
@@ -18576,6 +21369,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `from_surface_54`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `from_surface_54`')
 
         self._data["From Surface 54"] = value
 
@@ -18608,6 +21404,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
                                  'for field `to_surface_54`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `to_surface_54`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `to_surface_54`')
 
         self._data["To Surface 54"] = value
@@ -18677,6 +21476,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `from_surface_55`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `from_surface_55`')
 
         self._data["From Surface 55"] = value
 
@@ -18709,6 +21511,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
                                  'for field `to_surface_55`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `to_surface_55`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `to_surface_55`')
 
         self._data["To Surface 55"] = value
@@ -18778,6 +21583,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `from_surface_56`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `from_surface_56`')
 
         self._data["From Surface 56"] = value
 
@@ -18810,6 +21618,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
                                  'for field `to_surface_56`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `to_surface_56`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `to_surface_56`')
 
         self._data["To Surface 56"] = value
@@ -18879,6 +21690,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `from_surface_57`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `from_surface_57`')
 
         self._data["From Surface 57"] = value
 
@@ -18911,6 +21725,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
                                  'for field `to_surface_57`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `to_surface_57`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `to_surface_57`')
 
         self._data["To Surface 57"] = value
@@ -18980,6 +21797,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `from_surface_58`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `from_surface_58`')
 
         self._data["From Surface 58"] = value
 
@@ -19012,6 +21832,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
                                  'for field `to_surface_58`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `to_surface_58`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `to_surface_58`')
 
         self._data["To Surface 58"] = value
@@ -19081,6 +21904,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `from_surface_59`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `from_surface_59`')
 
         self._data["From Surface 59"] = value
 
@@ -19113,6 +21939,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
                                  'for field `to_surface_59`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `to_surface_59`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `to_surface_59`')
 
         self._data["To Surface 59"] = value
@@ -19182,6 +22011,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `from_surface_60`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `from_surface_60`')
 
         self._data["From Surface 60"] = value
 
@@ -19214,6 +22046,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
                                  'for field `to_surface_60`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `to_surface_60`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `to_surface_60`')
 
         self._data["To Surface 60"] = value
@@ -19283,6 +22118,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `from_surface_61`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `from_surface_61`')
 
         self._data["From Surface 61"] = value
 
@@ -19315,6 +22153,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
                                  'for field `to_surface_61`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `to_surface_61`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `to_surface_61`')
 
         self._data["To Surface 61"] = value
@@ -19384,6 +22225,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `from_surface_62`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `from_surface_62`')
 
         self._data["From Surface 62"] = value
 
@@ -19416,6 +22260,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
                                  'for field `to_surface_62`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `to_surface_62`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `to_surface_62`')
 
         self._data["To Surface 62"] = value
@@ -19485,6 +22332,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `from_surface_63`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `from_surface_63`')
 
         self._data["From Surface 63"] = value
 
@@ -19517,6 +22367,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
                                  'for field `to_surface_63`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `to_surface_63`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `to_surface_63`')
 
         self._data["To Surface 63"] = value
@@ -19586,6 +22439,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `from_surface_64`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `from_surface_64`')
 
         self._data["From Surface 64"] = value
 
@@ -19618,6 +22474,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
                                  'for field `to_surface_64`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `to_surface_64`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `to_surface_64`')
 
         self._data["To Surface 64"] = value
@@ -19687,6 +22546,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `from_surface_65`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `from_surface_65`')
 
         self._data["From Surface 65"] = value
 
@@ -19719,6 +22581,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
                                  'for field `to_surface_65`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `to_surface_65`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `to_surface_65`')
 
         self._data["To Surface 65"] = value
@@ -19788,6 +22653,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `from_surface_66`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `from_surface_66`')
 
         self._data["From Surface 66"] = value
 
@@ -19820,6 +22688,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
                                  'for field `to_surface_66`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `to_surface_66`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `to_surface_66`')
 
         self._data["To Surface 66"] = value
@@ -19889,6 +22760,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `from_surface_67`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `from_surface_67`')
 
         self._data["From Surface 67"] = value
 
@@ -19921,6 +22795,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
                                  'for field `to_surface_67`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `to_surface_67`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `to_surface_67`')
 
         self._data["To Surface 67"] = value
@@ -19990,6 +22867,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `from_surface_68`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `from_surface_68`')
 
         self._data["From Surface 68"] = value
 
@@ -20022,6 +22902,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
                                  'for field `to_surface_68`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `to_surface_68`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `to_surface_68`')
 
         self._data["To Surface 68"] = value
@@ -20091,6 +22974,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `from_surface_69`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `from_surface_69`')
 
         self._data["From Surface 69"] = value
 
@@ -20123,6 +23009,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
                                  'for field `to_surface_69`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `to_surface_69`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `to_surface_69`')
 
         self._data["To Surface 69"] = value
@@ -20192,6 +23081,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `from_surface_70`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `from_surface_70`')
 
         self._data["From Surface 70"] = value
 
@@ -20224,6 +23116,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
                                  'for field `to_surface_70`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `to_surface_70`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `to_surface_70`')
 
         self._data["To Surface 70"] = value
@@ -20293,6 +23188,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `from_surface_71`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `from_surface_71`')
 
         self._data["From Surface 71"] = value
 
@@ -20325,6 +23223,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
                                  'for field `to_surface_71`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `to_surface_71`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `to_surface_71`')
 
         self._data["To Surface 71"] = value
@@ -20394,6 +23295,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `from_surface_72`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `from_surface_72`')
 
         self._data["From Surface 72"] = value
 
@@ -20426,6 +23330,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
                                  'for field `to_surface_72`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `to_surface_72`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `to_surface_72`')
 
         self._data["To Surface 72"] = value
@@ -20495,6 +23402,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `from_surface_73`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `from_surface_73`')
 
         self._data["From Surface 73"] = value
 
@@ -20527,6 +23437,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
                                  'for field `to_surface_73`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `to_surface_73`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `to_surface_73`')
 
         self._data["To Surface 73"] = value
@@ -20596,6 +23509,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `from_surface_74`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `from_surface_74`')
 
         self._data["From Surface 74"] = value
 
@@ -20628,6 +23544,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
                                  'for field `to_surface_74`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `to_surface_74`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `to_surface_74`')
 
         self._data["To Surface 74"] = value
@@ -20697,6 +23616,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `from_surface_75`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `from_surface_75`')
 
         self._data["From Surface 75"] = value
 
@@ -20729,6 +23651,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
                                  'for field `to_surface_75`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `to_surface_75`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `to_surface_75`')
 
         self._data["To Surface 75"] = value
@@ -20798,6 +23723,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `from_surface_76`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `from_surface_76`')
 
         self._data["From Surface 76"] = value
 
@@ -20830,6 +23758,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
                                  'for field `to_surface_76`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `to_surface_76`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `to_surface_76`')
 
         self._data["To Surface 76"] = value
@@ -20899,6 +23830,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `from_surface_77`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `from_surface_77`')
 
         self._data["From Surface 77"] = value
 
@@ -20931,6 +23865,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
                                  'for field `to_surface_77`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `to_surface_77`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `to_surface_77`')
 
         self._data["To Surface 77"] = value
@@ -21000,6 +23937,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `from_surface_78`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `from_surface_78`')
 
         self._data["From Surface 78"] = value
 
@@ -21032,6 +23972,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
                                  'for field `to_surface_78`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `to_surface_78`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `to_surface_78`')
 
         self._data["To Surface 78"] = value
@@ -21101,6 +24044,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `from_surface_79`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `from_surface_79`')
 
         self._data["From Surface 79"] = value
 
@@ -21133,6 +24079,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
                                  'for field `to_surface_79`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `to_surface_79`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `to_surface_79`')
 
         self._data["To Surface 79"] = value
@@ -21202,6 +24151,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `from_surface_80`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `from_surface_80`')
 
         self._data["From Surface 80"] = value
 
@@ -21234,6 +24186,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
                                  'for field `to_surface_80`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `to_surface_80`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `to_surface_80`')
 
         self._data["To Surface 80"] = value
@@ -21303,6 +24258,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `from_surface_81`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `from_surface_81`')
 
         self._data["From Surface 81"] = value
 
@@ -21335,6 +24293,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
                                  'for field `to_surface_81`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `to_surface_81`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `to_surface_81`')
 
         self._data["To Surface 81"] = value
@@ -21404,6 +24365,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `from_surface_82`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `from_surface_82`')
 
         self._data["From Surface 82"] = value
 
@@ -21436,6 +24400,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
                                  'for field `to_surface_82`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `to_surface_82`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `to_surface_82`')
 
         self._data["To Surface 82"] = value
@@ -21505,6 +24472,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `from_surface_83`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `from_surface_83`')
 
         self._data["From Surface 83"] = value
 
@@ -21537,6 +24507,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
                                  'for field `to_surface_83`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `to_surface_83`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `to_surface_83`')
 
         self._data["To Surface 83"] = value
@@ -21606,6 +24579,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `from_surface_84`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `from_surface_84`')
 
         self._data["From Surface 84"] = value
 
@@ -21638,6 +24614,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
                                  'for field `to_surface_84`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `to_surface_84`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `to_surface_84`')
 
         self._data["To Surface 84"] = value
@@ -21707,6 +24686,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `from_surface_85`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `from_surface_85`')
 
         self._data["From Surface 85"] = value
 
@@ -21739,6 +24721,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
                                  'for field `to_surface_85`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `to_surface_85`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `to_surface_85`')
 
         self._data["To Surface 85"] = value
@@ -21808,6 +24793,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `from_surface_86`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `from_surface_86`')
 
         self._data["From Surface 86"] = value
 
@@ -21840,6 +24828,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
                                  'for field `to_surface_86`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `to_surface_86`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `to_surface_86`')
 
         self._data["To Surface 86"] = value
@@ -21909,6 +24900,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `from_surface_87`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `from_surface_87`')
 
         self._data["From Surface 87"] = value
 
@@ -21941,6 +24935,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
                                  'for field `to_surface_87`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `to_surface_87`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `to_surface_87`')
 
         self._data["To Surface 87"] = value
@@ -22010,6 +25007,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `from_surface_88`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `from_surface_88`')
 
         self._data["From Surface 88"] = value
 
@@ -22042,6 +25042,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
                                  'for field `to_surface_88`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `to_surface_88`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `to_surface_88`')
 
         self._data["To Surface 88"] = value
@@ -22111,6 +25114,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `from_surface_89`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `from_surface_89`')
 
         self._data["From Surface 89"] = value
 
@@ -22143,6 +25149,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
                                  'for field `to_surface_89`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `to_surface_89`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `to_surface_89`')
 
         self._data["To Surface 89"] = value
@@ -22212,6 +25221,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `from_surface_90`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `from_surface_90`')
 
         self._data["From Surface 90"] = value
 
@@ -22244,6 +25256,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
                                  'for field `to_surface_90`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `to_surface_90`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `to_surface_90`')
 
         self._data["To Surface 90"] = value
@@ -22313,6 +25328,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `from_surface_91`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `from_surface_91`')
 
         self._data["From Surface 91"] = value
 
@@ -22345,6 +25363,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
                                  'for field `to_surface_91`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `to_surface_91`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `to_surface_91`')
 
         self._data["To Surface 91"] = value
@@ -22414,6 +25435,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `from_surface_92`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `from_surface_92`')
 
         self._data["From Surface 92"] = value
 
@@ -22446,6 +25470,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
                                  'for field `to_surface_92`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `to_surface_92`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `to_surface_92`')
 
         self._data["To Surface 92"] = value
@@ -22515,6 +25542,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `from_surface_93`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `from_surface_93`')
 
         self._data["From Surface 93"] = value
 
@@ -22547,6 +25577,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
                                  'for field `to_surface_93`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `to_surface_93`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `to_surface_93`')
 
         self._data["To Surface 93"] = value
@@ -22616,6 +25649,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `from_surface_94`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `from_surface_94`')
 
         self._data["From Surface 94"] = value
 
@@ -22648,6 +25684,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
                                  'for field `to_surface_94`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `to_surface_94`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `to_surface_94`')
 
         self._data["To Surface 94"] = value
@@ -22717,6 +25756,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `from_surface_95`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `from_surface_95`')
 
         self._data["From Surface 95"] = value
 
@@ -22749,6 +25791,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
                                  'for field `to_surface_95`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `to_surface_95`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `to_surface_95`')
 
         self._data["To Surface 95"] = value
@@ -22818,6 +25863,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `from_surface_96`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `from_surface_96`')
 
         self._data["From Surface 96"] = value
 
@@ -22850,6 +25898,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
                                  'for field `to_surface_96`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `to_surface_96`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `to_surface_96`')
 
         self._data["To Surface 96"] = value
@@ -22919,6 +25970,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `from_surface_97`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `from_surface_97`')
 
         self._data["From Surface 97"] = value
 
@@ -22951,6 +26005,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
                                  'for field `to_surface_97`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `to_surface_97`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `to_surface_97`')
 
         self._data["To Surface 97"] = value
@@ -23020,6 +26077,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `from_surface_98`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `from_surface_98`')
 
         self._data["From Surface 98"] = value
 
@@ -23052,6 +26112,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
                                  'for field `to_surface_98`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `to_surface_98`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `to_surface_98`')
 
         self._data["To Surface 98"] = value
@@ -23121,6 +26184,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `from_surface_99`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `from_surface_99`')
 
         self._data["From Surface 99"] = value
 
@@ -23153,6 +26219,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
                                  'for field `to_surface_99`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `to_surface_99`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `to_surface_99`')
 
         self._data["To Surface 99"] = value
@@ -23222,6 +26291,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `from_surface_100`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `from_surface_100`')
 
         self._data["From Surface 100"] = value
 
@@ -23254,6 +26326,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
                                  'for field `to_surface_100`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `to_surface_100`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `to_surface_100`')
 
         self._data["To Surface 100"] = value
@@ -23323,6 +26398,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `from_surface_101`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `from_surface_101`')
 
         self._data["From Surface 101"] = value
 
@@ -23355,6 +26433,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
                                  'for field `to_surface_101`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `to_surface_101`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `to_surface_101`')
 
         self._data["To Surface 101"] = value
@@ -23424,6 +26505,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `from_surface_102`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `from_surface_102`')
 
         self._data["From Surface 102"] = value
 
@@ -23456,6 +26540,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
                                  'for field `to_surface_102`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `to_surface_102`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `to_surface_102`')
 
         self._data["To Surface 102"] = value
@@ -23525,6 +26612,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `from_surface_103`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `from_surface_103`')
 
         self._data["From Surface 103"] = value
 
@@ -23557,6 +26647,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
                                  'for field `to_surface_103`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `to_surface_103`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `to_surface_103`')
 
         self._data["To Surface 103"] = value
@@ -23626,6 +26719,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `from_surface_104`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `from_surface_104`')
 
         self._data["From Surface 104"] = value
 
@@ -23658,6 +26754,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
                                  'for field `to_surface_104`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `to_surface_104`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `to_surface_104`')
 
         self._data["To Surface 104"] = value
@@ -23727,6 +26826,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `from_surface_105`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `from_surface_105`')
 
         self._data["From Surface 105"] = value
 
@@ -23759,6 +26861,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
                                  'for field `to_surface_105`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `to_surface_105`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `to_surface_105`')
 
         self._data["To Surface 105"] = value
@@ -23828,6 +26933,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `from_surface_106`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `from_surface_106`')
 
         self._data["From Surface 106"] = value
 
@@ -23860,6 +26968,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
                                  'for field `to_surface_106`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `to_surface_106`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `to_surface_106`')
 
         self._data["To Surface 106"] = value
@@ -23929,6 +27040,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `from_surface_107`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `from_surface_107`')
 
         self._data["From Surface 107"] = value
 
@@ -23961,6 +27075,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
                                  'for field `to_surface_107`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `to_surface_107`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `to_surface_107`')
 
         self._data["To Surface 107"] = value
@@ -24030,6 +27147,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `from_surface_108`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `from_surface_108`')
 
         self._data["From Surface 108"] = value
 
@@ -24062,6 +27182,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
                                  'for field `to_surface_108`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `to_surface_108`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `to_surface_108`')
 
         self._data["To Surface 108"] = value
@@ -24131,6 +27254,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `from_surface_109`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `from_surface_109`')
 
         self._data["From Surface 109"] = value
 
@@ -24163,6 +27289,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
                                  'for field `to_surface_109`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `to_surface_109`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `to_surface_109`')
 
         self._data["To Surface 109"] = value
@@ -24232,6 +27361,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `from_surface_110`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `from_surface_110`')
 
         self._data["From Surface 110"] = value
 
@@ -24264,6 +27396,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
                                  'for field `to_surface_110`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `to_surface_110`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `to_surface_110`')
 
         self._data["To Surface 110"] = value
@@ -24333,6 +27468,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `from_surface_111`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `from_surface_111`')
 
         self._data["From Surface 111"] = value
 
@@ -24365,6 +27503,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
                                  'for field `to_surface_111`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `to_surface_111`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `to_surface_111`')
 
         self._data["To Surface 111"] = value
@@ -24434,6 +27575,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `from_surface_112`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `from_surface_112`')
 
         self._data["From Surface 112"] = value
 
@@ -24466,6 +27610,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
                                  'for field `to_surface_112`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `to_surface_112`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `to_surface_112`')
 
         self._data["To Surface 112"] = value
@@ -24535,6 +27682,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `from_surface_113`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `from_surface_113`')
 
         self._data["From Surface 113"] = value
 
@@ -24567,6 +27717,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
                                  'for field `to_surface_113`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `to_surface_113`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `to_surface_113`')
 
         self._data["To Surface 113"] = value
@@ -24636,6 +27789,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `from_surface_114`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `from_surface_114`')
 
         self._data["From Surface 114"] = value
 
@@ -24668,6 +27824,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
                                  'for field `to_surface_114`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `to_surface_114`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `to_surface_114`')
 
         self._data["To Surface 114"] = value
@@ -24737,6 +27896,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `from_surface_115`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `from_surface_115`')
 
         self._data["From Surface 115"] = value
 
@@ -24769,6 +27931,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
                                  'for field `to_surface_115`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `to_surface_115`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `to_surface_115`')
 
         self._data["To Surface 115"] = value
@@ -24838,6 +28003,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `from_surface_116`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `from_surface_116`')
 
         self._data["From Surface 116"] = value
 
@@ -24870,6 +28038,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
                                  'for field `to_surface_116`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `to_surface_116`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `to_surface_116`')
 
         self._data["To Surface 116"] = value
@@ -24939,6 +28110,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `from_surface_117`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `from_surface_117`')
 
         self._data["From Surface 117"] = value
 
@@ -24971,6 +28145,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
                                  'for field `to_surface_117`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `to_surface_117`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `to_surface_117`')
 
         self._data["To Surface 117"] = value
@@ -25040,6 +28217,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `from_surface_118`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `from_surface_118`')
 
         self._data["From Surface 118"] = value
 
@@ -25072,6 +28252,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
                                  'for field `to_surface_118`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `to_surface_118`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `to_surface_118`')
 
         self._data["To Surface 118"] = value
@@ -25141,6 +28324,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `from_surface_119`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `from_surface_119`')
 
         self._data["From Surface 119"] = value
 
@@ -25173,6 +28359,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
                                  'for field `to_surface_119`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `to_surface_119`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `to_surface_119`')
 
         self._data["To Surface 119"] = value
@@ -25242,6 +28431,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `from_surface_120`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `from_surface_120`')
 
         self._data["From Surface 120"] = value
 
@@ -25274,6 +28466,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
                                  'for field `to_surface_120`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `to_surface_120`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `to_surface_120`')
 
         self._data["To Surface 120"] = value
@@ -25343,6 +28538,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `from_surface_121`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `from_surface_121`')
 
         self._data["From Surface 121"] = value
 
@@ -25375,6 +28573,9 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
                                  'for field `to_surface_121`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `to_surface_121`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `to_surface_121`')
 
         self._data["To Surface 121"] = value
@@ -25436,370 +28637,14 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.zone_name))
-        out.append(self._to_str(self.from_surface_1))
-        out.append(self._to_str(self.to_surface_1))
-        out.append(self._to_str(self.view_factor_1))
-        out.append(self._to_str(self.from_surface_2))
-        out.append(self._to_str(self.to_surface_2))
-        out.append(self._to_str(self.view_factor_2))
-        out.append(self._to_str(self.from_surface_3))
-        out.append(self._to_str(self.to_surface_3))
-        out.append(self._to_str(self.view_factor_3))
-        out.append(self._to_str(self.from_surface_4))
-        out.append(self._to_str(self.to_surface_4))
-        out.append(self._to_str(self.view_factor_4))
-        out.append(self._to_str(self.from_surface_5))
-        out.append(self._to_str(self.to_surface_5))
-        out.append(self._to_str(self.view_factor_5))
-        out.append(self._to_str(self.from_surface_6))
-        out.append(self._to_str(self.to_surface_6))
-        out.append(self._to_str(self.view_factor_6))
-        out.append(self._to_str(self.from_surface_7))
-        out.append(self._to_str(self.to_surface_7))
-        out.append(self._to_str(self.view_factor_7))
-        out.append(self._to_str(self.from_surface_8))
-        out.append(self._to_str(self.to_surface_8))
-        out.append(self._to_str(self.view_factor_8))
-        out.append(self._to_str(self.from_surface_9))
-        out.append(self._to_str(self.to_surface_9))
-        out.append(self._to_str(self.view_factor_9))
-        out.append(self._to_str(self.from_surface_10))
-        out.append(self._to_str(self.to_surface_10))
-        out.append(self._to_str(self.view_factor_10))
-        out.append(self._to_str(self.from_surface_11))
-        out.append(self._to_str(self.to_surface_11))
-        out.append(self._to_str(self.view_factor_11))
-        out.append(self._to_str(self.from_surface_12))
-        out.append(self._to_str(self.to_surface_12))
-        out.append(self._to_str(self.view_factor_12))
-        out.append(self._to_str(self.from_surface_13))
-        out.append(self._to_str(self.to_surface_13))
-        out.append(self._to_str(self.view_factor_13))
-        out.append(self._to_str(self.from_surface_14))
-        out.append(self._to_str(self.to_surface_14))
-        out.append(self._to_str(self.view_factor_14))
-        out.append(self._to_str(self.from_surface_15))
-        out.append(self._to_str(self.to_surface_15))
-        out.append(self._to_str(self.view_factor_15))
-        out.append(self._to_str(self.from_surface_16))
-        out.append(self._to_str(self.to_surface_16))
-        out.append(self._to_str(self.view_factor_16))
-        out.append(self._to_str(self.from_surface_17))
-        out.append(self._to_str(self.to_surface_17))
-        out.append(self._to_str(self.view_factor_17))
-        out.append(self._to_str(self.from_surface_18))
-        out.append(self._to_str(self.to_surface_18))
-        out.append(self._to_str(self.view_factor_18))
-        out.append(self._to_str(self.from_surface_19))
-        out.append(self._to_str(self.to_surface_19))
-        out.append(self._to_str(self.view_factor_19))
-        out.append(self._to_str(self.from_surface_20))
-        out.append(self._to_str(self.to_surface_20))
-        out.append(self._to_str(self.view_factor_20))
-        out.append(self._to_str(self.from_surface_21))
-        out.append(self._to_str(self.to_surface_21))
-        out.append(self._to_str(self.view_factor_21))
-        out.append(self._to_str(self.from_surface_22))
-        out.append(self._to_str(self.to_surface_22))
-        out.append(self._to_str(self.view_factor_22))
-        out.append(self._to_str(self.from_surface_23))
-        out.append(self._to_str(self.to_surface_23))
-        out.append(self._to_str(self.view_factor_23))
-        out.append(self._to_str(self.from_surface_24))
-        out.append(self._to_str(self.to_surface_24))
-        out.append(self._to_str(self.view_factor_24))
-        out.append(self._to_str(self.from_surface_25))
-        out.append(self._to_str(self.to_surface_25))
-        out.append(self._to_str(self.view_factor_25))
-        out.append(self._to_str(self.from_surface_26))
-        out.append(self._to_str(self.to_surface_26))
-        out.append(self._to_str(self.view_factor_26))
-        out.append(self._to_str(self.from_surface_27))
-        out.append(self._to_str(self.to_surface_27))
-        out.append(self._to_str(self.view_factor_27))
-        out.append(self._to_str(self.from_surface_28))
-        out.append(self._to_str(self.to_surface_28))
-        out.append(self._to_str(self.view_factor_28))
-        out.append(self._to_str(self.from_surface_29))
-        out.append(self._to_str(self.to_surface_29))
-        out.append(self._to_str(self.view_factor_29))
-        out.append(self._to_str(self.from_surface_30))
-        out.append(self._to_str(self.to_surface_30))
-        out.append(self._to_str(self.view_factor_30))
-        out.append(self._to_str(self.from_surface_31))
-        out.append(self._to_str(self.to_surface_31))
-        out.append(self._to_str(self.view_factor_31))
-        out.append(self._to_str(self.from_surface_32))
-        out.append(self._to_str(self.to_surface_32))
-        out.append(self._to_str(self.view_factor_32))
-        out.append(self._to_str(self.from_surface_33))
-        out.append(self._to_str(self.to_surface_33))
-        out.append(self._to_str(self.view_factor_33))
-        out.append(self._to_str(self.from_surface_34))
-        out.append(self._to_str(self.to_surface_34))
-        out.append(self._to_str(self.view_factor_34))
-        out.append(self._to_str(self.from_surface_35))
-        out.append(self._to_str(self.to_surface_35))
-        out.append(self._to_str(self.view_factor_35))
-        out.append(self._to_str(self.from_surface_36))
-        out.append(self._to_str(self.to_surface_36))
-        out.append(self._to_str(self.view_factor_36))
-        out.append(self._to_str(self.from_surface_37))
-        out.append(self._to_str(self.to_surface_37))
-        out.append(self._to_str(self.view_factor_37))
-        out.append(self._to_str(self.from_surface_38))
-        out.append(self._to_str(self.to_surface_38))
-        out.append(self._to_str(self.view_factor_38))
-        out.append(self._to_str(self.from_surface_39))
-        out.append(self._to_str(self.to_surface_39))
-        out.append(self._to_str(self.view_factor_39))
-        out.append(self._to_str(self.from_surface_40))
-        out.append(self._to_str(self.to_surface_40))
-        out.append(self._to_str(self.view_factor_40))
-        out.append(self._to_str(self.from_surface_41))
-        out.append(self._to_str(self.to_surface_41))
-        out.append(self._to_str(self.view_factor_41))
-        out.append(self._to_str(self.from_surface_42))
-        out.append(self._to_str(self.to_surface_42))
-        out.append(self._to_str(self.view_factor_42))
-        out.append(self._to_str(self.from_surface_43))
-        out.append(self._to_str(self.to_surface_43))
-        out.append(self._to_str(self.view_factor_43))
-        out.append(self._to_str(self.from_surface_44))
-        out.append(self._to_str(self.to_surface_44))
-        out.append(self._to_str(self.view_factor_44))
-        out.append(self._to_str(self.from_surface_45))
-        out.append(self._to_str(self.to_surface_45))
-        out.append(self._to_str(self.view_factor_45))
-        out.append(self._to_str(self.from_surface_46))
-        out.append(self._to_str(self.to_surface_46))
-        out.append(self._to_str(self.view_factor_46))
-        out.append(self._to_str(self.from_surface_47))
-        out.append(self._to_str(self.to_surface_47))
-        out.append(self._to_str(self.view_factor_47))
-        out.append(self._to_str(self.from_surface_48))
-        out.append(self._to_str(self.to_surface_48))
-        out.append(self._to_str(self.view_factor_48))
-        out.append(self._to_str(self.from_surface_49))
-        out.append(self._to_str(self.to_surface_49))
-        out.append(self._to_str(self.view_factor_49))
-        out.append(self._to_str(self.from_surface_50))
-        out.append(self._to_str(self.to_surface_50))
-        out.append(self._to_str(self.view_factor_50))
-        out.append(self._to_str(self.from_surface_51))
-        out.append(self._to_str(self.to_surface_51))
-        out.append(self._to_str(self.view_factor_51))
-        out.append(self._to_str(self.from_surface_52))
-        out.append(self._to_str(self.to_surface_52))
-        out.append(self._to_str(self.view_factor_52))
-        out.append(self._to_str(self.from_surface_53))
-        out.append(self._to_str(self.to_surface_53))
-        out.append(self._to_str(self.view_factor_53))
-        out.append(self._to_str(self.from_surface_54))
-        out.append(self._to_str(self.to_surface_54))
-        out.append(self._to_str(self.view_factor_54))
-        out.append(self._to_str(self.from_surface_55))
-        out.append(self._to_str(self.to_surface_55))
-        out.append(self._to_str(self.view_factor_55))
-        out.append(self._to_str(self.from_surface_56))
-        out.append(self._to_str(self.to_surface_56))
-        out.append(self._to_str(self.view_factor_56))
-        out.append(self._to_str(self.from_surface_57))
-        out.append(self._to_str(self.to_surface_57))
-        out.append(self._to_str(self.view_factor_57))
-        out.append(self._to_str(self.from_surface_58))
-        out.append(self._to_str(self.to_surface_58))
-        out.append(self._to_str(self.view_factor_58))
-        out.append(self._to_str(self.from_surface_59))
-        out.append(self._to_str(self.to_surface_59))
-        out.append(self._to_str(self.view_factor_59))
-        out.append(self._to_str(self.from_surface_60))
-        out.append(self._to_str(self.to_surface_60))
-        out.append(self._to_str(self.view_factor_60))
-        out.append(self._to_str(self.from_surface_61))
-        out.append(self._to_str(self.to_surface_61))
-        out.append(self._to_str(self.view_factor_61))
-        out.append(self._to_str(self.from_surface_62))
-        out.append(self._to_str(self.to_surface_62))
-        out.append(self._to_str(self.view_factor_62))
-        out.append(self._to_str(self.from_surface_63))
-        out.append(self._to_str(self.to_surface_63))
-        out.append(self._to_str(self.view_factor_63))
-        out.append(self._to_str(self.from_surface_64))
-        out.append(self._to_str(self.to_surface_64))
-        out.append(self._to_str(self.view_factor_64))
-        out.append(self._to_str(self.from_surface_65))
-        out.append(self._to_str(self.to_surface_65))
-        out.append(self._to_str(self.view_factor_65))
-        out.append(self._to_str(self.from_surface_66))
-        out.append(self._to_str(self.to_surface_66))
-        out.append(self._to_str(self.view_factor_66))
-        out.append(self._to_str(self.from_surface_67))
-        out.append(self._to_str(self.to_surface_67))
-        out.append(self._to_str(self.view_factor_67))
-        out.append(self._to_str(self.from_surface_68))
-        out.append(self._to_str(self.to_surface_68))
-        out.append(self._to_str(self.view_factor_68))
-        out.append(self._to_str(self.from_surface_69))
-        out.append(self._to_str(self.to_surface_69))
-        out.append(self._to_str(self.view_factor_69))
-        out.append(self._to_str(self.from_surface_70))
-        out.append(self._to_str(self.to_surface_70))
-        out.append(self._to_str(self.view_factor_70))
-        out.append(self._to_str(self.from_surface_71))
-        out.append(self._to_str(self.to_surface_71))
-        out.append(self._to_str(self.view_factor_71))
-        out.append(self._to_str(self.from_surface_72))
-        out.append(self._to_str(self.to_surface_72))
-        out.append(self._to_str(self.view_factor_72))
-        out.append(self._to_str(self.from_surface_73))
-        out.append(self._to_str(self.to_surface_73))
-        out.append(self._to_str(self.view_factor_73))
-        out.append(self._to_str(self.from_surface_74))
-        out.append(self._to_str(self.to_surface_74))
-        out.append(self._to_str(self.view_factor_74))
-        out.append(self._to_str(self.from_surface_75))
-        out.append(self._to_str(self.to_surface_75))
-        out.append(self._to_str(self.view_factor_75))
-        out.append(self._to_str(self.from_surface_76))
-        out.append(self._to_str(self.to_surface_76))
-        out.append(self._to_str(self.view_factor_76))
-        out.append(self._to_str(self.from_surface_77))
-        out.append(self._to_str(self.to_surface_77))
-        out.append(self._to_str(self.view_factor_77))
-        out.append(self._to_str(self.from_surface_78))
-        out.append(self._to_str(self.to_surface_78))
-        out.append(self._to_str(self.view_factor_78))
-        out.append(self._to_str(self.from_surface_79))
-        out.append(self._to_str(self.to_surface_79))
-        out.append(self._to_str(self.view_factor_79))
-        out.append(self._to_str(self.from_surface_80))
-        out.append(self._to_str(self.to_surface_80))
-        out.append(self._to_str(self.view_factor_80))
-        out.append(self._to_str(self.from_surface_81))
-        out.append(self._to_str(self.to_surface_81))
-        out.append(self._to_str(self.view_factor_81))
-        out.append(self._to_str(self.from_surface_82))
-        out.append(self._to_str(self.to_surface_82))
-        out.append(self._to_str(self.view_factor_82))
-        out.append(self._to_str(self.from_surface_83))
-        out.append(self._to_str(self.to_surface_83))
-        out.append(self._to_str(self.view_factor_83))
-        out.append(self._to_str(self.from_surface_84))
-        out.append(self._to_str(self.to_surface_84))
-        out.append(self._to_str(self.view_factor_84))
-        out.append(self._to_str(self.from_surface_85))
-        out.append(self._to_str(self.to_surface_85))
-        out.append(self._to_str(self.view_factor_85))
-        out.append(self._to_str(self.from_surface_86))
-        out.append(self._to_str(self.to_surface_86))
-        out.append(self._to_str(self.view_factor_86))
-        out.append(self._to_str(self.from_surface_87))
-        out.append(self._to_str(self.to_surface_87))
-        out.append(self._to_str(self.view_factor_87))
-        out.append(self._to_str(self.from_surface_88))
-        out.append(self._to_str(self.to_surface_88))
-        out.append(self._to_str(self.view_factor_88))
-        out.append(self._to_str(self.from_surface_89))
-        out.append(self._to_str(self.to_surface_89))
-        out.append(self._to_str(self.view_factor_89))
-        out.append(self._to_str(self.from_surface_90))
-        out.append(self._to_str(self.to_surface_90))
-        out.append(self._to_str(self.view_factor_90))
-        out.append(self._to_str(self.from_surface_91))
-        out.append(self._to_str(self.to_surface_91))
-        out.append(self._to_str(self.view_factor_91))
-        out.append(self._to_str(self.from_surface_92))
-        out.append(self._to_str(self.to_surface_92))
-        out.append(self._to_str(self.view_factor_92))
-        out.append(self._to_str(self.from_surface_93))
-        out.append(self._to_str(self.to_surface_93))
-        out.append(self._to_str(self.view_factor_93))
-        out.append(self._to_str(self.from_surface_94))
-        out.append(self._to_str(self.to_surface_94))
-        out.append(self._to_str(self.view_factor_94))
-        out.append(self._to_str(self.from_surface_95))
-        out.append(self._to_str(self.to_surface_95))
-        out.append(self._to_str(self.view_factor_95))
-        out.append(self._to_str(self.from_surface_96))
-        out.append(self._to_str(self.to_surface_96))
-        out.append(self._to_str(self.view_factor_96))
-        out.append(self._to_str(self.from_surface_97))
-        out.append(self._to_str(self.to_surface_97))
-        out.append(self._to_str(self.view_factor_97))
-        out.append(self._to_str(self.from_surface_98))
-        out.append(self._to_str(self.to_surface_98))
-        out.append(self._to_str(self.view_factor_98))
-        out.append(self._to_str(self.from_surface_99))
-        out.append(self._to_str(self.to_surface_99))
-        out.append(self._to_str(self.view_factor_99))
-        out.append(self._to_str(self.from_surface_100))
-        out.append(self._to_str(self.to_surface_100))
-        out.append(self._to_str(self.view_factor_100))
-        out.append(self._to_str(self.from_surface_101))
-        out.append(self._to_str(self.to_surface_101))
-        out.append(self._to_str(self.view_factor_101))
-        out.append(self._to_str(self.from_surface_102))
-        out.append(self._to_str(self.to_surface_102))
-        out.append(self._to_str(self.view_factor_102))
-        out.append(self._to_str(self.from_surface_103))
-        out.append(self._to_str(self.to_surface_103))
-        out.append(self._to_str(self.view_factor_103))
-        out.append(self._to_str(self.from_surface_104))
-        out.append(self._to_str(self.to_surface_104))
-        out.append(self._to_str(self.view_factor_104))
-        out.append(self._to_str(self.from_surface_105))
-        out.append(self._to_str(self.to_surface_105))
-        out.append(self._to_str(self.view_factor_105))
-        out.append(self._to_str(self.from_surface_106))
-        out.append(self._to_str(self.to_surface_106))
-        out.append(self._to_str(self.view_factor_106))
-        out.append(self._to_str(self.from_surface_107))
-        out.append(self._to_str(self.to_surface_107))
-        out.append(self._to_str(self.view_factor_107))
-        out.append(self._to_str(self.from_surface_108))
-        out.append(self._to_str(self.to_surface_108))
-        out.append(self._to_str(self.view_factor_108))
-        out.append(self._to_str(self.from_surface_109))
-        out.append(self._to_str(self.to_surface_109))
-        out.append(self._to_str(self.view_factor_109))
-        out.append(self._to_str(self.from_surface_110))
-        out.append(self._to_str(self.to_surface_110))
-        out.append(self._to_str(self.view_factor_110))
-        out.append(self._to_str(self.from_surface_111))
-        out.append(self._to_str(self.to_surface_111))
-        out.append(self._to_str(self.view_factor_111))
-        out.append(self._to_str(self.from_surface_112))
-        out.append(self._to_str(self.to_surface_112))
-        out.append(self._to_str(self.view_factor_112))
-        out.append(self._to_str(self.from_surface_113))
-        out.append(self._to_str(self.to_surface_113))
-        out.append(self._to_str(self.view_factor_113))
-        out.append(self._to_str(self.from_surface_114))
-        out.append(self._to_str(self.to_surface_114))
-        out.append(self._to_str(self.view_factor_114))
-        out.append(self._to_str(self.from_surface_115))
-        out.append(self._to_str(self.to_surface_115))
-        out.append(self._to_str(self.view_factor_115))
-        out.append(self._to_str(self.from_surface_116))
-        out.append(self._to_str(self.to_surface_116))
-        out.append(self._to_str(self.view_factor_116))
-        out.append(self._to_str(self.from_surface_117))
-        out.append(self._to_str(self.to_surface_117))
-        out.append(self._to_str(self.view_factor_117))
-        out.append(self._to_str(self.from_surface_118))
-        out.append(self._to_str(self.to_surface_118))
-        out.append(self._to_str(self.view_factor_118))
-        out.append(self._to_str(self.from_surface_119))
-        out.append(self._to_str(self.to_surface_119))
-        out.append(self._to_str(self.view_factor_119))
-        out.append(self._to_str(self.from_surface_120))
-        out.append(self._to_str(self.to_surface_120))
-        out.append(self._to_str(self.view_factor_120))
-        out.append(self._to_str(self.from_surface_121))
-        out.append(self._to_str(self.to_surface_121))
-        out.append(self._to_str(self.view_factor_121))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])

@@ -37,114 +37,156 @@ class DaylightingControls(object):
         self._data["Number of Stepped Control Steps"] = None
         self._data["Probability Lighting will be Reset When Needed in Manual Stepped Control"] = None
         self._data["Availability Schedule Name"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.zone_name = None
         else:
             self.zone_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.total_daylighting_reference_points = None
         else:
             self.total_daylighting_reference_points = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.xcoordinate_of_first_reference_point = None
         else:
             self.xcoordinate_of_first_reference_point = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.ycoordinate_of_first_reference_point = None
         else:
             self.ycoordinate_of_first_reference_point = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.zcoordinate_of_first_reference_point = None
         else:
             self.zcoordinate_of_first_reference_point = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.xcoordinate_of_second_reference_point = None
         else:
             self.xcoordinate_of_second_reference_point = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.ycoordinate_of_second_reference_point = None
         else:
             self.ycoordinate_of_second_reference_point = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.zcoordinate_of_second_reference_point = None
         else:
             self.zcoordinate_of_second_reference_point = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_zone_controlled_by_first_reference_point = None
         else:
             self.fraction_of_zone_controlled_by_first_reference_point = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_zone_controlled_by_second_reference_point = None
         else:
             self.fraction_of_zone_controlled_by_second_reference_point = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.illuminance_setpoint_at_first_reference_point = None
         else:
             self.illuminance_setpoint_at_first_reference_point = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.illuminance_setpoint_at_second_reference_point = None
         else:
             self.illuminance_setpoint_at_second_reference_point = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.lighting_control_type = None
         else:
             self.lighting_control_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.glare_calculation_azimuth_angle_of_view_direction_clockwise_from_zone_yaxis = None
         else:
             self.glare_calculation_azimuth_angle_of_view_direction_clockwise_from_zone_yaxis = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.maximum_allowable_discomfort_glare_index = None
         else:
             self.maximum_allowable_discomfort_glare_index = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.minimum_input_power_fraction_for_continuous_dimming_control = None
         else:
             self.minimum_input_power_fraction_for_continuous_dimming_control = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.minimum_light_output_fraction_for_continuous_dimming_control = None
         else:
             self.minimum_light_output_fraction_for_continuous_dimming_control = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.number_of_stepped_control_steps = None
         else:
             self.number_of_stepped_control_steps = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.probability_lighting_will_be_reset_when_needed_in_manual_stepped_control = None
         else:
             self.probability_lighting_will_be_reset_when_needed_in_manual_stepped_control = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.availability_schedule_name = None
         else:
             self.availability_schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def zone_name(self):
@@ -175,6 +217,9 @@ class DaylightingControls(object):
                                  'for field `zone_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `zone_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `zone_name`')
 
         self._data["Zone Name"] = value
@@ -852,6 +897,9 @@ class DaylightingControls(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `availability_schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `availability_schedule_name`')
 
         self._data["Availability Schedule Name"] = value
 
@@ -877,29 +925,17 @@ class DaylightingControls(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.zone_name))
-        out.append(self._to_str(self.total_daylighting_reference_points))
-        out.append(self._to_str(self.xcoordinate_of_first_reference_point))
-        out.append(self._to_str(self.ycoordinate_of_first_reference_point))
-        out.append(self._to_str(self.zcoordinate_of_first_reference_point))
-        out.append(self._to_str(self.xcoordinate_of_second_reference_point))
-        out.append(self._to_str(self.ycoordinate_of_second_reference_point))
-        out.append(self._to_str(self.zcoordinate_of_second_reference_point))
-        out.append(self._to_str(self.fraction_of_zone_controlled_by_first_reference_point))
-        out.append(self._to_str(self.fraction_of_zone_controlled_by_second_reference_point))
-        out.append(self._to_str(self.illuminance_setpoint_at_first_reference_point))
-        out.append(self._to_str(self.illuminance_setpoint_at_second_reference_point))
-        out.append(self._to_str(self.lighting_control_type))
-        out.append(self._to_str(self.glare_calculation_azimuth_angle_of_view_direction_clockwise_from_zone_yaxis))
-        out.append(self._to_str(self.maximum_allowable_discomfort_glare_index))
-        out.append(self._to_str(self.minimum_input_power_fraction_for_continuous_dimming_control))
-        out.append(self._to_str(self.minimum_light_output_fraction_for_continuous_dimming_control))
-        out.append(self._to_str(self.number_of_stepped_control_steps))
-        out.append(self._to_str(self.probability_lighting_will_be_reset_when_needed_in_manual_stepped_control))
-        out.append(self._to_str(self.availability_schedule_name))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class DaylightingDelightControls(object):
     """ Corresponds to IDD object `Daylighting:DELight:Controls`
@@ -923,54 +959,72 @@ class DaylightingDelightControls(object):
         self._data["Number of Stepped Control Steps"] = None
         self._data["Probability Lighting will be Reset When Needed in Manual Stepped Control"] = None
         self._data["Gridding Resolution"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.zone_name = None
         else:
             self.zone_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.lighting_control_type = None
         else:
             self.lighting_control_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.minimum_input_power_fraction_for_continuous_dimming_control = None
         else:
             self.minimum_input_power_fraction_for_continuous_dimming_control = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.minimum_light_output_fraction_for_continuous_dimming_control = None
         else:
             self.minimum_light_output_fraction_for_continuous_dimming_control = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.number_of_stepped_control_steps = None
         else:
             self.number_of_stepped_control_steps = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.probability_lighting_will_be_reset_when_needed_in_manual_stepped_control = None
         else:
             self.probability_lighting_will_be_reset_when_needed_in_manual_stepped_control = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.gridding_resolution = None
         else:
             self.gridding_resolution = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -1001,6 +1055,9 @@ class DaylightingDelightControls(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -1035,6 +1092,9 @@ class DaylightingDelightControls(object):
                                  'for field `zone_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `zone_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `zone_name`')
 
         self._data["Zone Name"] = value
@@ -1290,17 +1350,17 @@ class DaylightingDelightControls(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.zone_name))
-        out.append(self._to_str(self.lighting_control_type))
-        out.append(self._to_str(self.minimum_input_power_fraction_for_continuous_dimming_control))
-        out.append(self._to_str(self.minimum_light_output_fraction_for_continuous_dimming_control))
-        out.append(self._to_str(self.number_of_stepped_control_steps))
-        out.append(self._to_str(self.probability_lighting_will_be_reset_when_needed_in_manual_stepped_control))
-        out.append(self._to_str(self.gridding_resolution))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class DaylightingDelightReferencePoint(object):
     """ Corresponds to IDD object `Daylighting:DELight:ReferencePoint`
@@ -1325,49 +1385,65 @@ class DaylightingDelightReferencePoint(object):
         self._data["Z-coordinate of Reference Point"] = None
         self._data["Fraction of Zone Controlled by Reference Point"] = None
         self._data["Illuminance Setpoint at Reference Point"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.delight_name = None
         else:
             self.delight_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.xcoordinate_of_reference_point = None
         else:
             self.xcoordinate_of_reference_point = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.ycoordinate_of_reference_point = None
         else:
             self.ycoordinate_of_reference_point = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.zcoordinate_of_reference_point = None
         else:
             self.zcoordinate_of_reference_point = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_zone_controlled_by_reference_point = None
         else:
             self.fraction_of_zone_controlled_by_reference_point = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.illuminance_setpoint_at_reference_point = None
         else:
             self.illuminance_setpoint_at_reference_point = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -1398,6 +1474,9 @@ class DaylightingDelightReferencePoint(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -1431,6 +1510,9 @@ class DaylightingDelightReferencePoint(object):
                                  'for field `delight_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `delight_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `delight_name`')
 
         self._data["DElight Name"] = value
@@ -1625,16 +1707,17 @@ class DaylightingDelightReferencePoint(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.delight_name))
-        out.append(self._to_str(self.xcoordinate_of_reference_point))
-        out.append(self._to_str(self.ycoordinate_of_reference_point))
-        out.append(self._to_str(self.zcoordinate_of_reference_point))
-        out.append(self._to_str(self.fraction_of_zone_controlled_by_reference_point))
-        out.append(self._to_str(self.illuminance_setpoint_at_reference_point))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class DaylightingDelightComplexFenestration(object):
     """ Corresponds to IDD object `Daylighting:DELight:ComplexFenestration`
@@ -1654,39 +1737,51 @@ class DaylightingDelightComplexFenestration(object):
         self._data["Building Surface Name"] = None
         self._data["Window Name"] = None
         self._data["Fenestration Rotation"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.complex_fenestration_type = None
         else:
             self.complex_fenestration_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.building_surface_name = None
         else:
             self.building_surface_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.window_name = None
         else:
             self.window_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fenestration_rotation = None
         else:
             self.fenestration_rotation = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -1718,6 +1813,9 @@ class DaylightingDelightComplexFenestration(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -1752,6 +1850,9 @@ class DaylightingDelightComplexFenestration(object):
                                  'for field `complex_fenestration_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `complex_fenestration_type`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `complex_fenestration_type`')
 
         self._data["Complex Fenestration Type"] = value
@@ -1789,6 +1890,9 @@ class DaylightingDelightComplexFenestration(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `building_surface_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `building_surface_name`')
 
         self._data["Building Surface Name"] = value
 
@@ -1824,6 +1928,9 @@ class DaylightingDelightComplexFenestration(object):
                                  'for field `window_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `window_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `window_name`')
 
         self._data["Window Name"] = value
@@ -1886,14 +1993,17 @@ class DaylightingDelightComplexFenestration(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.complex_fenestration_type))
-        out.append(self._to_str(self.building_surface_name))
-        out.append(self._to_str(self.window_name))
-        out.append(self._to_str(self.fenestration_rotation))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class DaylightingDeviceTubular(object):
     """ Corresponds to IDD object `DaylightingDevice:Tubular`
@@ -1925,89 +2035,121 @@ class DaylightingDeviceTubular(object):
         self._data["Transition Zone 3 Length"] = None
         self._data["Transition Zone 4 Name"] = None
         self._data["Transition Zone 4 Length"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.dome_name = None
         else:
             self.dome_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.diffuser_name = None
         else:
             self.diffuser_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.construction_name = None
         else:
             self.construction_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.diameter = None
         else:
             self.diameter = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.total_length = None
         else:
             self.total_length = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.effective_thermal_resistance = None
         else:
             self.effective_thermal_resistance = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.transition_zone_1_name = None
         else:
             self.transition_zone_1_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.transition_zone_1_length = None
         else:
             self.transition_zone_1_length = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.transition_zone_2_name = None
         else:
             self.transition_zone_2_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.transition_zone_2_length = None
         else:
             self.transition_zone_2_length = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.transition_zone_3_name = None
         else:
             self.transition_zone_3_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.transition_zone_3_length = None
         else:
             self.transition_zone_3_length = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.transition_zone_4_name = None
         else:
             self.transition_zone_4_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.transition_zone_4_length = None
         else:
             self.transition_zone_4_length = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -2038,6 +2180,9 @@ class DaylightingDeviceTubular(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -2072,6 +2217,9 @@ class DaylightingDeviceTubular(object):
                                  'for field `dome_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `dome_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `dome_name`')
 
         self._data["Dome Name"] = value
@@ -2108,6 +2256,9 @@ class DaylightingDeviceTubular(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `diffuser_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `diffuser_name`')
 
         self._data["Diffuser Name"] = value
 
@@ -2140,6 +2291,9 @@ class DaylightingDeviceTubular(object):
                                  'for field `construction_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `construction_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `construction_name`')
 
         self._data["Construction Name"] = value
@@ -2282,6 +2436,9 @@ class DaylightingDeviceTubular(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `transition_zone_1_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `transition_zone_1_name`')
 
         self._data["Transition Zone 1 Name"] = value
 
@@ -2349,6 +2506,9 @@ class DaylightingDeviceTubular(object):
                                  'for field `transition_zone_2_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `transition_zone_2_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `transition_zone_2_name`')
 
         self._data["Transition Zone 2 Name"] = value
@@ -2418,6 +2578,9 @@ class DaylightingDeviceTubular(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `transition_zone_3_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `transition_zone_3_name`')
 
         self._data["Transition Zone 3 Name"] = value
 
@@ -2486,6 +2649,9 @@ class DaylightingDeviceTubular(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `transition_zone_4_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `transition_zone_4_name`')
 
         self._data["Transition Zone 4 Name"] = value
 
@@ -2546,24 +2712,17 @@ class DaylightingDeviceTubular(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.dome_name))
-        out.append(self._to_str(self.diffuser_name))
-        out.append(self._to_str(self.construction_name))
-        out.append(self._to_str(self.diameter))
-        out.append(self._to_str(self.total_length))
-        out.append(self._to_str(self.effective_thermal_resistance))
-        out.append(self._to_str(self.transition_zone_1_name))
-        out.append(self._to_str(self.transition_zone_1_length))
-        out.append(self._to_str(self.transition_zone_2_name))
-        out.append(self._to_str(self.transition_zone_2_length))
-        out.append(self._to_str(self.transition_zone_3_name))
-        out.append(self._to_str(self.transition_zone_3_length))
-        out.append(self._to_str(self.transition_zone_4_name))
-        out.append(self._to_str(self.transition_zone_4_length))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class DaylightingDeviceShelf(object):
     """ Corresponds to IDD object `DaylightingDevice:Shelf`
@@ -2586,44 +2745,58 @@ class DaylightingDeviceShelf(object):
         self._data["Outside Shelf Name"] = None
         self._data["Outside Shelf Construction Name"] = None
         self._data["View Factor to Outside Shelf"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.window_name = None
         else:
             self.window_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.inside_shelf_name = None
         else:
             self.inside_shelf_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.outside_shelf_name = None
         else:
             self.outside_shelf_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.outside_shelf_construction_name = None
         else:
             self.outside_shelf_construction_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.view_factor_to_outside_shelf = None
         else:
             self.view_factor_to_outside_shelf = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -2654,6 +2827,9 @@ class DaylightingDeviceShelf(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -2687,6 +2863,9 @@ class DaylightingDeviceShelf(object):
                                  'for field `window_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `window_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `window_name`')
 
         self._data["Window Name"] = value
@@ -2723,6 +2902,9 @@ class DaylightingDeviceShelf(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `inside_shelf_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `inside_shelf_name`')
 
         self._data["Inside Shelf Name"] = value
 
@@ -2757,6 +2939,9 @@ class DaylightingDeviceShelf(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `outside_shelf_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `outside_shelf_name`')
 
         self._data["Outside Shelf Name"] = value
 
@@ -2790,6 +2975,9 @@ class DaylightingDeviceShelf(object):
                                  'for field `outside_shelf_construction_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `outside_shelf_construction_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `outside_shelf_construction_name`')
 
         self._data["Outside Shelf Construction Name"] = value
@@ -2854,15 +3042,17 @@ class DaylightingDeviceShelf(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.window_name))
-        out.append(self._to_str(self.inside_shelf_name))
-        out.append(self._to_str(self.outside_shelf_name))
-        out.append(self._to_str(self.outside_shelf_construction_name))
-        out.append(self._to_str(self.view_factor_to_outside_shelf))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class DaylightingDeviceLightWell(object):
     """ Corresponds to IDD object `DaylightingDevice:LightWell`
@@ -2884,39 +3074,51 @@ class DaylightingDeviceLightWell(object):
         self._data["Perimeter of Bottom of Well"] = None
         self._data["Area of Bottom of Well"] = None
         self._data["Visible Reflectance of Well Walls"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.exterior_window_name = None
         else:
             self.exterior_window_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.height_of_well = None
         else:
             self.height_of_well = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.perimeter_of_bottom_of_well = None
         else:
             self.perimeter_of_bottom_of_well = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.area_of_bottom_of_well = None
         else:
             self.area_of_bottom_of_well = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.visible_reflectance_of_well_walls = None
         else:
             self.visible_reflectance_of_well_walls = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def exterior_window_name(self):
@@ -2947,6 +3149,9 @@ class DaylightingDeviceLightWell(object):
                                  'for field `exterior_window_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `exterior_window_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `exterior_window_name`')
 
         self._data["Exterior Window Name"] = value
@@ -3118,14 +3323,17 @@ class DaylightingDeviceLightWell(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.exterior_window_name))
-        out.append(self._to_str(self.height_of_well))
-        out.append(self._to_str(self.perimeter_of_bottom_of_well))
-        out.append(self._to_str(self.area_of_bottom_of_well))
-        out.append(self._to_str(self.visible_reflectance_of_well_walls))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class OutputDaylightFactors(object):
     """ Corresponds to IDD object `Output:DaylightFactors`
@@ -3142,19 +3350,23 @@ class OutputDaylightFactors(object):
         """
         self._data = OrderedDict()
         self._data["Reporting Days"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.reporting_days = None
         else:
             self.reporting_days = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def reporting_days(self):
@@ -3189,12 +3401,26 @@ class OutputDaylightFactors(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `reporting_days`')
-            vals = set()
-            vals.add("SizingDays")
-            vals.add("AllShadowCalculationDays")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `reporting_days`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `reporting_days`')
+            vals = {}
+            vals["sizingdays"] = "SizingDays"
+            vals["allshadowcalculationdays"] = "AllShadowCalculationDays"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `reporting_days`'.format(value))
+            value = vals[value_lower]
 
         self._data["Reporting Days"] = value
 
@@ -3220,10 +3446,17 @@ class OutputDaylightFactors(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.reporting_days))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class OutputIlluminanceMap(object):
     """ Corresponds to IDD object `Output:IlluminanceMap`
@@ -3248,59 +3481,79 @@ class OutputIlluminanceMap(object):
         self._data["Y Minimum Coordinate"] = None
         self._data["Y Maximum Coordinate"] = None
         self._data["Number of Y Grid Points"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.zone_name = None
         else:
             self.zone_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.z_height = None
         else:
             self.z_height = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.x_minimum_coordinate = None
         else:
             self.x_minimum_coordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.x_maximum_coordinate = None
         else:
             self.x_maximum_coordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.number_of_x_grid_points = None
         else:
             self.number_of_x_grid_points = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.y_minimum_coordinate = None
         else:
             self.y_minimum_coordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.y_maximum_coordinate = None
         else:
             self.y_maximum_coordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.number_of_y_grid_points = None
         else:
             self.number_of_y_grid_points = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -3331,6 +3584,9 @@ class OutputIlluminanceMap(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -3364,6 +3620,9 @@ class OutputIlluminanceMap(object):
                                  'for field `zone_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `zone_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `zone_name`')
 
         self._data["Zone Name"] = value
@@ -3622,18 +3881,17 @@ class OutputIlluminanceMap(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.zone_name))
-        out.append(self._to_str(self.z_height))
-        out.append(self._to_str(self.x_minimum_coordinate))
-        out.append(self._to_str(self.x_maximum_coordinate))
-        out.append(self._to_str(self.number_of_x_grid_points))
-        out.append(self._to_str(self.y_minimum_coordinate))
-        out.append(self._to_str(self.y_maximum_coordinate))
-        out.append(self._to_str(self.number_of_y_grid_points))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class OutputControlIlluminanceMapStyle(object):
     """ Corresponds to IDD object `OutputControl:IlluminanceMap:Style`
@@ -3652,19 +3910,23 @@ class OutputControlIlluminanceMapStyle(object):
         """
         self._data = OrderedDict()
         self._data["Column Separator"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.column_separator = None
         else:
             self.column_separator = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def column_separator(self):
@@ -3701,13 +3963,27 @@ class OutputControlIlluminanceMapStyle(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `column_separator`')
-            vals = set()
-            vals.add("Comma")
-            vals.add("Tab")
-            vals.add("Fixed")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `column_separator`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `column_separator`')
+            vals = {}
+            vals["comma"] = "Comma"
+            vals["tab"] = "Tab"
+            vals["fixed"] = "Fixed"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `column_separator`'.format(value))
+            value = vals[value_lower]
 
         self._data["Column Separator"] = value
 
@@ -3733,7 +4009,14 @@ class OutputControlIlluminanceMapStyle(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.column_separator))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])

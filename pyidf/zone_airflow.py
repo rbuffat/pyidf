@@ -28,74 +28,100 @@ class ZoneInfiltrationDesignFlowRate(object):
         self._data["Temperature Term Coefficient"] = None
         self._data["Velocity Term Coefficient"] = None
         self._data["Velocity Squared Term Coefficient"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.zone_or_zonelist_name = None
         else:
             self.zone_or_zonelist_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.schedule_name = None
         else:
             self.schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.design_flow_rate_calculation_method = None
         else:
             self.design_flow_rate_calculation_method = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.design_flow_rate = None
         else:
             self.design_flow_rate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.flow_per_zone_floor_area = None
         else:
             self.flow_per_zone_floor_area = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.flow_per_exterior_surface_area = None
         else:
             self.flow_per_exterior_surface_area = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.air_changes_per_hour = None
         else:
             self.air_changes_per_hour = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.constant_term_coefficient = None
         else:
             self.constant_term_coefficient = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.temperature_term_coefficient = None
         else:
             self.temperature_term_coefficient = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.velocity_term_coefficient = None
         else:
             self.velocity_term_coefficient = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.velocity_squared_term_coefficient = None
         else:
             self.velocity_squared_term_coefficient = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -126,6 +152,9 @@ class ZoneInfiltrationDesignFlowRate(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -160,6 +189,9 @@ class ZoneInfiltrationDesignFlowRate(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `zone_or_zonelist_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `zone_or_zonelist_name`')
 
         self._data["Zone or ZoneList Name"] = value
 
@@ -192,6 +224,9 @@ class ZoneInfiltrationDesignFlowRate(object):
                                  'for field `schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `schedule_name`')
 
         self._data["Schedule Name"] = value
@@ -241,15 +276,29 @@ class ZoneInfiltrationDesignFlowRate(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `design_flow_rate_calculation_method`')
-            vals = set()
-            vals.add("Flow/Zone")
-            vals.add("Flow/Area")
-            vals.add("Flow/ExteriorArea")
-            vals.add("Flow/ExteriorWallArea")
-            vals.add("AirChanges/Hour")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `design_flow_rate_calculation_method`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `design_flow_rate_calculation_method`')
+            vals = {}
+            vals["flow/zone"] = "Flow/Zone"
+            vals["flow/area"] = "Flow/Area"
+            vals["flow/exteriorarea"] = "Flow/ExteriorArea"
+            vals["flow/exteriorwallarea"] = "Flow/ExteriorWallArea"
+            vals["airchanges/hour"] = "AirChanges/Hour"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `design_flow_rate_calculation_method`'.format(value))
+            value = vals[value_lower]
 
         self._data["Design Flow Rate Calculation Method"] = value
 
@@ -546,21 +595,17 @@ class ZoneInfiltrationDesignFlowRate(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.zone_or_zonelist_name))
-        out.append(self._to_str(self.schedule_name))
-        out.append(self._to_str(self.design_flow_rate_calculation_method))
-        out.append(self._to_str(self.design_flow_rate))
-        out.append(self._to_str(self.flow_per_zone_floor_area))
-        out.append(self._to_str(self.flow_per_exterior_surface_area))
-        out.append(self._to_str(self.air_changes_per_hour))
-        out.append(self._to_str(self.constant_term_coefficient))
-        out.append(self._to_str(self.temperature_term_coefficient))
-        out.append(self._to_str(self.velocity_term_coefficient))
-        out.append(self._to_str(self.velocity_squared_term_coefficient))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class ZoneInfiltrationEffectiveLeakageArea(object):
     """ Corresponds to IDD object `ZoneInfiltration:EffectiveLeakageArea`
@@ -583,44 +628,58 @@ class ZoneInfiltrationEffectiveLeakageArea(object):
         self._data["Effective Air Leakage Area"] = None
         self._data["Stack Coefficient"] = None
         self._data["Wind Coefficient"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.zone_name = None
         else:
             self.zone_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.schedule_name = None
         else:
             self.schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.effective_air_leakage_area = None
         else:
             self.effective_air_leakage_area = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.stack_coefficient = None
         else:
             self.stack_coefficient = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wind_coefficient = None
         else:
             self.wind_coefficient = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -651,6 +710,9 @@ class ZoneInfiltrationEffectiveLeakageArea(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -685,6 +747,9 @@ class ZoneInfiltrationEffectiveLeakageArea(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `zone_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `zone_name`')
 
         self._data["Zone Name"] = value
 
@@ -717,6 +782,9 @@ class ZoneInfiltrationEffectiveLeakageArea(object):
                                  'for field `schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `schedule_name`')
 
         self._data["Schedule Name"] = value
@@ -850,15 +918,17 @@ class ZoneInfiltrationEffectiveLeakageArea(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.zone_name))
-        out.append(self._to_str(self.schedule_name))
-        out.append(self._to_str(self.effective_air_leakage_area))
-        out.append(self._to_str(self.stack_coefficient))
-        out.append(self._to_str(self.wind_coefficient))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class ZoneInfiltrationFlowCoefficient(object):
     """ Corresponds to IDD object `ZoneInfiltration:FlowCoefficient`
@@ -883,54 +953,72 @@ class ZoneInfiltrationFlowCoefficient(object):
         self._data["Pressure Exponent"] = None
         self._data["Wind Coefficient"] = None
         self._data["Shelter Factor"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.zone_name = None
         else:
             self.zone_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.schedule_name = None
         else:
             self.schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.flow_coefficient = None
         else:
             self.flow_coefficient = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.stack_coefficient = None
         else:
             self.stack_coefficient = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.pressure_exponent = None
         else:
             self.pressure_exponent = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wind_coefficient = None
         else:
             self.wind_coefficient = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.shelter_factor = None
         else:
             self.shelter_factor = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -961,6 +1049,9 @@ class ZoneInfiltrationFlowCoefficient(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -995,6 +1086,9 @@ class ZoneInfiltrationFlowCoefficient(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `zone_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `zone_name`')
 
         self._data["Zone Name"] = value
 
@@ -1027,6 +1121,9 @@ class ZoneInfiltrationFlowCoefficient(object):
                                  'for field `schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `schedule_name`')
 
         self._data["Schedule Name"] = value
@@ -1229,17 +1326,17 @@ class ZoneInfiltrationFlowCoefficient(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.zone_name))
-        out.append(self._to_str(self.schedule_name))
-        out.append(self._to_str(self.flow_coefficient))
-        out.append(self._to_str(self.stack_coefficient))
-        out.append(self._to_str(self.pressure_exponent))
-        out.append(self._to_str(self.wind_coefficient))
-        out.append(self._to_str(self.shelter_factor))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class ZoneVentilationDesignFlowRate(object):
     """ Corresponds to IDD object `ZoneVentilation:DesignFlowRate`
@@ -1283,144 +1380,198 @@ class ZoneVentilationDesignFlowRate(object):
         self._data["Maximum Outdoor Temperature"] = None
         self._data["Maximum Outdoor Temperature Schedule Name"] = None
         self._data["Maximum Wind Speed"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.zone_or_zonelist_name = None
         else:
             self.zone_or_zonelist_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.schedule_name = None
         else:
             self.schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.design_flow_rate_calculation_method = None
         else:
             self.design_flow_rate_calculation_method = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.design_flow_rate = None
         else:
             self.design_flow_rate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.flow_rate_per_zone_floor_area = None
         else:
             self.flow_rate_per_zone_floor_area = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.flow_rate_per_person = None
         else:
             self.flow_rate_per_person = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.air_changes_per_hour = None
         else:
             self.air_changes_per_hour = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.ventilation_type = None
         else:
             self.ventilation_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fan_pressure_rise = None
         else:
             self.fan_pressure_rise = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fan_total_efficiency = None
         else:
             self.fan_total_efficiency = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.constant_term_coefficient = None
         else:
             self.constant_term_coefficient = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.temperature_term_coefficient = None
         else:
             self.temperature_term_coefficient = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.velocity_term_coefficient = None
         else:
             self.velocity_term_coefficient = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.velocity_squared_term_coefficient = None
         else:
             self.velocity_squared_term_coefficient = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.minimum_indoor_temperature = None
         else:
             self.minimum_indoor_temperature = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.minimum_indoor_temperature_schedule_name = None
         else:
             self.minimum_indoor_temperature_schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.maximum_indoor_temperature = None
         else:
             self.maximum_indoor_temperature = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.maximum_indoor_temperature_schedule_name = None
         else:
             self.maximum_indoor_temperature_schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.delta_temperature = None
         else:
             self.delta_temperature = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.delta_temperature_schedule_name = None
         else:
             self.delta_temperature_schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.minimum_outdoor_temperature = None
         else:
             self.minimum_outdoor_temperature = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.minimum_outdoor_temperature_schedule_name = None
         else:
             self.minimum_outdoor_temperature_schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.maximum_outdoor_temperature = None
         else:
             self.maximum_outdoor_temperature = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.maximum_outdoor_temperature_schedule_name = None
         else:
             self.maximum_outdoor_temperature_schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.maximum_wind_speed = None
         else:
             self.maximum_wind_speed = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -1451,6 +1602,9 @@ class ZoneVentilationDesignFlowRate(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -1485,6 +1639,9 @@ class ZoneVentilationDesignFlowRate(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `zone_or_zonelist_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `zone_or_zonelist_name`')
 
         self._data["Zone or ZoneList Name"] = value
 
@@ -1517,6 +1674,9 @@ class ZoneVentilationDesignFlowRate(object):
                                  'for field `schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `schedule_name`')
 
         self._data["Schedule Name"] = value
@@ -1564,14 +1724,28 @@ class ZoneVentilationDesignFlowRate(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `design_flow_rate_calculation_method`')
-            vals = set()
-            vals.add("Flow/Zone")
-            vals.add("Flow/Area")
-            vals.add("Flow/Person")
-            vals.add("AirChanges/Hour")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `design_flow_rate_calculation_method`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `design_flow_rate_calculation_method`')
+            vals = {}
+            vals["flow/zone"] = "Flow/Zone"
+            vals["flow/area"] = "Flow/Area"
+            vals["flow/person"] = "Flow/Person"
+            vals["airchanges/hour"] = "AirChanges/Hour"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `design_flow_rate_calculation_method`'.format(value))
+            value = vals[value_lower]
 
         self._data["Design Flow Rate Calculation Method"] = value
 
@@ -1751,14 +1925,28 @@ class ZoneVentilationDesignFlowRate(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `ventilation_type`')
-            vals = set()
-            vals.add("Natural")
-            vals.add("Intake")
-            vals.add("Exhaust")
-            vals.add("Balanced")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `ventilation_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `ventilation_type`')
+            vals = {}
+            vals["natural"] = "Natural"
+            vals["intake"] = "Intake"
+            vals["exhaust"] = "Exhaust"
+            vals["balanced"] = "Balanced"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `ventilation_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Ventilation Type"] = value
 
@@ -2035,6 +2223,9 @@ class ZoneVentilationDesignFlowRate(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `minimum_indoor_temperature_schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `minimum_indoor_temperature_schedule_name`')
 
         self._data["Minimum Indoor Temperature Schedule Name"] = value
 
@@ -2110,6 +2301,9 @@ class ZoneVentilationDesignFlowRate(object):
                                  'for field `maximum_indoor_temperature_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `maximum_indoor_temperature_schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `maximum_indoor_temperature_schedule_name`')
 
         self._data["Maximum Indoor Temperature Schedule Name"] = value
@@ -2187,6 +2381,9 @@ class ZoneVentilationDesignFlowRate(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `delta_temperature_schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `delta_temperature_schedule_name`')
 
         self._data["Delta Temperature Schedule Name"] = value
 
@@ -2262,6 +2459,9 @@ class ZoneVentilationDesignFlowRate(object):
                                  'for field `minimum_outdoor_temperature_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `minimum_outdoor_temperature_schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `minimum_outdoor_temperature_schedule_name`')
 
         self._data["Minimum Outdoor Temperature Schedule Name"] = value
@@ -2339,6 +2539,9 @@ class ZoneVentilationDesignFlowRate(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `maximum_outdoor_temperature_schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `maximum_outdoor_temperature_schedule_name`')
 
         self._data["Maximum Outdoor Temperature Schedule Name"] = value
 
@@ -2405,35 +2608,17 @@ class ZoneVentilationDesignFlowRate(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.zone_or_zonelist_name))
-        out.append(self._to_str(self.schedule_name))
-        out.append(self._to_str(self.design_flow_rate_calculation_method))
-        out.append(self._to_str(self.design_flow_rate))
-        out.append(self._to_str(self.flow_rate_per_zone_floor_area))
-        out.append(self._to_str(self.flow_rate_per_person))
-        out.append(self._to_str(self.air_changes_per_hour))
-        out.append(self._to_str(self.ventilation_type))
-        out.append(self._to_str(self.fan_pressure_rise))
-        out.append(self._to_str(self.fan_total_efficiency))
-        out.append(self._to_str(self.constant_term_coefficient))
-        out.append(self._to_str(self.temperature_term_coefficient))
-        out.append(self._to_str(self.velocity_term_coefficient))
-        out.append(self._to_str(self.velocity_squared_term_coefficient))
-        out.append(self._to_str(self.minimum_indoor_temperature))
-        out.append(self._to_str(self.minimum_indoor_temperature_schedule_name))
-        out.append(self._to_str(self.maximum_indoor_temperature))
-        out.append(self._to_str(self.maximum_indoor_temperature_schedule_name))
-        out.append(self._to_str(self.delta_temperature))
-        out.append(self._to_str(self.delta_temperature_schedule_name))
-        out.append(self._to_str(self.minimum_outdoor_temperature))
-        out.append(self._to_str(self.minimum_outdoor_temperature_schedule_name))
-        out.append(self._to_str(self.maximum_outdoor_temperature))
-        out.append(self._to_str(self.maximum_outdoor_temperature_schedule_name))
-        out.append(self._to_str(self.maximum_wind_speed))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class ZoneVentilationWindandStackOpenArea(object):
     """ Corresponds to IDD object `ZoneVentilation:WindandStackOpenArea`
@@ -2470,109 +2655,149 @@ class ZoneVentilationWindandStackOpenArea(object):
         self._data["Maximum Outdoor Temperature"] = None
         self._data["Maximum Outdoor Temperature Schedule Name"] = None
         self._data["Maximum Wind Speed"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.zone_name = None
         else:
             self.zone_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.opening_area = None
         else:
             self.opening_area = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.opening_area_fraction_schedule_name = None
         else:
             self.opening_area_fraction_schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.opening_effectiveness = None
         else:
             self.opening_effectiveness = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.effective_angle = None
         else:
             self.effective_angle = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.height_difference = None
         else:
             self.height_difference = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.discharge_coefficient_for_opening = None
         else:
             self.discharge_coefficient_for_opening = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.minimum_indoor_temperature = None
         else:
             self.minimum_indoor_temperature = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.minimum_indoor_temperature_schedule_name = None
         else:
             self.minimum_indoor_temperature_schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.maximum_indoor_temperature = None
         else:
             self.maximum_indoor_temperature = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.maximum_indoor_temperature_schedule_name = None
         else:
             self.maximum_indoor_temperature_schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.delta_temperature = None
         else:
             self.delta_temperature = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.delta_temperature_schedule_name = None
         else:
             self.delta_temperature_schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.minimum_outdoor_temperature = None
         else:
             self.minimum_outdoor_temperature = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.minimum_outdoor_temperature_schedule_name = None
         else:
             self.minimum_outdoor_temperature_schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.maximum_outdoor_temperature = None
         else:
             self.maximum_outdoor_temperature = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.maximum_outdoor_temperature_schedule_name = None
         else:
             self.maximum_outdoor_temperature_schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.maximum_wind_speed = None
         else:
             self.maximum_wind_speed = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -2603,6 +2828,9 @@ class ZoneVentilationWindandStackOpenArea(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -2636,6 +2864,9 @@ class ZoneVentilationWindandStackOpenArea(object):
                                  'for field `zone_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `zone_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `zone_name`')
 
         self._data["Zone Name"] = value
@@ -2708,6 +2939,9 @@ class ZoneVentilationWindandStackOpenArea(object):
                                  'for field `opening_area_fraction_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `opening_area_fraction_schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `opening_area_fraction_schedule_name`')
 
         self._data["Opening Area Fraction Schedule Name"] = value
@@ -2954,6 +3188,9 @@ class ZoneVentilationWindandStackOpenArea(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `minimum_indoor_temperature_schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `minimum_indoor_temperature_schedule_name`')
 
         self._data["Minimum Indoor Temperature Schedule Name"] = value
 
@@ -3030,6 +3267,9 @@ class ZoneVentilationWindandStackOpenArea(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `maximum_indoor_temperature_schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `maximum_indoor_temperature_schedule_name`')
 
         self._data["Maximum Indoor Temperature Schedule Name"] = value
 
@@ -3102,6 +3342,9 @@ class ZoneVentilationWindandStackOpenArea(object):
                                  'for field `delta_temperature_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `delta_temperature_schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `delta_temperature_schedule_name`')
 
         self._data["Delta Temperature Schedule Name"] = value
@@ -3179,6 +3422,9 @@ class ZoneVentilationWindandStackOpenArea(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `minimum_outdoor_temperature_schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `minimum_outdoor_temperature_schedule_name`')
 
         self._data["Minimum Outdoor Temperature Schedule Name"] = value
 
@@ -3255,6 +3501,9 @@ class ZoneVentilationWindandStackOpenArea(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `maximum_outdoor_temperature_schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `maximum_outdoor_temperature_schedule_name`')
 
         self._data["Maximum Outdoor Temperature Schedule Name"] = value
 
@@ -3321,28 +3570,17 @@ class ZoneVentilationWindandStackOpenArea(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.zone_name))
-        out.append(self._to_str(self.opening_area))
-        out.append(self._to_str(self.opening_area_fraction_schedule_name))
-        out.append(self._to_str(self.opening_effectiveness))
-        out.append(self._to_str(self.effective_angle))
-        out.append(self._to_str(self.height_difference))
-        out.append(self._to_str(self.discharge_coefficient_for_opening))
-        out.append(self._to_str(self.minimum_indoor_temperature))
-        out.append(self._to_str(self.minimum_indoor_temperature_schedule_name))
-        out.append(self._to_str(self.maximum_indoor_temperature))
-        out.append(self._to_str(self.maximum_indoor_temperature_schedule_name))
-        out.append(self._to_str(self.delta_temperature))
-        out.append(self._to_str(self.delta_temperature_schedule_name))
-        out.append(self._to_str(self.minimum_outdoor_temperature))
-        out.append(self._to_str(self.minimum_outdoor_temperature_schedule_name))
-        out.append(self._to_str(self.maximum_outdoor_temperature))
-        out.append(self._to_str(self.maximum_outdoor_temperature_schedule_name))
-        out.append(self._to_str(self.maximum_wind_speed))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class ZoneAirBalanceOutdoorAir(object):
     """ Corresponds to IDD object `ZoneAirBalance:OutdoorAir`
@@ -3366,39 +3604,51 @@ class ZoneAirBalanceOutdoorAir(object):
         self._data["Air Balance Method"] = None
         self._data["Induced Outdoor Air Due to Unbalanced Duct Leakage"] = None
         self._data["Induced Outdoor Air Schedule Name"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.zone_name = None
         else:
             self.zone_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.air_balance_method = None
         else:
             self.air_balance_method = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.induced_outdoor_air_due_to_unbalanced_duct_leakage = None
         else:
             self.induced_outdoor_air_due_to_unbalanced_duct_leakage = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.induced_outdoor_air_schedule_name = None
         else:
             self.induced_outdoor_air_schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -3429,6 +3679,9 @@ class ZoneAirBalanceOutdoorAir(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -3462,6 +3715,9 @@ class ZoneAirBalanceOutdoorAir(object):
                                  'for field `zone_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `zone_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `zone_name`')
 
         self._data["Zone Name"] = value
@@ -3502,12 +3758,26 @@ class ZoneAirBalanceOutdoorAir(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `air_balance_method`')
-            vals = set()
-            vals.add("Quadrature")
-            vals.add("None")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `air_balance_method`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `air_balance_method`')
+            vals = {}
+            vals["quadrature"] = "Quadrature"
+            vals["none"] = "None"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `air_balance_method`'.format(value))
+            value = vals[value_lower]
 
         self._data["Air Balance Method"] = value
 
@@ -3579,6 +3849,9 @@ class ZoneAirBalanceOutdoorAir(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `induced_outdoor_air_schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `induced_outdoor_air_schedule_name`')
 
         self._data["Induced Outdoor Air Schedule Name"] = value
 
@@ -3604,14 +3877,17 @@ class ZoneAirBalanceOutdoorAir(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.zone_name))
-        out.append(self._to_str(self.air_balance_method))
-        out.append(self._to_str(self.induced_outdoor_air_due_to_unbalanced_duct_leakage))
-        out.append(self._to_str(self.induced_outdoor_air_schedule_name))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class ZoneMixing(object):
     """ Corresponds to IDD object `ZoneMixing`
@@ -3647,99 +3923,135 @@ class ZoneMixing(object):
         self._data["Maximum Source Zone Temperature Schedule Name"] = None
         self._data["Minimum Outdoor Temperature Schedule Name"] = None
         self._data["Maximum Outdoor Temperature Schedule Name"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.zone_name = None
         else:
             self.zone_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.schedule_name = None
         else:
             self.schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.design_flow_rate_calculation_method = None
         else:
             self.design_flow_rate_calculation_method = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.design_flow_rate = None
         else:
             self.design_flow_rate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.flow_rate_per_zone_floor_area = None
         else:
             self.flow_rate_per_zone_floor_area = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.flow_rate_per_person = None
         else:
             self.flow_rate_per_person = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.air_changes_per_hour = None
         else:
             self.air_changes_per_hour = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.source_zone_name = None
         else:
             self.source_zone_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.delta_temperature = None
         else:
             self.delta_temperature = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.delta_temperature_schedule_name = None
         else:
             self.delta_temperature_schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.minimum_zone_temperature_schedule_name = None
         else:
             self.minimum_zone_temperature_schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.maximum_zone_temperature_schedule_name = None
         else:
             self.maximum_zone_temperature_schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.minimum_source_zone_temperature_schedule_name = None
         else:
             self.minimum_source_zone_temperature_schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.maximum_source_zone_temperature_schedule_name = None
         else:
             self.maximum_source_zone_temperature_schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.minimum_outdoor_temperature_schedule_name = None
         else:
             self.minimum_outdoor_temperature_schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.maximum_outdoor_temperature_schedule_name = None
         else:
             self.maximum_outdoor_temperature_schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -3770,6 +4082,9 @@ class ZoneMixing(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -3804,6 +4119,9 @@ class ZoneMixing(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `zone_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `zone_name`')
 
         self._data["Zone Name"] = value
 
@@ -3836,6 +4154,9 @@ class ZoneMixing(object):
                                  'for field `schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `schedule_name`')
 
         self._data["Schedule Name"] = value
@@ -3883,14 +4204,28 @@ class ZoneMixing(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `design_flow_rate_calculation_method`')
-            vals = set()
-            vals.add("Flow/Zone")
-            vals.add("Flow/Area")
-            vals.add("Flow/Person")
-            vals.add("AirChanges/Hour")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `design_flow_rate_calculation_method`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `design_flow_rate_calculation_method`')
+            vals = {}
+            vals["flow/zone"] = "Flow/Zone"
+            vals["flow/area"] = "Flow/Area"
+            vals["flow/person"] = "Flow/Person"
+            vals["airchanges/hour"] = "AirChanges/Hour"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `design_flow_rate_calculation_method`'.format(value))
+            value = vals[value_lower]
 
         self._data["Design Flow Rate Calculation Method"] = value
 
@@ -4064,6 +4399,9 @@ class ZoneMixing(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `source_zone_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `source_zone_name`')
 
         self._data["Source Zone Name"] = value
 
@@ -4133,6 +4471,9 @@ class ZoneMixing(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `delta_temperature_schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `delta_temperature_schedule_name`')
 
         self._data["Delta Temperature Schedule Name"] = value
 
@@ -4167,6 +4508,9 @@ class ZoneMixing(object):
                                  'for field `minimum_zone_temperature_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `minimum_zone_temperature_schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `minimum_zone_temperature_schedule_name`')
 
         self._data["Minimum Zone Temperature Schedule Name"] = value
@@ -4203,6 +4547,9 @@ class ZoneMixing(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `maximum_zone_temperature_schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `maximum_zone_temperature_schedule_name`')
 
         self._data["Maximum Zone Temperature Schedule Name"] = value
 
@@ -4237,6 +4584,9 @@ class ZoneMixing(object):
                                  'for field `minimum_source_zone_temperature_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `minimum_source_zone_temperature_schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `minimum_source_zone_temperature_schedule_name`')
 
         self._data["Minimum Source Zone Temperature Schedule Name"] = value
@@ -4273,6 +4623,9 @@ class ZoneMixing(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `maximum_source_zone_temperature_schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `maximum_source_zone_temperature_schedule_name`')
 
         self._data["Maximum Source Zone Temperature Schedule Name"] = value
 
@@ -4307,6 +4660,9 @@ class ZoneMixing(object):
                                  'for field `minimum_outdoor_temperature_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `minimum_outdoor_temperature_schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `minimum_outdoor_temperature_schedule_name`')
 
         self._data["Minimum Outdoor Temperature Schedule Name"] = value
@@ -4343,6 +4699,9 @@ class ZoneMixing(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `maximum_outdoor_temperature_schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `maximum_outdoor_temperature_schedule_name`')
 
         self._data["Maximum Outdoor Temperature Schedule Name"] = value
 
@@ -4368,26 +4727,17 @@ class ZoneMixing(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.zone_name))
-        out.append(self._to_str(self.schedule_name))
-        out.append(self._to_str(self.design_flow_rate_calculation_method))
-        out.append(self._to_str(self.design_flow_rate))
-        out.append(self._to_str(self.flow_rate_per_zone_floor_area))
-        out.append(self._to_str(self.flow_rate_per_person))
-        out.append(self._to_str(self.air_changes_per_hour))
-        out.append(self._to_str(self.source_zone_name))
-        out.append(self._to_str(self.delta_temperature))
-        out.append(self._to_str(self.delta_temperature_schedule_name))
-        out.append(self._to_str(self.minimum_zone_temperature_schedule_name))
-        out.append(self._to_str(self.maximum_zone_temperature_schedule_name))
-        out.append(self._to_str(self.minimum_source_zone_temperature_schedule_name))
-        out.append(self._to_str(self.maximum_source_zone_temperature_schedule_name))
-        out.append(self._to_str(self.minimum_outdoor_temperature_schedule_name))
-        out.append(self._to_str(self.maximum_outdoor_temperature_schedule_name))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class ZoneCrossMixing(object):
     """ Corresponds to IDD object `ZoneCrossMixing`
@@ -4420,99 +4770,135 @@ class ZoneCrossMixing(object):
         self._data["Maximum Source Zone Temperature Schedule Name"] = None
         self._data["Minimum Outdoor Temperature Schedule Name"] = None
         self._data["Maximum Outdoor Temperature Schedule Name"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.zone_name = None
         else:
             self.zone_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.schedule_name = None
         else:
             self.schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.design_flow_rate_calculation_method = None
         else:
             self.design_flow_rate_calculation_method = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.design_flow_rate = None
         else:
             self.design_flow_rate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.flow_rate_per_zone_floor_area = None
         else:
             self.flow_rate_per_zone_floor_area = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.flow_rate_per_person = None
         else:
             self.flow_rate_per_person = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.air_changes_per_hour = None
         else:
             self.air_changes_per_hour = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.source_zone_name = None
         else:
             self.source_zone_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.delta_temperature = None
         else:
             self.delta_temperature = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.delta_temperature_schedule_name = None
         else:
             self.delta_temperature_schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.minimum_zone_temperature_schedule_name = None
         else:
             self.minimum_zone_temperature_schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.maximum_zone_temperature_schedule_name = None
         else:
             self.maximum_zone_temperature_schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.minimum_source_zone_temperature_schedule_name = None
         else:
             self.minimum_source_zone_temperature_schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.maximum_source_zone_temperature_schedule_name = None
         else:
             self.maximum_source_zone_temperature_schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.minimum_outdoor_temperature_schedule_name = None
         else:
             self.minimum_outdoor_temperature_schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.maximum_outdoor_temperature_schedule_name = None
         else:
             self.maximum_outdoor_temperature_schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -4543,6 +4929,9 @@ class ZoneCrossMixing(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -4577,6 +4966,9 @@ class ZoneCrossMixing(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `zone_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `zone_name`')
 
         self._data["Zone Name"] = value
 
@@ -4609,6 +5001,9 @@ class ZoneCrossMixing(object):
                                  'for field `schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `schedule_name`')
 
         self._data["Schedule Name"] = value
@@ -4656,14 +5051,28 @@ class ZoneCrossMixing(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `design_flow_rate_calculation_method`')
-            vals = set()
-            vals.add("Flow/Zone")
-            vals.add("Flow/Person")
-            vals.add("Flow/Area")
-            vals.add("AirChanges/Hour")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `design_flow_rate_calculation_method`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `design_flow_rate_calculation_method`')
+            vals = {}
+            vals["flow/zone"] = "Flow/Zone"
+            vals["flow/person"] = "Flow/Person"
+            vals["flow/area"] = "Flow/Area"
+            vals["airchanges/hour"] = "AirChanges/Hour"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `design_flow_rate_calculation_method`'.format(value))
+            value = vals[value_lower]
 
         self._data["Design Flow Rate Calculation Method"] = value
 
@@ -4836,6 +5245,9 @@ class ZoneCrossMixing(object):
                                  'for field `source_zone_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `source_zone_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `source_zone_name`')
 
         self._data["Source Zone Name"] = value
@@ -4911,6 +5323,9 @@ class ZoneCrossMixing(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `delta_temperature_schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `delta_temperature_schedule_name`')
 
         self._data["Delta Temperature Schedule Name"] = value
 
@@ -4945,6 +5360,9 @@ class ZoneCrossMixing(object):
                                  'for field `minimum_zone_temperature_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `minimum_zone_temperature_schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `minimum_zone_temperature_schedule_name`')
 
         self._data["Minimum Zone Temperature Schedule Name"] = value
@@ -4981,6 +5399,9 @@ class ZoneCrossMixing(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `maximum_zone_temperature_schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `maximum_zone_temperature_schedule_name`')
 
         self._data["Maximum Zone Temperature Schedule Name"] = value
 
@@ -5015,6 +5436,9 @@ class ZoneCrossMixing(object):
                                  'for field `minimum_source_zone_temperature_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `minimum_source_zone_temperature_schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `minimum_source_zone_temperature_schedule_name`')
 
         self._data["Minimum Source Zone Temperature Schedule Name"] = value
@@ -5051,6 +5475,9 @@ class ZoneCrossMixing(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `maximum_source_zone_temperature_schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `maximum_source_zone_temperature_schedule_name`')
 
         self._data["Maximum Source Zone Temperature Schedule Name"] = value
 
@@ -5085,6 +5512,9 @@ class ZoneCrossMixing(object):
                                  'for field `minimum_outdoor_temperature_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `minimum_outdoor_temperature_schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `minimum_outdoor_temperature_schedule_name`')
 
         self._data["Minimum Outdoor Temperature Schedule Name"] = value
@@ -5121,6 +5551,9 @@ class ZoneCrossMixing(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `maximum_outdoor_temperature_schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `maximum_outdoor_temperature_schedule_name`')
 
         self._data["Maximum Outdoor Temperature Schedule Name"] = value
 
@@ -5146,26 +5579,17 @@ class ZoneCrossMixing(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.zone_name))
-        out.append(self._to_str(self.schedule_name))
-        out.append(self._to_str(self.design_flow_rate_calculation_method))
-        out.append(self._to_str(self.design_flow_rate))
-        out.append(self._to_str(self.flow_rate_per_zone_floor_area))
-        out.append(self._to_str(self.flow_rate_per_person))
-        out.append(self._to_str(self.air_changes_per_hour))
-        out.append(self._to_str(self.source_zone_name))
-        out.append(self._to_str(self.delta_temperature))
-        out.append(self._to_str(self.delta_temperature_schedule_name))
-        out.append(self._to_str(self.minimum_zone_temperature_schedule_name))
-        out.append(self._to_str(self.maximum_zone_temperature_schedule_name))
-        out.append(self._to_str(self.minimum_source_zone_temperature_schedule_name))
-        out.append(self._to_str(self.maximum_source_zone_temperature_schedule_name))
-        out.append(self._to_str(self.minimum_outdoor_temperature_schedule_name))
-        out.append(self._to_str(self.maximum_outdoor_temperature_schedule_name))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class ZoneRefrigerationDoorMixing(object):
     """ Corresponds to IDD object `ZoneRefrigerationDoorMixing`
@@ -5192,49 +5616,65 @@ class ZoneRefrigerationDoorMixing(object):
         self._data["Door Height"] = None
         self._data["Door Area"] = None
         self._data["Door Protection Type"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.zone_1_name = None
         else:
             self.zone_1_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.zone_2_name = None
         else:
             self.zone_2_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.schedule_name = None
         else:
             self.schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.door_height = None
         else:
             self.door_height = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.door_area = None
         else:
             self.door_area = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.door_protection_type = None
         else:
             self.door_protection_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -5265,6 +5705,9 @@ class ZoneRefrigerationDoorMixing(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -5299,6 +5742,9 @@ class ZoneRefrigerationDoorMixing(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `zone_1_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `zone_1_name`')
 
         self._data["Zone 1 Name"] = value
 
@@ -5331,6 +5777,9 @@ class ZoneRefrigerationDoorMixing(object):
                                  'for field `zone_2_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `zone_2_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `zone_2_name`')
 
         self._data["Zone 2 Name"] = value
@@ -5370,6 +5819,9 @@ class ZoneRefrigerationDoorMixing(object):
                                  'for field `schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `schedule_name`')
 
         self._data["Schedule Name"] = value
@@ -5493,13 +5945,27 @@ class ZoneRefrigerationDoorMixing(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `door_protection_type`')
-            vals = set()
-            vals.add("None")
-            vals.add("AirCurtain")
-            vals.add("StripCurtain")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `door_protection_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `door_protection_type`')
+            vals = {}
+            vals["none"] = "None"
+            vals["aircurtain"] = "AirCurtain"
+            vals["stripcurtain"] = "StripCurtain"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `door_protection_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Door Protection Type"] = value
 
@@ -5525,16 +5991,17 @@ class ZoneRefrigerationDoorMixing(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.zone_1_name))
-        out.append(self._to_str(self.zone_2_name))
-        out.append(self._to_str(self.schedule_name))
-        out.append(self._to_str(self.door_height))
-        out.append(self._to_str(self.door_area))
-        out.append(self._to_str(self.door_protection_type))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class ZoneEarthtube(object):
     """ Corresponds to IDD object `ZoneEarthtube`
@@ -5572,124 +6039,170 @@ class ZoneEarthtube(object):
         self._data["Temperature Term Flow Coefficient"] = None
         self._data["Velocity Term Flow Coefficient"] = None
         self._data["Velocity Squared Term Flow Coefficient"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.zone_name = None
         else:
             self.zone_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.schedule_name = None
         else:
             self.schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.design_flow_rate = None
         else:
             self.design_flow_rate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.minimum_zone_temperature_when_cooling = None
         else:
             self.minimum_zone_temperature_when_cooling = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.maximum_zone_temperature_when_heating = None
         else:
             self.maximum_zone_temperature_when_heating = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.delta_temperature = None
         else:
             self.delta_temperature = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.earthtube_type = None
         else:
             self.earthtube_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fan_pressure_rise = None
         else:
             self.fan_pressure_rise = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fan_total_efficiency = None
         else:
             self.fan_total_efficiency = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.pipe_radius = None
         else:
             self.pipe_radius = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.pipe_thickness = None
         else:
             self.pipe_thickness = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.pipe_length = None
         else:
             self.pipe_length = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.pipe_thermal_conductivity = None
         else:
             self.pipe_thermal_conductivity = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.pipe_depth_under_ground_surface = None
         else:
             self.pipe_depth_under_ground_surface = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.soil_condition = None
         else:
             self.soil_condition = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.average_soil_surface_temperature = None
         else:
             self.average_soil_surface_temperature = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.amplitude_of_soil_surface_temperature = None
         else:
             self.amplitude_of_soil_surface_temperature = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.phase_constant_of_soil_surface_temperature = None
         else:
             self.phase_constant_of_soil_surface_temperature = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.constant_term_flow_coefficient = None
         else:
             self.constant_term_flow_coefficient = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.temperature_term_flow_coefficient = None
         else:
             self.temperature_term_flow_coefficient = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.velocity_term_flow_coefficient = None
         else:
             self.velocity_term_flow_coefficient = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.velocity_squared_term_flow_coefficient = None
         else:
             self.velocity_squared_term_flow_coefficient = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def zone_name(self):
@@ -5720,6 +6233,9 @@ class ZoneEarthtube(object):
                                  'for field `zone_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `zone_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `zone_name`')
 
         self._data["Zone Name"] = value
@@ -5753,6 +6269,9 @@ class ZoneEarthtube(object):
                                  'for field `schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `schedule_name`')
 
         self._data["Schedule Name"] = value
@@ -5944,13 +6463,27 @@ class ZoneEarthtube(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `earthtube_type`')
-            vals = set()
-            vals.add("Natural")
-            vals.add("Intake")
-            vals.add("Exhaust")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `earthtube_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `earthtube_type`')
+            vals = {}
+            vals["natural"] = "Natural"
+            vals["intake"] = "Intake"
+            vals["exhaust"] = "Exhaust"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `earthtube_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Earthtube Type"] = value
 
@@ -6242,14 +6775,28 @@ class ZoneEarthtube(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `soil_condition`')
-            vals = set()
-            vals.add("HeavyAndSaturated")
-            vals.add("HeavyAndDamp")
-            vals.add("HeavyAndDry")
-            vals.add("LightAndDry")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `soil_condition`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `soil_condition`')
+            vals = {}
+            vals["heavyandsaturated"] = "HeavyAndSaturated"
+            vals["heavyanddamp"] = "HeavyAndDamp"
+            vals["heavyanddry"] = "HeavyAndDry"
+            vals["lightanddry"] = "LightAndDry"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `soil_condition`'.format(value))
+            value = vals[value_lower]
 
         self._data["Soil Condition"] = value
 
@@ -6507,31 +7054,17 @@ class ZoneEarthtube(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.zone_name))
-        out.append(self._to_str(self.schedule_name))
-        out.append(self._to_str(self.design_flow_rate))
-        out.append(self._to_str(self.minimum_zone_temperature_when_cooling))
-        out.append(self._to_str(self.maximum_zone_temperature_when_heating))
-        out.append(self._to_str(self.delta_temperature))
-        out.append(self._to_str(self.earthtube_type))
-        out.append(self._to_str(self.fan_pressure_rise))
-        out.append(self._to_str(self.fan_total_efficiency))
-        out.append(self._to_str(self.pipe_radius))
-        out.append(self._to_str(self.pipe_thickness))
-        out.append(self._to_str(self.pipe_length))
-        out.append(self._to_str(self.pipe_thermal_conductivity))
-        out.append(self._to_str(self.pipe_depth_under_ground_surface))
-        out.append(self._to_str(self.soil_condition))
-        out.append(self._to_str(self.average_soil_surface_temperature))
-        out.append(self._to_str(self.amplitude_of_soil_surface_temperature))
-        out.append(self._to_str(self.phase_constant_of_soil_surface_temperature))
-        out.append(self._to_str(self.constant_term_flow_coefficient))
-        out.append(self._to_str(self.temperature_term_flow_coefficient))
-        out.append(self._to_str(self.velocity_term_flow_coefficient))
-        out.append(self._to_str(self.velocity_squared_term_flow_coefficient))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class ZoneCoolTowerShower(object):
     """ Corresponds to IDD object `ZoneCoolTower:Shower`
@@ -6563,84 +7096,114 @@ class ZoneCoolTowerShower(object):
         self._data["Fraction of Water Loss"] = None
         self._data["Fraction of Flow Schedule"] = None
         self._data["Rated Power Consumption"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.availability_schedule_name = None
         else:
             self.availability_schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.zone_name = None
         else:
             self.zone_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.water_supply_storage_tank_name = None
         else:
             self.water_supply_storage_tank_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.flow_control_type = None
         else:
             self.flow_control_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.pump_flow_rate_schedule_name = None
         else:
             self.pump_flow_rate_schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.maximum_water_flow_rate = None
         else:
             self.maximum_water_flow_rate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.effective_tower_height = None
         else:
             self.effective_tower_height = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.airflow_outlet_area = None
         else:
             self.airflow_outlet_area = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.maximum_air_flow_rate = None
         else:
             self.maximum_air_flow_rate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.minimum_indoor_temperature = None
         else:
             self.minimum_indoor_temperature = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_water_loss = None
         else:
             self.fraction_of_water_loss = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_flow_schedule = None
         else:
             self.fraction_of_flow_schedule = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.rated_power_consumption = None
         else:
             self.rated_power_consumption = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -6671,6 +7234,9 @@ class ZoneCoolTowerShower(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -6707,6 +7273,9 @@ class ZoneCoolTowerShower(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `availability_schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `availability_schedule_name`')
 
         self._data["Availability Schedule Name"] = value
 
@@ -6739,6 +7308,9 @@ class ZoneCoolTowerShower(object):
                                  'for field `zone_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `zone_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `zone_name`')
 
         self._data["Zone Name"] = value
@@ -6773,6 +7345,9 @@ class ZoneCoolTowerShower(object):
                                  'for field `water_supply_storage_tank_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `water_supply_storage_tank_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `water_supply_storage_tank_name`')
 
         self._data["Water Supply Storage Tank Name"] = value
@@ -6813,12 +7388,26 @@ class ZoneCoolTowerShower(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `flow_control_type`')
-            vals = set()
-            vals.add("WaterFlowSchedule")
-            vals.add("WindDrivenFlow")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `flow_control_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `flow_control_type`')
+            vals = {}
+            vals["waterflowschedule"] = "WaterFlowSchedule"
+            vals["winddrivenflow"] = "WindDrivenFlow"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `flow_control_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Flow Control Type"] = value
 
@@ -6851,6 +7440,9 @@ class ZoneCoolTowerShower(object):
                                  'for field `pump_flow_rate_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `pump_flow_rate_schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `pump_flow_rate_schedule_name`')
 
         self._data["Pump Flow Rate Schedule Name"] = value
@@ -7155,23 +7747,17 @@ class ZoneCoolTowerShower(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.availability_schedule_name))
-        out.append(self._to_str(self.zone_name))
-        out.append(self._to_str(self.water_supply_storage_tank_name))
-        out.append(self._to_str(self.flow_control_type))
-        out.append(self._to_str(self.pump_flow_rate_schedule_name))
-        out.append(self._to_str(self.maximum_water_flow_rate))
-        out.append(self._to_str(self.effective_tower_height))
-        out.append(self._to_str(self.airflow_outlet_area))
-        out.append(self._to_str(self.maximum_air_flow_rate))
-        out.append(self._to_str(self.minimum_indoor_temperature))
-        out.append(self._to_str(self.fraction_of_water_loss))
-        out.append(self._to_str(self.fraction_of_flow_schedule))
-        out.append(self._to_str(self.rated_power_consumption))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class ZoneThermalChimney(object):
     """ Corresponds to IDD object `ZoneThermalChimney`
@@ -7274,444 +7860,618 @@ class ZoneThermalChimney(object):
         self._data["Distance from Top of Thermal Chimney to Inlet 20"] = None
         self._data["Relative Ratios of Air Flow Rates Passing through Zone 20"] = None
         self._data["Cross Sectional Areas of Air Channel Inlet 20"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.zone_name = None
         else:
             self.zone_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.availability_schedule_name = None
         else:
             self.availability_schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.width_of_the_absorber_wall = None
         else:
             self.width_of_the_absorber_wall = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.cross_sectional_area_of_air_channel_outlet = None
         else:
             self.cross_sectional_area_of_air_channel_outlet = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.discharge_coefficient = None
         else:
             self.discharge_coefficient = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.zone_1_name = None
         else:
             self.zone_1_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.distance_from_top_of_thermal_chimney_to_inlet_1 = None
         else:
             self.distance_from_top_of_thermal_chimney_to_inlet_1 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.relative_ratios_of_air_flow_rates_passing_through_zone_1 = None
         else:
             self.relative_ratios_of_air_flow_rates_passing_through_zone_1 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.cross_sectional_areas_of_air_channel_inlet_1 = None
         else:
             self.cross_sectional_areas_of_air_channel_inlet_1 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.zone_2_name = None
         else:
             self.zone_2_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.distance_from_top_of_thermal_chimney_to_inlet_2 = None
         else:
             self.distance_from_top_of_thermal_chimney_to_inlet_2 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.relative_ratios_of_air_flow_rates_passing_through_zone_2 = None
         else:
             self.relative_ratios_of_air_flow_rates_passing_through_zone_2 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.cross_sectional_areas_of_air_channel_inlet_2 = None
         else:
             self.cross_sectional_areas_of_air_channel_inlet_2 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.zone_3_name = None
         else:
             self.zone_3_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.distance_from_top_of_thermal_chimney_to_inlet_3 = None
         else:
             self.distance_from_top_of_thermal_chimney_to_inlet_3 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.relative_ratios_of_air_flow_rates_passing_through_zone_3 = None
         else:
             self.relative_ratios_of_air_flow_rates_passing_through_zone_3 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.cross_sectional_areas_of_air_channel_inlet_3 = None
         else:
             self.cross_sectional_areas_of_air_channel_inlet_3 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.zone_4_name = None
         else:
             self.zone_4_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.distance_from_top_of_thermal_chimney_to_inlet_4 = None
         else:
             self.distance_from_top_of_thermal_chimney_to_inlet_4 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.relative_ratios_of_air_flow_rates_passing_through_zone_4 = None
         else:
             self.relative_ratios_of_air_flow_rates_passing_through_zone_4 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.cross_sectional_areas_of_air_channel_inlet_4 = None
         else:
             self.cross_sectional_areas_of_air_channel_inlet_4 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.zone_5_name = None
         else:
             self.zone_5_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.distance_from_top_of_thermal_chimney_to_inlet_5 = None
         else:
             self.distance_from_top_of_thermal_chimney_to_inlet_5 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.relative_ratios_of_air_flow_rates_passing_through_zone_5 = None
         else:
             self.relative_ratios_of_air_flow_rates_passing_through_zone_5 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.cross_sectional_areas_of_air_channel_inlet_5 = None
         else:
             self.cross_sectional_areas_of_air_channel_inlet_5 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.zone_6_name = None
         else:
             self.zone_6_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.distance_from_top_of_thermal_chimney_to_inlet_6 = None
         else:
             self.distance_from_top_of_thermal_chimney_to_inlet_6 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.relative_ratios_of_air_flow_rates_passing_through_zone_6 = None
         else:
             self.relative_ratios_of_air_flow_rates_passing_through_zone_6 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.cross_sectional_areas_of_air_channel_inlet_6 = None
         else:
             self.cross_sectional_areas_of_air_channel_inlet_6 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.zone_7_name = None
         else:
             self.zone_7_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.distance_from_top_of_thermal_chimney_to_inlet_7 = None
         else:
             self.distance_from_top_of_thermal_chimney_to_inlet_7 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.relative_ratios_of_air_flow_rates_passing_through_zone_7 = None
         else:
             self.relative_ratios_of_air_flow_rates_passing_through_zone_7 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.cross_sectional_areas_of_air_channel_inlet_7 = None
         else:
             self.cross_sectional_areas_of_air_channel_inlet_7 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.zone_8_name = None
         else:
             self.zone_8_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.distance_from_top_of_thermal_chimney_to_inlet_8 = None
         else:
             self.distance_from_top_of_thermal_chimney_to_inlet_8 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.relative_ratios_of_air_flow_rates_passing_through_zone_8 = None
         else:
             self.relative_ratios_of_air_flow_rates_passing_through_zone_8 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.cross_sectional_areas_of_air_channel_inlet_8 = None
         else:
             self.cross_sectional_areas_of_air_channel_inlet_8 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.zone_9_name = None
         else:
             self.zone_9_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.distance_from_top_of_thermal_chimney_to_inlet_9 = None
         else:
             self.distance_from_top_of_thermal_chimney_to_inlet_9 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.relative_ratios_of_air_flow_rates_passing_through_zone_9 = None
         else:
             self.relative_ratios_of_air_flow_rates_passing_through_zone_9 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.cross_sectional_areas_of_air_channel_inlet_9 = None
         else:
             self.cross_sectional_areas_of_air_channel_inlet_9 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.zone_10_name = None
         else:
             self.zone_10_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.distance_from_top_of_thermal_chimney_to_inlet_10 = None
         else:
             self.distance_from_top_of_thermal_chimney_to_inlet_10 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.relative_ratios_of_air_flow_rates_passing_through_zone_10 = None
         else:
             self.relative_ratios_of_air_flow_rates_passing_through_zone_10 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.cross_sectional_areas_of_air_channel_inlet_10 = None
         else:
             self.cross_sectional_areas_of_air_channel_inlet_10 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.zone_11_name = None
         else:
             self.zone_11_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.distance_from_top_of_thermal_chimney_to_inlet_11 = None
         else:
             self.distance_from_top_of_thermal_chimney_to_inlet_11 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.relative_ratios_of_air_flow_rates_passing_through_zone_11 = None
         else:
             self.relative_ratios_of_air_flow_rates_passing_through_zone_11 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.cross_sectional_areas_of_air_channel_inlet_11 = None
         else:
             self.cross_sectional_areas_of_air_channel_inlet_11 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.zone_12_name = None
         else:
             self.zone_12_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.distance_from_top_of_thermal_chimney_to_inlet_12 = None
         else:
             self.distance_from_top_of_thermal_chimney_to_inlet_12 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.relative_ratios_of_air_flow_rates_passing_through_zone_12 = None
         else:
             self.relative_ratios_of_air_flow_rates_passing_through_zone_12 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.cross_sectional_areas_of_air_channel_inlet_12 = None
         else:
             self.cross_sectional_areas_of_air_channel_inlet_12 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.zone_13_name = None
         else:
             self.zone_13_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.distance_from_top_of_thermal_chimney_to_inlet_13 = None
         else:
             self.distance_from_top_of_thermal_chimney_to_inlet_13 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.relative_ratios_of_air_flow_rates_passing_through_zone_13 = None
         else:
             self.relative_ratios_of_air_flow_rates_passing_through_zone_13 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.cross_sectional_areas_of_air_channel_inlet_13 = None
         else:
             self.cross_sectional_areas_of_air_channel_inlet_13 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.zone_14_name = None
         else:
             self.zone_14_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.distance_from_top_of_thermal_chimney_to_inlet_14 = None
         else:
             self.distance_from_top_of_thermal_chimney_to_inlet_14 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.relative_ratios_of_air_flow_rates_passing_through_zone_14 = None
         else:
             self.relative_ratios_of_air_flow_rates_passing_through_zone_14 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.cross_sectional_areas_of_air_channel_inlet_14 = None
         else:
             self.cross_sectional_areas_of_air_channel_inlet_14 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.zone_15_name = None
         else:
             self.zone_15_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.distance_from_top_of_thermal_chimney_to_inlet_15 = None
         else:
             self.distance_from_top_of_thermal_chimney_to_inlet_15 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.relative_ratios_of_air_flow_rates_passing_through_zone_15 = None
         else:
             self.relative_ratios_of_air_flow_rates_passing_through_zone_15 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.cross_sectional_areas_of_air_channel_inlet_15 = None
         else:
             self.cross_sectional_areas_of_air_channel_inlet_15 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.zone_16_name = None
         else:
             self.zone_16_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.distance_from_top_of_thermal_chimney_to_inlet_16 = None
         else:
             self.distance_from_top_of_thermal_chimney_to_inlet_16 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.relative_ratios_of_air_flow_rates_passing_through_zone_16 = None
         else:
             self.relative_ratios_of_air_flow_rates_passing_through_zone_16 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.cross_sectional_areas_of_air_channel_inlet_16 = None
         else:
             self.cross_sectional_areas_of_air_channel_inlet_16 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.zone_17_name = None
         else:
             self.zone_17_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.distance_from_top_of_thermal_chimney_to_inlet_17 = None
         else:
             self.distance_from_top_of_thermal_chimney_to_inlet_17 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.relative_ratios_of_air_flow_rates_passing_through_zone_17 = None
         else:
             self.relative_ratios_of_air_flow_rates_passing_through_zone_17 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.cross_sectional_areas_of_air_channel_inlet_17 = None
         else:
             self.cross_sectional_areas_of_air_channel_inlet_17 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.zone_18_name = None
         else:
             self.zone_18_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.distance_from_top_of_thermal_chimney_to_inlet_18 = None
         else:
             self.distance_from_top_of_thermal_chimney_to_inlet_18 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.relative_ratios_of_air_flow_rates_passing_through_zone_18 = None
         else:
             self.relative_ratios_of_air_flow_rates_passing_through_zone_18 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.cross_sectional_areas_of_air_channel_inlet_18 = None
         else:
             self.cross_sectional_areas_of_air_channel_inlet_18 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.zone_19_name = None
         else:
             self.zone_19_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.distance_from_top_of_thermal_chimney_to_inlet_19 = None
         else:
             self.distance_from_top_of_thermal_chimney_to_inlet_19 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.relative_ratios_of_air_flow_rates_passing_through_zone_19 = None
         else:
             self.relative_ratios_of_air_flow_rates_passing_through_zone_19 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.cross_sectional_areas_of_air_channel_inlet_19 = None
         else:
             self.cross_sectional_areas_of_air_channel_inlet_19 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.zone_20_name = None
         else:
             self.zone_20_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.distance_from_top_of_thermal_chimney_to_inlet_20 = None
         else:
             self.distance_from_top_of_thermal_chimney_to_inlet_20 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.relative_ratios_of_air_flow_rates_passing_through_zone_20 = None
         else:
             self.relative_ratios_of_air_flow_rates_passing_through_zone_20 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.cross_sectional_areas_of_air_channel_inlet_20 = None
         else:
             self.cross_sectional_areas_of_air_channel_inlet_20 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -7742,6 +8502,9 @@ class ZoneThermalChimney(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -7777,6 +8540,9 @@ class ZoneThermalChimney(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `zone_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `zone_name`')
 
         self._data["Zone Name"] = value
 
@@ -7811,6 +8577,9 @@ class ZoneThermalChimney(object):
                                  'for field `availability_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `availability_schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `availability_schedule_name`')
 
         self._data["Availability Schedule Name"] = value
@@ -7954,6 +8723,9 @@ class ZoneThermalChimney(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `zone_1_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `zone_1_name`')
 
         self._data["Zone 1 Name"] = value
 
@@ -8096,6 +8868,9 @@ class ZoneThermalChimney(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `zone_2_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `zone_2_name`')
 
         self._data["Zone 2 Name"] = value
 
@@ -8236,6 +9011,9 @@ class ZoneThermalChimney(object):
                                  'for field `zone_3_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `zone_3_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `zone_3_name`')
 
         self._data["Zone 3 Name"] = value
@@ -8378,6 +9156,9 @@ class ZoneThermalChimney(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `zone_4_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `zone_4_name`')
 
         self._data["Zone 4 Name"] = value
 
@@ -8518,6 +9299,9 @@ class ZoneThermalChimney(object):
                                  'for field `zone_5_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `zone_5_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `zone_5_name`')
 
         self._data["Zone 5 Name"] = value
@@ -8660,6 +9444,9 @@ class ZoneThermalChimney(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `zone_6_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `zone_6_name`')
 
         self._data["Zone 6 Name"] = value
 
@@ -8800,6 +9587,9 @@ class ZoneThermalChimney(object):
                                  'for field `zone_7_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `zone_7_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `zone_7_name`')
 
         self._data["Zone 7 Name"] = value
@@ -8942,6 +9732,9 @@ class ZoneThermalChimney(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `zone_8_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `zone_8_name`')
 
         self._data["Zone 8 Name"] = value
 
@@ -9082,6 +9875,9 @@ class ZoneThermalChimney(object):
                                  'for field `zone_9_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `zone_9_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `zone_9_name`')
 
         self._data["Zone 9 Name"] = value
@@ -9224,6 +10020,9 @@ class ZoneThermalChimney(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `zone_10_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `zone_10_name`')
 
         self._data["Zone 10 Name"] = value
 
@@ -9364,6 +10163,9 @@ class ZoneThermalChimney(object):
                                  'for field `zone_11_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `zone_11_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `zone_11_name`')
 
         self._data["Zone 11 Name"] = value
@@ -9506,6 +10308,9 @@ class ZoneThermalChimney(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `zone_12_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `zone_12_name`')
 
         self._data["Zone 12 Name"] = value
 
@@ -9646,6 +10451,9 @@ class ZoneThermalChimney(object):
                                  'for field `zone_13_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `zone_13_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `zone_13_name`')
 
         self._data["Zone 13 Name"] = value
@@ -9788,6 +10596,9 @@ class ZoneThermalChimney(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `zone_14_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `zone_14_name`')
 
         self._data["Zone 14 Name"] = value
 
@@ -9928,6 +10739,9 @@ class ZoneThermalChimney(object):
                                  'for field `zone_15_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `zone_15_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `zone_15_name`')
 
         self._data["Zone 15 Name"] = value
@@ -10070,6 +10884,9 @@ class ZoneThermalChimney(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `zone_16_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `zone_16_name`')
 
         self._data["Zone 16 Name"] = value
 
@@ -10210,6 +11027,9 @@ class ZoneThermalChimney(object):
                                  'for field `zone_17_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `zone_17_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `zone_17_name`')
 
         self._data["Zone 17 Name"] = value
@@ -10352,6 +11172,9 @@ class ZoneThermalChimney(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `zone_18_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `zone_18_name`')
 
         self._data["Zone 18 Name"] = value
 
@@ -10492,6 +11315,9 @@ class ZoneThermalChimney(object):
                                  'for field `zone_19_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `zone_19_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `zone_19_name`')
 
         self._data["Zone 19 Name"] = value
@@ -10634,6 +11460,9 @@ class ZoneThermalChimney(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `zone_20_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `zone_20_name`')
 
         self._data["Zone 20 Name"] = value
 
@@ -10767,92 +11596,14 @@ class ZoneThermalChimney(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.zone_name))
-        out.append(self._to_str(self.availability_schedule_name))
-        out.append(self._to_str(self.width_of_the_absorber_wall))
-        out.append(self._to_str(self.cross_sectional_area_of_air_channel_outlet))
-        out.append(self._to_str(self.discharge_coefficient))
-        out.append(self._to_str(self.zone_1_name))
-        out.append(self._to_str(self.distance_from_top_of_thermal_chimney_to_inlet_1))
-        out.append(self._to_str(self.relative_ratios_of_air_flow_rates_passing_through_zone_1))
-        out.append(self._to_str(self.cross_sectional_areas_of_air_channel_inlet_1))
-        out.append(self._to_str(self.zone_2_name))
-        out.append(self._to_str(self.distance_from_top_of_thermal_chimney_to_inlet_2))
-        out.append(self._to_str(self.relative_ratios_of_air_flow_rates_passing_through_zone_2))
-        out.append(self._to_str(self.cross_sectional_areas_of_air_channel_inlet_2))
-        out.append(self._to_str(self.zone_3_name))
-        out.append(self._to_str(self.distance_from_top_of_thermal_chimney_to_inlet_3))
-        out.append(self._to_str(self.relative_ratios_of_air_flow_rates_passing_through_zone_3))
-        out.append(self._to_str(self.cross_sectional_areas_of_air_channel_inlet_3))
-        out.append(self._to_str(self.zone_4_name))
-        out.append(self._to_str(self.distance_from_top_of_thermal_chimney_to_inlet_4))
-        out.append(self._to_str(self.relative_ratios_of_air_flow_rates_passing_through_zone_4))
-        out.append(self._to_str(self.cross_sectional_areas_of_air_channel_inlet_4))
-        out.append(self._to_str(self.zone_5_name))
-        out.append(self._to_str(self.distance_from_top_of_thermal_chimney_to_inlet_5))
-        out.append(self._to_str(self.relative_ratios_of_air_flow_rates_passing_through_zone_5))
-        out.append(self._to_str(self.cross_sectional_areas_of_air_channel_inlet_5))
-        out.append(self._to_str(self.zone_6_name))
-        out.append(self._to_str(self.distance_from_top_of_thermal_chimney_to_inlet_6))
-        out.append(self._to_str(self.relative_ratios_of_air_flow_rates_passing_through_zone_6))
-        out.append(self._to_str(self.cross_sectional_areas_of_air_channel_inlet_6))
-        out.append(self._to_str(self.zone_7_name))
-        out.append(self._to_str(self.distance_from_top_of_thermal_chimney_to_inlet_7))
-        out.append(self._to_str(self.relative_ratios_of_air_flow_rates_passing_through_zone_7))
-        out.append(self._to_str(self.cross_sectional_areas_of_air_channel_inlet_7))
-        out.append(self._to_str(self.zone_8_name))
-        out.append(self._to_str(self.distance_from_top_of_thermal_chimney_to_inlet_8))
-        out.append(self._to_str(self.relative_ratios_of_air_flow_rates_passing_through_zone_8))
-        out.append(self._to_str(self.cross_sectional_areas_of_air_channel_inlet_8))
-        out.append(self._to_str(self.zone_9_name))
-        out.append(self._to_str(self.distance_from_top_of_thermal_chimney_to_inlet_9))
-        out.append(self._to_str(self.relative_ratios_of_air_flow_rates_passing_through_zone_9))
-        out.append(self._to_str(self.cross_sectional_areas_of_air_channel_inlet_9))
-        out.append(self._to_str(self.zone_10_name))
-        out.append(self._to_str(self.distance_from_top_of_thermal_chimney_to_inlet_10))
-        out.append(self._to_str(self.relative_ratios_of_air_flow_rates_passing_through_zone_10))
-        out.append(self._to_str(self.cross_sectional_areas_of_air_channel_inlet_10))
-        out.append(self._to_str(self.zone_11_name))
-        out.append(self._to_str(self.distance_from_top_of_thermal_chimney_to_inlet_11))
-        out.append(self._to_str(self.relative_ratios_of_air_flow_rates_passing_through_zone_11))
-        out.append(self._to_str(self.cross_sectional_areas_of_air_channel_inlet_11))
-        out.append(self._to_str(self.zone_12_name))
-        out.append(self._to_str(self.distance_from_top_of_thermal_chimney_to_inlet_12))
-        out.append(self._to_str(self.relative_ratios_of_air_flow_rates_passing_through_zone_12))
-        out.append(self._to_str(self.cross_sectional_areas_of_air_channel_inlet_12))
-        out.append(self._to_str(self.zone_13_name))
-        out.append(self._to_str(self.distance_from_top_of_thermal_chimney_to_inlet_13))
-        out.append(self._to_str(self.relative_ratios_of_air_flow_rates_passing_through_zone_13))
-        out.append(self._to_str(self.cross_sectional_areas_of_air_channel_inlet_13))
-        out.append(self._to_str(self.zone_14_name))
-        out.append(self._to_str(self.distance_from_top_of_thermal_chimney_to_inlet_14))
-        out.append(self._to_str(self.relative_ratios_of_air_flow_rates_passing_through_zone_14))
-        out.append(self._to_str(self.cross_sectional_areas_of_air_channel_inlet_14))
-        out.append(self._to_str(self.zone_15_name))
-        out.append(self._to_str(self.distance_from_top_of_thermal_chimney_to_inlet_15))
-        out.append(self._to_str(self.relative_ratios_of_air_flow_rates_passing_through_zone_15))
-        out.append(self._to_str(self.cross_sectional_areas_of_air_channel_inlet_15))
-        out.append(self._to_str(self.zone_16_name))
-        out.append(self._to_str(self.distance_from_top_of_thermal_chimney_to_inlet_16))
-        out.append(self._to_str(self.relative_ratios_of_air_flow_rates_passing_through_zone_16))
-        out.append(self._to_str(self.cross_sectional_areas_of_air_channel_inlet_16))
-        out.append(self._to_str(self.zone_17_name))
-        out.append(self._to_str(self.distance_from_top_of_thermal_chimney_to_inlet_17))
-        out.append(self._to_str(self.relative_ratios_of_air_flow_rates_passing_through_zone_17))
-        out.append(self._to_str(self.cross_sectional_areas_of_air_channel_inlet_17))
-        out.append(self._to_str(self.zone_18_name))
-        out.append(self._to_str(self.distance_from_top_of_thermal_chimney_to_inlet_18))
-        out.append(self._to_str(self.relative_ratios_of_air_flow_rates_passing_through_zone_18))
-        out.append(self._to_str(self.cross_sectional_areas_of_air_channel_inlet_18))
-        out.append(self._to_str(self.zone_19_name))
-        out.append(self._to_str(self.distance_from_top_of_thermal_chimney_to_inlet_19))
-        out.append(self._to_str(self.relative_ratios_of_air_flow_rates_passing_through_zone_19))
-        out.append(self._to_str(self.cross_sectional_areas_of_air_channel_inlet_19))
-        out.append(self._to_str(self.zone_20_name))
-        out.append(self._to_str(self.distance_from_top_of_thermal_chimney_to_inlet_20))
-        out.append(self._to_str(self.relative_ratios_of_air_flow_rates_passing_through_zone_20))
-        out.append(self._to_str(self.cross_sectional_areas_of_air_channel_inlet_20))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])

@@ -96,419 +96,583 @@ class AirConditionerVariableRefrigerantFlow(object):
         self._data["Heat Recovery Heating Energy Modifier Curve Name"] = None
         self._data["Initial Heat Recovery Heating Energy Fraction"] = None
         self._data["Heat Recovery Heating Energy Time Constant"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.heat_pump_name = None
         else:
             self.heat_pump_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.availability_schedule_name = None
         else:
             self.availability_schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.gross_rated_total_cooling_capacity = None
         else:
             self.gross_rated_total_cooling_capacity = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.gross_rated_cooling_cop = None
         else:
             self.gross_rated_cooling_cop = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.minimum_outdoor_temperature_in_cooling_mode = None
         else:
             self.minimum_outdoor_temperature_in_cooling_mode = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.maximum_outdoor_temperature_in_cooling_mode = None
         else:
             self.maximum_outdoor_temperature_in_cooling_mode = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.cooling_capacity_ratio_modifier_function_of_low_temperature_curve_name = None
         else:
             self.cooling_capacity_ratio_modifier_function_of_low_temperature_curve_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.cooling_capacity_ratio_boundary_curve_name = None
         else:
             self.cooling_capacity_ratio_boundary_curve_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.cooling_capacity_ratio_modifier_function_of_high_temperature_curve_name = None
         else:
             self.cooling_capacity_ratio_modifier_function_of_high_temperature_curve_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.cooling_energy_input_ratio_modifier_function_of_low_temperature_curve_name = None
         else:
             self.cooling_energy_input_ratio_modifier_function_of_low_temperature_curve_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.cooling_energy_input_ratio_boundary_curve_name = None
         else:
             self.cooling_energy_input_ratio_boundary_curve_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.cooling_energy_input_ratio_modifier_function_of_high_temperature_curve_name = None
         else:
             self.cooling_energy_input_ratio_modifier_function_of_high_temperature_curve_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.cooling_energy_input_ratio_modifier_function_of_low_partload_ratio_curve_name = None
         else:
             self.cooling_energy_input_ratio_modifier_function_of_low_partload_ratio_curve_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.cooling_energy_input_ratio_modifier_function_of_high_partload_ratio_curve_name = None
         else:
             self.cooling_energy_input_ratio_modifier_function_of_high_partload_ratio_curve_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.cooling_combination_ratio_correction_factor_curve_name = None
         else:
             self.cooling_combination_ratio_correction_factor_curve_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.cooling_partload_fraction_correlation_curve_name = None
         else:
             self.cooling_partload_fraction_correlation_curve_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.gross_rated_heating_capacity = None
         else:
             self.gross_rated_heating_capacity = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.rated_heating_capacity_sizing_ratio = None
         else:
             self.rated_heating_capacity_sizing_ratio = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.gross_rated_heating_cop = None
         else:
             self.gross_rated_heating_cop = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.minimum_outdoor_temperature_in_heating_mode = None
         else:
             self.minimum_outdoor_temperature_in_heating_mode = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.maximum_outdoor_temperature_in_heating_mode = None
         else:
             self.maximum_outdoor_temperature_in_heating_mode = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.heating_capacity_ratio_modifier_function_of_low_temperature_curve_name = None
         else:
             self.heating_capacity_ratio_modifier_function_of_low_temperature_curve_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.heating_capacity_ratio_boundary_curve_name = None
         else:
             self.heating_capacity_ratio_boundary_curve_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.heating_capacity_ratio_modifier_function_of_high_temperature_curve_name = None
         else:
             self.heating_capacity_ratio_modifier_function_of_high_temperature_curve_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.heating_energy_input_ratio_modifier_function_of_low_temperature_curve_name = None
         else:
             self.heating_energy_input_ratio_modifier_function_of_low_temperature_curve_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.heating_energy_input_ratio_boundary_curve_name = None
         else:
             self.heating_energy_input_ratio_boundary_curve_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.heating_energy_input_ratio_modifier_function_of_high_temperature_curve_name = None
         else:
             self.heating_energy_input_ratio_modifier_function_of_high_temperature_curve_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.heating_performance_curve_outdoor_temperature_type = None
         else:
             self.heating_performance_curve_outdoor_temperature_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.heating_energy_input_ratio_modifier_function_of_low_partload_ratio_curve_name = None
         else:
             self.heating_energy_input_ratio_modifier_function_of_low_partload_ratio_curve_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.heating_energy_input_ratio_modifier_function_of_high_partload_ratio_curve_name = None
         else:
             self.heating_energy_input_ratio_modifier_function_of_high_partload_ratio_curve_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.heating_combination_ratio_correction_factor_curve_name = None
         else:
             self.heating_combination_ratio_correction_factor_curve_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.heating_partload_fraction_correlation_curve_name = None
         else:
             self.heating_partload_fraction_correlation_curve_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.minimum_heat_pump_partload_ratio = None
         else:
             self.minimum_heat_pump_partload_ratio = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.zone_name_for_master_thermostat_location = None
         else:
             self.zone_name_for_master_thermostat_location = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.master_thermostat_priority_control_type = None
         else:
             self.master_thermostat_priority_control_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.thermostat_priority_schedule_name = None
         else:
             self.thermostat_priority_schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.zone_terminal_unit_list_name = None
         else:
             self.zone_terminal_unit_list_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.heat_pump_waste_heat_recovery = None
         else:
             self.heat_pump_waste_heat_recovery = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.equivalent_piping_length_used_for_piping_correction_factor_in_cooling_mode = None
         else:
             self.equivalent_piping_length_used_for_piping_correction_factor_in_cooling_mode = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertical_height_used_for_piping_correction_factor = None
         else:
             self.vertical_height_used_for_piping_correction_factor = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.piping_correction_factor_for_length_in_cooling_mode_curve_name = None
         else:
             self.piping_correction_factor_for_length_in_cooling_mode_curve_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.piping_correction_factor_for_height_in_cooling_mode_coefficient = None
         else:
             self.piping_correction_factor_for_height_in_cooling_mode_coefficient = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.equivalent_piping_length_used_for_piping_correction_factor_in_heating_mode = None
         else:
             self.equivalent_piping_length_used_for_piping_correction_factor_in_heating_mode = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.piping_correction_factor_for_length_in_heating_mode_curve_name = None
         else:
             self.piping_correction_factor_for_length_in_heating_mode_curve_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.piping_correction_factor_for_height_in_heating_mode_coefficient = None
         else:
             self.piping_correction_factor_for_height_in_heating_mode_coefficient = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.crankcase_heater_power_per_compressor = None
         else:
             self.crankcase_heater_power_per_compressor = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.number_of_compressors = None
         else:
             self.number_of_compressors = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.ratio_of_compressor_size_to_total_compressor_capacity = None
         else:
             self.ratio_of_compressor_size_to_total_compressor_capacity = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.maximum_outdoor_drybulb_temperature_for_crankcase_heater = None
         else:
             self.maximum_outdoor_drybulb_temperature_for_crankcase_heater = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.defrost_strategy = None
         else:
             self.defrost_strategy = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.defrost_control = None
         else:
             self.defrost_control = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.defrost_energy_input_ratio_modifier_function_of_temperature_curve_name = None
         else:
             self.defrost_energy_input_ratio_modifier_function_of_temperature_curve_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.defrost_time_period_fraction = None
         else:
             self.defrost_time_period_fraction = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.resistive_defrost_heater_capacity = None
         else:
             self.resistive_defrost_heater_capacity = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.maximum_outdoor_drybulb_temperature_for_defrost_operation = None
         else:
             self.maximum_outdoor_drybulb_temperature_for_defrost_operation = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.condenser_type = None
         else:
             self.condenser_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.condenser_inlet_node_name = None
         else:
             self.condenser_inlet_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.condenser_outlet_node_name = None
         else:
             self.condenser_outlet_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.water_condenser_volume_flow_rate = None
         else:
             self.water_condenser_volume_flow_rate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.evaporative_condenser_effectiveness = None
         else:
             self.evaporative_condenser_effectiveness = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.evaporative_condenser_air_flow_rate = None
         else:
             self.evaporative_condenser_air_flow_rate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.evaporative_condenser_pump_rated_power_consumption = None
         else:
             self.evaporative_condenser_pump_rated_power_consumption = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.supply_water_storage_tank_name = None
         else:
             self.supply_water_storage_tank_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.basin_heater_capacity = None
         else:
             self.basin_heater_capacity = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.basin_heater_setpoint_temperature = None
         else:
             self.basin_heater_setpoint_temperature = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.basin_heater_operating_schedule_name = None
         else:
             self.basin_heater_operating_schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fuel_type = None
         else:
             self.fuel_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.minimum_outdoor_temperature_in_heat_recovery_mode = None
         else:
             self.minimum_outdoor_temperature_in_heat_recovery_mode = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.maximum_outdoor_temperature_in_heat_recovery_mode = None
         else:
             self.maximum_outdoor_temperature_in_heat_recovery_mode = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.heat_recovery_cooling_capacity_modifier_curve_name = None
         else:
             self.heat_recovery_cooling_capacity_modifier_curve_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.initial_heat_recovery_cooling_capacity_fraction = None
         else:
             self.initial_heat_recovery_cooling_capacity_fraction = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.heat_recovery_cooling_capacity_time_constant = None
         else:
             self.heat_recovery_cooling_capacity_time_constant = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.heat_recovery_cooling_energy_modifier_curve_name = None
         else:
             self.heat_recovery_cooling_energy_modifier_curve_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.initial_heat_recovery_cooling_energy_fraction = None
         else:
             self.initial_heat_recovery_cooling_energy_fraction = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.heat_recovery_cooling_energy_time_constant = None
         else:
             self.heat_recovery_cooling_energy_time_constant = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.heat_recovery_heating_capacity_modifier_curve_name = None
         else:
             self.heat_recovery_heating_capacity_modifier_curve_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.initial_heat_recovery_heating_capacity_fraction = None
         else:
             self.initial_heat_recovery_heating_capacity_fraction = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.heat_recovery_heating_capacity_time_constant = None
         else:
             self.heat_recovery_heating_capacity_time_constant = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.heat_recovery_heating_energy_modifier_curve_name = None
         else:
             self.heat_recovery_heating_energy_modifier_curve_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.initial_heat_recovery_heating_energy_fraction = None
         else:
             self.initial_heat_recovery_heating_energy_fraction = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.heat_recovery_heating_energy_time_constant = None
         else:
             self.heat_recovery_heating_energy_time_constant = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def heat_pump_name(self):
@@ -540,6 +704,9 @@ class AirConditionerVariableRefrigerantFlow(object):
                                  'for field `heat_pump_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `heat_pump_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `heat_pump_name`')
 
         self._data["Heat Pump Name"] = value
@@ -578,6 +745,9 @@ class AirConditionerVariableRefrigerantFlow(object):
                                  'for field `availability_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `availability_schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `availability_schedule_name`')
 
         self._data["Availability Schedule Name"] = value
@@ -761,6 +931,9 @@ class AirConditionerVariableRefrigerantFlow(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `cooling_capacity_ratio_modifier_function_of_low_temperature_curve_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `cooling_capacity_ratio_modifier_function_of_low_temperature_curve_name`')
 
         self._data["Cooling Capacity Ratio Modifier Function of Low Temperature Curve Name"] = value
 
@@ -799,6 +972,9 @@ class AirConditionerVariableRefrigerantFlow(object):
                                  'for field `cooling_capacity_ratio_boundary_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `cooling_capacity_ratio_boundary_curve_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `cooling_capacity_ratio_boundary_curve_name`')
 
         self._data["Cooling Capacity Ratio Boundary Curve Name"] = value
@@ -839,6 +1015,9 @@ class AirConditionerVariableRefrigerantFlow(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `cooling_capacity_ratio_modifier_function_of_high_temperature_curve_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `cooling_capacity_ratio_modifier_function_of_high_temperature_curve_name`')
 
         self._data["Cooling Capacity Ratio Modifier Function of High Temperature Curve Name"] = value
 
@@ -874,6 +1053,9 @@ class AirConditionerVariableRefrigerantFlow(object):
                                  'for field `cooling_energy_input_ratio_modifier_function_of_low_temperature_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `cooling_energy_input_ratio_modifier_function_of_low_temperature_curve_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `cooling_energy_input_ratio_modifier_function_of_low_temperature_curve_name`')
 
         self._data["Cooling Energy Input Ratio Modifier Function of Low Temperature Curve Name"] = value
@@ -914,6 +1096,9 @@ class AirConditionerVariableRefrigerantFlow(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `cooling_energy_input_ratio_boundary_curve_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `cooling_energy_input_ratio_boundary_curve_name`')
 
         self._data["Cooling Energy Input Ratio Boundary Curve Name"] = value
 
@@ -952,6 +1137,9 @@ class AirConditionerVariableRefrigerantFlow(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `cooling_energy_input_ratio_modifier_function_of_high_temperature_curve_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `cooling_energy_input_ratio_modifier_function_of_high_temperature_curve_name`')
 
         self._data["Cooling Energy Input Ratio Modifier Function of High Temperature Curve Name"] = value
 
@@ -989,6 +1177,9 @@ class AirConditionerVariableRefrigerantFlow(object):
                                  'for field `cooling_energy_input_ratio_modifier_function_of_low_partload_ratio_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `cooling_energy_input_ratio_modifier_function_of_low_partload_ratio_curve_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `cooling_energy_input_ratio_modifier_function_of_low_partload_ratio_curve_name`')
 
         self._data["Cooling Energy Input Ratio Modifier Function of Low Part-Load Ratio Curve Name"] = value
@@ -1029,6 +1220,9 @@ class AirConditionerVariableRefrigerantFlow(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `cooling_energy_input_ratio_modifier_function_of_high_partload_ratio_curve_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `cooling_energy_input_ratio_modifier_function_of_high_partload_ratio_curve_name`')
 
         self._data["Cooling Energy Input Ratio Modifier Function of High Part-Load Ratio Curve Name"] = value
 
@@ -1067,6 +1261,9 @@ class AirConditionerVariableRefrigerantFlow(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `cooling_combination_ratio_correction_factor_curve_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `cooling_combination_ratio_correction_factor_curve_name`')
 
         self._data["Cooling Combination Ratio Correction Factor Curve Name"] = value
 
@@ -1102,6 +1299,9 @@ class AirConditionerVariableRefrigerantFlow(object):
                                  'for field `cooling_partload_fraction_correlation_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `cooling_partload_fraction_correlation_curve_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `cooling_partload_fraction_correlation_curve_name`')
 
         self._data["Cooling Part-Load Fraction Correlation Curve Name"] = value
@@ -1317,6 +1517,9 @@ class AirConditionerVariableRefrigerantFlow(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `heating_capacity_ratio_modifier_function_of_low_temperature_curve_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `heating_capacity_ratio_modifier_function_of_low_temperature_curve_name`')
 
         self._data["Heating Capacity Ratio Modifier Function of Low Temperature Curve Name"] = value
 
@@ -1357,6 +1560,9 @@ class AirConditionerVariableRefrigerantFlow(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `heating_capacity_ratio_boundary_curve_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `heating_capacity_ratio_boundary_curve_name`')
 
         self._data["Heating Capacity Ratio Boundary Curve Name"] = value
 
@@ -1396,6 +1602,9 @@ class AirConditionerVariableRefrigerantFlow(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `heating_capacity_ratio_modifier_function_of_high_temperature_curve_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `heating_capacity_ratio_modifier_function_of_high_temperature_curve_name`')
 
         self._data["Heating Capacity Ratio Modifier Function of High Temperature Curve Name"] = value
 
@@ -1434,6 +1643,9 @@ class AirConditionerVariableRefrigerantFlow(object):
                                  'for field `heating_energy_input_ratio_modifier_function_of_low_temperature_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `heating_energy_input_ratio_modifier_function_of_low_temperature_curve_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `heating_energy_input_ratio_modifier_function_of_low_temperature_curve_name`')
 
         self._data["Heating Energy Input Ratio Modifier Function of Low Temperature Curve Name"] = value
@@ -1475,6 +1687,9 @@ class AirConditionerVariableRefrigerantFlow(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `heating_energy_input_ratio_boundary_curve_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `heating_energy_input_ratio_boundary_curve_name`')
 
         self._data["Heating Energy Input Ratio Boundary Curve Name"] = value
 
@@ -1510,6 +1725,9 @@ class AirConditionerVariableRefrigerantFlow(object):
                                  'for field `heating_energy_input_ratio_modifier_function_of_high_temperature_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `heating_energy_input_ratio_modifier_function_of_high_temperature_curve_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `heating_energy_input_ratio_modifier_function_of_high_temperature_curve_name`')
 
         self._data["Heating Energy Input Ratio Modifier Function of High Temperature Curve Name"] = value
@@ -1551,12 +1769,26 @@ class AirConditionerVariableRefrigerantFlow(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `heating_performance_curve_outdoor_temperature_type`')
-            vals = set()
-            vals.add("DryBulbTemperature")
-            vals.add("WetBulbTemperature")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `heating_performance_curve_outdoor_temperature_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `heating_performance_curve_outdoor_temperature_type`')
+            vals = {}
+            vals["drybulbtemperature"] = "DryBulbTemperature"
+            vals["wetbulbtemperature"] = "WetBulbTemperature"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `heating_performance_curve_outdoor_temperature_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Heating Performance Curve Outdoor Temperature Type"] = value
 
@@ -1592,6 +1824,9 @@ class AirConditionerVariableRefrigerantFlow(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `heating_energy_input_ratio_modifier_function_of_low_partload_ratio_curve_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `heating_energy_input_ratio_modifier_function_of_low_partload_ratio_curve_name`')
 
         self._data["Heating Energy Input Ratio Modifier Function of Low Part-Load Ratio Curve Name"] = value
 
@@ -1626,6 +1861,9 @@ class AirConditionerVariableRefrigerantFlow(object):
                                  'for field `heating_energy_input_ratio_modifier_function_of_high_partload_ratio_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `heating_energy_input_ratio_modifier_function_of_high_partload_ratio_curve_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `heating_energy_input_ratio_modifier_function_of_high_partload_ratio_curve_name`')
 
         self._data["Heating Energy Input Ratio Modifier Function of High Part-Load Ratio Curve Name"] = value
@@ -1665,6 +1903,9 @@ class AirConditionerVariableRefrigerantFlow(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `heating_combination_ratio_correction_factor_curve_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `heating_combination_ratio_correction_factor_curve_name`')
 
         self._data["Heating Combination Ratio Correction Factor Curve Name"] = value
 
@@ -1700,6 +1941,9 @@ class AirConditionerVariableRefrigerantFlow(object):
                                  'for field `heating_partload_fraction_correlation_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `heating_partload_fraction_correlation_curve_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `heating_partload_fraction_correlation_curve_name`')
 
         self._data["Heating Part-Load Fraction Correlation Curve Name"] = value
@@ -1770,6 +2014,9 @@ class AirConditionerVariableRefrigerantFlow(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `zone_name_for_master_thermostat_location`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `zone_name_for_master_thermostat_location`')
 
         self._data["Zone Name for Master Thermostat Location"] = value
 
@@ -1812,15 +2059,29 @@ class AirConditionerVariableRefrigerantFlow(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `master_thermostat_priority_control_type`')
-            vals = set()
-            vals.add("LoadPriority")
-            vals.add("ZonePriority")
-            vals.add("ThermostatOffsetPriority")
-            vals.add("MasterThermostatPriority")
-            vals.add("Scheduled")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `master_thermostat_priority_control_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `master_thermostat_priority_control_type`')
+            vals = {}
+            vals["loadpriority"] = "LoadPriority"
+            vals["zonepriority"] = "ZonePriority"
+            vals["thermostatoffsetpriority"] = "ThermostatOffsetPriority"
+            vals["masterthermostatpriority"] = "MasterThermostatPriority"
+            vals["scheduled"] = "Scheduled"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `master_thermostat_priority_control_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Master Thermostat Priority Control Type"] = value
 
@@ -1856,6 +2117,9 @@ class AirConditionerVariableRefrigerantFlow(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `thermostat_priority_schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `thermostat_priority_schedule_name`')
 
         self._data["Thermostat Priority Schedule Name"] = value
 
@@ -1890,6 +2154,9 @@ class AirConditionerVariableRefrigerantFlow(object):
                                  'for field `zone_terminal_unit_list_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `zone_terminal_unit_list_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `zone_terminal_unit_list_name`')
 
         self._data["Zone Terminal Unit List Name"] = value
@@ -1929,12 +2196,26 @@ class AirConditionerVariableRefrigerantFlow(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `heat_pump_waste_heat_recovery`')
-            vals = set()
-            vals.add("No")
-            vals.add("Yes")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `heat_pump_waste_heat_recovery`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `heat_pump_waste_heat_recovery`')
+            vals = {}
+            vals["no"] = "No"
+            vals["yes"] = "Yes"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `heat_pump_waste_heat_recovery`'.format(value))
+            value = vals[value_lower]
 
         self._data["Heat Pump Waste Heat Recovery"] = value
 
@@ -2037,6 +2318,9 @@ class AirConditionerVariableRefrigerantFlow(object):
                                  'for field `piping_correction_factor_for_length_in_cooling_mode_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `piping_correction_factor_for_length_in_cooling_mode_curve_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `piping_correction_factor_for_length_in_cooling_mode_curve_name`')
 
         self._data["Piping Correction Factor for Length in Cooling Mode Curve Name"] = value
@@ -2144,6 +2428,9 @@ class AirConditionerVariableRefrigerantFlow(object):
                                  'for field `piping_correction_factor_for_length_in_heating_mode_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `piping_correction_factor_for_length_in_heating_mode_curve_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `piping_correction_factor_for_length_in_heating_mode_curve_name`')
 
         self._data["Piping Correction Factor for Length in Heating Mode Curve Name"] = value
@@ -2357,12 +2644,26 @@ class AirConditionerVariableRefrigerantFlow(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `defrost_strategy`')
-            vals = set()
-            vals.add("ReverseCycle")
-            vals.add("Resistive")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `defrost_strategy`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `defrost_strategy`')
+            vals = {}
+            vals["reversecycle"] = "ReverseCycle"
+            vals["resistive"] = "Resistive"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `defrost_strategy`'.format(value))
+            value = vals[value_lower]
 
         self._data["Defrost Strategy"] = value
 
@@ -2402,12 +2703,26 @@ class AirConditionerVariableRefrigerantFlow(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `defrost_control`')
-            vals = set()
-            vals.add("Timed")
-            vals.add("OnDemand")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `defrost_control`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `defrost_control`')
+            vals = {}
+            vals["timed"] = "Timed"
+            vals["ondemand"] = "OnDemand"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `defrost_control`'.format(value))
+            value = vals[value_lower]
 
         self._data["Defrost Control"] = value
 
@@ -2442,6 +2757,9 @@ class AirConditionerVariableRefrigerantFlow(object):
                                  'for field `defrost_energy_input_ratio_modifier_function_of_temperature_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `defrost_energy_input_ratio_modifier_function_of_temperature_curve_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `defrost_energy_input_ratio_modifier_function_of_temperature_curve_name`')
 
         self._data["Defrost Energy Input Ratio Modifier Function of Temperature Curve Name"] = value
@@ -2592,13 +2910,27 @@ class AirConditionerVariableRefrigerantFlow(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `condenser_type`')
-            vals = set()
-            vals.add("AirCooled")
-            vals.add("EvaporativelyCooled")
-            vals.add("WaterCooled")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `condenser_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `condenser_type`')
+            vals = {}
+            vals["aircooled"] = "AirCooled"
+            vals["evaporativelycooled"] = "EvaporativelyCooled"
+            vals["watercooled"] = "WaterCooled"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `condenser_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Condenser Type"] = value
 
@@ -2635,6 +2967,9 @@ class AirConditionerVariableRefrigerantFlow(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `condenser_inlet_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `condenser_inlet_node_name`')
 
         self._data["Condenser Inlet Node Name"] = value
 
@@ -2669,6 +3004,9 @@ class AirConditionerVariableRefrigerantFlow(object):
                                  'for field `condenser_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `condenser_outlet_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `condenser_outlet_node_name`')
 
         self._data["Condenser Outlet Node Name"] = value
@@ -2853,6 +3191,9 @@ class AirConditionerVariableRefrigerantFlow(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `supply_water_storage_tank_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `supply_water_storage_tank_name`')
 
         self._data["Supply Water Storage Tank Name"] = value
 
@@ -2970,6 +3311,9 @@ class AirConditionerVariableRefrigerantFlow(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `basin_heater_operating_schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `basin_heater_operating_schedule_name`')
 
         self._data["Basin Heater Operating Schedule Name"] = value
 
@@ -3014,19 +3358,33 @@ class AirConditionerVariableRefrigerantFlow(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `fuel_type`')
-            vals = set()
-            vals.add("Electricity")
-            vals.add("NaturalGas")
-            vals.add("PropaneGas")
-            vals.add("Diesel")
-            vals.add("Gasoline")
-            vals.add("FuelOil#1")
-            vals.add("FuelOil#2")
-            vals.add("OtherFuel1")
-            vals.add("OtherFuel2")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `fuel_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `fuel_type`')
+            vals = {}
+            vals["electricity"] = "Electricity"
+            vals["naturalgas"] = "NaturalGas"
+            vals["propanegas"] = "PropaneGas"
+            vals["diesel"] = "Diesel"
+            vals["gasoline"] = "Gasoline"
+            vals["fueloil#1"] = "FuelOil#1"
+            vals["fueloil#2"] = "FuelOil#2"
+            vals["otherfuel1"] = "OtherFuel1"
+            vals["otherfuel2"] = "OtherFuel2"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `fuel_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Fuel Type"] = value
 
@@ -3129,6 +3487,9 @@ class AirConditionerVariableRefrigerantFlow(object):
                                  'for field `heat_recovery_cooling_capacity_modifier_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `heat_recovery_cooling_capacity_modifier_curve_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `heat_recovery_cooling_capacity_modifier_curve_name`')
 
         self._data["Heat Recovery Cooling Capacity Modifier Curve Name"] = value
@@ -3238,6 +3599,9 @@ class AirConditionerVariableRefrigerantFlow(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `heat_recovery_cooling_energy_modifier_curve_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `heat_recovery_cooling_energy_modifier_curve_name`')
 
         self._data["Heat Recovery Cooling Energy Modifier Curve Name"] = value
 
@@ -3345,6 +3709,9 @@ class AirConditionerVariableRefrigerantFlow(object):
                                  'for field `heat_recovery_heating_capacity_modifier_curve_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `heat_recovery_heating_capacity_modifier_curve_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `heat_recovery_heating_capacity_modifier_curve_name`')
 
         self._data["Heat Recovery Heating Capacity Modifier Curve Name"] = value
@@ -3454,6 +3821,9 @@ class AirConditionerVariableRefrigerantFlow(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `heat_recovery_heating_energy_modifier_curve_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `heat_recovery_heating_energy_modifier_curve_name`')
 
         self._data["Heat Recovery Heating Energy Modifier Curve Name"] = value
 
@@ -3550,90 +3920,17 @@ class AirConditionerVariableRefrigerantFlow(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.heat_pump_name))
-        out.append(self._to_str(self.availability_schedule_name))
-        out.append(self._to_str(self.gross_rated_total_cooling_capacity))
-        out.append(self._to_str(self.gross_rated_cooling_cop))
-        out.append(self._to_str(self.minimum_outdoor_temperature_in_cooling_mode))
-        out.append(self._to_str(self.maximum_outdoor_temperature_in_cooling_mode))
-        out.append(self._to_str(self.cooling_capacity_ratio_modifier_function_of_low_temperature_curve_name))
-        out.append(self._to_str(self.cooling_capacity_ratio_boundary_curve_name))
-        out.append(self._to_str(self.cooling_capacity_ratio_modifier_function_of_high_temperature_curve_name))
-        out.append(self._to_str(self.cooling_energy_input_ratio_modifier_function_of_low_temperature_curve_name))
-        out.append(self._to_str(self.cooling_energy_input_ratio_boundary_curve_name))
-        out.append(self._to_str(self.cooling_energy_input_ratio_modifier_function_of_high_temperature_curve_name))
-        out.append(self._to_str(self.cooling_energy_input_ratio_modifier_function_of_low_partload_ratio_curve_name))
-        out.append(self._to_str(self.cooling_energy_input_ratio_modifier_function_of_high_partload_ratio_curve_name))
-        out.append(self._to_str(self.cooling_combination_ratio_correction_factor_curve_name))
-        out.append(self._to_str(self.cooling_partload_fraction_correlation_curve_name))
-        out.append(self._to_str(self.gross_rated_heating_capacity))
-        out.append(self._to_str(self.rated_heating_capacity_sizing_ratio))
-        out.append(self._to_str(self.gross_rated_heating_cop))
-        out.append(self._to_str(self.minimum_outdoor_temperature_in_heating_mode))
-        out.append(self._to_str(self.maximum_outdoor_temperature_in_heating_mode))
-        out.append(self._to_str(self.heating_capacity_ratio_modifier_function_of_low_temperature_curve_name))
-        out.append(self._to_str(self.heating_capacity_ratio_boundary_curve_name))
-        out.append(self._to_str(self.heating_capacity_ratio_modifier_function_of_high_temperature_curve_name))
-        out.append(self._to_str(self.heating_energy_input_ratio_modifier_function_of_low_temperature_curve_name))
-        out.append(self._to_str(self.heating_energy_input_ratio_boundary_curve_name))
-        out.append(self._to_str(self.heating_energy_input_ratio_modifier_function_of_high_temperature_curve_name))
-        out.append(self._to_str(self.heating_performance_curve_outdoor_temperature_type))
-        out.append(self._to_str(self.heating_energy_input_ratio_modifier_function_of_low_partload_ratio_curve_name))
-        out.append(self._to_str(self.heating_energy_input_ratio_modifier_function_of_high_partload_ratio_curve_name))
-        out.append(self._to_str(self.heating_combination_ratio_correction_factor_curve_name))
-        out.append(self._to_str(self.heating_partload_fraction_correlation_curve_name))
-        out.append(self._to_str(self.minimum_heat_pump_partload_ratio))
-        out.append(self._to_str(self.zone_name_for_master_thermostat_location))
-        out.append(self._to_str(self.master_thermostat_priority_control_type))
-        out.append(self._to_str(self.thermostat_priority_schedule_name))
-        out.append(self._to_str(self.zone_terminal_unit_list_name))
-        out.append(self._to_str(self.heat_pump_waste_heat_recovery))
-        out.append(self._to_str(self.equivalent_piping_length_used_for_piping_correction_factor_in_cooling_mode))
-        out.append(self._to_str(self.vertical_height_used_for_piping_correction_factor))
-        out.append(self._to_str(self.piping_correction_factor_for_length_in_cooling_mode_curve_name))
-        out.append(self._to_str(self.piping_correction_factor_for_height_in_cooling_mode_coefficient))
-        out.append(self._to_str(self.equivalent_piping_length_used_for_piping_correction_factor_in_heating_mode))
-        out.append(self._to_str(self.piping_correction_factor_for_length_in_heating_mode_curve_name))
-        out.append(self._to_str(self.piping_correction_factor_for_height_in_heating_mode_coefficient))
-        out.append(self._to_str(self.crankcase_heater_power_per_compressor))
-        out.append(self._to_str(self.number_of_compressors))
-        out.append(self._to_str(self.ratio_of_compressor_size_to_total_compressor_capacity))
-        out.append(self._to_str(self.maximum_outdoor_drybulb_temperature_for_crankcase_heater))
-        out.append(self._to_str(self.defrost_strategy))
-        out.append(self._to_str(self.defrost_control))
-        out.append(self._to_str(self.defrost_energy_input_ratio_modifier_function_of_temperature_curve_name))
-        out.append(self._to_str(self.defrost_time_period_fraction))
-        out.append(self._to_str(self.resistive_defrost_heater_capacity))
-        out.append(self._to_str(self.maximum_outdoor_drybulb_temperature_for_defrost_operation))
-        out.append(self._to_str(self.condenser_type))
-        out.append(self._to_str(self.condenser_inlet_node_name))
-        out.append(self._to_str(self.condenser_outlet_node_name))
-        out.append(self._to_str(self.water_condenser_volume_flow_rate))
-        out.append(self._to_str(self.evaporative_condenser_effectiveness))
-        out.append(self._to_str(self.evaporative_condenser_air_flow_rate))
-        out.append(self._to_str(self.evaporative_condenser_pump_rated_power_consumption))
-        out.append(self._to_str(self.supply_water_storage_tank_name))
-        out.append(self._to_str(self.basin_heater_capacity))
-        out.append(self._to_str(self.basin_heater_setpoint_temperature))
-        out.append(self._to_str(self.basin_heater_operating_schedule_name))
-        out.append(self._to_str(self.fuel_type))
-        out.append(self._to_str(self.minimum_outdoor_temperature_in_heat_recovery_mode))
-        out.append(self._to_str(self.maximum_outdoor_temperature_in_heat_recovery_mode))
-        out.append(self._to_str(self.heat_recovery_cooling_capacity_modifier_curve_name))
-        out.append(self._to_str(self.initial_heat_recovery_cooling_capacity_fraction))
-        out.append(self._to_str(self.heat_recovery_cooling_capacity_time_constant))
-        out.append(self._to_str(self.heat_recovery_cooling_energy_modifier_curve_name))
-        out.append(self._to_str(self.initial_heat_recovery_cooling_energy_fraction))
-        out.append(self._to_str(self.heat_recovery_cooling_energy_time_constant))
-        out.append(self._to_str(self.heat_recovery_heating_capacity_modifier_curve_name))
-        out.append(self._to_str(self.initial_heat_recovery_heating_capacity_fraction))
-        out.append(self._to_str(self.heat_recovery_heating_capacity_time_constant))
-        out.append(self._to_str(self.heat_recovery_heating_energy_modifier_curve_name))
-        out.append(self._to_str(self.initial_heat_recovery_heating_energy_fraction))
-        out.append(self._to_str(self.heat_recovery_heating_energy_time_constant))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class ZoneTerminalUnitList(object):
     """ Corresponds to IDD object `ZoneTerminalUnitList`
@@ -3671,119 +3968,163 @@ class ZoneTerminalUnitList(object):
         self._data["Zone Terminal Unit Name 18"] = None
         self._data["Zone Terminal Unit Name 19"] = None
         self._data["Zone Terminal Unit Name 20"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.zone_terminal_unit_list_name = None
         else:
             self.zone_terminal_unit_list_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.zone_terminal_unit_name_1 = None
         else:
             self.zone_terminal_unit_name_1 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.zone_terminal_unit_name_2 = None
         else:
             self.zone_terminal_unit_name_2 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.zone_terminal_unit_name_3 = None
         else:
             self.zone_terminal_unit_name_3 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.zone_terminal_unit_name_4 = None
         else:
             self.zone_terminal_unit_name_4 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.zone_terminal_unit_name_5 = None
         else:
             self.zone_terminal_unit_name_5 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.zone_terminal_unit_name_6 = None
         else:
             self.zone_terminal_unit_name_6 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.zone_terminal_unit_name_7 = None
         else:
             self.zone_terminal_unit_name_7 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.zone_terminal_unit_name_8 = None
         else:
             self.zone_terminal_unit_name_8 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.zone_terminal_unit_name_9 = None
         else:
             self.zone_terminal_unit_name_9 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.zone_terminal_unit_name_10 = None
         else:
             self.zone_terminal_unit_name_10 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.zone_terminal_unit_name_11 = None
         else:
             self.zone_terminal_unit_name_11 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.zone_terminal_unit_name_12 = None
         else:
             self.zone_terminal_unit_name_12 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.zone_terminal_unit_name_13 = None
         else:
             self.zone_terminal_unit_name_13 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.zone_terminal_unit_name_14 = None
         else:
             self.zone_terminal_unit_name_14 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.zone_terminal_unit_name_15 = None
         else:
             self.zone_terminal_unit_name_15 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.zone_terminal_unit_name_16 = None
         else:
             self.zone_terminal_unit_name_16 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.zone_terminal_unit_name_17 = None
         else:
             self.zone_terminal_unit_name_17 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.zone_terminal_unit_name_18 = None
         else:
             self.zone_terminal_unit_name_18 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.zone_terminal_unit_name_19 = None
         else:
             self.zone_terminal_unit_name_19 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.zone_terminal_unit_name_20 = None
         else:
             self.zone_terminal_unit_name_20 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def zone_terminal_unit_list_name(self):
@@ -3814,6 +4155,9 @@ class ZoneTerminalUnitList(object):
                                  'for field `zone_terminal_unit_list_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `zone_terminal_unit_list_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `zone_terminal_unit_list_name`')
 
         self._data["Zone Terminal Unit List Name"] = value
@@ -3848,6 +4192,9 @@ class ZoneTerminalUnitList(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `zone_terminal_unit_name_1`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `zone_terminal_unit_name_1`')
 
         self._data["Zone Terminal Unit Name 1"] = value
 
@@ -3880,6 +4227,9 @@ class ZoneTerminalUnitList(object):
                                  'for field `zone_terminal_unit_name_2`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `zone_terminal_unit_name_2`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `zone_terminal_unit_name_2`')
 
         self._data["Zone Terminal Unit Name 2"] = value
@@ -3914,6 +4264,9 @@ class ZoneTerminalUnitList(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `zone_terminal_unit_name_3`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `zone_terminal_unit_name_3`')
 
         self._data["Zone Terminal Unit Name 3"] = value
 
@@ -3946,6 +4299,9 @@ class ZoneTerminalUnitList(object):
                                  'for field `zone_terminal_unit_name_4`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `zone_terminal_unit_name_4`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `zone_terminal_unit_name_4`')
 
         self._data["Zone Terminal Unit Name 4"] = value
@@ -3980,6 +4336,9 @@ class ZoneTerminalUnitList(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `zone_terminal_unit_name_5`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `zone_terminal_unit_name_5`')
 
         self._data["Zone Terminal Unit Name 5"] = value
 
@@ -4012,6 +4371,9 @@ class ZoneTerminalUnitList(object):
                                  'for field `zone_terminal_unit_name_6`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `zone_terminal_unit_name_6`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `zone_terminal_unit_name_6`')
 
         self._data["Zone Terminal Unit Name 6"] = value
@@ -4046,6 +4408,9 @@ class ZoneTerminalUnitList(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `zone_terminal_unit_name_7`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `zone_terminal_unit_name_7`')
 
         self._data["Zone Terminal Unit Name 7"] = value
 
@@ -4078,6 +4443,9 @@ class ZoneTerminalUnitList(object):
                                  'for field `zone_terminal_unit_name_8`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `zone_terminal_unit_name_8`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `zone_terminal_unit_name_8`')
 
         self._data["Zone Terminal Unit Name 8"] = value
@@ -4112,6 +4480,9 @@ class ZoneTerminalUnitList(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `zone_terminal_unit_name_9`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `zone_terminal_unit_name_9`')
 
         self._data["Zone Terminal Unit Name 9"] = value
 
@@ -4144,6 +4515,9 @@ class ZoneTerminalUnitList(object):
                                  'for field `zone_terminal_unit_name_10`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `zone_terminal_unit_name_10`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `zone_terminal_unit_name_10`')
 
         self._data["Zone Terminal Unit Name 10"] = value
@@ -4178,6 +4552,9 @@ class ZoneTerminalUnitList(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `zone_terminal_unit_name_11`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `zone_terminal_unit_name_11`')
 
         self._data["Zone Terminal Unit Name 11"] = value
 
@@ -4210,6 +4587,9 @@ class ZoneTerminalUnitList(object):
                                  'for field `zone_terminal_unit_name_12`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `zone_terminal_unit_name_12`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `zone_terminal_unit_name_12`')
 
         self._data["Zone Terminal Unit Name 12"] = value
@@ -4244,6 +4624,9 @@ class ZoneTerminalUnitList(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `zone_terminal_unit_name_13`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `zone_terminal_unit_name_13`')
 
         self._data["Zone Terminal Unit Name 13"] = value
 
@@ -4276,6 +4659,9 @@ class ZoneTerminalUnitList(object):
                                  'for field `zone_terminal_unit_name_14`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `zone_terminal_unit_name_14`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `zone_terminal_unit_name_14`')
 
         self._data["Zone Terminal Unit Name 14"] = value
@@ -4310,6 +4696,9 @@ class ZoneTerminalUnitList(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `zone_terminal_unit_name_15`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `zone_terminal_unit_name_15`')
 
         self._data["Zone Terminal Unit Name 15"] = value
 
@@ -4342,6 +4731,9 @@ class ZoneTerminalUnitList(object):
                                  'for field `zone_terminal_unit_name_16`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `zone_terminal_unit_name_16`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `zone_terminal_unit_name_16`')
 
         self._data["Zone Terminal Unit Name 16"] = value
@@ -4376,6 +4768,9 @@ class ZoneTerminalUnitList(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `zone_terminal_unit_name_17`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `zone_terminal_unit_name_17`')
 
         self._data["Zone Terminal Unit Name 17"] = value
 
@@ -4408,6 +4803,9 @@ class ZoneTerminalUnitList(object):
                                  'for field `zone_terminal_unit_name_18`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `zone_terminal_unit_name_18`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `zone_terminal_unit_name_18`')
 
         self._data["Zone Terminal Unit Name 18"] = value
@@ -4442,6 +4840,9 @@ class ZoneTerminalUnitList(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `zone_terminal_unit_name_19`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `zone_terminal_unit_name_19`')
 
         self._data["Zone Terminal Unit Name 19"] = value
 
@@ -4475,6 +4876,9 @@ class ZoneTerminalUnitList(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `zone_terminal_unit_name_20`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `zone_terminal_unit_name_20`')
 
         self._data["Zone Terminal Unit Name 20"] = value
 
@@ -4500,27 +4904,14 @@ class ZoneTerminalUnitList(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.zone_terminal_unit_list_name))
-        out.append(self._to_str(self.zone_terminal_unit_name_1))
-        out.append(self._to_str(self.zone_terminal_unit_name_2))
-        out.append(self._to_str(self.zone_terminal_unit_name_3))
-        out.append(self._to_str(self.zone_terminal_unit_name_4))
-        out.append(self._to_str(self.zone_terminal_unit_name_5))
-        out.append(self._to_str(self.zone_terminal_unit_name_6))
-        out.append(self._to_str(self.zone_terminal_unit_name_7))
-        out.append(self._to_str(self.zone_terminal_unit_name_8))
-        out.append(self._to_str(self.zone_terminal_unit_name_9))
-        out.append(self._to_str(self.zone_terminal_unit_name_10))
-        out.append(self._to_str(self.zone_terminal_unit_name_11))
-        out.append(self._to_str(self.zone_terminal_unit_name_12))
-        out.append(self._to_str(self.zone_terminal_unit_name_13))
-        out.append(self._to_str(self.zone_terminal_unit_name_14))
-        out.append(self._to_str(self.zone_terminal_unit_name_15))
-        out.append(self._to_str(self.zone_terminal_unit_name_16))
-        out.append(self._to_str(self.zone_terminal_unit_name_17))
-        out.append(self._to_str(self.zone_terminal_unit_name_18))
-        out.append(self._to_str(self.zone_terminal_unit_name_19))
-        out.append(self._to_str(self.zone_terminal_unit_name_20))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])

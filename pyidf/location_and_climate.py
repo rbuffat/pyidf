@@ -19,39 +19,51 @@ class SiteLocation(object):
         self._data["Longitude"] = None
         self._data["Time Zone"] = None
         self._data["Elevation"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.latitude = None
         else:
             self.latitude = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.longitude = None
         else:
             self.longitude = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.time_zone = None
         else:
             self.time_zone = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.elevation = None
         else:
             self.elevation = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -82,6 +94,9 @@ class SiteLocation(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -272,14 +287,17 @@ class SiteLocation(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.latitude))
-        out.append(self._to_str(self.longitude))
-        out.append(self._to_str(self.time_zone))
-        out.append(self._to_str(self.elevation))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class SizingPeriodDesignDay(object):
     """ Corresponds to IDD object `SizingPeriod:DesignDay`
@@ -325,144 +343,198 @@ class SizingPeriodDesignDay(object):
         self._data["ASHRAE Clear Sky Optical Depth for Beam Irradiance (taub)"] = None
         self._data["ASHRAE Clear Sky Optical Depth for Diffuse Irradiance (taud)"] = None
         self._data["Sky Clearness"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.month = None
         else:
             self.month = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.day_of_month = None
         else:
             self.day_of_month = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.day_type = None
         else:
             self.day_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.maximum_drybulb_temperature = None
         else:
             self.maximum_drybulb_temperature = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.daily_drybulb_temperature_range = None
         else:
             self.daily_drybulb_temperature_range = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.drybulb_temperature_range_modifier_type = None
         else:
             self.drybulb_temperature_range_modifier_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.drybulb_temperature_range_modifier_day_schedule_name = None
         else:
             self.drybulb_temperature_range_modifier_day_schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.humidity_condition_type = None
         else:
             self.humidity_condition_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wetbulb_or_dewpoint_at_maximum_drybulb = None
         else:
             self.wetbulb_or_dewpoint_at_maximum_drybulb = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.humidity_condition_day_schedule_name = None
         else:
             self.humidity_condition_day_schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.humidity_ratio_at_maximum_drybulb = None
         else:
             self.humidity_ratio_at_maximum_drybulb = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.enthalpy_at_maximum_drybulb_will_require_units_transition_ = None
         else:
             self.enthalpy_at_maximum_drybulb_will_require_units_transition_ = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.daily_wetbulb_temperature_range = None
         else:
             self.daily_wetbulb_temperature_range = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.barometric_pressure = None
         else:
             self.barometric_pressure = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wind_speed = None
         else:
             self.wind_speed = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wind_direction = None
         else:
             self.wind_direction = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.rain_indicator = None
         else:
             self.rain_indicator = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.snow_indicator = None
         else:
             self.snow_indicator = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.daylight_saving_time_indicator = None
         else:
             self.daylight_saving_time_indicator = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.solar_model_indicator = None
         else:
             self.solar_model_indicator = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.beam_solar_day_schedule_name = None
         else:
             self.beam_solar_day_schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.diffuse_solar_day_schedule_name = None
         else:
             self.diffuse_solar_day_schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.ashrae_clear_sky_optical_depth_for_beam_irradiance_taub = None
         else:
             self.ashrae_clear_sky_optical_depth_for_beam_irradiance_taub = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.ashrae_clear_sky_optical_depth_for_diffuse_irradiance_taud = None
         else:
             self.ashrae_clear_sky_optical_depth_for_diffuse_irradiance_taud = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.sky_clearness = None
         else:
             self.sky_clearness = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -493,6 +565,9 @@ class SizingPeriodDesignDay(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -618,22 +693,36 @@ class SizingPeriodDesignDay(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `day_type`')
-            vals = set()
-            vals.add("Sunday")
-            vals.add("Monday")
-            vals.add("Tuesday")
-            vals.add("Wednesday")
-            vals.add("Thursday")
-            vals.add("Friday")
-            vals.add("Saturday")
-            vals.add("Holiday")
-            vals.add("SummerDesignDay")
-            vals.add("WinterDesignDay")
-            vals.add("CustomDay1")
-            vals.add("CustomDay2")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `day_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `day_type`')
+            vals = {}
+            vals["sunday"] = "Sunday"
+            vals["monday"] = "Monday"
+            vals["tuesday"] = "Tuesday"
+            vals["wednesday"] = "Wednesday"
+            vals["thursday"] = "Thursday"
+            vals["friday"] = "Friday"
+            vals["saturday"] = "Saturday"
+            vals["holiday"] = "Holiday"
+            vals["summerdesignday"] = "SummerDesignDay"
+            vals["winterdesignday"] = "WinterDesignDay"
+            vals["customday1"] = "CustomDay1"
+            vals["customday2"] = "CustomDay2"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `day_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Day Type"] = value
 
@@ -754,14 +843,28 @@ class SizingPeriodDesignDay(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `drybulb_temperature_range_modifier_type`')
-            vals = set()
-            vals.add("MultiplierSchedule")
-            vals.add("DifferenceSchedule")
-            vals.add("TemperatureProfileSchedule")
-            vals.add("DefaultMultipliers")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `drybulb_temperature_range_modifier_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `drybulb_temperature_range_modifier_type`')
+            vals = {}
+            vals["multiplierschedule"] = "MultiplierSchedule"
+            vals["differenceschedule"] = "DifferenceSchedule"
+            vals["temperatureprofileschedule"] = "TemperatureProfileSchedule"
+            vals["defaultmultipliers"] = "DefaultMultipliers"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `drybulb_temperature_range_modifier_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Dry-Bulb Temperature Range Modifier Type"] = value
 
@@ -805,6 +908,9 @@ class SizingPeriodDesignDay(object):
                                  'for field `drybulb_temperature_range_modifier_day_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `drybulb_temperature_range_modifier_day_schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `drybulb_temperature_range_modifier_day_schedule_name`')
 
         self._data["Dry-Bulb Temperature Range Modifier Day Schedule Name"] = value
@@ -851,18 +957,32 @@ class SizingPeriodDesignDay(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `humidity_condition_type`')
-            vals = set()
-            vals.add("WetBulb")
-            vals.add("DewPoint")
-            vals.add("HumidityRatio")
-            vals.add("Enthalpy")
-            vals.add("RelativeHumiditySchedule")
-            vals.add("WetBulbProfileMultiplierSchedule")
-            vals.add("WetBulbProfileDifferenceSchedule")
-            vals.add("WetBulbProfileDefaultMultipliers")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `humidity_condition_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `humidity_condition_type`')
+            vals = {}
+            vals["wetbulb"] = "WetBulb"
+            vals["dewpoint"] = "DewPoint"
+            vals["humidityratio"] = "HumidityRatio"
+            vals["enthalpy"] = "Enthalpy"
+            vals["relativehumidityschedule"] = "RelativeHumiditySchedule"
+            vals["wetbulbprofilemultiplierschedule"] = "WetBulbProfileMultiplierSchedule"
+            vals["wetbulbprofiledifferenceschedule"] = "WetBulbProfileDifferenceSchedule"
+            vals["wetbulbprofiledefaultmultipliers"] = "WetBulbProfileDefaultMultipliers"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `humidity_condition_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Humidity Condition Type"] = value
 
@@ -939,6 +1059,9 @@ class SizingPeriodDesignDay(object):
                                  'for field `humidity_condition_day_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `humidity_condition_day_schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `humidity_condition_day_schedule_name`')
 
         self._data["Humidity Condition Day Schedule Name"] = value
@@ -1200,12 +1323,26 @@ class SizingPeriodDesignDay(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `rain_indicator`')
-            vals = set()
-            vals.add("Yes")
-            vals.add("No")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `rain_indicator`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `rain_indicator`')
+            vals = {}
+            vals["yes"] = "Yes"
+            vals["no"] = "No"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `rain_indicator`'.format(value))
+            value = vals[value_lower]
 
         self._data["Rain Indicator"] = value
 
@@ -1244,12 +1381,26 @@ class SizingPeriodDesignDay(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `snow_indicator`')
-            vals = set()
-            vals.add("Yes")
-            vals.add("No")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `snow_indicator`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `snow_indicator`')
+            vals = {}
+            vals["yes"] = "Yes"
+            vals["no"] = "No"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `snow_indicator`'.format(value))
+            value = vals[value_lower]
 
         self._data["Snow Indicator"] = value
 
@@ -1289,12 +1440,26 @@ class SizingPeriodDesignDay(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `daylight_saving_time_indicator`')
-            vals = set()
-            vals.add("Yes")
-            vals.add("No")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `daylight_saving_time_indicator`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `daylight_saving_time_indicator`')
+            vals = {}
+            vals["yes"] = "Yes"
+            vals["no"] = "No"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `daylight_saving_time_indicator`'.format(value))
+            value = vals[value_lower]
 
         self._data["Daylight Saving Time Indicator"] = value
 
@@ -1334,14 +1499,28 @@ class SizingPeriodDesignDay(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `solar_model_indicator`')
-            vals = set()
-            vals.add("ASHRAEClearSky")
-            vals.add("ZhangHuang")
-            vals.add("Schedule")
-            vals.add("ASHRAETau")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `solar_model_indicator`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `solar_model_indicator`')
+            vals = {}
+            vals["ashraeclearsky"] = "ASHRAEClearSky"
+            vals["zhanghuang"] = "ZhangHuang"
+            vals["schedule"] = "Schedule"
+            vals["ashraetau"] = "ASHRAETau"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `solar_model_indicator`'.format(value))
+            value = vals[value_lower]
 
         self._data["Solar Model Indicator"] = value
 
@@ -1376,6 +1555,9 @@ class SizingPeriodDesignDay(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `beam_solar_day_schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `beam_solar_day_schedule_name`')
 
         self._data["Beam Solar Day Schedule Name"] = value
 
@@ -1409,6 +1591,9 @@ class SizingPeriodDesignDay(object):
                                  'for field `diffuse_solar_day_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `diffuse_solar_day_schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `diffuse_solar_day_schedule_name`')
 
         self._data["Diffuse Solar Day Schedule Name"] = value
@@ -1558,35 +1743,17 @@ class SizingPeriodDesignDay(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.month))
-        out.append(self._to_str(self.day_of_month))
-        out.append(self._to_str(self.day_type))
-        out.append(self._to_str(self.maximum_drybulb_temperature))
-        out.append(self._to_str(self.daily_drybulb_temperature_range))
-        out.append(self._to_str(self.drybulb_temperature_range_modifier_type))
-        out.append(self._to_str(self.drybulb_temperature_range_modifier_day_schedule_name))
-        out.append(self._to_str(self.humidity_condition_type))
-        out.append(self._to_str(self.wetbulb_or_dewpoint_at_maximum_drybulb))
-        out.append(self._to_str(self.humidity_condition_day_schedule_name))
-        out.append(self._to_str(self.humidity_ratio_at_maximum_drybulb))
-        out.append(self._to_str(self.enthalpy_at_maximum_drybulb_will_require_units_transition_))
-        out.append(self._to_str(self.daily_wetbulb_temperature_range))
-        out.append(self._to_str(self.barometric_pressure))
-        out.append(self._to_str(self.wind_speed))
-        out.append(self._to_str(self.wind_direction))
-        out.append(self._to_str(self.rain_indicator))
-        out.append(self._to_str(self.snow_indicator))
-        out.append(self._to_str(self.daylight_saving_time_indicator))
-        out.append(self._to_str(self.solar_model_indicator))
-        out.append(self._to_str(self.beam_solar_day_schedule_name))
-        out.append(self._to_str(self.diffuse_solar_day_schedule_name))
-        out.append(self._to_str(self.ashrae_clear_sky_optical_depth_for_beam_irradiance_taub))
-        out.append(self._to_str(self.ashrae_clear_sky_optical_depth_for_diffuse_irradiance_taud))
-        out.append(self._to_str(self.sky_clearness))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class SizingPeriodWeatherFileDays(object):
     """ Corresponds to IDD object `SizingPeriod:WeatherFileDays`
@@ -1609,54 +1776,72 @@ class SizingPeriodWeatherFileDays(object):
         self._data["Day of Week for Start Day"] = None
         self._data["Use Weather File Daylight Saving Period"] = None
         self._data["Use Weather File Rain and Snow Indicators"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.begin_month = None
         else:
             self.begin_month = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.begin_day_of_month = None
         else:
             self.begin_day_of_month = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.end_month = None
         else:
             self.end_month = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.end_day_of_month = None
         else:
             self.end_day_of_month = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.day_of_week_for_start_day = None
         else:
             self.day_of_week_for_start_day = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.use_weather_file_daylight_saving_period = None
         else:
             self.use_weather_file_daylight_saving_period = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.use_weather_file_rain_and_snow_indicators = None
         else:
             self.use_weather_file_rain_and_snow_indicators = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -1688,6 +1873,9 @@ class SizingPeriodWeatherFileDays(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -1892,21 +2080,35 @@ class SizingPeriodWeatherFileDays(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `day_of_week_for_start_day`')
-            vals = set()
-            vals.add("Sunday")
-            vals.add("Monday")
-            vals.add("Tuesday")
-            vals.add("Wednesday")
-            vals.add("Thursday")
-            vals.add("Friday")
-            vals.add("Saturday")
-            vals.add("SummerDesignDay")
-            vals.add("WinterDesignDay")
-            vals.add("CustomDay1")
-            vals.add("CustomDay2")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `day_of_week_for_start_day`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `day_of_week_for_start_day`')
+            vals = {}
+            vals["sunday"] = "Sunday"
+            vals["monday"] = "Monday"
+            vals["tuesday"] = "Tuesday"
+            vals["wednesday"] = "Wednesday"
+            vals["thursday"] = "Thursday"
+            vals["friday"] = "Friday"
+            vals["saturday"] = "Saturday"
+            vals["summerdesignday"] = "SummerDesignDay"
+            vals["winterdesignday"] = "WinterDesignDay"
+            vals["customday1"] = "CustomDay1"
+            vals["customday2"] = "CustomDay2"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `day_of_week_for_start_day`'.format(value))
+            value = vals[value_lower]
 
         self._data["Day of Week for Start Day"] = value
 
@@ -1946,12 +2148,26 @@ class SizingPeriodWeatherFileDays(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `use_weather_file_daylight_saving_period`')
-            vals = set()
-            vals.add("Yes")
-            vals.add("No")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `use_weather_file_daylight_saving_period`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `use_weather_file_daylight_saving_period`')
+            vals = {}
+            vals["yes"] = "Yes"
+            vals["no"] = "No"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `use_weather_file_daylight_saving_period`'.format(value))
+            value = vals[value_lower]
 
         self._data["Use Weather File Daylight Saving Period"] = value
 
@@ -1989,12 +2205,26 @@ class SizingPeriodWeatherFileDays(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `use_weather_file_rain_and_snow_indicators`')
-            vals = set()
-            vals.add("Yes")
-            vals.add("No")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `use_weather_file_rain_and_snow_indicators`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `use_weather_file_rain_and_snow_indicators`')
+            vals = {}
+            vals["yes"] = "Yes"
+            vals["no"] = "No"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `use_weather_file_rain_and_snow_indicators`'.format(value))
+            value = vals[value_lower]
 
         self._data["Use Weather File Rain and Snow Indicators"] = value
 
@@ -2020,17 +2250,17 @@ class SizingPeriodWeatherFileDays(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.begin_month))
-        out.append(self._to_str(self.begin_day_of_month))
-        out.append(self._to_str(self.end_month))
-        out.append(self._to_str(self.end_day_of_month))
-        out.append(self._to_str(self.day_of_week_for_start_day))
-        out.append(self._to_str(self.use_weather_file_daylight_saving_period))
-        out.append(self._to_str(self.use_weather_file_rain_and_snow_indicators))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class SizingPeriodWeatherFileConditionType(object):
     """ Corresponds to IDD object `SizingPeriod:WeatherFileConditionType`
@@ -2053,39 +2283,51 @@ class SizingPeriodWeatherFileConditionType(object):
         self._data["Day of Week for Start Day"] = None
         self._data["Use Weather File Daylight Saving Period"] = None
         self._data["Use Weather File Rain and Snow Indicators"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.period_selection = None
         else:
             self.period_selection = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.day_of_week_for_start_day = None
         else:
             self.day_of_week_for_start_day = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.use_weather_file_daylight_saving_period = None
         else:
             self.use_weather_file_daylight_saving_period = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.use_weather_file_rain_and_snow_indicators = None
         else:
             self.use_weather_file_rain_and_snow_indicators = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -2117,6 +2359,9 @@ class SizingPeriodWeatherFileConditionType(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -2171,26 +2416,40 @@ class SizingPeriodWeatherFileConditionType(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `period_selection`')
-            vals = set()
-            vals.add("SummerExtreme")
-            vals.add("SummerTypical")
-            vals.add("WinterExtreme")
-            vals.add("WinterTypical")
-            vals.add("AutumnTypical")
-            vals.add("SpringTypical")
-            vals.add("WetSeason")
-            vals.add("DrySeason")
-            vals.add("NoDrySeason")
-            vals.add("NoWetSeason")
-            vals.add("TropicalHot")
-            vals.add("TropicalCold")
-            vals.add("NoDrySeasonMax")
-            vals.add("NoDrySeasonMin")
-            vals.add("NoWetSeasonMax")
-            vals.add("NoWetSeasonMin")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `period_selection`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `period_selection`')
+            vals = {}
+            vals["summerextreme"] = "SummerExtreme"
+            vals["summertypical"] = "SummerTypical"
+            vals["winterextreme"] = "WinterExtreme"
+            vals["wintertypical"] = "WinterTypical"
+            vals["autumntypical"] = "AutumnTypical"
+            vals["springtypical"] = "SpringTypical"
+            vals["wetseason"] = "WetSeason"
+            vals["dryseason"] = "DrySeason"
+            vals["nodryseason"] = "NoDrySeason"
+            vals["nowetseason"] = "NoWetSeason"
+            vals["tropicalhot"] = "TropicalHot"
+            vals["tropicalcold"] = "TropicalCold"
+            vals["nodryseasonmax"] = "NoDrySeasonMax"
+            vals["nodryseasonmin"] = "NoDrySeasonMin"
+            vals["nowetseasonmax"] = "NoWetSeasonMax"
+            vals["nowetseasonmin"] = "NoWetSeasonMin"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `period_selection`'.format(value))
+            value = vals[value_lower]
 
         self._data["Period Selection"] = value
 
@@ -2242,21 +2501,35 @@ class SizingPeriodWeatherFileConditionType(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `day_of_week_for_start_day`')
-            vals = set()
-            vals.add("Sunday")
-            vals.add("Monday")
-            vals.add("Tuesday")
-            vals.add("Wednesday")
-            vals.add("Thursday")
-            vals.add("Friday")
-            vals.add("Saturday")
-            vals.add("SummerDesignDay")
-            vals.add("WinterDesignDay")
-            vals.add("CustomDay1")
-            vals.add("CustomDay2")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `day_of_week_for_start_day`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `day_of_week_for_start_day`')
+            vals = {}
+            vals["sunday"] = "Sunday"
+            vals["monday"] = "Monday"
+            vals["tuesday"] = "Tuesday"
+            vals["wednesday"] = "Wednesday"
+            vals["thursday"] = "Thursday"
+            vals["friday"] = "Friday"
+            vals["saturday"] = "Saturday"
+            vals["summerdesignday"] = "SummerDesignDay"
+            vals["winterdesignday"] = "WinterDesignDay"
+            vals["customday1"] = "CustomDay1"
+            vals["customday2"] = "CustomDay2"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `day_of_week_for_start_day`'.format(value))
+            value = vals[value_lower]
 
         self._data["Day of Week for Start Day"] = value
 
@@ -2296,12 +2569,26 @@ class SizingPeriodWeatherFileConditionType(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `use_weather_file_daylight_saving_period`')
-            vals = set()
-            vals.add("Yes")
-            vals.add("No")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `use_weather_file_daylight_saving_period`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `use_weather_file_daylight_saving_period`')
+            vals = {}
+            vals["yes"] = "Yes"
+            vals["no"] = "No"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `use_weather_file_daylight_saving_period`'.format(value))
+            value = vals[value_lower]
 
         self._data["Use Weather File Daylight Saving Period"] = value
 
@@ -2339,12 +2626,26 @@ class SizingPeriodWeatherFileConditionType(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `use_weather_file_rain_and_snow_indicators`')
-            vals = set()
-            vals.add("Yes")
-            vals.add("No")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `use_weather_file_rain_and_snow_indicators`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `use_weather_file_rain_and_snow_indicators`')
+            vals = {}
+            vals["yes"] = "Yes"
+            vals["no"] = "No"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `use_weather_file_rain_and_snow_indicators`'.format(value))
+            value = vals[value_lower]
 
         self._data["Use Weather File Rain and Snow Indicators"] = value
 
@@ -2370,14 +2671,17 @@ class SizingPeriodWeatherFileConditionType(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.period_selection))
-        out.append(self._to_str(self.day_of_week_for_start_day))
-        out.append(self._to_str(self.use_weather_file_daylight_saving_period))
-        out.append(self._to_str(self.use_weather_file_rain_and_snow_indicators))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class RunPeriod(object):
     """ Corresponds to IDD object `RunPeriod`
@@ -2407,84 +2711,114 @@ class RunPeriod(object):
         self._data["Number of Times Runperiod to be Repeated"] = None
         self._data["Increment Day of Week on repeat"] = None
         self._data["Start Year"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.begin_month = None
         else:
             self.begin_month = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.begin_day_of_month = None
         else:
             self.begin_day_of_month = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.end_month = None
         else:
             self.end_month = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.end_day_of_month = None
         else:
             self.end_day_of_month = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.day_of_week_for_start_day = None
         else:
             self.day_of_week_for_start_day = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.use_weather_file_holidays_and_special_days = None
         else:
             self.use_weather_file_holidays_and_special_days = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.use_weather_file_daylight_saving_period = None
         else:
             self.use_weather_file_daylight_saving_period = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.apply_weekend_holiday_rule = None
         else:
             self.apply_weekend_holiday_rule = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.use_weather_file_rain_indicators = None
         else:
             self.use_weather_file_rain_indicators = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.use_weather_file_snow_indicators = None
         else:
             self.use_weather_file_snow_indicators = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.number_of_times_runperiod_to_be_repeated = None
         else:
             self.number_of_times_runperiod_to_be_repeated = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.increment_day_of_week_on_repeat = None
         else:
             self.increment_day_of_week_on_repeat = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.start_year = None
         else:
             self.start_year = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -2517,6 +2851,9 @@ class RunPeriod(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -2714,18 +3051,32 @@ class RunPeriod(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `day_of_week_for_start_day`')
-            vals = set()
-            vals.add("Sunday")
-            vals.add("Monday")
-            vals.add("Tuesday")
-            vals.add("Wednesday")
-            vals.add("Thursday")
-            vals.add("Friday")
-            vals.add("Saturday")
-            vals.add("UseWeatherFile")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `day_of_week_for_start_day`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `day_of_week_for_start_day`')
+            vals = {}
+            vals["sunday"] = "Sunday"
+            vals["monday"] = "Monday"
+            vals["tuesday"] = "Tuesday"
+            vals["wednesday"] = "Wednesday"
+            vals["thursday"] = "Thursday"
+            vals["friday"] = "Friday"
+            vals["saturday"] = "Saturday"
+            vals["useweatherfile"] = "UseWeatherFile"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `day_of_week_for_start_day`'.format(value))
+            value = vals[value_lower]
 
         self._data["Day of Week for Start Day"] = value
 
@@ -2766,12 +3117,26 @@ class RunPeriod(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `use_weather_file_holidays_and_special_days`')
-            vals = set()
-            vals.add("Yes")
-            vals.add("No")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `use_weather_file_holidays_and_special_days`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `use_weather_file_holidays_and_special_days`')
+            vals = {}
+            vals["yes"] = "Yes"
+            vals["no"] = "No"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `use_weather_file_holidays_and_special_days`'.format(value))
+            value = vals[value_lower]
 
         self._data["Use Weather File Holidays and Special Days"] = value
 
@@ -2811,12 +3176,26 @@ class RunPeriod(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `use_weather_file_daylight_saving_period`')
-            vals = set()
-            vals.add("Yes")
-            vals.add("No")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `use_weather_file_daylight_saving_period`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `use_weather_file_daylight_saving_period`')
+            vals = {}
+            vals["yes"] = "Yes"
+            vals["no"] = "No"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `use_weather_file_daylight_saving_period`'.format(value))
+            value = vals[value_lower]
 
         self._data["Use Weather File Daylight Saving Period"] = value
 
@@ -2855,12 +3234,26 @@ class RunPeriod(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `apply_weekend_holiday_rule`')
-            vals = set()
-            vals.add("Yes")
-            vals.add("No")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `apply_weekend_holiday_rule`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `apply_weekend_holiday_rule`')
+            vals = {}
+            vals["yes"] = "Yes"
+            vals["no"] = "No"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `apply_weekend_holiday_rule`'.format(value))
+            value = vals[value_lower]
 
         self._data["Apply Weekend Holiday Rule"] = value
 
@@ -2898,12 +3291,26 @@ class RunPeriod(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `use_weather_file_rain_indicators`')
-            vals = set()
-            vals.add("Yes")
-            vals.add("No")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `use_weather_file_rain_indicators`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `use_weather_file_rain_indicators`')
+            vals = {}
+            vals["yes"] = "Yes"
+            vals["no"] = "No"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `use_weather_file_rain_indicators`'.format(value))
+            value = vals[value_lower]
 
         self._data["Use Weather File Rain Indicators"] = value
 
@@ -2941,12 +3348,26 @@ class RunPeriod(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `use_weather_file_snow_indicators`')
-            vals = set()
-            vals.add("Yes")
-            vals.add("No")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `use_weather_file_snow_indicators`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `use_weather_file_snow_indicators`')
+            vals = {}
+            vals["yes"] = "Yes"
+            vals["no"] = "No"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `use_weather_file_snow_indicators`'.format(value))
+            value = vals[value_lower]
 
         self._data["Use Weather File Snow Indicators"] = value
 
@@ -3019,12 +3440,26 @@ class RunPeriod(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `increment_day_of_week_on_repeat`')
-            vals = set()
-            vals.add("Yes")
-            vals.add("No")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `increment_day_of_week_on_repeat`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `increment_day_of_week_on_repeat`')
+            vals = {}
+            vals["yes"] = "Yes"
+            vals["no"] = "No"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `increment_day_of_week_on_repeat`'.format(value))
+            value = vals[value_lower]
 
         self._data["Increment Day of Week on repeat"] = value
 
@@ -3083,23 +3518,17 @@ class RunPeriod(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.begin_month))
-        out.append(self._to_str(self.begin_day_of_month))
-        out.append(self._to_str(self.end_month))
-        out.append(self._to_str(self.end_day_of_month))
-        out.append(self._to_str(self.day_of_week_for_start_day))
-        out.append(self._to_str(self.use_weather_file_holidays_and_special_days))
-        out.append(self._to_str(self.use_weather_file_daylight_saving_period))
-        out.append(self._to_str(self.apply_weekend_holiday_rule))
-        out.append(self._to_str(self.use_weather_file_rain_indicators))
-        out.append(self._to_str(self.use_weather_file_snow_indicators))
-        out.append(self._to_str(self.number_of_times_runperiod_to_be_repeated))
-        out.append(self._to_str(self.increment_day_of_week_on_repeat))
-        out.append(self._to_str(self.start_year))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class RunPeriodCustomRange(object):
     """ Corresponds to IDD object `RunPeriod:CustomRange`
@@ -3127,79 +3556,107 @@ class RunPeriodCustomRange(object):
         self._data["Apply Weekend Holiday Rule"] = None
         self._data["Use Weather File Rain Indicators"] = None
         self._data["Use Weather File Snow Indicators"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.begin_month = None
         else:
             self.begin_month = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.begin_day_of_month = None
         else:
             self.begin_day_of_month = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.begin_year = None
         else:
             self.begin_year = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.end_month = None
         else:
             self.end_month = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.end_day_of_month = None
         else:
             self.end_day_of_month = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.end_year = None
         else:
             self.end_year = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.day_of_week_for_start_day = None
         else:
             self.day_of_week_for_start_day = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.use_weather_file_holidays_and_special_days = None
         else:
             self.use_weather_file_holidays_and_special_days = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.use_weather_file_daylight_saving_period = None
         else:
             self.use_weather_file_daylight_saving_period = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.apply_weekend_holiday_rule = None
         else:
             self.apply_weekend_holiday_rule = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.use_weather_file_rain_indicators = None
         else:
             self.use_weather_file_rain_indicators = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.use_weather_file_snow_indicators = None
         else:
             self.use_weather_file_snow_indicators = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -3232,6 +3689,9 @@ class RunPeriodCustomRange(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -3491,18 +3951,32 @@ class RunPeriodCustomRange(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `day_of_week_for_start_day`')
-            vals = set()
-            vals.add("Sunday")
-            vals.add("Monday")
-            vals.add("Tuesday")
-            vals.add("Wednesday")
-            vals.add("Thursday")
-            vals.add("Friday")
-            vals.add("Saturday")
-            vals.add("UseWeatherFile")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `day_of_week_for_start_day`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `day_of_week_for_start_day`')
+            vals = {}
+            vals["sunday"] = "Sunday"
+            vals["monday"] = "Monday"
+            vals["tuesday"] = "Tuesday"
+            vals["wednesday"] = "Wednesday"
+            vals["thursday"] = "Thursday"
+            vals["friday"] = "Friday"
+            vals["saturday"] = "Saturday"
+            vals["useweatherfile"] = "UseWeatherFile"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `day_of_week_for_start_day`'.format(value))
+            value = vals[value_lower]
 
         self._data["Day of Week for Start Day"] = value
 
@@ -3543,12 +4017,26 @@ class RunPeriodCustomRange(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `use_weather_file_holidays_and_special_days`')
-            vals = set()
-            vals.add("Yes")
-            vals.add("No")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `use_weather_file_holidays_and_special_days`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `use_weather_file_holidays_and_special_days`')
+            vals = {}
+            vals["yes"] = "Yes"
+            vals["no"] = "No"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `use_weather_file_holidays_and_special_days`'.format(value))
+            value = vals[value_lower]
 
         self._data["Use Weather File Holidays and Special Days"] = value
 
@@ -3588,12 +4076,26 @@ class RunPeriodCustomRange(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `use_weather_file_daylight_saving_period`')
-            vals = set()
-            vals.add("Yes")
-            vals.add("No")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `use_weather_file_daylight_saving_period`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `use_weather_file_daylight_saving_period`')
+            vals = {}
+            vals["yes"] = "Yes"
+            vals["no"] = "No"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `use_weather_file_daylight_saving_period`'.format(value))
+            value = vals[value_lower]
 
         self._data["Use Weather File Daylight Saving Period"] = value
 
@@ -3632,12 +4134,26 @@ class RunPeriodCustomRange(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `apply_weekend_holiday_rule`')
-            vals = set()
-            vals.add("Yes")
-            vals.add("No")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `apply_weekend_holiday_rule`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `apply_weekend_holiday_rule`')
+            vals = {}
+            vals["yes"] = "Yes"
+            vals["no"] = "No"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `apply_weekend_holiday_rule`'.format(value))
+            value = vals[value_lower]
 
         self._data["Apply Weekend Holiday Rule"] = value
 
@@ -3675,12 +4191,26 @@ class RunPeriodCustomRange(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `use_weather_file_rain_indicators`')
-            vals = set()
-            vals.add("Yes")
-            vals.add("No")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `use_weather_file_rain_indicators`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `use_weather_file_rain_indicators`')
+            vals = {}
+            vals["yes"] = "Yes"
+            vals["no"] = "No"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `use_weather_file_rain_indicators`'.format(value))
+            value = vals[value_lower]
 
         self._data["Use Weather File Rain Indicators"] = value
 
@@ -3718,12 +4248,26 @@ class RunPeriodCustomRange(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `use_weather_file_snow_indicators`')
-            vals = set()
-            vals.add("Yes")
-            vals.add("No")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `use_weather_file_snow_indicators`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `use_weather_file_snow_indicators`')
+            vals = {}
+            vals["yes"] = "Yes"
+            vals["no"] = "No"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `use_weather_file_snow_indicators`'.format(value))
+            value = vals[value_lower]
 
         self._data["Use Weather File Snow Indicators"] = value
 
@@ -3749,22 +4293,17 @@ class RunPeriodCustomRange(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.begin_month))
-        out.append(self._to_str(self.begin_day_of_month))
-        out.append(self._to_str(self.begin_year))
-        out.append(self._to_str(self.end_month))
-        out.append(self._to_str(self.end_day_of_month))
-        out.append(self._to_str(self.end_year))
-        out.append(self._to_str(self.day_of_week_for_start_day))
-        out.append(self._to_str(self.use_weather_file_holidays_and_special_days))
-        out.append(self._to_str(self.use_weather_file_daylight_saving_period))
-        out.append(self._to_str(self.apply_weekend_holiday_rule))
-        out.append(self._to_str(self.use_weather_file_rain_indicators))
-        out.append(self._to_str(self.use_weather_file_snow_indicators))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class RunPeriodControlSpecialDays(object):
     """ Corresponds to IDD object `RunPeriodControl:SpecialDays`
@@ -3788,34 +4327,44 @@ class RunPeriodControlSpecialDays(object):
         self._data["Start Date"] = None
         self._data["Duration"] = None
         self._data["Special Day Type"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.start_date = None
         else:
             self.start_date = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.duration = None
         else:
             self.duration = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.special_day_type = None
         else:
             self.special_day_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -3846,6 +4395,9 @@ class RunPeriodControlSpecialDays(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -3889,6 +4441,9 @@ class RunPeriodControlSpecialDays(object):
                                  'for field `start_date`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `start_date`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `start_date`')
 
         self._data["Start Date"] = value
@@ -3971,15 +4526,29 @@ class RunPeriodControlSpecialDays(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `special_day_type`')
-            vals = set()
-            vals.add("Holiday")
-            vals.add("SummerDesignDay")
-            vals.add("WinterDesignDay")
-            vals.add("CustomDay1")
-            vals.add("CustomDay2")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `special_day_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `special_day_type`')
+            vals = {}
+            vals["holiday"] = "Holiday"
+            vals["summerdesignday"] = "SummerDesignDay"
+            vals["winterdesignday"] = "WinterDesignDay"
+            vals["customday1"] = "CustomDay1"
+            vals["customday2"] = "CustomDay2"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `special_day_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Special Day Type"] = value
 
@@ -4005,13 +4574,17 @@ class RunPeriodControlSpecialDays(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.start_date))
-        out.append(self._to_str(self.duration))
-        out.append(self._to_str(self.special_day_type))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class RunPeriodControlDaylightSavingTime(object):
     """ Corresponds to IDD object `RunPeriodControl:DaylightSavingTime`
@@ -4031,24 +4604,30 @@ class RunPeriodControlDaylightSavingTime(object):
         self._data = OrderedDict()
         self._data["Start Date"] = None
         self._data["End Date"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.start_date = None
         else:
             self.start_date = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.end_date = None
         else:
             self.end_date = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def start_date(self):
@@ -4079,6 +4658,9 @@ class RunPeriodControlDaylightSavingTime(object):
                                  'for field `start_date`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `start_date`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `start_date`')
 
         self._data["Start Date"] = value
@@ -4123,6 +4705,9 @@ class RunPeriodControlDaylightSavingTime(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `end_date`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `end_date`')
 
         self._data["End Date"] = value
 
@@ -4148,11 +4733,17 @@ class RunPeriodControlDaylightSavingTime(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.start_date))
-        out.append(self._to_str(self.end_date))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class WeatherPropertySkyTemperature(object):
     """ Corresponds to IDD object `WeatherProperty:SkyTemperature`
@@ -4170,29 +4761,37 @@ class WeatherPropertySkyTemperature(object):
         self._data["Name"] = None
         self._data["Calculation Type"] = None
         self._data["Schedule Name"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.calculation_type = None
         else:
             self.calculation_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.schedule_name = None
         else:
             self.schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -4226,6 +4825,9 @@ class WeatherPropertySkyTemperature(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -4264,13 +4866,27 @@ class WeatherPropertySkyTemperature(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `calculation_type`')
-            vals = set()
-            vals.add("ScheduleValue")
-            vals.add("DifferenceScheduleDryBulbValue")
-            vals.add("DifferenceScheduleDewPointValue")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `calculation_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `calculation_type`')
+            vals = {}
+            vals["schedulevalue"] = "ScheduleValue"
+            vals["differencescheduledrybulbvalue"] = "DifferenceScheduleDryBulbValue"
+            vals["differencescheduledewpointvalue"] = "DifferenceScheduleDewPointValue"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `calculation_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Calculation Type"] = value
 
@@ -4307,6 +4923,9 @@ class WeatherPropertySkyTemperature(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `schedule_name`')
 
         self._data["Schedule Name"] = value
 
@@ -4332,12 +4951,17 @@ class WeatherPropertySkyTemperature(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.calculation_type))
-        out.append(self._to_str(self.schedule_name))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class SiteWeatherStation(object):
     """ Corresponds to IDD object `Site:WeatherStation`
@@ -4358,34 +4982,44 @@ class SiteWeatherStation(object):
         self._data["Wind Speed Profile Exponent"] = None
         self._data["Wind Speed Profile Boundary Layer Thickness"] = None
         self._data["Air Temperature Sensor Height Above Ground"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.wind_sensor_height_above_ground = None
         else:
             self.wind_sensor_height_above_ground = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wind_speed_profile_exponent = None
         else:
             self.wind_speed_profile_exponent = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wind_speed_profile_boundary_layer_thickness = None
         else:
             self.wind_speed_profile_boundary_layer_thickness = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.air_temperature_sensor_height_above_ground = None
         else:
             self.air_temperature_sensor_height_above_ground = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def wind_sensor_height_above_ground(self):
@@ -4552,13 +5186,17 @@ class SiteWeatherStation(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.wind_sensor_height_above_ground))
-        out.append(self._to_str(self.wind_speed_profile_exponent))
-        out.append(self._to_str(self.wind_speed_profile_boundary_layer_thickness))
-        out.append(self._to_str(self.air_temperature_sensor_height_above_ground))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class SiteHeightVariation(object):
     """ Corresponds to IDD object `Site:HeightVariation`
@@ -4579,29 +5217,37 @@ class SiteHeightVariation(object):
         self._data["Wind Speed Profile Exponent"] = None
         self._data["Wind Speed Profile Boundary Layer Thickness"] = None
         self._data["Air Temperature Gradient Coefficient"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.wind_speed_profile_exponent = None
         else:
             self.wind_speed_profile_exponent = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wind_speed_profile_boundary_layer_thickness = None
         else:
             self.wind_speed_profile_boundary_layer_thickness = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.air_temperature_gradient_coefficient = None
         else:
             self.air_temperature_gradient_coefficient = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def wind_speed_profile_exponent(self):
@@ -4734,12 +5380,17 @@ class SiteHeightVariation(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.wind_speed_profile_exponent))
-        out.append(self._to_str(self.wind_speed_profile_boundary_layer_thickness))
-        out.append(self._to_str(self.air_temperature_gradient_coefficient))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class SiteGroundTemperatureBuildingSurface(object):
     """ Corresponds to IDD object `Site:GroundTemperature:BuildingSurface`
@@ -4773,74 +5424,100 @@ class SiteGroundTemperatureBuildingSurface(object):
         self._data["October Ground Temperature"] = None
         self._data["November Ground Temperature"] = None
         self._data["December Ground Temperature"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.january_ground_temperature = None
         else:
             self.january_ground_temperature = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.february_ground_temperature = None
         else:
             self.february_ground_temperature = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.march_ground_temperature = None
         else:
             self.march_ground_temperature = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.april_ground_temperature = None
         else:
             self.april_ground_temperature = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.may_ground_temperature = None
         else:
             self.may_ground_temperature = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.june_ground_temperature = None
         else:
             self.june_ground_temperature = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.july_ground_temperature = None
         else:
             self.july_ground_temperature = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.august_ground_temperature = None
         else:
             self.august_ground_temperature = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.september_ground_temperature = None
         else:
             self.september_ground_temperature = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.october_ground_temperature = None
         else:
             self.october_ground_temperature = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.november_ground_temperature = None
         else:
             self.november_ground_temperature = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.december_ground_temperature = None
         else:
             self.december_ground_temperature = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def january_ground_temperature(self):
@@ -5248,21 +5925,17 @@ class SiteGroundTemperatureBuildingSurface(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.january_ground_temperature))
-        out.append(self._to_str(self.february_ground_temperature))
-        out.append(self._to_str(self.march_ground_temperature))
-        out.append(self._to_str(self.april_ground_temperature))
-        out.append(self._to_str(self.may_ground_temperature))
-        out.append(self._to_str(self.june_ground_temperature))
-        out.append(self._to_str(self.july_ground_temperature))
-        out.append(self._to_str(self.august_ground_temperature))
-        out.append(self._to_str(self.september_ground_temperature))
-        out.append(self._to_str(self.october_ground_temperature))
-        out.append(self._to_str(self.november_ground_temperature))
-        out.append(self._to_str(self.december_ground_temperature))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class SiteGroundTemperatureFcfactorMethod(object):
     """ Corresponds to IDD object `Site:GroundTemperature:FCfactorMethod`
@@ -5291,74 +5964,100 @@ class SiteGroundTemperatureFcfactorMethod(object):
         self._data["October Ground Temperature"] = None
         self._data["November Ground Temperature"] = None
         self._data["December Ground Temperature"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.january_ground_temperature = None
         else:
             self.january_ground_temperature = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.february_ground_temperature = None
         else:
             self.february_ground_temperature = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.march_ground_temperature = None
         else:
             self.march_ground_temperature = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.april_ground_temperature = None
         else:
             self.april_ground_temperature = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.may_ground_temperature = None
         else:
             self.may_ground_temperature = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.june_ground_temperature = None
         else:
             self.june_ground_temperature = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.july_ground_temperature = None
         else:
             self.july_ground_temperature = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.august_ground_temperature = None
         else:
             self.august_ground_temperature = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.september_ground_temperature = None
         else:
             self.september_ground_temperature = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.october_ground_temperature = None
         else:
             self.october_ground_temperature = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.november_ground_temperature = None
         else:
             self.november_ground_temperature = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.december_ground_temperature = None
         else:
             self.december_ground_temperature = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def january_ground_temperature(self):
@@ -5766,21 +6465,17 @@ class SiteGroundTemperatureFcfactorMethod(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.january_ground_temperature))
-        out.append(self._to_str(self.february_ground_temperature))
-        out.append(self._to_str(self.march_ground_temperature))
-        out.append(self._to_str(self.april_ground_temperature))
-        out.append(self._to_str(self.may_ground_temperature))
-        out.append(self._to_str(self.june_ground_temperature))
-        out.append(self._to_str(self.july_ground_temperature))
-        out.append(self._to_str(self.august_ground_temperature))
-        out.append(self._to_str(self.september_ground_temperature))
-        out.append(self._to_str(self.october_ground_temperature))
-        out.append(self._to_str(self.november_ground_temperature))
-        out.append(self._to_str(self.december_ground_temperature))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class SiteGroundTemperatureShallow(object):
     """ Corresponds to IDD object `Site:GroundTemperature:Shallow`
@@ -5809,74 +6504,100 @@ class SiteGroundTemperatureShallow(object):
         self._data["October Surface Ground Temperature"] = None
         self._data["November Surface Ground Temperature"] = None
         self._data["December Surface Ground Temperature"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.january_surface_ground_temperature = None
         else:
             self.january_surface_ground_temperature = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.february_surface_ground_temperature = None
         else:
             self.february_surface_ground_temperature = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.march_surface_ground_temperature = None
         else:
             self.march_surface_ground_temperature = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.april_surface_ground_temperature = None
         else:
             self.april_surface_ground_temperature = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.may_surface_ground_temperature = None
         else:
             self.may_surface_ground_temperature = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.june_surface_ground_temperature = None
         else:
             self.june_surface_ground_temperature = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.july_surface_ground_temperature = None
         else:
             self.july_surface_ground_temperature = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.august_surface_ground_temperature = None
         else:
             self.august_surface_ground_temperature = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.september_surface_ground_temperature = None
         else:
             self.september_surface_ground_temperature = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.october_surface_ground_temperature = None
         else:
             self.october_surface_ground_temperature = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.november_surface_ground_temperature = None
         else:
             self.november_surface_ground_temperature = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.december_surface_ground_temperature = None
         else:
             self.december_surface_ground_temperature = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def january_surface_ground_temperature(self):
@@ -6284,21 +7005,17 @@ class SiteGroundTemperatureShallow(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.january_surface_ground_temperature))
-        out.append(self._to_str(self.february_surface_ground_temperature))
-        out.append(self._to_str(self.march_surface_ground_temperature))
-        out.append(self._to_str(self.april_surface_ground_temperature))
-        out.append(self._to_str(self.may_surface_ground_temperature))
-        out.append(self._to_str(self.june_surface_ground_temperature))
-        out.append(self._to_str(self.july_surface_ground_temperature))
-        out.append(self._to_str(self.august_surface_ground_temperature))
-        out.append(self._to_str(self.september_surface_ground_temperature))
-        out.append(self._to_str(self.october_surface_ground_temperature))
-        out.append(self._to_str(self.november_surface_ground_temperature))
-        out.append(self._to_str(self.december_surface_ground_temperature))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class SiteGroundTemperatureDeep(object):
     """ Corresponds to IDD object `Site:GroundTemperature:Deep`
@@ -6327,74 +7044,100 @@ class SiteGroundTemperatureDeep(object):
         self._data["October Deep Ground Temperature"] = None
         self._data["November Deep Ground Temperature"] = None
         self._data["December Deep Ground Temperature"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.january_deep_ground_temperature = None
         else:
             self.january_deep_ground_temperature = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.february_deep_ground_temperature = None
         else:
             self.february_deep_ground_temperature = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.march_deep_ground_temperature = None
         else:
             self.march_deep_ground_temperature = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.april_deep_ground_temperature = None
         else:
             self.april_deep_ground_temperature = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.may_deep_ground_temperature = None
         else:
             self.may_deep_ground_temperature = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.june_deep_ground_temperature = None
         else:
             self.june_deep_ground_temperature = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.july_deep_ground_temperature = None
         else:
             self.july_deep_ground_temperature = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.august_deep_ground_temperature = None
         else:
             self.august_deep_ground_temperature = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.september_deep_ground_temperature = None
         else:
             self.september_deep_ground_temperature = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.october_deep_ground_temperature = None
         else:
             self.october_deep_ground_temperature = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.november_deep_ground_temperature = None
         else:
             self.november_deep_ground_temperature = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.december_deep_ground_temperature = None
         else:
             self.december_deep_ground_temperature = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def january_deep_ground_temperature(self):
@@ -6802,21 +7545,17 @@ class SiteGroundTemperatureDeep(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.january_deep_ground_temperature))
-        out.append(self._to_str(self.february_deep_ground_temperature))
-        out.append(self._to_str(self.march_deep_ground_temperature))
-        out.append(self._to_str(self.april_deep_ground_temperature))
-        out.append(self._to_str(self.may_deep_ground_temperature))
-        out.append(self._to_str(self.june_deep_ground_temperature))
-        out.append(self._to_str(self.july_deep_ground_temperature))
-        out.append(self._to_str(self.august_deep_ground_temperature))
-        out.append(self._to_str(self.september_deep_ground_temperature))
-        out.append(self._to_str(self.october_deep_ground_temperature))
-        out.append(self._to_str(self.november_deep_ground_temperature))
-        out.append(self._to_str(self.december_deep_ground_temperature))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class SiteGroundDomain(object):
     """ Corresponds to IDD object `Site:GroundDomain`
@@ -6856,134 +7595,184 @@ class SiteGroundDomain(object):
         self._data["Vertical Insulation Material Name"] = None
         self._data["Vertical Insulation Depth"] = None
         self._data["Simulation Timestep"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.ground_domain_depth = None
         else:
             self.ground_domain_depth = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.aspect_ratio = None
         else:
             self.aspect_ratio = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.perimeter_offset = None
         else:
             self.perimeter_offset = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.soil_thermal_conductivity = None
         else:
             self.soil_thermal_conductivity = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.soil_density = None
         else:
             self.soil_density = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.soil_specific_heat = None
         else:
             self.soil_specific_heat = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.soil_moisture_content_volume_fraction = None
         else:
             self.soil_moisture_content_volume_fraction = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.soil_moisture_content_volume_fraction_at_saturation = None
         else:
             self.soil_moisture_content_volume_fraction_at_saturation = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.kusudaachenbach_average_surface_temperature = None
         else:
             self.kusudaachenbach_average_surface_temperature = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.kusudaachenbach_average_amplitude_of_surface_temperature = None
         else:
             self.kusudaachenbach_average_amplitude_of_surface_temperature = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.kusudaachenbach_phase_shift_of_minimum_surface_temperature = None
         else:
             self.kusudaachenbach_phase_shift_of_minimum_surface_temperature = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.evapotranspiration_ground_cover_parameter = None
         else:
             self.evapotranspiration_ground_cover_parameter = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.slab_boundary_condition_model_name = None
         else:
             self.slab_boundary_condition_model_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.slab_location = None
         else:
             self.slab_location = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.slab_material_name = None
         else:
             self.slab_material_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.horizontal_insulation = None
         else:
             self.horizontal_insulation = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.horizontal_insulation_material_name = None
         else:
             self.horizontal_insulation_material_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.horizontal_insulation_extents = None
         else:
             self.horizontal_insulation_extents = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.perimeter_insulation_width = None
         else:
             self.perimeter_insulation_width = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertical_insulation = None
         else:
             self.vertical_insulation = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertical_insulation_material_name = None
         else:
             self.vertical_insulation_material_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertical_insulation_depth = None
         else:
             self.vertical_insulation_depth = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.simulation_timestep = None
         else:
             self.simulation_timestep = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -7014,6 +7803,9 @@ class SiteGroundDomain(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -7476,6 +8268,9 @@ class SiteGroundDomain(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `slab_boundary_condition_model_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `slab_boundary_condition_model_name`')
 
         self._data["Slab Boundary Condition Model Name"] = value
 
@@ -7513,12 +8308,26 @@ class SiteGroundDomain(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `slab_location`')
-            vals = set()
-            vals.add("InGrade")
-            vals.add("OnGrade")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `slab_location`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `slab_location`')
+            vals = {}
+            vals["ingrade"] = "InGrade"
+            vals["ongrade"] = "OnGrade"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `slab_location`'.format(value))
+            value = vals[value_lower]
 
         self._data["Slab Location"] = value
 
@@ -7552,6 +8361,9 @@ class SiteGroundDomain(object):
                                  'for field `slab_material_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `slab_material_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `slab_material_name`')
 
         self._data["Slab Material Name"] = value
@@ -7592,12 +8404,26 @@ class SiteGroundDomain(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `horizontal_insulation`')
-            vals = set()
-            vals.add("Yes")
-            vals.add("No")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `horizontal_insulation`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `horizontal_insulation`')
+            vals = {}
+            vals["yes"] = "Yes"
+            vals["no"] = "No"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `horizontal_insulation`'.format(value))
+            value = vals[value_lower]
 
         self._data["Horizontal Insulation"] = value
 
@@ -7631,6 +8457,9 @@ class SiteGroundDomain(object):
                                  'for field `horizontal_insulation_material_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `horizontal_insulation_material_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `horizontal_insulation_material_name`')
 
         self._data["Horizontal Insulation Material Name"] = value
@@ -7671,12 +8500,26 @@ class SiteGroundDomain(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `horizontal_insulation_extents`')
-            vals = set()
-            vals.add("Full")
-            vals.add("Perimeter")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `horizontal_insulation_extents`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `horizontal_insulation_extents`')
+            vals = {}
+            vals["full"] = "Full"
+            vals["perimeter"] = "Perimeter"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `horizontal_insulation_extents`'.format(value))
+            value = vals[value_lower]
 
         self._data["Horizontal Insulation Extents"] = value
 
@@ -7751,12 +8594,26 @@ class SiteGroundDomain(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `vertical_insulation`')
-            vals = set()
-            vals.add("Yes")
-            vals.add("No")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `vertical_insulation`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `vertical_insulation`')
+            vals = {}
+            vals["yes"] = "Yes"
+            vals["no"] = "No"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `vertical_insulation`'.format(value))
+            value = vals[value_lower]
 
         self._data["Vertical Insulation"] = value
 
@@ -7790,6 +8647,9 @@ class SiteGroundDomain(object):
                                  'for field `vertical_insulation_material_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `vertical_insulation_material_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `vertical_insulation_material_name`')
 
         self._data["Vertical Insulation Material Name"] = value
@@ -7866,12 +8726,26 @@ class SiteGroundDomain(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `simulation_timestep`')
-            vals = set()
-            vals.add("Hourly")
-            vals.add("Timestep")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `simulation_timestep`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `simulation_timestep`')
+            vals = {}
+            vals["hourly"] = "Hourly"
+            vals["timestep"] = "Timestep"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `simulation_timestep`'.format(value))
+            value = vals[value_lower]
 
         self._data["Simulation Timestep"] = value
 
@@ -7897,33 +8771,17 @@ class SiteGroundDomain(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.ground_domain_depth))
-        out.append(self._to_str(self.aspect_ratio))
-        out.append(self._to_str(self.perimeter_offset))
-        out.append(self._to_str(self.soil_thermal_conductivity))
-        out.append(self._to_str(self.soil_density))
-        out.append(self._to_str(self.soil_specific_heat))
-        out.append(self._to_str(self.soil_moisture_content_volume_fraction))
-        out.append(self._to_str(self.soil_moisture_content_volume_fraction_at_saturation))
-        out.append(self._to_str(self.kusudaachenbach_average_surface_temperature))
-        out.append(self._to_str(self.kusudaachenbach_average_amplitude_of_surface_temperature))
-        out.append(self._to_str(self.kusudaachenbach_phase_shift_of_minimum_surface_temperature))
-        out.append(self._to_str(self.evapotranspiration_ground_cover_parameter))
-        out.append(self._to_str(self.slab_boundary_condition_model_name))
-        out.append(self._to_str(self.slab_location))
-        out.append(self._to_str(self.slab_material_name))
-        out.append(self._to_str(self.horizontal_insulation))
-        out.append(self._to_str(self.horizontal_insulation_material_name))
-        out.append(self._to_str(self.horizontal_insulation_extents))
-        out.append(self._to_str(self.perimeter_insulation_width))
-        out.append(self._to_str(self.vertical_insulation))
-        out.append(self._to_str(self.vertical_insulation_material_name))
-        out.append(self._to_str(self.vertical_insulation_depth))
-        out.append(self._to_str(self.simulation_timestep))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class SiteGroundReflectance(object):
     """ Corresponds to IDD object `Site:GroundReflectance`
@@ -7952,74 +8810,100 @@ class SiteGroundReflectance(object):
         self._data["October Ground Reflectance"] = None
         self._data["November Ground Reflectance"] = None
         self._data["December Ground Reflectance"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.january_ground_reflectance = None
         else:
             self.january_ground_reflectance = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.february_ground_reflectance = None
         else:
             self.february_ground_reflectance = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.march_ground_reflectance = None
         else:
             self.march_ground_reflectance = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.april_ground_reflectance = None
         else:
             self.april_ground_reflectance = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.may_ground_reflectance = None
         else:
             self.may_ground_reflectance = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.june_ground_reflectance = None
         else:
             self.june_ground_reflectance = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.july_ground_reflectance = None
         else:
             self.july_ground_reflectance = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.august_ground_reflectance = None
         else:
             self.august_ground_reflectance = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.september_ground_reflectance = None
         else:
             self.september_ground_reflectance = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.october_ground_reflectance = None
         else:
             self.october_ground_reflectance = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.november_ground_reflectance = None
         else:
             self.november_ground_reflectance = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.december_ground_reflectance = None
         else:
             self.december_ground_reflectance = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def january_ground_reflectance(self):
@@ -8523,21 +9407,17 @@ class SiteGroundReflectance(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.january_ground_reflectance))
-        out.append(self._to_str(self.february_ground_reflectance))
-        out.append(self._to_str(self.march_ground_reflectance))
-        out.append(self._to_str(self.april_ground_reflectance))
-        out.append(self._to_str(self.may_ground_reflectance))
-        out.append(self._to_str(self.june_ground_reflectance))
-        out.append(self._to_str(self.july_ground_reflectance))
-        out.append(self._to_str(self.august_ground_reflectance))
-        out.append(self._to_str(self.september_ground_reflectance))
-        out.append(self._to_str(self.october_ground_reflectance))
-        out.append(self._to_str(self.november_ground_reflectance))
-        out.append(self._to_str(self.december_ground_reflectance))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class SiteGroundReflectanceSnowModifier(object):
     """ Corresponds to IDD object `Site:GroundReflectance:SnowModifier`
@@ -8556,24 +9436,30 @@ class SiteGroundReflectanceSnowModifier(object):
         self._data = OrderedDict()
         self._data["Ground Reflected Solar Modifier"] = None
         self._data["Daylighting Ground Reflected Solar Modifier"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.ground_reflected_solar_modifier = None
         else:
             self.ground_reflected_solar_modifier = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.daylighting_ground_reflected_solar_modifier = None
         else:
             self.daylighting_ground_reflected_solar_modifier = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def ground_reflected_solar_modifier(self):
@@ -8681,11 +9567,17 @@ class SiteGroundReflectanceSnowModifier(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.ground_reflected_solar_modifier))
-        out.append(self._to_str(self.daylighting_ground_reflected_solar_modifier))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class SiteWaterMainsTemperature(object):
     """ Corresponds to IDD object `Site:WaterMainsTemperature`
@@ -8706,34 +9598,44 @@ class SiteWaterMainsTemperature(object):
         self._data["Temperature Schedule Name"] = None
         self._data["Annual Average Outdoor Air Temperature"] = None
         self._data["Maximum Difference In Monthly Average Outdoor Air Temperatures"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.calculation_method = None
         else:
             self.calculation_method = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.temperature_schedule_name = None
         else:
             self.temperature_schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.annual_average_outdoor_air_temperature = None
         else:
             self.annual_average_outdoor_air_temperature = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.maximum_difference_in_monthly_average_outdoor_air_temperatures = None
         else:
             self.maximum_difference_in_monthly_average_outdoor_air_temperatures = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def calculation_method(self):
@@ -8768,12 +9670,26 @@ class SiteWaterMainsTemperature(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `calculation_method`')
-            vals = set()
-            vals.add("Schedule")
-            vals.add("Correlation")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `calculation_method`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `calculation_method`')
+            vals = {}
+            vals["schedule"] = "Schedule"
+            vals["correlation"] = "Correlation"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `calculation_method`'.format(value))
+            value = vals[value_lower]
 
         self._data["Calculation Method"] = value
 
@@ -8806,6 +9722,9 @@ class SiteWaterMainsTemperature(object):
                                  'for field `temperature_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `temperature_schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `temperature_schedule_name`')
 
         self._data["Temperature Schedule Name"] = value
@@ -8898,13 +9817,17 @@ class SiteWaterMainsTemperature(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.calculation_method))
-        out.append(self._to_str(self.temperature_schedule_name))
-        out.append(self._to_str(self.annual_average_outdoor_air_temperature))
-        out.append(self._to_str(self.maximum_difference_in_monthly_average_outdoor_air_temperatures))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class SitePrecipitation(object):
     """ Corresponds to IDD object `Site:Precipitation`
@@ -8924,34 +9847,44 @@ class SitePrecipitation(object):
         self._data["Design Level for Total Annual Precipitation"] = None
         self._data["Precipitation Rates Schedule Name"] = None
         self._data["Average Total Annual Precipitation"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.precipitation_model_type = None
         else:
             self.precipitation_model_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.design_level_for_total_annual_precipitation = None
         else:
             self.design_level_for_total_annual_precipitation = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.precipitation_rates_schedule_name = None
         else:
             self.precipitation_rates_schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.average_total_annual_precipitation = None
         else:
             self.average_total_annual_precipitation = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def precipitation_model_type(self):
@@ -8985,11 +9918,25 @@ class SitePrecipitation(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `precipitation_model_type`')
-            vals = set()
-            vals.add("ScheduleAndDesignLevel")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `precipitation_model_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `precipitation_model_type`')
+            vals = {}
+            vals["scheduleanddesignlevel"] = "ScheduleAndDesignLevel"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `precipitation_model_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Precipitation Model Type"] = value
 
@@ -9057,6 +10004,9 @@ class SitePrecipitation(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `precipitation_rates_schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `precipitation_rates_schedule_name`')
 
         self._data["Precipitation Rates Schedule Name"] = value
 
@@ -9118,13 +10068,17 @@ class SitePrecipitation(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.precipitation_model_type))
-        out.append(self._to_str(self.design_level_for_total_annual_precipitation))
-        out.append(self._to_str(self.precipitation_rates_schedule_name))
-        out.append(self._to_str(self.average_total_annual_precipitation))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class RoofIrrigation(object):
     """ Corresponds to IDD object `RoofIrrigation`
@@ -9143,29 +10097,37 @@ class RoofIrrigation(object):
         self._data["Irrigation Model Type"] = None
         self._data["Irrigation Rate Schedule Name"] = None
         self._data["Irrigation Maximum Saturation Threshold"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.irrigation_model_type = None
         else:
             self.irrigation_model_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.irrigation_rate_schedule_name = None
         else:
             self.irrigation_rate_schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.irrigation_maximum_saturation_threshold = None
         else:
             self.irrigation_maximum_saturation_threshold = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def irrigation_model_type(self):
@@ -9202,12 +10164,26 @@ class RoofIrrigation(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `irrigation_model_type`')
-            vals = set()
-            vals.add("Schedule")
-            vals.add("SmartSchedule")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `irrigation_model_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `irrigation_model_type`')
+            vals = {}
+            vals["schedule"] = "Schedule"
+            vals["smartschedule"] = "SmartSchedule"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `irrigation_model_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Irrigation Model Type"] = value
 
@@ -9242,6 +10218,9 @@ class RoofIrrigation(object):
                                  'for field `irrigation_rate_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `irrigation_rate_schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `irrigation_rate_schedule_name`')
 
         self._data["Irrigation Rate Schedule Name"] = value
@@ -9310,12 +10289,17 @@ class RoofIrrigation(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.irrigation_model_type))
-        out.append(self._to_str(self.irrigation_rate_schedule_name))
-        out.append(self._to_str(self.irrigation_maximum_saturation_threshold))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class SiteSolarAndVisibleSpectrum(object):
     """ Corresponds to IDD object `Site:SolarAndVisibleSpectrum`
@@ -9334,34 +10318,44 @@ class SiteSolarAndVisibleSpectrum(object):
         self._data["Spectrum Data Method"] = None
         self._data["Solar Spectrum Data Object Name"] = None
         self._data["Visible Spectrum Data Object Name"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.spectrum_data_method = None
         else:
             self.spectrum_data_method = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.solar_spectrum_data_object_name = None
         else:
             self.solar_spectrum_data_object_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.visible_spectrum_data_object_name = None
         else:
             self.visible_spectrum_data_object_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -9392,6 +10386,9 @@ class SiteSolarAndVisibleSpectrum(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -9433,12 +10430,26 @@ class SiteSolarAndVisibleSpectrum(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `spectrum_data_method`')
-            vals = set()
-            vals.add("Default")
-            vals.add("UserDefined")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `spectrum_data_method`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `spectrum_data_method`')
+            vals = {}
+            vals["default"] = "Default"
+            vals["userdefined"] = "UserDefined"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `spectrum_data_method`'.format(value))
+            value = vals[value_lower]
 
         self._data["Spectrum Data Method"] = value
 
@@ -9471,6 +10482,9 @@ class SiteSolarAndVisibleSpectrum(object):
                                  'for field `solar_spectrum_data_object_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `solar_spectrum_data_object_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `solar_spectrum_data_object_name`')
 
         self._data["Solar Spectrum Data Object Name"] = value
@@ -9505,6 +10519,9 @@ class SiteSolarAndVisibleSpectrum(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `visible_spectrum_data_object_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `visible_spectrum_data_object_name`')
 
         self._data["Visible Spectrum Data Object Name"] = value
 
@@ -9530,13 +10547,17 @@ class SiteSolarAndVisibleSpectrum(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.spectrum_data_method))
-        out.append(self._to_str(self.solar_spectrum_data_object_name))
-        out.append(self._to_str(self.visible_spectrum_data_object_name))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class SiteSpectrumData(object):
     """ Corresponds to IDD object `Site:SpectrumData`
@@ -9769,1094 +10790,1528 @@ class SiteSpectrumData(object):
         self._data["Spectrum 106"] = None
         self._data["Wavelength 107"] = None
         self._data["Spectrum 107"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.spectrum_data_type = None
         else:
             self.spectrum_data_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wavelength_1 = None
         else:
             self.wavelength_1 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.spectrum_1 = None
         else:
             self.spectrum_1 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wavelength_2 = None
         else:
             self.wavelength_2 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.spectrum_2 = None
         else:
             self.spectrum_2 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wavelength_3 = None
         else:
             self.wavelength_3 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.spectrum_3 = None
         else:
             self.spectrum_3 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wavelength_4 = None
         else:
             self.wavelength_4 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.spectrum_4 = None
         else:
             self.spectrum_4 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wavelength_5 = None
         else:
             self.wavelength_5 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.spectrum_5 = None
         else:
             self.spectrum_5 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wavelength_6 = None
         else:
             self.wavelength_6 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.spectrum_6 = None
         else:
             self.spectrum_6 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wavelength_7 = None
         else:
             self.wavelength_7 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.spectrum_7 = None
         else:
             self.spectrum_7 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wavelength_8 = None
         else:
             self.wavelength_8 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.spectrum_8 = None
         else:
             self.spectrum_8 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wavelength_9 = None
         else:
             self.wavelength_9 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.spectrum_9 = None
         else:
             self.spectrum_9 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wavelength_10 = None
         else:
             self.wavelength_10 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.spectrum_10 = None
         else:
             self.spectrum_10 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wavelength_11 = None
         else:
             self.wavelength_11 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.spectrum_11 = None
         else:
             self.spectrum_11 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wavelength_12 = None
         else:
             self.wavelength_12 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.spectrum_12 = None
         else:
             self.spectrum_12 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wavelength_13 = None
         else:
             self.wavelength_13 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.spectrum_13 = None
         else:
             self.spectrum_13 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wavelength_14 = None
         else:
             self.wavelength_14 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.spectrum_14 = None
         else:
             self.spectrum_14 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wavelength_15 = None
         else:
             self.wavelength_15 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.spectrum_15 = None
         else:
             self.spectrum_15 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wavelength_16 = None
         else:
             self.wavelength_16 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.spectrum_16 = None
         else:
             self.spectrum_16 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wavelength_17 = None
         else:
             self.wavelength_17 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.spectrum_17 = None
         else:
             self.spectrum_17 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wavelength_18 = None
         else:
             self.wavelength_18 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.spectrum_18 = None
         else:
             self.spectrum_18 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wavelength_19 = None
         else:
             self.wavelength_19 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.spectrum_19 = None
         else:
             self.spectrum_19 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wavelength_20 = None
         else:
             self.wavelength_20 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.spectrum_20 = None
         else:
             self.spectrum_20 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wavelength_21 = None
         else:
             self.wavelength_21 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.spectrum_21 = None
         else:
             self.spectrum_21 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wavelength_22 = None
         else:
             self.wavelength_22 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.spectrum_22 = None
         else:
             self.spectrum_22 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wavelength_23 = None
         else:
             self.wavelength_23 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.spectrum_23 = None
         else:
             self.spectrum_23 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wavelength_24 = None
         else:
             self.wavelength_24 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.spectrum_24 = None
         else:
             self.spectrum_24 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wavelength_25 = None
         else:
             self.wavelength_25 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.spectrum_25 = None
         else:
             self.spectrum_25 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wavelength_26 = None
         else:
             self.wavelength_26 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.spectrum_26 = None
         else:
             self.spectrum_26 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wavelength_27 = None
         else:
             self.wavelength_27 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.spectrum_27 = None
         else:
             self.spectrum_27 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wavelength_28 = None
         else:
             self.wavelength_28 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.spectrum_28 = None
         else:
             self.spectrum_28 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wavelength_29 = None
         else:
             self.wavelength_29 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.spectrum_29 = None
         else:
             self.spectrum_29 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wavelength_30 = None
         else:
             self.wavelength_30 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.spectrum_30 = None
         else:
             self.spectrum_30 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wavelength_31 = None
         else:
             self.wavelength_31 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.spectrum_31 = None
         else:
             self.spectrum_31 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wavelength_32 = None
         else:
             self.wavelength_32 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.spectrum_32 = None
         else:
             self.spectrum_32 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wavelength_33 = None
         else:
             self.wavelength_33 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.spectrum_33 = None
         else:
             self.spectrum_33 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wavelength_34 = None
         else:
             self.wavelength_34 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.spectrum_34 = None
         else:
             self.spectrum_34 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wavelength_35 = None
         else:
             self.wavelength_35 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.spectrum_35 = None
         else:
             self.spectrum_35 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wavelength_36 = None
         else:
             self.wavelength_36 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.spectrum_36 = None
         else:
             self.spectrum_36 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wavelength_37 = None
         else:
             self.wavelength_37 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.spectrum_37 = None
         else:
             self.spectrum_37 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wavelength_38 = None
         else:
             self.wavelength_38 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.spectrum_38 = None
         else:
             self.spectrum_38 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wavelength_39 = None
         else:
             self.wavelength_39 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.spectrum_39 = None
         else:
             self.spectrum_39 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wavelength_40 = None
         else:
             self.wavelength_40 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.spectrum_40 = None
         else:
             self.spectrum_40 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wavelength_41 = None
         else:
             self.wavelength_41 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.spectrum_41 = None
         else:
             self.spectrum_41 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wavelength_42 = None
         else:
             self.wavelength_42 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.spectrum_42 = None
         else:
             self.spectrum_42 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wavelength_43 = None
         else:
             self.wavelength_43 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.spectrum_43 = None
         else:
             self.spectrum_43 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wavelength_44 = None
         else:
             self.wavelength_44 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.spectrum_44 = None
         else:
             self.spectrum_44 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wavelength_45 = None
         else:
             self.wavelength_45 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.spectrum_45 = None
         else:
             self.spectrum_45 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wavelength_46 = None
         else:
             self.wavelength_46 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.spectrum_46 = None
         else:
             self.spectrum_46 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wavelength_47 = None
         else:
             self.wavelength_47 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.spectrum_47 = None
         else:
             self.spectrum_47 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wavelength_48 = None
         else:
             self.wavelength_48 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.spectrum_48 = None
         else:
             self.spectrum_48 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wavelength_49 = None
         else:
             self.wavelength_49 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.spectrum_49 = None
         else:
             self.spectrum_49 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wavelength_50 = None
         else:
             self.wavelength_50 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.spectrum_50 = None
         else:
             self.spectrum_50 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wavelength_51 = None
         else:
             self.wavelength_51 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.spectrum_51 = None
         else:
             self.spectrum_51 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wavelength_52 = None
         else:
             self.wavelength_52 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.spectrum_52 = None
         else:
             self.spectrum_52 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wavelength_53 = None
         else:
             self.wavelength_53 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.spectrum_53 = None
         else:
             self.spectrum_53 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wavelength_54 = None
         else:
             self.wavelength_54 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.spectrum_54 = None
         else:
             self.spectrum_54 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wavelength_55 = None
         else:
             self.wavelength_55 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.spectrum_55 = None
         else:
             self.spectrum_55 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wavelength_56 = None
         else:
             self.wavelength_56 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.spectrum_56 = None
         else:
             self.spectrum_56 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wavelength_57 = None
         else:
             self.wavelength_57 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.spectrum_57 = None
         else:
             self.spectrum_57 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wavelength_58 = None
         else:
             self.wavelength_58 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.spectrum_58 = None
         else:
             self.spectrum_58 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wavelength_59 = None
         else:
             self.wavelength_59 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.spectrum_59 = None
         else:
             self.spectrum_59 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wavelength_60 = None
         else:
             self.wavelength_60 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.spectrum_60 = None
         else:
             self.spectrum_60 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wavelength_61 = None
         else:
             self.wavelength_61 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.spectrum_61 = None
         else:
             self.spectrum_61 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wavelength_62 = None
         else:
             self.wavelength_62 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.spectrum_62 = None
         else:
             self.spectrum_62 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wavelength_63 = None
         else:
             self.wavelength_63 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.spectrum_63 = None
         else:
             self.spectrum_63 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wavelength_64 = None
         else:
             self.wavelength_64 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.spectrum_64 = None
         else:
             self.spectrum_64 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wavelength_65 = None
         else:
             self.wavelength_65 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.spectrum_65 = None
         else:
             self.spectrum_65 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wavelength_66 = None
         else:
             self.wavelength_66 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.spectrum_66 = None
         else:
             self.spectrum_66 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wavelength_67 = None
         else:
             self.wavelength_67 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.spectrum_67 = None
         else:
             self.spectrum_67 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wavelength_68 = None
         else:
             self.wavelength_68 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.spectrum_68 = None
         else:
             self.spectrum_68 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wavelength_69 = None
         else:
             self.wavelength_69 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.spectrum_69 = None
         else:
             self.spectrum_69 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wavelength_70 = None
         else:
             self.wavelength_70 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.spectrum_70 = None
         else:
             self.spectrum_70 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wavelength_71 = None
         else:
             self.wavelength_71 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.spectrum_71 = None
         else:
             self.spectrum_71 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wavelength_72 = None
         else:
             self.wavelength_72 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.spectrum_72 = None
         else:
             self.spectrum_72 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wavelength_73 = None
         else:
             self.wavelength_73 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.spectrum_73 = None
         else:
             self.spectrum_73 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wavelength_74 = None
         else:
             self.wavelength_74 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.spectrum_74 = None
         else:
             self.spectrum_74 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wavelength_75 = None
         else:
             self.wavelength_75 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.spectrum_75 = None
         else:
             self.spectrum_75 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wavelength_76 = None
         else:
             self.wavelength_76 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.spectrum_76 = None
         else:
             self.spectrum_76 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wavelength_77 = None
         else:
             self.wavelength_77 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.spectrum_77 = None
         else:
             self.spectrum_77 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wavelength_78 = None
         else:
             self.wavelength_78 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.spectrum_78 = None
         else:
             self.spectrum_78 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wavelength_79 = None
         else:
             self.wavelength_79 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.spectrum_79 = None
         else:
             self.spectrum_79 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wavelength_80 = None
         else:
             self.wavelength_80 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.spectrum_80 = None
         else:
             self.spectrum_80 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wavelength_81 = None
         else:
             self.wavelength_81 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.spectrum_81 = None
         else:
             self.spectrum_81 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wavelength_82 = None
         else:
             self.wavelength_82 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.spectrum_82 = None
         else:
             self.spectrum_82 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wavelength_83 = None
         else:
             self.wavelength_83 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.spectrum_83 = None
         else:
             self.spectrum_83 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wavelength_84 = None
         else:
             self.wavelength_84 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.spectrum_84 = None
         else:
             self.spectrum_84 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wavelength_85 = None
         else:
             self.wavelength_85 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.spectrum_85 = None
         else:
             self.spectrum_85 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wavelength_86 = None
         else:
             self.wavelength_86 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.spectrum_86 = None
         else:
             self.spectrum_86 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wavelength_87 = None
         else:
             self.wavelength_87 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.spectrum_87 = None
         else:
             self.spectrum_87 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wavelength_88 = None
         else:
             self.wavelength_88 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.spectrum_88 = None
         else:
             self.spectrum_88 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wavelength_89 = None
         else:
             self.wavelength_89 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.spectrum_89 = None
         else:
             self.spectrum_89 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wavelength_90 = None
         else:
             self.wavelength_90 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.spectrum_90 = None
         else:
             self.spectrum_90 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wavelength_91 = None
         else:
             self.wavelength_91 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.spectrum_91 = None
         else:
             self.spectrum_91 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wavelength_92 = None
         else:
             self.wavelength_92 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.spectrum_92 = None
         else:
             self.spectrum_92 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wavelength_93 = None
         else:
             self.wavelength_93 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.spectrum_93 = None
         else:
             self.spectrum_93 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wavelength_94 = None
         else:
             self.wavelength_94 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.spectrum_94 = None
         else:
             self.spectrum_94 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wavelength_95 = None
         else:
             self.wavelength_95 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.spectrum_95 = None
         else:
             self.spectrum_95 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wavelength_96 = None
         else:
             self.wavelength_96 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.spectrum_96 = None
         else:
             self.spectrum_96 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wavelength_97 = None
         else:
             self.wavelength_97 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.spectrum_97 = None
         else:
             self.spectrum_97 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wavelength_98 = None
         else:
             self.wavelength_98 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.spectrum_98 = None
         else:
             self.spectrum_98 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wavelength_99 = None
         else:
             self.wavelength_99 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.spectrum_99 = None
         else:
             self.spectrum_99 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wavelength_100 = None
         else:
             self.wavelength_100 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.spectrum_100 = None
         else:
             self.spectrum_100 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wavelength_101 = None
         else:
             self.wavelength_101 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.spectrum_101 = None
         else:
             self.spectrum_101 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wavelength_102 = None
         else:
             self.wavelength_102 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.spectrum_102 = None
         else:
             self.spectrum_102 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wavelength_103 = None
         else:
             self.wavelength_103 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.spectrum_103 = None
         else:
             self.spectrum_103 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wavelength_104 = None
         else:
             self.wavelength_104 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.spectrum_104 = None
         else:
             self.spectrum_104 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wavelength_105 = None
         else:
             self.wavelength_105 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.spectrum_105 = None
         else:
             self.spectrum_105 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wavelength_106 = None
         else:
             self.wavelength_106 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.spectrum_106 = None
         else:
             self.spectrum_106 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wavelength_107 = None
         else:
             self.wavelength_107 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.spectrum_107 = None
         else:
             self.spectrum_107 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -10887,6 +12342,9 @@ class SiteSpectrumData(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -10924,12 +12382,26 @@ class SiteSpectrumData(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `spectrum_data_type`')
-            vals = set()
-            vals.add("Solar")
-            vals.add("Visible")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `spectrum_data_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `spectrum_data_type`')
+            vals = {}
+            vals["solar"] = "Solar"
+            vals["visible"] = "Visible"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `spectrum_data_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Spectrum Data Type"] = value
 
@@ -17482,222 +18954,14 @@ class SiteSpectrumData(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.spectrum_data_type))
-        out.append(self._to_str(self.wavelength_1))
-        out.append(self._to_str(self.spectrum_1))
-        out.append(self._to_str(self.wavelength_2))
-        out.append(self._to_str(self.spectrum_2))
-        out.append(self._to_str(self.wavelength_3))
-        out.append(self._to_str(self.spectrum_3))
-        out.append(self._to_str(self.wavelength_4))
-        out.append(self._to_str(self.spectrum_4))
-        out.append(self._to_str(self.wavelength_5))
-        out.append(self._to_str(self.spectrum_5))
-        out.append(self._to_str(self.wavelength_6))
-        out.append(self._to_str(self.spectrum_6))
-        out.append(self._to_str(self.wavelength_7))
-        out.append(self._to_str(self.spectrum_7))
-        out.append(self._to_str(self.wavelength_8))
-        out.append(self._to_str(self.spectrum_8))
-        out.append(self._to_str(self.wavelength_9))
-        out.append(self._to_str(self.spectrum_9))
-        out.append(self._to_str(self.wavelength_10))
-        out.append(self._to_str(self.spectrum_10))
-        out.append(self._to_str(self.wavelength_11))
-        out.append(self._to_str(self.spectrum_11))
-        out.append(self._to_str(self.wavelength_12))
-        out.append(self._to_str(self.spectrum_12))
-        out.append(self._to_str(self.wavelength_13))
-        out.append(self._to_str(self.spectrum_13))
-        out.append(self._to_str(self.wavelength_14))
-        out.append(self._to_str(self.spectrum_14))
-        out.append(self._to_str(self.wavelength_15))
-        out.append(self._to_str(self.spectrum_15))
-        out.append(self._to_str(self.wavelength_16))
-        out.append(self._to_str(self.spectrum_16))
-        out.append(self._to_str(self.wavelength_17))
-        out.append(self._to_str(self.spectrum_17))
-        out.append(self._to_str(self.wavelength_18))
-        out.append(self._to_str(self.spectrum_18))
-        out.append(self._to_str(self.wavelength_19))
-        out.append(self._to_str(self.spectrum_19))
-        out.append(self._to_str(self.wavelength_20))
-        out.append(self._to_str(self.spectrum_20))
-        out.append(self._to_str(self.wavelength_21))
-        out.append(self._to_str(self.spectrum_21))
-        out.append(self._to_str(self.wavelength_22))
-        out.append(self._to_str(self.spectrum_22))
-        out.append(self._to_str(self.wavelength_23))
-        out.append(self._to_str(self.spectrum_23))
-        out.append(self._to_str(self.wavelength_24))
-        out.append(self._to_str(self.spectrum_24))
-        out.append(self._to_str(self.wavelength_25))
-        out.append(self._to_str(self.spectrum_25))
-        out.append(self._to_str(self.wavelength_26))
-        out.append(self._to_str(self.spectrum_26))
-        out.append(self._to_str(self.wavelength_27))
-        out.append(self._to_str(self.spectrum_27))
-        out.append(self._to_str(self.wavelength_28))
-        out.append(self._to_str(self.spectrum_28))
-        out.append(self._to_str(self.wavelength_29))
-        out.append(self._to_str(self.spectrum_29))
-        out.append(self._to_str(self.wavelength_30))
-        out.append(self._to_str(self.spectrum_30))
-        out.append(self._to_str(self.wavelength_31))
-        out.append(self._to_str(self.spectrum_31))
-        out.append(self._to_str(self.wavelength_32))
-        out.append(self._to_str(self.spectrum_32))
-        out.append(self._to_str(self.wavelength_33))
-        out.append(self._to_str(self.spectrum_33))
-        out.append(self._to_str(self.wavelength_34))
-        out.append(self._to_str(self.spectrum_34))
-        out.append(self._to_str(self.wavelength_35))
-        out.append(self._to_str(self.spectrum_35))
-        out.append(self._to_str(self.wavelength_36))
-        out.append(self._to_str(self.spectrum_36))
-        out.append(self._to_str(self.wavelength_37))
-        out.append(self._to_str(self.spectrum_37))
-        out.append(self._to_str(self.wavelength_38))
-        out.append(self._to_str(self.spectrum_38))
-        out.append(self._to_str(self.wavelength_39))
-        out.append(self._to_str(self.spectrum_39))
-        out.append(self._to_str(self.wavelength_40))
-        out.append(self._to_str(self.spectrum_40))
-        out.append(self._to_str(self.wavelength_41))
-        out.append(self._to_str(self.spectrum_41))
-        out.append(self._to_str(self.wavelength_42))
-        out.append(self._to_str(self.spectrum_42))
-        out.append(self._to_str(self.wavelength_43))
-        out.append(self._to_str(self.spectrum_43))
-        out.append(self._to_str(self.wavelength_44))
-        out.append(self._to_str(self.spectrum_44))
-        out.append(self._to_str(self.wavelength_45))
-        out.append(self._to_str(self.spectrum_45))
-        out.append(self._to_str(self.wavelength_46))
-        out.append(self._to_str(self.spectrum_46))
-        out.append(self._to_str(self.wavelength_47))
-        out.append(self._to_str(self.spectrum_47))
-        out.append(self._to_str(self.wavelength_48))
-        out.append(self._to_str(self.spectrum_48))
-        out.append(self._to_str(self.wavelength_49))
-        out.append(self._to_str(self.spectrum_49))
-        out.append(self._to_str(self.wavelength_50))
-        out.append(self._to_str(self.spectrum_50))
-        out.append(self._to_str(self.wavelength_51))
-        out.append(self._to_str(self.spectrum_51))
-        out.append(self._to_str(self.wavelength_52))
-        out.append(self._to_str(self.spectrum_52))
-        out.append(self._to_str(self.wavelength_53))
-        out.append(self._to_str(self.spectrum_53))
-        out.append(self._to_str(self.wavelength_54))
-        out.append(self._to_str(self.spectrum_54))
-        out.append(self._to_str(self.wavelength_55))
-        out.append(self._to_str(self.spectrum_55))
-        out.append(self._to_str(self.wavelength_56))
-        out.append(self._to_str(self.spectrum_56))
-        out.append(self._to_str(self.wavelength_57))
-        out.append(self._to_str(self.spectrum_57))
-        out.append(self._to_str(self.wavelength_58))
-        out.append(self._to_str(self.spectrum_58))
-        out.append(self._to_str(self.wavelength_59))
-        out.append(self._to_str(self.spectrum_59))
-        out.append(self._to_str(self.wavelength_60))
-        out.append(self._to_str(self.spectrum_60))
-        out.append(self._to_str(self.wavelength_61))
-        out.append(self._to_str(self.spectrum_61))
-        out.append(self._to_str(self.wavelength_62))
-        out.append(self._to_str(self.spectrum_62))
-        out.append(self._to_str(self.wavelength_63))
-        out.append(self._to_str(self.spectrum_63))
-        out.append(self._to_str(self.wavelength_64))
-        out.append(self._to_str(self.spectrum_64))
-        out.append(self._to_str(self.wavelength_65))
-        out.append(self._to_str(self.spectrum_65))
-        out.append(self._to_str(self.wavelength_66))
-        out.append(self._to_str(self.spectrum_66))
-        out.append(self._to_str(self.wavelength_67))
-        out.append(self._to_str(self.spectrum_67))
-        out.append(self._to_str(self.wavelength_68))
-        out.append(self._to_str(self.spectrum_68))
-        out.append(self._to_str(self.wavelength_69))
-        out.append(self._to_str(self.spectrum_69))
-        out.append(self._to_str(self.wavelength_70))
-        out.append(self._to_str(self.spectrum_70))
-        out.append(self._to_str(self.wavelength_71))
-        out.append(self._to_str(self.spectrum_71))
-        out.append(self._to_str(self.wavelength_72))
-        out.append(self._to_str(self.spectrum_72))
-        out.append(self._to_str(self.wavelength_73))
-        out.append(self._to_str(self.spectrum_73))
-        out.append(self._to_str(self.wavelength_74))
-        out.append(self._to_str(self.spectrum_74))
-        out.append(self._to_str(self.wavelength_75))
-        out.append(self._to_str(self.spectrum_75))
-        out.append(self._to_str(self.wavelength_76))
-        out.append(self._to_str(self.spectrum_76))
-        out.append(self._to_str(self.wavelength_77))
-        out.append(self._to_str(self.spectrum_77))
-        out.append(self._to_str(self.wavelength_78))
-        out.append(self._to_str(self.spectrum_78))
-        out.append(self._to_str(self.wavelength_79))
-        out.append(self._to_str(self.spectrum_79))
-        out.append(self._to_str(self.wavelength_80))
-        out.append(self._to_str(self.spectrum_80))
-        out.append(self._to_str(self.wavelength_81))
-        out.append(self._to_str(self.spectrum_81))
-        out.append(self._to_str(self.wavelength_82))
-        out.append(self._to_str(self.spectrum_82))
-        out.append(self._to_str(self.wavelength_83))
-        out.append(self._to_str(self.spectrum_83))
-        out.append(self._to_str(self.wavelength_84))
-        out.append(self._to_str(self.spectrum_84))
-        out.append(self._to_str(self.wavelength_85))
-        out.append(self._to_str(self.spectrum_85))
-        out.append(self._to_str(self.wavelength_86))
-        out.append(self._to_str(self.spectrum_86))
-        out.append(self._to_str(self.wavelength_87))
-        out.append(self._to_str(self.spectrum_87))
-        out.append(self._to_str(self.wavelength_88))
-        out.append(self._to_str(self.spectrum_88))
-        out.append(self._to_str(self.wavelength_89))
-        out.append(self._to_str(self.spectrum_89))
-        out.append(self._to_str(self.wavelength_90))
-        out.append(self._to_str(self.spectrum_90))
-        out.append(self._to_str(self.wavelength_91))
-        out.append(self._to_str(self.spectrum_91))
-        out.append(self._to_str(self.wavelength_92))
-        out.append(self._to_str(self.spectrum_92))
-        out.append(self._to_str(self.wavelength_93))
-        out.append(self._to_str(self.spectrum_93))
-        out.append(self._to_str(self.wavelength_94))
-        out.append(self._to_str(self.spectrum_94))
-        out.append(self._to_str(self.wavelength_95))
-        out.append(self._to_str(self.spectrum_95))
-        out.append(self._to_str(self.wavelength_96))
-        out.append(self._to_str(self.spectrum_96))
-        out.append(self._to_str(self.wavelength_97))
-        out.append(self._to_str(self.spectrum_97))
-        out.append(self._to_str(self.wavelength_98))
-        out.append(self._to_str(self.spectrum_98))
-        out.append(self._to_str(self.wavelength_99))
-        out.append(self._to_str(self.spectrum_99))
-        out.append(self._to_str(self.wavelength_100))
-        out.append(self._to_str(self.spectrum_100))
-        out.append(self._to_str(self.wavelength_101))
-        out.append(self._to_str(self.spectrum_101))
-        out.append(self._to_str(self.wavelength_102))
-        out.append(self._to_str(self.spectrum_102))
-        out.append(self._to_str(self.wavelength_103))
-        out.append(self._to_str(self.spectrum_103))
-        out.append(self._to_str(self.wavelength_104))
-        out.append(self._to_str(self.spectrum_104))
-        out.append(self._to_str(self.wavelength_105))
-        out.append(self._to_str(self.spectrum_105))
-        out.append(self._to_str(self.wavelength_106))
-        out.append(self._to_str(self.spectrum_106))
-        out.append(self._to_str(self.wavelength_107))
-        out.append(self._to_str(self.spectrum_107))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])

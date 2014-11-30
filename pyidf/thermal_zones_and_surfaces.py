@@ -19,39 +19,51 @@ class GlobalGeometryRules(object):
         self._data["Coordinate System"] = None
         self._data["Daylighting Reference Point Coordinate System"] = None
         self._data["Rectangular Surface Coordinate System"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.starting_vertex_position = None
         else:
             self.starting_vertex_position = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_entry_direction = None
         else:
             self.vertex_entry_direction = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.coordinate_system = None
         else:
             self.coordinate_system = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.daylighting_reference_point_coordinate_system = None
         else:
             self.daylighting_reference_point_coordinate_system = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.rectangular_surface_coordinate_system = None
         else:
             self.rectangular_surface_coordinate_system = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def starting_vertex_position(self):
@@ -91,14 +103,28 @@ class GlobalGeometryRules(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `starting_vertex_position`')
-            vals = set()
-            vals.add("UpperLeftCorner")
-            vals.add("LowerLeftCorner")
-            vals.add("UpperRightCorner")
-            vals.add("LowerRightCorner")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `starting_vertex_position`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `starting_vertex_position`')
+            vals = {}
+            vals["upperleftcorner"] = "UpperLeftCorner"
+            vals["lowerleftcorner"] = "LowerLeftCorner"
+            vals["upperrightcorner"] = "UpperRightCorner"
+            vals["lowerrightcorner"] = "LowerRightCorner"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `starting_vertex_position`'.format(value))
+            value = vals[value_lower]
 
         self._data["Starting Vertex Position"] = value
 
@@ -135,12 +161,26 @@ class GlobalGeometryRules(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `vertex_entry_direction`')
-            vals = set()
-            vals.add("Counterclockwise")
-            vals.add("Clockwise")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `vertex_entry_direction`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `vertex_entry_direction`')
+            vals = {}
+            vals["counterclockwise"] = "Counterclockwise"
+            vals["clockwise"] = "Clockwise"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `vertex_entry_direction`'.format(value))
+            value = vals[value_lower]
 
         self._data["Vertex Entry Direction"] = value
 
@@ -181,13 +221,27 @@ class GlobalGeometryRules(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `coordinate_system`')
-            vals = set()
-            vals.add("Relative")
-            vals.add("World")
-            vals.add("Absolute")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `coordinate_system`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `coordinate_system`')
+            vals = {}
+            vals["relative"] = "Relative"
+            vals["world"] = "World"
+            vals["absolute"] = "Absolute"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `coordinate_system`'.format(value))
+            value = vals[value_lower]
 
         self._data["Coordinate System"] = value
 
@@ -229,13 +283,27 @@ class GlobalGeometryRules(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `daylighting_reference_point_coordinate_system`')
-            vals = set()
-            vals.add("Relative")
-            vals.add("World")
-            vals.add("Absolute")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `daylighting_reference_point_coordinate_system`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `daylighting_reference_point_coordinate_system`')
+            vals = {}
+            vals["relative"] = "Relative"
+            vals["world"] = "World"
+            vals["absolute"] = "Absolute"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `daylighting_reference_point_coordinate_system`'.format(value))
+            value = vals[value_lower]
 
         self._data["Daylighting Reference Point Coordinate System"] = value
 
@@ -277,13 +345,27 @@ class GlobalGeometryRules(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `rectangular_surface_coordinate_system`')
-            vals = set()
-            vals.add("Relative")
-            vals.add("World")
-            vals.add("Absolute")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `rectangular_surface_coordinate_system`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `rectangular_surface_coordinate_system`')
+            vals = {}
+            vals["relative"] = "Relative"
+            vals["world"] = "World"
+            vals["absolute"] = "Absolute"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `rectangular_surface_coordinate_system`'.format(value))
+            value = vals[value_lower]
 
         self._data["Rectangular Surface Coordinate System"] = value
 
@@ -309,14 +391,17 @@ class GlobalGeometryRules(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.starting_vertex_position))
-        out.append(self._to_str(self.vertex_entry_direction))
-        out.append(self._to_str(self.coordinate_system))
-        out.append(self._to_str(self.daylighting_reference_point_coordinate_system))
-        out.append(self._to_str(self.rectangular_surface_coordinate_system))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class GeometryTransform(object):
     """ Corresponds to IDD object `GeometryTransform`
@@ -336,29 +421,37 @@ class GeometryTransform(object):
         self._data["Plane of Transform"] = None
         self._data["Current Aspect Ratio"] = None
         self._data["New Aspect Ratio"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.plane_of_transform = None
         else:
             self.plane_of_transform = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.current_aspect_ratio = None
         else:
             self.current_aspect_ratio = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.new_aspect_ratio = None
         else:
             self.new_aspect_ratio = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def plane_of_transform(self):
@@ -394,11 +487,25 @@ class GeometryTransform(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `plane_of_transform`')
-            vals = set()
-            vals.add("XY")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `plane_of_transform`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `plane_of_transform`')
+            vals = {}
+            vals["xy"] = "XY"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `plane_of_transform`'.format(value))
+            value = vals[value_lower]
 
         self._data["Plane of Transform"] = value
 
@@ -494,12 +601,17 @@ class GeometryTransform(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.plane_of_transform))
-        out.append(self._to_str(self.current_aspect_ratio))
-        out.append(self._to_str(self.new_aspect_ratio))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class Zone(object):
     """ Corresponds to IDD object `Zone`
@@ -527,79 +639,107 @@ class Zone(object):
         self._data["Zone Inside Convection Algorithm"] = None
         self._data["Zone Outside Convection Algorithm"] = None
         self._data["Part of Total Floor Area"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.direction_of_relative_north = None
         else:
             self.direction_of_relative_north = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.x_origin = None
         else:
             self.x_origin = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.y_origin = None
         else:
             self.y_origin = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.z_origin = None
         else:
             self.z_origin = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.type = None
         else:
             self.type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.multiplier = None
         else:
             self.multiplier = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.ceiling_height = None
         else:
             self.ceiling_height = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.volume = None
         else:
             self.volume = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.floor_area = None
         else:
             self.floor_area = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.zone_inside_convection_algorithm = None
         else:
             self.zone_inside_convection_algorithm = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.zone_outside_convection_algorithm = None
         else:
             self.zone_outside_convection_algorithm = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.part_of_total_floor_area = None
         else:
             self.part_of_total_floor_area = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -630,6 +770,9 @@ class Zone(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -984,15 +1127,29 @@ class Zone(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `zone_inside_convection_algorithm`')
-            vals = set()
-            vals.add("Simple")
-            vals.add("TARP")
-            vals.add("CeilingDiffuser")
-            vals.add("AdaptiveConvectionAlgorithm")
-            vals.add("TrombeWall")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `zone_inside_convection_algorithm`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `zone_inside_convection_algorithm`')
+            vals = {}
+            vals["simple"] = "Simple"
+            vals["tarp"] = "TARP"
+            vals["ceilingdiffuser"] = "CeilingDiffuser"
+            vals["adaptiveconvectionalgorithm"] = "AdaptiveConvectionAlgorithm"
+            vals["trombewall"] = "TrombeWall"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `zone_inside_convection_algorithm`'.format(value))
+            value = vals[value_lower]
 
         self._data["Zone Inside Convection Algorithm"] = value
 
@@ -1039,15 +1196,29 @@ class Zone(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `zone_outside_convection_algorithm`')
-            vals = set()
-            vals.add("SimpleCombined")
-            vals.add("TARP")
-            vals.add("DOE-2")
-            vals.add("MoWiTT")
-            vals.add("AdaptiveConvectionAlgorithm")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `zone_outside_convection_algorithm`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `zone_outside_convection_algorithm`')
+            vals = {}
+            vals["simplecombined"] = "SimpleCombined"
+            vals["tarp"] = "TARP"
+            vals["doe-2"] = "DOE-2"
+            vals["mowitt"] = "MoWiTT"
+            vals["adaptiveconvectionalgorithm"] = "AdaptiveConvectionAlgorithm"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `zone_outside_convection_algorithm`'.format(value))
+            value = vals[value_lower]
 
         self._data["Zone Outside Convection Algorithm"] = value
 
@@ -1085,12 +1256,26 @@ class Zone(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `part_of_total_floor_area`')
-            vals = set()
-            vals.add("Yes")
-            vals.add("No")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `part_of_total_floor_area`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `part_of_total_floor_area`')
+            vals = {}
+            vals["yes"] = "Yes"
+            vals["no"] = "No"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `part_of_total_floor_area`'.format(value))
+            value = vals[value_lower]
 
         self._data["Part of Total Floor Area"] = value
 
@@ -1116,22 +1301,17 @@ class Zone(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.direction_of_relative_north))
-        out.append(self._to_str(self.x_origin))
-        out.append(self._to_str(self.y_origin))
-        out.append(self._to_str(self.z_origin))
-        out.append(self._to_str(self.type))
-        out.append(self._to_str(self.multiplier))
-        out.append(self._to_str(self.ceiling_height))
-        out.append(self._to_str(self.volume))
-        out.append(self._to_str(self.floor_area))
-        out.append(self._to_str(self.zone_inside_convection_algorithm))
-        out.append(self._to_str(self.zone_outside_convection_algorithm))
-        out.append(self._to_str(self.part_of_total_floor_area))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class ZoneGroup(object):
     """ Corresponds to IDD object `ZoneGroup`
@@ -1151,29 +1331,37 @@ class ZoneGroup(object):
         self._data["Name"] = None
         self._data["Zone List Name"] = None
         self._data["Zone List Multiplier"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.zone_list_name = None
         else:
             self.zone_list_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.zone_list_multiplier = None
         else:
             self.zone_list_multiplier = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -1205,6 +1393,9 @@ class ZoneGroup(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -1238,6 +1429,9 @@ class ZoneGroup(object):
                                  'for field `zone_list_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `zone_list_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `zone_list_name`')
 
         self._data["Zone List Name"] = value
@@ -1299,12 +1493,17 @@ class ZoneGroup(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.zone_list_name))
-        out.append(self._to_str(self.zone_list_multiplier))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class BuildingSurfaceDetailed(object):
     """ Corresponds to IDD object `BuildingSurface:Detailed`
@@ -1689,1864 +1888,2606 @@ class BuildingSurfaceDetailed(object):
         self._data["Vertex 120 X-coordinate"] = None
         self._data["Vertex 120 Y-coordinate"] = None
         self._data["Vertex 120 Z-coordinate"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_type = None
         else:
             self.surface_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.construction_name = None
         else:
             self.construction_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.zone_name = None
         else:
             self.zone_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.outside_boundary_condition = None
         else:
             self.outside_boundary_condition = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.outside_boundary_condition_object = None
         else:
             self.outside_boundary_condition_object = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.sun_exposure = None
         else:
             self.sun_exposure = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wind_exposure = None
         else:
             self.wind_exposure = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.view_factor_to_ground = None
         else:
             self.view_factor_to_ground = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.number_of_vertices = None
         else:
             self.number_of_vertices = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_1_xcoordinate = None
         else:
             self.vertex_1_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_1_ycoordinate = None
         else:
             self.vertex_1_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_1_zcoordinate = None
         else:
             self.vertex_1_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_2_xcoordinate = None
         else:
             self.vertex_2_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_2_ycoordinate = None
         else:
             self.vertex_2_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_2_zcoordinate = None
         else:
             self.vertex_2_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_3_xcoordinate = None
         else:
             self.vertex_3_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_3_ycoordinate = None
         else:
             self.vertex_3_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_3_zcoordinate = None
         else:
             self.vertex_3_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_4_xcoordinate = None
         else:
             self.vertex_4_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_4_ycoordinate = None
         else:
             self.vertex_4_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_4_zcoordinate = None
         else:
             self.vertex_4_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_5_xcoordinate = None
         else:
             self.vertex_5_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_5_ycoordinate = None
         else:
             self.vertex_5_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_5_zcoordinate = None
         else:
             self.vertex_5_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_6_xcoordinate = None
         else:
             self.vertex_6_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_6_ycoordinate = None
         else:
             self.vertex_6_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_6_zcoordinate = None
         else:
             self.vertex_6_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_7_xcoordinate = None
         else:
             self.vertex_7_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_7_ycoordinate = None
         else:
             self.vertex_7_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_7_zcoordinate = None
         else:
             self.vertex_7_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_8_xcoordinate = None
         else:
             self.vertex_8_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_8_ycoordinate = None
         else:
             self.vertex_8_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_8_zcoordinate = None
         else:
             self.vertex_8_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_9_xcoordinate = None
         else:
             self.vertex_9_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_9_ycoordinate = None
         else:
             self.vertex_9_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_9_zcoordinate = None
         else:
             self.vertex_9_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_10_xcoordinate = None
         else:
             self.vertex_10_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_10_ycoordinate = None
         else:
             self.vertex_10_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_10_zcoordinate = None
         else:
             self.vertex_10_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_11_xcoordinate = None
         else:
             self.vertex_11_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_11_ycoordinate = None
         else:
             self.vertex_11_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_11_zcoordinate = None
         else:
             self.vertex_11_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_12_xcoordinate = None
         else:
             self.vertex_12_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_12_ycoordinate = None
         else:
             self.vertex_12_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_12_zcoordinate = None
         else:
             self.vertex_12_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_13_xcoordinate = None
         else:
             self.vertex_13_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_13_ycoordinate = None
         else:
             self.vertex_13_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_13_zcoordinate = None
         else:
             self.vertex_13_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_14_xcoordinate = None
         else:
             self.vertex_14_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_14_ycoordinate = None
         else:
             self.vertex_14_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_14_zcoordinate = None
         else:
             self.vertex_14_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_15_xcoordinate = None
         else:
             self.vertex_15_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_15_ycoordinate = None
         else:
             self.vertex_15_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_15_zcoordinate = None
         else:
             self.vertex_15_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_16_xcoordinate = None
         else:
             self.vertex_16_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_16_ycoordinate = None
         else:
             self.vertex_16_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_16_zcoordinate = None
         else:
             self.vertex_16_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_17_xcoordinate = None
         else:
             self.vertex_17_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_17_ycoordinate = None
         else:
             self.vertex_17_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_17_zcoordinate = None
         else:
             self.vertex_17_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_18_xcoordinate = None
         else:
             self.vertex_18_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_18_ycoordinate = None
         else:
             self.vertex_18_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_18_zcoordinate = None
         else:
             self.vertex_18_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_19_xcoordinate = None
         else:
             self.vertex_19_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_19_ycoordinate = None
         else:
             self.vertex_19_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_19_zcoordinate = None
         else:
             self.vertex_19_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_20_xcoordinate = None
         else:
             self.vertex_20_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_20_ycoordinate = None
         else:
             self.vertex_20_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_20_zcoordinate = None
         else:
             self.vertex_20_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_21_xcoordinate = None
         else:
             self.vertex_21_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_21_ycoordinate = None
         else:
             self.vertex_21_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_21_zcoordinate = None
         else:
             self.vertex_21_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_22_xcoordinate = None
         else:
             self.vertex_22_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_22_ycoordinate = None
         else:
             self.vertex_22_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_22_zcoordinate = None
         else:
             self.vertex_22_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_23_xcoordinate = None
         else:
             self.vertex_23_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_23_ycoordinate = None
         else:
             self.vertex_23_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_23_zcoordinate = None
         else:
             self.vertex_23_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_24_xcoordinate = None
         else:
             self.vertex_24_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_24_ycoordinate = None
         else:
             self.vertex_24_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_24_zcoordinate = None
         else:
             self.vertex_24_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_25_xcoordinate = None
         else:
             self.vertex_25_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_25_ycoordinate = None
         else:
             self.vertex_25_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_25_zcoordinate = None
         else:
             self.vertex_25_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_26_xcoordinate = None
         else:
             self.vertex_26_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_26_ycoordinate = None
         else:
             self.vertex_26_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_26_zcoordinate = None
         else:
             self.vertex_26_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_27_xcoordinate = None
         else:
             self.vertex_27_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_27_ycoordinate = None
         else:
             self.vertex_27_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_27_zcoordinate = None
         else:
             self.vertex_27_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_28_xcoordinate = None
         else:
             self.vertex_28_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_28_ycoordinate = None
         else:
             self.vertex_28_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_28_zcoordinate = None
         else:
             self.vertex_28_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_29_xcoordinate = None
         else:
             self.vertex_29_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_29_ycoordinate = None
         else:
             self.vertex_29_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_29_zcoordinate = None
         else:
             self.vertex_29_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_30_xcoordinate = None
         else:
             self.vertex_30_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_30_ycoordinate = None
         else:
             self.vertex_30_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_30_zcoordinate = None
         else:
             self.vertex_30_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_31_xcoordinate = None
         else:
             self.vertex_31_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_31_ycoordinate = None
         else:
             self.vertex_31_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_31_zcoordinate = None
         else:
             self.vertex_31_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_32_xcoordinate = None
         else:
             self.vertex_32_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_32_ycoordinate = None
         else:
             self.vertex_32_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_32_zcoordinate = None
         else:
             self.vertex_32_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_33_xcoordinate = None
         else:
             self.vertex_33_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_33_ycoordinate = None
         else:
             self.vertex_33_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_33_zcoordinate = None
         else:
             self.vertex_33_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_34_xcoordinate = None
         else:
             self.vertex_34_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_34_ycoordinate = None
         else:
             self.vertex_34_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_34_zcoordinate = None
         else:
             self.vertex_34_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_35_xcoordinate = None
         else:
             self.vertex_35_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_35_ycoordinate = None
         else:
             self.vertex_35_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_35_zcoordinate = None
         else:
             self.vertex_35_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_36_xcoordinate = None
         else:
             self.vertex_36_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_36_ycoordinate = None
         else:
             self.vertex_36_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_36_zcoordinate = None
         else:
             self.vertex_36_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_37_xcoordinate = None
         else:
             self.vertex_37_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_37_ycoordinate = None
         else:
             self.vertex_37_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_37_zcoordinate = None
         else:
             self.vertex_37_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_38_xcoordinate = None
         else:
             self.vertex_38_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_38_ycoordinate = None
         else:
             self.vertex_38_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_38_zcoordinate = None
         else:
             self.vertex_38_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_39_xcoordinate = None
         else:
             self.vertex_39_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_39_ycoordinate = None
         else:
             self.vertex_39_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_39_zcoordinate = None
         else:
             self.vertex_39_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_40_xcoordinate = None
         else:
             self.vertex_40_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_40_ycoordinate = None
         else:
             self.vertex_40_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_40_zcoordinate = None
         else:
             self.vertex_40_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_41_xcoordinate = None
         else:
             self.vertex_41_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_41_ycoordinate = None
         else:
             self.vertex_41_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_41_zcoordinate = None
         else:
             self.vertex_41_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_42_xcoordinate = None
         else:
             self.vertex_42_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_42_ycoordinate = None
         else:
             self.vertex_42_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_42_zcoordinate = None
         else:
             self.vertex_42_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_43_xcoordinate = None
         else:
             self.vertex_43_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_43_ycoordinate = None
         else:
             self.vertex_43_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_43_zcoordinate = None
         else:
             self.vertex_43_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_44_xcoordinate = None
         else:
             self.vertex_44_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_44_ycoordinate = None
         else:
             self.vertex_44_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_44_zcoordinate = None
         else:
             self.vertex_44_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_45_xcoordinate = None
         else:
             self.vertex_45_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_45_ycoordinate = None
         else:
             self.vertex_45_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_45_zcoordinate = None
         else:
             self.vertex_45_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_46_xcoordinate = None
         else:
             self.vertex_46_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_46_ycoordinate = None
         else:
             self.vertex_46_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_46_zcoordinate = None
         else:
             self.vertex_46_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_47_xcoordinate = None
         else:
             self.vertex_47_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_47_ycoordinate = None
         else:
             self.vertex_47_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_47_zcoordinate = None
         else:
             self.vertex_47_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_48_xcoordinate = None
         else:
             self.vertex_48_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_48_ycoordinate = None
         else:
             self.vertex_48_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_48_zcoordinate = None
         else:
             self.vertex_48_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_49_xcoordinate = None
         else:
             self.vertex_49_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_49_ycoordinate = None
         else:
             self.vertex_49_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_49_zcoordinate = None
         else:
             self.vertex_49_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_50_xcoordinate = None
         else:
             self.vertex_50_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_50_ycoordinate = None
         else:
             self.vertex_50_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_50_zcoordinate = None
         else:
             self.vertex_50_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_51_xcoordinate = None
         else:
             self.vertex_51_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_51_ycoordinate = None
         else:
             self.vertex_51_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_51_zcoordinate = None
         else:
             self.vertex_51_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_52_xcoordinate = None
         else:
             self.vertex_52_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_52_ycoordinate = None
         else:
             self.vertex_52_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_52_zcoordinate = None
         else:
             self.vertex_52_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_53_xcoordinate = None
         else:
             self.vertex_53_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_53_ycoordinate = None
         else:
             self.vertex_53_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_53_zcoordinate = None
         else:
             self.vertex_53_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_54_xcoordinate = None
         else:
             self.vertex_54_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_54_ycoordinate = None
         else:
             self.vertex_54_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_54_zcoordinate = None
         else:
             self.vertex_54_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_55_xcoordinate = None
         else:
             self.vertex_55_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_55_ycoordinate = None
         else:
             self.vertex_55_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_55_zcoordinate = None
         else:
             self.vertex_55_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_56_xcoordinate = None
         else:
             self.vertex_56_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_56_ycoordinate = None
         else:
             self.vertex_56_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_56_zcoordinate = None
         else:
             self.vertex_56_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_57_xcoordinate = None
         else:
             self.vertex_57_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_57_ycoordinate = None
         else:
             self.vertex_57_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_57_zcoordinate = None
         else:
             self.vertex_57_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_58_xcoordinate = None
         else:
             self.vertex_58_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_58_ycoordinate = None
         else:
             self.vertex_58_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_58_zcoordinate = None
         else:
             self.vertex_58_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_59_xcoordinate = None
         else:
             self.vertex_59_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_59_ycoordinate = None
         else:
             self.vertex_59_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_59_zcoordinate = None
         else:
             self.vertex_59_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_60_xcoordinate = None
         else:
             self.vertex_60_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_60_ycoordinate = None
         else:
             self.vertex_60_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_60_zcoordinate = None
         else:
             self.vertex_60_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_61_xcoordinate = None
         else:
             self.vertex_61_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_61_ycoordinate = None
         else:
             self.vertex_61_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_61_zcoordinate = None
         else:
             self.vertex_61_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_62_xcoordinate = None
         else:
             self.vertex_62_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_62_ycoordinate = None
         else:
             self.vertex_62_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_62_zcoordinate = None
         else:
             self.vertex_62_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_63_xcoordinate = None
         else:
             self.vertex_63_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_63_ycoordinate = None
         else:
             self.vertex_63_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_63_zcoordinate = None
         else:
             self.vertex_63_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_64_xcoordinate = None
         else:
             self.vertex_64_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_64_ycoordinate = None
         else:
             self.vertex_64_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_64_zcoordinate = None
         else:
             self.vertex_64_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_65_xcoordinate = None
         else:
             self.vertex_65_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_65_ycoordinate = None
         else:
             self.vertex_65_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_65_zcoordinate = None
         else:
             self.vertex_65_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_66_xcoordinate = None
         else:
             self.vertex_66_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_66_ycoordinate = None
         else:
             self.vertex_66_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_66_zcoordinate = None
         else:
             self.vertex_66_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_67_xcoordinate = None
         else:
             self.vertex_67_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_67_ycoordinate = None
         else:
             self.vertex_67_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_67_zcoordinate = None
         else:
             self.vertex_67_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_68_xcoordinate = None
         else:
             self.vertex_68_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_68_ycoordinate = None
         else:
             self.vertex_68_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_68_zcoordinate = None
         else:
             self.vertex_68_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_69_xcoordinate = None
         else:
             self.vertex_69_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_69_ycoordinate = None
         else:
             self.vertex_69_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_69_zcoordinate = None
         else:
             self.vertex_69_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_70_xcoordinate = None
         else:
             self.vertex_70_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_70_ycoordinate = None
         else:
             self.vertex_70_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_70_zcoordinate = None
         else:
             self.vertex_70_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_71_xcoordinate = None
         else:
             self.vertex_71_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_71_ycoordinate = None
         else:
             self.vertex_71_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_71_zcoordinate = None
         else:
             self.vertex_71_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_72_xcoordinate = None
         else:
             self.vertex_72_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_72_ycoordinate = None
         else:
             self.vertex_72_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_72_zcoordinate = None
         else:
             self.vertex_72_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_73_xcoordinate = None
         else:
             self.vertex_73_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_73_ycoordinate = None
         else:
             self.vertex_73_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_73_zcoordinate = None
         else:
             self.vertex_73_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_74_xcoordinate = None
         else:
             self.vertex_74_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_74_ycoordinate = None
         else:
             self.vertex_74_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_74_zcoordinate = None
         else:
             self.vertex_74_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_75_xcoordinate = None
         else:
             self.vertex_75_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_75_ycoordinate = None
         else:
             self.vertex_75_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_75_zcoordinate = None
         else:
             self.vertex_75_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_76_xcoordinate = None
         else:
             self.vertex_76_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_76_ycoordinate = None
         else:
             self.vertex_76_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_76_zcoordinate = None
         else:
             self.vertex_76_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_77_xcoordinate = None
         else:
             self.vertex_77_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_77_ycoordinate = None
         else:
             self.vertex_77_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_77_zcoordinate = None
         else:
             self.vertex_77_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_78_xcoordinate = None
         else:
             self.vertex_78_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_78_ycoordinate = None
         else:
             self.vertex_78_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_78_zcoordinate = None
         else:
             self.vertex_78_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_79_xcoordinate = None
         else:
             self.vertex_79_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_79_ycoordinate = None
         else:
             self.vertex_79_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_79_zcoordinate = None
         else:
             self.vertex_79_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_80_xcoordinate = None
         else:
             self.vertex_80_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_80_ycoordinate = None
         else:
             self.vertex_80_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_80_zcoordinate = None
         else:
             self.vertex_80_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_81_xcoordinate = None
         else:
             self.vertex_81_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_81_ycoordinate = None
         else:
             self.vertex_81_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_81_zcoordinate = None
         else:
             self.vertex_81_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_82_xcoordinate = None
         else:
             self.vertex_82_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_82_ycoordinate = None
         else:
             self.vertex_82_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_82_zcoordinate = None
         else:
             self.vertex_82_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_83_xcoordinate = None
         else:
             self.vertex_83_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_83_ycoordinate = None
         else:
             self.vertex_83_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_83_zcoordinate = None
         else:
             self.vertex_83_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_84_xcoordinate = None
         else:
             self.vertex_84_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_84_ycoordinate = None
         else:
             self.vertex_84_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_84_zcoordinate = None
         else:
             self.vertex_84_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_85_xcoordinate = None
         else:
             self.vertex_85_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_85_ycoordinate = None
         else:
             self.vertex_85_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_85_zcoordinate = None
         else:
             self.vertex_85_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_86_xcoordinate = None
         else:
             self.vertex_86_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_86_ycoordinate = None
         else:
             self.vertex_86_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_86_zcoordinate = None
         else:
             self.vertex_86_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_87_xcoordinate = None
         else:
             self.vertex_87_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_87_ycoordinate = None
         else:
             self.vertex_87_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_87_zcoordinate = None
         else:
             self.vertex_87_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_88_xcoordinate = None
         else:
             self.vertex_88_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_88_ycoordinate = None
         else:
             self.vertex_88_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_88_zcoordinate = None
         else:
             self.vertex_88_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_89_xcoordinate = None
         else:
             self.vertex_89_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_89_ycoordinate = None
         else:
             self.vertex_89_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_89_zcoordinate = None
         else:
             self.vertex_89_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_90_xcoordinate = None
         else:
             self.vertex_90_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_90_ycoordinate = None
         else:
             self.vertex_90_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_90_zcoordinate = None
         else:
             self.vertex_90_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_91_xcoordinate = None
         else:
             self.vertex_91_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_91_ycoordinate = None
         else:
             self.vertex_91_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_91_zcoordinate = None
         else:
             self.vertex_91_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_92_xcoordinate = None
         else:
             self.vertex_92_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_92_ycoordinate = None
         else:
             self.vertex_92_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_92_zcoordinate = None
         else:
             self.vertex_92_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_93_xcoordinate = None
         else:
             self.vertex_93_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_93_ycoordinate = None
         else:
             self.vertex_93_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_93_zcoordinate = None
         else:
             self.vertex_93_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_94_xcoordinate = None
         else:
             self.vertex_94_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_94_ycoordinate = None
         else:
             self.vertex_94_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_94_zcoordinate = None
         else:
             self.vertex_94_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_95_xcoordinate = None
         else:
             self.vertex_95_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_95_ycoordinate = None
         else:
             self.vertex_95_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_95_zcoordinate = None
         else:
             self.vertex_95_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_96_xcoordinate = None
         else:
             self.vertex_96_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_96_ycoordinate = None
         else:
             self.vertex_96_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_96_zcoordinate = None
         else:
             self.vertex_96_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_97_xcoordinate = None
         else:
             self.vertex_97_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_97_ycoordinate = None
         else:
             self.vertex_97_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_97_zcoordinate = None
         else:
             self.vertex_97_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_98_xcoordinate = None
         else:
             self.vertex_98_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_98_ycoordinate = None
         else:
             self.vertex_98_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_98_zcoordinate = None
         else:
             self.vertex_98_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_99_xcoordinate = None
         else:
             self.vertex_99_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_99_ycoordinate = None
         else:
             self.vertex_99_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_99_zcoordinate = None
         else:
             self.vertex_99_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_100_xcoordinate = None
         else:
             self.vertex_100_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_100_ycoordinate = None
         else:
             self.vertex_100_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_100_zcoordinate = None
         else:
             self.vertex_100_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_101_xcoordinate = None
         else:
             self.vertex_101_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_101_ycoordinate = None
         else:
             self.vertex_101_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_101_zcoordinate = None
         else:
             self.vertex_101_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_102_xcoordinate = None
         else:
             self.vertex_102_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_102_ycoordinate = None
         else:
             self.vertex_102_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_102_zcoordinate = None
         else:
             self.vertex_102_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_103_xcoordinate = None
         else:
             self.vertex_103_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_103_ycoordinate = None
         else:
             self.vertex_103_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_103_zcoordinate = None
         else:
             self.vertex_103_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_104_xcoordinate = None
         else:
             self.vertex_104_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_104_ycoordinate = None
         else:
             self.vertex_104_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_104_zcoordinate = None
         else:
             self.vertex_104_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_105_xcoordinate = None
         else:
             self.vertex_105_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_105_ycoordinate = None
         else:
             self.vertex_105_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_105_zcoordinate = None
         else:
             self.vertex_105_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_106_xcoordinate = None
         else:
             self.vertex_106_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_106_ycoordinate = None
         else:
             self.vertex_106_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_106_zcoordinate = None
         else:
             self.vertex_106_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_107_xcoordinate = None
         else:
             self.vertex_107_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_107_ycoordinate = None
         else:
             self.vertex_107_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_107_zcoordinate = None
         else:
             self.vertex_107_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_108_xcoordinate = None
         else:
             self.vertex_108_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_108_ycoordinate = None
         else:
             self.vertex_108_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_108_zcoordinate = None
         else:
             self.vertex_108_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_109_xcoordinate = None
         else:
             self.vertex_109_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_109_ycoordinate = None
         else:
             self.vertex_109_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_109_zcoordinate = None
         else:
             self.vertex_109_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_110_xcoordinate = None
         else:
             self.vertex_110_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_110_ycoordinate = None
         else:
             self.vertex_110_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_110_zcoordinate = None
         else:
             self.vertex_110_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_111_xcoordinate = None
         else:
             self.vertex_111_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_111_ycoordinate = None
         else:
             self.vertex_111_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_111_zcoordinate = None
         else:
             self.vertex_111_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_112_xcoordinate = None
         else:
             self.vertex_112_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_112_ycoordinate = None
         else:
             self.vertex_112_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_112_zcoordinate = None
         else:
             self.vertex_112_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_113_xcoordinate = None
         else:
             self.vertex_113_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_113_ycoordinate = None
         else:
             self.vertex_113_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_113_zcoordinate = None
         else:
             self.vertex_113_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_114_xcoordinate = None
         else:
             self.vertex_114_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_114_ycoordinate = None
         else:
             self.vertex_114_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_114_zcoordinate = None
         else:
             self.vertex_114_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_115_xcoordinate = None
         else:
             self.vertex_115_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_115_ycoordinate = None
         else:
             self.vertex_115_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_115_zcoordinate = None
         else:
             self.vertex_115_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_116_xcoordinate = None
         else:
             self.vertex_116_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_116_ycoordinate = None
         else:
             self.vertex_116_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_116_zcoordinate = None
         else:
             self.vertex_116_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_117_xcoordinate = None
         else:
             self.vertex_117_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_117_ycoordinate = None
         else:
             self.vertex_117_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_117_zcoordinate = None
         else:
             self.vertex_117_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_118_xcoordinate = None
         else:
             self.vertex_118_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_118_ycoordinate = None
         else:
             self.vertex_118_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_118_zcoordinate = None
         else:
             self.vertex_118_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_119_xcoordinate = None
         else:
             self.vertex_119_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_119_ycoordinate = None
         else:
             self.vertex_119_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_119_zcoordinate = None
         else:
             self.vertex_119_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_120_xcoordinate = None
         else:
             self.vertex_120_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_120_ycoordinate = None
         else:
             self.vertex_120_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_120_zcoordinate = None
         else:
             self.vertex_120_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -3577,6 +4518,9 @@ class BuildingSurfaceDetailed(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -3616,14 +4560,28 @@ class BuildingSurfaceDetailed(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_type`')
-            vals = set()
-            vals.add("Floor")
-            vals.add("Wall")
-            vals.add("Ceiling")
-            vals.add("Roof")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `surface_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_type`')
+            vals = {}
+            vals["floor"] = "Floor"
+            vals["wall"] = "Wall"
+            vals["ceiling"] = "Ceiling"
+            vals["roof"] = "Roof"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `surface_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Surface Type"] = value
 
@@ -3658,6 +4616,9 @@ class BuildingSurfaceDetailed(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `construction_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `construction_name`')
 
         self._data["Construction Name"] = value
 
@@ -3691,6 +4652,9 @@ class BuildingSurfaceDetailed(object):
                                  'for field `zone_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `zone_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `zone_name`')
 
         self._data["Zone Name"] = value
@@ -3741,25 +4705,39 @@ class BuildingSurfaceDetailed(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `outside_boundary_condition`')
-            vals = set()
-            vals.add("Adiabatic")
-            vals.add("Surface")
-            vals.add("Zone")
-            vals.add("Outdoors")
-            vals.add("Ground")
-            vals.add("GroundFCfactorMethod")
-            vals.add("OtherSideCoefficients")
-            vals.add("OtherSideConditionsModel")
-            vals.add("GroundSlabPreprocessorAverage")
-            vals.add("GroundSlabPreprocessorCore")
-            vals.add("GroundSlabPreprocessorPerimeter")
-            vals.add("GroundBasementPreprocessorAverageWall")
-            vals.add("GroundBasementPreprocessorAverageFloor")
-            vals.add("GroundBasementPreprocessorUpperWall")
-            vals.add("GroundBasementPreprocessorLowerWall")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `outside_boundary_condition`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `outside_boundary_condition`')
+            vals = {}
+            vals["adiabatic"] = "Adiabatic"
+            vals["surface"] = "Surface"
+            vals["zone"] = "Zone"
+            vals["outdoors"] = "Outdoors"
+            vals["ground"] = "Ground"
+            vals["groundfcfactormethod"] = "GroundFCfactorMethod"
+            vals["othersidecoefficients"] = "OtherSideCoefficients"
+            vals["othersideconditionsmodel"] = "OtherSideConditionsModel"
+            vals["groundslabpreprocessoraverage"] = "GroundSlabPreprocessorAverage"
+            vals["groundslabpreprocessorcore"] = "GroundSlabPreprocessorCore"
+            vals["groundslabpreprocessorperimeter"] = "GroundSlabPreprocessorPerimeter"
+            vals["groundbasementpreprocessoraveragewall"] = "GroundBasementPreprocessorAverageWall"
+            vals["groundbasementpreprocessoraveragefloor"] = "GroundBasementPreprocessorAverageFloor"
+            vals["groundbasementpreprocessorupperwall"] = "GroundBasementPreprocessorUpperWall"
+            vals["groundbasementpreprocessorlowerwall"] = "GroundBasementPreprocessorLowerWall"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `outside_boundary_condition`'.format(value))
+            value = vals[value_lower]
 
         self._data["Outside Boundary Condition"] = value
 
@@ -3801,6 +4779,9 @@ class BuildingSurfaceDetailed(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `outside_boundary_condition_object`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `outside_boundary_condition_object`')
 
         self._data["Outside Boundary Condition Object"] = value
 
@@ -3838,12 +4819,26 @@ class BuildingSurfaceDetailed(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `sun_exposure`')
-            vals = set()
-            vals.add("SunExposed")
-            vals.add("NoSun")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `sun_exposure`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `sun_exposure`')
+            vals = {}
+            vals["sunexposed"] = "SunExposed"
+            vals["nosun"] = "NoSun"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `sun_exposure`'.format(value))
+            value = vals[value_lower]
 
         self._data["Sun Exposure"] = value
 
@@ -3881,12 +4876,26 @@ class BuildingSurfaceDetailed(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `wind_exposure`')
-            vals = set()
-            vals.add("WindExposed")
-            vals.add("NoWind")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `wind_exposure`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `wind_exposure`')
+            vals = {}
+            vals["windexposed"] = "WindExposed"
+            vals["nowind"] = "NoWind"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `wind_exposure`'.format(value))
+            value = vals[value_lower]
 
         self._data["Wind Exposure"] = value
 
@@ -15156,379 +16165,17 @@ class BuildingSurfaceDetailed(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.surface_type))
-        out.append(self._to_str(self.construction_name))
-        out.append(self._to_str(self.zone_name))
-        out.append(self._to_str(self.outside_boundary_condition))
-        out.append(self._to_str(self.outside_boundary_condition_object))
-        out.append(self._to_str(self.sun_exposure))
-        out.append(self._to_str(self.wind_exposure))
-        out.append(self._to_str(self.view_factor_to_ground))
-        out.append(self._to_str(self.number_of_vertices))
-        out.append(self._to_str(self.vertex_1_xcoordinate))
-        out.append(self._to_str(self.vertex_1_ycoordinate))
-        out.append(self._to_str(self.vertex_1_zcoordinate))
-        out.append(self._to_str(self.vertex_2_xcoordinate))
-        out.append(self._to_str(self.vertex_2_ycoordinate))
-        out.append(self._to_str(self.vertex_2_zcoordinate))
-        out.append(self._to_str(self.vertex_3_xcoordinate))
-        out.append(self._to_str(self.vertex_3_ycoordinate))
-        out.append(self._to_str(self.vertex_3_zcoordinate))
-        out.append(self._to_str(self.vertex_4_xcoordinate))
-        out.append(self._to_str(self.vertex_4_ycoordinate))
-        out.append(self._to_str(self.vertex_4_zcoordinate))
-        out.append(self._to_str(self.vertex_5_xcoordinate))
-        out.append(self._to_str(self.vertex_5_ycoordinate))
-        out.append(self._to_str(self.vertex_5_zcoordinate))
-        out.append(self._to_str(self.vertex_6_xcoordinate))
-        out.append(self._to_str(self.vertex_6_ycoordinate))
-        out.append(self._to_str(self.vertex_6_zcoordinate))
-        out.append(self._to_str(self.vertex_7_xcoordinate))
-        out.append(self._to_str(self.vertex_7_ycoordinate))
-        out.append(self._to_str(self.vertex_7_zcoordinate))
-        out.append(self._to_str(self.vertex_8_xcoordinate))
-        out.append(self._to_str(self.vertex_8_ycoordinate))
-        out.append(self._to_str(self.vertex_8_zcoordinate))
-        out.append(self._to_str(self.vertex_9_xcoordinate))
-        out.append(self._to_str(self.vertex_9_ycoordinate))
-        out.append(self._to_str(self.vertex_9_zcoordinate))
-        out.append(self._to_str(self.vertex_10_xcoordinate))
-        out.append(self._to_str(self.vertex_10_ycoordinate))
-        out.append(self._to_str(self.vertex_10_zcoordinate))
-        out.append(self._to_str(self.vertex_11_xcoordinate))
-        out.append(self._to_str(self.vertex_11_ycoordinate))
-        out.append(self._to_str(self.vertex_11_zcoordinate))
-        out.append(self._to_str(self.vertex_12_xcoordinate))
-        out.append(self._to_str(self.vertex_12_ycoordinate))
-        out.append(self._to_str(self.vertex_12_zcoordinate))
-        out.append(self._to_str(self.vertex_13_xcoordinate))
-        out.append(self._to_str(self.vertex_13_ycoordinate))
-        out.append(self._to_str(self.vertex_13_zcoordinate))
-        out.append(self._to_str(self.vertex_14_xcoordinate))
-        out.append(self._to_str(self.vertex_14_ycoordinate))
-        out.append(self._to_str(self.vertex_14_zcoordinate))
-        out.append(self._to_str(self.vertex_15_xcoordinate))
-        out.append(self._to_str(self.vertex_15_ycoordinate))
-        out.append(self._to_str(self.vertex_15_zcoordinate))
-        out.append(self._to_str(self.vertex_16_xcoordinate))
-        out.append(self._to_str(self.vertex_16_ycoordinate))
-        out.append(self._to_str(self.vertex_16_zcoordinate))
-        out.append(self._to_str(self.vertex_17_xcoordinate))
-        out.append(self._to_str(self.vertex_17_ycoordinate))
-        out.append(self._to_str(self.vertex_17_zcoordinate))
-        out.append(self._to_str(self.vertex_18_xcoordinate))
-        out.append(self._to_str(self.vertex_18_ycoordinate))
-        out.append(self._to_str(self.vertex_18_zcoordinate))
-        out.append(self._to_str(self.vertex_19_xcoordinate))
-        out.append(self._to_str(self.vertex_19_ycoordinate))
-        out.append(self._to_str(self.vertex_19_zcoordinate))
-        out.append(self._to_str(self.vertex_20_xcoordinate))
-        out.append(self._to_str(self.vertex_20_ycoordinate))
-        out.append(self._to_str(self.vertex_20_zcoordinate))
-        out.append(self._to_str(self.vertex_21_xcoordinate))
-        out.append(self._to_str(self.vertex_21_ycoordinate))
-        out.append(self._to_str(self.vertex_21_zcoordinate))
-        out.append(self._to_str(self.vertex_22_xcoordinate))
-        out.append(self._to_str(self.vertex_22_ycoordinate))
-        out.append(self._to_str(self.vertex_22_zcoordinate))
-        out.append(self._to_str(self.vertex_23_xcoordinate))
-        out.append(self._to_str(self.vertex_23_ycoordinate))
-        out.append(self._to_str(self.vertex_23_zcoordinate))
-        out.append(self._to_str(self.vertex_24_xcoordinate))
-        out.append(self._to_str(self.vertex_24_ycoordinate))
-        out.append(self._to_str(self.vertex_24_zcoordinate))
-        out.append(self._to_str(self.vertex_25_xcoordinate))
-        out.append(self._to_str(self.vertex_25_ycoordinate))
-        out.append(self._to_str(self.vertex_25_zcoordinate))
-        out.append(self._to_str(self.vertex_26_xcoordinate))
-        out.append(self._to_str(self.vertex_26_ycoordinate))
-        out.append(self._to_str(self.vertex_26_zcoordinate))
-        out.append(self._to_str(self.vertex_27_xcoordinate))
-        out.append(self._to_str(self.vertex_27_ycoordinate))
-        out.append(self._to_str(self.vertex_27_zcoordinate))
-        out.append(self._to_str(self.vertex_28_xcoordinate))
-        out.append(self._to_str(self.vertex_28_ycoordinate))
-        out.append(self._to_str(self.vertex_28_zcoordinate))
-        out.append(self._to_str(self.vertex_29_xcoordinate))
-        out.append(self._to_str(self.vertex_29_ycoordinate))
-        out.append(self._to_str(self.vertex_29_zcoordinate))
-        out.append(self._to_str(self.vertex_30_xcoordinate))
-        out.append(self._to_str(self.vertex_30_ycoordinate))
-        out.append(self._to_str(self.vertex_30_zcoordinate))
-        out.append(self._to_str(self.vertex_31_xcoordinate))
-        out.append(self._to_str(self.vertex_31_ycoordinate))
-        out.append(self._to_str(self.vertex_31_zcoordinate))
-        out.append(self._to_str(self.vertex_32_xcoordinate))
-        out.append(self._to_str(self.vertex_32_ycoordinate))
-        out.append(self._to_str(self.vertex_32_zcoordinate))
-        out.append(self._to_str(self.vertex_33_xcoordinate))
-        out.append(self._to_str(self.vertex_33_ycoordinate))
-        out.append(self._to_str(self.vertex_33_zcoordinate))
-        out.append(self._to_str(self.vertex_34_xcoordinate))
-        out.append(self._to_str(self.vertex_34_ycoordinate))
-        out.append(self._to_str(self.vertex_34_zcoordinate))
-        out.append(self._to_str(self.vertex_35_xcoordinate))
-        out.append(self._to_str(self.vertex_35_ycoordinate))
-        out.append(self._to_str(self.vertex_35_zcoordinate))
-        out.append(self._to_str(self.vertex_36_xcoordinate))
-        out.append(self._to_str(self.vertex_36_ycoordinate))
-        out.append(self._to_str(self.vertex_36_zcoordinate))
-        out.append(self._to_str(self.vertex_37_xcoordinate))
-        out.append(self._to_str(self.vertex_37_ycoordinate))
-        out.append(self._to_str(self.vertex_37_zcoordinate))
-        out.append(self._to_str(self.vertex_38_xcoordinate))
-        out.append(self._to_str(self.vertex_38_ycoordinate))
-        out.append(self._to_str(self.vertex_38_zcoordinate))
-        out.append(self._to_str(self.vertex_39_xcoordinate))
-        out.append(self._to_str(self.vertex_39_ycoordinate))
-        out.append(self._to_str(self.vertex_39_zcoordinate))
-        out.append(self._to_str(self.vertex_40_xcoordinate))
-        out.append(self._to_str(self.vertex_40_ycoordinate))
-        out.append(self._to_str(self.vertex_40_zcoordinate))
-        out.append(self._to_str(self.vertex_41_xcoordinate))
-        out.append(self._to_str(self.vertex_41_ycoordinate))
-        out.append(self._to_str(self.vertex_41_zcoordinate))
-        out.append(self._to_str(self.vertex_42_xcoordinate))
-        out.append(self._to_str(self.vertex_42_ycoordinate))
-        out.append(self._to_str(self.vertex_42_zcoordinate))
-        out.append(self._to_str(self.vertex_43_xcoordinate))
-        out.append(self._to_str(self.vertex_43_ycoordinate))
-        out.append(self._to_str(self.vertex_43_zcoordinate))
-        out.append(self._to_str(self.vertex_44_xcoordinate))
-        out.append(self._to_str(self.vertex_44_ycoordinate))
-        out.append(self._to_str(self.vertex_44_zcoordinate))
-        out.append(self._to_str(self.vertex_45_xcoordinate))
-        out.append(self._to_str(self.vertex_45_ycoordinate))
-        out.append(self._to_str(self.vertex_45_zcoordinate))
-        out.append(self._to_str(self.vertex_46_xcoordinate))
-        out.append(self._to_str(self.vertex_46_ycoordinate))
-        out.append(self._to_str(self.vertex_46_zcoordinate))
-        out.append(self._to_str(self.vertex_47_xcoordinate))
-        out.append(self._to_str(self.vertex_47_ycoordinate))
-        out.append(self._to_str(self.vertex_47_zcoordinate))
-        out.append(self._to_str(self.vertex_48_xcoordinate))
-        out.append(self._to_str(self.vertex_48_ycoordinate))
-        out.append(self._to_str(self.vertex_48_zcoordinate))
-        out.append(self._to_str(self.vertex_49_xcoordinate))
-        out.append(self._to_str(self.vertex_49_ycoordinate))
-        out.append(self._to_str(self.vertex_49_zcoordinate))
-        out.append(self._to_str(self.vertex_50_xcoordinate))
-        out.append(self._to_str(self.vertex_50_ycoordinate))
-        out.append(self._to_str(self.vertex_50_zcoordinate))
-        out.append(self._to_str(self.vertex_51_xcoordinate))
-        out.append(self._to_str(self.vertex_51_ycoordinate))
-        out.append(self._to_str(self.vertex_51_zcoordinate))
-        out.append(self._to_str(self.vertex_52_xcoordinate))
-        out.append(self._to_str(self.vertex_52_ycoordinate))
-        out.append(self._to_str(self.vertex_52_zcoordinate))
-        out.append(self._to_str(self.vertex_53_xcoordinate))
-        out.append(self._to_str(self.vertex_53_ycoordinate))
-        out.append(self._to_str(self.vertex_53_zcoordinate))
-        out.append(self._to_str(self.vertex_54_xcoordinate))
-        out.append(self._to_str(self.vertex_54_ycoordinate))
-        out.append(self._to_str(self.vertex_54_zcoordinate))
-        out.append(self._to_str(self.vertex_55_xcoordinate))
-        out.append(self._to_str(self.vertex_55_ycoordinate))
-        out.append(self._to_str(self.vertex_55_zcoordinate))
-        out.append(self._to_str(self.vertex_56_xcoordinate))
-        out.append(self._to_str(self.vertex_56_ycoordinate))
-        out.append(self._to_str(self.vertex_56_zcoordinate))
-        out.append(self._to_str(self.vertex_57_xcoordinate))
-        out.append(self._to_str(self.vertex_57_ycoordinate))
-        out.append(self._to_str(self.vertex_57_zcoordinate))
-        out.append(self._to_str(self.vertex_58_xcoordinate))
-        out.append(self._to_str(self.vertex_58_ycoordinate))
-        out.append(self._to_str(self.vertex_58_zcoordinate))
-        out.append(self._to_str(self.vertex_59_xcoordinate))
-        out.append(self._to_str(self.vertex_59_ycoordinate))
-        out.append(self._to_str(self.vertex_59_zcoordinate))
-        out.append(self._to_str(self.vertex_60_xcoordinate))
-        out.append(self._to_str(self.vertex_60_ycoordinate))
-        out.append(self._to_str(self.vertex_60_zcoordinate))
-        out.append(self._to_str(self.vertex_61_xcoordinate))
-        out.append(self._to_str(self.vertex_61_ycoordinate))
-        out.append(self._to_str(self.vertex_61_zcoordinate))
-        out.append(self._to_str(self.vertex_62_xcoordinate))
-        out.append(self._to_str(self.vertex_62_ycoordinate))
-        out.append(self._to_str(self.vertex_62_zcoordinate))
-        out.append(self._to_str(self.vertex_63_xcoordinate))
-        out.append(self._to_str(self.vertex_63_ycoordinate))
-        out.append(self._to_str(self.vertex_63_zcoordinate))
-        out.append(self._to_str(self.vertex_64_xcoordinate))
-        out.append(self._to_str(self.vertex_64_ycoordinate))
-        out.append(self._to_str(self.vertex_64_zcoordinate))
-        out.append(self._to_str(self.vertex_65_xcoordinate))
-        out.append(self._to_str(self.vertex_65_ycoordinate))
-        out.append(self._to_str(self.vertex_65_zcoordinate))
-        out.append(self._to_str(self.vertex_66_xcoordinate))
-        out.append(self._to_str(self.vertex_66_ycoordinate))
-        out.append(self._to_str(self.vertex_66_zcoordinate))
-        out.append(self._to_str(self.vertex_67_xcoordinate))
-        out.append(self._to_str(self.vertex_67_ycoordinate))
-        out.append(self._to_str(self.vertex_67_zcoordinate))
-        out.append(self._to_str(self.vertex_68_xcoordinate))
-        out.append(self._to_str(self.vertex_68_ycoordinate))
-        out.append(self._to_str(self.vertex_68_zcoordinate))
-        out.append(self._to_str(self.vertex_69_xcoordinate))
-        out.append(self._to_str(self.vertex_69_ycoordinate))
-        out.append(self._to_str(self.vertex_69_zcoordinate))
-        out.append(self._to_str(self.vertex_70_xcoordinate))
-        out.append(self._to_str(self.vertex_70_ycoordinate))
-        out.append(self._to_str(self.vertex_70_zcoordinate))
-        out.append(self._to_str(self.vertex_71_xcoordinate))
-        out.append(self._to_str(self.vertex_71_ycoordinate))
-        out.append(self._to_str(self.vertex_71_zcoordinate))
-        out.append(self._to_str(self.vertex_72_xcoordinate))
-        out.append(self._to_str(self.vertex_72_ycoordinate))
-        out.append(self._to_str(self.vertex_72_zcoordinate))
-        out.append(self._to_str(self.vertex_73_xcoordinate))
-        out.append(self._to_str(self.vertex_73_ycoordinate))
-        out.append(self._to_str(self.vertex_73_zcoordinate))
-        out.append(self._to_str(self.vertex_74_xcoordinate))
-        out.append(self._to_str(self.vertex_74_ycoordinate))
-        out.append(self._to_str(self.vertex_74_zcoordinate))
-        out.append(self._to_str(self.vertex_75_xcoordinate))
-        out.append(self._to_str(self.vertex_75_ycoordinate))
-        out.append(self._to_str(self.vertex_75_zcoordinate))
-        out.append(self._to_str(self.vertex_76_xcoordinate))
-        out.append(self._to_str(self.vertex_76_ycoordinate))
-        out.append(self._to_str(self.vertex_76_zcoordinate))
-        out.append(self._to_str(self.vertex_77_xcoordinate))
-        out.append(self._to_str(self.vertex_77_ycoordinate))
-        out.append(self._to_str(self.vertex_77_zcoordinate))
-        out.append(self._to_str(self.vertex_78_xcoordinate))
-        out.append(self._to_str(self.vertex_78_ycoordinate))
-        out.append(self._to_str(self.vertex_78_zcoordinate))
-        out.append(self._to_str(self.vertex_79_xcoordinate))
-        out.append(self._to_str(self.vertex_79_ycoordinate))
-        out.append(self._to_str(self.vertex_79_zcoordinate))
-        out.append(self._to_str(self.vertex_80_xcoordinate))
-        out.append(self._to_str(self.vertex_80_ycoordinate))
-        out.append(self._to_str(self.vertex_80_zcoordinate))
-        out.append(self._to_str(self.vertex_81_xcoordinate))
-        out.append(self._to_str(self.vertex_81_ycoordinate))
-        out.append(self._to_str(self.vertex_81_zcoordinate))
-        out.append(self._to_str(self.vertex_82_xcoordinate))
-        out.append(self._to_str(self.vertex_82_ycoordinate))
-        out.append(self._to_str(self.vertex_82_zcoordinate))
-        out.append(self._to_str(self.vertex_83_xcoordinate))
-        out.append(self._to_str(self.vertex_83_ycoordinate))
-        out.append(self._to_str(self.vertex_83_zcoordinate))
-        out.append(self._to_str(self.vertex_84_xcoordinate))
-        out.append(self._to_str(self.vertex_84_ycoordinate))
-        out.append(self._to_str(self.vertex_84_zcoordinate))
-        out.append(self._to_str(self.vertex_85_xcoordinate))
-        out.append(self._to_str(self.vertex_85_ycoordinate))
-        out.append(self._to_str(self.vertex_85_zcoordinate))
-        out.append(self._to_str(self.vertex_86_xcoordinate))
-        out.append(self._to_str(self.vertex_86_ycoordinate))
-        out.append(self._to_str(self.vertex_86_zcoordinate))
-        out.append(self._to_str(self.vertex_87_xcoordinate))
-        out.append(self._to_str(self.vertex_87_ycoordinate))
-        out.append(self._to_str(self.vertex_87_zcoordinate))
-        out.append(self._to_str(self.vertex_88_xcoordinate))
-        out.append(self._to_str(self.vertex_88_ycoordinate))
-        out.append(self._to_str(self.vertex_88_zcoordinate))
-        out.append(self._to_str(self.vertex_89_xcoordinate))
-        out.append(self._to_str(self.vertex_89_ycoordinate))
-        out.append(self._to_str(self.vertex_89_zcoordinate))
-        out.append(self._to_str(self.vertex_90_xcoordinate))
-        out.append(self._to_str(self.vertex_90_ycoordinate))
-        out.append(self._to_str(self.vertex_90_zcoordinate))
-        out.append(self._to_str(self.vertex_91_xcoordinate))
-        out.append(self._to_str(self.vertex_91_ycoordinate))
-        out.append(self._to_str(self.vertex_91_zcoordinate))
-        out.append(self._to_str(self.vertex_92_xcoordinate))
-        out.append(self._to_str(self.vertex_92_ycoordinate))
-        out.append(self._to_str(self.vertex_92_zcoordinate))
-        out.append(self._to_str(self.vertex_93_xcoordinate))
-        out.append(self._to_str(self.vertex_93_ycoordinate))
-        out.append(self._to_str(self.vertex_93_zcoordinate))
-        out.append(self._to_str(self.vertex_94_xcoordinate))
-        out.append(self._to_str(self.vertex_94_ycoordinate))
-        out.append(self._to_str(self.vertex_94_zcoordinate))
-        out.append(self._to_str(self.vertex_95_xcoordinate))
-        out.append(self._to_str(self.vertex_95_ycoordinate))
-        out.append(self._to_str(self.vertex_95_zcoordinate))
-        out.append(self._to_str(self.vertex_96_xcoordinate))
-        out.append(self._to_str(self.vertex_96_ycoordinate))
-        out.append(self._to_str(self.vertex_96_zcoordinate))
-        out.append(self._to_str(self.vertex_97_xcoordinate))
-        out.append(self._to_str(self.vertex_97_ycoordinate))
-        out.append(self._to_str(self.vertex_97_zcoordinate))
-        out.append(self._to_str(self.vertex_98_xcoordinate))
-        out.append(self._to_str(self.vertex_98_ycoordinate))
-        out.append(self._to_str(self.vertex_98_zcoordinate))
-        out.append(self._to_str(self.vertex_99_xcoordinate))
-        out.append(self._to_str(self.vertex_99_ycoordinate))
-        out.append(self._to_str(self.vertex_99_zcoordinate))
-        out.append(self._to_str(self.vertex_100_xcoordinate))
-        out.append(self._to_str(self.vertex_100_ycoordinate))
-        out.append(self._to_str(self.vertex_100_zcoordinate))
-        out.append(self._to_str(self.vertex_101_xcoordinate))
-        out.append(self._to_str(self.vertex_101_ycoordinate))
-        out.append(self._to_str(self.vertex_101_zcoordinate))
-        out.append(self._to_str(self.vertex_102_xcoordinate))
-        out.append(self._to_str(self.vertex_102_ycoordinate))
-        out.append(self._to_str(self.vertex_102_zcoordinate))
-        out.append(self._to_str(self.vertex_103_xcoordinate))
-        out.append(self._to_str(self.vertex_103_ycoordinate))
-        out.append(self._to_str(self.vertex_103_zcoordinate))
-        out.append(self._to_str(self.vertex_104_xcoordinate))
-        out.append(self._to_str(self.vertex_104_ycoordinate))
-        out.append(self._to_str(self.vertex_104_zcoordinate))
-        out.append(self._to_str(self.vertex_105_xcoordinate))
-        out.append(self._to_str(self.vertex_105_ycoordinate))
-        out.append(self._to_str(self.vertex_105_zcoordinate))
-        out.append(self._to_str(self.vertex_106_xcoordinate))
-        out.append(self._to_str(self.vertex_106_ycoordinate))
-        out.append(self._to_str(self.vertex_106_zcoordinate))
-        out.append(self._to_str(self.vertex_107_xcoordinate))
-        out.append(self._to_str(self.vertex_107_ycoordinate))
-        out.append(self._to_str(self.vertex_107_zcoordinate))
-        out.append(self._to_str(self.vertex_108_xcoordinate))
-        out.append(self._to_str(self.vertex_108_ycoordinate))
-        out.append(self._to_str(self.vertex_108_zcoordinate))
-        out.append(self._to_str(self.vertex_109_xcoordinate))
-        out.append(self._to_str(self.vertex_109_ycoordinate))
-        out.append(self._to_str(self.vertex_109_zcoordinate))
-        out.append(self._to_str(self.vertex_110_xcoordinate))
-        out.append(self._to_str(self.vertex_110_ycoordinate))
-        out.append(self._to_str(self.vertex_110_zcoordinate))
-        out.append(self._to_str(self.vertex_111_xcoordinate))
-        out.append(self._to_str(self.vertex_111_ycoordinate))
-        out.append(self._to_str(self.vertex_111_zcoordinate))
-        out.append(self._to_str(self.vertex_112_xcoordinate))
-        out.append(self._to_str(self.vertex_112_ycoordinate))
-        out.append(self._to_str(self.vertex_112_zcoordinate))
-        out.append(self._to_str(self.vertex_113_xcoordinate))
-        out.append(self._to_str(self.vertex_113_ycoordinate))
-        out.append(self._to_str(self.vertex_113_zcoordinate))
-        out.append(self._to_str(self.vertex_114_xcoordinate))
-        out.append(self._to_str(self.vertex_114_ycoordinate))
-        out.append(self._to_str(self.vertex_114_zcoordinate))
-        out.append(self._to_str(self.vertex_115_xcoordinate))
-        out.append(self._to_str(self.vertex_115_ycoordinate))
-        out.append(self._to_str(self.vertex_115_zcoordinate))
-        out.append(self._to_str(self.vertex_116_xcoordinate))
-        out.append(self._to_str(self.vertex_116_ycoordinate))
-        out.append(self._to_str(self.vertex_116_zcoordinate))
-        out.append(self._to_str(self.vertex_117_xcoordinate))
-        out.append(self._to_str(self.vertex_117_ycoordinate))
-        out.append(self._to_str(self.vertex_117_zcoordinate))
-        out.append(self._to_str(self.vertex_118_xcoordinate))
-        out.append(self._to_str(self.vertex_118_ycoordinate))
-        out.append(self._to_str(self.vertex_118_zcoordinate))
-        out.append(self._to_str(self.vertex_119_xcoordinate))
-        out.append(self._to_str(self.vertex_119_ycoordinate))
-        out.append(self._to_str(self.vertex_119_zcoordinate))
-        out.append(self._to_str(self.vertex_120_xcoordinate))
-        out.append(self._to_str(self.vertex_120_ycoordinate))
-        out.append(self._to_str(self.vertex_120_zcoordinate))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class WallDetailed(object):
     """ Corresponds to IDD object `Wall:Detailed`
@@ -15582,209 +16229,289 @@ class WallDetailed(object):
         self._data["Vertex 10 X-coordinate"] = None
         self._data["Vertex 10 Y-coordinate"] = None
         self._data["Vertex 10 Z-coordinate"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.construction_name = None
         else:
             self.construction_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.zone_name = None
         else:
             self.zone_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.outside_boundary_condition = None
         else:
             self.outside_boundary_condition = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.outside_boundary_condition_object = None
         else:
             self.outside_boundary_condition_object = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.sun_exposure = None
         else:
             self.sun_exposure = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wind_exposure = None
         else:
             self.wind_exposure = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.view_factor_to_ground = None
         else:
             self.view_factor_to_ground = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.number_of_vertices = None
         else:
             self.number_of_vertices = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_1_xcoordinate = None
         else:
             self.vertex_1_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_1_ycoordinate = None
         else:
             self.vertex_1_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_1_zcoordinate = None
         else:
             self.vertex_1_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_2_xcoordinate = None
         else:
             self.vertex_2_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_2_ycoordinate = None
         else:
             self.vertex_2_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_2_zcoordinate = None
         else:
             self.vertex_2_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_3_xcoordinate = None
         else:
             self.vertex_3_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_3_ycoordinate = None
         else:
             self.vertex_3_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_3_zcoordinate = None
         else:
             self.vertex_3_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_4_xcoordinate = None
         else:
             self.vertex_4_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_4_ycoordinate = None
         else:
             self.vertex_4_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_4_zcoordinate = None
         else:
             self.vertex_4_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_5_xcoordinate = None
         else:
             self.vertex_5_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_5_ycoordinate = None
         else:
             self.vertex_5_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_5_zcoordinate = None
         else:
             self.vertex_5_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_6_xcoordinate = None
         else:
             self.vertex_6_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_6_ycoordinate = None
         else:
             self.vertex_6_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_6_zcoordinate = None
         else:
             self.vertex_6_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_7_xcoordinate = None
         else:
             self.vertex_7_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_7_ycoordinate = None
         else:
             self.vertex_7_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_7_zcoordinate = None
         else:
             self.vertex_7_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_8_xcoordinate = None
         else:
             self.vertex_8_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_8_ycoordinate = None
         else:
             self.vertex_8_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_8_zcoordinate = None
         else:
             self.vertex_8_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_9_xcoordinate = None
         else:
             self.vertex_9_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_9_ycoordinate = None
         else:
             self.vertex_9_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_9_zcoordinate = None
         else:
             self.vertex_9_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_10_xcoordinate = None
         else:
             self.vertex_10_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_10_ycoordinate = None
         else:
             self.vertex_10_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_10_zcoordinate = None
         else:
             self.vertex_10_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -15815,6 +16542,9 @@ class WallDetailed(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -15850,6 +16580,9 @@ class WallDetailed(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `construction_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `construction_name`')
 
         self._data["Construction Name"] = value
 
@@ -15883,6 +16616,9 @@ class WallDetailed(object):
                                  'for field `zone_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `zone_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `zone_name`')
 
         self._data["Zone Name"] = value
@@ -15933,25 +16669,39 @@ class WallDetailed(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `outside_boundary_condition`')
-            vals = set()
-            vals.add("Adiabatic")
-            vals.add("Surface")
-            vals.add("Zone")
-            vals.add("Outdoors")
-            vals.add("Ground")
-            vals.add("GroundFCfactorMethod")
-            vals.add("OtherSideCoefficients")
-            vals.add("OtherSideConditionsModel")
-            vals.add("GroundSlabPreprocessorAverage")
-            vals.add("GroundSlabPreprocessorCore")
-            vals.add("GroundSlabPreprocessorPerimeter")
-            vals.add("GroundBasementPreprocessorAverageWall")
-            vals.add("GroundBasementPreprocessorAverageFloor")
-            vals.add("GroundBasementPreprocessorUpperWall")
-            vals.add("GroundBasementPreprocessorLowerWall")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `outside_boundary_condition`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `outside_boundary_condition`')
+            vals = {}
+            vals["adiabatic"] = "Adiabatic"
+            vals["surface"] = "Surface"
+            vals["zone"] = "Zone"
+            vals["outdoors"] = "Outdoors"
+            vals["ground"] = "Ground"
+            vals["groundfcfactormethod"] = "GroundFCfactorMethod"
+            vals["othersidecoefficients"] = "OtherSideCoefficients"
+            vals["othersideconditionsmodel"] = "OtherSideConditionsModel"
+            vals["groundslabpreprocessoraverage"] = "GroundSlabPreprocessorAverage"
+            vals["groundslabpreprocessorcore"] = "GroundSlabPreprocessorCore"
+            vals["groundslabpreprocessorperimeter"] = "GroundSlabPreprocessorPerimeter"
+            vals["groundbasementpreprocessoraveragewall"] = "GroundBasementPreprocessorAverageWall"
+            vals["groundbasementpreprocessoraveragefloor"] = "GroundBasementPreprocessorAverageFloor"
+            vals["groundbasementpreprocessorupperwall"] = "GroundBasementPreprocessorUpperWall"
+            vals["groundbasementpreprocessorlowerwall"] = "GroundBasementPreprocessorLowerWall"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `outside_boundary_condition`'.format(value))
+            value = vals[value_lower]
 
         self._data["Outside Boundary Condition"] = value
 
@@ -15993,6 +16743,9 @@ class WallDetailed(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `outside_boundary_condition_object`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `outside_boundary_condition_object`')
 
         self._data["Outside Boundary Condition Object"] = value
 
@@ -16030,12 +16783,26 @@ class WallDetailed(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `sun_exposure`')
-            vals = set()
-            vals.add("SunExposed")
-            vals.add("NoSun")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `sun_exposure`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `sun_exposure`')
+            vals = {}
+            vals["sunexposed"] = "SunExposed"
+            vals["nosun"] = "NoSun"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `sun_exposure`'.format(value))
+            value = vals[value_lower]
 
         self._data["Sun Exposure"] = value
 
@@ -16073,12 +16840,26 @@ class WallDetailed(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `wind_exposure`')
-            vals = set()
-            vals.add("WindExposed")
-            vals.add("NoWind")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `wind_exposure`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `wind_exposure`')
+            vals = {}
+            vals["windexposed"] = "WindExposed"
+            vals["nowind"] = "NoWind"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `wind_exposure`'.format(value))
+            value = vals[value_lower]
 
         self._data["Wind Exposure"] = value
 
@@ -17116,48 +17897,17 @@ class WallDetailed(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.construction_name))
-        out.append(self._to_str(self.zone_name))
-        out.append(self._to_str(self.outside_boundary_condition))
-        out.append(self._to_str(self.outside_boundary_condition_object))
-        out.append(self._to_str(self.sun_exposure))
-        out.append(self._to_str(self.wind_exposure))
-        out.append(self._to_str(self.view_factor_to_ground))
-        out.append(self._to_str(self.number_of_vertices))
-        out.append(self._to_str(self.vertex_1_xcoordinate))
-        out.append(self._to_str(self.vertex_1_ycoordinate))
-        out.append(self._to_str(self.vertex_1_zcoordinate))
-        out.append(self._to_str(self.vertex_2_xcoordinate))
-        out.append(self._to_str(self.vertex_2_ycoordinate))
-        out.append(self._to_str(self.vertex_2_zcoordinate))
-        out.append(self._to_str(self.vertex_3_xcoordinate))
-        out.append(self._to_str(self.vertex_3_ycoordinate))
-        out.append(self._to_str(self.vertex_3_zcoordinate))
-        out.append(self._to_str(self.vertex_4_xcoordinate))
-        out.append(self._to_str(self.vertex_4_ycoordinate))
-        out.append(self._to_str(self.vertex_4_zcoordinate))
-        out.append(self._to_str(self.vertex_5_xcoordinate))
-        out.append(self._to_str(self.vertex_5_ycoordinate))
-        out.append(self._to_str(self.vertex_5_zcoordinate))
-        out.append(self._to_str(self.vertex_6_xcoordinate))
-        out.append(self._to_str(self.vertex_6_ycoordinate))
-        out.append(self._to_str(self.vertex_6_zcoordinate))
-        out.append(self._to_str(self.vertex_7_xcoordinate))
-        out.append(self._to_str(self.vertex_7_ycoordinate))
-        out.append(self._to_str(self.vertex_7_zcoordinate))
-        out.append(self._to_str(self.vertex_8_xcoordinate))
-        out.append(self._to_str(self.vertex_8_ycoordinate))
-        out.append(self._to_str(self.vertex_8_zcoordinate))
-        out.append(self._to_str(self.vertex_9_xcoordinate))
-        out.append(self._to_str(self.vertex_9_ycoordinate))
-        out.append(self._to_str(self.vertex_9_zcoordinate))
-        out.append(self._to_str(self.vertex_10_xcoordinate))
-        out.append(self._to_str(self.vertex_10_ycoordinate))
-        out.append(self._to_str(self.vertex_10_zcoordinate))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class RoofCeilingDetailed(object):
     """ Corresponds to IDD object `RoofCeiling:Detailed`
@@ -17211,209 +17961,289 @@ class RoofCeilingDetailed(object):
         self._data["Vertex 10 X-coordinate"] = None
         self._data["Vertex 10 Y-coordinate"] = None
         self._data["Vertex 10 Z-coordinate"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.construction_name = None
         else:
             self.construction_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.zone_name = None
         else:
             self.zone_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.outside_boundary_condition = None
         else:
             self.outside_boundary_condition = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.outside_boundary_condition_object = None
         else:
             self.outside_boundary_condition_object = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.sun_exposure = None
         else:
             self.sun_exposure = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wind_exposure = None
         else:
             self.wind_exposure = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.view_factor_to_ground = None
         else:
             self.view_factor_to_ground = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.number_of_vertices = None
         else:
             self.number_of_vertices = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_1_xcoordinate = None
         else:
             self.vertex_1_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_1_ycoordinate = None
         else:
             self.vertex_1_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_1_zcoordinate = None
         else:
             self.vertex_1_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_2_xcoordinate = None
         else:
             self.vertex_2_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_2_ycoordinate = None
         else:
             self.vertex_2_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_2_zcoordinate = None
         else:
             self.vertex_2_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_3_xcoordinate = None
         else:
             self.vertex_3_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_3_ycoordinate = None
         else:
             self.vertex_3_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_3_zcoordinate = None
         else:
             self.vertex_3_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_4_xcoordinate = None
         else:
             self.vertex_4_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_4_ycoordinate = None
         else:
             self.vertex_4_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_4_zcoordinate = None
         else:
             self.vertex_4_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_5_xcoordinate = None
         else:
             self.vertex_5_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_5_ycoordinate = None
         else:
             self.vertex_5_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_5_zcoordinate = None
         else:
             self.vertex_5_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_6_xcoordinate = None
         else:
             self.vertex_6_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_6_ycoordinate = None
         else:
             self.vertex_6_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_6_zcoordinate = None
         else:
             self.vertex_6_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_7_xcoordinate = None
         else:
             self.vertex_7_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_7_ycoordinate = None
         else:
             self.vertex_7_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_7_zcoordinate = None
         else:
             self.vertex_7_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_8_xcoordinate = None
         else:
             self.vertex_8_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_8_ycoordinate = None
         else:
             self.vertex_8_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_8_zcoordinate = None
         else:
             self.vertex_8_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_9_xcoordinate = None
         else:
             self.vertex_9_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_9_ycoordinate = None
         else:
             self.vertex_9_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_9_zcoordinate = None
         else:
             self.vertex_9_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_10_xcoordinate = None
         else:
             self.vertex_10_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_10_ycoordinate = None
         else:
             self.vertex_10_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_10_zcoordinate = None
         else:
             self.vertex_10_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -17444,6 +18274,9 @@ class RoofCeilingDetailed(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -17479,6 +18312,9 @@ class RoofCeilingDetailed(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `construction_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `construction_name`')
 
         self._data["Construction Name"] = value
 
@@ -17512,6 +18348,9 @@ class RoofCeilingDetailed(object):
                                  'for field `zone_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `zone_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `zone_name`')
 
         self._data["Zone Name"] = value
@@ -17561,24 +18400,38 @@ class RoofCeilingDetailed(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `outside_boundary_condition`')
-            vals = set()
-            vals.add("Adiabatic")
-            vals.add("Surface")
-            vals.add("Zone")
-            vals.add("Outdoors")
-            vals.add("Ground")
-            vals.add("OtherSideCoefficients")
-            vals.add("OtherSideConditionsModel")
-            vals.add("GroundSlabPreprocessorAverage")
-            vals.add("GroundSlabPreprocessorCore")
-            vals.add("GroundSlabPreprocessorPerimeter")
-            vals.add("GroundBasementPreprocessorAverageWall")
-            vals.add("GroundBasementPreprocessorAverageFloor")
-            vals.add("GroundBasementPreprocessorUpperWall")
-            vals.add("GroundBasementPreprocessorLowerWall")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `outside_boundary_condition`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `outside_boundary_condition`')
+            vals = {}
+            vals["adiabatic"] = "Adiabatic"
+            vals["surface"] = "Surface"
+            vals["zone"] = "Zone"
+            vals["outdoors"] = "Outdoors"
+            vals["ground"] = "Ground"
+            vals["othersidecoefficients"] = "OtherSideCoefficients"
+            vals["othersideconditionsmodel"] = "OtherSideConditionsModel"
+            vals["groundslabpreprocessoraverage"] = "GroundSlabPreprocessorAverage"
+            vals["groundslabpreprocessorcore"] = "GroundSlabPreprocessorCore"
+            vals["groundslabpreprocessorperimeter"] = "GroundSlabPreprocessorPerimeter"
+            vals["groundbasementpreprocessoraveragewall"] = "GroundBasementPreprocessorAverageWall"
+            vals["groundbasementpreprocessoraveragefloor"] = "GroundBasementPreprocessorAverageFloor"
+            vals["groundbasementpreprocessorupperwall"] = "GroundBasementPreprocessorUpperWall"
+            vals["groundbasementpreprocessorlowerwall"] = "GroundBasementPreprocessorLowerWall"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `outside_boundary_condition`'.format(value))
+            value = vals[value_lower]
 
         self._data["Outside Boundary Condition"] = value
 
@@ -17620,6 +18473,9 @@ class RoofCeilingDetailed(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `outside_boundary_condition_object`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `outside_boundary_condition_object`')
 
         self._data["Outside Boundary Condition Object"] = value
 
@@ -17657,12 +18513,26 @@ class RoofCeilingDetailed(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `sun_exposure`')
-            vals = set()
-            vals.add("SunExposed")
-            vals.add("NoSun")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `sun_exposure`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `sun_exposure`')
+            vals = {}
+            vals["sunexposed"] = "SunExposed"
+            vals["nosun"] = "NoSun"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `sun_exposure`'.format(value))
+            value = vals[value_lower]
 
         self._data["Sun Exposure"] = value
 
@@ -17700,12 +18570,26 @@ class RoofCeilingDetailed(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `wind_exposure`')
-            vals = set()
-            vals.add("WindExposed")
-            vals.add("NoWind")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `wind_exposure`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `wind_exposure`')
+            vals = {}
+            vals["windexposed"] = "WindExposed"
+            vals["nowind"] = "NoWind"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `wind_exposure`'.format(value))
+            value = vals[value_lower]
 
         self._data["Wind Exposure"] = value
 
@@ -18743,48 +19627,17 @@ class RoofCeilingDetailed(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.construction_name))
-        out.append(self._to_str(self.zone_name))
-        out.append(self._to_str(self.outside_boundary_condition))
-        out.append(self._to_str(self.outside_boundary_condition_object))
-        out.append(self._to_str(self.sun_exposure))
-        out.append(self._to_str(self.wind_exposure))
-        out.append(self._to_str(self.view_factor_to_ground))
-        out.append(self._to_str(self.number_of_vertices))
-        out.append(self._to_str(self.vertex_1_xcoordinate))
-        out.append(self._to_str(self.vertex_1_ycoordinate))
-        out.append(self._to_str(self.vertex_1_zcoordinate))
-        out.append(self._to_str(self.vertex_2_xcoordinate))
-        out.append(self._to_str(self.vertex_2_ycoordinate))
-        out.append(self._to_str(self.vertex_2_zcoordinate))
-        out.append(self._to_str(self.vertex_3_xcoordinate))
-        out.append(self._to_str(self.vertex_3_ycoordinate))
-        out.append(self._to_str(self.vertex_3_zcoordinate))
-        out.append(self._to_str(self.vertex_4_xcoordinate))
-        out.append(self._to_str(self.vertex_4_ycoordinate))
-        out.append(self._to_str(self.vertex_4_zcoordinate))
-        out.append(self._to_str(self.vertex_5_xcoordinate))
-        out.append(self._to_str(self.vertex_5_ycoordinate))
-        out.append(self._to_str(self.vertex_5_zcoordinate))
-        out.append(self._to_str(self.vertex_6_xcoordinate))
-        out.append(self._to_str(self.vertex_6_ycoordinate))
-        out.append(self._to_str(self.vertex_6_zcoordinate))
-        out.append(self._to_str(self.vertex_7_xcoordinate))
-        out.append(self._to_str(self.vertex_7_ycoordinate))
-        out.append(self._to_str(self.vertex_7_zcoordinate))
-        out.append(self._to_str(self.vertex_8_xcoordinate))
-        out.append(self._to_str(self.vertex_8_ycoordinate))
-        out.append(self._to_str(self.vertex_8_zcoordinate))
-        out.append(self._to_str(self.vertex_9_xcoordinate))
-        out.append(self._to_str(self.vertex_9_ycoordinate))
-        out.append(self._to_str(self.vertex_9_zcoordinate))
-        out.append(self._to_str(self.vertex_10_xcoordinate))
-        out.append(self._to_str(self.vertex_10_ycoordinate))
-        out.append(self._to_str(self.vertex_10_zcoordinate))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class FloorDetailed(object):
     """ Corresponds to IDD object `Floor:Detailed`
@@ -18838,209 +19691,289 @@ class FloorDetailed(object):
         self._data["Vertex 10 X-coordinate"] = None
         self._data["Vertex 10 Y-coordinate"] = None
         self._data["Vertex 10 Z-coordinate"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.construction_name = None
         else:
             self.construction_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.zone_name = None
         else:
             self.zone_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.outside_boundary_condition = None
         else:
             self.outside_boundary_condition = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.outside_boundary_condition_object = None
         else:
             self.outside_boundary_condition_object = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.sun_exposure = None
         else:
             self.sun_exposure = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wind_exposure = None
         else:
             self.wind_exposure = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.view_factor_to_ground = None
         else:
             self.view_factor_to_ground = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.number_of_vertices = None
         else:
             self.number_of_vertices = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_1_xcoordinate = None
         else:
             self.vertex_1_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_1_ycoordinate = None
         else:
             self.vertex_1_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_1_zcoordinate = None
         else:
             self.vertex_1_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_2_xcoordinate = None
         else:
             self.vertex_2_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_2_ycoordinate = None
         else:
             self.vertex_2_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_2_zcoordinate = None
         else:
             self.vertex_2_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_3_xcoordinate = None
         else:
             self.vertex_3_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_3_ycoordinate = None
         else:
             self.vertex_3_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_3_zcoordinate = None
         else:
             self.vertex_3_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_4_xcoordinate = None
         else:
             self.vertex_4_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_4_ycoordinate = None
         else:
             self.vertex_4_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_4_zcoordinate = None
         else:
             self.vertex_4_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_5_xcoordinate = None
         else:
             self.vertex_5_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_5_ycoordinate = None
         else:
             self.vertex_5_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_5_zcoordinate = None
         else:
             self.vertex_5_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_6_xcoordinate = None
         else:
             self.vertex_6_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_6_ycoordinate = None
         else:
             self.vertex_6_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_6_zcoordinate = None
         else:
             self.vertex_6_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_7_xcoordinate = None
         else:
             self.vertex_7_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_7_ycoordinate = None
         else:
             self.vertex_7_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_7_zcoordinate = None
         else:
             self.vertex_7_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_8_xcoordinate = None
         else:
             self.vertex_8_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_8_ycoordinate = None
         else:
             self.vertex_8_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_8_zcoordinate = None
         else:
             self.vertex_8_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_9_xcoordinate = None
         else:
             self.vertex_9_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_9_ycoordinate = None
         else:
             self.vertex_9_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_9_zcoordinate = None
         else:
             self.vertex_9_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_10_xcoordinate = None
         else:
             self.vertex_10_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_10_ycoordinate = None
         else:
             self.vertex_10_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_10_zcoordinate = None
         else:
             self.vertex_10_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -19071,6 +20004,9 @@ class FloorDetailed(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -19106,6 +20042,9 @@ class FloorDetailed(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `construction_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `construction_name`')
 
         self._data["Construction Name"] = value
 
@@ -19139,6 +20078,9 @@ class FloorDetailed(object):
                                  'for field `zone_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `zone_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `zone_name`')
 
         self._data["Zone Name"] = value
@@ -19189,25 +20131,39 @@ class FloorDetailed(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `outside_boundary_condition`')
-            vals = set()
-            vals.add("Adiabatic")
-            vals.add("Surface")
-            vals.add("Zone")
-            vals.add("Outdoors")
-            vals.add("Ground")
-            vals.add("GroundFCfactorMethod")
-            vals.add("OtherSideCoefficients")
-            vals.add("OtherSideConditionsModel")
-            vals.add("GroundSlabPreprocessorAverage")
-            vals.add("GroundSlabPreprocessorCore")
-            vals.add("GroundSlabPreprocessorPerimeter")
-            vals.add("GroundBasementPreprocessorAverageWall")
-            vals.add("GroundBasementPreprocessorAverageFloor")
-            vals.add("GroundBasementPreprocessorUpperWall")
-            vals.add("GroundBasementPreprocessorLowerWall")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `outside_boundary_condition`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `outside_boundary_condition`')
+            vals = {}
+            vals["adiabatic"] = "Adiabatic"
+            vals["surface"] = "Surface"
+            vals["zone"] = "Zone"
+            vals["outdoors"] = "Outdoors"
+            vals["ground"] = "Ground"
+            vals["groundfcfactormethod"] = "GroundFCfactorMethod"
+            vals["othersidecoefficients"] = "OtherSideCoefficients"
+            vals["othersideconditionsmodel"] = "OtherSideConditionsModel"
+            vals["groundslabpreprocessoraverage"] = "GroundSlabPreprocessorAverage"
+            vals["groundslabpreprocessorcore"] = "GroundSlabPreprocessorCore"
+            vals["groundslabpreprocessorperimeter"] = "GroundSlabPreprocessorPerimeter"
+            vals["groundbasementpreprocessoraveragewall"] = "GroundBasementPreprocessorAverageWall"
+            vals["groundbasementpreprocessoraveragefloor"] = "GroundBasementPreprocessorAverageFloor"
+            vals["groundbasementpreprocessorupperwall"] = "GroundBasementPreprocessorUpperWall"
+            vals["groundbasementpreprocessorlowerwall"] = "GroundBasementPreprocessorLowerWall"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `outside_boundary_condition`'.format(value))
+            value = vals[value_lower]
 
         self._data["Outside Boundary Condition"] = value
 
@@ -19249,6 +20205,9 @@ class FloorDetailed(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `outside_boundary_condition_object`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `outside_boundary_condition_object`')
 
         self._data["Outside Boundary Condition Object"] = value
 
@@ -19286,12 +20245,26 @@ class FloorDetailed(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `sun_exposure`')
-            vals = set()
-            vals.add("SunExposed")
-            vals.add("NoSun")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `sun_exposure`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `sun_exposure`')
+            vals = {}
+            vals["sunexposed"] = "SunExposed"
+            vals["nosun"] = "NoSun"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `sun_exposure`'.format(value))
+            value = vals[value_lower]
 
         self._data["Sun Exposure"] = value
 
@@ -19329,12 +20302,26 @@ class FloorDetailed(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `wind_exposure`')
-            vals = set()
-            vals.add("WindExposed")
-            vals.add("NoWind")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `wind_exposure`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `wind_exposure`')
+            vals = {}
+            vals["windexposed"] = "WindExposed"
+            vals["nowind"] = "NoWind"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `wind_exposure`'.format(value))
+            value = vals[value_lower]
 
         self._data["Wind Exposure"] = value
 
@@ -20372,48 +21359,17 @@ class FloorDetailed(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.construction_name))
-        out.append(self._to_str(self.zone_name))
-        out.append(self._to_str(self.outside_boundary_condition))
-        out.append(self._to_str(self.outside_boundary_condition_object))
-        out.append(self._to_str(self.sun_exposure))
-        out.append(self._to_str(self.wind_exposure))
-        out.append(self._to_str(self.view_factor_to_ground))
-        out.append(self._to_str(self.number_of_vertices))
-        out.append(self._to_str(self.vertex_1_xcoordinate))
-        out.append(self._to_str(self.vertex_1_ycoordinate))
-        out.append(self._to_str(self.vertex_1_zcoordinate))
-        out.append(self._to_str(self.vertex_2_xcoordinate))
-        out.append(self._to_str(self.vertex_2_ycoordinate))
-        out.append(self._to_str(self.vertex_2_zcoordinate))
-        out.append(self._to_str(self.vertex_3_xcoordinate))
-        out.append(self._to_str(self.vertex_3_ycoordinate))
-        out.append(self._to_str(self.vertex_3_zcoordinate))
-        out.append(self._to_str(self.vertex_4_xcoordinate))
-        out.append(self._to_str(self.vertex_4_ycoordinate))
-        out.append(self._to_str(self.vertex_4_zcoordinate))
-        out.append(self._to_str(self.vertex_5_xcoordinate))
-        out.append(self._to_str(self.vertex_5_ycoordinate))
-        out.append(self._to_str(self.vertex_5_zcoordinate))
-        out.append(self._to_str(self.vertex_6_xcoordinate))
-        out.append(self._to_str(self.vertex_6_ycoordinate))
-        out.append(self._to_str(self.vertex_6_zcoordinate))
-        out.append(self._to_str(self.vertex_7_xcoordinate))
-        out.append(self._to_str(self.vertex_7_ycoordinate))
-        out.append(self._to_str(self.vertex_7_zcoordinate))
-        out.append(self._to_str(self.vertex_8_xcoordinate))
-        out.append(self._to_str(self.vertex_8_ycoordinate))
-        out.append(self._to_str(self.vertex_8_zcoordinate))
-        out.append(self._to_str(self.vertex_9_xcoordinate))
-        out.append(self._to_str(self.vertex_9_ycoordinate))
-        out.append(self._to_str(self.vertex_9_zcoordinate))
-        out.append(self._to_str(self.vertex_10_xcoordinate))
-        out.append(self._to_str(self.vertex_10_ycoordinate))
-        out.append(self._to_str(self.vertex_10_zcoordinate))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class WallExterior(object):
     """ Corresponds to IDD object `Wall:Exterior`
@@ -20439,64 +21395,86 @@ class WallExterior(object):
         self._data["Starting Z Coordinate"] = None
         self._data["Length"] = None
         self._data["Height"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.construction_name = None
         else:
             self.construction_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.zone_name = None
         else:
             self.zone_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.azimuth_angle = None
         else:
             self.azimuth_angle = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.tilt_angle = None
         else:
             self.tilt_angle = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.starting_x_coordinate = None
         else:
             self.starting_x_coordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.starting_y_coordinate = None
         else:
             self.starting_y_coordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.starting_z_coordinate = None
         else:
             self.starting_z_coordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.length = None
         else:
             self.length = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.height = None
         else:
             self.height = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -20527,6 +21505,9 @@ class WallExterior(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -20562,6 +21543,9 @@ class WallExterior(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `construction_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `construction_name`')
 
         self._data["Construction Name"] = value
 
@@ -20595,6 +21579,9 @@ class WallExterior(object):
                                  'for field `zone_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `zone_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `zone_name`')
 
         self._data["Zone Name"] = value
@@ -20858,19 +21845,17 @@ class WallExterior(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.construction_name))
-        out.append(self._to_str(self.zone_name))
-        out.append(self._to_str(self.azimuth_angle))
-        out.append(self._to_str(self.tilt_angle))
-        out.append(self._to_str(self.starting_x_coordinate))
-        out.append(self._to_str(self.starting_y_coordinate))
-        out.append(self._to_str(self.starting_z_coordinate))
-        out.append(self._to_str(self.length))
-        out.append(self._to_str(self.height))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class WallAdiabatic(object):
     """ Corresponds to IDD object `Wall:Adiabatic`
@@ -20895,64 +21880,86 @@ class WallAdiabatic(object):
         self._data["Starting Z Coordinate"] = None
         self._data["Length"] = None
         self._data["Height"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.construction_name = None
         else:
             self.construction_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.zone_name = None
         else:
             self.zone_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.azimuth_angle = None
         else:
             self.azimuth_angle = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.tilt_angle = None
         else:
             self.tilt_angle = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.starting_x_coordinate = None
         else:
             self.starting_x_coordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.starting_y_coordinate = None
         else:
             self.starting_y_coordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.starting_z_coordinate = None
         else:
             self.starting_z_coordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.length = None
         else:
             self.length = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.height = None
         else:
             self.height = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -20983,6 +21990,9 @@ class WallAdiabatic(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -21018,6 +22028,9 @@ class WallAdiabatic(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `construction_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `construction_name`')
 
         self._data["Construction Name"] = value
 
@@ -21051,6 +22064,9 @@ class WallAdiabatic(object):
                                  'for field `zone_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `zone_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `zone_name`')
 
         self._data["Zone Name"] = value
@@ -21314,19 +22330,17 @@ class WallAdiabatic(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.construction_name))
-        out.append(self._to_str(self.zone_name))
-        out.append(self._to_str(self.azimuth_angle))
-        out.append(self._to_str(self.tilt_angle))
-        out.append(self._to_str(self.starting_x_coordinate))
-        out.append(self._to_str(self.starting_y_coordinate))
-        out.append(self._to_str(self.starting_z_coordinate))
-        out.append(self._to_str(self.length))
-        out.append(self._to_str(self.height))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class WallUnderground(object):
     """ Corresponds to IDD object `Wall:Underground`
@@ -21351,64 +22365,86 @@ class WallUnderground(object):
         self._data["Starting Z Coordinate"] = None
         self._data["Length"] = None
         self._data["Height"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.construction_name = None
         else:
             self.construction_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.zone_name = None
         else:
             self.zone_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.azimuth_angle = None
         else:
             self.azimuth_angle = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.tilt_angle = None
         else:
             self.tilt_angle = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.starting_x_coordinate = None
         else:
             self.starting_x_coordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.starting_y_coordinate = None
         else:
             self.starting_y_coordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.starting_z_coordinate = None
         else:
             self.starting_z_coordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.length = None
         else:
             self.length = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.height = None
         else:
             self.height = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -21439,6 +22475,9 @@ class WallUnderground(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -21476,6 +22515,9 @@ class WallUnderground(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `construction_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `construction_name`')
 
         self._data["Construction Name"] = value
 
@@ -21509,6 +22551,9 @@ class WallUnderground(object):
                                  'for field `zone_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `zone_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `zone_name`')
 
         self._data["Zone Name"] = value
@@ -21772,19 +22817,17 @@ class WallUnderground(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.construction_name))
-        out.append(self._to_str(self.zone_name))
-        out.append(self._to_str(self.azimuth_angle))
-        out.append(self._to_str(self.tilt_angle))
-        out.append(self._to_str(self.starting_x_coordinate))
-        out.append(self._to_str(self.starting_y_coordinate))
-        out.append(self._to_str(self.starting_z_coordinate))
-        out.append(self._to_str(self.length))
-        out.append(self._to_str(self.height))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class WallInterzone(object):
     """ Corresponds to IDD object `Wall:Interzone`
@@ -21810,69 +22853,93 @@ class WallInterzone(object):
         self._data["Starting Z Coordinate"] = None
         self._data["Length"] = None
         self._data["Height"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.construction_name = None
         else:
             self.construction_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.zone_name = None
         else:
             self.zone_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.outside_boundary_condition_object = None
         else:
             self.outside_boundary_condition_object = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.azimuth_angle = None
         else:
             self.azimuth_angle = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.tilt_angle = None
         else:
             self.tilt_angle = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.starting_x_coordinate = None
         else:
             self.starting_x_coordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.starting_y_coordinate = None
         else:
             self.starting_y_coordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.starting_z_coordinate = None
         else:
             self.starting_z_coordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.length = None
         else:
             self.length = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.height = None
         else:
             self.height = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -21903,6 +22970,9 @@ class WallInterzone(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -21938,6 +23008,9 @@ class WallInterzone(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `construction_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `construction_name`')
 
         self._data["Construction Name"] = value
 
@@ -21971,6 +23044,9 @@ class WallInterzone(object):
                                  'for field `zone_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `zone_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `zone_name`')
 
         self._data["Zone Name"] = value
@@ -22007,6 +23083,9 @@ class WallInterzone(object):
                                  'for field `outside_boundary_condition_object`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `outside_boundary_condition_object`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `outside_boundary_condition_object`')
 
         self._data["Outside Boundary Condition Object"] = value
@@ -22270,20 +23349,17 @@ class WallInterzone(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.construction_name))
-        out.append(self._to_str(self.zone_name))
-        out.append(self._to_str(self.outside_boundary_condition_object))
-        out.append(self._to_str(self.azimuth_angle))
-        out.append(self._to_str(self.tilt_angle))
-        out.append(self._to_str(self.starting_x_coordinate))
-        out.append(self._to_str(self.starting_y_coordinate))
-        out.append(self._to_str(self.starting_z_coordinate))
-        out.append(self._to_str(self.length))
-        out.append(self._to_str(self.height))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class Roof(object):
     """ Corresponds to IDD object `Roof`
@@ -22309,64 +23385,86 @@ class Roof(object):
         self._data["Starting Z Coordinate"] = None
         self._data["Length"] = None
         self._data["Width"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.construction_name = None
         else:
             self.construction_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.zone_name = None
         else:
             self.zone_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.azimuth_angle = None
         else:
             self.azimuth_angle = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.tilt_angle = None
         else:
             self.tilt_angle = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.starting_x_coordinate = None
         else:
             self.starting_x_coordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.starting_y_coordinate = None
         else:
             self.starting_y_coordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.starting_z_coordinate = None
         else:
             self.starting_z_coordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.length = None
         else:
             self.length = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.width = None
         else:
             self.width = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -22397,6 +23495,9 @@ class Roof(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -22432,6 +23533,9 @@ class Roof(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `construction_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `construction_name`')
 
         self._data["Construction Name"] = value
 
@@ -22465,6 +23569,9 @@ class Roof(object):
                                  'for field `zone_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `zone_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `zone_name`')
 
         self._data["Zone Name"] = value
@@ -22730,19 +23837,17 @@ class Roof(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.construction_name))
-        out.append(self._to_str(self.zone_name))
-        out.append(self._to_str(self.azimuth_angle))
-        out.append(self._to_str(self.tilt_angle))
-        out.append(self._to_str(self.starting_x_coordinate))
-        out.append(self._to_str(self.starting_y_coordinate))
-        out.append(self._to_str(self.starting_z_coordinate))
-        out.append(self._to_str(self.length))
-        out.append(self._to_str(self.width))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class CeilingAdiabatic(object):
     """ Corresponds to IDD object `Ceiling:Adiabatic`
@@ -22767,64 +23872,86 @@ class CeilingAdiabatic(object):
         self._data["Starting Z Coordinate"] = None
         self._data["Length"] = None
         self._data["Width"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.construction_name = None
         else:
             self.construction_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.zone_name = None
         else:
             self.zone_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.azimuth_angle = None
         else:
             self.azimuth_angle = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.tilt_angle = None
         else:
             self.tilt_angle = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.starting_x_coordinate = None
         else:
             self.starting_x_coordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.starting_y_coordinate = None
         else:
             self.starting_y_coordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.starting_z_coordinate = None
         else:
             self.starting_z_coordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.length = None
         else:
             self.length = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.width = None
         else:
             self.width = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -22855,6 +23982,9 @@ class CeilingAdiabatic(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -22890,6 +24020,9 @@ class CeilingAdiabatic(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `construction_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `construction_name`')
 
         self._data["Construction Name"] = value
 
@@ -22923,6 +24056,9 @@ class CeilingAdiabatic(object):
                                  'for field `zone_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `zone_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `zone_name`')
 
         self._data["Zone Name"] = value
@@ -23188,19 +24324,17 @@ class CeilingAdiabatic(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.construction_name))
-        out.append(self._to_str(self.zone_name))
-        out.append(self._to_str(self.azimuth_angle))
-        out.append(self._to_str(self.tilt_angle))
-        out.append(self._to_str(self.starting_x_coordinate))
-        out.append(self._to_str(self.starting_y_coordinate))
-        out.append(self._to_str(self.starting_z_coordinate))
-        out.append(self._to_str(self.length))
-        out.append(self._to_str(self.width))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class CeilingInterzone(object):
     """ Corresponds to IDD object `Ceiling:Interzone`
@@ -23227,69 +24361,93 @@ class CeilingInterzone(object):
         self._data["Starting Z Coordinate"] = None
         self._data["Length"] = None
         self._data["Width"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.construction_name = None
         else:
             self.construction_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.zone_name = None
         else:
             self.zone_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.outside_boundary_condition_object = None
         else:
             self.outside_boundary_condition_object = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.azimuth_angle = None
         else:
             self.azimuth_angle = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.tilt_angle = None
         else:
             self.tilt_angle = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.starting_x_coordinate = None
         else:
             self.starting_x_coordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.starting_y_coordinate = None
         else:
             self.starting_y_coordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.starting_z_coordinate = None
         else:
             self.starting_z_coordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.length = None
         else:
             self.length = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.width = None
         else:
             self.width = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -23320,6 +24478,9 @@ class CeilingInterzone(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -23355,6 +24516,9 @@ class CeilingInterzone(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `construction_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `construction_name`')
 
         self._data["Construction Name"] = value
 
@@ -23388,6 +24552,9 @@ class CeilingInterzone(object):
                                  'for field `zone_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `zone_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `zone_name`')
 
         self._data["Zone Name"] = value
@@ -23424,6 +24591,9 @@ class CeilingInterzone(object):
                                  'for field `outside_boundary_condition_object`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `outside_boundary_condition_object`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `outside_boundary_condition_object`')
 
         self._data["Outside Boundary Condition Object"] = value
@@ -23689,20 +24859,17 @@ class CeilingInterzone(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.construction_name))
-        out.append(self._to_str(self.zone_name))
-        out.append(self._to_str(self.outside_boundary_condition_object))
-        out.append(self._to_str(self.azimuth_angle))
-        out.append(self._to_str(self.tilt_angle))
-        out.append(self._to_str(self.starting_x_coordinate))
-        out.append(self._to_str(self.starting_y_coordinate))
-        out.append(self._to_str(self.starting_z_coordinate))
-        out.append(self._to_str(self.length))
-        out.append(self._to_str(self.width))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class FloorGroundContact(object):
     """ Corresponds to IDD object `Floor:GroundContact`
@@ -23728,64 +24895,86 @@ class FloorGroundContact(object):
         self._data["Starting Z Coordinate"] = None
         self._data["Length"] = None
         self._data["Width"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.construction_name = None
         else:
             self.construction_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.zone_name = None
         else:
             self.zone_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.azimuth_angle = None
         else:
             self.azimuth_angle = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.tilt_angle = None
         else:
             self.tilt_angle = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.starting_x_coordinate = None
         else:
             self.starting_x_coordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.starting_y_coordinate = None
         else:
             self.starting_y_coordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.starting_z_coordinate = None
         else:
             self.starting_z_coordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.length = None
         else:
             self.length = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.width = None
         else:
             self.width = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -23816,6 +25005,9 @@ class FloorGroundContact(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -23853,464 +25045,8 @@ class FloorGroundContact(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `construction_name`')
-
-        self._data["Construction Name"] = value
-
-    @property
-    def zone_name(self):
-        """Get zone_name
-
-        Returns:
-            str: the value of `zone_name` or None if not set
-        """
-        return self._data["Zone Name"]
-
-    @zone_name.setter
-    def zone_name(self, value=None):
-        """  Corresponds to IDD Field `zone_name`
-        Zone the surface is a part of
-
-        Args:
-            value (str): value for IDD Field `zone_name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except:
-                raise ValueError('value {} need to be of type str '
-                                 'for field `zone_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `zone_name`')
-
-        self._data["Zone Name"] = value
-
-    @property
-    def azimuth_angle(self):
-        """Get azimuth_angle
-
-        Returns:
-            float: the value of `azimuth_angle` or None if not set
-        """
-        return self._data["Azimuth Angle"]
-
-    @azimuth_angle.setter
-    def azimuth_angle(self, value=None):
-        """  Corresponds to IDD Field `azimuth_angle`
-
-        Args:
-            value (float): value for IDD Field `azimuth_angle`
-                Units: deg
-                value >= 0.0
-                value <= 360.0
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except:
-                raise ValueError('value {} need to be of type float '
-                                 'for field `azimuth_angle`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `azimuth_angle`')
-            if value > 360.0:
-                raise ValueError('value need to be smaller 360.0 '
-                                 'for field `azimuth_angle`')
-
-        self._data["Azimuth Angle"] = value
-
-    @property
-    def tilt_angle(self):
-        """Get tilt_angle
-
-        Returns:
-            float: the value of `tilt_angle` or None if not set
-        """
-        return self._data["Tilt Angle"]
-
-    @tilt_angle.setter
-    def tilt_angle(self, value=180.0 ):
-        """  Corresponds to IDD Field `tilt_angle`
-        Floors are usually tilted 180 degrees
-
-        Args:
-            value (float): value for IDD Field `tilt_angle`
-                Units: deg
-                Default value: 180.0
-                value >= 0.0
-                value <= 180.0
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except:
-                raise ValueError('value {} need to be of type float '
-                                 'for field `tilt_angle`'.format(value))
-            if value < 0.0:
-                raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `tilt_angle`')
-            if value > 180.0:
-                raise ValueError('value need to be smaller 180.0 '
-                                 'for field `tilt_angle`')
-
-        self._data["Tilt Angle"] = value
-
-    @property
-    def starting_x_coordinate(self):
-        """Get starting_x_coordinate
-
-        Returns:
-            float: the value of `starting_x_coordinate` or None if not set
-        """
-        return self._data["Starting X Coordinate"]
-
-    @starting_x_coordinate.setter
-    def starting_x_coordinate(self, value=None):
-        """  Corresponds to IDD Field `starting_x_coordinate`
-        if not flat, should be lower left corner (from outside)
-
-        Args:
-            value (float): value for IDD Field `starting_x_coordinate`
-                Units: m
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except:
-                raise ValueError('value {} need to be of type float '
-                                 'for field `starting_x_coordinate`'.format(value))
-
-        self._data["Starting X Coordinate"] = value
-
-    @property
-    def starting_y_coordinate(self):
-        """Get starting_y_coordinate
-
-        Returns:
-            float: the value of `starting_y_coordinate` or None if not set
-        """
-        return self._data["Starting Y Coordinate"]
-
-    @starting_y_coordinate.setter
-    def starting_y_coordinate(self, value=None):
-        """  Corresponds to IDD Field `starting_y_coordinate`
-
-        Args:
-            value (float): value for IDD Field `starting_y_coordinate`
-                Units: m
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except:
-                raise ValueError('value {} need to be of type float '
-                                 'for field `starting_y_coordinate`'.format(value))
-
-        self._data["Starting Y Coordinate"] = value
-
-    @property
-    def starting_z_coordinate(self):
-        """Get starting_z_coordinate
-
-        Returns:
-            float: the value of `starting_z_coordinate` or None if not set
-        """
-        return self._data["Starting Z Coordinate"]
-
-    @starting_z_coordinate.setter
-    def starting_z_coordinate(self, value=None):
-        """  Corresponds to IDD Field `starting_z_coordinate`
-
-        Args:
-            value (float): value for IDD Field `starting_z_coordinate`
-                Units: m
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except:
-                raise ValueError('value {} need to be of type float '
-                                 'for field `starting_z_coordinate`'.format(value))
-
-        self._data["Starting Z Coordinate"] = value
-
-    @property
-    def length(self):
-        """Get length
-
-        Returns:
-            float: the value of `length` or None if not set
-        """
-        return self._data["Length"]
-
-    @length.setter
-    def length(self, value=None):
-        """  Corresponds to IDD Field `length`
-        Along X Axis
-
-        Args:
-            value (float): value for IDD Field `length`
-                Units: m
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except:
-                raise ValueError('value {} need to be of type float '
-                                 'for field `length`'.format(value))
-
-        self._data["Length"] = value
-
-    @property
-    def width(self):
-        """Get width
-
-        Returns:
-            float: the value of `width` or None if not set
-        """
-        return self._data["Width"]
-
-    @width.setter
-    def width(self, value=None):
-        """  Corresponds to IDD Field `width`
-        Along Y Axis
-
-        Args:
-            value (float): value for IDD Field `width`
-                Units: m
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = float(value)
-            except:
-                raise ValueError('value {} need to be of type float '
-                                 'for field `width`'.format(value))
-
-        self._data["Width"] = value
-
-    def check(self):
-        """ Checks if all required fields are not None
-        """
-        good = True
-        for key in self.required_fields:
-            if self._data[key] is None:
-                good = False
-                break
-        return good
-
-    @classmethod
-    def _to_str(cls, value):
-        """ Represents values either as string or None values as empty string
-
-        Args:
-            value: a value
-        """
-        if value is None:
-            return ''
-        else:
-            return str(value)
-
-    def __str__(self):
-        out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.construction_name))
-        out.append(self._to_str(self.zone_name))
-        out.append(self._to_str(self.azimuth_angle))
-        out.append(self._to_str(self.tilt_angle))
-        out.append(self._to_str(self.starting_x_coordinate))
-        out.append(self._to_str(self.starting_y_coordinate))
-        out.append(self._to_str(self.starting_z_coordinate))
-        out.append(self._to_str(self.length))
-        out.append(self._to_str(self.width))
-        return ",".join(out)
-
-class FloorAdiabatic(object):
-    """ Corresponds to IDD object `Floor:Adiabatic`
-        Allows for simplified entry of exterior floors
-        ignoring ground contact or interior floors.
-        View Factor to Ground is automatically calculated.
-    
-    """
-    internal_name = "Floor:Adiabatic"
-    field_count = 10
-    required_fields = ["Name", "Construction Name", "Zone Name"]
-
-    def __init__(self):
-        """ Init data dictionary object for IDD  `Floor:Adiabatic`
-        """
-        self._data = OrderedDict()
-        self._data["Name"] = None
-        self._data["Construction Name"] = None
-        self._data["Zone Name"] = None
-        self._data["Azimuth Angle"] = None
-        self._data["Tilt Angle"] = None
-        self._data["Starting X Coordinate"] = None
-        self._data["Starting Y Coordinate"] = None
-        self._data["Starting Z Coordinate"] = None
-        self._data["Length"] = None
-        self._data["Width"] = None
-
-    def read(self, vals):
-        """ Read values
-
-        Args:
-            vals (list): list of strings representing values
-        """
-        i = 0
-        if len(vals[i]) == 0:
-            self.name = None
-        else:
-            self.name = vals[i]
-        i += 1
-        if len(vals[i]) == 0:
-            self.construction_name = None
-        else:
-            self.construction_name = vals[i]
-        i += 1
-        if len(vals[i]) == 0:
-            self.zone_name = None
-        else:
-            self.zone_name = vals[i]
-        i += 1
-        if len(vals[i]) == 0:
-            self.azimuth_angle = None
-        else:
-            self.azimuth_angle = vals[i]
-        i += 1
-        if len(vals[i]) == 0:
-            self.tilt_angle = None
-        else:
-            self.tilt_angle = vals[i]
-        i += 1
-        if len(vals[i]) == 0:
-            self.starting_x_coordinate = None
-        else:
-            self.starting_x_coordinate = vals[i]
-        i += 1
-        if len(vals[i]) == 0:
-            self.starting_y_coordinate = None
-        else:
-            self.starting_y_coordinate = vals[i]
-        i += 1
-        if len(vals[i]) == 0:
-            self.starting_z_coordinate = None
-        else:
-            self.starting_z_coordinate = vals[i]
-        i += 1
-        if len(vals[i]) == 0:
-            self.length = None
-        else:
-            self.length = vals[i]
-        i += 1
-        if len(vals[i]) == 0:
-            self.width = None
-        else:
-            self.width = vals[i]
-        i += 1
-
-    @property
-    def name(self):
-        """Get name
-
-        Returns:
-            str: the value of `name` or None if not set
-        """
-        return self._data["Name"]
-
-    @name.setter
-    def name(self, value=None):
-        """  Corresponds to IDD Field `name`
-
-        Args:
-            value (str): value for IDD Field `name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except:
-                raise ValueError('value {} need to be of type str '
-                                 'for field `name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
-                                 'for field `name`')
-
-        self._data["Name"] = value
-
-    @property
-    def construction_name(self):
-        """Get construction_name
-
-        Returns:
-            str: the value of `construction_name` or None if not set
-        """
-        return self._data["Construction Name"]
-
-    @construction_name.setter
-    def construction_name(self, value=None):
-        """  Corresponds to IDD Field `construction_name`
-        To be matched with a construction in this input file
-
-        Args:
-            value (str): value for IDD Field `construction_name`
-                if `value` is None it will not be checked against the
-                specification and is assumed to be a missing value
-
-        Raises:
-            ValueError: if `value` is not a valid value
-        """
-        if value is not None:
-            try:
-                value = str(value)
-            except:
-                raise ValueError('value {} need to be of type str '
-                                 'for field `construction_name`'.format(value))
-            if ',' in value:
-                raise ValueError('value should not contain a comma '
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `construction_name`')
 
         self._data["Construction Name"] = value
@@ -24346,6 +25082,9 @@ class FloorAdiabatic(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `zone_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `zone_name`')
 
         self._data["Zone Name"] = value
 
@@ -24609,38 +25348,36 @@ class FloorAdiabatic(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.construction_name))
-        out.append(self._to_str(self.zone_name))
-        out.append(self._to_str(self.azimuth_angle))
-        out.append(self._to_str(self.tilt_angle))
-        out.append(self._to_str(self.starting_x_coordinate))
-        out.append(self._to_str(self.starting_y_coordinate))
-        out.append(self._to_str(self.starting_z_coordinate))
-        out.append(self._to_str(self.length))
-        out.append(self._to_str(self.width))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
 
-class FloorInterzone(object):
-    """ Corresponds to IDD object `Floor:Interzone`
-        Allows for simplified entry of floors using adjacent zone
-        (interzone) heat transfer - adjacent surface should be a ceiling.
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
+
+class FloorAdiabatic(object):
+    """ Corresponds to IDD object `Floor:Adiabatic`
+        Allows for simplified entry of exterior floors
+        ignoring ground contact or interior floors.
+        View Factor to Ground is automatically calculated.
     
     """
-    internal_name = "Floor:Interzone"
-    field_count = 11
-    required_fields = ["Name", "Construction Name", "Zone Name", "Outside Boundary Condition Object"]
+    internal_name = "Floor:Adiabatic"
+    field_count = 10
+    required_fields = ["Name", "Construction Name", "Zone Name"]
 
     def __init__(self):
-        """ Init data dictionary object for IDD  `Floor:Interzone`
+        """ Init data dictionary object for IDD  `Floor:Adiabatic`
         """
         self._data = OrderedDict()
         self._data["Name"] = None
         self._data["Construction Name"] = None
         self._data["Zone Name"] = None
-        self._data["Outside Boundary Condition Object"] = None
         self._data["Azimuth Angle"] = None
         self._data["Tilt Angle"] = None
         self._data["Starting X Coordinate"] = None
@@ -24648,69 +25385,86 @@ class FloorInterzone(object):
         self._data["Starting Z Coordinate"] = None
         self._data["Length"] = None
         self._data["Width"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.construction_name = None
         else:
             self.construction_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.zone_name = None
         else:
             self.zone_name = vals[i]
         i += 1
-        if len(vals[i]) == 0:
-            self.outside_boundary_condition_object = None
-        else:
-            self.outside_boundary_condition_object = vals[i]
-        i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.azimuth_angle = None
         else:
             self.azimuth_angle = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.tilt_angle = None
         else:
             self.tilt_angle = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.starting_x_coordinate = None
         else:
             self.starting_x_coordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.starting_y_coordinate = None
         else:
             self.starting_y_coordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.starting_z_coordinate = None
         else:
             self.starting_z_coordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.length = None
         else:
             self.length = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.width = None
         else:
             self.width = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -24741,6 +25495,9 @@ class FloorInterzone(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -24775,6 +25532,504 @@ class FloorInterzone(object):
                                  'for field `construction_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `construction_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `construction_name`')
+
+        self._data["Construction Name"] = value
+
+    @property
+    def zone_name(self):
+        """Get zone_name
+
+        Returns:
+            str: the value of `zone_name` or None if not set
+        """
+        return self._data["Zone Name"]
+
+    @zone_name.setter
+    def zone_name(self, value=None):
+        """  Corresponds to IDD Field `zone_name`
+        Zone the surface is a part of
+
+        Args:
+            value (str): value for IDD Field `zone_name`
+                if `value` is None it will not be checked against the
+                specification and is assumed to be a missing value
+
+        Raises:
+            ValueError: if `value` is not a valid value
+        """
+        if value is not None:
+            try:
+                value = str(value)
+            except:
+                raise ValueError('value {} need to be of type str '
+                                 'for field `zone_name`'.format(value))
+            if ',' in value:
+                raise ValueError('value should not contain a comma '
+                                 'for field `zone_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `zone_name`')
+
+        self._data["Zone Name"] = value
+
+    @property
+    def azimuth_angle(self):
+        """Get azimuth_angle
+
+        Returns:
+            float: the value of `azimuth_angle` or None if not set
+        """
+        return self._data["Azimuth Angle"]
+
+    @azimuth_angle.setter
+    def azimuth_angle(self, value=None):
+        """  Corresponds to IDD Field `azimuth_angle`
+
+        Args:
+            value (float): value for IDD Field `azimuth_angle`
+                Units: deg
+                value >= 0.0
+                value <= 360.0
+                if `value` is None it will not be checked against the
+                specification and is assumed to be a missing value
+
+        Raises:
+            ValueError: if `value` is not a valid value
+        """
+        if value is not None:
+            try:
+                value = float(value)
+            except:
+                raise ValueError('value {} need to be of type float '
+                                 'for field `azimuth_angle`'.format(value))
+            if value < 0.0:
+                raise ValueError('value need to be greater or equal 0.0 '
+                                 'for field `azimuth_angle`')
+            if value > 360.0:
+                raise ValueError('value need to be smaller 360.0 '
+                                 'for field `azimuth_angle`')
+
+        self._data["Azimuth Angle"] = value
+
+    @property
+    def tilt_angle(self):
+        """Get tilt_angle
+
+        Returns:
+            float: the value of `tilt_angle` or None if not set
+        """
+        return self._data["Tilt Angle"]
+
+    @tilt_angle.setter
+    def tilt_angle(self, value=180.0 ):
+        """  Corresponds to IDD Field `tilt_angle`
+        Floors are usually tilted 180 degrees
+
+        Args:
+            value (float): value for IDD Field `tilt_angle`
+                Units: deg
+                Default value: 180.0
+                value >= 0.0
+                value <= 180.0
+                if `value` is None it will not be checked against the
+                specification and is assumed to be a missing value
+
+        Raises:
+            ValueError: if `value` is not a valid value
+        """
+        if value is not None:
+            try:
+                value = float(value)
+            except:
+                raise ValueError('value {} need to be of type float '
+                                 'for field `tilt_angle`'.format(value))
+            if value < 0.0:
+                raise ValueError('value need to be greater or equal 0.0 '
+                                 'for field `tilt_angle`')
+            if value > 180.0:
+                raise ValueError('value need to be smaller 180.0 '
+                                 'for field `tilt_angle`')
+
+        self._data["Tilt Angle"] = value
+
+    @property
+    def starting_x_coordinate(self):
+        """Get starting_x_coordinate
+
+        Returns:
+            float: the value of `starting_x_coordinate` or None if not set
+        """
+        return self._data["Starting X Coordinate"]
+
+    @starting_x_coordinate.setter
+    def starting_x_coordinate(self, value=None):
+        """  Corresponds to IDD Field `starting_x_coordinate`
+        if not flat, should be lower left corner (from outside)
+
+        Args:
+            value (float): value for IDD Field `starting_x_coordinate`
+                Units: m
+                if `value` is None it will not be checked against the
+                specification and is assumed to be a missing value
+
+        Raises:
+            ValueError: if `value` is not a valid value
+        """
+        if value is not None:
+            try:
+                value = float(value)
+            except:
+                raise ValueError('value {} need to be of type float '
+                                 'for field `starting_x_coordinate`'.format(value))
+
+        self._data["Starting X Coordinate"] = value
+
+    @property
+    def starting_y_coordinate(self):
+        """Get starting_y_coordinate
+
+        Returns:
+            float: the value of `starting_y_coordinate` or None if not set
+        """
+        return self._data["Starting Y Coordinate"]
+
+    @starting_y_coordinate.setter
+    def starting_y_coordinate(self, value=None):
+        """  Corresponds to IDD Field `starting_y_coordinate`
+
+        Args:
+            value (float): value for IDD Field `starting_y_coordinate`
+                Units: m
+                if `value` is None it will not be checked against the
+                specification and is assumed to be a missing value
+
+        Raises:
+            ValueError: if `value` is not a valid value
+        """
+        if value is not None:
+            try:
+                value = float(value)
+            except:
+                raise ValueError('value {} need to be of type float '
+                                 'for field `starting_y_coordinate`'.format(value))
+
+        self._data["Starting Y Coordinate"] = value
+
+    @property
+    def starting_z_coordinate(self):
+        """Get starting_z_coordinate
+
+        Returns:
+            float: the value of `starting_z_coordinate` or None if not set
+        """
+        return self._data["Starting Z Coordinate"]
+
+    @starting_z_coordinate.setter
+    def starting_z_coordinate(self, value=None):
+        """  Corresponds to IDD Field `starting_z_coordinate`
+
+        Args:
+            value (float): value for IDD Field `starting_z_coordinate`
+                Units: m
+                if `value` is None it will not be checked against the
+                specification and is assumed to be a missing value
+
+        Raises:
+            ValueError: if `value` is not a valid value
+        """
+        if value is not None:
+            try:
+                value = float(value)
+            except:
+                raise ValueError('value {} need to be of type float '
+                                 'for field `starting_z_coordinate`'.format(value))
+
+        self._data["Starting Z Coordinate"] = value
+
+    @property
+    def length(self):
+        """Get length
+
+        Returns:
+            float: the value of `length` or None if not set
+        """
+        return self._data["Length"]
+
+    @length.setter
+    def length(self, value=None):
+        """  Corresponds to IDD Field `length`
+        Along X Axis
+
+        Args:
+            value (float): value for IDD Field `length`
+                Units: m
+                if `value` is None it will not be checked against the
+                specification and is assumed to be a missing value
+
+        Raises:
+            ValueError: if `value` is not a valid value
+        """
+        if value is not None:
+            try:
+                value = float(value)
+            except:
+                raise ValueError('value {} need to be of type float '
+                                 'for field `length`'.format(value))
+
+        self._data["Length"] = value
+
+    @property
+    def width(self):
+        """Get width
+
+        Returns:
+            float: the value of `width` or None if not set
+        """
+        return self._data["Width"]
+
+    @width.setter
+    def width(self, value=None):
+        """  Corresponds to IDD Field `width`
+        Along Y Axis
+
+        Args:
+            value (float): value for IDD Field `width`
+                Units: m
+                if `value` is None it will not be checked against the
+                specification and is assumed to be a missing value
+
+        Raises:
+            ValueError: if `value` is not a valid value
+        """
+        if value is not None:
+            try:
+                value = float(value)
+            except:
+                raise ValueError('value {} need to be of type float '
+                                 'for field `width`'.format(value))
+
+        self._data["Width"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
+    @classmethod
+    def _to_str(cls, value):
+        """ Represents values either as string or None values as empty string
+
+        Args:
+            value: a value
+        """
+        if value is None:
+            return ''
+        else:
+            return str(value)
+
+    def export(self):
+        """ Export values of data object as list of strings"""
+        out = []
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
+
+class FloorInterzone(object):
+    """ Corresponds to IDD object `Floor:Interzone`
+        Allows for simplified entry of floors using adjacent zone
+        (interzone) heat transfer - adjacent surface should be a ceiling.
+    
+    """
+    internal_name = "Floor:Interzone"
+    field_count = 11
+    required_fields = ["Name", "Construction Name", "Zone Name", "Outside Boundary Condition Object"]
+
+    def __init__(self):
+        """ Init data dictionary object for IDD  `Floor:Interzone`
+        """
+        self._data = OrderedDict()
+        self._data["Name"] = None
+        self._data["Construction Name"] = None
+        self._data["Zone Name"] = None
+        self._data["Outside Boundary Condition Object"] = None
+        self._data["Azimuth Angle"] = None
+        self._data["Tilt Angle"] = None
+        self._data["Starting X Coordinate"] = None
+        self._data["Starting Y Coordinate"] = None
+        self._data["Starting Z Coordinate"] = None
+        self._data["Length"] = None
+        self._data["Width"] = None
+        self.accept_substring = False
+
+    def read(self, vals, accept_substring=True):
+        """ Read values
+
+        Args:
+            vals (list): list of strings representing values
+        """
+        self.accept_substring = accept_substring
+        i = 0
+        if len(vals[i]) == 0:
+            self.name = None
+        else:
+            self.name = vals[i]
+        i += 1
+        if i >= len(vals):
+            return
+        if len(vals[i]) == 0:
+            self.construction_name = None
+        else:
+            self.construction_name = vals[i]
+        i += 1
+        if i >= len(vals):
+            return
+        if len(vals[i]) == 0:
+            self.zone_name = None
+        else:
+            self.zone_name = vals[i]
+        i += 1
+        if i >= len(vals):
+            return
+        if len(vals[i]) == 0:
+            self.outside_boundary_condition_object = None
+        else:
+            self.outside_boundary_condition_object = vals[i]
+        i += 1
+        if i >= len(vals):
+            return
+        if len(vals[i]) == 0:
+            self.azimuth_angle = None
+        else:
+            self.azimuth_angle = vals[i]
+        i += 1
+        if i >= len(vals):
+            return
+        if len(vals[i]) == 0:
+            self.tilt_angle = None
+        else:
+            self.tilt_angle = vals[i]
+        i += 1
+        if i >= len(vals):
+            return
+        if len(vals[i]) == 0:
+            self.starting_x_coordinate = None
+        else:
+            self.starting_x_coordinate = vals[i]
+        i += 1
+        if i >= len(vals):
+            return
+        if len(vals[i]) == 0:
+            self.starting_y_coordinate = None
+        else:
+            self.starting_y_coordinate = vals[i]
+        i += 1
+        if i >= len(vals):
+            return
+        if len(vals[i]) == 0:
+            self.starting_z_coordinate = None
+        else:
+            self.starting_z_coordinate = vals[i]
+        i += 1
+        if i >= len(vals):
+            return
+        if len(vals[i]) == 0:
+            self.length = None
+        else:
+            self.length = vals[i]
+        i += 1
+        if i >= len(vals):
+            return
+        if len(vals[i]) == 0:
+            self.width = None
+        else:
+            self.width = vals[i]
+        i += 1
+        if i >= len(vals):
+            return
+
+    @property
+    def name(self):
+        """Get name
+
+        Returns:
+            str: the value of `name` or None if not set
+        """
+        return self._data["Name"]
+
+    @name.setter
+    def name(self, value=None):
+        """  Corresponds to IDD Field `name`
+
+        Args:
+            value (str): value for IDD Field `name`
+                if `value` is None it will not be checked against the
+                specification and is assumed to be a missing value
+
+        Raises:
+            ValueError: if `value` is not a valid value
+        """
+        if value is not None:
+            try:
+                value = str(value)
+            except:
+                raise ValueError('value {} need to be of type str '
+                                 'for field `name`'.format(value))
+            if ',' in value:
+                raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `name`')
+
+        self._data["Name"] = value
+
+    @property
+    def construction_name(self):
+        """Get construction_name
+
+        Returns:
+            str: the value of `construction_name` or None if not set
+        """
+        return self._data["Construction Name"]
+
+    @construction_name.setter
+    def construction_name(self, value=None):
+        """  Corresponds to IDD Field `construction_name`
+        To be matched with a construction in this input file
+
+        Args:
+            value (str): value for IDD Field `construction_name`
+                if `value` is None it will not be checked against the
+                specification and is assumed to be a missing value
+
+        Raises:
+            ValueError: if `value` is not a valid value
+        """
+        if value is not None:
+            try:
+                value = str(value)
+            except:
+                raise ValueError('value {} need to be of type str '
+                                 'for field `construction_name`'.format(value))
+            if ',' in value:
+                raise ValueError('value should not contain a comma '
+                                 'for field `construction_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `construction_name`')
 
         self._data["Construction Name"] = value
@@ -24809,6 +26064,9 @@ class FloorInterzone(object):
                                  'for field `zone_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `zone_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `zone_name`')
 
         self._data["Zone Name"] = value
@@ -24845,6 +26103,9 @@ class FloorInterzone(object):
                                  'for field `outside_boundary_condition_object`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `outside_boundary_condition_object`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `outside_boundary_condition_object`')
 
         self._data["Outside Boundary Condition Object"] = value
@@ -25109,20 +26370,17 @@ class FloorInterzone(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.construction_name))
-        out.append(self._to_str(self.zone_name))
-        out.append(self._to_str(self.outside_boundary_condition_object))
-        out.append(self._to_str(self.azimuth_angle))
-        out.append(self._to_str(self.tilt_angle))
-        out.append(self._to_str(self.starting_x_coordinate))
-        out.append(self._to_str(self.starting_y_coordinate))
-        out.append(self._to_str(self.starting_z_coordinate))
-        out.append(self._to_str(self.length))
-        out.append(self._to_str(self.width))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class FenestrationSurfaceDetailed(object):
     """ Corresponds to IDD object `FenestrationSurface:Detailed`
@@ -25160,124 +26418,170 @@ class FenestrationSurfaceDetailed(object):
         self._data["Vertex 4 X-coordinate"] = None
         self._data["Vertex 4 Y-coordinate"] = None
         self._data["Vertex 4 Z-coordinate"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_type = None
         else:
             self.surface_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.construction_name = None
         else:
             self.construction_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.building_surface_name = None
         else:
             self.building_surface_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.outside_boundary_condition_object = None
         else:
             self.outside_boundary_condition_object = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.view_factor_to_ground = None
         else:
             self.view_factor_to_ground = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.shading_control_name = None
         else:
             self.shading_control_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.frame_and_divider_name = None
         else:
             self.frame_and_divider_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.multiplier = None
         else:
             self.multiplier = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.number_of_vertices = None
         else:
             self.number_of_vertices = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_1_xcoordinate = None
         else:
             self.vertex_1_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_1_ycoordinate = None
         else:
             self.vertex_1_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_1_zcoordinate = None
         else:
             self.vertex_1_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_2_xcoordinate = None
         else:
             self.vertex_2_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_2_ycoordinate = None
         else:
             self.vertex_2_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_2_zcoordinate = None
         else:
             self.vertex_2_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_3_xcoordinate = None
         else:
             self.vertex_3_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_3_ycoordinate = None
         else:
             self.vertex_3_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_3_zcoordinate = None
         else:
             self.vertex_3_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_4_xcoordinate = None
         else:
             self.vertex_4_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_4_ycoordinate = None
         else:
             self.vertex_4_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_4_zcoordinate = None
         else:
             self.vertex_4_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -25308,6 +26612,9 @@ class FenestrationSurfaceDetailed(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -25348,15 +26655,29 @@ class FenestrationSurfaceDetailed(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_type`')
-            vals = set()
-            vals.add("Window")
-            vals.add("Door")
-            vals.add("GlassDoor")
-            vals.add("TubularDaylightDome")
-            vals.add("TubularDaylightDiffuser")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `surface_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_type`')
+            vals = {}
+            vals["window"] = "Window"
+            vals["door"] = "Door"
+            vals["glassdoor"] = "GlassDoor"
+            vals["tubulardaylightdome"] = "TubularDaylightDome"
+            vals["tubulardaylightdiffuser"] = "TubularDaylightDiffuser"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `surface_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Surface Type"] = value
 
@@ -25391,6 +26712,9 @@ class FenestrationSurfaceDetailed(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `construction_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `construction_name`')
 
         self._data["Construction Name"] = value
 
@@ -25423,6 +26747,9 @@ class FenestrationSurfaceDetailed(object):
                                  'for field `building_surface_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `building_surface_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `building_surface_name`')
 
         self._data["Building Surface Name"] = value
@@ -25462,6 +26789,9 @@ class FenestrationSurfaceDetailed(object):
                                  'for field `outside_boundary_condition_object`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `outside_boundary_condition_object`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `outside_boundary_condition_object`')
 
         self._data["Outside Boundary Condition Object"] = value
@@ -25541,6 +26871,9 @@ class FenestrationSurfaceDetailed(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `shading_control_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `shading_control_name`')
 
         self._data["Shading Control Name"] = value
 
@@ -25578,6 +26911,9 @@ class FenestrationSurfaceDetailed(object):
                                  'for field `frame_and_divider_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `frame_and_divider_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `frame_and_divider_name`')
 
         self._data["Frame and Divider Name"] = value
@@ -26057,31 +27393,17 @@ class FenestrationSurfaceDetailed(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.surface_type))
-        out.append(self._to_str(self.construction_name))
-        out.append(self._to_str(self.building_surface_name))
-        out.append(self._to_str(self.outside_boundary_condition_object))
-        out.append(self._to_str(self.view_factor_to_ground))
-        out.append(self._to_str(self.shading_control_name))
-        out.append(self._to_str(self.frame_and_divider_name))
-        out.append(self._to_str(self.multiplier))
-        out.append(self._to_str(self.number_of_vertices))
-        out.append(self._to_str(self.vertex_1_xcoordinate))
-        out.append(self._to_str(self.vertex_1_ycoordinate))
-        out.append(self._to_str(self.vertex_1_zcoordinate))
-        out.append(self._to_str(self.vertex_2_xcoordinate))
-        out.append(self._to_str(self.vertex_2_ycoordinate))
-        out.append(self._to_str(self.vertex_2_zcoordinate))
-        out.append(self._to_str(self.vertex_3_xcoordinate))
-        out.append(self._to_str(self.vertex_3_ycoordinate))
-        out.append(self._to_str(self.vertex_3_zcoordinate))
-        out.append(self._to_str(self.vertex_4_xcoordinate))
-        out.append(self._to_str(self.vertex_4_ycoordinate))
-        out.append(self._to_str(self.vertex_4_zcoordinate))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class Window(object):
     """ Corresponds to IDD object `Window`
@@ -26106,64 +27428,86 @@ class Window(object):
         self._data["Starting Z Coordinate"] = None
         self._data["Length"] = None
         self._data["Height"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.construction_name = None
         else:
             self.construction_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.building_surface_name = None
         else:
             self.building_surface_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.shading_control_name = None
         else:
             self.shading_control_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.frame_and_divider_name = None
         else:
             self.frame_and_divider_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.multiplier = None
         else:
             self.multiplier = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.starting_x_coordinate = None
         else:
             self.starting_x_coordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.starting_z_coordinate = None
         else:
             self.starting_z_coordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.length = None
         else:
             self.length = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.height = None
         else:
             self.height = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -26194,6 +27538,9 @@ class Window(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -26228,6 +27575,9 @@ class Window(object):
                                  'for field `construction_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `construction_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `construction_name`')
 
         self._data["Construction Name"] = value
@@ -26264,6 +27614,9 @@ class Window(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `building_surface_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `building_surface_name`')
 
         self._data["Building Surface Name"] = value
 
@@ -26299,6 +27652,9 @@ class Window(object):
                                  'for field `shading_control_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `shading_control_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `shading_control_name`')
 
         self._data["Shading Control Name"] = value
@@ -26337,6 +27693,9 @@ class Window(object):
                                  'for field `frame_and_divider_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `frame_and_divider_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `frame_and_divider_name`')
 
         self._data["Frame and Divider Name"] = value
@@ -26526,19 +27885,17 @@ class Window(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.construction_name))
-        out.append(self._to_str(self.building_surface_name))
-        out.append(self._to_str(self.shading_control_name))
-        out.append(self._to_str(self.frame_and_divider_name))
-        out.append(self._to_str(self.multiplier))
-        out.append(self._to_str(self.starting_x_coordinate))
-        out.append(self._to_str(self.starting_z_coordinate))
-        out.append(self._to_str(self.length))
-        out.append(self._to_str(self.height))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class Door(object):
     """ Corresponds to IDD object `Door`
@@ -26561,54 +27918,72 @@ class Door(object):
         self._data["Starting Z Coordinate"] = None
         self._data["Length"] = None
         self._data["Height"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.construction_name = None
         else:
             self.construction_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.building_surface_name = None
         else:
             self.building_surface_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.multiplier = None
         else:
             self.multiplier = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.starting_x_coordinate = None
         else:
             self.starting_x_coordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.starting_z_coordinate = None
         else:
             self.starting_z_coordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.length = None
         else:
             self.length = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.height = None
         else:
             self.height = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -26639,6 +28014,9 @@ class Door(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -26674,6 +28052,9 @@ class Door(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `construction_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `construction_name`')
 
         self._data["Construction Name"] = value
 
@@ -26708,6 +28089,9 @@ class Door(object):
                                  'for field `building_surface_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `building_surface_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `building_surface_name`')
 
         self._data["Building Surface Name"] = value
@@ -26897,17 +28281,17 @@ class Door(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.construction_name))
-        out.append(self._to_str(self.building_surface_name))
-        out.append(self._to_str(self.multiplier))
-        out.append(self._to_str(self.starting_x_coordinate))
-        out.append(self._to_str(self.starting_z_coordinate))
-        out.append(self._to_str(self.length))
-        out.append(self._to_str(self.height))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class GlazedDoor(object):
     """ Corresponds to IDD object `GlazedDoor`
@@ -26932,64 +28316,86 @@ class GlazedDoor(object):
         self._data["Starting Z Coordinate"] = None
         self._data["Length"] = None
         self._data["Height"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.construction_name = None
         else:
             self.construction_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.building_surface_name = None
         else:
             self.building_surface_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.shading_control_name = None
         else:
             self.shading_control_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.frame_and_divider_name = None
         else:
             self.frame_and_divider_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.multiplier = None
         else:
             self.multiplier = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.starting_x_coordinate = None
         else:
             self.starting_x_coordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.starting_z_coordinate = None
         else:
             self.starting_z_coordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.length = None
         else:
             self.length = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.height = None
         else:
             self.height = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -27020,6 +28426,9 @@ class GlazedDoor(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -27054,6 +28463,9 @@ class GlazedDoor(object):
                                  'for field `construction_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `construction_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `construction_name`')
 
         self._data["Construction Name"] = value
@@ -27090,6 +28502,9 @@ class GlazedDoor(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `building_surface_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `building_surface_name`')
 
         self._data["Building Surface Name"] = value
 
@@ -27125,6 +28540,9 @@ class GlazedDoor(object):
                                  'for field `shading_control_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `shading_control_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `shading_control_name`')
 
         self._data["Shading Control Name"] = value
@@ -27163,6 +28581,9 @@ class GlazedDoor(object):
                                  'for field `frame_and_divider_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `frame_and_divider_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `frame_and_divider_name`')
 
         self._data["Frame and Divider Name"] = value
@@ -27352,19 +28773,17 @@ class GlazedDoor(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.construction_name))
-        out.append(self._to_str(self.building_surface_name))
-        out.append(self._to_str(self.shading_control_name))
-        out.append(self._to_str(self.frame_and_divider_name))
-        out.append(self._to_str(self.multiplier))
-        out.append(self._to_str(self.starting_x_coordinate))
-        out.append(self._to_str(self.starting_z_coordinate))
-        out.append(self._to_str(self.length))
-        out.append(self._to_str(self.height))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class WindowInterzone(object):
     """ Corresponds to IDD object `Window:Interzone`
@@ -27389,59 +28808,79 @@ class WindowInterzone(object):
         self._data["Starting Z Coordinate"] = None
         self._data["Length"] = None
         self._data["Height"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.construction_name = None
         else:
             self.construction_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.building_surface_name = None
         else:
             self.building_surface_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.outside_boundary_condition_object = None
         else:
             self.outside_boundary_condition_object = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.multiplier = None
         else:
             self.multiplier = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.starting_x_coordinate = None
         else:
             self.starting_x_coordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.starting_z_coordinate = None
         else:
             self.starting_z_coordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.length = None
         else:
             self.length = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.height = None
         else:
             self.height = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -27472,6 +28911,9 @@ class WindowInterzone(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -27507,6 +28949,9 @@ class WindowInterzone(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `construction_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `construction_name`')
 
         self._data["Construction Name"] = value
 
@@ -27541,6 +28986,9 @@ class WindowInterzone(object):
                                  'for field `building_surface_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `building_surface_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `building_surface_name`')
 
         self._data["Building Surface Name"] = value
@@ -27580,6 +29028,9 @@ class WindowInterzone(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `outside_boundary_condition_object`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `outside_boundary_condition_object`')
 
         self._data["Outside Boundary Condition Object"] = value
 
@@ -27768,18 +29219,17 @@ class WindowInterzone(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.construction_name))
-        out.append(self._to_str(self.building_surface_name))
-        out.append(self._to_str(self.outside_boundary_condition_object))
-        out.append(self._to_str(self.multiplier))
-        out.append(self._to_str(self.starting_x_coordinate))
-        out.append(self._to_str(self.starting_z_coordinate))
-        out.append(self._to_str(self.length))
-        out.append(self._to_str(self.height))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class DoorInterzone(object):
     """ Corresponds to IDD object `Door:Interzone`
@@ -27804,59 +29254,79 @@ class DoorInterzone(object):
         self._data["Starting Z Coordinate"] = None
         self._data["Length"] = None
         self._data["Height"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.construction_name = None
         else:
             self.construction_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.building_surface_name = None
         else:
             self.building_surface_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.outside_boundary_condition_object = None
         else:
             self.outside_boundary_condition_object = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.multiplier = None
         else:
             self.multiplier = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.starting_x_coordinate = None
         else:
             self.starting_x_coordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.starting_z_coordinate = None
         else:
             self.starting_z_coordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.length = None
         else:
             self.length = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.height = None
         else:
             self.height = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -27887,6 +29357,9 @@ class DoorInterzone(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -27922,6 +29395,9 @@ class DoorInterzone(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `construction_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `construction_name`')
 
         self._data["Construction Name"] = value
 
@@ -27956,6 +29432,9 @@ class DoorInterzone(object):
                                  'for field `building_surface_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `building_surface_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `building_surface_name`')
 
         self._data["Building Surface Name"] = value
@@ -27994,6 +29473,9 @@ class DoorInterzone(object):
                                  'for field `outside_boundary_condition_object`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `outside_boundary_condition_object`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `outside_boundary_condition_object`')
 
         self._data["Outside Boundary Condition Object"] = value
@@ -28183,18 +29665,17 @@ class DoorInterzone(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.construction_name))
-        out.append(self._to_str(self.building_surface_name))
-        out.append(self._to_str(self.outside_boundary_condition_object))
-        out.append(self._to_str(self.multiplier))
-        out.append(self._to_str(self.starting_x_coordinate))
-        out.append(self._to_str(self.starting_z_coordinate))
-        out.append(self._to_str(self.length))
-        out.append(self._to_str(self.height))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class GlazedDoorInterzone(object):
     """ Corresponds to IDD object `GlazedDoor:Interzone`
@@ -28219,59 +29700,79 @@ class GlazedDoorInterzone(object):
         self._data["Starting Z Coordinate"] = None
         self._data["Length"] = None
         self._data["Height"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.construction_name = None
         else:
             self.construction_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.building_surface_name = None
         else:
             self.building_surface_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.outside_boundary_condition_object = None
         else:
             self.outside_boundary_condition_object = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.multiplier = None
         else:
             self.multiplier = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.starting_x_coordinate = None
         else:
             self.starting_x_coordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.starting_z_coordinate = None
         else:
             self.starting_z_coordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.length = None
         else:
             self.length = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.height = None
         else:
             self.height = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -28302,6 +29803,9 @@ class GlazedDoorInterzone(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -28337,6 +29841,9 @@ class GlazedDoorInterzone(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `construction_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `construction_name`')
 
         self._data["Construction Name"] = value
 
@@ -28371,6 +29878,9 @@ class GlazedDoorInterzone(object):
                                  'for field `building_surface_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `building_surface_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `building_surface_name`')
 
         self._data["Building Surface Name"] = value
@@ -28409,6 +29919,9 @@ class GlazedDoorInterzone(object):
                                  'for field `outside_boundary_condition_object`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `outside_boundary_condition_object`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `outside_boundary_condition_object`')
 
         self._data["Outside Boundary Condition Object"] = value
@@ -28598,18 +30111,17 @@ class GlazedDoorInterzone(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.construction_name))
-        out.append(self._to_str(self.building_surface_name))
-        out.append(self._to_str(self.outside_boundary_condition_object))
-        out.append(self._to_str(self.multiplier))
-        out.append(self._to_str(self.starting_x_coordinate))
-        out.append(self._to_str(self.starting_z_coordinate))
-        out.append(self._to_str(self.length))
-        out.append(self._to_str(self.height))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class WindowPropertyShadingControl(object):
     """ Corresponds to IDD object `WindowProperty:ShadingControl`
@@ -28638,74 +30150,100 @@ class WindowPropertyShadingControl(object):
         self._data["Type of Slat Angle Control for Blinds"] = None
         self._data["Slat Angle Schedule Name"] = None
         self._data["Setpoint 2"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.shading_type = None
         else:
             self.shading_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.construction_with_shading_name = None
         else:
             self.construction_with_shading_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.shading_control_type = None
         else:
             self.shading_control_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.schedule_name = None
         else:
             self.schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.setpoint = None
         else:
             self.setpoint = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.shading_control_is_scheduled = None
         else:
             self.shading_control_is_scheduled = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.glare_control_is_active = None
         else:
             self.glare_control_is_active = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.shading_device_material_name = None
         else:
             self.shading_device_material_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.type_of_slat_angle_control_for_blinds = None
         else:
             self.type_of_slat_angle_control_for_blinds = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.slat_angle_schedule_name = None
         else:
             self.slat_angle_schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.setpoint_2 = None
         else:
             self.setpoint_2 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -28738,6 +30276,9 @@ class WindowPropertyShadingControl(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -28781,18 +30322,32 @@ class WindowPropertyShadingControl(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `shading_type`')
-            vals = set()
-            vals.add("InteriorShade")
-            vals.add("ExteriorShade")
-            vals.add("ExteriorScreen")
-            vals.add("InteriorBlind")
-            vals.add("ExteriorBlind")
-            vals.add("BetweenGlassShade")
-            vals.add("BetweenGlassBlind")
-            vals.add("SwitchableGlazing")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `shading_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `shading_type`')
+            vals = {}
+            vals["interiorshade"] = "InteriorShade"
+            vals["exteriorshade"] = "ExteriorShade"
+            vals["exteriorscreen"] = "ExteriorScreen"
+            vals["interiorblind"] = "InteriorBlind"
+            vals["exteriorblind"] = "ExteriorBlind"
+            vals["betweenglassshade"] = "BetweenGlassShade"
+            vals["betweenglassblind"] = "BetweenGlassBlind"
+            vals["switchableglazing"] = "SwitchableGlazing"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `shading_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Shading Type"] = value
 
@@ -28830,6 +30385,9 @@ class WindowPropertyShadingControl(object):
                                  'for field `construction_with_shading_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `construction_with_shading_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `construction_with_shading_name`')
 
         self._data["Construction with Shading Name"] = value
@@ -28906,31 +30464,45 @@ class WindowPropertyShadingControl(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `shading_control_type`')
-            vals = set()
-            vals.add("AlwaysOn")
-            vals.add("AlwaysOff")
-            vals.add("OnIfScheduleAllows")
-            vals.add("OnIfHighSolarOnWindow")
-            vals.add("OnIfHighHorizontalSolar")
-            vals.add("OnIfHighOutdoorAirTemperature")
-            vals.add("OnIfHighZoneAirTemperature")
-            vals.add("OnIfHighZoneCooling")
-            vals.add("OnIfHighGlare")
-            vals.add("MeetDaylightIlluminanceSetpoint")
-            vals.add("OnNightIfLowOutdoorTempAndOffDay")
-            vals.add("OnNightIfLowInsideTempAndOffDay")
-            vals.add("OnNightIfHeatingAndOffDay")
-            vals.add("OnNightIfLowOutdoorTempAndOnDayIfCooling")
-            vals.add("OnNightIfHeatingAndOnDayIfCooling")
-            vals.add("OffNightAndOnDayIfCoolingAndHighSolarOnWindow")
-            vals.add("OnNightAndOnDayIfCoolingAndHighSolarOnWindow")
-            vals.add("OnIfHighOutdoorAirTempAndHighSolarOnWindow")
-            vals.add("OnIfHighOutdoorAirTempAndHighHorizontalSolar")
-            vals.add("OnIfHighZoneAirTempAndHighSolarOnWindow")
-            vals.add("OnIfHighZoneAirTempAndHighHorizontalSolar")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `shading_control_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `shading_control_type`')
+            vals = {}
+            vals["alwayson"] = "AlwaysOn"
+            vals["alwaysoff"] = "AlwaysOff"
+            vals["onifscheduleallows"] = "OnIfScheduleAllows"
+            vals["onifhighsolaronwindow"] = "OnIfHighSolarOnWindow"
+            vals["onifhighhorizontalsolar"] = "OnIfHighHorizontalSolar"
+            vals["onifhighoutdoorairtemperature"] = "OnIfHighOutdoorAirTemperature"
+            vals["onifhighzoneairtemperature"] = "OnIfHighZoneAirTemperature"
+            vals["onifhighzonecooling"] = "OnIfHighZoneCooling"
+            vals["onifhighglare"] = "OnIfHighGlare"
+            vals["meetdaylightilluminancesetpoint"] = "MeetDaylightIlluminanceSetpoint"
+            vals["onnightiflowoutdoortempandoffday"] = "OnNightIfLowOutdoorTempAndOffDay"
+            vals["onnightiflowinsidetempandoffday"] = "OnNightIfLowInsideTempAndOffDay"
+            vals["onnightifheatingandoffday"] = "OnNightIfHeatingAndOffDay"
+            vals["onnightiflowoutdoortempandondayifcooling"] = "OnNightIfLowOutdoorTempAndOnDayIfCooling"
+            vals["onnightifheatingandondayifcooling"] = "OnNightIfHeatingAndOnDayIfCooling"
+            vals["offnightandondayifcoolingandhighsolaronwindow"] = "OffNightAndOnDayIfCoolingAndHighSolarOnWindow"
+            vals["onnightandondayifcoolingandhighsolaronwindow"] = "OnNightAndOnDayIfCoolingAndHighSolarOnWindow"
+            vals["onifhighoutdoorairtempandhighsolaronwindow"] = "OnIfHighOutdoorAirTempAndHighSolarOnWindow"
+            vals["onifhighoutdoorairtempandhighhorizontalsolar"] = "OnIfHighOutdoorAirTempAndHighHorizontalSolar"
+            vals["onifhighzoneairtempandhighsolaronwindow"] = "OnIfHighZoneAirTempAndHighSolarOnWindow"
+            vals["onifhighzoneairtempandhighhorizontalsolar"] = "OnIfHighZoneAirTempAndHighHorizontalSolar"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `shading_control_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Shading Control Type"] = value
 
@@ -28968,6 +30540,9 @@ class WindowPropertyShadingControl(object):
                                  'for field `schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `schedule_name`')
 
         self._data["Schedule Name"] = value
@@ -29043,12 +30618,26 @@ class WindowPropertyShadingControl(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `shading_control_is_scheduled`')
-            vals = set()
-            vals.add("No")
-            vals.add("Yes")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `shading_control_is_scheduled`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `shading_control_is_scheduled`')
+            vals = {}
+            vals["no"] = "No"
+            vals["yes"] = "Yes"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `shading_control_is_scheduled`'.format(value))
+            value = vals[value_lower]
 
         self._data["Shading Control Is Scheduled"] = value
 
@@ -29090,12 +30679,26 @@ class WindowPropertyShadingControl(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `glare_control_is_active`')
-            vals = set()
-            vals.add("No")
-            vals.add("Yes")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `glare_control_is_active`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `glare_control_is_active`')
+            vals = {}
+            vals["no"] = "No"
+            vals["yes"] = "Yes"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `glare_control_is_active`'.format(value))
+            value = vals[value_lower]
 
         self._data["Glare Control Is Active"] = value
 
@@ -29133,6 +30736,9 @@ class WindowPropertyShadingControl(object):
                                  'for field `shading_device_material_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `shading_device_material_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `shading_device_material_name`')
 
         self._data["Shading Device Material Name"] = value
@@ -29174,13 +30780,27 @@ class WindowPropertyShadingControl(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `type_of_slat_angle_control_for_blinds`')
-            vals = set()
-            vals.add("FixedSlatAngle")
-            vals.add("ScheduledSlatAngle")
-            vals.add("BlockBeamSolar")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `type_of_slat_angle_control_for_blinds`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `type_of_slat_angle_control_for_blinds`')
+            vals = {}
+            vals["fixedslatangle"] = "FixedSlatAngle"
+            vals["scheduledslatangle"] = "ScheduledSlatAngle"
+            vals["blockbeamsolar"] = "BlockBeamSolar"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `type_of_slat_angle_control_for_blinds`'.format(value))
+            value = vals[value_lower]
 
         self._data["Type of Slat Angle Control for Blinds"] = value
 
@@ -29216,6 +30836,9 @@ class WindowPropertyShadingControl(object):
                                  'for field `slat_angle_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `slat_angle_schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `slat_angle_schedule_name`')
 
         self._data["Slat Angle Schedule Name"] = value
@@ -29278,21 +30901,17 @@ class WindowPropertyShadingControl(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.shading_type))
-        out.append(self._to_str(self.construction_with_shading_name))
-        out.append(self._to_str(self.shading_control_type))
-        out.append(self._to_str(self.schedule_name))
-        out.append(self._to_str(self.setpoint))
-        out.append(self._to_str(self.shading_control_is_scheduled))
-        out.append(self._to_str(self.glare_control_is_active))
-        out.append(self._to_str(self.shading_device_material_name))
-        out.append(self._to_str(self.type_of_slat_angle_control_for_blinds))
-        out.append(self._to_str(self.slat_angle_schedule_name))
-        out.append(self._to_str(self.setpoint_2))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class WindowPropertyFrameAndDivider(object):
     """ Corresponds to IDD object `WindowProperty:FrameAndDivider`
@@ -29334,139 +30953,191 @@ class WindowPropertyFrameAndDivider(object):
         self._data["Inside Sill Solar Absorptance"] = None
         self._data["Inside Reveal Depth"] = None
         self._data["Inside Reveal Solar Absorptance"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.frame_width = None
         else:
             self.frame_width = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.frame_outside_projection = None
         else:
             self.frame_outside_projection = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.frame_inside_projection = None
         else:
             self.frame_inside_projection = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.frame_conductance = None
         else:
             self.frame_conductance = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.ratio_of_frameedge_glass_conductance_to_centerofglass_conductance = None
         else:
             self.ratio_of_frameedge_glass_conductance_to_centerofglass_conductance = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.frame_solar_absorptance = None
         else:
             self.frame_solar_absorptance = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.frame_visible_absorptance = None
         else:
             self.frame_visible_absorptance = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.frame_thermal_hemispherical_emissivity = None
         else:
             self.frame_thermal_hemispherical_emissivity = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.divider_type = None
         else:
             self.divider_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.divider_width = None
         else:
             self.divider_width = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.number_of_horizontal_dividers = None
         else:
             self.number_of_horizontal_dividers = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.number_of_vertical_dividers = None
         else:
             self.number_of_vertical_dividers = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.divider_outside_projection = None
         else:
             self.divider_outside_projection = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.divider_inside_projection = None
         else:
             self.divider_inside_projection = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.divider_conductance = None
         else:
             self.divider_conductance = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.ratio_of_divideredge_glass_conductance_to_centerofglass_conductance = None
         else:
             self.ratio_of_divideredge_glass_conductance_to_centerofglass_conductance = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.divider_solar_absorptance = None
         else:
             self.divider_solar_absorptance = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.divider_visible_absorptance = None
         else:
             self.divider_visible_absorptance = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.divider_thermal_hemispherical_emissivity = None
         else:
             self.divider_thermal_hemispherical_emissivity = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.outside_reveal_solar_absorptance = None
         else:
             self.outside_reveal_solar_absorptance = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.inside_sill_depth = None
         else:
             self.inside_sill_depth = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.inside_sill_solar_absorptance = None
         else:
             self.inside_sill_solar_absorptance = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.inside_reveal_depth = None
         else:
             self.inside_reveal_depth = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.inside_reveal_solar_absorptance = None
         else:
             self.inside_reveal_solar_absorptance = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -29499,6 +31170,9 @@ class WindowPropertyFrameAndDivider(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -29856,12 +31530,26 @@ class WindowPropertyFrameAndDivider(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `divider_type`')
-            vals = set()
-            vals.add("DividedLite")
-            vals.add("Suspended")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `divider_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `divider_type`')
+            vals = {}
+            vals["dividedlite"] = "DividedLite"
+            vals["suspended"] = "Suspended"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `divider_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Divider Type"] = value
 
@@ -30488,34 +32176,17 @@ class WindowPropertyFrameAndDivider(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.frame_width))
-        out.append(self._to_str(self.frame_outside_projection))
-        out.append(self._to_str(self.frame_inside_projection))
-        out.append(self._to_str(self.frame_conductance))
-        out.append(self._to_str(self.ratio_of_frameedge_glass_conductance_to_centerofglass_conductance))
-        out.append(self._to_str(self.frame_solar_absorptance))
-        out.append(self._to_str(self.frame_visible_absorptance))
-        out.append(self._to_str(self.frame_thermal_hemispherical_emissivity))
-        out.append(self._to_str(self.divider_type))
-        out.append(self._to_str(self.divider_width))
-        out.append(self._to_str(self.number_of_horizontal_dividers))
-        out.append(self._to_str(self.number_of_vertical_dividers))
-        out.append(self._to_str(self.divider_outside_projection))
-        out.append(self._to_str(self.divider_inside_projection))
-        out.append(self._to_str(self.divider_conductance))
-        out.append(self._to_str(self.ratio_of_divideredge_glass_conductance_to_centerofglass_conductance))
-        out.append(self._to_str(self.divider_solar_absorptance))
-        out.append(self._to_str(self.divider_visible_absorptance))
-        out.append(self._to_str(self.divider_thermal_hemispherical_emissivity))
-        out.append(self._to_str(self.outside_reveal_solar_absorptance))
-        out.append(self._to_str(self.inside_sill_depth))
-        out.append(self._to_str(self.inside_sill_solar_absorptance))
-        out.append(self._to_str(self.inside_reveal_depth))
-        out.append(self._to_str(self.inside_reveal_solar_absorptance))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class WindowPropertyAirflowControl(object):
     """ Corresponds to IDD object `WindowProperty:AirflowControl`
@@ -30537,49 +32208,65 @@ class WindowPropertyAirflowControl(object):
         self._data["Airflow Control Type"] = None
         self._data["Airflow Is Scheduled"] = None
         self._data["Airflow Multiplier Schedule Name"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.airflow_source = None
         else:
             self.airflow_source = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.airflow_destination = None
         else:
             self.airflow_destination = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.maximum_flow_rate = None
         else:
             self.maximum_flow_rate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.airflow_control_type = None
         else:
             self.airflow_control_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.airflow_is_scheduled = None
         else:
             self.airflow_is_scheduled = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.airflow_multiplier_schedule_name = None
         else:
             self.airflow_multiplier_schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -30611,6 +32298,9 @@ class WindowPropertyAirflowControl(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -30649,12 +32339,26 @@ class WindowPropertyAirflowControl(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `airflow_source`')
-            vals = set()
-            vals.add("IndoorAir")
-            vals.add("OutdoorAir")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `airflow_source`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `airflow_source`')
+            vals = {}
+            vals["indoorair"] = "IndoorAir"
+            vals["outdoorair"] = "OutdoorAir"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `airflow_source`'.format(value))
+            value = vals[value_lower]
 
         self._data["Airflow Source"] = value
 
@@ -30693,13 +32397,27 @@ class WindowPropertyAirflowControl(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `airflow_destination`')
-            vals = set()
-            vals.add("IndoorAir")
-            vals.add("OutdoorAir")
-            vals.add("ReturnAir")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `airflow_destination`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `airflow_destination`')
+            vals = {}
+            vals["indoorair"] = "IndoorAir"
+            vals["outdoorair"] = "OutdoorAir"
+            vals["returnair"] = "ReturnAir"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `airflow_destination`'.format(value))
+            value = vals[value_lower]
 
         self._data["Airflow Destination"] = value
 
@@ -30778,13 +32496,27 @@ class WindowPropertyAirflowControl(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `airflow_control_type`')
-            vals = set()
-            vals.add("AlwaysOnAtMaximumFlow")
-            vals.add("AlwaysOff")
-            vals.add("ScheduledOnly")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `airflow_control_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `airflow_control_type`')
+            vals = {}
+            vals["alwaysonatmaximumflow"] = "AlwaysOnAtMaximumFlow"
+            vals["alwaysoff"] = "AlwaysOff"
+            vals["scheduledonly"] = "ScheduledOnly"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `airflow_control_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Airflow Control Type"] = value
 
@@ -30823,12 +32555,26 @@ class WindowPropertyAirflowControl(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `airflow_is_scheduled`')
-            vals = set()
-            vals.add("Yes")
-            vals.add("No")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `airflow_is_scheduled`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `airflow_is_scheduled`')
+            vals = {}
+            vals["yes"] = "Yes"
+            vals["no"] = "No"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `airflow_is_scheduled`'.format(value))
+            value = vals[value_lower]
 
         self._data["Airflow Is Scheduled"] = value
 
@@ -30864,6 +32610,9 @@ class WindowPropertyAirflowControl(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `airflow_multiplier_schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `airflow_multiplier_schedule_name`')
 
         self._data["Airflow Multiplier Schedule Name"] = value
 
@@ -30889,16 +32638,17 @@ class WindowPropertyAirflowControl(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.airflow_source))
-        out.append(self._to_str(self.airflow_destination))
-        out.append(self._to_str(self.maximum_flow_rate))
-        out.append(self._to_str(self.airflow_control_type))
-        out.append(self._to_str(self.airflow_is_scheduled))
-        out.append(self._to_str(self.airflow_multiplier_schedule_name))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class WindowPropertyStormWindow(object):
     """ Corresponds to IDD object `WindowProperty:StormWindow`
@@ -30921,49 +32671,65 @@ class WindowPropertyStormWindow(object):
         self._data["Day of Month that Storm Glass Layer is Put On"] = None
         self._data["Month that Storm Glass Layer is Taken Off"] = None
         self._data["Day of Month that Storm Glass Layer is Taken Off"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.window_name = None
         else:
             self.window_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.storm_glass_layer_name = None
         else:
             self.storm_glass_layer_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.distance_between_storm_glass_layer_and_adjacent_glass = None
         else:
             self.distance_between_storm_glass_layer_and_adjacent_glass = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.month_that_storm_glass_layer_is_put_on = None
         else:
             self.month_that_storm_glass_layer_is_put_on = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.day_of_month_that_storm_glass_layer_is_put_on = None
         else:
             self.day_of_month_that_storm_glass_layer_is_put_on = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.month_that_storm_glass_layer_is_taken_off = None
         else:
             self.month_that_storm_glass_layer_is_taken_off = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.day_of_month_that_storm_glass_layer_is_taken_off = None
         else:
             self.day_of_month_that_storm_glass_layer_is_taken_off = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def window_name(self):
@@ -30996,6 +32762,9 @@ class WindowPropertyStormWindow(object):
                                  'for field `window_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `window_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `window_name`')
 
         self._data["Window Name"] = value
@@ -31032,6 +32801,9 @@ class WindowPropertyStormWindow(object):
                                  'for field `storm_glass_layer_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `storm_glass_layer_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `storm_glass_layer_name`')
 
         self._data["Storm Glass Layer Name"] = value
@@ -31250,16 +33022,17 @@ class WindowPropertyStormWindow(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.window_name))
-        out.append(self._to_str(self.storm_glass_layer_name))
-        out.append(self._to_str(self.distance_between_storm_glass_layer_and_adjacent_glass))
-        out.append(self._to_str(self.month_that_storm_glass_layer_is_put_on))
-        out.append(self._to_str(self.day_of_month_that_storm_glass_layer_is_put_on))
-        out.append(self._to_str(self.month_that_storm_glass_layer_is_taken_off))
-        out.append(self._to_str(self.day_of_month_that_storm_glass_layer_is_taken_off))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class InternalMass(object):
     """ Corresponds to IDD object `InternalMass`
@@ -31279,34 +33052,44 @@ class InternalMass(object):
         self._data["Construction Name"] = None
         self._data["Zone Name"] = None
         self._data["Surface Area"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.construction_name = None
         else:
             self.construction_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.zone_name = None
         else:
             self.zone_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_area = None
         else:
             self.surface_area = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -31337,6 +33120,9 @@ class InternalMass(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -31372,6 +33158,9 @@ class InternalMass(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `construction_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `construction_name`')
 
         self._data["Construction Name"] = value
 
@@ -31406,6 +33195,9 @@ class InternalMass(object):
                                  'for field `zone_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `zone_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `zone_name`')
 
         self._data["Zone Name"] = value
@@ -31467,13 +33259,17 @@ class InternalMass(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.construction_name))
-        out.append(self._to_str(self.zone_name))
-        out.append(self._to_str(self.surface_area))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class ShadingSite(object):
     """ Corresponds to IDD object `Shading:Site`
@@ -31497,54 +33293,72 @@ class ShadingSite(object):
         self._data["Starting Z Coordinate"] = None
         self._data["Length"] = None
         self._data["Height"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.azimuth_angle = None
         else:
             self.azimuth_angle = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.tilt_angle = None
         else:
             self.tilt_angle = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.starting_x_coordinate = None
         else:
             self.starting_x_coordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.starting_y_coordinate = None
         else:
             self.starting_y_coordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.starting_z_coordinate = None
         else:
             self.starting_z_coordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.length = None
         else:
             self.length = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.height = None
         else:
             self.height = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -31575,6 +33389,9 @@ class ShadingSite(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -31837,17 +33654,17 @@ class ShadingSite(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.azimuth_angle))
-        out.append(self._to_str(self.tilt_angle))
-        out.append(self._to_str(self.starting_x_coordinate))
-        out.append(self._to_str(self.starting_y_coordinate))
-        out.append(self._to_str(self.starting_z_coordinate))
-        out.append(self._to_str(self.length))
-        out.append(self._to_str(self.height))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class ShadingBuilding(object):
     """ Corresponds to IDD object `Shading:Building`
@@ -31871,54 +33688,72 @@ class ShadingBuilding(object):
         self._data["Starting Z Coordinate"] = None
         self._data["Length"] = None
         self._data["Height"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.azimuth_angle = None
         else:
             self.azimuth_angle = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.tilt_angle = None
         else:
             self.tilt_angle = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.starting_x_coordinate = None
         else:
             self.starting_x_coordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.starting_y_coordinate = None
         else:
             self.starting_y_coordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.starting_z_coordinate = None
         else:
             self.starting_z_coordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.length = None
         else:
             self.length = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.height = None
         else:
             self.height = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -31949,6 +33784,9 @@ class ShadingBuilding(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -32211,17 +34049,17 @@ class ShadingBuilding(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.azimuth_angle))
-        out.append(self._to_str(self.tilt_angle))
-        out.append(self._to_str(self.starting_x_coordinate))
-        out.append(self._to_str(self.starting_y_coordinate))
-        out.append(self._to_str(self.starting_z_coordinate))
-        out.append(self._to_str(self.length))
-        out.append(self._to_str(self.height))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class ShadingSiteDetailed(object):
     """ Corresponds to IDD object `Shading:Site:Detailed`
@@ -32600,1829 +34438,2557 @@ class ShadingSiteDetailed(object):
         self._data["Vertex 120 X-coordinate"] = None
         self._data["Vertex 120 Y-coordinate"] = None
         self._data["Vertex 120 Z-coordinate"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.transmittance_schedule_name = None
         else:
             self.transmittance_schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.number_of_vertices = None
         else:
             self.number_of_vertices = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_1_xcoordinate = None
         else:
             self.vertex_1_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_1_ycoordinate = None
         else:
             self.vertex_1_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_1_zcoordinate = None
         else:
             self.vertex_1_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_2_xcoordinate = None
         else:
             self.vertex_2_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_2_ycoordinate = None
         else:
             self.vertex_2_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_2_zcoordinate = None
         else:
             self.vertex_2_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_3_xcoordinate = None
         else:
             self.vertex_3_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_3_ycoordinate = None
         else:
             self.vertex_3_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_3_zcoordinate = None
         else:
             self.vertex_3_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_4_xcoordinate = None
         else:
             self.vertex_4_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_4_ycoordinate = None
         else:
             self.vertex_4_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_4_zcoordinate = None
         else:
             self.vertex_4_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_5_xcoordinate = None
         else:
             self.vertex_5_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_5_ycoordinate = None
         else:
             self.vertex_5_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_5_zcoordinate = None
         else:
             self.vertex_5_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_6_xcoordinate = None
         else:
             self.vertex_6_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_6_ycoordinate = None
         else:
             self.vertex_6_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_6_zcoordinate = None
         else:
             self.vertex_6_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_7_xcoordinate = None
         else:
             self.vertex_7_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_7_ycoordinate = None
         else:
             self.vertex_7_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_7_zcoordinate = None
         else:
             self.vertex_7_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_8_xcoordinate = None
         else:
             self.vertex_8_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_8_ycoordinate = None
         else:
             self.vertex_8_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_8_zcoordinate = None
         else:
             self.vertex_8_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_9_xcoordinate = None
         else:
             self.vertex_9_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_9_ycoordinate = None
         else:
             self.vertex_9_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_9_zcoordinate = None
         else:
             self.vertex_9_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_10_xcoordinate = None
         else:
             self.vertex_10_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_10_ycoordinate = None
         else:
             self.vertex_10_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_10_zcoordinate = None
         else:
             self.vertex_10_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_11_xcoordinate = None
         else:
             self.vertex_11_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_11_ycoordinate = None
         else:
             self.vertex_11_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_11_zcoordinate = None
         else:
             self.vertex_11_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_12_xcoordinate = None
         else:
             self.vertex_12_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_12_ycoordinate = None
         else:
             self.vertex_12_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_12_zcoordinate = None
         else:
             self.vertex_12_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_13_xcoordinate = None
         else:
             self.vertex_13_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_13_ycoordinate = None
         else:
             self.vertex_13_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_13_zcoordinate = None
         else:
             self.vertex_13_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_14_xcoordinate = None
         else:
             self.vertex_14_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_14_ycoordinate = None
         else:
             self.vertex_14_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_14_zcoordinate = None
         else:
             self.vertex_14_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_15_xcoordinate = None
         else:
             self.vertex_15_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_15_ycoordinate = None
         else:
             self.vertex_15_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_15_zcoordinate = None
         else:
             self.vertex_15_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_16_xcoordinate = None
         else:
             self.vertex_16_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_16_ycoordinate = None
         else:
             self.vertex_16_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_16_zcoordinate = None
         else:
             self.vertex_16_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_17_xcoordinate = None
         else:
             self.vertex_17_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_17_ycoordinate = None
         else:
             self.vertex_17_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_17_zcoordinate = None
         else:
             self.vertex_17_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_18_xcoordinate = None
         else:
             self.vertex_18_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_18_ycoordinate = None
         else:
             self.vertex_18_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_18_zcoordinate = None
         else:
             self.vertex_18_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_19_xcoordinate = None
         else:
             self.vertex_19_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_19_ycoordinate = None
         else:
             self.vertex_19_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_19_zcoordinate = None
         else:
             self.vertex_19_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_20_xcoordinate = None
         else:
             self.vertex_20_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_20_ycoordinate = None
         else:
             self.vertex_20_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_20_zcoordinate = None
         else:
             self.vertex_20_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_21_xcoordinate = None
         else:
             self.vertex_21_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_21_ycoordinate = None
         else:
             self.vertex_21_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_21_zcoordinate = None
         else:
             self.vertex_21_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_22_xcoordinate = None
         else:
             self.vertex_22_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_22_ycoordinate = None
         else:
             self.vertex_22_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_22_zcoordinate = None
         else:
             self.vertex_22_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_23_xcoordinate = None
         else:
             self.vertex_23_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_23_ycoordinate = None
         else:
             self.vertex_23_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_23_zcoordinate = None
         else:
             self.vertex_23_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_24_xcoordinate = None
         else:
             self.vertex_24_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_24_ycoordinate = None
         else:
             self.vertex_24_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_24_zcoordinate = None
         else:
             self.vertex_24_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_25_xcoordinate = None
         else:
             self.vertex_25_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_25_ycoordinate = None
         else:
             self.vertex_25_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_25_zcoordinate = None
         else:
             self.vertex_25_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_26_xcoordinate = None
         else:
             self.vertex_26_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_26_ycoordinate = None
         else:
             self.vertex_26_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_26_zcoordinate = None
         else:
             self.vertex_26_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_27_xcoordinate = None
         else:
             self.vertex_27_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_27_ycoordinate = None
         else:
             self.vertex_27_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_27_zcoordinate = None
         else:
             self.vertex_27_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_28_xcoordinate = None
         else:
             self.vertex_28_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_28_ycoordinate = None
         else:
             self.vertex_28_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_28_zcoordinate = None
         else:
             self.vertex_28_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_29_xcoordinate = None
         else:
             self.vertex_29_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_29_ycoordinate = None
         else:
             self.vertex_29_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_29_zcoordinate = None
         else:
             self.vertex_29_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_30_xcoordinate = None
         else:
             self.vertex_30_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_30_ycoordinate = None
         else:
             self.vertex_30_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_30_zcoordinate = None
         else:
             self.vertex_30_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_31_xcoordinate = None
         else:
             self.vertex_31_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_31_ycoordinate = None
         else:
             self.vertex_31_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_31_zcoordinate = None
         else:
             self.vertex_31_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_32_xcoordinate = None
         else:
             self.vertex_32_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_32_ycoordinate = None
         else:
             self.vertex_32_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_32_zcoordinate = None
         else:
             self.vertex_32_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_33_xcoordinate = None
         else:
             self.vertex_33_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_33_ycoordinate = None
         else:
             self.vertex_33_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_33_zcoordinate = None
         else:
             self.vertex_33_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_34_xcoordinate = None
         else:
             self.vertex_34_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_34_ycoordinate = None
         else:
             self.vertex_34_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_34_zcoordinate = None
         else:
             self.vertex_34_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_35_xcoordinate = None
         else:
             self.vertex_35_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_35_ycoordinate = None
         else:
             self.vertex_35_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_35_zcoordinate = None
         else:
             self.vertex_35_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_36_xcoordinate = None
         else:
             self.vertex_36_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_36_ycoordinate = None
         else:
             self.vertex_36_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_36_zcoordinate = None
         else:
             self.vertex_36_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_37_xcoordinate = None
         else:
             self.vertex_37_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_37_ycoordinate = None
         else:
             self.vertex_37_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_37_zcoordinate = None
         else:
             self.vertex_37_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_38_xcoordinate = None
         else:
             self.vertex_38_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_38_ycoordinate = None
         else:
             self.vertex_38_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_38_zcoordinate = None
         else:
             self.vertex_38_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_39_xcoordinate = None
         else:
             self.vertex_39_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_39_ycoordinate = None
         else:
             self.vertex_39_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_39_zcoordinate = None
         else:
             self.vertex_39_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_40_xcoordinate = None
         else:
             self.vertex_40_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_40_ycoordinate = None
         else:
             self.vertex_40_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_40_zcoordinate = None
         else:
             self.vertex_40_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_41_xcoordinate = None
         else:
             self.vertex_41_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_41_ycoordinate = None
         else:
             self.vertex_41_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_41_zcoordinate = None
         else:
             self.vertex_41_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_42_xcoordinate = None
         else:
             self.vertex_42_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_42_ycoordinate = None
         else:
             self.vertex_42_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_42_zcoordinate = None
         else:
             self.vertex_42_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_43_xcoordinate = None
         else:
             self.vertex_43_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_43_ycoordinate = None
         else:
             self.vertex_43_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_43_zcoordinate = None
         else:
             self.vertex_43_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_44_xcoordinate = None
         else:
             self.vertex_44_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_44_ycoordinate = None
         else:
             self.vertex_44_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_44_zcoordinate = None
         else:
             self.vertex_44_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_45_xcoordinate = None
         else:
             self.vertex_45_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_45_ycoordinate = None
         else:
             self.vertex_45_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_45_zcoordinate = None
         else:
             self.vertex_45_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_46_xcoordinate = None
         else:
             self.vertex_46_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_46_ycoordinate = None
         else:
             self.vertex_46_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_46_zcoordinate = None
         else:
             self.vertex_46_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_47_xcoordinate = None
         else:
             self.vertex_47_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_47_ycoordinate = None
         else:
             self.vertex_47_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_47_zcoordinate = None
         else:
             self.vertex_47_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_48_xcoordinate = None
         else:
             self.vertex_48_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_48_ycoordinate = None
         else:
             self.vertex_48_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_48_zcoordinate = None
         else:
             self.vertex_48_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_49_xcoordinate = None
         else:
             self.vertex_49_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_49_ycoordinate = None
         else:
             self.vertex_49_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_49_zcoordinate = None
         else:
             self.vertex_49_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_50_xcoordinate = None
         else:
             self.vertex_50_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_50_ycoordinate = None
         else:
             self.vertex_50_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_50_zcoordinate = None
         else:
             self.vertex_50_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_51_xcoordinate = None
         else:
             self.vertex_51_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_51_ycoordinate = None
         else:
             self.vertex_51_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_51_zcoordinate = None
         else:
             self.vertex_51_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_52_xcoordinate = None
         else:
             self.vertex_52_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_52_ycoordinate = None
         else:
             self.vertex_52_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_52_zcoordinate = None
         else:
             self.vertex_52_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_53_xcoordinate = None
         else:
             self.vertex_53_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_53_ycoordinate = None
         else:
             self.vertex_53_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_53_zcoordinate = None
         else:
             self.vertex_53_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_54_xcoordinate = None
         else:
             self.vertex_54_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_54_ycoordinate = None
         else:
             self.vertex_54_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_54_zcoordinate = None
         else:
             self.vertex_54_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_55_xcoordinate = None
         else:
             self.vertex_55_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_55_ycoordinate = None
         else:
             self.vertex_55_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_55_zcoordinate = None
         else:
             self.vertex_55_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_56_xcoordinate = None
         else:
             self.vertex_56_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_56_ycoordinate = None
         else:
             self.vertex_56_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_56_zcoordinate = None
         else:
             self.vertex_56_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_57_xcoordinate = None
         else:
             self.vertex_57_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_57_ycoordinate = None
         else:
             self.vertex_57_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_57_zcoordinate = None
         else:
             self.vertex_57_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_58_xcoordinate = None
         else:
             self.vertex_58_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_58_ycoordinate = None
         else:
             self.vertex_58_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_58_zcoordinate = None
         else:
             self.vertex_58_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_59_xcoordinate = None
         else:
             self.vertex_59_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_59_ycoordinate = None
         else:
             self.vertex_59_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_59_zcoordinate = None
         else:
             self.vertex_59_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_60_xcoordinate = None
         else:
             self.vertex_60_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_60_ycoordinate = None
         else:
             self.vertex_60_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_60_zcoordinate = None
         else:
             self.vertex_60_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_61_xcoordinate = None
         else:
             self.vertex_61_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_61_ycoordinate = None
         else:
             self.vertex_61_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_61_zcoordinate = None
         else:
             self.vertex_61_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_62_xcoordinate = None
         else:
             self.vertex_62_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_62_ycoordinate = None
         else:
             self.vertex_62_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_62_zcoordinate = None
         else:
             self.vertex_62_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_63_xcoordinate = None
         else:
             self.vertex_63_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_63_ycoordinate = None
         else:
             self.vertex_63_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_63_zcoordinate = None
         else:
             self.vertex_63_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_64_xcoordinate = None
         else:
             self.vertex_64_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_64_ycoordinate = None
         else:
             self.vertex_64_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_64_zcoordinate = None
         else:
             self.vertex_64_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_65_xcoordinate = None
         else:
             self.vertex_65_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_65_ycoordinate = None
         else:
             self.vertex_65_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_65_zcoordinate = None
         else:
             self.vertex_65_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_66_xcoordinate = None
         else:
             self.vertex_66_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_66_ycoordinate = None
         else:
             self.vertex_66_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_66_zcoordinate = None
         else:
             self.vertex_66_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_67_xcoordinate = None
         else:
             self.vertex_67_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_67_ycoordinate = None
         else:
             self.vertex_67_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_67_zcoordinate = None
         else:
             self.vertex_67_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_68_xcoordinate = None
         else:
             self.vertex_68_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_68_ycoordinate = None
         else:
             self.vertex_68_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_68_zcoordinate = None
         else:
             self.vertex_68_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_69_xcoordinate = None
         else:
             self.vertex_69_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_69_ycoordinate = None
         else:
             self.vertex_69_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_69_zcoordinate = None
         else:
             self.vertex_69_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_70_xcoordinate = None
         else:
             self.vertex_70_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_70_ycoordinate = None
         else:
             self.vertex_70_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_70_zcoordinate = None
         else:
             self.vertex_70_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_71_xcoordinate = None
         else:
             self.vertex_71_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_71_ycoordinate = None
         else:
             self.vertex_71_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_71_zcoordinate = None
         else:
             self.vertex_71_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_72_xcoordinate = None
         else:
             self.vertex_72_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_72_ycoordinate = None
         else:
             self.vertex_72_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_72_zcoordinate = None
         else:
             self.vertex_72_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_73_xcoordinate = None
         else:
             self.vertex_73_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_73_ycoordinate = None
         else:
             self.vertex_73_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_73_zcoordinate = None
         else:
             self.vertex_73_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_74_xcoordinate = None
         else:
             self.vertex_74_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_74_ycoordinate = None
         else:
             self.vertex_74_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_74_zcoordinate = None
         else:
             self.vertex_74_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_75_xcoordinate = None
         else:
             self.vertex_75_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_75_ycoordinate = None
         else:
             self.vertex_75_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_75_zcoordinate = None
         else:
             self.vertex_75_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_76_xcoordinate = None
         else:
             self.vertex_76_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_76_ycoordinate = None
         else:
             self.vertex_76_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_76_zcoordinate = None
         else:
             self.vertex_76_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_77_xcoordinate = None
         else:
             self.vertex_77_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_77_ycoordinate = None
         else:
             self.vertex_77_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_77_zcoordinate = None
         else:
             self.vertex_77_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_78_xcoordinate = None
         else:
             self.vertex_78_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_78_ycoordinate = None
         else:
             self.vertex_78_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_78_zcoordinate = None
         else:
             self.vertex_78_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_79_xcoordinate = None
         else:
             self.vertex_79_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_79_ycoordinate = None
         else:
             self.vertex_79_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_79_zcoordinate = None
         else:
             self.vertex_79_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_80_xcoordinate = None
         else:
             self.vertex_80_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_80_ycoordinate = None
         else:
             self.vertex_80_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_80_zcoordinate = None
         else:
             self.vertex_80_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_81_xcoordinate = None
         else:
             self.vertex_81_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_81_ycoordinate = None
         else:
             self.vertex_81_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_81_zcoordinate = None
         else:
             self.vertex_81_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_82_xcoordinate = None
         else:
             self.vertex_82_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_82_ycoordinate = None
         else:
             self.vertex_82_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_82_zcoordinate = None
         else:
             self.vertex_82_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_83_xcoordinate = None
         else:
             self.vertex_83_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_83_ycoordinate = None
         else:
             self.vertex_83_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_83_zcoordinate = None
         else:
             self.vertex_83_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_84_xcoordinate = None
         else:
             self.vertex_84_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_84_ycoordinate = None
         else:
             self.vertex_84_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_84_zcoordinate = None
         else:
             self.vertex_84_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_85_xcoordinate = None
         else:
             self.vertex_85_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_85_ycoordinate = None
         else:
             self.vertex_85_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_85_zcoordinate = None
         else:
             self.vertex_85_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_86_xcoordinate = None
         else:
             self.vertex_86_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_86_ycoordinate = None
         else:
             self.vertex_86_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_86_zcoordinate = None
         else:
             self.vertex_86_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_87_xcoordinate = None
         else:
             self.vertex_87_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_87_ycoordinate = None
         else:
             self.vertex_87_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_87_zcoordinate = None
         else:
             self.vertex_87_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_88_xcoordinate = None
         else:
             self.vertex_88_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_88_ycoordinate = None
         else:
             self.vertex_88_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_88_zcoordinate = None
         else:
             self.vertex_88_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_89_xcoordinate = None
         else:
             self.vertex_89_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_89_ycoordinate = None
         else:
             self.vertex_89_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_89_zcoordinate = None
         else:
             self.vertex_89_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_90_xcoordinate = None
         else:
             self.vertex_90_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_90_ycoordinate = None
         else:
             self.vertex_90_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_90_zcoordinate = None
         else:
             self.vertex_90_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_91_xcoordinate = None
         else:
             self.vertex_91_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_91_ycoordinate = None
         else:
             self.vertex_91_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_91_zcoordinate = None
         else:
             self.vertex_91_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_92_xcoordinate = None
         else:
             self.vertex_92_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_92_ycoordinate = None
         else:
             self.vertex_92_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_92_zcoordinate = None
         else:
             self.vertex_92_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_93_xcoordinate = None
         else:
             self.vertex_93_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_93_ycoordinate = None
         else:
             self.vertex_93_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_93_zcoordinate = None
         else:
             self.vertex_93_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_94_xcoordinate = None
         else:
             self.vertex_94_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_94_ycoordinate = None
         else:
             self.vertex_94_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_94_zcoordinate = None
         else:
             self.vertex_94_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_95_xcoordinate = None
         else:
             self.vertex_95_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_95_ycoordinate = None
         else:
             self.vertex_95_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_95_zcoordinate = None
         else:
             self.vertex_95_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_96_xcoordinate = None
         else:
             self.vertex_96_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_96_ycoordinate = None
         else:
             self.vertex_96_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_96_zcoordinate = None
         else:
             self.vertex_96_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_97_xcoordinate = None
         else:
             self.vertex_97_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_97_ycoordinate = None
         else:
             self.vertex_97_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_97_zcoordinate = None
         else:
             self.vertex_97_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_98_xcoordinate = None
         else:
             self.vertex_98_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_98_ycoordinate = None
         else:
             self.vertex_98_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_98_zcoordinate = None
         else:
             self.vertex_98_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_99_xcoordinate = None
         else:
             self.vertex_99_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_99_ycoordinate = None
         else:
             self.vertex_99_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_99_zcoordinate = None
         else:
             self.vertex_99_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_100_xcoordinate = None
         else:
             self.vertex_100_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_100_ycoordinate = None
         else:
             self.vertex_100_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_100_zcoordinate = None
         else:
             self.vertex_100_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_101_xcoordinate = None
         else:
             self.vertex_101_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_101_ycoordinate = None
         else:
             self.vertex_101_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_101_zcoordinate = None
         else:
             self.vertex_101_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_102_xcoordinate = None
         else:
             self.vertex_102_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_102_ycoordinate = None
         else:
             self.vertex_102_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_102_zcoordinate = None
         else:
             self.vertex_102_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_103_xcoordinate = None
         else:
             self.vertex_103_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_103_ycoordinate = None
         else:
             self.vertex_103_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_103_zcoordinate = None
         else:
             self.vertex_103_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_104_xcoordinate = None
         else:
             self.vertex_104_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_104_ycoordinate = None
         else:
             self.vertex_104_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_104_zcoordinate = None
         else:
             self.vertex_104_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_105_xcoordinate = None
         else:
             self.vertex_105_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_105_ycoordinate = None
         else:
             self.vertex_105_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_105_zcoordinate = None
         else:
             self.vertex_105_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_106_xcoordinate = None
         else:
             self.vertex_106_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_106_ycoordinate = None
         else:
             self.vertex_106_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_106_zcoordinate = None
         else:
             self.vertex_106_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_107_xcoordinate = None
         else:
             self.vertex_107_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_107_ycoordinate = None
         else:
             self.vertex_107_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_107_zcoordinate = None
         else:
             self.vertex_107_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_108_xcoordinate = None
         else:
             self.vertex_108_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_108_ycoordinate = None
         else:
             self.vertex_108_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_108_zcoordinate = None
         else:
             self.vertex_108_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_109_xcoordinate = None
         else:
             self.vertex_109_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_109_ycoordinate = None
         else:
             self.vertex_109_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_109_zcoordinate = None
         else:
             self.vertex_109_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_110_xcoordinate = None
         else:
             self.vertex_110_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_110_ycoordinate = None
         else:
             self.vertex_110_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_110_zcoordinate = None
         else:
             self.vertex_110_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_111_xcoordinate = None
         else:
             self.vertex_111_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_111_ycoordinate = None
         else:
             self.vertex_111_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_111_zcoordinate = None
         else:
             self.vertex_111_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_112_xcoordinate = None
         else:
             self.vertex_112_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_112_ycoordinate = None
         else:
             self.vertex_112_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_112_zcoordinate = None
         else:
             self.vertex_112_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_113_xcoordinate = None
         else:
             self.vertex_113_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_113_ycoordinate = None
         else:
             self.vertex_113_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_113_zcoordinate = None
         else:
             self.vertex_113_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_114_xcoordinate = None
         else:
             self.vertex_114_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_114_ycoordinate = None
         else:
             self.vertex_114_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_114_zcoordinate = None
         else:
             self.vertex_114_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_115_xcoordinate = None
         else:
             self.vertex_115_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_115_ycoordinate = None
         else:
             self.vertex_115_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_115_zcoordinate = None
         else:
             self.vertex_115_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_116_xcoordinate = None
         else:
             self.vertex_116_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_116_ycoordinate = None
         else:
             self.vertex_116_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_116_zcoordinate = None
         else:
             self.vertex_116_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_117_xcoordinate = None
         else:
             self.vertex_117_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_117_ycoordinate = None
         else:
             self.vertex_117_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_117_zcoordinate = None
         else:
             self.vertex_117_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_118_xcoordinate = None
         else:
             self.vertex_118_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_118_ycoordinate = None
         else:
             self.vertex_118_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_118_zcoordinate = None
         else:
             self.vertex_118_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_119_xcoordinate = None
         else:
             self.vertex_119_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_119_ycoordinate = None
         else:
             self.vertex_119_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_119_zcoordinate = None
         else:
             self.vertex_119_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_120_xcoordinate = None
         else:
             self.vertex_120_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_120_ycoordinate = None
         else:
             self.vertex_120_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_120_zcoordinate = None
         else:
             self.vertex_120_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -34453,6 +37019,9 @@ class ShadingSiteDetailed(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -34487,6 +37056,9 @@ class ShadingSiteDetailed(object):
                                  'for field `transmittance_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `transmittance_schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `transmittance_schedule_name`')
 
         self._data["Transmittance Schedule Name"] = value
@@ -45710,372 +48282,17 @@ class ShadingSiteDetailed(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.transmittance_schedule_name))
-        out.append(self._to_str(self.number_of_vertices))
-        out.append(self._to_str(self.vertex_1_xcoordinate))
-        out.append(self._to_str(self.vertex_1_ycoordinate))
-        out.append(self._to_str(self.vertex_1_zcoordinate))
-        out.append(self._to_str(self.vertex_2_xcoordinate))
-        out.append(self._to_str(self.vertex_2_ycoordinate))
-        out.append(self._to_str(self.vertex_2_zcoordinate))
-        out.append(self._to_str(self.vertex_3_xcoordinate))
-        out.append(self._to_str(self.vertex_3_ycoordinate))
-        out.append(self._to_str(self.vertex_3_zcoordinate))
-        out.append(self._to_str(self.vertex_4_xcoordinate))
-        out.append(self._to_str(self.vertex_4_ycoordinate))
-        out.append(self._to_str(self.vertex_4_zcoordinate))
-        out.append(self._to_str(self.vertex_5_xcoordinate))
-        out.append(self._to_str(self.vertex_5_ycoordinate))
-        out.append(self._to_str(self.vertex_5_zcoordinate))
-        out.append(self._to_str(self.vertex_6_xcoordinate))
-        out.append(self._to_str(self.vertex_6_ycoordinate))
-        out.append(self._to_str(self.vertex_6_zcoordinate))
-        out.append(self._to_str(self.vertex_7_xcoordinate))
-        out.append(self._to_str(self.vertex_7_ycoordinate))
-        out.append(self._to_str(self.vertex_7_zcoordinate))
-        out.append(self._to_str(self.vertex_8_xcoordinate))
-        out.append(self._to_str(self.vertex_8_ycoordinate))
-        out.append(self._to_str(self.vertex_8_zcoordinate))
-        out.append(self._to_str(self.vertex_9_xcoordinate))
-        out.append(self._to_str(self.vertex_9_ycoordinate))
-        out.append(self._to_str(self.vertex_9_zcoordinate))
-        out.append(self._to_str(self.vertex_10_xcoordinate))
-        out.append(self._to_str(self.vertex_10_ycoordinate))
-        out.append(self._to_str(self.vertex_10_zcoordinate))
-        out.append(self._to_str(self.vertex_11_xcoordinate))
-        out.append(self._to_str(self.vertex_11_ycoordinate))
-        out.append(self._to_str(self.vertex_11_zcoordinate))
-        out.append(self._to_str(self.vertex_12_xcoordinate))
-        out.append(self._to_str(self.vertex_12_ycoordinate))
-        out.append(self._to_str(self.vertex_12_zcoordinate))
-        out.append(self._to_str(self.vertex_13_xcoordinate))
-        out.append(self._to_str(self.vertex_13_ycoordinate))
-        out.append(self._to_str(self.vertex_13_zcoordinate))
-        out.append(self._to_str(self.vertex_14_xcoordinate))
-        out.append(self._to_str(self.vertex_14_ycoordinate))
-        out.append(self._to_str(self.vertex_14_zcoordinate))
-        out.append(self._to_str(self.vertex_15_xcoordinate))
-        out.append(self._to_str(self.vertex_15_ycoordinate))
-        out.append(self._to_str(self.vertex_15_zcoordinate))
-        out.append(self._to_str(self.vertex_16_xcoordinate))
-        out.append(self._to_str(self.vertex_16_ycoordinate))
-        out.append(self._to_str(self.vertex_16_zcoordinate))
-        out.append(self._to_str(self.vertex_17_xcoordinate))
-        out.append(self._to_str(self.vertex_17_ycoordinate))
-        out.append(self._to_str(self.vertex_17_zcoordinate))
-        out.append(self._to_str(self.vertex_18_xcoordinate))
-        out.append(self._to_str(self.vertex_18_ycoordinate))
-        out.append(self._to_str(self.vertex_18_zcoordinate))
-        out.append(self._to_str(self.vertex_19_xcoordinate))
-        out.append(self._to_str(self.vertex_19_ycoordinate))
-        out.append(self._to_str(self.vertex_19_zcoordinate))
-        out.append(self._to_str(self.vertex_20_xcoordinate))
-        out.append(self._to_str(self.vertex_20_ycoordinate))
-        out.append(self._to_str(self.vertex_20_zcoordinate))
-        out.append(self._to_str(self.vertex_21_xcoordinate))
-        out.append(self._to_str(self.vertex_21_ycoordinate))
-        out.append(self._to_str(self.vertex_21_zcoordinate))
-        out.append(self._to_str(self.vertex_22_xcoordinate))
-        out.append(self._to_str(self.vertex_22_ycoordinate))
-        out.append(self._to_str(self.vertex_22_zcoordinate))
-        out.append(self._to_str(self.vertex_23_xcoordinate))
-        out.append(self._to_str(self.vertex_23_ycoordinate))
-        out.append(self._to_str(self.vertex_23_zcoordinate))
-        out.append(self._to_str(self.vertex_24_xcoordinate))
-        out.append(self._to_str(self.vertex_24_ycoordinate))
-        out.append(self._to_str(self.vertex_24_zcoordinate))
-        out.append(self._to_str(self.vertex_25_xcoordinate))
-        out.append(self._to_str(self.vertex_25_ycoordinate))
-        out.append(self._to_str(self.vertex_25_zcoordinate))
-        out.append(self._to_str(self.vertex_26_xcoordinate))
-        out.append(self._to_str(self.vertex_26_ycoordinate))
-        out.append(self._to_str(self.vertex_26_zcoordinate))
-        out.append(self._to_str(self.vertex_27_xcoordinate))
-        out.append(self._to_str(self.vertex_27_ycoordinate))
-        out.append(self._to_str(self.vertex_27_zcoordinate))
-        out.append(self._to_str(self.vertex_28_xcoordinate))
-        out.append(self._to_str(self.vertex_28_ycoordinate))
-        out.append(self._to_str(self.vertex_28_zcoordinate))
-        out.append(self._to_str(self.vertex_29_xcoordinate))
-        out.append(self._to_str(self.vertex_29_ycoordinate))
-        out.append(self._to_str(self.vertex_29_zcoordinate))
-        out.append(self._to_str(self.vertex_30_xcoordinate))
-        out.append(self._to_str(self.vertex_30_ycoordinate))
-        out.append(self._to_str(self.vertex_30_zcoordinate))
-        out.append(self._to_str(self.vertex_31_xcoordinate))
-        out.append(self._to_str(self.vertex_31_ycoordinate))
-        out.append(self._to_str(self.vertex_31_zcoordinate))
-        out.append(self._to_str(self.vertex_32_xcoordinate))
-        out.append(self._to_str(self.vertex_32_ycoordinate))
-        out.append(self._to_str(self.vertex_32_zcoordinate))
-        out.append(self._to_str(self.vertex_33_xcoordinate))
-        out.append(self._to_str(self.vertex_33_ycoordinate))
-        out.append(self._to_str(self.vertex_33_zcoordinate))
-        out.append(self._to_str(self.vertex_34_xcoordinate))
-        out.append(self._to_str(self.vertex_34_ycoordinate))
-        out.append(self._to_str(self.vertex_34_zcoordinate))
-        out.append(self._to_str(self.vertex_35_xcoordinate))
-        out.append(self._to_str(self.vertex_35_ycoordinate))
-        out.append(self._to_str(self.vertex_35_zcoordinate))
-        out.append(self._to_str(self.vertex_36_xcoordinate))
-        out.append(self._to_str(self.vertex_36_ycoordinate))
-        out.append(self._to_str(self.vertex_36_zcoordinate))
-        out.append(self._to_str(self.vertex_37_xcoordinate))
-        out.append(self._to_str(self.vertex_37_ycoordinate))
-        out.append(self._to_str(self.vertex_37_zcoordinate))
-        out.append(self._to_str(self.vertex_38_xcoordinate))
-        out.append(self._to_str(self.vertex_38_ycoordinate))
-        out.append(self._to_str(self.vertex_38_zcoordinate))
-        out.append(self._to_str(self.vertex_39_xcoordinate))
-        out.append(self._to_str(self.vertex_39_ycoordinate))
-        out.append(self._to_str(self.vertex_39_zcoordinate))
-        out.append(self._to_str(self.vertex_40_xcoordinate))
-        out.append(self._to_str(self.vertex_40_ycoordinate))
-        out.append(self._to_str(self.vertex_40_zcoordinate))
-        out.append(self._to_str(self.vertex_41_xcoordinate))
-        out.append(self._to_str(self.vertex_41_ycoordinate))
-        out.append(self._to_str(self.vertex_41_zcoordinate))
-        out.append(self._to_str(self.vertex_42_xcoordinate))
-        out.append(self._to_str(self.vertex_42_ycoordinate))
-        out.append(self._to_str(self.vertex_42_zcoordinate))
-        out.append(self._to_str(self.vertex_43_xcoordinate))
-        out.append(self._to_str(self.vertex_43_ycoordinate))
-        out.append(self._to_str(self.vertex_43_zcoordinate))
-        out.append(self._to_str(self.vertex_44_xcoordinate))
-        out.append(self._to_str(self.vertex_44_ycoordinate))
-        out.append(self._to_str(self.vertex_44_zcoordinate))
-        out.append(self._to_str(self.vertex_45_xcoordinate))
-        out.append(self._to_str(self.vertex_45_ycoordinate))
-        out.append(self._to_str(self.vertex_45_zcoordinate))
-        out.append(self._to_str(self.vertex_46_xcoordinate))
-        out.append(self._to_str(self.vertex_46_ycoordinate))
-        out.append(self._to_str(self.vertex_46_zcoordinate))
-        out.append(self._to_str(self.vertex_47_xcoordinate))
-        out.append(self._to_str(self.vertex_47_ycoordinate))
-        out.append(self._to_str(self.vertex_47_zcoordinate))
-        out.append(self._to_str(self.vertex_48_xcoordinate))
-        out.append(self._to_str(self.vertex_48_ycoordinate))
-        out.append(self._to_str(self.vertex_48_zcoordinate))
-        out.append(self._to_str(self.vertex_49_xcoordinate))
-        out.append(self._to_str(self.vertex_49_ycoordinate))
-        out.append(self._to_str(self.vertex_49_zcoordinate))
-        out.append(self._to_str(self.vertex_50_xcoordinate))
-        out.append(self._to_str(self.vertex_50_ycoordinate))
-        out.append(self._to_str(self.vertex_50_zcoordinate))
-        out.append(self._to_str(self.vertex_51_xcoordinate))
-        out.append(self._to_str(self.vertex_51_ycoordinate))
-        out.append(self._to_str(self.vertex_51_zcoordinate))
-        out.append(self._to_str(self.vertex_52_xcoordinate))
-        out.append(self._to_str(self.vertex_52_ycoordinate))
-        out.append(self._to_str(self.vertex_52_zcoordinate))
-        out.append(self._to_str(self.vertex_53_xcoordinate))
-        out.append(self._to_str(self.vertex_53_ycoordinate))
-        out.append(self._to_str(self.vertex_53_zcoordinate))
-        out.append(self._to_str(self.vertex_54_xcoordinate))
-        out.append(self._to_str(self.vertex_54_ycoordinate))
-        out.append(self._to_str(self.vertex_54_zcoordinate))
-        out.append(self._to_str(self.vertex_55_xcoordinate))
-        out.append(self._to_str(self.vertex_55_ycoordinate))
-        out.append(self._to_str(self.vertex_55_zcoordinate))
-        out.append(self._to_str(self.vertex_56_xcoordinate))
-        out.append(self._to_str(self.vertex_56_ycoordinate))
-        out.append(self._to_str(self.vertex_56_zcoordinate))
-        out.append(self._to_str(self.vertex_57_xcoordinate))
-        out.append(self._to_str(self.vertex_57_ycoordinate))
-        out.append(self._to_str(self.vertex_57_zcoordinate))
-        out.append(self._to_str(self.vertex_58_xcoordinate))
-        out.append(self._to_str(self.vertex_58_ycoordinate))
-        out.append(self._to_str(self.vertex_58_zcoordinate))
-        out.append(self._to_str(self.vertex_59_xcoordinate))
-        out.append(self._to_str(self.vertex_59_ycoordinate))
-        out.append(self._to_str(self.vertex_59_zcoordinate))
-        out.append(self._to_str(self.vertex_60_xcoordinate))
-        out.append(self._to_str(self.vertex_60_ycoordinate))
-        out.append(self._to_str(self.vertex_60_zcoordinate))
-        out.append(self._to_str(self.vertex_61_xcoordinate))
-        out.append(self._to_str(self.vertex_61_ycoordinate))
-        out.append(self._to_str(self.vertex_61_zcoordinate))
-        out.append(self._to_str(self.vertex_62_xcoordinate))
-        out.append(self._to_str(self.vertex_62_ycoordinate))
-        out.append(self._to_str(self.vertex_62_zcoordinate))
-        out.append(self._to_str(self.vertex_63_xcoordinate))
-        out.append(self._to_str(self.vertex_63_ycoordinate))
-        out.append(self._to_str(self.vertex_63_zcoordinate))
-        out.append(self._to_str(self.vertex_64_xcoordinate))
-        out.append(self._to_str(self.vertex_64_ycoordinate))
-        out.append(self._to_str(self.vertex_64_zcoordinate))
-        out.append(self._to_str(self.vertex_65_xcoordinate))
-        out.append(self._to_str(self.vertex_65_ycoordinate))
-        out.append(self._to_str(self.vertex_65_zcoordinate))
-        out.append(self._to_str(self.vertex_66_xcoordinate))
-        out.append(self._to_str(self.vertex_66_ycoordinate))
-        out.append(self._to_str(self.vertex_66_zcoordinate))
-        out.append(self._to_str(self.vertex_67_xcoordinate))
-        out.append(self._to_str(self.vertex_67_ycoordinate))
-        out.append(self._to_str(self.vertex_67_zcoordinate))
-        out.append(self._to_str(self.vertex_68_xcoordinate))
-        out.append(self._to_str(self.vertex_68_ycoordinate))
-        out.append(self._to_str(self.vertex_68_zcoordinate))
-        out.append(self._to_str(self.vertex_69_xcoordinate))
-        out.append(self._to_str(self.vertex_69_ycoordinate))
-        out.append(self._to_str(self.vertex_69_zcoordinate))
-        out.append(self._to_str(self.vertex_70_xcoordinate))
-        out.append(self._to_str(self.vertex_70_ycoordinate))
-        out.append(self._to_str(self.vertex_70_zcoordinate))
-        out.append(self._to_str(self.vertex_71_xcoordinate))
-        out.append(self._to_str(self.vertex_71_ycoordinate))
-        out.append(self._to_str(self.vertex_71_zcoordinate))
-        out.append(self._to_str(self.vertex_72_xcoordinate))
-        out.append(self._to_str(self.vertex_72_ycoordinate))
-        out.append(self._to_str(self.vertex_72_zcoordinate))
-        out.append(self._to_str(self.vertex_73_xcoordinate))
-        out.append(self._to_str(self.vertex_73_ycoordinate))
-        out.append(self._to_str(self.vertex_73_zcoordinate))
-        out.append(self._to_str(self.vertex_74_xcoordinate))
-        out.append(self._to_str(self.vertex_74_ycoordinate))
-        out.append(self._to_str(self.vertex_74_zcoordinate))
-        out.append(self._to_str(self.vertex_75_xcoordinate))
-        out.append(self._to_str(self.vertex_75_ycoordinate))
-        out.append(self._to_str(self.vertex_75_zcoordinate))
-        out.append(self._to_str(self.vertex_76_xcoordinate))
-        out.append(self._to_str(self.vertex_76_ycoordinate))
-        out.append(self._to_str(self.vertex_76_zcoordinate))
-        out.append(self._to_str(self.vertex_77_xcoordinate))
-        out.append(self._to_str(self.vertex_77_ycoordinate))
-        out.append(self._to_str(self.vertex_77_zcoordinate))
-        out.append(self._to_str(self.vertex_78_xcoordinate))
-        out.append(self._to_str(self.vertex_78_ycoordinate))
-        out.append(self._to_str(self.vertex_78_zcoordinate))
-        out.append(self._to_str(self.vertex_79_xcoordinate))
-        out.append(self._to_str(self.vertex_79_ycoordinate))
-        out.append(self._to_str(self.vertex_79_zcoordinate))
-        out.append(self._to_str(self.vertex_80_xcoordinate))
-        out.append(self._to_str(self.vertex_80_ycoordinate))
-        out.append(self._to_str(self.vertex_80_zcoordinate))
-        out.append(self._to_str(self.vertex_81_xcoordinate))
-        out.append(self._to_str(self.vertex_81_ycoordinate))
-        out.append(self._to_str(self.vertex_81_zcoordinate))
-        out.append(self._to_str(self.vertex_82_xcoordinate))
-        out.append(self._to_str(self.vertex_82_ycoordinate))
-        out.append(self._to_str(self.vertex_82_zcoordinate))
-        out.append(self._to_str(self.vertex_83_xcoordinate))
-        out.append(self._to_str(self.vertex_83_ycoordinate))
-        out.append(self._to_str(self.vertex_83_zcoordinate))
-        out.append(self._to_str(self.vertex_84_xcoordinate))
-        out.append(self._to_str(self.vertex_84_ycoordinate))
-        out.append(self._to_str(self.vertex_84_zcoordinate))
-        out.append(self._to_str(self.vertex_85_xcoordinate))
-        out.append(self._to_str(self.vertex_85_ycoordinate))
-        out.append(self._to_str(self.vertex_85_zcoordinate))
-        out.append(self._to_str(self.vertex_86_xcoordinate))
-        out.append(self._to_str(self.vertex_86_ycoordinate))
-        out.append(self._to_str(self.vertex_86_zcoordinate))
-        out.append(self._to_str(self.vertex_87_xcoordinate))
-        out.append(self._to_str(self.vertex_87_ycoordinate))
-        out.append(self._to_str(self.vertex_87_zcoordinate))
-        out.append(self._to_str(self.vertex_88_xcoordinate))
-        out.append(self._to_str(self.vertex_88_ycoordinate))
-        out.append(self._to_str(self.vertex_88_zcoordinate))
-        out.append(self._to_str(self.vertex_89_xcoordinate))
-        out.append(self._to_str(self.vertex_89_ycoordinate))
-        out.append(self._to_str(self.vertex_89_zcoordinate))
-        out.append(self._to_str(self.vertex_90_xcoordinate))
-        out.append(self._to_str(self.vertex_90_ycoordinate))
-        out.append(self._to_str(self.vertex_90_zcoordinate))
-        out.append(self._to_str(self.vertex_91_xcoordinate))
-        out.append(self._to_str(self.vertex_91_ycoordinate))
-        out.append(self._to_str(self.vertex_91_zcoordinate))
-        out.append(self._to_str(self.vertex_92_xcoordinate))
-        out.append(self._to_str(self.vertex_92_ycoordinate))
-        out.append(self._to_str(self.vertex_92_zcoordinate))
-        out.append(self._to_str(self.vertex_93_xcoordinate))
-        out.append(self._to_str(self.vertex_93_ycoordinate))
-        out.append(self._to_str(self.vertex_93_zcoordinate))
-        out.append(self._to_str(self.vertex_94_xcoordinate))
-        out.append(self._to_str(self.vertex_94_ycoordinate))
-        out.append(self._to_str(self.vertex_94_zcoordinate))
-        out.append(self._to_str(self.vertex_95_xcoordinate))
-        out.append(self._to_str(self.vertex_95_ycoordinate))
-        out.append(self._to_str(self.vertex_95_zcoordinate))
-        out.append(self._to_str(self.vertex_96_xcoordinate))
-        out.append(self._to_str(self.vertex_96_ycoordinate))
-        out.append(self._to_str(self.vertex_96_zcoordinate))
-        out.append(self._to_str(self.vertex_97_xcoordinate))
-        out.append(self._to_str(self.vertex_97_ycoordinate))
-        out.append(self._to_str(self.vertex_97_zcoordinate))
-        out.append(self._to_str(self.vertex_98_xcoordinate))
-        out.append(self._to_str(self.vertex_98_ycoordinate))
-        out.append(self._to_str(self.vertex_98_zcoordinate))
-        out.append(self._to_str(self.vertex_99_xcoordinate))
-        out.append(self._to_str(self.vertex_99_ycoordinate))
-        out.append(self._to_str(self.vertex_99_zcoordinate))
-        out.append(self._to_str(self.vertex_100_xcoordinate))
-        out.append(self._to_str(self.vertex_100_ycoordinate))
-        out.append(self._to_str(self.vertex_100_zcoordinate))
-        out.append(self._to_str(self.vertex_101_xcoordinate))
-        out.append(self._to_str(self.vertex_101_ycoordinate))
-        out.append(self._to_str(self.vertex_101_zcoordinate))
-        out.append(self._to_str(self.vertex_102_xcoordinate))
-        out.append(self._to_str(self.vertex_102_ycoordinate))
-        out.append(self._to_str(self.vertex_102_zcoordinate))
-        out.append(self._to_str(self.vertex_103_xcoordinate))
-        out.append(self._to_str(self.vertex_103_ycoordinate))
-        out.append(self._to_str(self.vertex_103_zcoordinate))
-        out.append(self._to_str(self.vertex_104_xcoordinate))
-        out.append(self._to_str(self.vertex_104_ycoordinate))
-        out.append(self._to_str(self.vertex_104_zcoordinate))
-        out.append(self._to_str(self.vertex_105_xcoordinate))
-        out.append(self._to_str(self.vertex_105_ycoordinate))
-        out.append(self._to_str(self.vertex_105_zcoordinate))
-        out.append(self._to_str(self.vertex_106_xcoordinate))
-        out.append(self._to_str(self.vertex_106_ycoordinate))
-        out.append(self._to_str(self.vertex_106_zcoordinate))
-        out.append(self._to_str(self.vertex_107_xcoordinate))
-        out.append(self._to_str(self.vertex_107_ycoordinate))
-        out.append(self._to_str(self.vertex_107_zcoordinate))
-        out.append(self._to_str(self.vertex_108_xcoordinate))
-        out.append(self._to_str(self.vertex_108_ycoordinate))
-        out.append(self._to_str(self.vertex_108_zcoordinate))
-        out.append(self._to_str(self.vertex_109_xcoordinate))
-        out.append(self._to_str(self.vertex_109_ycoordinate))
-        out.append(self._to_str(self.vertex_109_zcoordinate))
-        out.append(self._to_str(self.vertex_110_xcoordinate))
-        out.append(self._to_str(self.vertex_110_ycoordinate))
-        out.append(self._to_str(self.vertex_110_zcoordinate))
-        out.append(self._to_str(self.vertex_111_xcoordinate))
-        out.append(self._to_str(self.vertex_111_ycoordinate))
-        out.append(self._to_str(self.vertex_111_zcoordinate))
-        out.append(self._to_str(self.vertex_112_xcoordinate))
-        out.append(self._to_str(self.vertex_112_ycoordinate))
-        out.append(self._to_str(self.vertex_112_zcoordinate))
-        out.append(self._to_str(self.vertex_113_xcoordinate))
-        out.append(self._to_str(self.vertex_113_ycoordinate))
-        out.append(self._to_str(self.vertex_113_zcoordinate))
-        out.append(self._to_str(self.vertex_114_xcoordinate))
-        out.append(self._to_str(self.vertex_114_ycoordinate))
-        out.append(self._to_str(self.vertex_114_zcoordinate))
-        out.append(self._to_str(self.vertex_115_xcoordinate))
-        out.append(self._to_str(self.vertex_115_ycoordinate))
-        out.append(self._to_str(self.vertex_115_zcoordinate))
-        out.append(self._to_str(self.vertex_116_xcoordinate))
-        out.append(self._to_str(self.vertex_116_ycoordinate))
-        out.append(self._to_str(self.vertex_116_zcoordinate))
-        out.append(self._to_str(self.vertex_117_xcoordinate))
-        out.append(self._to_str(self.vertex_117_ycoordinate))
-        out.append(self._to_str(self.vertex_117_zcoordinate))
-        out.append(self._to_str(self.vertex_118_xcoordinate))
-        out.append(self._to_str(self.vertex_118_ycoordinate))
-        out.append(self._to_str(self.vertex_118_zcoordinate))
-        out.append(self._to_str(self.vertex_119_xcoordinate))
-        out.append(self._to_str(self.vertex_119_ycoordinate))
-        out.append(self._to_str(self.vertex_119_zcoordinate))
-        out.append(self._to_str(self.vertex_120_xcoordinate))
-        out.append(self._to_str(self.vertex_120_ycoordinate))
-        out.append(self._to_str(self.vertex_120_zcoordinate))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class ShadingBuildingDetailed(object):
     """ Corresponds to IDD object `Shading:Building:Detailed`
@@ -46454,1829 +48671,2557 @@ class ShadingBuildingDetailed(object):
         self._data["Vertex 120 X-coordinate"] = None
         self._data["Vertex 120 Y-coordinate"] = None
         self._data["Vertex 120 Z-coordinate"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.transmittance_schedule_name = None
         else:
             self.transmittance_schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.number_of_vertices = None
         else:
             self.number_of_vertices = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_1_xcoordinate = None
         else:
             self.vertex_1_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_1_ycoordinate = None
         else:
             self.vertex_1_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_1_zcoordinate = None
         else:
             self.vertex_1_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_2_xcoordinate = None
         else:
             self.vertex_2_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_2_ycoordinate = None
         else:
             self.vertex_2_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_2_zcoordinate = None
         else:
             self.vertex_2_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_3_xcoordinate = None
         else:
             self.vertex_3_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_3_ycoordinate = None
         else:
             self.vertex_3_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_3_zcoordinate = None
         else:
             self.vertex_3_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_4_xcoordinate = None
         else:
             self.vertex_4_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_4_ycoordinate = None
         else:
             self.vertex_4_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_4_zcoordinate = None
         else:
             self.vertex_4_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_5_xcoordinate = None
         else:
             self.vertex_5_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_5_ycoordinate = None
         else:
             self.vertex_5_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_5_zcoordinate = None
         else:
             self.vertex_5_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_6_xcoordinate = None
         else:
             self.vertex_6_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_6_ycoordinate = None
         else:
             self.vertex_6_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_6_zcoordinate = None
         else:
             self.vertex_6_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_7_xcoordinate = None
         else:
             self.vertex_7_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_7_ycoordinate = None
         else:
             self.vertex_7_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_7_zcoordinate = None
         else:
             self.vertex_7_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_8_xcoordinate = None
         else:
             self.vertex_8_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_8_ycoordinate = None
         else:
             self.vertex_8_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_8_zcoordinate = None
         else:
             self.vertex_8_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_9_xcoordinate = None
         else:
             self.vertex_9_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_9_ycoordinate = None
         else:
             self.vertex_9_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_9_zcoordinate = None
         else:
             self.vertex_9_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_10_xcoordinate = None
         else:
             self.vertex_10_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_10_ycoordinate = None
         else:
             self.vertex_10_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_10_zcoordinate = None
         else:
             self.vertex_10_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_11_xcoordinate = None
         else:
             self.vertex_11_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_11_ycoordinate = None
         else:
             self.vertex_11_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_11_zcoordinate = None
         else:
             self.vertex_11_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_12_xcoordinate = None
         else:
             self.vertex_12_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_12_ycoordinate = None
         else:
             self.vertex_12_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_12_zcoordinate = None
         else:
             self.vertex_12_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_13_xcoordinate = None
         else:
             self.vertex_13_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_13_ycoordinate = None
         else:
             self.vertex_13_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_13_zcoordinate = None
         else:
             self.vertex_13_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_14_xcoordinate = None
         else:
             self.vertex_14_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_14_ycoordinate = None
         else:
             self.vertex_14_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_14_zcoordinate = None
         else:
             self.vertex_14_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_15_xcoordinate = None
         else:
             self.vertex_15_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_15_ycoordinate = None
         else:
             self.vertex_15_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_15_zcoordinate = None
         else:
             self.vertex_15_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_16_xcoordinate = None
         else:
             self.vertex_16_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_16_ycoordinate = None
         else:
             self.vertex_16_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_16_zcoordinate = None
         else:
             self.vertex_16_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_17_xcoordinate = None
         else:
             self.vertex_17_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_17_ycoordinate = None
         else:
             self.vertex_17_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_17_zcoordinate = None
         else:
             self.vertex_17_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_18_xcoordinate = None
         else:
             self.vertex_18_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_18_ycoordinate = None
         else:
             self.vertex_18_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_18_zcoordinate = None
         else:
             self.vertex_18_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_19_xcoordinate = None
         else:
             self.vertex_19_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_19_ycoordinate = None
         else:
             self.vertex_19_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_19_zcoordinate = None
         else:
             self.vertex_19_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_20_xcoordinate = None
         else:
             self.vertex_20_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_20_ycoordinate = None
         else:
             self.vertex_20_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_20_zcoordinate = None
         else:
             self.vertex_20_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_21_xcoordinate = None
         else:
             self.vertex_21_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_21_ycoordinate = None
         else:
             self.vertex_21_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_21_zcoordinate = None
         else:
             self.vertex_21_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_22_xcoordinate = None
         else:
             self.vertex_22_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_22_ycoordinate = None
         else:
             self.vertex_22_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_22_zcoordinate = None
         else:
             self.vertex_22_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_23_xcoordinate = None
         else:
             self.vertex_23_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_23_ycoordinate = None
         else:
             self.vertex_23_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_23_zcoordinate = None
         else:
             self.vertex_23_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_24_xcoordinate = None
         else:
             self.vertex_24_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_24_ycoordinate = None
         else:
             self.vertex_24_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_24_zcoordinate = None
         else:
             self.vertex_24_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_25_xcoordinate = None
         else:
             self.vertex_25_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_25_ycoordinate = None
         else:
             self.vertex_25_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_25_zcoordinate = None
         else:
             self.vertex_25_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_26_xcoordinate = None
         else:
             self.vertex_26_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_26_ycoordinate = None
         else:
             self.vertex_26_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_26_zcoordinate = None
         else:
             self.vertex_26_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_27_xcoordinate = None
         else:
             self.vertex_27_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_27_ycoordinate = None
         else:
             self.vertex_27_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_27_zcoordinate = None
         else:
             self.vertex_27_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_28_xcoordinate = None
         else:
             self.vertex_28_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_28_ycoordinate = None
         else:
             self.vertex_28_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_28_zcoordinate = None
         else:
             self.vertex_28_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_29_xcoordinate = None
         else:
             self.vertex_29_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_29_ycoordinate = None
         else:
             self.vertex_29_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_29_zcoordinate = None
         else:
             self.vertex_29_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_30_xcoordinate = None
         else:
             self.vertex_30_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_30_ycoordinate = None
         else:
             self.vertex_30_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_30_zcoordinate = None
         else:
             self.vertex_30_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_31_xcoordinate = None
         else:
             self.vertex_31_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_31_ycoordinate = None
         else:
             self.vertex_31_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_31_zcoordinate = None
         else:
             self.vertex_31_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_32_xcoordinate = None
         else:
             self.vertex_32_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_32_ycoordinate = None
         else:
             self.vertex_32_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_32_zcoordinate = None
         else:
             self.vertex_32_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_33_xcoordinate = None
         else:
             self.vertex_33_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_33_ycoordinate = None
         else:
             self.vertex_33_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_33_zcoordinate = None
         else:
             self.vertex_33_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_34_xcoordinate = None
         else:
             self.vertex_34_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_34_ycoordinate = None
         else:
             self.vertex_34_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_34_zcoordinate = None
         else:
             self.vertex_34_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_35_xcoordinate = None
         else:
             self.vertex_35_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_35_ycoordinate = None
         else:
             self.vertex_35_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_35_zcoordinate = None
         else:
             self.vertex_35_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_36_xcoordinate = None
         else:
             self.vertex_36_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_36_ycoordinate = None
         else:
             self.vertex_36_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_36_zcoordinate = None
         else:
             self.vertex_36_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_37_xcoordinate = None
         else:
             self.vertex_37_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_37_ycoordinate = None
         else:
             self.vertex_37_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_37_zcoordinate = None
         else:
             self.vertex_37_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_38_xcoordinate = None
         else:
             self.vertex_38_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_38_ycoordinate = None
         else:
             self.vertex_38_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_38_zcoordinate = None
         else:
             self.vertex_38_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_39_xcoordinate = None
         else:
             self.vertex_39_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_39_ycoordinate = None
         else:
             self.vertex_39_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_39_zcoordinate = None
         else:
             self.vertex_39_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_40_xcoordinate = None
         else:
             self.vertex_40_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_40_ycoordinate = None
         else:
             self.vertex_40_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_40_zcoordinate = None
         else:
             self.vertex_40_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_41_xcoordinate = None
         else:
             self.vertex_41_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_41_ycoordinate = None
         else:
             self.vertex_41_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_41_zcoordinate = None
         else:
             self.vertex_41_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_42_xcoordinate = None
         else:
             self.vertex_42_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_42_ycoordinate = None
         else:
             self.vertex_42_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_42_zcoordinate = None
         else:
             self.vertex_42_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_43_xcoordinate = None
         else:
             self.vertex_43_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_43_ycoordinate = None
         else:
             self.vertex_43_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_43_zcoordinate = None
         else:
             self.vertex_43_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_44_xcoordinate = None
         else:
             self.vertex_44_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_44_ycoordinate = None
         else:
             self.vertex_44_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_44_zcoordinate = None
         else:
             self.vertex_44_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_45_xcoordinate = None
         else:
             self.vertex_45_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_45_ycoordinate = None
         else:
             self.vertex_45_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_45_zcoordinate = None
         else:
             self.vertex_45_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_46_xcoordinate = None
         else:
             self.vertex_46_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_46_ycoordinate = None
         else:
             self.vertex_46_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_46_zcoordinate = None
         else:
             self.vertex_46_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_47_xcoordinate = None
         else:
             self.vertex_47_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_47_ycoordinate = None
         else:
             self.vertex_47_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_47_zcoordinate = None
         else:
             self.vertex_47_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_48_xcoordinate = None
         else:
             self.vertex_48_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_48_ycoordinate = None
         else:
             self.vertex_48_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_48_zcoordinate = None
         else:
             self.vertex_48_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_49_xcoordinate = None
         else:
             self.vertex_49_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_49_ycoordinate = None
         else:
             self.vertex_49_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_49_zcoordinate = None
         else:
             self.vertex_49_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_50_xcoordinate = None
         else:
             self.vertex_50_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_50_ycoordinate = None
         else:
             self.vertex_50_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_50_zcoordinate = None
         else:
             self.vertex_50_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_51_xcoordinate = None
         else:
             self.vertex_51_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_51_ycoordinate = None
         else:
             self.vertex_51_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_51_zcoordinate = None
         else:
             self.vertex_51_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_52_xcoordinate = None
         else:
             self.vertex_52_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_52_ycoordinate = None
         else:
             self.vertex_52_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_52_zcoordinate = None
         else:
             self.vertex_52_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_53_xcoordinate = None
         else:
             self.vertex_53_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_53_ycoordinate = None
         else:
             self.vertex_53_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_53_zcoordinate = None
         else:
             self.vertex_53_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_54_xcoordinate = None
         else:
             self.vertex_54_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_54_ycoordinate = None
         else:
             self.vertex_54_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_54_zcoordinate = None
         else:
             self.vertex_54_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_55_xcoordinate = None
         else:
             self.vertex_55_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_55_ycoordinate = None
         else:
             self.vertex_55_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_55_zcoordinate = None
         else:
             self.vertex_55_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_56_xcoordinate = None
         else:
             self.vertex_56_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_56_ycoordinate = None
         else:
             self.vertex_56_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_56_zcoordinate = None
         else:
             self.vertex_56_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_57_xcoordinate = None
         else:
             self.vertex_57_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_57_ycoordinate = None
         else:
             self.vertex_57_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_57_zcoordinate = None
         else:
             self.vertex_57_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_58_xcoordinate = None
         else:
             self.vertex_58_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_58_ycoordinate = None
         else:
             self.vertex_58_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_58_zcoordinate = None
         else:
             self.vertex_58_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_59_xcoordinate = None
         else:
             self.vertex_59_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_59_ycoordinate = None
         else:
             self.vertex_59_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_59_zcoordinate = None
         else:
             self.vertex_59_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_60_xcoordinate = None
         else:
             self.vertex_60_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_60_ycoordinate = None
         else:
             self.vertex_60_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_60_zcoordinate = None
         else:
             self.vertex_60_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_61_xcoordinate = None
         else:
             self.vertex_61_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_61_ycoordinate = None
         else:
             self.vertex_61_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_61_zcoordinate = None
         else:
             self.vertex_61_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_62_xcoordinate = None
         else:
             self.vertex_62_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_62_ycoordinate = None
         else:
             self.vertex_62_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_62_zcoordinate = None
         else:
             self.vertex_62_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_63_xcoordinate = None
         else:
             self.vertex_63_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_63_ycoordinate = None
         else:
             self.vertex_63_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_63_zcoordinate = None
         else:
             self.vertex_63_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_64_xcoordinate = None
         else:
             self.vertex_64_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_64_ycoordinate = None
         else:
             self.vertex_64_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_64_zcoordinate = None
         else:
             self.vertex_64_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_65_xcoordinate = None
         else:
             self.vertex_65_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_65_ycoordinate = None
         else:
             self.vertex_65_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_65_zcoordinate = None
         else:
             self.vertex_65_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_66_xcoordinate = None
         else:
             self.vertex_66_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_66_ycoordinate = None
         else:
             self.vertex_66_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_66_zcoordinate = None
         else:
             self.vertex_66_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_67_xcoordinate = None
         else:
             self.vertex_67_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_67_ycoordinate = None
         else:
             self.vertex_67_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_67_zcoordinate = None
         else:
             self.vertex_67_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_68_xcoordinate = None
         else:
             self.vertex_68_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_68_ycoordinate = None
         else:
             self.vertex_68_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_68_zcoordinate = None
         else:
             self.vertex_68_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_69_xcoordinate = None
         else:
             self.vertex_69_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_69_ycoordinate = None
         else:
             self.vertex_69_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_69_zcoordinate = None
         else:
             self.vertex_69_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_70_xcoordinate = None
         else:
             self.vertex_70_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_70_ycoordinate = None
         else:
             self.vertex_70_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_70_zcoordinate = None
         else:
             self.vertex_70_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_71_xcoordinate = None
         else:
             self.vertex_71_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_71_ycoordinate = None
         else:
             self.vertex_71_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_71_zcoordinate = None
         else:
             self.vertex_71_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_72_xcoordinate = None
         else:
             self.vertex_72_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_72_ycoordinate = None
         else:
             self.vertex_72_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_72_zcoordinate = None
         else:
             self.vertex_72_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_73_xcoordinate = None
         else:
             self.vertex_73_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_73_ycoordinate = None
         else:
             self.vertex_73_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_73_zcoordinate = None
         else:
             self.vertex_73_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_74_xcoordinate = None
         else:
             self.vertex_74_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_74_ycoordinate = None
         else:
             self.vertex_74_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_74_zcoordinate = None
         else:
             self.vertex_74_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_75_xcoordinate = None
         else:
             self.vertex_75_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_75_ycoordinate = None
         else:
             self.vertex_75_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_75_zcoordinate = None
         else:
             self.vertex_75_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_76_xcoordinate = None
         else:
             self.vertex_76_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_76_ycoordinate = None
         else:
             self.vertex_76_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_76_zcoordinate = None
         else:
             self.vertex_76_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_77_xcoordinate = None
         else:
             self.vertex_77_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_77_ycoordinate = None
         else:
             self.vertex_77_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_77_zcoordinate = None
         else:
             self.vertex_77_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_78_xcoordinate = None
         else:
             self.vertex_78_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_78_ycoordinate = None
         else:
             self.vertex_78_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_78_zcoordinate = None
         else:
             self.vertex_78_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_79_xcoordinate = None
         else:
             self.vertex_79_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_79_ycoordinate = None
         else:
             self.vertex_79_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_79_zcoordinate = None
         else:
             self.vertex_79_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_80_xcoordinate = None
         else:
             self.vertex_80_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_80_ycoordinate = None
         else:
             self.vertex_80_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_80_zcoordinate = None
         else:
             self.vertex_80_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_81_xcoordinate = None
         else:
             self.vertex_81_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_81_ycoordinate = None
         else:
             self.vertex_81_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_81_zcoordinate = None
         else:
             self.vertex_81_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_82_xcoordinate = None
         else:
             self.vertex_82_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_82_ycoordinate = None
         else:
             self.vertex_82_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_82_zcoordinate = None
         else:
             self.vertex_82_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_83_xcoordinate = None
         else:
             self.vertex_83_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_83_ycoordinate = None
         else:
             self.vertex_83_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_83_zcoordinate = None
         else:
             self.vertex_83_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_84_xcoordinate = None
         else:
             self.vertex_84_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_84_ycoordinate = None
         else:
             self.vertex_84_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_84_zcoordinate = None
         else:
             self.vertex_84_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_85_xcoordinate = None
         else:
             self.vertex_85_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_85_ycoordinate = None
         else:
             self.vertex_85_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_85_zcoordinate = None
         else:
             self.vertex_85_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_86_xcoordinate = None
         else:
             self.vertex_86_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_86_ycoordinate = None
         else:
             self.vertex_86_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_86_zcoordinate = None
         else:
             self.vertex_86_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_87_xcoordinate = None
         else:
             self.vertex_87_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_87_ycoordinate = None
         else:
             self.vertex_87_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_87_zcoordinate = None
         else:
             self.vertex_87_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_88_xcoordinate = None
         else:
             self.vertex_88_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_88_ycoordinate = None
         else:
             self.vertex_88_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_88_zcoordinate = None
         else:
             self.vertex_88_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_89_xcoordinate = None
         else:
             self.vertex_89_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_89_ycoordinate = None
         else:
             self.vertex_89_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_89_zcoordinate = None
         else:
             self.vertex_89_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_90_xcoordinate = None
         else:
             self.vertex_90_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_90_ycoordinate = None
         else:
             self.vertex_90_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_90_zcoordinate = None
         else:
             self.vertex_90_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_91_xcoordinate = None
         else:
             self.vertex_91_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_91_ycoordinate = None
         else:
             self.vertex_91_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_91_zcoordinate = None
         else:
             self.vertex_91_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_92_xcoordinate = None
         else:
             self.vertex_92_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_92_ycoordinate = None
         else:
             self.vertex_92_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_92_zcoordinate = None
         else:
             self.vertex_92_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_93_xcoordinate = None
         else:
             self.vertex_93_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_93_ycoordinate = None
         else:
             self.vertex_93_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_93_zcoordinate = None
         else:
             self.vertex_93_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_94_xcoordinate = None
         else:
             self.vertex_94_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_94_ycoordinate = None
         else:
             self.vertex_94_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_94_zcoordinate = None
         else:
             self.vertex_94_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_95_xcoordinate = None
         else:
             self.vertex_95_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_95_ycoordinate = None
         else:
             self.vertex_95_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_95_zcoordinate = None
         else:
             self.vertex_95_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_96_xcoordinate = None
         else:
             self.vertex_96_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_96_ycoordinate = None
         else:
             self.vertex_96_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_96_zcoordinate = None
         else:
             self.vertex_96_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_97_xcoordinate = None
         else:
             self.vertex_97_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_97_ycoordinate = None
         else:
             self.vertex_97_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_97_zcoordinate = None
         else:
             self.vertex_97_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_98_xcoordinate = None
         else:
             self.vertex_98_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_98_ycoordinate = None
         else:
             self.vertex_98_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_98_zcoordinate = None
         else:
             self.vertex_98_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_99_xcoordinate = None
         else:
             self.vertex_99_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_99_ycoordinate = None
         else:
             self.vertex_99_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_99_zcoordinate = None
         else:
             self.vertex_99_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_100_xcoordinate = None
         else:
             self.vertex_100_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_100_ycoordinate = None
         else:
             self.vertex_100_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_100_zcoordinate = None
         else:
             self.vertex_100_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_101_xcoordinate = None
         else:
             self.vertex_101_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_101_ycoordinate = None
         else:
             self.vertex_101_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_101_zcoordinate = None
         else:
             self.vertex_101_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_102_xcoordinate = None
         else:
             self.vertex_102_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_102_ycoordinate = None
         else:
             self.vertex_102_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_102_zcoordinate = None
         else:
             self.vertex_102_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_103_xcoordinate = None
         else:
             self.vertex_103_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_103_ycoordinate = None
         else:
             self.vertex_103_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_103_zcoordinate = None
         else:
             self.vertex_103_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_104_xcoordinate = None
         else:
             self.vertex_104_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_104_ycoordinate = None
         else:
             self.vertex_104_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_104_zcoordinate = None
         else:
             self.vertex_104_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_105_xcoordinate = None
         else:
             self.vertex_105_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_105_ycoordinate = None
         else:
             self.vertex_105_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_105_zcoordinate = None
         else:
             self.vertex_105_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_106_xcoordinate = None
         else:
             self.vertex_106_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_106_ycoordinate = None
         else:
             self.vertex_106_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_106_zcoordinate = None
         else:
             self.vertex_106_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_107_xcoordinate = None
         else:
             self.vertex_107_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_107_ycoordinate = None
         else:
             self.vertex_107_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_107_zcoordinate = None
         else:
             self.vertex_107_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_108_xcoordinate = None
         else:
             self.vertex_108_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_108_ycoordinate = None
         else:
             self.vertex_108_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_108_zcoordinate = None
         else:
             self.vertex_108_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_109_xcoordinate = None
         else:
             self.vertex_109_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_109_ycoordinate = None
         else:
             self.vertex_109_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_109_zcoordinate = None
         else:
             self.vertex_109_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_110_xcoordinate = None
         else:
             self.vertex_110_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_110_ycoordinate = None
         else:
             self.vertex_110_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_110_zcoordinate = None
         else:
             self.vertex_110_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_111_xcoordinate = None
         else:
             self.vertex_111_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_111_ycoordinate = None
         else:
             self.vertex_111_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_111_zcoordinate = None
         else:
             self.vertex_111_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_112_xcoordinate = None
         else:
             self.vertex_112_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_112_ycoordinate = None
         else:
             self.vertex_112_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_112_zcoordinate = None
         else:
             self.vertex_112_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_113_xcoordinate = None
         else:
             self.vertex_113_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_113_ycoordinate = None
         else:
             self.vertex_113_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_113_zcoordinate = None
         else:
             self.vertex_113_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_114_xcoordinate = None
         else:
             self.vertex_114_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_114_ycoordinate = None
         else:
             self.vertex_114_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_114_zcoordinate = None
         else:
             self.vertex_114_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_115_xcoordinate = None
         else:
             self.vertex_115_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_115_ycoordinate = None
         else:
             self.vertex_115_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_115_zcoordinate = None
         else:
             self.vertex_115_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_116_xcoordinate = None
         else:
             self.vertex_116_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_116_ycoordinate = None
         else:
             self.vertex_116_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_116_zcoordinate = None
         else:
             self.vertex_116_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_117_xcoordinate = None
         else:
             self.vertex_117_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_117_ycoordinate = None
         else:
             self.vertex_117_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_117_zcoordinate = None
         else:
             self.vertex_117_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_118_xcoordinate = None
         else:
             self.vertex_118_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_118_ycoordinate = None
         else:
             self.vertex_118_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_118_zcoordinate = None
         else:
             self.vertex_118_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_119_xcoordinate = None
         else:
             self.vertex_119_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_119_ycoordinate = None
         else:
             self.vertex_119_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_119_zcoordinate = None
         else:
             self.vertex_119_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_120_xcoordinate = None
         else:
             self.vertex_120_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_120_ycoordinate = None
         else:
             self.vertex_120_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_120_zcoordinate = None
         else:
             self.vertex_120_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -48307,6 +51252,9 @@ class ShadingBuildingDetailed(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -48341,6 +51289,9 @@ class ShadingBuildingDetailed(object):
                                  'for field `transmittance_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `transmittance_schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `transmittance_schedule_name`')
 
         self._data["Transmittance Schedule Name"] = value
@@ -59565,372 +62516,17 @@ class ShadingBuildingDetailed(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.transmittance_schedule_name))
-        out.append(self._to_str(self.number_of_vertices))
-        out.append(self._to_str(self.vertex_1_xcoordinate))
-        out.append(self._to_str(self.vertex_1_ycoordinate))
-        out.append(self._to_str(self.vertex_1_zcoordinate))
-        out.append(self._to_str(self.vertex_2_xcoordinate))
-        out.append(self._to_str(self.vertex_2_ycoordinate))
-        out.append(self._to_str(self.vertex_2_zcoordinate))
-        out.append(self._to_str(self.vertex_3_xcoordinate))
-        out.append(self._to_str(self.vertex_3_ycoordinate))
-        out.append(self._to_str(self.vertex_3_zcoordinate))
-        out.append(self._to_str(self.vertex_4_xcoordinate))
-        out.append(self._to_str(self.vertex_4_ycoordinate))
-        out.append(self._to_str(self.vertex_4_zcoordinate))
-        out.append(self._to_str(self.vertex_5_xcoordinate))
-        out.append(self._to_str(self.vertex_5_ycoordinate))
-        out.append(self._to_str(self.vertex_5_zcoordinate))
-        out.append(self._to_str(self.vertex_6_xcoordinate))
-        out.append(self._to_str(self.vertex_6_ycoordinate))
-        out.append(self._to_str(self.vertex_6_zcoordinate))
-        out.append(self._to_str(self.vertex_7_xcoordinate))
-        out.append(self._to_str(self.vertex_7_ycoordinate))
-        out.append(self._to_str(self.vertex_7_zcoordinate))
-        out.append(self._to_str(self.vertex_8_xcoordinate))
-        out.append(self._to_str(self.vertex_8_ycoordinate))
-        out.append(self._to_str(self.vertex_8_zcoordinate))
-        out.append(self._to_str(self.vertex_9_xcoordinate))
-        out.append(self._to_str(self.vertex_9_ycoordinate))
-        out.append(self._to_str(self.vertex_9_zcoordinate))
-        out.append(self._to_str(self.vertex_10_xcoordinate))
-        out.append(self._to_str(self.vertex_10_ycoordinate))
-        out.append(self._to_str(self.vertex_10_zcoordinate))
-        out.append(self._to_str(self.vertex_11_xcoordinate))
-        out.append(self._to_str(self.vertex_11_ycoordinate))
-        out.append(self._to_str(self.vertex_11_zcoordinate))
-        out.append(self._to_str(self.vertex_12_xcoordinate))
-        out.append(self._to_str(self.vertex_12_ycoordinate))
-        out.append(self._to_str(self.vertex_12_zcoordinate))
-        out.append(self._to_str(self.vertex_13_xcoordinate))
-        out.append(self._to_str(self.vertex_13_ycoordinate))
-        out.append(self._to_str(self.vertex_13_zcoordinate))
-        out.append(self._to_str(self.vertex_14_xcoordinate))
-        out.append(self._to_str(self.vertex_14_ycoordinate))
-        out.append(self._to_str(self.vertex_14_zcoordinate))
-        out.append(self._to_str(self.vertex_15_xcoordinate))
-        out.append(self._to_str(self.vertex_15_ycoordinate))
-        out.append(self._to_str(self.vertex_15_zcoordinate))
-        out.append(self._to_str(self.vertex_16_xcoordinate))
-        out.append(self._to_str(self.vertex_16_ycoordinate))
-        out.append(self._to_str(self.vertex_16_zcoordinate))
-        out.append(self._to_str(self.vertex_17_xcoordinate))
-        out.append(self._to_str(self.vertex_17_ycoordinate))
-        out.append(self._to_str(self.vertex_17_zcoordinate))
-        out.append(self._to_str(self.vertex_18_xcoordinate))
-        out.append(self._to_str(self.vertex_18_ycoordinate))
-        out.append(self._to_str(self.vertex_18_zcoordinate))
-        out.append(self._to_str(self.vertex_19_xcoordinate))
-        out.append(self._to_str(self.vertex_19_ycoordinate))
-        out.append(self._to_str(self.vertex_19_zcoordinate))
-        out.append(self._to_str(self.vertex_20_xcoordinate))
-        out.append(self._to_str(self.vertex_20_ycoordinate))
-        out.append(self._to_str(self.vertex_20_zcoordinate))
-        out.append(self._to_str(self.vertex_21_xcoordinate))
-        out.append(self._to_str(self.vertex_21_ycoordinate))
-        out.append(self._to_str(self.vertex_21_zcoordinate))
-        out.append(self._to_str(self.vertex_22_xcoordinate))
-        out.append(self._to_str(self.vertex_22_ycoordinate))
-        out.append(self._to_str(self.vertex_22_zcoordinate))
-        out.append(self._to_str(self.vertex_23_xcoordinate))
-        out.append(self._to_str(self.vertex_23_ycoordinate))
-        out.append(self._to_str(self.vertex_23_zcoordinate))
-        out.append(self._to_str(self.vertex_24_xcoordinate))
-        out.append(self._to_str(self.vertex_24_ycoordinate))
-        out.append(self._to_str(self.vertex_24_zcoordinate))
-        out.append(self._to_str(self.vertex_25_xcoordinate))
-        out.append(self._to_str(self.vertex_25_ycoordinate))
-        out.append(self._to_str(self.vertex_25_zcoordinate))
-        out.append(self._to_str(self.vertex_26_xcoordinate))
-        out.append(self._to_str(self.vertex_26_ycoordinate))
-        out.append(self._to_str(self.vertex_26_zcoordinate))
-        out.append(self._to_str(self.vertex_27_xcoordinate))
-        out.append(self._to_str(self.vertex_27_ycoordinate))
-        out.append(self._to_str(self.vertex_27_zcoordinate))
-        out.append(self._to_str(self.vertex_28_xcoordinate))
-        out.append(self._to_str(self.vertex_28_ycoordinate))
-        out.append(self._to_str(self.vertex_28_zcoordinate))
-        out.append(self._to_str(self.vertex_29_xcoordinate))
-        out.append(self._to_str(self.vertex_29_ycoordinate))
-        out.append(self._to_str(self.vertex_29_zcoordinate))
-        out.append(self._to_str(self.vertex_30_xcoordinate))
-        out.append(self._to_str(self.vertex_30_ycoordinate))
-        out.append(self._to_str(self.vertex_30_zcoordinate))
-        out.append(self._to_str(self.vertex_31_xcoordinate))
-        out.append(self._to_str(self.vertex_31_ycoordinate))
-        out.append(self._to_str(self.vertex_31_zcoordinate))
-        out.append(self._to_str(self.vertex_32_xcoordinate))
-        out.append(self._to_str(self.vertex_32_ycoordinate))
-        out.append(self._to_str(self.vertex_32_zcoordinate))
-        out.append(self._to_str(self.vertex_33_xcoordinate))
-        out.append(self._to_str(self.vertex_33_ycoordinate))
-        out.append(self._to_str(self.vertex_33_zcoordinate))
-        out.append(self._to_str(self.vertex_34_xcoordinate))
-        out.append(self._to_str(self.vertex_34_ycoordinate))
-        out.append(self._to_str(self.vertex_34_zcoordinate))
-        out.append(self._to_str(self.vertex_35_xcoordinate))
-        out.append(self._to_str(self.vertex_35_ycoordinate))
-        out.append(self._to_str(self.vertex_35_zcoordinate))
-        out.append(self._to_str(self.vertex_36_xcoordinate))
-        out.append(self._to_str(self.vertex_36_ycoordinate))
-        out.append(self._to_str(self.vertex_36_zcoordinate))
-        out.append(self._to_str(self.vertex_37_xcoordinate))
-        out.append(self._to_str(self.vertex_37_ycoordinate))
-        out.append(self._to_str(self.vertex_37_zcoordinate))
-        out.append(self._to_str(self.vertex_38_xcoordinate))
-        out.append(self._to_str(self.vertex_38_ycoordinate))
-        out.append(self._to_str(self.vertex_38_zcoordinate))
-        out.append(self._to_str(self.vertex_39_xcoordinate))
-        out.append(self._to_str(self.vertex_39_ycoordinate))
-        out.append(self._to_str(self.vertex_39_zcoordinate))
-        out.append(self._to_str(self.vertex_40_xcoordinate))
-        out.append(self._to_str(self.vertex_40_ycoordinate))
-        out.append(self._to_str(self.vertex_40_zcoordinate))
-        out.append(self._to_str(self.vertex_41_xcoordinate))
-        out.append(self._to_str(self.vertex_41_ycoordinate))
-        out.append(self._to_str(self.vertex_41_zcoordinate))
-        out.append(self._to_str(self.vertex_42_xcoordinate))
-        out.append(self._to_str(self.vertex_42_ycoordinate))
-        out.append(self._to_str(self.vertex_42_zcoordinate))
-        out.append(self._to_str(self.vertex_43_xcoordinate))
-        out.append(self._to_str(self.vertex_43_ycoordinate))
-        out.append(self._to_str(self.vertex_43_zcoordinate))
-        out.append(self._to_str(self.vertex_44_xcoordinate))
-        out.append(self._to_str(self.vertex_44_ycoordinate))
-        out.append(self._to_str(self.vertex_44_zcoordinate))
-        out.append(self._to_str(self.vertex_45_xcoordinate))
-        out.append(self._to_str(self.vertex_45_ycoordinate))
-        out.append(self._to_str(self.vertex_45_zcoordinate))
-        out.append(self._to_str(self.vertex_46_xcoordinate))
-        out.append(self._to_str(self.vertex_46_ycoordinate))
-        out.append(self._to_str(self.vertex_46_zcoordinate))
-        out.append(self._to_str(self.vertex_47_xcoordinate))
-        out.append(self._to_str(self.vertex_47_ycoordinate))
-        out.append(self._to_str(self.vertex_47_zcoordinate))
-        out.append(self._to_str(self.vertex_48_xcoordinate))
-        out.append(self._to_str(self.vertex_48_ycoordinate))
-        out.append(self._to_str(self.vertex_48_zcoordinate))
-        out.append(self._to_str(self.vertex_49_xcoordinate))
-        out.append(self._to_str(self.vertex_49_ycoordinate))
-        out.append(self._to_str(self.vertex_49_zcoordinate))
-        out.append(self._to_str(self.vertex_50_xcoordinate))
-        out.append(self._to_str(self.vertex_50_ycoordinate))
-        out.append(self._to_str(self.vertex_50_zcoordinate))
-        out.append(self._to_str(self.vertex_51_xcoordinate))
-        out.append(self._to_str(self.vertex_51_ycoordinate))
-        out.append(self._to_str(self.vertex_51_zcoordinate))
-        out.append(self._to_str(self.vertex_52_xcoordinate))
-        out.append(self._to_str(self.vertex_52_ycoordinate))
-        out.append(self._to_str(self.vertex_52_zcoordinate))
-        out.append(self._to_str(self.vertex_53_xcoordinate))
-        out.append(self._to_str(self.vertex_53_ycoordinate))
-        out.append(self._to_str(self.vertex_53_zcoordinate))
-        out.append(self._to_str(self.vertex_54_xcoordinate))
-        out.append(self._to_str(self.vertex_54_ycoordinate))
-        out.append(self._to_str(self.vertex_54_zcoordinate))
-        out.append(self._to_str(self.vertex_55_xcoordinate))
-        out.append(self._to_str(self.vertex_55_ycoordinate))
-        out.append(self._to_str(self.vertex_55_zcoordinate))
-        out.append(self._to_str(self.vertex_56_xcoordinate))
-        out.append(self._to_str(self.vertex_56_ycoordinate))
-        out.append(self._to_str(self.vertex_56_zcoordinate))
-        out.append(self._to_str(self.vertex_57_xcoordinate))
-        out.append(self._to_str(self.vertex_57_ycoordinate))
-        out.append(self._to_str(self.vertex_57_zcoordinate))
-        out.append(self._to_str(self.vertex_58_xcoordinate))
-        out.append(self._to_str(self.vertex_58_ycoordinate))
-        out.append(self._to_str(self.vertex_58_zcoordinate))
-        out.append(self._to_str(self.vertex_59_xcoordinate))
-        out.append(self._to_str(self.vertex_59_ycoordinate))
-        out.append(self._to_str(self.vertex_59_zcoordinate))
-        out.append(self._to_str(self.vertex_60_xcoordinate))
-        out.append(self._to_str(self.vertex_60_ycoordinate))
-        out.append(self._to_str(self.vertex_60_zcoordinate))
-        out.append(self._to_str(self.vertex_61_xcoordinate))
-        out.append(self._to_str(self.vertex_61_ycoordinate))
-        out.append(self._to_str(self.vertex_61_zcoordinate))
-        out.append(self._to_str(self.vertex_62_xcoordinate))
-        out.append(self._to_str(self.vertex_62_ycoordinate))
-        out.append(self._to_str(self.vertex_62_zcoordinate))
-        out.append(self._to_str(self.vertex_63_xcoordinate))
-        out.append(self._to_str(self.vertex_63_ycoordinate))
-        out.append(self._to_str(self.vertex_63_zcoordinate))
-        out.append(self._to_str(self.vertex_64_xcoordinate))
-        out.append(self._to_str(self.vertex_64_ycoordinate))
-        out.append(self._to_str(self.vertex_64_zcoordinate))
-        out.append(self._to_str(self.vertex_65_xcoordinate))
-        out.append(self._to_str(self.vertex_65_ycoordinate))
-        out.append(self._to_str(self.vertex_65_zcoordinate))
-        out.append(self._to_str(self.vertex_66_xcoordinate))
-        out.append(self._to_str(self.vertex_66_ycoordinate))
-        out.append(self._to_str(self.vertex_66_zcoordinate))
-        out.append(self._to_str(self.vertex_67_xcoordinate))
-        out.append(self._to_str(self.vertex_67_ycoordinate))
-        out.append(self._to_str(self.vertex_67_zcoordinate))
-        out.append(self._to_str(self.vertex_68_xcoordinate))
-        out.append(self._to_str(self.vertex_68_ycoordinate))
-        out.append(self._to_str(self.vertex_68_zcoordinate))
-        out.append(self._to_str(self.vertex_69_xcoordinate))
-        out.append(self._to_str(self.vertex_69_ycoordinate))
-        out.append(self._to_str(self.vertex_69_zcoordinate))
-        out.append(self._to_str(self.vertex_70_xcoordinate))
-        out.append(self._to_str(self.vertex_70_ycoordinate))
-        out.append(self._to_str(self.vertex_70_zcoordinate))
-        out.append(self._to_str(self.vertex_71_xcoordinate))
-        out.append(self._to_str(self.vertex_71_ycoordinate))
-        out.append(self._to_str(self.vertex_71_zcoordinate))
-        out.append(self._to_str(self.vertex_72_xcoordinate))
-        out.append(self._to_str(self.vertex_72_ycoordinate))
-        out.append(self._to_str(self.vertex_72_zcoordinate))
-        out.append(self._to_str(self.vertex_73_xcoordinate))
-        out.append(self._to_str(self.vertex_73_ycoordinate))
-        out.append(self._to_str(self.vertex_73_zcoordinate))
-        out.append(self._to_str(self.vertex_74_xcoordinate))
-        out.append(self._to_str(self.vertex_74_ycoordinate))
-        out.append(self._to_str(self.vertex_74_zcoordinate))
-        out.append(self._to_str(self.vertex_75_xcoordinate))
-        out.append(self._to_str(self.vertex_75_ycoordinate))
-        out.append(self._to_str(self.vertex_75_zcoordinate))
-        out.append(self._to_str(self.vertex_76_xcoordinate))
-        out.append(self._to_str(self.vertex_76_ycoordinate))
-        out.append(self._to_str(self.vertex_76_zcoordinate))
-        out.append(self._to_str(self.vertex_77_xcoordinate))
-        out.append(self._to_str(self.vertex_77_ycoordinate))
-        out.append(self._to_str(self.vertex_77_zcoordinate))
-        out.append(self._to_str(self.vertex_78_xcoordinate))
-        out.append(self._to_str(self.vertex_78_ycoordinate))
-        out.append(self._to_str(self.vertex_78_zcoordinate))
-        out.append(self._to_str(self.vertex_79_xcoordinate))
-        out.append(self._to_str(self.vertex_79_ycoordinate))
-        out.append(self._to_str(self.vertex_79_zcoordinate))
-        out.append(self._to_str(self.vertex_80_xcoordinate))
-        out.append(self._to_str(self.vertex_80_ycoordinate))
-        out.append(self._to_str(self.vertex_80_zcoordinate))
-        out.append(self._to_str(self.vertex_81_xcoordinate))
-        out.append(self._to_str(self.vertex_81_ycoordinate))
-        out.append(self._to_str(self.vertex_81_zcoordinate))
-        out.append(self._to_str(self.vertex_82_xcoordinate))
-        out.append(self._to_str(self.vertex_82_ycoordinate))
-        out.append(self._to_str(self.vertex_82_zcoordinate))
-        out.append(self._to_str(self.vertex_83_xcoordinate))
-        out.append(self._to_str(self.vertex_83_ycoordinate))
-        out.append(self._to_str(self.vertex_83_zcoordinate))
-        out.append(self._to_str(self.vertex_84_xcoordinate))
-        out.append(self._to_str(self.vertex_84_ycoordinate))
-        out.append(self._to_str(self.vertex_84_zcoordinate))
-        out.append(self._to_str(self.vertex_85_xcoordinate))
-        out.append(self._to_str(self.vertex_85_ycoordinate))
-        out.append(self._to_str(self.vertex_85_zcoordinate))
-        out.append(self._to_str(self.vertex_86_xcoordinate))
-        out.append(self._to_str(self.vertex_86_ycoordinate))
-        out.append(self._to_str(self.vertex_86_zcoordinate))
-        out.append(self._to_str(self.vertex_87_xcoordinate))
-        out.append(self._to_str(self.vertex_87_ycoordinate))
-        out.append(self._to_str(self.vertex_87_zcoordinate))
-        out.append(self._to_str(self.vertex_88_xcoordinate))
-        out.append(self._to_str(self.vertex_88_ycoordinate))
-        out.append(self._to_str(self.vertex_88_zcoordinate))
-        out.append(self._to_str(self.vertex_89_xcoordinate))
-        out.append(self._to_str(self.vertex_89_ycoordinate))
-        out.append(self._to_str(self.vertex_89_zcoordinate))
-        out.append(self._to_str(self.vertex_90_xcoordinate))
-        out.append(self._to_str(self.vertex_90_ycoordinate))
-        out.append(self._to_str(self.vertex_90_zcoordinate))
-        out.append(self._to_str(self.vertex_91_xcoordinate))
-        out.append(self._to_str(self.vertex_91_ycoordinate))
-        out.append(self._to_str(self.vertex_91_zcoordinate))
-        out.append(self._to_str(self.vertex_92_xcoordinate))
-        out.append(self._to_str(self.vertex_92_ycoordinate))
-        out.append(self._to_str(self.vertex_92_zcoordinate))
-        out.append(self._to_str(self.vertex_93_xcoordinate))
-        out.append(self._to_str(self.vertex_93_ycoordinate))
-        out.append(self._to_str(self.vertex_93_zcoordinate))
-        out.append(self._to_str(self.vertex_94_xcoordinate))
-        out.append(self._to_str(self.vertex_94_ycoordinate))
-        out.append(self._to_str(self.vertex_94_zcoordinate))
-        out.append(self._to_str(self.vertex_95_xcoordinate))
-        out.append(self._to_str(self.vertex_95_ycoordinate))
-        out.append(self._to_str(self.vertex_95_zcoordinate))
-        out.append(self._to_str(self.vertex_96_xcoordinate))
-        out.append(self._to_str(self.vertex_96_ycoordinate))
-        out.append(self._to_str(self.vertex_96_zcoordinate))
-        out.append(self._to_str(self.vertex_97_xcoordinate))
-        out.append(self._to_str(self.vertex_97_ycoordinate))
-        out.append(self._to_str(self.vertex_97_zcoordinate))
-        out.append(self._to_str(self.vertex_98_xcoordinate))
-        out.append(self._to_str(self.vertex_98_ycoordinate))
-        out.append(self._to_str(self.vertex_98_zcoordinate))
-        out.append(self._to_str(self.vertex_99_xcoordinate))
-        out.append(self._to_str(self.vertex_99_ycoordinate))
-        out.append(self._to_str(self.vertex_99_zcoordinate))
-        out.append(self._to_str(self.vertex_100_xcoordinate))
-        out.append(self._to_str(self.vertex_100_ycoordinate))
-        out.append(self._to_str(self.vertex_100_zcoordinate))
-        out.append(self._to_str(self.vertex_101_xcoordinate))
-        out.append(self._to_str(self.vertex_101_ycoordinate))
-        out.append(self._to_str(self.vertex_101_zcoordinate))
-        out.append(self._to_str(self.vertex_102_xcoordinate))
-        out.append(self._to_str(self.vertex_102_ycoordinate))
-        out.append(self._to_str(self.vertex_102_zcoordinate))
-        out.append(self._to_str(self.vertex_103_xcoordinate))
-        out.append(self._to_str(self.vertex_103_ycoordinate))
-        out.append(self._to_str(self.vertex_103_zcoordinate))
-        out.append(self._to_str(self.vertex_104_xcoordinate))
-        out.append(self._to_str(self.vertex_104_ycoordinate))
-        out.append(self._to_str(self.vertex_104_zcoordinate))
-        out.append(self._to_str(self.vertex_105_xcoordinate))
-        out.append(self._to_str(self.vertex_105_ycoordinate))
-        out.append(self._to_str(self.vertex_105_zcoordinate))
-        out.append(self._to_str(self.vertex_106_xcoordinate))
-        out.append(self._to_str(self.vertex_106_ycoordinate))
-        out.append(self._to_str(self.vertex_106_zcoordinate))
-        out.append(self._to_str(self.vertex_107_xcoordinate))
-        out.append(self._to_str(self.vertex_107_ycoordinate))
-        out.append(self._to_str(self.vertex_107_zcoordinate))
-        out.append(self._to_str(self.vertex_108_xcoordinate))
-        out.append(self._to_str(self.vertex_108_ycoordinate))
-        out.append(self._to_str(self.vertex_108_zcoordinate))
-        out.append(self._to_str(self.vertex_109_xcoordinate))
-        out.append(self._to_str(self.vertex_109_ycoordinate))
-        out.append(self._to_str(self.vertex_109_zcoordinate))
-        out.append(self._to_str(self.vertex_110_xcoordinate))
-        out.append(self._to_str(self.vertex_110_ycoordinate))
-        out.append(self._to_str(self.vertex_110_zcoordinate))
-        out.append(self._to_str(self.vertex_111_xcoordinate))
-        out.append(self._to_str(self.vertex_111_ycoordinate))
-        out.append(self._to_str(self.vertex_111_zcoordinate))
-        out.append(self._to_str(self.vertex_112_xcoordinate))
-        out.append(self._to_str(self.vertex_112_ycoordinate))
-        out.append(self._to_str(self.vertex_112_zcoordinate))
-        out.append(self._to_str(self.vertex_113_xcoordinate))
-        out.append(self._to_str(self.vertex_113_ycoordinate))
-        out.append(self._to_str(self.vertex_113_zcoordinate))
-        out.append(self._to_str(self.vertex_114_xcoordinate))
-        out.append(self._to_str(self.vertex_114_ycoordinate))
-        out.append(self._to_str(self.vertex_114_zcoordinate))
-        out.append(self._to_str(self.vertex_115_xcoordinate))
-        out.append(self._to_str(self.vertex_115_ycoordinate))
-        out.append(self._to_str(self.vertex_115_zcoordinate))
-        out.append(self._to_str(self.vertex_116_xcoordinate))
-        out.append(self._to_str(self.vertex_116_ycoordinate))
-        out.append(self._to_str(self.vertex_116_zcoordinate))
-        out.append(self._to_str(self.vertex_117_xcoordinate))
-        out.append(self._to_str(self.vertex_117_ycoordinate))
-        out.append(self._to_str(self.vertex_117_zcoordinate))
-        out.append(self._to_str(self.vertex_118_xcoordinate))
-        out.append(self._to_str(self.vertex_118_ycoordinate))
-        out.append(self._to_str(self.vertex_118_zcoordinate))
-        out.append(self._to_str(self.vertex_119_xcoordinate))
-        out.append(self._to_str(self.vertex_119_ycoordinate))
-        out.append(self._to_str(self.vertex_119_zcoordinate))
-        out.append(self._to_str(self.vertex_120_xcoordinate))
-        out.append(self._to_str(self.vertex_120_ycoordinate))
-        out.append(self._to_str(self.vertex_120_zcoordinate))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class ShadingOverhang(object):
     """ Corresponds to IDD object `Shading:Overhang`
@@ -59952,49 +62548,65 @@ class ShadingOverhang(object):
         self._data["Left extension from Window/Door Width"] = None
         self._data["Right extension from Window/Door Width"] = None
         self._data["Depth"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.window_or_door_name = None
         else:
             self.window_or_door_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.height_above_window_or_door = None
         else:
             self.height_above_window_or_door = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.tilt_angle_from_window_or_door = None
         else:
             self.tilt_angle_from_window_or_door = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.left_extension_from_window_or_door_width = None
         else:
             self.left_extension_from_window_or_door_width = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.right_extension_from_window_or_door_width = None
         else:
             self.right_extension_from_window_or_door_width = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.depth = None
         else:
             self.depth = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -60025,6 +62637,9 @@ class ShadingOverhang(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -60058,6 +62673,9 @@ class ShadingOverhang(object):
                                  'for field `window_or_door_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `window_or_door_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `window_or_door_name`')
 
         self._data["Window or Door Name"] = value
@@ -60253,16 +62871,17 @@ class ShadingOverhang(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.window_or_door_name))
-        out.append(self._to_str(self.height_above_window_or_door))
-        out.append(self._to_str(self.tilt_angle_from_window_or_door))
-        out.append(self._to_str(self.left_extension_from_window_or_door_width))
-        out.append(self._to_str(self.right_extension_from_window_or_door_width))
-        out.append(self._to_str(self.depth))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class ShadingOverhangProjection(object):
     """ Corresponds to IDD object `Shading:Overhang:Projection`
@@ -60284,49 +62903,65 @@ class ShadingOverhangProjection(object):
         self._data["Left extension from Window/Door Width"] = None
         self._data["Right extension from Window/Door Width"] = None
         self._data["Depth as Fraction of Window/Door Height"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.window_or_door_name = None
         else:
             self.window_or_door_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.height_above_window_or_door = None
         else:
             self.height_above_window_or_door = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.tilt_angle_from_window_or_door = None
         else:
             self.tilt_angle_from_window_or_door = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.left_extension_from_window_or_door_width = None
         else:
             self.left_extension_from_window_or_door_width = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.right_extension_from_window_or_door_width = None
         else:
             self.right_extension_from_window_or_door_width = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.depth_as_fraction_of_window_or_door_height = None
         else:
             self.depth_as_fraction_of_window_or_door_height = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -60357,6 +62992,9 @@ class ShadingOverhangProjection(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -60390,6 +63028,9 @@ class ShadingOverhangProjection(object):
                                  'for field `window_or_door_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `window_or_door_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `window_or_door_name`')
 
         self._data["Window or Door Name"] = value
@@ -60585,16 +63226,17 @@ class ShadingOverhangProjection(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.window_or_door_name))
-        out.append(self._to_str(self.height_above_window_or_door))
-        out.append(self._to_str(self.tilt_angle_from_window_or_door))
-        out.append(self._to_str(self.left_extension_from_window_or_door_width))
-        out.append(self._to_str(self.right_extension_from_window_or_door_width))
-        out.append(self._to_str(self.depth_as_fraction_of_window_or_door_height))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class ShadingFin(object):
     """ Corresponds to IDD object `Shading:Fin`
@@ -60621,74 +63263,100 @@ class ShadingFin(object):
         self._data["Right Distance Below Bottom of Window"] = None
         self._data["Right Tilt Angle from Window/Door"] = None
         self._data["Right Depth"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.window_or_door_name = None
         else:
             self.window_or_door_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.left_extension_from_window_or_door = None
         else:
             self.left_extension_from_window_or_door = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.left_distance_above_top_of_window = None
         else:
             self.left_distance_above_top_of_window = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.left_distance_below_bottom_of_window = None
         else:
             self.left_distance_below_bottom_of_window = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.left_tilt_angle_from_window_or_door = None
         else:
             self.left_tilt_angle_from_window_or_door = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.left_depth = None
         else:
             self.left_depth = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.right_extension_from_window_or_door = None
         else:
             self.right_extension_from_window_or_door = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.right_distance_above_top_of_window = None
         else:
             self.right_distance_above_top_of_window = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.right_distance_below_bottom_of_window = None
         else:
             self.right_distance_below_bottom_of_window = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.right_tilt_angle_from_window_or_door = None
         else:
             self.right_tilt_angle_from_window_or_door = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.right_depth = None
         else:
             self.right_depth = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -60719,6 +63387,9 @@ class ShadingFin(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -60752,6 +63423,9 @@ class ShadingFin(object):
                                  'for field `window_or_door_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `window_or_door_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `window_or_door_name`')
 
         self._data["Window or Door Name"] = value
@@ -61116,21 +63790,17 @@ class ShadingFin(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.window_or_door_name))
-        out.append(self._to_str(self.left_extension_from_window_or_door))
-        out.append(self._to_str(self.left_distance_above_top_of_window))
-        out.append(self._to_str(self.left_distance_below_bottom_of_window))
-        out.append(self._to_str(self.left_tilt_angle_from_window_or_door))
-        out.append(self._to_str(self.left_depth))
-        out.append(self._to_str(self.right_extension_from_window_or_door))
-        out.append(self._to_str(self.right_distance_above_top_of_window))
-        out.append(self._to_str(self.right_distance_below_bottom_of_window))
-        out.append(self._to_str(self.right_tilt_angle_from_window_or_door))
-        out.append(self._to_str(self.right_depth))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class ShadingFinProjection(object):
     """ Corresponds to IDD object `Shading:Fin:Projection`
@@ -61157,74 +63827,100 @@ class ShadingFinProjection(object):
         self._data["Right Distance Below Bottom of Window"] = None
         self._data["Right Tilt Angle from Window/Door"] = None
         self._data["Right Depth as Fraction of Window/Door Width"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.window_or_door_name = None
         else:
             self.window_or_door_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.left_extension_from_window_or_door = None
         else:
             self.left_extension_from_window_or_door = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.left_distance_above_top_of_window = None
         else:
             self.left_distance_above_top_of_window = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.left_distance_below_bottom_of_window = None
         else:
             self.left_distance_below_bottom_of_window = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.left_tilt_angle_from_window_or_door = None
         else:
             self.left_tilt_angle_from_window_or_door = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.left_depth_as_fraction_of_window_or_door_width = None
         else:
             self.left_depth_as_fraction_of_window_or_door_width = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.right_extension_from_window_or_door = None
         else:
             self.right_extension_from_window_or_door = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.right_distance_above_top_of_window = None
         else:
             self.right_distance_above_top_of_window = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.right_distance_below_bottom_of_window = None
         else:
             self.right_distance_below_bottom_of_window = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.right_tilt_angle_from_window_or_door = None
         else:
             self.right_tilt_angle_from_window_or_door = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.right_depth_as_fraction_of_window_or_door_width = None
         else:
             self.right_depth_as_fraction_of_window_or_door_width = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -61255,6 +63951,9 @@ class ShadingFinProjection(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -61288,6 +63987,9 @@ class ShadingFinProjection(object):
                                  'for field `window_or_door_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `window_or_door_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `window_or_door_name`')
 
         self._data["Window or Door Name"] = value
@@ -61652,21 +64354,17 @@ class ShadingFinProjection(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.window_or_door_name))
-        out.append(self._to_str(self.left_extension_from_window_or_door))
-        out.append(self._to_str(self.left_distance_above_top_of_window))
-        out.append(self._to_str(self.left_distance_below_bottom_of_window))
-        out.append(self._to_str(self.left_tilt_angle_from_window_or_door))
-        out.append(self._to_str(self.left_depth_as_fraction_of_window_or_door_width))
-        out.append(self._to_str(self.right_extension_from_window_or_door))
-        out.append(self._to_str(self.right_distance_above_top_of_window))
-        out.append(self._to_str(self.right_distance_below_bottom_of_window))
-        out.append(self._to_str(self.right_tilt_angle_from_window_or_door))
-        out.append(self._to_str(self.right_depth_as_fraction_of_window_or_door_width))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class ShadingZoneDetailed(object):
     """ Corresponds to IDD object `Shading:Zone:Detailed`
@@ -62046,1834 +64744,2564 @@ class ShadingZoneDetailed(object):
         self._data["Vertex 120 X-coordinate"] = None
         self._data["Vertex 120 Y-coordinate"] = None
         self._data["Vertex 120 Z-coordinate"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.base_surface_name = None
         else:
             self.base_surface_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.transmittance_schedule_name = None
         else:
             self.transmittance_schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.number_of_vertices = None
         else:
             self.number_of_vertices = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_1_xcoordinate = None
         else:
             self.vertex_1_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_1_ycoordinate = None
         else:
             self.vertex_1_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_1_zcoordinate = None
         else:
             self.vertex_1_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_2_xcoordinate = None
         else:
             self.vertex_2_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_2_ycoordinate = None
         else:
             self.vertex_2_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_2_zcoordinate = None
         else:
             self.vertex_2_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_3_xcoordinate = None
         else:
             self.vertex_3_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_3_ycoordinate = None
         else:
             self.vertex_3_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_3_zcoordinate = None
         else:
             self.vertex_3_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_4_xcoordinate = None
         else:
             self.vertex_4_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_4_ycoordinate = None
         else:
             self.vertex_4_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_4_zcoordinate = None
         else:
             self.vertex_4_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_5_xcoordinate = None
         else:
             self.vertex_5_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_5_ycoordinate = None
         else:
             self.vertex_5_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_5_zcoordinate = None
         else:
             self.vertex_5_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_6_xcoordinate = None
         else:
             self.vertex_6_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_6_ycoordinate = None
         else:
             self.vertex_6_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_6_zcoordinate = None
         else:
             self.vertex_6_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_7_xcoordinate = None
         else:
             self.vertex_7_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_7_ycoordinate = None
         else:
             self.vertex_7_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_7_zcoordinate = None
         else:
             self.vertex_7_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_8_xcoordinate = None
         else:
             self.vertex_8_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_8_ycoordinate = None
         else:
             self.vertex_8_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_8_zcoordinate = None
         else:
             self.vertex_8_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_9_xcoordinate = None
         else:
             self.vertex_9_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_9_ycoordinate = None
         else:
             self.vertex_9_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_9_zcoordinate = None
         else:
             self.vertex_9_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_10_xcoordinate = None
         else:
             self.vertex_10_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_10_ycoordinate = None
         else:
             self.vertex_10_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_10_zcoordinate = None
         else:
             self.vertex_10_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_11_xcoordinate = None
         else:
             self.vertex_11_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_11_ycoordinate = None
         else:
             self.vertex_11_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_11_zcoordinate = None
         else:
             self.vertex_11_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_12_xcoordinate = None
         else:
             self.vertex_12_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_12_ycoordinate = None
         else:
             self.vertex_12_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_12_zcoordinate = None
         else:
             self.vertex_12_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_13_xcoordinate = None
         else:
             self.vertex_13_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_13_ycoordinate = None
         else:
             self.vertex_13_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_13_zcoordinate = None
         else:
             self.vertex_13_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_14_xcoordinate = None
         else:
             self.vertex_14_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_14_ycoordinate = None
         else:
             self.vertex_14_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_14_zcoordinate = None
         else:
             self.vertex_14_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_15_xcoordinate = None
         else:
             self.vertex_15_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_15_ycoordinate = None
         else:
             self.vertex_15_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_15_zcoordinate = None
         else:
             self.vertex_15_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_16_xcoordinate = None
         else:
             self.vertex_16_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_16_ycoordinate = None
         else:
             self.vertex_16_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_16_zcoordinate = None
         else:
             self.vertex_16_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_17_xcoordinate = None
         else:
             self.vertex_17_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_17_ycoordinate = None
         else:
             self.vertex_17_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_17_zcoordinate = None
         else:
             self.vertex_17_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_18_xcoordinate = None
         else:
             self.vertex_18_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_18_ycoordinate = None
         else:
             self.vertex_18_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_18_zcoordinate = None
         else:
             self.vertex_18_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_19_xcoordinate = None
         else:
             self.vertex_19_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_19_ycoordinate = None
         else:
             self.vertex_19_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_19_zcoordinate = None
         else:
             self.vertex_19_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_20_xcoordinate = None
         else:
             self.vertex_20_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_20_ycoordinate = None
         else:
             self.vertex_20_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_20_zcoordinate = None
         else:
             self.vertex_20_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_21_xcoordinate = None
         else:
             self.vertex_21_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_21_ycoordinate = None
         else:
             self.vertex_21_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_21_zcoordinate = None
         else:
             self.vertex_21_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_22_xcoordinate = None
         else:
             self.vertex_22_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_22_ycoordinate = None
         else:
             self.vertex_22_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_22_zcoordinate = None
         else:
             self.vertex_22_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_23_xcoordinate = None
         else:
             self.vertex_23_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_23_ycoordinate = None
         else:
             self.vertex_23_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_23_zcoordinate = None
         else:
             self.vertex_23_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_24_xcoordinate = None
         else:
             self.vertex_24_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_24_ycoordinate = None
         else:
             self.vertex_24_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_24_zcoordinate = None
         else:
             self.vertex_24_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_25_xcoordinate = None
         else:
             self.vertex_25_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_25_ycoordinate = None
         else:
             self.vertex_25_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_25_zcoordinate = None
         else:
             self.vertex_25_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_26_xcoordinate = None
         else:
             self.vertex_26_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_26_ycoordinate = None
         else:
             self.vertex_26_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_26_zcoordinate = None
         else:
             self.vertex_26_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_27_xcoordinate = None
         else:
             self.vertex_27_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_27_ycoordinate = None
         else:
             self.vertex_27_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_27_zcoordinate = None
         else:
             self.vertex_27_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_28_xcoordinate = None
         else:
             self.vertex_28_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_28_ycoordinate = None
         else:
             self.vertex_28_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_28_zcoordinate = None
         else:
             self.vertex_28_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_29_xcoordinate = None
         else:
             self.vertex_29_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_29_ycoordinate = None
         else:
             self.vertex_29_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_29_zcoordinate = None
         else:
             self.vertex_29_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_30_xcoordinate = None
         else:
             self.vertex_30_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_30_ycoordinate = None
         else:
             self.vertex_30_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_30_zcoordinate = None
         else:
             self.vertex_30_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_31_xcoordinate = None
         else:
             self.vertex_31_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_31_ycoordinate = None
         else:
             self.vertex_31_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_31_zcoordinate = None
         else:
             self.vertex_31_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_32_xcoordinate = None
         else:
             self.vertex_32_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_32_ycoordinate = None
         else:
             self.vertex_32_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_32_zcoordinate = None
         else:
             self.vertex_32_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_33_xcoordinate = None
         else:
             self.vertex_33_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_33_ycoordinate = None
         else:
             self.vertex_33_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_33_zcoordinate = None
         else:
             self.vertex_33_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_34_xcoordinate = None
         else:
             self.vertex_34_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_34_ycoordinate = None
         else:
             self.vertex_34_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_34_zcoordinate = None
         else:
             self.vertex_34_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_35_xcoordinate = None
         else:
             self.vertex_35_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_35_ycoordinate = None
         else:
             self.vertex_35_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_35_zcoordinate = None
         else:
             self.vertex_35_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_36_xcoordinate = None
         else:
             self.vertex_36_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_36_ycoordinate = None
         else:
             self.vertex_36_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_36_zcoordinate = None
         else:
             self.vertex_36_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_37_xcoordinate = None
         else:
             self.vertex_37_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_37_ycoordinate = None
         else:
             self.vertex_37_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_37_zcoordinate = None
         else:
             self.vertex_37_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_38_xcoordinate = None
         else:
             self.vertex_38_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_38_ycoordinate = None
         else:
             self.vertex_38_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_38_zcoordinate = None
         else:
             self.vertex_38_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_39_xcoordinate = None
         else:
             self.vertex_39_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_39_ycoordinate = None
         else:
             self.vertex_39_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_39_zcoordinate = None
         else:
             self.vertex_39_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_40_xcoordinate = None
         else:
             self.vertex_40_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_40_ycoordinate = None
         else:
             self.vertex_40_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_40_zcoordinate = None
         else:
             self.vertex_40_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_41_xcoordinate = None
         else:
             self.vertex_41_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_41_ycoordinate = None
         else:
             self.vertex_41_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_41_zcoordinate = None
         else:
             self.vertex_41_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_42_xcoordinate = None
         else:
             self.vertex_42_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_42_ycoordinate = None
         else:
             self.vertex_42_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_42_zcoordinate = None
         else:
             self.vertex_42_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_43_xcoordinate = None
         else:
             self.vertex_43_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_43_ycoordinate = None
         else:
             self.vertex_43_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_43_zcoordinate = None
         else:
             self.vertex_43_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_44_xcoordinate = None
         else:
             self.vertex_44_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_44_ycoordinate = None
         else:
             self.vertex_44_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_44_zcoordinate = None
         else:
             self.vertex_44_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_45_xcoordinate = None
         else:
             self.vertex_45_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_45_ycoordinate = None
         else:
             self.vertex_45_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_45_zcoordinate = None
         else:
             self.vertex_45_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_46_xcoordinate = None
         else:
             self.vertex_46_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_46_ycoordinate = None
         else:
             self.vertex_46_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_46_zcoordinate = None
         else:
             self.vertex_46_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_47_xcoordinate = None
         else:
             self.vertex_47_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_47_ycoordinate = None
         else:
             self.vertex_47_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_47_zcoordinate = None
         else:
             self.vertex_47_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_48_xcoordinate = None
         else:
             self.vertex_48_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_48_ycoordinate = None
         else:
             self.vertex_48_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_48_zcoordinate = None
         else:
             self.vertex_48_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_49_xcoordinate = None
         else:
             self.vertex_49_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_49_ycoordinate = None
         else:
             self.vertex_49_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_49_zcoordinate = None
         else:
             self.vertex_49_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_50_xcoordinate = None
         else:
             self.vertex_50_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_50_ycoordinate = None
         else:
             self.vertex_50_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_50_zcoordinate = None
         else:
             self.vertex_50_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_51_xcoordinate = None
         else:
             self.vertex_51_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_51_ycoordinate = None
         else:
             self.vertex_51_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_51_zcoordinate = None
         else:
             self.vertex_51_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_52_xcoordinate = None
         else:
             self.vertex_52_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_52_ycoordinate = None
         else:
             self.vertex_52_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_52_zcoordinate = None
         else:
             self.vertex_52_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_53_xcoordinate = None
         else:
             self.vertex_53_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_53_ycoordinate = None
         else:
             self.vertex_53_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_53_zcoordinate = None
         else:
             self.vertex_53_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_54_xcoordinate = None
         else:
             self.vertex_54_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_54_ycoordinate = None
         else:
             self.vertex_54_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_54_zcoordinate = None
         else:
             self.vertex_54_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_55_xcoordinate = None
         else:
             self.vertex_55_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_55_ycoordinate = None
         else:
             self.vertex_55_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_55_zcoordinate = None
         else:
             self.vertex_55_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_56_xcoordinate = None
         else:
             self.vertex_56_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_56_ycoordinate = None
         else:
             self.vertex_56_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_56_zcoordinate = None
         else:
             self.vertex_56_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_57_xcoordinate = None
         else:
             self.vertex_57_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_57_ycoordinate = None
         else:
             self.vertex_57_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_57_zcoordinate = None
         else:
             self.vertex_57_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_58_xcoordinate = None
         else:
             self.vertex_58_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_58_ycoordinate = None
         else:
             self.vertex_58_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_58_zcoordinate = None
         else:
             self.vertex_58_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_59_xcoordinate = None
         else:
             self.vertex_59_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_59_ycoordinate = None
         else:
             self.vertex_59_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_59_zcoordinate = None
         else:
             self.vertex_59_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_60_xcoordinate = None
         else:
             self.vertex_60_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_60_ycoordinate = None
         else:
             self.vertex_60_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_60_zcoordinate = None
         else:
             self.vertex_60_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_61_xcoordinate = None
         else:
             self.vertex_61_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_61_ycoordinate = None
         else:
             self.vertex_61_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_61_zcoordinate = None
         else:
             self.vertex_61_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_62_xcoordinate = None
         else:
             self.vertex_62_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_62_ycoordinate = None
         else:
             self.vertex_62_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_62_zcoordinate = None
         else:
             self.vertex_62_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_63_xcoordinate = None
         else:
             self.vertex_63_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_63_ycoordinate = None
         else:
             self.vertex_63_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_63_zcoordinate = None
         else:
             self.vertex_63_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_64_xcoordinate = None
         else:
             self.vertex_64_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_64_ycoordinate = None
         else:
             self.vertex_64_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_64_zcoordinate = None
         else:
             self.vertex_64_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_65_xcoordinate = None
         else:
             self.vertex_65_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_65_ycoordinate = None
         else:
             self.vertex_65_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_65_zcoordinate = None
         else:
             self.vertex_65_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_66_xcoordinate = None
         else:
             self.vertex_66_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_66_ycoordinate = None
         else:
             self.vertex_66_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_66_zcoordinate = None
         else:
             self.vertex_66_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_67_xcoordinate = None
         else:
             self.vertex_67_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_67_ycoordinate = None
         else:
             self.vertex_67_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_67_zcoordinate = None
         else:
             self.vertex_67_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_68_xcoordinate = None
         else:
             self.vertex_68_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_68_ycoordinate = None
         else:
             self.vertex_68_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_68_zcoordinate = None
         else:
             self.vertex_68_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_69_xcoordinate = None
         else:
             self.vertex_69_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_69_ycoordinate = None
         else:
             self.vertex_69_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_69_zcoordinate = None
         else:
             self.vertex_69_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_70_xcoordinate = None
         else:
             self.vertex_70_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_70_ycoordinate = None
         else:
             self.vertex_70_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_70_zcoordinate = None
         else:
             self.vertex_70_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_71_xcoordinate = None
         else:
             self.vertex_71_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_71_ycoordinate = None
         else:
             self.vertex_71_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_71_zcoordinate = None
         else:
             self.vertex_71_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_72_xcoordinate = None
         else:
             self.vertex_72_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_72_ycoordinate = None
         else:
             self.vertex_72_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_72_zcoordinate = None
         else:
             self.vertex_72_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_73_xcoordinate = None
         else:
             self.vertex_73_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_73_ycoordinate = None
         else:
             self.vertex_73_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_73_zcoordinate = None
         else:
             self.vertex_73_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_74_xcoordinate = None
         else:
             self.vertex_74_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_74_ycoordinate = None
         else:
             self.vertex_74_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_74_zcoordinate = None
         else:
             self.vertex_74_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_75_xcoordinate = None
         else:
             self.vertex_75_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_75_ycoordinate = None
         else:
             self.vertex_75_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_75_zcoordinate = None
         else:
             self.vertex_75_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_76_xcoordinate = None
         else:
             self.vertex_76_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_76_ycoordinate = None
         else:
             self.vertex_76_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_76_zcoordinate = None
         else:
             self.vertex_76_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_77_xcoordinate = None
         else:
             self.vertex_77_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_77_ycoordinate = None
         else:
             self.vertex_77_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_77_zcoordinate = None
         else:
             self.vertex_77_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_78_xcoordinate = None
         else:
             self.vertex_78_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_78_ycoordinate = None
         else:
             self.vertex_78_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_78_zcoordinate = None
         else:
             self.vertex_78_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_79_xcoordinate = None
         else:
             self.vertex_79_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_79_ycoordinate = None
         else:
             self.vertex_79_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_79_zcoordinate = None
         else:
             self.vertex_79_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_80_xcoordinate = None
         else:
             self.vertex_80_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_80_ycoordinate = None
         else:
             self.vertex_80_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_80_zcoordinate = None
         else:
             self.vertex_80_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_81_xcoordinate = None
         else:
             self.vertex_81_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_81_ycoordinate = None
         else:
             self.vertex_81_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_81_zcoordinate = None
         else:
             self.vertex_81_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_82_xcoordinate = None
         else:
             self.vertex_82_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_82_ycoordinate = None
         else:
             self.vertex_82_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_82_zcoordinate = None
         else:
             self.vertex_82_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_83_xcoordinate = None
         else:
             self.vertex_83_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_83_ycoordinate = None
         else:
             self.vertex_83_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_83_zcoordinate = None
         else:
             self.vertex_83_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_84_xcoordinate = None
         else:
             self.vertex_84_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_84_ycoordinate = None
         else:
             self.vertex_84_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_84_zcoordinate = None
         else:
             self.vertex_84_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_85_xcoordinate = None
         else:
             self.vertex_85_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_85_ycoordinate = None
         else:
             self.vertex_85_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_85_zcoordinate = None
         else:
             self.vertex_85_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_86_xcoordinate = None
         else:
             self.vertex_86_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_86_ycoordinate = None
         else:
             self.vertex_86_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_86_zcoordinate = None
         else:
             self.vertex_86_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_87_xcoordinate = None
         else:
             self.vertex_87_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_87_ycoordinate = None
         else:
             self.vertex_87_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_87_zcoordinate = None
         else:
             self.vertex_87_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_88_xcoordinate = None
         else:
             self.vertex_88_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_88_ycoordinate = None
         else:
             self.vertex_88_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_88_zcoordinate = None
         else:
             self.vertex_88_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_89_xcoordinate = None
         else:
             self.vertex_89_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_89_ycoordinate = None
         else:
             self.vertex_89_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_89_zcoordinate = None
         else:
             self.vertex_89_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_90_xcoordinate = None
         else:
             self.vertex_90_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_90_ycoordinate = None
         else:
             self.vertex_90_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_90_zcoordinate = None
         else:
             self.vertex_90_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_91_xcoordinate = None
         else:
             self.vertex_91_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_91_ycoordinate = None
         else:
             self.vertex_91_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_91_zcoordinate = None
         else:
             self.vertex_91_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_92_xcoordinate = None
         else:
             self.vertex_92_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_92_ycoordinate = None
         else:
             self.vertex_92_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_92_zcoordinate = None
         else:
             self.vertex_92_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_93_xcoordinate = None
         else:
             self.vertex_93_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_93_ycoordinate = None
         else:
             self.vertex_93_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_93_zcoordinate = None
         else:
             self.vertex_93_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_94_xcoordinate = None
         else:
             self.vertex_94_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_94_ycoordinate = None
         else:
             self.vertex_94_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_94_zcoordinate = None
         else:
             self.vertex_94_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_95_xcoordinate = None
         else:
             self.vertex_95_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_95_ycoordinate = None
         else:
             self.vertex_95_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_95_zcoordinate = None
         else:
             self.vertex_95_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_96_xcoordinate = None
         else:
             self.vertex_96_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_96_ycoordinate = None
         else:
             self.vertex_96_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_96_zcoordinate = None
         else:
             self.vertex_96_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_97_xcoordinate = None
         else:
             self.vertex_97_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_97_ycoordinate = None
         else:
             self.vertex_97_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_97_zcoordinate = None
         else:
             self.vertex_97_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_98_xcoordinate = None
         else:
             self.vertex_98_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_98_ycoordinate = None
         else:
             self.vertex_98_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_98_zcoordinate = None
         else:
             self.vertex_98_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_99_xcoordinate = None
         else:
             self.vertex_99_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_99_ycoordinate = None
         else:
             self.vertex_99_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_99_zcoordinate = None
         else:
             self.vertex_99_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_100_xcoordinate = None
         else:
             self.vertex_100_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_100_ycoordinate = None
         else:
             self.vertex_100_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_100_zcoordinate = None
         else:
             self.vertex_100_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_101_xcoordinate = None
         else:
             self.vertex_101_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_101_ycoordinate = None
         else:
             self.vertex_101_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_101_zcoordinate = None
         else:
             self.vertex_101_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_102_xcoordinate = None
         else:
             self.vertex_102_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_102_ycoordinate = None
         else:
             self.vertex_102_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_102_zcoordinate = None
         else:
             self.vertex_102_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_103_xcoordinate = None
         else:
             self.vertex_103_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_103_ycoordinate = None
         else:
             self.vertex_103_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_103_zcoordinate = None
         else:
             self.vertex_103_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_104_xcoordinate = None
         else:
             self.vertex_104_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_104_ycoordinate = None
         else:
             self.vertex_104_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_104_zcoordinate = None
         else:
             self.vertex_104_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_105_xcoordinate = None
         else:
             self.vertex_105_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_105_ycoordinate = None
         else:
             self.vertex_105_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_105_zcoordinate = None
         else:
             self.vertex_105_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_106_xcoordinate = None
         else:
             self.vertex_106_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_106_ycoordinate = None
         else:
             self.vertex_106_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_106_zcoordinate = None
         else:
             self.vertex_106_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_107_xcoordinate = None
         else:
             self.vertex_107_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_107_ycoordinate = None
         else:
             self.vertex_107_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_107_zcoordinate = None
         else:
             self.vertex_107_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_108_xcoordinate = None
         else:
             self.vertex_108_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_108_ycoordinate = None
         else:
             self.vertex_108_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_108_zcoordinate = None
         else:
             self.vertex_108_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_109_xcoordinate = None
         else:
             self.vertex_109_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_109_ycoordinate = None
         else:
             self.vertex_109_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_109_zcoordinate = None
         else:
             self.vertex_109_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_110_xcoordinate = None
         else:
             self.vertex_110_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_110_ycoordinate = None
         else:
             self.vertex_110_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_110_zcoordinate = None
         else:
             self.vertex_110_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_111_xcoordinate = None
         else:
             self.vertex_111_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_111_ycoordinate = None
         else:
             self.vertex_111_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_111_zcoordinate = None
         else:
             self.vertex_111_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_112_xcoordinate = None
         else:
             self.vertex_112_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_112_ycoordinate = None
         else:
             self.vertex_112_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_112_zcoordinate = None
         else:
             self.vertex_112_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_113_xcoordinate = None
         else:
             self.vertex_113_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_113_ycoordinate = None
         else:
             self.vertex_113_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_113_zcoordinate = None
         else:
             self.vertex_113_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_114_xcoordinate = None
         else:
             self.vertex_114_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_114_ycoordinate = None
         else:
             self.vertex_114_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_114_zcoordinate = None
         else:
             self.vertex_114_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_115_xcoordinate = None
         else:
             self.vertex_115_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_115_ycoordinate = None
         else:
             self.vertex_115_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_115_zcoordinate = None
         else:
             self.vertex_115_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_116_xcoordinate = None
         else:
             self.vertex_116_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_116_ycoordinate = None
         else:
             self.vertex_116_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_116_zcoordinate = None
         else:
             self.vertex_116_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_117_xcoordinate = None
         else:
             self.vertex_117_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_117_ycoordinate = None
         else:
             self.vertex_117_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_117_zcoordinate = None
         else:
             self.vertex_117_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_118_xcoordinate = None
         else:
             self.vertex_118_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_118_ycoordinate = None
         else:
             self.vertex_118_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_118_zcoordinate = None
         else:
             self.vertex_118_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_119_xcoordinate = None
         else:
             self.vertex_119_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_119_ycoordinate = None
         else:
             self.vertex_119_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_119_zcoordinate = None
         else:
             self.vertex_119_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_120_xcoordinate = None
         else:
             self.vertex_120_xcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_120_ycoordinate = None
         else:
             self.vertex_120_ycoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vertex_120_zcoordinate = None
         else:
             self.vertex_120_zcoordinate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -63904,6 +67332,9 @@ class ShadingZoneDetailed(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -63938,6 +67369,9 @@ class ShadingZoneDetailed(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `base_surface_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `base_surface_name`')
 
         self._data["Base Surface Name"] = value
 
@@ -63971,6 +67405,9 @@ class ShadingZoneDetailed(object):
                                  'for field `transmittance_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `transmittance_schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `transmittance_schedule_name`')
 
         self._data["Transmittance Schedule Name"] = value
@@ -75195,373 +78632,17 @@ class ShadingZoneDetailed(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.base_surface_name))
-        out.append(self._to_str(self.transmittance_schedule_name))
-        out.append(self._to_str(self.number_of_vertices))
-        out.append(self._to_str(self.vertex_1_xcoordinate))
-        out.append(self._to_str(self.vertex_1_ycoordinate))
-        out.append(self._to_str(self.vertex_1_zcoordinate))
-        out.append(self._to_str(self.vertex_2_xcoordinate))
-        out.append(self._to_str(self.vertex_2_ycoordinate))
-        out.append(self._to_str(self.vertex_2_zcoordinate))
-        out.append(self._to_str(self.vertex_3_xcoordinate))
-        out.append(self._to_str(self.vertex_3_ycoordinate))
-        out.append(self._to_str(self.vertex_3_zcoordinate))
-        out.append(self._to_str(self.vertex_4_xcoordinate))
-        out.append(self._to_str(self.vertex_4_ycoordinate))
-        out.append(self._to_str(self.vertex_4_zcoordinate))
-        out.append(self._to_str(self.vertex_5_xcoordinate))
-        out.append(self._to_str(self.vertex_5_ycoordinate))
-        out.append(self._to_str(self.vertex_5_zcoordinate))
-        out.append(self._to_str(self.vertex_6_xcoordinate))
-        out.append(self._to_str(self.vertex_6_ycoordinate))
-        out.append(self._to_str(self.vertex_6_zcoordinate))
-        out.append(self._to_str(self.vertex_7_xcoordinate))
-        out.append(self._to_str(self.vertex_7_ycoordinate))
-        out.append(self._to_str(self.vertex_7_zcoordinate))
-        out.append(self._to_str(self.vertex_8_xcoordinate))
-        out.append(self._to_str(self.vertex_8_ycoordinate))
-        out.append(self._to_str(self.vertex_8_zcoordinate))
-        out.append(self._to_str(self.vertex_9_xcoordinate))
-        out.append(self._to_str(self.vertex_9_ycoordinate))
-        out.append(self._to_str(self.vertex_9_zcoordinate))
-        out.append(self._to_str(self.vertex_10_xcoordinate))
-        out.append(self._to_str(self.vertex_10_ycoordinate))
-        out.append(self._to_str(self.vertex_10_zcoordinate))
-        out.append(self._to_str(self.vertex_11_xcoordinate))
-        out.append(self._to_str(self.vertex_11_ycoordinate))
-        out.append(self._to_str(self.vertex_11_zcoordinate))
-        out.append(self._to_str(self.vertex_12_xcoordinate))
-        out.append(self._to_str(self.vertex_12_ycoordinate))
-        out.append(self._to_str(self.vertex_12_zcoordinate))
-        out.append(self._to_str(self.vertex_13_xcoordinate))
-        out.append(self._to_str(self.vertex_13_ycoordinate))
-        out.append(self._to_str(self.vertex_13_zcoordinate))
-        out.append(self._to_str(self.vertex_14_xcoordinate))
-        out.append(self._to_str(self.vertex_14_ycoordinate))
-        out.append(self._to_str(self.vertex_14_zcoordinate))
-        out.append(self._to_str(self.vertex_15_xcoordinate))
-        out.append(self._to_str(self.vertex_15_ycoordinate))
-        out.append(self._to_str(self.vertex_15_zcoordinate))
-        out.append(self._to_str(self.vertex_16_xcoordinate))
-        out.append(self._to_str(self.vertex_16_ycoordinate))
-        out.append(self._to_str(self.vertex_16_zcoordinate))
-        out.append(self._to_str(self.vertex_17_xcoordinate))
-        out.append(self._to_str(self.vertex_17_ycoordinate))
-        out.append(self._to_str(self.vertex_17_zcoordinate))
-        out.append(self._to_str(self.vertex_18_xcoordinate))
-        out.append(self._to_str(self.vertex_18_ycoordinate))
-        out.append(self._to_str(self.vertex_18_zcoordinate))
-        out.append(self._to_str(self.vertex_19_xcoordinate))
-        out.append(self._to_str(self.vertex_19_ycoordinate))
-        out.append(self._to_str(self.vertex_19_zcoordinate))
-        out.append(self._to_str(self.vertex_20_xcoordinate))
-        out.append(self._to_str(self.vertex_20_ycoordinate))
-        out.append(self._to_str(self.vertex_20_zcoordinate))
-        out.append(self._to_str(self.vertex_21_xcoordinate))
-        out.append(self._to_str(self.vertex_21_ycoordinate))
-        out.append(self._to_str(self.vertex_21_zcoordinate))
-        out.append(self._to_str(self.vertex_22_xcoordinate))
-        out.append(self._to_str(self.vertex_22_ycoordinate))
-        out.append(self._to_str(self.vertex_22_zcoordinate))
-        out.append(self._to_str(self.vertex_23_xcoordinate))
-        out.append(self._to_str(self.vertex_23_ycoordinate))
-        out.append(self._to_str(self.vertex_23_zcoordinate))
-        out.append(self._to_str(self.vertex_24_xcoordinate))
-        out.append(self._to_str(self.vertex_24_ycoordinate))
-        out.append(self._to_str(self.vertex_24_zcoordinate))
-        out.append(self._to_str(self.vertex_25_xcoordinate))
-        out.append(self._to_str(self.vertex_25_ycoordinate))
-        out.append(self._to_str(self.vertex_25_zcoordinate))
-        out.append(self._to_str(self.vertex_26_xcoordinate))
-        out.append(self._to_str(self.vertex_26_ycoordinate))
-        out.append(self._to_str(self.vertex_26_zcoordinate))
-        out.append(self._to_str(self.vertex_27_xcoordinate))
-        out.append(self._to_str(self.vertex_27_ycoordinate))
-        out.append(self._to_str(self.vertex_27_zcoordinate))
-        out.append(self._to_str(self.vertex_28_xcoordinate))
-        out.append(self._to_str(self.vertex_28_ycoordinate))
-        out.append(self._to_str(self.vertex_28_zcoordinate))
-        out.append(self._to_str(self.vertex_29_xcoordinate))
-        out.append(self._to_str(self.vertex_29_ycoordinate))
-        out.append(self._to_str(self.vertex_29_zcoordinate))
-        out.append(self._to_str(self.vertex_30_xcoordinate))
-        out.append(self._to_str(self.vertex_30_ycoordinate))
-        out.append(self._to_str(self.vertex_30_zcoordinate))
-        out.append(self._to_str(self.vertex_31_xcoordinate))
-        out.append(self._to_str(self.vertex_31_ycoordinate))
-        out.append(self._to_str(self.vertex_31_zcoordinate))
-        out.append(self._to_str(self.vertex_32_xcoordinate))
-        out.append(self._to_str(self.vertex_32_ycoordinate))
-        out.append(self._to_str(self.vertex_32_zcoordinate))
-        out.append(self._to_str(self.vertex_33_xcoordinate))
-        out.append(self._to_str(self.vertex_33_ycoordinate))
-        out.append(self._to_str(self.vertex_33_zcoordinate))
-        out.append(self._to_str(self.vertex_34_xcoordinate))
-        out.append(self._to_str(self.vertex_34_ycoordinate))
-        out.append(self._to_str(self.vertex_34_zcoordinate))
-        out.append(self._to_str(self.vertex_35_xcoordinate))
-        out.append(self._to_str(self.vertex_35_ycoordinate))
-        out.append(self._to_str(self.vertex_35_zcoordinate))
-        out.append(self._to_str(self.vertex_36_xcoordinate))
-        out.append(self._to_str(self.vertex_36_ycoordinate))
-        out.append(self._to_str(self.vertex_36_zcoordinate))
-        out.append(self._to_str(self.vertex_37_xcoordinate))
-        out.append(self._to_str(self.vertex_37_ycoordinate))
-        out.append(self._to_str(self.vertex_37_zcoordinate))
-        out.append(self._to_str(self.vertex_38_xcoordinate))
-        out.append(self._to_str(self.vertex_38_ycoordinate))
-        out.append(self._to_str(self.vertex_38_zcoordinate))
-        out.append(self._to_str(self.vertex_39_xcoordinate))
-        out.append(self._to_str(self.vertex_39_ycoordinate))
-        out.append(self._to_str(self.vertex_39_zcoordinate))
-        out.append(self._to_str(self.vertex_40_xcoordinate))
-        out.append(self._to_str(self.vertex_40_ycoordinate))
-        out.append(self._to_str(self.vertex_40_zcoordinate))
-        out.append(self._to_str(self.vertex_41_xcoordinate))
-        out.append(self._to_str(self.vertex_41_ycoordinate))
-        out.append(self._to_str(self.vertex_41_zcoordinate))
-        out.append(self._to_str(self.vertex_42_xcoordinate))
-        out.append(self._to_str(self.vertex_42_ycoordinate))
-        out.append(self._to_str(self.vertex_42_zcoordinate))
-        out.append(self._to_str(self.vertex_43_xcoordinate))
-        out.append(self._to_str(self.vertex_43_ycoordinate))
-        out.append(self._to_str(self.vertex_43_zcoordinate))
-        out.append(self._to_str(self.vertex_44_xcoordinate))
-        out.append(self._to_str(self.vertex_44_ycoordinate))
-        out.append(self._to_str(self.vertex_44_zcoordinate))
-        out.append(self._to_str(self.vertex_45_xcoordinate))
-        out.append(self._to_str(self.vertex_45_ycoordinate))
-        out.append(self._to_str(self.vertex_45_zcoordinate))
-        out.append(self._to_str(self.vertex_46_xcoordinate))
-        out.append(self._to_str(self.vertex_46_ycoordinate))
-        out.append(self._to_str(self.vertex_46_zcoordinate))
-        out.append(self._to_str(self.vertex_47_xcoordinate))
-        out.append(self._to_str(self.vertex_47_ycoordinate))
-        out.append(self._to_str(self.vertex_47_zcoordinate))
-        out.append(self._to_str(self.vertex_48_xcoordinate))
-        out.append(self._to_str(self.vertex_48_ycoordinate))
-        out.append(self._to_str(self.vertex_48_zcoordinate))
-        out.append(self._to_str(self.vertex_49_xcoordinate))
-        out.append(self._to_str(self.vertex_49_ycoordinate))
-        out.append(self._to_str(self.vertex_49_zcoordinate))
-        out.append(self._to_str(self.vertex_50_xcoordinate))
-        out.append(self._to_str(self.vertex_50_ycoordinate))
-        out.append(self._to_str(self.vertex_50_zcoordinate))
-        out.append(self._to_str(self.vertex_51_xcoordinate))
-        out.append(self._to_str(self.vertex_51_ycoordinate))
-        out.append(self._to_str(self.vertex_51_zcoordinate))
-        out.append(self._to_str(self.vertex_52_xcoordinate))
-        out.append(self._to_str(self.vertex_52_ycoordinate))
-        out.append(self._to_str(self.vertex_52_zcoordinate))
-        out.append(self._to_str(self.vertex_53_xcoordinate))
-        out.append(self._to_str(self.vertex_53_ycoordinate))
-        out.append(self._to_str(self.vertex_53_zcoordinate))
-        out.append(self._to_str(self.vertex_54_xcoordinate))
-        out.append(self._to_str(self.vertex_54_ycoordinate))
-        out.append(self._to_str(self.vertex_54_zcoordinate))
-        out.append(self._to_str(self.vertex_55_xcoordinate))
-        out.append(self._to_str(self.vertex_55_ycoordinate))
-        out.append(self._to_str(self.vertex_55_zcoordinate))
-        out.append(self._to_str(self.vertex_56_xcoordinate))
-        out.append(self._to_str(self.vertex_56_ycoordinate))
-        out.append(self._to_str(self.vertex_56_zcoordinate))
-        out.append(self._to_str(self.vertex_57_xcoordinate))
-        out.append(self._to_str(self.vertex_57_ycoordinate))
-        out.append(self._to_str(self.vertex_57_zcoordinate))
-        out.append(self._to_str(self.vertex_58_xcoordinate))
-        out.append(self._to_str(self.vertex_58_ycoordinate))
-        out.append(self._to_str(self.vertex_58_zcoordinate))
-        out.append(self._to_str(self.vertex_59_xcoordinate))
-        out.append(self._to_str(self.vertex_59_ycoordinate))
-        out.append(self._to_str(self.vertex_59_zcoordinate))
-        out.append(self._to_str(self.vertex_60_xcoordinate))
-        out.append(self._to_str(self.vertex_60_ycoordinate))
-        out.append(self._to_str(self.vertex_60_zcoordinate))
-        out.append(self._to_str(self.vertex_61_xcoordinate))
-        out.append(self._to_str(self.vertex_61_ycoordinate))
-        out.append(self._to_str(self.vertex_61_zcoordinate))
-        out.append(self._to_str(self.vertex_62_xcoordinate))
-        out.append(self._to_str(self.vertex_62_ycoordinate))
-        out.append(self._to_str(self.vertex_62_zcoordinate))
-        out.append(self._to_str(self.vertex_63_xcoordinate))
-        out.append(self._to_str(self.vertex_63_ycoordinate))
-        out.append(self._to_str(self.vertex_63_zcoordinate))
-        out.append(self._to_str(self.vertex_64_xcoordinate))
-        out.append(self._to_str(self.vertex_64_ycoordinate))
-        out.append(self._to_str(self.vertex_64_zcoordinate))
-        out.append(self._to_str(self.vertex_65_xcoordinate))
-        out.append(self._to_str(self.vertex_65_ycoordinate))
-        out.append(self._to_str(self.vertex_65_zcoordinate))
-        out.append(self._to_str(self.vertex_66_xcoordinate))
-        out.append(self._to_str(self.vertex_66_ycoordinate))
-        out.append(self._to_str(self.vertex_66_zcoordinate))
-        out.append(self._to_str(self.vertex_67_xcoordinate))
-        out.append(self._to_str(self.vertex_67_ycoordinate))
-        out.append(self._to_str(self.vertex_67_zcoordinate))
-        out.append(self._to_str(self.vertex_68_xcoordinate))
-        out.append(self._to_str(self.vertex_68_ycoordinate))
-        out.append(self._to_str(self.vertex_68_zcoordinate))
-        out.append(self._to_str(self.vertex_69_xcoordinate))
-        out.append(self._to_str(self.vertex_69_ycoordinate))
-        out.append(self._to_str(self.vertex_69_zcoordinate))
-        out.append(self._to_str(self.vertex_70_xcoordinate))
-        out.append(self._to_str(self.vertex_70_ycoordinate))
-        out.append(self._to_str(self.vertex_70_zcoordinate))
-        out.append(self._to_str(self.vertex_71_xcoordinate))
-        out.append(self._to_str(self.vertex_71_ycoordinate))
-        out.append(self._to_str(self.vertex_71_zcoordinate))
-        out.append(self._to_str(self.vertex_72_xcoordinate))
-        out.append(self._to_str(self.vertex_72_ycoordinate))
-        out.append(self._to_str(self.vertex_72_zcoordinate))
-        out.append(self._to_str(self.vertex_73_xcoordinate))
-        out.append(self._to_str(self.vertex_73_ycoordinate))
-        out.append(self._to_str(self.vertex_73_zcoordinate))
-        out.append(self._to_str(self.vertex_74_xcoordinate))
-        out.append(self._to_str(self.vertex_74_ycoordinate))
-        out.append(self._to_str(self.vertex_74_zcoordinate))
-        out.append(self._to_str(self.vertex_75_xcoordinate))
-        out.append(self._to_str(self.vertex_75_ycoordinate))
-        out.append(self._to_str(self.vertex_75_zcoordinate))
-        out.append(self._to_str(self.vertex_76_xcoordinate))
-        out.append(self._to_str(self.vertex_76_ycoordinate))
-        out.append(self._to_str(self.vertex_76_zcoordinate))
-        out.append(self._to_str(self.vertex_77_xcoordinate))
-        out.append(self._to_str(self.vertex_77_ycoordinate))
-        out.append(self._to_str(self.vertex_77_zcoordinate))
-        out.append(self._to_str(self.vertex_78_xcoordinate))
-        out.append(self._to_str(self.vertex_78_ycoordinate))
-        out.append(self._to_str(self.vertex_78_zcoordinate))
-        out.append(self._to_str(self.vertex_79_xcoordinate))
-        out.append(self._to_str(self.vertex_79_ycoordinate))
-        out.append(self._to_str(self.vertex_79_zcoordinate))
-        out.append(self._to_str(self.vertex_80_xcoordinate))
-        out.append(self._to_str(self.vertex_80_ycoordinate))
-        out.append(self._to_str(self.vertex_80_zcoordinate))
-        out.append(self._to_str(self.vertex_81_xcoordinate))
-        out.append(self._to_str(self.vertex_81_ycoordinate))
-        out.append(self._to_str(self.vertex_81_zcoordinate))
-        out.append(self._to_str(self.vertex_82_xcoordinate))
-        out.append(self._to_str(self.vertex_82_ycoordinate))
-        out.append(self._to_str(self.vertex_82_zcoordinate))
-        out.append(self._to_str(self.vertex_83_xcoordinate))
-        out.append(self._to_str(self.vertex_83_ycoordinate))
-        out.append(self._to_str(self.vertex_83_zcoordinate))
-        out.append(self._to_str(self.vertex_84_xcoordinate))
-        out.append(self._to_str(self.vertex_84_ycoordinate))
-        out.append(self._to_str(self.vertex_84_zcoordinate))
-        out.append(self._to_str(self.vertex_85_xcoordinate))
-        out.append(self._to_str(self.vertex_85_ycoordinate))
-        out.append(self._to_str(self.vertex_85_zcoordinate))
-        out.append(self._to_str(self.vertex_86_xcoordinate))
-        out.append(self._to_str(self.vertex_86_ycoordinate))
-        out.append(self._to_str(self.vertex_86_zcoordinate))
-        out.append(self._to_str(self.vertex_87_xcoordinate))
-        out.append(self._to_str(self.vertex_87_ycoordinate))
-        out.append(self._to_str(self.vertex_87_zcoordinate))
-        out.append(self._to_str(self.vertex_88_xcoordinate))
-        out.append(self._to_str(self.vertex_88_ycoordinate))
-        out.append(self._to_str(self.vertex_88_zcoordinate))
-        out.append(self._to_str(self.vertex_89_xcoordinate))
-        out.append(self._to_str(self.vertex_89_ycoordinate))
-        out.append(self._to_str(self.vertex_89_zcoordinate))
-        out.append(self._to_str(self.vertex_90_xcoordinate))
-        out.append(self._to_str(self.vertex_90_ycoordinate))
-        out.append(self._to_str(self.vertex_90_zcoordinate))
-        out.append(self._to_str(self.vertex_91_xcoordinate))
-        out.append(self._to_str(self.vertex_91_ycoordinate))
-        out.append(self._to_str(self.vertex_91_zcoordinate))
-        out.append(self._to_str(self.vertex_92_xcoordinate))
-        out.append(self._to_str(self.vertex_92_ycoordinate))
-        out.append(self._to_str(self.vertex_92_zcoordinate))
-        out.append(self._to_str(self.vertex_93_xcoordinate))
-        out.append(self._to_str(self.vertex_93_ycoordinate))
-        out.append(self._to_str(self.vertex_93_zcoordinate))
-        out.append(self._to_str(self.vertex_94_xcoordinate))
-        out.append(self._to_str(self.vertex_94_ycoordinate))
-        out.append(self._to_str(self.vertex_94_zcoordinate))
-        out.append(self._to_str(self.vertex_95_xcoordinate))
-        out.append(self._to_str(self.vertex_95_ycoordinate))
-        out.append(self._to_str(self.vertex_95_zcoordinate))
-        out.append(self._to_str(self.vertex_96_xcoordinate))
-        out.append(self._to_str(self.vertex_96_ycoordinate))
-        out.append(self._to_str(self.vertex_96_zcoordinate))
-        out.append(self._to_str(self.vertex_97_xcoordinate))
-        out.append(self._to_str(self.vertex_97_ycoordinate))
-        out.append(self._to_str(self.vertex_97_zcoordinate))
-        out.append(self._to_str(self.vertex_98_xcoordinate))
-        out.append(self._to_str(self.vertex_98_ycoordinate))
-        out.append(self._to_str(self.vertex_98_zcoordinate))
-        out.append(self._to_str(self.vertex_99_xcoordinate))
-        out.append(self._to_str(self.vertex_99_ycoordinate))
-        out.append(self._to_str(self.vertex_99_zcoordinate))
-        out.append(self._to_str(self.vertex_100_xcoordinate))
-        out.append(self._to_str(self.vertex_100_ycoordinate))
-        out.append(self._to_str(self.vertex_100_zcoordinate))
-        out.append(self._to_str(self.vertex_101_xcoordinate))
-        out.append(self._to_str(self.vertex_101_ycoordinate))
-        out.append(self._to_str(self.vertex_101_zcoordinate))
-        out.append(self._to_str(self.vertex_102_xcoordinate))
-        out.append(self._to_str(self.vertex_102_ycoordinate))
-        out.append(self._to_str(self.vertex_102_zcoordinate))
-        out.append(self._to_str(self.vertex_103_xcoordinate))
-        out.append(self._to_str(self.vertex_103_ycoordinate))
-        out.append(self._to_str(self.vertex_103_zcoordinate))
-        out.append(self._to_str(self.vertex_104_xcoordinate))
-        out.append(self._to_str(self.vertex_104_ycoordinate))
-        out.append(self._to_str(self.vertex_104_zcoordinate))
-        out.append(self._to_str(self.vertex_105_xcoordinate))
-        out.append(self._to_str(self.vertex_105_ycoordinate))
-        out.append(self._to_str(self.vertex_105_zcoordinate))
-        out.append(self._to_str(self.vertex_106_xcoordinate))
-        out.append(self._to_str(self.vertex_106_ycoordinate))
-        out.append(self._to_str(self.vertex_106_zcoordinate))
-        out.append(self._to_str(self.vertex_107_xcoordinate))
-        out.append(self._to_str(self.vertex_107_ycoordinate))
-        out.append(self._to_str(self.vertex_107_zcoordinate))
-        out.append(self._to_str(self.vertex_108_xcoordinate))
-        out.append(self._to_str(self.vertex_108_ycoordinate))
-        out.append(self._to_str(self.vertex_108_zcoordinate))
-        out.append(self._to_str(self.vertex_109_xcoordinate))
-        out.append(self._to_str(self.vertex_109_ycoordinate))
-        out.append(self._to_str(self.vertex_109_zcoordinate))
-        out.append(self._to_str(self.vertex_110_xcoordinate))
-        out.append(self._to_str(self.vertex_110_ycoordinate))
-        out.append(self._to_str(self.vertex_110_zcoordinate))
-        out.append(self._to_str(self.vertex_111_xcoordinate))
-        out.append(self._to_str(self.vertex_111_ycoordinate))
-        out.append(self._to_str(self.vertex_111_zcoordinate))
-        out.append(self._to_str(self.vertex_112_xcoordinate))
-        out.append(self._to_str(self.vertex_112_ycoordinate))
-        out.append(self._to_str(self.vertex_112_zcoordinate))
-        out.append(self._to_str(self.vertex_113_xcoordinate))
-        out.append(self._to_str(self.vertex_113_ycoordinate))
-        out.append(self._to_str(self.vertex_113_zcoordinate))
-        out.append(self._to_str(self.vertex_114_xcoordinate))
-        out.append(self._to_str(self.vertex_114_ycoordinate))
-        out.append(self._to_str(self.vertex_114_zcoordinate))
-        out.append(self._to_str(self.vertex_115_xcoordinate))
-        out.append(self._to_str(self.vertex_115_ycoordinate))
-        out.append(self._to_str(self.vertex_115_zcoordinate))
-        out.append(self._to_str(self.vertex_116_xcoordinate))
-        out.append(self._to_str(self.vertex_116_ycoordinate))
-        out.append(self._to_str(self.vertex_116_zcoordinate))
-        out.append(self._to_str(self.vertex_117_xcoordinate))
-        out.append(self._to_str(self.vertex_117_ycoordinate))
-        out.append(self._to_str(self.vertex_117_zcoordinate))
-        out.append(self._to_str(self.vertex_118_xcoordinate))
-        out.append(self._to_str(self.vertex_118_ycoordinate))
-        out.append(self._to_str(self.vertex_118_zcoordinate))
-        out.append(self._to_str(self.vertex_119_xcoordinate))
-        out.append(self._to_str(self.vertex_119_ycoordinate))
-        out.append(self._to_str(self.vertex_119_zcoordinate))
-        out.append(self._to_str(self.vertex_120_xcoordinate))
-        out.append(self._to_str(self.vertex_120_ycoordinate))
-        out.append(self._to_str(self.vertex_120_zcoordinate))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class ShadingPropertyReflectance(object):
     """ Corresponds to IDD object `ShadingProperty:Reflectance`
@@ -75582,39 +78663,51 @@ class ShadingPropertyReflectance(object):
         self._data["Diffuse Visible Reflectance of Unglazed Part of Shading Surface"] = None
         self._data["Fraction of Shading Surface That Is Glazed"] = None
         self._data["Glazing Construction Name"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.shading_surface_name = None
         else:
             self.shading_surface_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.diffuse_solar_reflectance_of_unglazed_part_of_shading_surface = None
         else:
             self.diffuse_solar_reflectance_of_unglazed_part_of_shading_surface = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.diffuse_visible_reflectance_of_unglazed_part_of_shading_surface = None
         else:
             self.diffuse_visible_reflectance_of_unglazed_part_of_shading_surface = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_shading_surface_that_is_glazed = None
         else:
             self.fraction_of_shading_surface_that_is_glazed = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.glazing_construction_name = None
         else:
             self.glazing_construction_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def shading_surface_name(self):
@@ -75645,6 +78738,9 @@ class ShadingPropertyReflectance(object):
                                  'for field `shading_surface_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `shading_surface_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `shading_surface_name`')
 
         self._data["Shading Surface Name"] = value
@@ -75797,6 +78893,9 @@ class ShadingPropertyReflectance(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `glazing_construction_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `glazing_construction_name`')
 
         self._data["Glazing Construction Name"] = value
 
@@ -75822,11 +78921,14 @@ class ShadingPropertyReflectance(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.shading_surface_name))
-        out.append(self._to_str(self.diffuse_solar_reflectance_of_unglazed_part_of_shading_surface))
-        out.append(self._to_str(self.diffuse_visible_reflectance_of_unglazed_part_of_shading_surface))
-        out.append(self._to_str(self.fraction_of_shading_surface_that_is_glazed))
-        out.append(self._to_str(self.glazing_construction_name))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])

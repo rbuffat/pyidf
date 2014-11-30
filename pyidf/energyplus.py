@@ -12,13 +12,15 @@ class LeadInput(object):
         """ Init data dictionary object for IDD  `Lead Input`
         """
         self._data = OrderedDict()
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
 
     def check(self):
@@ -43,9 +45,17 @@ class LeadInput(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class SimulationData(object):
     """ Corresponds to IDD object `Simulation Data`
@@ -59,13 +69,15 @@ class SimulationData(object):
         """ Init data dictionary object for IDD  `Simulation Data`
         """
         self._data = OrderedDict()
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
 
     def check(self):
@@ -90,6 +102,14 @@ class SimulationData(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])

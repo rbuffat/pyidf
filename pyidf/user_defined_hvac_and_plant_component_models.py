@@ -31,99 +31,135 @@ class ZoneHvacForcedAirUserDefined(object):
         self._data["Supply Inlet Water Storage Tank Name"] = None
         self._data["Collection Outlet Water Storage Tank Name"] = None
         self._data["Ambient Zone Name"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.overall_model_simulation_program_calling_manager_name = None
         else:
             self.overall_model_simulation_program_calling_manager_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.model_setup_and_sizing_program_calling_manager_name = None
         else:
             self.model_setup_and_sizing_program_calling_manager_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.primary_air_inlet_node_name = None
         else:
             self.primary_air_inlet_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.primary_air_outlet_node_name = None
         else:
             self.primary_air_outlet_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.secondary_air_inlet_node_name = None
         else:
             self.secondary_air_inlet_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.secondary_air_outlet_node_name = None
         else:
             self.secondary_air_outlet_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.number_of_plant_loop_connections = None
         else:
             self.number_of_plant_loop_connections = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.plant_connection_1_inlet_node_name = None
         else:
             self.plant_connection_1_inlet_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.plant_connection_1_outlet_node_name = None
         else:
             self.plant_connection_1_outlet_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.plant_connection_2_inlet_node_name = None
         else:
             self.plant_connection_2_inlet_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.plant_connection_2_outlet_node_name = None
         else:
             self.plant_connection_2_outlet_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.plant_connection_3_inlet_node_name = None
         else:
             self.plant_connection_3_inlet_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.plant_connection_3_outlet_node_name = None
         else:
             self.plant_connection_3_outlet_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.supply_inlet_water_storage_tank_name = None
         else:
             self.supply_inlet_water_storage_tank_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.collection_outlet_water_storage_tank_name = None
         else:
             self.collection_outlet_water_storage_tank_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.ambient_zone_name = None
         else:
             self.ambient_zone_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -155,6 +191,9 @@ class ZoneHvacForcedAirUserDefined(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -189,6 +228,9 @@ class ZoneHvacForcedAirUserDefined(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `overall_model_simulation_program_calling_manager_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `overall_model_simulation_program_calling_manager_name`')
 
         self._data["Overall Model Simulation Program Calling Manager Name"] = value
 
@@ -221,6 +263,9 @@ class ZoneHvacForcedAirUserDefined(object):
                                  'for field `model_setup_and_sizing_program_calling_manager_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `model_setup_and_sizing_program_calling_manager_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `model_setup_and_sizing_program_calling_manager_name`')
 
         self._data["Model Setup and Sizing Program Calling Manager Name"] = value
@@ -256,6 +301,9 @@ class ZoneHvacForcedAirUserDefined(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `primary_air_inlet_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `primary_air_inlet_node_name`')
 
         self._data["Primary Air Inlet Node Name"] = value
 
@@ -289,6 +337,9 @@ class ZoneHvacForcedAirUserDefined(object):
                                  'for field `primary_air_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `primary_air_outlet_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `primary_air_outlet_node_name`')
 
         self._data["Primary Air Outlet Node Name"] = value
@@ -324,6 +375,9 @@ class ZoneHvacForcedAirUserDefined(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `secondary_air_inlet_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `secondary_air_inlet_node_name`')
 
         self._data["Secondary Air Inlet Node Name"] = value
 
@@ -357,6 +411,9 @@ class ZoneHvacForcedAirUserDefined(object):
                                  'for field `secondary_air_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `secondary_air_outlet_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `secondary_air_outlet_node_name`')
 
         self._data["Secondary Air Outlet Node Name"] = value
@@ -429,6 +486,9 @@ class ZoneHvacForcedAirUserDefined(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `plant_connection_1_inlet_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `plant_connection_1_inlet_node_name`')
 
         self._data["Plant Connection 1 Inlet Node Name"] = value
 
@@ -461,6 +521,9 @@ class ZoneHvacForcedAirUserDefined(object):
                                  'for field `plant_connection_1_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `plant_connection_1_outlet_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `plant_connection_1_outlet_node_name`')
 
         self._data["Plant Connection 1 Outlet Node Name"] = value
@@ -495,6 +558,9 @@ class ZoneHvacForcedAirUserDefined(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `plant_connection_2_inlet_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `plant_connection_2_inlet_node_name`')
 
         self._data["Plant Connection 2 Inlet Node Name"] = value
 
@@ -527,6 +593,9 @@ class ZoneHvacForcedAirUserDefined(object):
                                  'for field `plant_connection_2_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `plant_connection_2_outlet_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `plant_connection_2_outlet_node_name`')
 
         self._data["Plant Connection 2 Outlet Node Name"] = value
@@ -561,6 +630,9 @@ class ZoneHvacForcedAirUserDefined(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `plant_connection_3_inlet_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `plant_connection_3_inlet_node_name`')
 
         self._data["Plant Connection 3 Inlet Node Name"] = value
 
@@ -593,6 +665,9 @@ class ZoneHvacForcedAirUserDefined(object):
                                  'for field `plant_connection_3_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `plant_connection_3_outlet_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `plant_connection_3_outlet_node_name`')
 
         self._data["Plant Connection 3 Outlet Node Name"] = value
@@ -628,6 +703,9 @@ class ZoneHvacForcedAirUserDefined(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `supply_inlet_water_storage_tank_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `supply_inlet_water_storage_tank_name`')
 
         self._data["Supply Inlet Water Storage Tank Name"] = value
 
@@ -661,6 +739,9 @@ class ZoneHvacForcedAirUserDefined(object):
                                  'for field `collection_outlet_water_storage_tank_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `collection_outlet_water_storage_tank_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `collection_outlet_water_storage_tank_name`')
 
         self._data["Collection Outlet Water Storage Tank Name"] = value
@@ -696,6 +777,9 @@ class ZoneHvacForcedAirUserDefined(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `ambient_zone_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `ambient_zone_name`')
 
         self._data["Ambient Zone Name"] = value
 
@@ -721,26 +805,17 @@ class ZoneHvacForcedAirUserDefined(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.overall_model_simulation_program_calling_manager_name))
-        out.append(self._to_str(self.model_setup_and_sizing_program_calling_manager_name))
-        out.append(self._to_str(self.primary_air_inlet_node_name))
-        out.append(self._to_str(self.primary_air_outlet_node_name))
-        out.append(self._to_str(self.secondary_air_inlet_node_name))
-        out.append(self._to_str(self.secondary_air_outlet_node_name))
-        out.append(self._to_str(self.number_of_plant_loop_connections))
-        out.append(self._to_str(self.plant_connection_1_inlet_node_name))
-        out.append(self._to_str(self.plant_connection_1_outlet_node_name))
-        out.append(self._to_str(self.plant_connection_2_inlet_node_name))
-        out.append(self._to_str(self.plant_connection_2_outlet_node_name))
-        out.append(self._to_str(self.plant_connection_3_inlet_node_name))
-        out.append(self._to_str(self.plant_connection_3_outlet_node_name))
-        out.append(self._to_str(self.supply_inlet_water_storage_tank_name))
-        out.append(self._to_str(self.collection_outlet_water_storage_tank_name))
-        out.append(self._to_str(self.ambient_zone_name))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class AirTerminalSingleDuctUserDefined(object):
     """ Corresponds to IDD object `AirTerminal:SingleDuct:UserDefined`
@@ -771,89 +846,121 @@ class AirTerminalSingleDuctUserDefined(object):
         self._data["Supply Inlet Water Storage Tank Name"] = None
         self._data["Collection Outlet Water Storage Tank Name"] = None
         self._data["Ambient Zone Name"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.overall_model_simulation_program_calling_manager_name = None
         else:
             self.overall_model_simulation_program_calling_manager_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.model_setup_and_sizing_program_calling_manager_name = None
         else:
             self.model_setup_and_sizing_program_calling_manager_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.primary_air_inlet_node_name = None
         else:
             self.primary_air_inlet_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.primary_air_outlet_node_name = None
         else:
             self.primary_air_outlet_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.secondary_air_inlet_node_name = None
         else:
             self.secondary_air_inlet_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.secondary_air_outlet_node_name = None
         else:
             self.secondary_air_outlet_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.number_of_plant_loop_connections = None
         else:
             self.number_of_plant_loop_connections = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.plant_connection_1_inlet_node_name = None
         else:
             self.plant_connection_1_inlet_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.plant_connection_1_outlet_node_name = None
         else:
             self.plant_connection_1_outlet_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.plant_connection_2_inlet_node_name = None
         else:
             self.plant_connection_2_inlet_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.plant_connection_2_outlet_node_name = None
         else:
             self.plant_connection_2_outlet_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.supply_inlet_water_storage_tank_name = None
         else:
             self.supply_inlet_water_storage_tank_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.collection_outlet_water_storage_tank_name = None
         else:
             self.collection_outlet_water_storage_tank_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.ambient_zone_name = None
         else:
             self.ambient_zone_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -885,6 +992,9 @@ class AirTerminalSingleDuctUserDefined(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -919,6 +1029,9 @@ class AirTerminalSingleDuctUserDefined(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `overall_model_simulation_program_calling_manager_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `overall_model_simulation_program_calling_manager_name`')
 
         self._data["Overall Model Simulation Program Calling Manager Name"] = value
 
@@ -951,6 +1064,9 @@ class AirTerminalSingleDuctUserDefined(object):
                                  'for field `model_setup_and_sizing_program_calling_manager_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `model_setup_and_sizing_program_calling_manager_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `model_setup_and_sizing_program_calling_manager_name`')
 
         self._data["Model Setup and Sizing Program Calling Manager Name"] = value
@@ -986,6 +1102,9 @@ class AirTerminalSingleDuctUserDefined(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `primary_air_inlet_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `primary_air_inlet_node_name`')
 
         self._data["Primary Air Inlet Node Name"] = value
 
@@ -1019,6 +1138,9 @@ class AirTerminalSingleDuctUserDefined(object):
                                  'for field `primary_air_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `primary_air_outlet_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `primary_air_outlet_node_name`')
 
         self._data["Primary Air Outlet Node Name"] = value
@@ -1054,6 +1176,9 @@ class AirTerminalSingleDuctUserDefined(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `secondary_air_inlet_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `secondary_air_inlet_node_name`')
 
         self._data["Secondary Air Inlet Node Name"] = value
 
@@ -1087,6 +1212,9 @@ class AirTerminalSingleDuctUserDefined(object):
                                  'for field `secondary_air_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `secondary_air_outlet_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `secondary_air_outlet_node_name`')
 
         self._data["Secondary Air Outlet Node Name"] = value
@@ -1159,6 +1287,9 @@ class AirTerminalSingleDuctUserDefined(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `plant_connection_1_inlet_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `plant_connection_1_inlet_node_name`')
 
         self._data["Plant Connection 1 Inlet Node Name"] = value
 
@@ -1191,6 +1322,9 @@ class AirTerminalSingleDuctUserDefined(object):
                                  'for field `plant_connection_1_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `plant_connection_1_outlet_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `plant_connection_1_outlet_node_name`')
 
         self._data["Plant Connection 1 Outlet Node Name"] = value
@@ -1225,6 +1359,9 @@ class AirTerminalSingleDuctUserDefined(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `plant_connection_2_inlet_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `plant_connection_2_inlet_node_name`')
 
         self._data["Plant Connection 2 Inlet Node Name"] = value
 
@@ -1257,6 +1394,9 @@ class AirTerminalSingleDuctUserDefined(object):
                                  'for field `plant_connection_2_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `plant_connection_2_outlet_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `plant_connection_2_outlet_node_name`')
 
         self._data["Plant Connection 2 Outlet Node Name"] = value
@@ -1292,6 +1432,9 @@ class AirTerminalSingleDuctUserDefined(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `supply_inlet_water_storage_tank_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `supply_inlet_water_storage_tank_name`')
 
         self._data["Supply Inlet Water Storage Tank Name"] = value
 
@@ -1325,6 +1468,9 @@ class AirTerminalSingleDuctUserDefined(object):
                                  'for field `collection_outlet_water_storage_tank_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `collection_outlet_water_storage_tank_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `collection_outlet_water_storage_tank_name`')
 
         self._data["Collection Outlet Water Storage Tank Name"] = value
@@ -1360,6 +1506,9 @@ class AirTerminalSingleDuctUserDefined(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `ambient_zone_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `ambient_zone_name`')
 
         self._data["Ambient Zone Name"] = value
 
@@ -1385,24 +1534,17 @@ class AirTerminalSingleDuctUserDefined(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.overall_model_simulation_program_calling_manager_name))
-        out.append(self._to_str(self.model_setup_and_sizing_program_calling_manager_name))
-        out.append(self._to_str(self.primary_air_inlet_node_name))
-        out.append(self._to_str(self.primary_air_outlet_node_name))
-        out.append(self._to_str(self.secondary_air_inlet_node_name))
-        out.append(self._to_str(self.secondary_air_outlet_node_name))
-        out.append(self._to_str(self.number_of_plant_loop_connections))
-        out.append(self._to_str(self.plant_connection_1_inlet_node_name))
-        out.append(self._to_str(self.plant_connection_1_outlet_node_name))
-        out.append(self._to_str(self.plant_connection_2_inlet_node_name))
-        out.append(self._to_str(self.plant_connection_2_outlet_node_name))
-        out.append(self._to_str(self.supply_inlet_water_storage_tank_name))
-        out.append(self._to_str(self.collection_outlet_water_storage_tank_name))
-        out.append(self._to_str(self.ambient_zone_name))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class CoilUserDefined(object):
     """ Corresponds to IDD object `Coil:UserDefined`
@@ -1432,84 +1574,114 @@ class CoilUserDefined(object):
         self._data["Supply Inlet Water Storage Tank Name"] = None
         self._data["Collection Outlet Water Storage Tank Name"] = None
         self._data["Ambient Zone Name"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.overall_model_simulation_program_calling_manager_name = None
         else:
             self.overall_model_simulation_program_calling_manager_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.model_setup_and_sizing_program_calling_manager_name = None
         else:
             self.model_setup_and_sizing_program_calling_manager_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.number_of_air_connections = None
         else:
             self.number_of_air_connections = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.air_connection_1_inlet_node_name = None
         else:
             self.air_connection_1_inlet_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.air_connection_1_outlet_node_name = None
         else:
             self.air_connection_1_outlet_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.air_connection_2_inlet_node_name = None
         else:
             self.air_connection_2_inlet_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.air_connection_2_outlet_node_name = None
         else:
             self.air_connection_2_outlet_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.plant_connection_is_used = None
         else:
             self.plant_connection_is_used = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.plant_connection_inlet_node_name = None
         else:
             self.plant_connection_inlet_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.plant_connection_outlet_node_name = None
         else:
             self.plant_connection_outlet_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.supply_inlet_water_storage_tank_name = None
         else:
             self.supply_inlet_water_storage_tank_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.collection_outlet_water_storage_tank_name = None
         else:
             self.collection_outlet_water_storage_tank_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.ambient_zone_name = None
         else:
             self.ambient_zone_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -1541,6 +1713,9 @@ class CoilUserDefined(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -1575,6 +1750,9 @@ class CoilUserDefined(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `overall_model_simulation_program_calling_manager_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `overall_model_simulation_program_calling_manager_name`')
 
         self._data["Overall Model Simulation Program Calling Manager Name"] = value
 
@@ -1607,6 +1785,9 @@ class CoilUserDefined(object):
                                  'for field `model_setup_and_sizing_program_calling_manager_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `model_setup_and_sizing_program_calling_manager_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `model_setup_and_sizing_program_calling_manager_name`')
 
         self._data["Model Setup and Sizing Program Calling Manager Name"] = value
@@ -1680,6 +1861,9 @@ class CoilUserDefined(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `air_connection_1_inlet_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `air_connection_1_inlet_node_name`')
 
         self._data["Air Connection 1 Inlet Node Name"] = value
 
@@ -1713,6 +1897,9 @@ class CoilUserDefined(object):
                                  'for field `air_connection_1_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `air_connection_1_outlet_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `air_connection_1_outlet_node_name`')
 
         self._data["Air Connection 1 Outlet Node Name"] = value
@@ -1748,6 +1935,9 @@ class CoilUserDefined(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `air_connection_2_inlet_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `air_connection_2_inlet_node_name`')
 
         self._data["Air Connection 2 Inlet Node Name"] = value
 
@@ -1781,6 +1971,9 @@ class CoilUserDefined(object):
                                  'for field `air_connection_2_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `air_connection_2_outlet_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `air_connection_2_outlet_node_name`')
 
         self._data["Air Connection 2 Outlet Node Name"] = value
@@ -1818,12 +2011,26 @@ class CoilUserDefined(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `plant_connection_is_used`')
-            vals = set()
-            vals.add("Yes")
-            vals.add("No")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `plant_connection_is_used`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `plant_connection_is_used`')
+            vals = {}
+            vals["yes"] = "Yes"
+            vals["no"] = "No"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `plant_connection_is_used`'.format(value))
+            value = vals[value_lower]
 
         self._data["Plant Connection is Used"] = value
 
@@ -1857,6 +2064,9 @@ class CoilUserDefined(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `plant_connection_inlet_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `plant_connection_inlet_node_name`')
 
         self._data["Plant Connection Inlet Node Name"] = value
 
@@ -1889,6 +2099,9 @@ class CoilUserDefined(object):
                                  'for field `plant_connection_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `plant_connection_outlet_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `plant_connection_outlet_node_name`')
 
         self._data["Plant Connection Outlet Node Name"] = value
@@ -1924,6 +2137,9 @@ class CoilUserDefined(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `supply_inlet_water_storage_tank_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `supply_inlet_water_storage_tank_name`')
 
         self._data["Supply Inlet Water Storage Tank Name"] = value
 
@@ -1957,6 +2173,9 @@ class CoilUserDefined(object):
                                  'for field `collection_outlet_water_storage_tank_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `collection_outlet_water_storage_tank_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `collection_outlet_water_storage_tank_name`')
 
         self._data["Collection Outlet Water Storage Tank Name"] = value
@@ -1992,6 +2211,9 @@ class CoilUserDefined(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `ambient_zone_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `ambient_zone_name`')
 
         self._data["Ambient Zone Name"] = value
 
@@ -2017,23 +2239,17 @@ class CoilUserDefined(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.overall_model_simulation_program_calling_manager_name))
-        out.append(self._to_str(self.model_setup_and_sizing_program_calling_manager_name))
-        out.append(self._to_str(self.number_of_air_connections))
-        out.append(self._to_str(self.air_connection_1_inlet_node_name))
-        out.append(self._to_str(self.air_connection_1_outlet_node_name))
-        out.append(self._to_str(self.air_connection_2_inlet_node_name))
-        out.append(self._to_str(self.air_connection_2_outlet_node_name))
-        out.append(self._to_str(self.plant_connection_is_used))
-        out.append(self._to_str(self.plant_connection_inlet_node_name))
-        out.append(self._to_str(self.plant_connection_outlet_node_name))
-        out.append(self._to_str(self.supply_inlet_water_storage_tank_name))
-        out.append(self._to_str(self.collection_outlet_water_storage_tank_name))
-        out.append(self._to_str(self.ambient_zone_name))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class PlantComponentUserDefined(object):
     """ Corresponds to IDD object `PlantComponent:UserDefined`
@@ -2081,174 +2297,240 @@ class PlantComponentUserDefined(object):
         self._data["Supply Inlet Water Storage Tank Name"] = None
         self._data["Collection Outlet Water Storage Tank Name"] = None
         self._data["Ambient Zone Name"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.main_model_program_calling_manager_name = None
         else:
             self.main_model_program_calling_manager_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.number_of_plant_loop_connections = None
         else:
             self.number_of_plant_loop_connections = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.plant_connection_1_inlet_node_name = None
         else:
             self.plant_connection_1_inlet_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.plant_connection_1_outlet_node_name = None
         else:
             self.plant_connection_1_outlet_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.plant_connection_1_loading_mode = None
         else:
             self.plant_connection_1_loading_mode = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.plant_connection_1_loop_flow_request_mode = None
         else:
             self.plant_connection_1_loop_flow_request_mode = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.plant_connection_1_initialization_program_calling_manager_name = None
         else:
             self.plant_connection_1_initialization_program_calling_manager_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.plant_connection_1_simulation_program_calling_manager_name = None
         else:
             self.plant_connection_1_simulation_program_calling_manager_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.plant_connection_2_inlet_node_name = None
         else:
             self.plant_connection_2_inlet_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.plant_connection_2_outlet_node_name = None
         else:
             self.plant_connection_2_outlet_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.plant_connection_2_loading_mode = None
         else:
             self.plant_connection_2_loading_mode = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.plant_connection_2_loop_flow_request_mode = None
         else:
             self.plant_connection_2_loop_flow_request_mode = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.plant_connection_2_initialization_program_calling_manager_name = None
         else:
             self.plant_connection_2_initialization_program_calling_manager_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.plant_connection_2_simulation_program_calling_manager_name = None
         else:
             self.plant_connection_2_simulation_program_calling_manager_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.plant_connection_3_inlet_node_name = None
         else:
             self.plant_connection_3_inlet_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.plant_connection_3_outlet_node_name = None
         else:
             self.plant_connection_3_outlet_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.plant_connection_3_loading_mode = None
         else:
             self.plant_connection_3_loading_mode = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.plant_connection_3_loop_flow_request_mode = None
         else:
             self.plant_connection_3_loop_flow_request_mode = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.plant_connection_3_initialization_program_calling_manager_name = None
         else:
             self.plant_connection_3_initialization_program_calling_manager_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.plant_connection_3_simulation_program_calling_manager_name = None
         else:
             self.plant_connection_3_simulation_program_calling_manager_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.plant_connection_4_inlet_node_name = None
         else:
             self.plant_connection_4_inlet_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.plant_connection_4_outlet_node_name = None
         else:
             self.plant_connection_4_outlet_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.plant_connection_4_loading_mode = None
         else:
             self.plant_connection_4_loading_mode = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.plant_connection_4_loop_flow_request_mode = None
         else:
             self.plant_connection_4_loop_flow_request_mode = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.plant_connection_4_initialization_program_calling_manager_name = None
         else:
             self.plant_connection_4_initialization_program_calling_manager_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.plant_connection_4_simulation_program_calling_manager_name = None
         else:
             self.plant_connection_4_simulation_program_calling_manager_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.air_connection_inlet_node_name = None
         else:
             self.air_connection_inlet_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.air_connection_outlet_node_name = None
         else:
             self.air_connection_outlet_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.supply_inlet_water_storage_tank_name = None
         else:
             self.supply_inlet_water_storage_tank_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.collection_outlet_water_storage_tank_name = None
         else:
             self.collection_outlet_water_storage_tank_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.ambient_zone_name = None
         else:
             self.ambient_zone_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -2280,6 +2562,9 @@ class PlantComponentUserDefined(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -2313,6 +2598,9 @@ class PlantComponentUserDefined(object):
                                  'for field `main_model_program_calling_manager_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `main_model_program_calling_manager_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `main_model_program_calling_manager_name`')
 
         self._data["Main Model Program Calling Manager Name"] = value
@@ -2385,6 +2673,9 @@ class PlantComponentUserDefined(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `plant_connection_1_inlet_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `plant_connection_1_inlet_node_name`')
 
         self._data["Plant Connection 1 Inlet Node Name"] = value
 
@@ -2417,6 +2708,9 @@ class PlantComponentUserDefined(object):
                                  'for field `plant_connection_1_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `plant_connection_1_outlet_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `plant_connection_1_outlet_node_name`')
 
         self._data["Plant Connection 1 Outlet Node Name"] = value
@@ -2457,15 +2751,29 @@ class PlantComponentUserDefined(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `plant_connection_1_loading_mode`')
-            vals = set()
-            vals.add("DemandsLoad")
-            vals.add("MeetsLoadWithPassiveCapacity")
-            vals.add("MeetsLoadWithNominalCapacity")
-            vals.add("MeetsLoadWithNominalCapacityLowOutLimit")
-            vals.add("MeetsLoadWithNominalCapacityHiOutLimit")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `plant_connection_1_loading_mode`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `plant_connection_1_loading_mode`')
+            vals = {}
+            vals["demandsload"] = "DemandsLoad"
+            vals["meetsloadwithpassivecapacity"] = "MeetsLoadWithPassiveCapacity"
+            vals["meetsloadwithnominalcapacity"] = "MeetsLoadWithNominalCapacity"
+            vals["meetsloadwithnominalcapacitylowoutlimit"] = "MeetsLoadWithNominalCapacityLowOutLimit"
+            vals["meetsloadwithnominalcapacityhioutlimit"] = "MeetsLoadWithNominalCapacityHiOutLimit"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `plant_connection_1_loading_mode`'.format(value))
+            value = vals[value_lower]
 
         self._data["Plant Connection 1 Loading Mode"] = value
 
@@ -2498,6 +2806,9 @@ class PlantComponentUserDefined(object):
                                  'for field `plant_connection_1_loop_flow_request_mode`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `plant_connection_1_loop_flow_request_mode`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `plant_connection_1_loop_flow_request_mode`')
 
         self._data["Plant Connection 1 Loop Flow Request Mode"] = value
@@ -2532,6 +2843,9 @@ class PlantComponentUserDefined(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `plant_connection_1_initialization_program_calling_manager_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `plant_connection_1_initialization_program_calling_manager_name`')
 
         self._data["Plant Connection 1 Initialization Program Calling Manager Name"] = value
 
@@ -2564,6 +2878,9 @@ class PlantComponentUserDefined(object):
                                  'for field `plant_connection_1_simulation_program_calling_manager_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `plant_connection_1_simulation_program_calling_manager_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `plant_connection_1_simulation_program_calling_manager_name`')
 
         self._data["Plant Connection 1 Simulation Program Calling Manager Name"] = value
@@ -2598,6 +2915,9 @@ class PlantComponentUserDefined(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `plant_connection_2_inlet_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `plant_connection_2_inlet_node_name`')
 
         self._data["Plant Connection 2 Inlet Node Name"] = value
 
@@ -2630,6 +2950,9 @@ class PlantComponentUserDefined(object):
                                  'for field `plant_connection_2_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `plant_connection_2_outlet_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `plant_connection_2_outlet_node_name`')
 
         self._data["Plant Connection 2 Outlet Node Name"] = value
@@ -2670,15 +2993,29 @@ class PlantComponentUserDefined(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `plant_connection_2_loading_mode`')
-            vals = set()
-            vals.add("DemandsLoad")
-            vals.add("MeetLoadWithPassiveCapacity")
-            vals.add("MeetLoadWithNominalCapacity")
-            vals.add("MeetLoadWithNominalCapacityLowOutLimit")
-            vals.add("MeetLoadWithNominalCapacityHiOutLimit")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `plant_connection_2_loading_mode`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `plant_connection_2_loading_mode`')
+            vals = {}
+            vals["demandsload"] = "DemandsLoad"
+            vals["meetloadwithpassivecapacity"] = "MeetLoadWithPassiveCapacity"
+            vals["meetloadwithnominalcapacity"] = "MeetLoadWithNominalCapacity"
+            vals["meetloadwithnominalcapacitylowoutlimit"] = "MeetLoadWithNominalCapacityLowOutLimit"
+            vals["meetloadwithnominalcapacityhioutlimit"] = "MeetLoadWithNominalCapacityHiOutLimit"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `plant_connection_2_loading_mode`'.format(value))
+            value = vals[value_lower]
 
         self._data["Plant Connection 2 Loading Mode"] = value
 
@@ -2711,6 +3048,9 @@ class PlantComponentUserDefined(object):
                                  'for field `plant_connection_2_loop_flow_request_mode`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `plant_connection_2_loop_flow_request_mode`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `plant_connection_2_loop_flow_request_mode`')
 
         self._data["Plant Connection 2 Loop Flow Request Mode"] = value
@@ -2745,6 +3085,9 @@ class PlantComponentUserDefined(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `plant_connection_2_initialization_program_calling_manager_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `plant_connection_2_initialization_program_calling_manager_name`')
 
         self._data["Plant Connection 2 Initialization Program Calling Manager Name"] = value
 
@@ -2777,6 +3120,9 @@ class PlantComponentUserDefined(object):
                                  'for field `plant_connection_2_simulation_program_calling_manager_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `plant_connection_2_simulation_program_calling_manager_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `plant_connection_2_simulation_program_calling_manager_name`')
 
         self._data["Plant Connection 2 Simulation Program Calling Manager Name"] = value
@@ -2811,6 +3157,9 @@ class PlantComponentUserDefined(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `plant_connection_3_inlet_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `plant_connection_3_inlet_node_name`')
 
         self._data["Plant Connection 3 Inlet Node Name"] = value
 
@@ -2843,6 +3192,9 @@ class PlantComponentUserDefined(object):
                                  'for field `plant_connection_3_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `plant_connection_3_outlet_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `plant_connection_3_outlet_node_name`')
 
         self._data["Plant Connection 3 Outlet Node Name"] = value
@@ -2883,15 +3235,29 @@ class PlantComponentUserDefined(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `plant_connection_3_loading_mode`')
-            vals = set()
-            vals.add("DemandsLoad")
-            vals.add("MeetLoadWithPassiveCapacity")
-            vals.add("MeetLoadWithNominalCapacity")
-            vals.add("MeetLoadWithNominalCapacityLowOutLimit")
-            vals.add("MeetLoadWithNominalCapacityHiOutLimit")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `plant_connection_3_loading_mode`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `plant_connection_3_loading_mode`')
+            vals = {}
+            vals["demandsload"] = "DemandsLoad"
+            vals["meetloadwithpassivecapacity"] = "MeetLoadWithPassiveCapacity"
+            vals["meetloadwithnominalcapacity"] = "MeetLoadWithNominalCapacity"
+            vals["meetloadwithnominalcapacitylowoutlimit"] = "MeetLoadWithNominalCapacityLowOutLimit"
+            vals["meetloadwithnominalcapacityhioutlimit"] = "MeetLoadWithNominalCapacityHiOutLimit"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `plant_connection_3_loading_mode`'.format(value))
+            value = vals[value_lower]
 
         self._data["Plant Connection 3 Loading Mode"] = value
 
@@ -2924,6 +3290,9 @@ class PlantComponentUserDefined(object):
                                  'for field `plant_connection_3_loop_flow_request_mode`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `plant_connection_3_loop_flow_request_mode`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `plant_connection_3_loop_flow_request_mode`')
 
         self._data["Plant Connection 3 Loop Flow Request Mode"] = value
@@ -2958,6 +3327,9 @@ class PlantComponentUserDefined(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `plant_connection_3_initialization_program_calling_manager_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `plant_connection_3_initialization_program_calling_manager_name`')
 
         self._data["Plant Connection 3 Initialization Program Calling Manager Name"] = value
 
@@ -2990,6 +3362,9 @@ class PlantComponentUserDefined(object):
                                  'for field `plant_connection_3_simulation_program_calling_manager_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `plant_connection_3_simulation_program_calling_manager_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `plant_connection_3_simulation_program_calling_manager_name`')
 
         self._data["Plant Connection 3 Simulation Program Calling Manager Name"] = value
@@ -3024,6 +3399,9 @@ class PlantComponentUserDefined(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `plant_connection_4_inlet_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `plant_connection_4_inlet_node_name`')
 
         self._data["Plant Connection 4 Inlet Node Name"] = value
 
@@ -3056,6 +3434,9 @@ class PlantComponentUserDefined(object):
                                  'for field `plant_connection_4_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `plant_connection_4_outlet_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `plant_connection_4_outlet_node_name`')
 
         self._data["Plant Connection 4 Outlet Node Name"] = value
@@ -3096,15 +3477,29 @@ class PlantComponentUserDefined(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `plant_connection_4_loading_mode`')
-            vals = set()
-            vals.add("DemandsLoad")
-            vals.add("MeetLoadWithPassiveCapacity")
-            vals.add("MeetLoadWithNominalCapacity")
-            vals.add("MeetLoadWithNominalCapacityLowOutLimit")
-            vals.add("MeetLoadWithNominalCapacityHiOutLimit")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `plant_connection_4_loading_mode`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `plant_connection_4_loading_mode`')
+            vals = {}
+            vals["demandsload"] = "DemandsLoad"
+            vals["meetloadwithpassivecapacity"] = "MeetLoadWithPassiveCapacity"
+            vals["meetloadwithnominalcapacity"] = "MeetLoadWithNominalCapacity"
+            vals["meetloadwithnominalcapacitylowoutlimit"] = "MeetLoadWithNominalCapacityLowOutLimit"
+            vals["meetloadwithnominalcapacityhioutlimit"] = "MeetLoadWithNominalCapacityHiOutLimit"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `plant_connection_4_loading_mode`'.format(value))
+            value = vals[value_lower]
 
         self._data["Plant Connection 4 Loading Mode"] = value
 
@@ -3137,6 +3532,9 @@ class PlantComponentUserDefined(object):
                                  'for field `plant_connection_4_loop_flow_request_mode`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `plant_connection_4_loop_flow_request_mode`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `plant_connection_4_loop_flow_request_mode`')
 
         self._data["Plant Connection 4 Loop Flow Request Mode"] = value
@@ -3171,6 +3569,9 @@ class PlantComponentUserDefined(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `plant_connection_4_initialization_program_calling_manager_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `plant_connection_4_initialization_program_calling_manager_name`')
 
         self._data["Plant Connection 4 Initialization Program Calling Manager Name"] = value
 
@@ -3203,6 +3604,9 @@ class PlantComponentUserDefined(object):
                                  'for field `plant_connection_4_simulation_program_calling_manager_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `plant_connection_4_simulation_program_calling_manager_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `plant_connection_4_simulation_program_calling_manager_name`')
 
         self._data["Plant Connection 4 Simulation Program Calling Manager Name"] = value
@@ -3238,6 +3642,9 @@ class PlantComponentUserDefined(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `air_connection_inlet_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `air_connection_inlet_node_name`')
 
         self._data["Air Connection Inlet Node Name"] = value
 
@@ -3271,6 +3678,9 @@ class PlantComponentUserDefined(object):
                                  'for field `air_connection_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `air_connection_outlet_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `air_connection_outlet_node_name`')
 
         self._data["Air Connection Outlet Node Name"] = value
@@ -3306,6 +3716,9 @@ class PlantComponentUserDefined(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `supply_inlet_water_storage_tank_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `supply_inlet_water_storage_tank_name`')
 
         self._data["Supply Inlet Water Storage Tank Name"] = value
 
@@ -3339,6 +3752,9 @@ class PlantComponentUserDefined(object):
                                  'for field `collection_outlet_water_storage_tank_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `collection_outlet_water_storage_tank_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `collection_outlet_water_storage_tank_name`')
 
         self._data["Collection Outlet Water Storage Tank Name"] = value
@@ -3374,6 +3790,9 @@ class PlantComponentUserDefined(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `ambient_zone_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `ambient_zone_name`')
 
         self._data["Ambient Zone Name"] = value
 
@@ -3399,41 +3818,17 @@ class PlantComponentUserDefined(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.main_model_program_calling_manager_name))
-        out.append(self._to_str(self.number_of_plant_loop_connections))
-        out.append(self._to_str(self.plant_connection_1_inlet_node_name))
-        out.append(self._to_str(self.plant_connection_1_outlet_node_name))
-        out.append(self._to_str(self.plant_connection_1_loading_mode))
-        out.append(self._to_str(self.plant_connection_1_loop_flow_request_mode))
-        out.append(self._to_str(self.plant_connection_1_initialization_program_calling_manager_name))
-        out.append(self._to_str(self.plant_connection_1_simulation_program_calling_manager_name))
-        out.append(self._to_str(self.plant_connection_2_inlet_node_name))
-        out.append(self._to_str(self.plant_connection_2_outlet_node_name))
-        out.append(self._to_str(self.plant_connection_2_loading_mode))
-        out.append(self._to_str(self.plant_connection_2_loop_flow_request_mode))
-        out.append(self._to_str(self.plant_connection_2_initialization_program_calling_manager_name))
-        out.append(self._to_str(self.plant_connection_2_simulation_program_calling_manager_name))
-        out.append(self._to_str(self.plant_connection_3_inlet_node_name))
-        out.append(self._to_str(self.plant_connection_3_outlet_node_name))
-        out.append(self._to_str(self.plant_connection_3_loading_mode))
-        out.append(self._to_str(self.plant_connection_3_loop_flow_request_mode))
-        out.append(self._to_str(self.plant_connection_3_initialization_program_calling_manager_name))
-        out.append(self._to_str(self.plant_connection_3_simulation_program_calling_manager_name))
-        out.append(self._to_str(self.plant_connection_4_inlet_node_name))
-        out.append(self._to_str(self.plant_connection_4_outlet_node_name))
-        out.append(self._to_str(self.plant_connection_4_loading_mode))
-        out.append(self._to_str(self.plant_connection_4_loop_flow_request_mode))
-        out.append(self._to_str(self.plant_connection_4_initialization_program_calling_manager_name))
-        out.append(self._to_str(self.plant_connection_4_simulation_program_calling_manager_name))
-        out.append(self._to_str(self.air_connection_inlet_node_name))
-        out.append(self._to_str(self.air_connection_outlet_node_name))
-        out.append(self._to_str(self.supply_inlet_water_storage_tank_name))
-        out.append(self._to_str(self.collection_outlet_water_storage_tank_name))
-        out.append(self._to_str(self.ambient_zone_name))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class PlantEquipmentOperationUserDefined(object):
     """ Corresponds to IDD object `PlantEquipmentOperation:UserDefined`
@@ -3472,129 +3867,177 @@ class PlantEquipmentOperationUserDefined(object):
         self._data["Equipment 9 Name"] = None
         self._data["Equipment 10 Object Type"] = None
         self._data["Equipment 10 Name"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.main_model_program_calling_manager_name = None
         else:
             self.main_model_program_calling_manager_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.initialization_program_calling_manager_name = None
         else:
             self.initialization_program_calling_manager_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.equipment_1_object_type = None
         else:
             self.equipment_1_object_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.equipment_1_name = None
         else:
             self.equipment_1_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.equipment_2_object_type = None
         else:
             self.equipment_2_object_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.equipment_2_name = None
         else:
             self.equipment_2_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.equipment_3_object_type = None
         else:
             self.equipment_3_object_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.equipment_3_name = None
         else:
             self.equipment_3_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.equipment_4_object_type = None
         else:
             self.equipment_4_object_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.equipment_4_name = None
         else:
             self.equipment_4_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.equipment_5_object_type = None
         else:
             self.equipment_5_object_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.equipment_5_name = None
         else:
             self.equipment_5_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.equipment_6_object_type = None
         else:
             self.equipment_6_object_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.equipment_6_name = None
         else:
             self.equipment_6_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.equipment_7_object_type = None
         else:
             self.equipment_7_object_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.equipment_7_name = None
         else:
             self.equipment_7_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.equipment_8_object_type = None
         else:
             self.equipment_8_object_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.equipment_8_name = None
         else:
             self.equipment_8_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.equipment_9_object_type = None
         else:
             self.equipment_9_object_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.equipment_9_name = None
         else:
             self.equipment_9_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.equipment_10_object_type = None
         else:
             self.equipment_10_object_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.equipment_10_name = None
         else:
             self.equipment_10_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -3626,6 +4069,9 @@ class PlantEquipmentOperationUserDefined(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -3660,6 +4106,9 @@ class PlantEquipmentOperationUserDefined(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `main_model_program_calling_manager_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `main_model_program_calling_manager_name`')
 
         self._data["Main Model Program Calling Manager Name"] = value
 
@@ -3692,6 +4141,9 @@ class PlantEquipmentOperationUserDefined(object):
                                  'for field `initialization_program_calling_manager_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `initialization_program_calling_manager_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `initialization_program_calling_manager_name`')
 
         self._data["Initialization Program Calling Manager Name"] = value
@@ -3726,6 +4178,9 @@ class PlantEquipmentOperationUserDefined(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `equipment_1_object_type`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `equipment_1_object_type`')
 
         self._data["Equipment 1 Object Type"] = value
 
@@ -3758,6 +4213,9 @@ class PlantEquipmentOperationUserDefined(object):
                                  'for field `equipment_1_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `equipment_1_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `equipment_1_name`')
 
         self._data["Equipment 1 Name"] = value
@@ -3792,6 +4250,9 @@ class PlantEquipmentOperationUserDefined(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `equipment_2_object_type`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `equipment_2_object_type`')
 
         self._data["Equipment 2 Object Type"] = value
 
@@ -3824,6 +4285,9 @@ class PlantEquipmentOperationUserDefined(object):
                                  'for field `equipment_2_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `equipment_2_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `equipment_2_name`')
 
         self._data["Equipment 2 Name"] = value
@@ -3858,6 +4322,9 @@ class PlantEquipmentOperationUserDefined(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `equipment_3_object_type`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `equipment_3_object_type`')
 
         self._data["Equipment 3 Object Type"] = value
 
@@ -3890,6 +4357,9 @@ class PlantEquipmentOperationUserDefined(object):
                                  'for field `equipment_3_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `equipment_3_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `equipment_3_name`')
 
         self._data["Equipment 3 Name"] = value
@@ -3924,6 +4394,9 @@ class PlantEquipmentOperationUserDefined(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `equipment_4_object_type`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `equipment_4_object_type`')
 
         self._data["Equipment 4 Object Type"] = value
 
@@ -3956,6 +4429,9 @@ class PlantEquipmentOperationUserDefined(object):
                                  'for field `equipment_4_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `equipment_4_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `equipment_4_name`')
 
         self._data["Equipment 4 Name"] = value
@@ -3990,6 +4466,9 @@ class PlantEquipmentOperationUserDefined(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `equipment_5_object_type`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `equipment_5_object_type`')
 
         self._data["Equipment 5 Object Type"] = value
 
@@ -4022,6 +4501,9 @@ class PlantEquipmentOperationUserDefined(object):
                                  'for field `equipment_5_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `equipment_5_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `equipment_5_name`')
 
         self._data["Equipment 5 Name"] = value
@@ -4056,6 +4538,9 @@ class PlantEquipmentOperationUserDefined(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `equipment_6_object_type`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `equipment_6_object_type`')
 
         self._data["Equipment 6 Object Type"] = value
 
@@ -4088,6 +4573,9 @@ class PlantEquipmentOperationUserDefined(object):
                                  'for field `equipment_6_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `equipment_6_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `equipment_6_name`')
 
         self._data["Equipment 6 Name"] = value
@@ -4122,6 +4610,9 @@ class PlantEquipmentOperationUserDefined(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `equipment_7_object_type`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `equipment_7_object_type`')
 
         self._data["Equipment 7 Object Type"] = value
 
@@ -4154,6 +4645,9 @@ class PlantEquipmentOperationUserDefined(object):
                                  'for field `equipment_7_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `equipment_7_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `equipment_7_name`')
 
         self._data["Equipment 7 Name"] = value
@@ -4188,6 +4682,9 @@ class PlantEquipmentOperationUserDefined(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `equipment_8_object_type`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `equipment_8_object_type`')
 
         self._data["Equipment 8 Object Type"] = value
 
@@ -4220,6 +4717,9 @@ class PlantEquipmentOperationUserDefined(object):
                                  'for field `equipment_8_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `equipment_8_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `equipment_8_name`')
 
         self._data["Equipment 8 Name"] = value
@@ -4254,6 +4754,9 @@ class PlantEquipmentOperationUserDefined(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `equipment_9_object_type`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `equipment_9_object_type`')
 
         self._data["Equipment 9 Object Type"] = value
 
@@ -4286,6 +4789,9 @@ class PlantEquipmentOperationUserDefined(object):
                                  'for field `equipment_9_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `equipment_9_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `equipment_9_name`')
 
         self._data["Equipment 9 Name"] = value
@@ -4320,6 +4826,9 @@ class PlantEquipmentOperationUserDefined(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `equipment_10_object_type`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `equipment_10_object_type`')
 
         self._data["Equipment 10 Object Type"] = value
 
@@ -4353,6 +4862,9 @@ class PlantEquipmentOperationUserDefined(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `equipment_10_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `equipment_10_name`')
 
         self._data["Equipment 10 Name"] = value
 
@@ -4378,29 +4890,14 @@ class PlantEquipmentOperationUserDefined(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.main_model_program_calling_manager_name))
-        out.append(self._to_str(self.initialization_program_calling_manager_name))
-        out.append(self._to_str(self.equipment_1_object_type))
-        out.append(self._to_str(self.equipment_1_name))
-        out.append(self._to_str(self.equipment_2_object_type))
-        out.append(self._to_str(self.equipment_2_name))
-        out.append(self._to_str(self.equipment_3_object_type))
-        out.append(self._to_str(self.equipment_3_name))
-        out.append(self._to_str(self.equipment_4_object_type))
-        out.append(self._to_str(self.equipment_4_name))
-        out.append(self._to_str(self.equipment_5_object_type))
-        out.append(self._to_str(self.equipment_5_name))
-        out.append(self._to_str(self.equipment_6_object_type))
-        out.append(self._to_str(self.equipment_6_name))
-        out.append(self._to_str(self.equipment_7_object_type))
-        out.append(self._to_str(self.equipment_7_name))
-        out.append(self._to_str(self.equipment_8_object_type))
-        out.append(self._to_str(self.equipment_8_name))
-        out.append(self._to_str(self.equipment_9_object_type))
-        out.append(self._to_str(self.equipment_9_name))
-        out.append(self._to_str(self.equipment_10_object_type))
-        out.append(self._to_str(self.equipment_10_name))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])

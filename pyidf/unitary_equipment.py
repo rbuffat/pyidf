@@ -50,10 +50,10 @@ class AirLoopHvacUnitarySystem(object):
         self._data["Supply Air Flow Rate Method When No Cooling or Heating is Required"] = None
         self._data["Supply Air Flow Rate When No Cooling or Heating is Required"] = None
         self._data["Supply Air Flow Rate Per Floor Area When No Cooling or Heating is Required"] = None
-        self._data["Fraction of Autosized Design Cooling Supply Air Flow Rate v2"] = None
-        self._data["Fraction of Autosized Design Heating Supply Air Flow Rate v2"] = None
-        self._data["Design Supply Air Flow Rate Per Unit of Capacity During Cooling Operation v2"] = None
-        self._data["Design Supply Air Flow Rate Per Unit of Capacity During Heating Operation v2"] = None
+        self._data["Fraction of Autosized Design Cooling Supply Air Flow Rate v3"] = None
+        self._data["Fraction of Autosized Design Heating Supply Air Flow Rate v3"] = None
+        self._data["Design Supply Air Flow Rate Per Unit of Capacity During Cooling Operation v3"] = None
+        self._data["Design Supply Air Flow Rate Per Unit of Capacity During Heating Operation v3"] = None
         self._data["Maximum Supply Air Temperature"] = None
         self._data["Maximum Outdoor Dry-Bulb Temperature for Supplemental Heater Operation"] = None
         self._data["Outdoor Dry-Bulb Temperature Sensor Node Name"] = None
@@ -69,279 +69,387 @@ class AirLoopHvacUnitarySystem(object):
         self._data["Heat Recovery Water Outlet Node Name"] = None
         self._data["Design Specification Multispeed Heat Pump Object Type"] = None
         self._data["Design Specification Multispeed Heat Pump Object Name"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.control_type = None
         else:
             self.control_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.controlling_zone_or_thermostat_location = None
         else:
             self.controlling_zone_or_thermostat_location = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.dehumidification_control_type = None
         else:
             self.dehumidification_control_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.availability_schedule_name = None
         else:
             self.availability_schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.air_inlet_node_name = None
         else:
             self.air_inlet_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.air_outlet_node_name = None
         else:
             self.air_outlet_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.supply_fan_object_type = None
         else:
             self.supply_fan_object_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.supply_fan_name = None
         else:
             self.supply_fan_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fan_placement = None
         else:
             self.fan_placement = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.supply_air_fan_operating_mode_schedule_name = None
         else:
             self.supply_air_fan_operating_mode_schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.heating_coil_object_type = None
         else:
             self.heating_coil_object_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.heating_coil_name = None
         else:
             self.heating_coil_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.dx_heating_coil_sizing_ratio = None
         else:
             self.dx_heating_coil_sizing_ratio = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.cooling_coil_object_type = None
         else:
             self.cooling_coil_object_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.cooling_coil_name = None
         else:
             self.cooling_coil_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.use_doas_dx_cooling_coil = None
         else:
             self.use_doas_dx_cooling_coil = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.doas_dx_cooling_coil_leaving_minimum_air_temperature = None
         else:
             self.doas_dx_cooling_coil_leaving_minimum_air_temperature = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.latent_load_control = None
         else:
             self.latent_load_control = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.supplemental_heating_coil_object_type = None
         else:
             self.supplemental_heating_coil_object_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.supplemental_heating_coil_name = None
         else:
             self.supplemental_heating_coil_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.supply_air_flow_rate_method_during_cooling_operation = None
         else:
             self.supply_air_flow_rate_method_during_cooling_operation = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.supply_air_flow_rate_during_cooling_operation = None
         else:
             self.supply_air_flow_rate_during_cooling_operation = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.supply_air_flow_rate_per_floor_area_during_cooling_operation = None
         else:
             self.supply_air_flow_rate_per_floor_area_during_cooling_operation = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_autosized_design_cooling_supply_air_flow_rate = None
         else:
             self.fraction_of_autosized_design_cooling_supply_air_flow_rate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.design_supply_air_flow_rate_per_unit_of_capacity_during_cooling_operation = None
         else:
             self.design_supply_air_flow_rate_per_unit_of_capacity_during_cooling_operation = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.supply_air_flow_rate_method_during_heating_operation = None
         else:
             self.supply_air_flow_rate_method_during_heating_operation = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.supply_air_flow_rate_during_heating_operation = None
         else:
             self.supply_air_flow_rate_during_heating_operation = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.supply_air_flow_rate_per_floor_area_during_heating_operation = None
         else:
             self.supply_air_flow_rate_per_floor_area_during_heating_operation = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_autosized_design_heating_supply_air_flow_rate = None
         else:
             self.fraction_of_autosized_design_heating_supply_air_flow_rate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.design_supply_air_flow_rate_per_unit_of_capacity_during_heating_operation = None
         else:
             self.design_supply_air_flow_rate_per_unit_of_capacity_during_heating_operation = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.supply_air_flow_rate_method_when_no_cooling_or_heating_is_required = None
         else:
             self.supply_air_flow_rate_method_when_no_cooling_or_heating_is_required = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.supply_air_flow_rate_when_no_cooling_or_heating_is_required = None
         else:
             self.supply_air_flow_rate_when_no_cooling_or_heating_is_required = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.supply_air_flow_rate_per_floor_area_when_no_cooling_or_heating_is_required = None
         else:
             self.supply_air_flow_rate_per_floor_area_when_no_cooling_or_heating_is_required = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
-            self.fraction_of_autosized_design_cooling_supply_air_flow_rate_v2 = None
+            self.fraction_of_autosized_design_cooling_supply_air_flow_rate_v3 = None
         else:
-            self.fraction_of_autosized_design_cooling_supply_air_flow_rate_v2 = vals[i]
+            self.fraction_of_autosized_design_cooling_supply_air_flow_rate_v3 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
-            self.fraction_of_autosized_design_heating_supply_air_flow_rate_v2 = None
+            self.fraction_of_autosized_design_heating_supply_air_flow_rate_v3 = None
         else:
-            self.fraction_of_autosized_design_heating_supply_air_flow_rate_v2 = vals[i]
+            self.fraction_of_autosized_design_heating_supply_air_flow_rate_v3 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
-            self.design_supply_air_flow_rate_per_unit_of_capacity_during_cooling_operation_v2 = None
+            self.design_supply_air_flow_rate_per_unit_of_capacity_during_cooling_operation_v3 = None
         else:
-            self.design_supply_air_flow_rate_per_unit_of_capacity_during_cooling_operation_v2 = vals[i]
+            self.design_supply_air_flow_rate_per_unit_of_capacity_during_cooling_operation_v3 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
-            self.design_supply_air_flow_rate_per_unit_of_capacity_during_heating_operation_v2 = None
+            self.design_supply_air_flow_rate_per_unit_of_capacity_during_heating_operation_v3 = None
         else:
-            self.design_supply_air_flow_rate_per_unit_of_capacity_during_heating_operation_v2 = vals[i]
+            self.design_supply_air_flow_rate_per_unit_of_capacity_during_heating_operation_v3 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.maximum_supply_air_temperature = None
         else:
             self.maximum_supply_air_temperature = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.maximum_outdoor_drybulb_temperature_for_supplemental_heater_operation = None
         else:
             self.maximum_outdoor_drybulb_temperature_for_supplemental_heater_operation = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.outdoor_drybulb_temperature_sensor_node_name = None
         else:
             self.outdoor_drybulb_temperature_sensor_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.maximum_cycling_rate = None
         else:
             self.maximum_cycling_rate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.heat_pump_time_constant = None
         else:
             self.heat_pump_time_constant = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_oncycle_power_use = None
         else:
             self.fraction_of_oncycle_power_use = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.heat_pump_fan_delay_time = None
         else:
             self.heat_pump_fan_delay_time = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.ancilliary_oncycle_electric_power = None
         else:
             self.ancilliary_oncycle_electric_power = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.ancilliary_offcycle_electric_power = None
         else:
             self.ancilliary_offcycle_electric_power = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.design_heat_recovery_water_flow_rate = None
         else:
             self.design_heat_recovery_water_flow_rate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.maximum_temperature_for_heat_recovery = None
         else:
             self.maximum_temperature_for_heat_recovery = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.heat_recovery_water_inlet_node_name = None
         else:
             self.heat_recovery_water_inlet_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.heat_recovery_water_outlet_node_name = None
         else:
             self.heat_recovery_water_outlet_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.design_specification_multispeed_heat_pump_object_type = None
         else:
             self.design_specification_multispeed_heat_pump_object_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.design_specification_multispeed_heat_pump_object_name = None
         else:
             self.design_specification_multispeed_heat_pump_object_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -373,6 +481,9 @@ class AirLoopHvacUnitarySystem(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -413,12 +524,26 @@ class AirLoopHvacUnitarySystem(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `control_type`')
-            vals = set()
-            vals.add("Load")
-            vals.add("SetPoint")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `control_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `control_type`')
+            vals = {}
+            vals["load"] = "Load"
+            vals["setpoint"] = "SetPoint"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `control_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Control Type"] = value
 
@@ -453,6 +578,9 @@ class AirLoopHvacUnitarySystem(object):
                                  'for field `controlling_zone_or_thermostat_location`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `controlling_zone_or_thermostat_location`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `controlling_zone_or_thermostat_location`')
 
         self._data["Controlling Zone or Thermostat Location"] = value
@@ -504,13 +632,27 @@ class AirLoopHvacUnitarySystem(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `dehumidification_control_type`')
-            vals = set()
-            vals.add("None")
-            vals.add("Multimode")
-            vals.add("CoolReheat")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `dehumidification_control_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `dehumidification_control_type`')
+            vals = {}
+            vals["none"] = "None"
+            vals["multimode"] = "Multimode"
+            vals["coolreheat"] = "CoolReheat"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `dehumidification_control_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Dehumidification Control Type"] = value
 
@@ -549,6 +691,9 @@ class AirLoopHvacUnitarySystem(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `availability_schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `availability_schedule_name`')
 
         self._data["Availability Schedule Name"] = value
 
@@ -583,6 +728,9 @@ class AirLoopHvacUnitarySystem(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `air_inlet_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `air_inlet_node_name`')
 
         self._data["Air Inlet Node Name"] = value
 
@@ -616,6 +764,9 @@ class AirLoopHvacUnitarySystem(object):
                                  'for field `air_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `air_outlet_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `air_outlet_node_name`')
 
         self._data["Air Outlet Node Name"] = value
@@ -663,13 +814,27 @@ class AirLoopHvacUnitarySystem(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `supply_fan_object_type`')
-            vals = set()
-            vals.add("Fan:OnOff")
-            vals.add("Fan:ConstantVolume")
-            vals.add("Fan:VariableVolume")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `supply_fan_object_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `supply_fan_object_type`')
+            vals = {}
+            vals["fan:onoff"] = "Fan:OnOff"
+            vals["fan:constantvolume"] = "Fan:ConstantVolume"
+            vals["fan:variablevolume"] = "Fan:VariableVolume"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `supply_fan_object_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Supply Fan Object Type"] = value
 
@@ -703,6 +868,9 @@ class AirLoopHvacUnitarySystem(object):
                                  'for field `supply_fan_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `supply_fan_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `supply_fan_name`')
 
         self._data["Supply Fan Name"] = value
@@ -741,12 +909,26 @@ class AirLoopHvacUnitarySystem(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `fan_placement`')
-            vals = set()
-            vals.add("BlowThrough")
-            vals.add("DrawThrough")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `fan_placement`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `fan_placement`')
+            vals = {}
+            vals["blowthrough"] = "BlowThrough"
+            vals["drawthrough"] = "DrawThrough"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `fan_placement`'.format(value))
+            value = vals[value_lower]
 
         self._data["Fan Placement"] = value
 
@@ -788,6 +970,9 @@ class AirLoopHvacUnitarySystem(object):
                                  'for field `supply_air_fan_operating_mode_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `supply_air_fan_operating_mode_schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `supply_air_fan_operating_mode_schedule_name`')
 
         self._data["Supply Air Fan Operating Mode Schedule Name"] = value
@@ -837,23 +1022,37 @@ class AirLoopHvacUnitarySystem(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `heating_coil_object_type`')
-            vals = set()
-            vals.add("Coil:Heating:DX:SingleSpeed")
-            vals.add("Coil:Heating:DX:MultiSpeed")
-            vals.add("Coil:Heating:DX:VariableSpeed")
-            vals.add("Coil:Heating:WaterToAirHeatPump:ParameterEstimation")
-            vals.add("Coil:Heating:WaterToAirHeatPump:EquationFit")
-            vals.add("Coil:Heating:WaterToAirHeatPump:VariableSpeedEquationFit")
-            vals.add("Coil:Heating:Gas")
-            vals.add("Coil:Heating:Gas:MultiStage")
-            vals.add("Coil:Heating:Electric")
-            vals.add("Coil:Heating:Electric:MultiStage")
-            vals.add("Coil:Heating:Water")
-            vals.add("Coil:Heating:Steam")
-            vals.add("Coil:Heating:Desuperheater")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `heating_coil_object_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `heating_coil_object_type`')
+            vals = {}
+            vals["coil:heating:dx:singlespeed"] = "Coil:Heating:DX:SingleSpeed"
+            vals["coil:heating:dx:multispeed"] = "Coil:Heating:DX:MultiSpeed"
+            vals["coil:heating:dx:variablespeed"] = "Coil:Heating:DX:VariableSpeed"
+            vals["coil:heating:watertoairheatpump:parameterestimation"] = "Coil:Heating:WaterToAirHeatPump:ParameterEstimation"
+            vals["coil:heating:watertoairheatpump:equationfit"] = "Coil:Heating:WaterToAirHeatPump:EquationFit"
+            vals["coil:heating:watertoairheatpump:variablespeedequationfit"] = "Coil:Heating:WaterToAirHeatPump:VariableSpeedEquationFit"
+            vals["coil:heating:gas"] = "Coil:Heating:Gas"
+            vals["coil:heating:gas:multistage"] = "Coil:Heating:Gas:MultiStage"
+            vals["coil:heating:electric"] = "Coil:Heating:Electric"
+            vals["coil:heating:electric:multistage"] = "Coil:Heating:Electric:MultiStage"
+            vals["coil:heating:water"] = "Coil:Heating:Water"
+            vals["coil:heating:steam"] = "Coil:Heating:Steam"
+            vals["coil:heating:desuperheater"] = "Coil:Heating:Desuperheater"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `heating_coil_object_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Heating Coil Object Type"] = value
 
@@ -887,6 +1086,9 @@ class AirLoopHvacUnitarySystem(object):
                                  'for field `heating_coil_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `heating_coil_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `heating_coil_name`')
 
         self._data["Heating Coil Name"] = value
@@ -972,22 +1174,36 @@ class AirLoopHvacUnitarySystem(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `cooling_coil_object_type`')
-            vals = set()
-            vals.add("Coil:Cooling:DX:SingleSpeed")
-            vals.add("Coil:Cooling:DX:TwoSpeed")
-            vals.add("Coil:Cooling:DX:MultiSpeed")
-            vals.add("Coil:Cooling:DX:VariableSpeed")
-            vals.add("Coil:Cooling:DX:TwoStageWithHumidityControlMode")
-            vals.add("CoilSystem:Cooling:DX:HeatExchangerAssisted")
-            vals.add("Coil:Cooling:WaterToAirHeatPump:ParameterEstimation")
-            vals.add("Coil:Cooling:WaterToAirHeatPump:EquationFit")
-            vals.add("Coil:Cooling:WaterToAirHeatPump:VariableSpeedEquationFit")
-            vals.add("Coil:Cooling:Water")
-            vals.add("Coil:Cooling:Water:DetailedGeometry")
-            vals.add("CoilSystem:Cooling:Water:HeatExchangerAssisted")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `cooling_coil_object_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `cooling_coil_object_type`')
+            vals = {}
+            vals["coil:cooling:dx:singlespeed"] = "Coil:Cooling:DX:SingleSpeed"
+            vals["coil:cooling:dx:twospeed"] = "Coil:Cooling:DX:TwoSpeed"
+            vals["coil:cooling:dx:multispeed"] = "Coil:Cooling:DX:MultiSpeed"
+            vals["coil:cooling:dx:variablespeed"] = "Coil:Cooling:DX:VariableSpeed"
+            vals["coil:cooling:dx:twostagewithhumiditycontrolmode"] = "Coil:Cooling:DX:TwoStageWithHumidityControlMode"
+            vals["coilsystem:cooling:dx:heatexchangerassisted"] = "CoilSystem:Cooling:DX:HeatExchangerAssisted"
+            vals["coil:cooling:watertoairheatpump:parameterestimation"] = "Coil:Cooling:WaterToAirHeatPump:ParameterEstimation"
+            vals["coil:cooling:watertoairheatpump:equationfit"] = "Coil:Cooling:WaterToAirHeatPump:EquationFit"
+            vals["coil:cooling:watertoairheatpump:variablespeedequationfit"] = "Coil:Cooling:WaterToAirHeatPump:VariableSpeedEquationFit"
+            vals["coil:cooling:water"] = "Coil:Cooling:Water"
+            vals["coil:cooling:water:detailedgeometry"] = "Coil:Cooling:Water:DetailedGeometry"
+            vals["coilsystem:cooling:water:heatexchangerassisted"] = "CoilSystem:Cooling:Water:HeatExchangerAssisted"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `cooling_coil_object_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Cooling Coil Object Type"] = value
 
@@ -1021,6 +1237,9 @@ class AirLoopHvacUnitarySystem(object):
                                  'for field `cooling_coil_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `cooling_coil_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `cooling_coil_name`')
 
         self._data["Cooling Coil Name"] = value
@@ -1062,12 +1281,26 @@ class AirLoopHvacUnitarySystem(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `use_doas_dx_cooling_coil`')
-            vals = set()
-            vals.add("Yes")
-            vals.add("No")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `use_doas_dx_cooling_coil`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `use_doas_dx_cooling_coil`')
+            vals = {}
+            vals["yes"] = "Yes"
+            vals["no"] = "No"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `use_doas_dx_cooling_coil`'.format(value))
+            value = vals[value_lower]
 
         self._data["Use DOAS DX Cooling Coil"] = value
 
@@ -1155,14 +1388,28 @@ class AirLoopHvacUnitarySystem(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `latent_load_control`')
-            vals = set()
-            vals.add("SensibleOnlyLoadControl")
-            vals.add("LatentOnlyLoadControl")
-            vals.add("LatentWithSensibleLoadControl")
-            vals.add("LatentOrSensibleLoadControl")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `latent_load_control`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `latent_load_control`')
+            vals = {}
+            vals["sensibleonlyloadcontrol"] = "SensibleOnlyLoadControl"
+            vals["latentonlyloadcontrol"] = "LatentOnlyLoadControl"
+            vals["latentwithsensibleloadcontrol"] = "LatentWithSensibleLoadControl"
+            vals["latentorsensibleloadcontrol"] = "LatentOrSensibleLoadControl"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `latent_load_control`'.format(value))
+            value = vals[value_lower]
 
         self._data["Latent Load Control"] = value
 
@@ -1204,15 +1451,29 @@ class AirLoopHvacUnitarySystem(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `supplemental_heating_coil_object_type`')
-            vals = set()
-            vals.add("Coil:Heating:Gas")
-            vals.add("Coil:Heating:Electric")
-            vals.add("Coil:Heating:Desuperheater")
-            vals.add("Coil:Heating:Water")
-            vals.add("Coil:Heating:Steam")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `supplemental_heating_coil_object_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `supplemental_heating_coil_object_type`')
+            vals = {}
+            vals["coil:heating:gas"] = "Coil:Heating:Gas"
+            vals["coil:heating:electric"] = "Coil:Heating:Electric"
+            vals["coil:heating:desuperheater"] = "Coil:Heating:Desuperheater"
+            vals["coil:heating:water"] = "Coil:Heating:Water"
+            vals["coil:heating:steam"] = "Coil:Heating:Steam"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `supplemental_heating_coil_object_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Supplemental Heating Coil Object Type"] = value
 
@@ -1247,6 +1508,9 @@ class AirLoopHvacUnitarySystem(object):
                                  'for field `supplemental_heating_coil_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `supplemental_heating_coil_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `supplemental_heating_coil_name`')
 
         self._data["Supplemental Heating Coil Name"] = value
@@ -1296,15 +1560,29 @@ class AirLoopHvacUnitarySystem(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `supply_air_flow_rate_method_during_cooling_operation`')
-            vals = set()
-            vals.add("None")
-            vals.add("SupplyAirFlowRate")
-            vals.add("FlowPerFloorArea")
-            vals.add("FractionOfAutosizedCoolingValue")
-            vals.add("FlowPerCoolingCapacity")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `supply_air_flow_rate_method_during_cooling_operation`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `supply_air_flow_rate_method_during_cooling_operation`')
+            vals = {}
+            vals["none"] = "None"
+            vals["supplyairflowrate"] = "SupplyAirFlowRate"
+            vals["flowperfloorarea"] = "FlowPerFloorArea"
+            vals["fractionofautosizedcoolingvalue"] = "FractionOfAutosizedCoolingValue"
+            vals["flowpercoolingcapacity"] = "FlowPerCoolingCapacity"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `supply_air_flow_rate_method_during_cooling_operation`'.format(value))
+            value = vals[value_lower]
 
         self._data["Supply Air Flow Rate Method During Cooling Operation"] = value
 
@@ -1504,15 +1782,29 @@ class AirLoopHvacUnitarySystem(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `supply_air_flow_rate_method_during_heating_operation`')
-            vals = set()
-            vals.add("None")
-            vals.add("SupplyAirFlowRate")
-            vals.add("FlowPerFloorArea")
-            vals.add("FractionOfAutosizedHeatingValue")
-            vals.add("FlowPerHeatingCapacity")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `supply_air_flow_rate_method_during_heating_operation`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `supply_air_flow_rate_method_during_heating_operation`')
+            vals = {}
+            vals["none"] = "None"
+            vals["supplyairflowrate"] = "SupplyAirFlowRate"
+            vals["flowperfloorarea"] = "FlowPerFloorArea"
+            vals["fractionofautosizedheatingvalue"] = "FractionOfAutosizedHeatingValue"
+            vals["flowperheatingcapacity"] = "FlowPerHeatingCapacity"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `supply_air_flow_rate_method_during_heating_operation`'.format(value))
+            value = vals[value_lower]
 
         self._data["Supply air Flow Rate Method During Heating Operation"] = value
 
@@ -1718,17 +2010,31 @@ class AirLoopHvacUnitarySystem(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `supply_air_flow_rate_method_when_no_cooling_or_heating_is_required`')
-            vals = set()
-            vals.add("None")
-            vals.add("SupplyAirFlowRate")
-            vals.add("FlowPerFloorArea")
-            vals.add("FractionOfAutosizedCoolingValue")
-            vals.add("FractionOfAutosizedHeatingValue")
-            vals.add("FlowPerCoolingCapacity")
-            vals.add("FlowPerHeatingCapacity")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `supply_air_flow_rate_method_when_no_cooling_or_heating_is_required`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `supply_air_flow_rate_method_when_no_cooling_or_heating_is_required`')
+            vals = {}
+            vals["none"] = "None"
+            vals["supplyairflowrate"] = "SupplyAirFlowRate"
+            vals["flowperfloorarea"] = "FlowPerFloorArea"
+            vals["fractionofautosizedcoolingvalue"] = "FractionOfAutosizedCoolingValue"
+            vals["fractionofautosizedheatingvalue"] = "FractionOfAutosizedHeatingValue"
+            vals["flowpercoolingcapacity"] = "FlowPerCoolingCapacity"
+            vals["flowperheatingcapacity"] = "FlowPerHeatingCapacity"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `supply_air_flow_rate_method_when_no_cooling_or_heating_is_required`'.format(value))
+            value = vals[value_lower]
 
         self._data["Supply Air Flow Rate Method When No Cooling or Heating is Required"] = value
 
@@ -1807,22 +2113,22 @@ class AirLoopHvacUnitarySystem(object):
         self._data["Supply Air Flow Rate Per Floor Area When No Cooling or Heating is Required"] = value
 
     @property
-    def fraction_of_autosized_design_cooling_supply_air_flow_rate_v2(self):
-        """Get fraction_of_autosized_design_cooling_supply_air_flow_rate_v2
+    def fraction_of_autosized_design_cooling_supply_air_flow_rate_v3(self):
+        """Get fraction_of_autosized_design_cooling_supply_air_flow_rate_v3
 
         Returns:
-            float: the value of `fraction_of_autosized_design_cooling_supply_air_flow_rate_v2` or None if not set
+            float: the value of `fraction_of_autosized_design_cooling_supply_air_flow_rate_v3` or None if not set
         """
-        return self._data["Fraction of Autosized Design Cooling Supply Air Flow Rate v2"]
+        return self._data["Fraction of Autosized Design Cooling Supply Air Flow Rate v3"]
 
-    @fraction_of_autosized_design_cooling_supply_air_flow_rate_v2.setter
-    def fraction_of_autosized_design_cooling_supply_air_flow_rate_v2(self, value=None):
-        """  Corresponds to IDD Field `fraction_of_autosized_design_cooling_supply_air_flow_rate_v2`
+    @fraction_of_autosized_design_cooling_supply_air_flow_rate_v3.setter
+    def fraction_of_autosized_design_cooling_supply_air_flow_rate_v3(self, value=None):
+        """  Corresponds to IDD Field `fraction_of_autosized_design_cooling_supply_air_flow_rate_v3`
         Enter the supply air volume flow rate as a fraction of the cooling supply air flow rate.
         Required field when Supply air Flow Rate Method When No Cooling or Heating is Required is FractionOfAutosizedCoolingValue.
 
         Args:
-            value (float): value for IDD Field `fraction_of_autosized_design_cooling_supply_air_flow_rate_v2`
+            value (float): value for IDD Field `fraction_of_autosized_design_cooling_supply_air_flow_rate_v3`
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -1835,30 +2141,30 @@ class AirLoopHvacUnitarySystem(object):
                 value = float(value)
             except:
                 raise ValueError('value {} need to be of type float '
-                                 'for field `fraction_of_autosized_design_cooling_supply_air_flow_rate_v2`'.format(value))
+                                 'for field `fraction_of_autosized_design_cooling_supply_air_flow_rate_v3`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `fraction_of_autosized_design_cooling_supply_air_flow_rate_v2`')
+                                 'for field `fraction_of_autosized_design_cooling_supply_air_flow_rate_v3`')
 
-        self._data["Fraction of Autosized Design Cooling Supply Air Flow Rate v2"] = value
+        self._data["Fraction of Autosized Design Cooling Supply Air Flow Rate v3"] = value
 
     @property
-    def fraction_of_autosized_design_heating_supply_air_flow_rate_v2(self):
-        """Get fraction_of_autosized_design_heating_supply_air_flow_rate_v2
+    def fraction_of_autosized_design_heating_supply_air_flow_rate_v3(self):
+        """Get fraction_of_autosized_design_heating_supply_air_flow_rate_v3
 
         Returns:
-            float: the value of `fraction_of_autosized_design_heating_supply_air_flow_rate_v2` or None if not set
+            float: the value of `fraction_of_autosized_design_heating_supply_air_flow_rate_v3` or None if not set
         """
-        return self._data["Fraction of Autosized Design Heating Supply Air Flow Rate v2"]
+        return self._data["Fraction of Autosized Design Heating Supply Air Flow Rate v3"]
 
-    @fraction_of_autosized_design_heating_supply_air_flow_rate_v2.setter
-    def fraction_of_autosized_design_heating_supply_air_flow_rate_v2(self, value=None):
-        """  Corresponds to IDD Field `fraction_of_autosized_design_heating_supply_air_flow_rate_v2`
+    @fraction_of_autosized_design_heating_supply_air_flow_rate_v3.setter
+    def fraction_of_autosized_design_heating_supply_air_flow_rate_v3(self, value=None):
+        """  Corresponds to IDD Field `fraction_of_autosized_design_heating_supply_air_flow_rate_v3`
         Enter the supply air volume flow rate as a fraction of the heating supply air flow rate.
         Required field when Supply air Flow Rate Method When No Cooling or Heating is Required is FractionOfAutosizedHeatingValue.
 
         Args:
-            value (float): value for IDD Field `fraction_of_autosized_design_heating_supply_air_flow_rate_v2`
+            value (float): value for IDD Field `fraction_of_autosized_design_heating_supply_air_flow_rate_v3`
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -1871,30 +2177,30 @@ class AirLoopHvacUnitarySystem(object):
                 value = float(value)
             except:
                 raise ValueError('value {} need to be of type float '
-                                 'for field `fraction_of_autosized_design_heating_supply_air_flow_rate_v2`'.format(value))
+                                 'for field `fraction_of_autosized_design_heating_supply_air_flow_rate_v3`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `fraction_of_autosized_design_heating_supply_air_flow_rate_v2`')
+                                 'for field `fraction_of_autosized_design_heating_supply_air_flow_rate_v3`')
 
-        self._data["Fraction of Autosized Design Heating Supply Air Flow Rate v2"] = value
+        self._data["Fraction of Autosized Design Heating Supply Air Flow Rate v3"] = value
 
     @property
-    def design_supply_air_flow_rate_per_unit_of_capacity_during_cooling_operation_v2(self):
-        """Get design_supply_air_flow_rate_per_unit_of_capacity_during_cooling_operation_v2
+    def design_supply_air_flow_rate_per_unit_of_capacity_during_cooling_operation_v3(self):
+        """Get design_supply_air_flow_rate_per_unit_of_capacity_during_cooling_operation_v3
 
         Returns:
-            float: the value of `design_supply_air_flow_rate_per_unit_of_capacity_during_cooling_operation_v2` or None if not set
+            float: the value of `design_supply_air_flow_rate_per_unit_of_capacity_during_cooling_operation_v3` or None if not set
         """
-        return self._data["Design Supply Air Flow Rate Per Unit of Capacity During Cooling Operation v2"]
+        return self._data["Design Supply Air Flow Rate Per Unit of Capacity During Cooling Operation v3"]
 
-    @design_supply_air_flow_rate_per_unit_of_capacity_during_cooling_operation_v2.setter
-    def design_supply_air_flow_rate_per_unit_of_capacity_during_cooling_operation_v2(self, value=None):
-        """  Corresponds to IDD Field `design_supply_air_flow_rate_per_unit_of_capacity_during_cooling_operation_v2`
+    @design_supply_air_flow_rate_per_unit_of_capacity_during_cooling_operation_v3.setter
+    def design_supply_air_flow_rate_per_unit_of_capacity_during_cooling_operation_v3(self, value=None):
+        """  Corresponds to IDD Field `design_supply_air_flow_rate_per_unit_of_capacity_during_cooling_operation_v3`
         Enter the supply air volume flow rate as a fraction of the cooling capacity.
         Required field when Supply air Flow Rate Method During Heating Operation is FlowPerCoolingCapacity.
 
         Args:
-            value (float): value for IDD Field `design_supply_air_flow_rate_per_unit_of_capacity_during_cooling_operation_v2`
+            value (float): value for IDD Field `design_supply_air_flow_rate_per_unit_of_capacity_during_cooling_operation_v3`
                 Units: m3/s-W
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -1908,30 +2214,30 @@ class AirLoopHvacUnitarySystem(object):
                 value = float(value)
             except:
                 raise ValueError('value {} need to be of type float '
-                                 'for field `design_supply_air_flow_rate_per_unit_of_capacity_during_cooling_operation_v2`'.format(value))
+                                 'for field `design_supply_air_flow_rate_per_unit_of_capacity_during_cooling_operation_v3`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `design_supply_air_flow_rate_per_unit_of_capacity_during_cooling_operation_v2`')
+                                 'for field `design_supply_air_flow_rate_per_unit_of_capacity_during_cooling_operation_v3`')
 
-        self._data["Design Supply Air Flow Rate Per Unit of Capacity During Cooling Operation v2"] = value
+        self._data["Design Supply Air Flow Rate Per Unit of Capacity During Cooling Operation v3"] = value
 
     @property
-    def design_supply_air_flow_rate_per_unit_of_capacity_during_heating_operation_v2(self):
-        """Get design_supply_air_flow_rate_per_unit_of_capacity_during_heating_operation_v2
+    def design_supply_air_flow_rate_per_unit_of_capacity_during_heating_operation_v3(self):
+        """Get design_supply_air_flow_rate_per_unit_of_capacity_during_heating_operation_v3
 
         Returns:
-            float: the value of `design_supply_air_flow_rate_per_unit_of_capacity_during_heating_operation_v2` or None if not set
+            float: the value of `design_supply_air_flow_rate_per_unit_of_capacity_during_heating_operation_v3` or None if not set
         """
-        return self._data["Design Supply Air Flow Rate Per Unit of Capacity During Heating Operation v2"]
+        return self._data["Design Supply Air Flow Rate Per Unit of Capacity During Heating Operation v3"]
 
-    @design_supply_air_flow_rate_per_unit_of_capacity_during_heating_operation_v2.setter
-    def design_supply_air_flow_rate_per_unit_of_capacity_during_heating_operation_v2(self, value=None):
-        """  Corresponds to IDD Field `design_supply_air_flow_rate_per_unit_of_capacity_during_heating_operation_v2`
+    @design_supply_air_flow_rate_per_unit_of_capacity_during_heating_operation_v3.setter
+    def design_supply_air_flow_rate_per_unit_of_capacity_during_heating_operation_v3(self, value=None):
+        """  Corresponds to IDD Field `design_supply_air_flow_rate_per_unit_of_capacity_during_heating_operation_v3`
         Enter the supply air volume flow rate as a fraction of the heating capacity.
         Required field when Supply air Flow Rate Method During Heating Operation is FlowPerHeatingCapacity.
 
         Args:
-            value (float): value for IDD Field `design_supply_air_flow_rate_per_unit_of_capacity_during_heating_operation_v2`
+            value (float): value for IDD Field `design_supply_air_flow_rate_per_unit_of_capacity_during_heating_operation_v3`
                 Units: m3/s-W
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -1945,12 +2251,12 @@ class AirLoopHvacUnitarySystem(object):
                 value = float(value)
             except:
                 raise ValueError('value {} need to be of type float '
-                                 'for field `design_supply_air_flow_rate_per_unit_of_capacity_during_heating_operation_v2`'.format(value))
+                                 'for field `design_supply_air_flow_rate_per_unit_of_capacity_during_heating_operation_v3`'.format(value))
             if value < 0.0:
                 raise ValueError('value need to be greater or equal 0.0 '
-                                 'for field `design_supply_air_flow_rate_per_unit_of_capacity_during_heating_operation_v2`')
+                                 'for field `design_supply_air_flow_rate_per_unit_of_capacity_during_heating_operation_v3`')
 
-        self._data["Design Supply Air Flow Rate Per Unit of Capacity During Heating Operation v2"] = value
+        self._data["Design Supply Air Flow Rate Per Unit of Capacity During Heating Operation v3"] = value
 
     @property
     def maximum_supply_air_temperature(self):
@@ -2050,6 +2356,9 @@ class AirLoopHvacUnitarySystem(object):
                                  'for field `outdoor_drybulb_temperature_sensor_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `outdoor_drybulb_temperature_sensor_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `outdoor_drybulb_temperature_sensor_node_name`')
 
         self._data["Outdoor Dry-Bulb Temperature Sensor Node Name"] = value
@@ -2407,6 +2716,9 @@ class AirLoopHvacUnitarySystem(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `heat_recovery_water_inlet_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `heat_recovery_water_inlet_node_name`')
 
         self._data["Heat Recovery Water Inlet Node Name"] = value
 
@@ -2440,6 +2752,9 @@ class AirLoopHvacUnitarySystem(object):
                                  'for field `heat_recovery_water_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `heat_recovery_water_outlet_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `heat_recovery_water_outlet_node_name`')
 
         self._data["Heat Recovery Water Outlet Node Name"] = value
@@ -2477,11 +2792,25 @@ class AirLoopHvacUnitarySystem(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `design_specification_multispeed_heat_pump_object_type`')
-            vals = set()
-            vals.add("UnitarySystemPerformance:HeatPump:Multispeed")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `design_specification_multispeed_heat_pump_object_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `design_specification_multispeed_heat_pump_object_type`')
+            vals = {}
+            vals["unitarysystemperformance:heatpump:multispeed"] = "UnitarySystemPerformance:HeatPump:Multispeed"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `design_specification_multispeed_heat_pump_object_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Design Specification Multispeed Heat Pump Object Type"] = value
 
@@ -2516,6 +2845,9 @@ class AirLoopHvacUnitarySystem(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `design_specification_multispeed_heat_pump_object_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `design_specification_multispeed_heat_pump_object_name`')
 
         self._data["Design Specification Multispeed Heat Pump Object Name"] = value
 
@@ -2541,62 +2873,17 @@ class AirLoopHvacUnitarySystem(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.control_type))
-        out.append(self._to_str(self.controlling_zone_or_thermostat_location))
-        out.append(self._to_str(self.dehumidification_control_type))
-        out.append(self._to_str(self.availability_schedule_name))
-        out.append(self._to_str(self.air_inlet_node_name))
-        out.append(self._to_str(self.air_outlet_node_name))
-        out.append(self._to_str(self.supply_fan_object_type))
-        out.append(self._to_str(self.supply_fan_name))
-        out.append(self._to_str(self.fan_placement))
-        out.append(self._to_str(self.supply_air_fan_operating_mode_schedule_name))
-        out.append(self._to_str(self.heating_coil_object_type))
-        out.append(self._to_str(self.heating_coil_name))
-        out.append(self._to_str(self.dx_heating_coil_sizing_ratio))
-        out.append(self._to_str(self.cooling_coil_object_type))
-        out.append(self._to_str(self.cooling_coil_name))
-        out.append(self._to_str(self.use_doas_dx_cooling_coil))
-        out.append(self._to_str(self.doas_dx_cooling_coil_leaving_minimum_air_temperature))
-        out.append(self._to_str(self.latent_load_control))
-        out.append(self._to_str(self.supplemental_heating_coil_object_type))
-        out.append(self._to_str(self.supplemental_heating_coil_name))
-        out.append(self._to_str(self.supply_air_flow_rate_method_during_cooling_operation))
-        out.append(self._to_str(self.supply_air_flow_rate_during_cooling_operation))
-        out.append(self._to_str(self.supply_air_flow_rate_per_floor_area_during_cooling_operation))
-        out.append(self._to_str(self.fraction_of_autosized_design_cooling_supply_air_flow_rate))
-        out.append(self._to_str(self.design_supply_air_flow_rate_per_unit_of_capacity_during_cooling_operation))
-        out.append(self._to_str(self.supply_air_flow_rate_method_during_heating_operation))
-        out.append(self._to_str(self.supply_air_flow_rate_during_heating_operation))
-        out.append(self._to_str(self.supply_air_flow_rate_per_floor_area_during_heating_operation))
-        out.append(self._to_str(self.fraction_of_autosized_design_heating_supply_air_flow_rate))
-        out.append(self._to_str(self.design_supply_air_flow_rate_per_unit_of_capacity_during_heating_operation))
-        out.append(self._to_str(self.supply_air_flow_rate_method_when_no_cooling_or_heating_is_required))
-        out.append(self._to_str(self.supply_air_flow_rate_when_no_cooling_or_heating_is_required))
-        out.append(self._to_str(self.supply_air_flow_rate_per_floor_area_when_no_cooling_or_heating_is_required))
-        out.append(self._to_str(self.fraction_of_autosized_design_cooling_supply_air_flow_rate_v2))
-        out.append(self._to_str(self.fraction_of_autosized_design_heating_supply_air_flow_rate_v2))
-        out.append(self._to_str(self.design_supply_air_flow_rate_per_unit_of_capacity_during_cooling_operation_v2))
-        out.append(self._to_str(self.design_supply_air_flow_rate_per_unit_of_capacity_during_heating_operation_v2))
-        out.append(self._to_str(self.maximum_supply_air_temperature))
-        out.append(self._to_str(self.maximum_outdoor_drybulb_temperature_for_supplemental_heater_operation))
-        out.append(self._to_str(self.outdoor_drybulb_temperature_sensor_node_name))
-        out.append(self._to_str(self.maximum_cycling_rate))
-        out.append(self._to_str(self.heat_pump_time_constant))
-        out.append(self._to_str(self.fraction_of_oncycle_power_use))
-        out.append(self._to_str(self.heat_pump_fan_delay_time))
-        out.append(self._to_str(self.ancilliary_oncycle_electric_power))
-        out.append(self._to_str(self.ancilliary_offcycle_electric_power))
-        out.append(self._to_str(self.design_heat_recovery_water_flow_rate))
-        out.append(self._to_str(self.maximum_temperature_for_heat_recovery))
-        out.append(self._to_str(self.heat_recovery_water_inlet_node_name))
-        out.append(self._to_str(self.heat_recovery_water_outlet_node_name))
-        out.append(self._to_str(self.design_specification_multispeed_heat_pump_object_type))
-        out.append(self._to_str(self.design_specification_multispeed_heat_pump_object_name))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class UnitarySystemPerformanceHeatPumpMultispeed(object):
     """ Corresponds to IDD object `UnitarySystemPerformance:HeatPump:Multispeed`
@@ -2624,69 +2911,93 @@ class UnitarySystemPerformanceHeatPumpMultispeed(object):
         self._data["Speed 3 Supply Air Flow Ratio During Cooling Operation"] = None
         self._data["Speed 4 Supply Air Flow Ratio During Heating Operation"] = None
         self._data["Speed 4 Supply Air Flow Ratio During Cooling Operation"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.number_of_speeds_for_heating = None
         else:
             self.number_of_speeds_for_heating = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.number_of_speeds_for_cooling = None
         else:
             self.number_of_speeds_for_cooling = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.speed_1_supply_air_flow_ratio_during_heating_operation = None
         else:
             self.speed_1_supply_air_flow_ratio_during_heating_operation = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.speed_1_supply_air_flow_ratio_during_cooling_operation = None
         else:
             self.speed_1_supply_air_flow_ratio_during_cooling_operation = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.speed_2_supply_air_flow_ratio_during_heating_operation = None
         else:
             self.speed_2_supply_air_flow_ratio_during_heating_operation = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.speed_2_supply_air_flow_ratio_during_cooling_operation = None
         else:
             self.speed_2_supply_air_flow_ratio_during_cooling_operation = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.speed_3_supply_air_flow_ratio_during_heating_operation = None
         else:
             self.speed_3_supply_air_flow_ratio_during_heating_operation = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.speed_3_supply_air_flow_ratio_during_cooling_operation = None
         else:
             self.speed_3_supply_air_flow_ratio_during_cooling_operation = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.speed_4_supply_air_flow_ratio_during_heating_operation = None
         else:
             self.speed_4_supply_air_flow_ratio_during_heating_operation = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.speed_4_supply_air_flow_ratio_during_cooling_operation = None
         else:
             self.speed_4_supply_air_flow_ratio_during_cooling_operation = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -2717,6 +3028,9 @@ class UnitarySystemPerformanceHeatPumpMultispeed(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -3135,20 +3449,17 @@ class UnitarySystemPerformanceHeatPumpMultispeed(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.number_of_speeds_for_heating))
-        out.append(self._to_str(self.number_of_speeds_for_cooling))
-        out.append(self._to_str(self.speed_1_supply_air_flow_ratio_during_heating_operation))
-        out.append(self._to_str(self.speed_1_supply_air_flow_ratio_during_cooling_operation))
-        out.append(self._to_str(self.speed_2_supply_air_flow_ratio_during_heating_operation))
-        out.append(self._to_str(self.speed_2_supply_air_flow_ratio_during_cooling_operation))
-        out.append(self._to_str(self.speed_3_supply_air_flow_ratio_during_heating_operation))
-        out.append(self._to_str(self.speed_3_supply_air_flow_ratio_during_cooling_operation))
-        out.append(self._to_str(self.speed_4_supply_air_flow_ratio_during_heating_operation))
-        out.append(self._to_str(self.speed_4_supply_air_flow_ratio_during_cooling_operation))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class AirLoopHvacUnitaryFurnaceHeatOnly(object):
     """ Corresponds to IDD object `AirLoopHVAC:Unitary:Furnace:HeatOnly`
@@ -3178,79 +3489,107 @@ class AirLoopHvacUnitaryFurnaceHeatOnly(object):
         self._data["Fan Placement"] = None
         self._data["Heating Coil Object Type"] = None
         self._data["Heating Coil Name"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.availability_schedule_name = None
         else:
             self.availability_schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.furnace_air_inlet_node_name = None
         else:
             self.furnace_air_inlet_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.furnace_air_outlet_node_name = None
         else:
             self.furnace_air_outlet_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.supply_air_fan_operating_mode_schedule_name = None
         else:
             self.supply_air_fan_operating_mode_schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.maximum_supply_air_temperature = None
         else:
             self.maximum_supply_air_temperature = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.supply_air_flow_rate = None
         else:
             self.supply_air_flow_rate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.controlling_zone_or_thermostat_location = None
         else:
             self.controlling_zone_or_thermostat_location = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.supply_fan_object_type = None
         else:
             self.supply_fan_object_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.supply_fan_name = None
         else:
             self.supply_fan_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fan_placement = None
         else:
             self.fan_placement = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.heating_coil_object_type = None
         else:
             self.heating_coil_object_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.heating_coil_name = None
         else:
             self.heating_coil_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -3281,6 +3620,9 @@ class AirLoopHvacUnitaryFurnaceHeatOnly(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -3317,6 +3659,9 @@ class AirLoopHvacUnitaryFurnaceHeatOnly(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `availability_schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `availability_schedule_name`')
 
         self._data["Availability Schedule Name"] = value
 
@@ -3350,6 +3695,9 @@ class AirLoopHvacUnitaryFurnaceHeatOnly(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `furnace_air_inlet_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `furnace_air_inlet_node_name`')
 
         self._data["Furnace Air Inlet Node Name"] = value
 
@@ -3382,6 +3730,9 @@ class AirLoopHvacUnitaryFurnaceHeatOnly(object):
                                  'for field `furnace_air_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `furnace_air_outlet_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `furnace_air_outlet_node_name`')
 
         self._data["Furnace Air Outlet Node Name"] = value
@@ -3421,6 +3772,9 @@ class AirLoopHvacUnitaryFurnaceHeatOnly(object):
                                  'for field `supply_air_fan_operating_mode_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `supply_air_fan_operating_mode_schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `supply_air_fan_operating_mode_schedule_name`')
 
         self._data["Supply Air Fan Operating Mode Schedule Name"] = value
@@ -3523,6 +3877,9 @@ class AirLoopHvacUnitaryFurnaceHeatOnly(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `controlling_zone_or_thermostat_location`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `controlling_zone_or_thermostat_location`')
 
         self._data["Controlling Zone or Thermostat Location"] = value
 
@@ -3561,12 +3918,26 @@ class AirLoopHvacUnitaryFurnaceHeatOnly(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `supply_fan_object_type`')
-            vals = set()
-            vals.add("Fan:OnOff")
-            vals.add("Fan:ConstantVolume")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `supply_fan_object_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `supply_fan_object_type`')
+            vals = {}
+            vals["fan:onoff"] = "Fan:OnOff"
+            vals["fan:constantvolume"] = "Fan:ConstantVolume"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `supply_fan_object_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Supply Fan Object Type"] = value
 
@@ -3599,6 +3970,9 @@ class AirLoopHvacUnitaryFurnaceHeatOnly(object):
                                  'for field `supply_fan_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `supply_fan_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `supply_fan_name`')
 
         self._data["Supply Fan Name"] = value
@@ -3637,12 +4011,26 @@ class AirLoopHvacUnitaryFurnaceHeatOnly(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `fan_placement`')
-            vals = set()
-            vals.add("BlowThrough")
-            vals.add("DrawThrough")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `fan_placement`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `fan_placement`')
+            vals = {}
+            vals["blowthrough"] = "BlowThrough"
+            vals["drawthrough"] = "DrawThrough"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `fan_placement`'.format(value))
+            value = vals[value_lower]
 
         self._data["Fan Placement"] = value
 
@@ -3682,14 +4070,28 @@ class AirLoopHvacUnitaryFurnaceHeatOnly(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `heating_coil_object_type`')
-            vals = set()
-            vals.add("Coil:Heating:Gas")
-            vals.add("Coil:Heating:Electric")
-            vals.add("Coil:Heating:Water")
-            vals.add("Coil:Heating:Steam")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `heating_coil_object_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `heating_coil_object_type`')
+            vals = {}
+            vals["coil:heating:gas"] = "Coil:Heating:Gas"
+            vals["coil:heating:electric"] = "Coil:Heating:Electric"
+            vals["coil:heating:water"] = "Coil:Heating:Water"
+            vals["coil:heating:steam"] = "Coil:Heating:Steam"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `heating_coil_object_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Heating Coil Object Type"] = value
 
@@ -3723,6 +4125,9 @@ class AirLoopHvacUnitaryFurnaceHeatOnly(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `heating_coil_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `heating_coil_name`')
 
         self._data["Heating Coil Name"] = value
 
@@ -3748,22 +4153,17 @@ class AirLoopHvacUnitaryFurnaceHeatOnly(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.availability_schedule_name))
-        out.append(self._to_str(self.furnace_air_inlet_node_name))
-        out.append(self._to_str(self.furnace_air_outlet_node_name))
-        out.append(self._to_str(self.supply_air_fan_operating_mode_schedule_name))
-        out.append(self._to_str(self.maximum_supply_air_temperature))
-        out.append(self._to_str(self.supply_air_flow_rate))
-        out.append(self._to_str(self.controlling_zone_or_thermostat_location))
-        out.append(self._to_str(self.supply_fan_object_type))
-        out.append(self._to_str(self.supply_fan_name))
-        out.append(self._to_str(self.fan_placement))
-        out.append(self._to_str(self.heating_coil_object_type))
-        out.append(self._to_str(self.heating_coil_name))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class AirLoopHvacUnitaryFurnaceHeatCool(object):
     """ Corresponds to IDD object `AirLoopHVAC:Unitary:Furnace:HeatCool`
@@ -3801,114 +4201,156 @@ class AirLoopHvacUnitaryFurnaceHeatCool(object):
         self._data["Dehumidification Control Type"] = None
         self._data["Reheat Coil Object Type"] = None
         self._data["Reheat Coil Name"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.availability_schedule_name = None
         else:
             self.availability_schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.furnace_air_inlet_node_name = None
         else:
             self.furnace_air_inlet_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.furnace_air_outlet_node_name = None
         else:
             self.furnace_air_outlet_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.supply_air_fan_operating_mode_schedule_name = None
         else:
             self.supply_air_fan_operating_mode_schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.maximum_supply_air_temperature = None
         else:
             self.maximum_supply_air_temperature = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.supply_air_flow_rate_during_cooling_operation = None
         else:
             self.supply_air_flow_rate_during_cooling_operation = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.supply_air_flow_rate_during_heating_operation = None
         else:
             self.supply_air_flow_rate_during_heating_operation = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.supply_air_flow_rate_when_no_cooling_or_heating_is_needed = None
         else:
             self.supply_air_flow_rate_when_no_cooling_or_heating_is_needed = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.controlling_zone_or_thermostat_location = None
         else:
             self.controlling_zone_or_thermostat_location = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.supply_fan_object_type = None
         else:
             self.supply_fan_object_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.supply_fan_name = None
         else:
             self.supply_fan_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fan_placement = None
         else:
             self.fan_placement = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.heating_coil_object_type = None
         else:
             self.heating_coil_object_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.heating_coil_name = None
         else:
             self.heating_coil_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.cooling_coil_object_type = None
         else:
             self.cooling_coil_object_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.cooling_coil_name = None
         else:
             self.cooling_coil_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.dehumidification_control_type = None
         else:
             self.dehumidification_control_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.reheat_coil_object_type = None
         else:
             self.reheat_coil_object_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.reheat_coil_name = None
         else:
             self.reheat_coil_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -3939,6 +4381,9 @@ class AirLoopHvacUnitaryFurnaceHeatCool(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -3978,6 +4423,9 @@ class AirLoopHvacUnitaryFurnaceHeatCool(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `availability_schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `availability_schedule_name`')
 
         self._data["Availability Schedule Name"] = value
 
@@ -4011,6 +4459,9 @@ class AirLoopHvacUnitaryFurnaceHeatCool(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `furnace_air_inlet_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `furnace_air_inlet_node_name`')
 
         self._data["Furnace Air Inlet Node Name"] = value
 
@@ -4043,6 +4494,9 @@ class AirLoopHvacUnitaryFurnaceHeatCool(object):
                                  'for field `furnace_air_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `furnace_air_outlet_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `furnace_air_outlet_node_name`')
 
         self._data["Furnace Air Outlet Node Name"] = value
@@ -4083,6 +4537,9 @@ class AirLoopHvacUnitaryFurnaceHeatCool(object):
                                  'for field `supply_air_fan_operating_mode_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `supply_air_fan_operating_mode_schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `supply_air_fan_operating_mode_schedule_name`')
 
         self._data["Supply Air Fan Operating Mode Schedule Name"] = value
@@ -4261,6 +4718,9 @@ class AirLoopHvacUnitaryFurnaceHeatCool(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `controlling_zone_or_thermostat_location`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `controlling_zone_or_thermostat_location`')
 
         self._data["Controlling Zone or Thermostat Location"] = value
 
@@ -4299,12 +4759,26 @@ class AirLoopHvacUnitaryFurnaceHeatCool(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `supply_fan_object_type`')
-            vals = set()
-            vals.add("Fan:OnOff")
-            vals.add("Fan:ConstantVolume")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `supply_fan_object_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `supply_fan_object_type`')
+            vals = {}
+            vals["fan:onoff"] = "Fan:OnOff"
+            vals["fan:constantvolume"] = "Fan:ConstantVolume"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `supply_fan_object_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Supply Fan Object Type"] = value
 
@@ -4337,6 +4811,9 @@ class AirLoopHvacUnitaryFurnaceHeatCool(object):
                                  'for field `supply_fan_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `supply_fan_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `supply_fan_name`')
 
         self._data["Supply Fan Name"] = value
@@ -4375,12 +4852,26 @@ class AirLoopHvacUnitaryFurnaceHeatCool(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `fan_placement`')
-            vals = set()
-            vals.add("BlowThrough")
-            vals.add("DrawThrough")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `fan_placement`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `fan_placement`')
+            vals = {}
+            vals["blowthrough"] = "BlowThrough"
+            vals["drawthrough"] = "DrawThrough"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `fan_placement`'.format(value))
+            value = vals[value_lower]
 
         self._data["Fan Placement"] = value
 
@@ -4420,14 +4911,28 @@ class AirLoopHvacUnitaryFurnaceHeatCool(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `heating_coil_object_type`')
-            vals = set()
-            vals.add("Coil:Heating:Gas")
-            vals.add("Coil:Heating:Electric")
-            vals.add("Coil:Heating:Water")
-            vals.add("Coil:Heating:Steam")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `heating_coil_object_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `heating_coil_object_type`')
+            vals = {}
+            vals["coil:heating:gas"] = "Coil:Heating:Gas"
+            vals["coil:heating:electric"] = "Coil:Heating:Electric"
+            vals["coil:heating:water"] = "Coil:Heating:Water"
+            vals["coil:heating:steam"] = "Coil:Heating:Steam"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `heating_coil_object_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Heating Coil Object Type"] = value
 
@@ -4460,6 +4965,9 @@ class AirLoopHvacUnitaryFurnaceHeatCool(object):
                                  'for field `heating_coil_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `heating_coil_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `heating_coil_name`')
 
         self._data["Heating Coil Name"] = value
@@ -4498,12 +5006,26 @@ class AirLoopHvacUnitaryFurnaceHeatCool(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `cooling_coil_object_type`')
-            vals = set()
-            vals.add("Coil:Cooling:DX:SingleSpeed")
-            vals.add("CoilSystem:Cooling:DX:HeatExchangerAssisted")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `cooling_coil_object_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `cooling_coil_object_type`')
+            vals = {}
+            vals["coil:cooling:dx:singlespeed"] = "Coil:Cooling:DX:SingleSpeed"
+            vals["coilsystem:cooling:dx:heatexchangerassisted"] = "CoilSystem:Cooling:DX:HeatExchangerAssisted"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `cooling_coil_object_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Cooling Coil Object Type"] = value
 
@@ -4536,6 +5058,9 @@ class AirLoopHvacUnitaryFurnaceHeatCool(object):
                                  'for field `cooling_coil_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `cooling_coil_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `cooling_coil_name`')
 
         self._data["Cooling Coil Name"] = value
@@ -4587,13 +5112,27 @@ class AirLoopHvacUnitaryFurnaceHeatCool(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `dehumidification_control_type`')
-            vals = set()
-            vals.add("None")
-            vals.add("Multimode")
-            vals.add("CoolReheat")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `dehumidification_control_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `dehumidification_control_type`')
+            vals = {}
+            vals["none"] = "None"
+            vals["multimode"] = "Multimode"
+            vals["coolreheat"] = "CoolReheat"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `dehumidification_control_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Dehumidification Control Type"] = value
 
@@ -4635,15 +5174,29 @@ class AirLoopHvacUnitaryFurnaceHeatCool(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `reheat_coil_object_type`')
-            vals = set()
-            vals.add("Coil:Heating:Gas")
-            vals.add("Coil:Heating:Electric")
-            vals.add("Coil:Heating:Desuperheater")
-            vals.add("Coil:Heating:Water")
-            vals.add("Coil:Heating:Steam")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `reheat_coil_object_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `reheat_coil_object_type`')
+            vals = {}
+            vals["coil:heating:gas"] = "Coil:Heating:Gas"
+            vals["coil:heating:electric"] = "Coil:Heating:Electric"
+            vals["coil:heating:desuperheater"] = "Coil:Heating:Desuperheater"
+            vals["coil:heating:water"] = "Coil:Heating:Water"
+            vals["coil:heating:steam"] = "Coil:Heating:Steam"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `reheat_coil_object_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Reheat Coil Object Type"] = value
 
@@ -4678,6 +5231,9 @@ class AirLoopHvacUnitaryFurnaceHeatCool(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `reheat_coil_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `reheat_coil_name`')
 
         self._data["Reheat Coil Name"] = value
 
@@ -4703,29 +5259,17 @@ class AirLoopHvacUnitaryFurnaceHeatCool(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.availability_schedule_name))
-        out.append(self._to_str(self.furnace_air_inlet_node_name))
-        out.append(self._to_str(self.furnace_air_outlet_node_name))
-        out.append(self._to_str(self.supply_air_fan_operating_mode_schedule_name))
-        out.append(self._to_str(self.maximum_supply_air_temperature))
-        out.append(self._to_str(self.supply_air_flow_rate_during_cooling_operation))
-        out.append(self._to_str(self.supply_air_flow_rate_during_heating_operation))
-        out.append(self._to_str(self.supply_air_flow_rate_when_no_cooling_or_heating_is_needed))
-        out.append(self._to_str(self.controlling_zone_or_thermostat_location))
-        out.append(self._to_str(self.supply_fan_object_type))
-        out.append(self._to_str(self.supply_fan_name))
-        out.append(self._to_str(self.fan_placement))
-        out.append(self._to_str(self.heating_coil_object_type))
-        out.append(self._to_str(self.heating_coil_name))
-        out.append(self._to_str(self.cooling_coil_object_type))
-        out.append(self._to_str(self.cooling_coil_name))
-        out.append(self._to_str(self.dehumidification_control_type))
-        out.append(self._to_str(self.reheat_coil_object_type))
-        out.append(self._to_str(self.reheat_coil_name))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class AirLoopHvacUnitaryHeatOnly(object):
     """ Corresponds to IDD object `AirLoopHVAC:UnitaryHeatOnly`
@@ -4755,79 +5299,107 @@ class AirLoopHvacUnitaryHeatOnly(object):
         self._data["Fan Placement"] = None
         self._data["Heating Coil Object Type"] = None
         self._data["Heating Coil Name"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.availability_schedule_name = None
         else:
             self.availability_schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.unitary_system_air_inlet_node_name = None
         else:
             self.unitary_system_air_inlet_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.unitary_system_air_outlet_node_name = None
         else:
             self.unitary_system_air_outlet_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.supply_air_fan_operating_mode_schedule_name = None
         else:
             self.supply_air_fan_operating_mode_schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.maximum_supply_air_temperature = None
         else:
             self.maximum_supply_air_temperature = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.supply_air_flow_rate = None
         else:
             self.supply_air_flow_rate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.controlling_zone_or_thermostat_location = None
         else:
             self.controlling_zone_or_thermostat_location = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.supply_fan_object_type = None
         else:
             self.supply_fan_object_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.supply_fan_name = None
         else:
             self.supply_fan_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fan_placement = None
         else:
             self.fan_placement = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.heating_coil_object_type = None
         else:
             self.heating_coil_object_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.heating_coil_name = None
         else:
             self.heating_coil_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -4858,6 +5430,9 @@ class AirLoopHvacUnitaryHeatOnly(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -4894,6 +5469,9 @@ class AirLoopHvacUnitaryHeatOnly(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `availability_schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `availability_schedule_name`')
 
         self._data["Availability Schedule Name"] = value
 
@@ -4927,6 +5505,9 @@ class AirLoopHvacUnitaryHeatOnly(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `unitary_system_air_inlet_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `unitary_system_air_inlet_node_name`')
 
         self._data["Unitary System Air Inlet Node Name"] = value
 
@@ -4959,6 +5540,9 @@ class AirLoopHvacUnitaryHeatOnly(object):
                                  'for field `unitary_system_air_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `unitary_system_air_outlet_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `unitary_system_air_outlet_node_name`')
 
         self._data["Unitary System Air Outlet Node Name"] = value
@@ -4998,6 +5582,9 @@ class AirLoopHvacUnitaryHeatOnly(object):
                                  'for field `supply_air_fan_operating_mode_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `supply_air_fan_operating_mode_schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `supply_air_fan_operating_mode_schedule_name`')
 
         self._data["Supply Air Fan Operating Mode Schedule Name"] = value
@@ -5100,6 +5687,9 @@ class AirLoopHvacUnitaryHeatOnly(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `controlling_zone_or_thermostat_location`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `controlling_zone_or_thermostat_location`')
 
         self._data["Controlling Zone or Thermostat Location"] = value
 
@@ -5138,12 +5728,26 @@ class AirLoopHvacUnitaryHeatOnly(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `supply_fan_object_type`')
-            vals = set()
-            vals.add("Fan:OnOff")
-            vals.add("Fan:ConstantVolume")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `supply_fan_object_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `supply_fan_object_type`')
+            vals = {}
+            vals["fan:onoff"] = "Fan:OnOff"
+            vals["fan:constantvolume"] = "Fan:ConstantVolume"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `supply_fan_object_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Supply Fan Object Type"] = value
 
@@ -5176,6 +5780,9 @@ class AirLoopHvacUnitaryHeatOnly(object):
                                  'for field `supply_fan_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `supply_fan_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `supply_fan_name`')
 
         self._data["Supply Fan Name"] = value
@@ -5214,12 +5821,26 @@ class AirLoopHvacUnitaryHeatOnly(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `fan_placement`')
-            vals = set()
-            vals.add("BlowThrough")
-            vals.add("DrawThrough")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `fan_placement`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `fan_placement`')
+            vals = {}
+            vals["blowthrough"] = "BlowThrough"
+            vals["drawthrough"] = "DrawThrough"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `fan_placement`'.format(value))
+            value = vals[value_lower]
 
         self._data["Fan Placement"] = value
 
@@ -5259,14 +5880,28 @@ class AirLoopHvacUnitaryHeatOnly(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `heating_coil_object_type`')
-            vals = set()
-            vals.add("Coil:Heating:Gas")
-            vals.add("Coil:Heating:Electric")
-            vals.add("Coil:Heating:Water")
-            vals.add("Coil:Heating:Steam")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `heating_coil_object_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `heating_coil_object_type`')
+            vals = {}
+            vals["coil:heating:gas"] = "Coil:Heating:Gas"
+            vals["coil:heating:electric"] = "Coil:Heating:Electric"
+            vals["coil:heating:water"] = "Coil:Heating:Water"
+            vals["coil:heating:steam"] = "Coil:Heating:Steam"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `heating_coil_object_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Heating Coil Object Type"] = value
 
@@ -5300,6 +5935,9 @@ class AirLoopHvacUnitaryHeatOnly(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `heating_coil_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `heating_coil_name`')
 
         self._data["Heating Coil Name"] = value
 
@@ -5325,22 +5963,17 @@ class AirLoopHvacUnitaryHeatOnly(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.availability_schedule_name))
-        out.append(self._to_str(self.unitary_system_air_inlet_node_name))
-        out.append(self._to_str(self.unitary_system_air_outlet_node_name))
-        out.append(self._to_str(self.supply_air_fan_operating_mode_schedule_name))
-        out.append(self._to_str(self.maximum_supply_air_temperature))
-        out.append(self._to_str(self.supply_air_flow_rate))
-        out.append(self._to_str(self.controlling_zone_or_thermostat_location))
-        out.append(self._to_str(self.supply_fan_object_type))
-        out.append(self._to_str(self.supply_fan_name))
-        out.append(self._to_str(self.fan_placement))
-        out.append(self._to_str(self.heating_coil_object_type))
-        out.append(self._to_str(self.heating_coil_name))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class AirLoopHvacUnitaryHeatCool(object):
     """ Corresponds to IDD object `AirLoopHVAC:UnitaryHeatCool`
@@ -5378,114 +6011,156 @@ class AirLoopHvacUnitaryHeatCool(object):
         self._data["Dehumidification Control Type"] = None
         self._data["Reheat Coil Object Type"] = None
         self._data["Reheat Coil Name"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.availability_schedule_name = None
         else:
             self.availability_schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.unitary_system_air_inlet_node_name = None
         else:
             self.unitary_system_air_inlet_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.unitary_system_air_outlet_node_name = None
         else:
             self.unitary_system_air_outlet_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.supply_air_fan_operating_mode_schedule_name = None
         else:
             self.supply_air_fan_operating_mode_schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.maximum_supply_air_temperature = None
         else:
             self.maximum_supply_air_temperature = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.supply_air_flow_rate_during_cooling_operation = None
         else:
             self.supply_air_flow_rate_during_cooling_operation = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.supply_air_flow_rate_during_heating_operation = None
         else:
             self.supply_air_flow_rate_during_heating_operation = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.supply_air_flow_rate_when_no_cooling_or_heating_is_needed = None
         else:
             self.supply_air_flow_rate_when_no_cooling_or_heating_is_needed = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.controlling_zone_or_thermostat_location = None
         else:
             self.controlling_zone_or_thermostat_location = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.supply_fan_object_type = None
         else:
             self.supply_fan_object_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.supply_fan_name = None
         else:
             self.supply_fan_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fan_placement = None
         else:
             self.fan_placement = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.heating_coil_object_type = None
         else:
             self.heating_coil_object_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.heating_coil_name = None
         else:
             self.heating_coil_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.cooling_coil_object_type = None
         else:
             self.cooling_coil_object_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.cooling_coil_name = None
         else:
             self.cooling_coil_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.dehumidification_control_type = None
         else:
             self.dehumidification_control_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.reheat_coil_object_type = None
         else:
             self.reheat_coil_object_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.reheat_coil_name = None
         else:
             self.reheat_coil_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -5516,6 +6191,9 @@ class AirLoopHvacUnitaryHeatCool(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -5552,6 +6230,9 @@ class AirLoopHvacUnitaryHeatCool(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `availability_schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `availability_schedule_name`')
 
         self._data["Availability Schedule Name"] = value
 
@@ -5585,6 +6266,9 @@ class AirLoopHvacUnitaryHeatCool(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `unitary_system_air_inlet_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `unitary_system_air_inlet_node_name`')
 
         self._data["Unitary System Air Inlet Node Name"] = value
 
@@ -5617,6 +6301,9 @@ class AirLoopHvacUnitaryHeatCool(object):
                                  'for field `unitary_system_air_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `unitary_system_air_outlet_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `unitary_system_air_outlet_node_name`')
 
         self._data["Unitary System Air Outlet Node Name"] = value
@@ -5657,6 +6344,9 @@ class AirLoopHvacUnitaryHeatCool(object):
                                  'for field `supply_air_fan_operating_mode_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `supply_air_fan_operating_mode_schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `supply_air_fan_operating_mode_schedule_name`')
 
         self._data["Supply Air Fan Operating Mode Schedule Name"] = value
@@ -5835,6 +6525,9 @@ class AirLoopHvacUnitaryHeatCool(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `controlling_zone_or_thermostat_location`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `controlling_zone_or_thermostat_location`')
 
         self._data["Controlling Zone or Thermostat Location"] = value
 
@@ -5873,12 +6566,26 @@ class AirLoopHvacUnitaryHeatCool(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `supply_fan_object_type`')
-            vals = set()
-            vals.add("Fan:OnOff")
-            vals.add("Fan:ConstantVolume")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `supply_fan_object_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `supply_fan_object_type`')
+            vals = {}
+            vals["fan:onoff"] = "Fan:OnOff"
+            vals["fan:constantvolume"] = "Fan:ConstantVolume"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `supply_fan_object_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Supply Fan Object Type"] = value
 
@@ -5911,6 +6618,9 @@ class AirLoopHvacUnitaryHeatCool(object):
                                  'for field `supply_fan_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `supply_fan_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `supply_fan_name`')
 
         self._data["Supply Fan Name"] = value
@@ -5949,12 +6659,26 @@ class AirLoopHvacUnitaryHeatCool(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `fan_placement`')
-            vals = set()
-            vals.add("BlowThrough")
-            vals.add("DrawThrough")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `fan_placement`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `fan_placement`')
+            vals = {}
+            vals["blowthrough"] = "BlowThrough"
+            vals["drawthrough"] = "DrawThrough"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `fan_placement`'.format(value))
+            value = vals[value_lower]
 
         self._data["Fan Placement"] = value
 
@@ -5994,14 +6718,28 @@ class AirLoopHvacUnitaryHeatCool(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `heating_coil_object_type`')
-            vals = set()
-            vals.add("Coil:Heating:Gas")
-            vals.add("Coil:Heating:Electric")
-            vals.add("Coil:Heating:Water")
-            vals.add("Coil:Heating:Steam")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `heating_coil_object_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `heating_coil_object_type`')
+            vals = {}
+            vals["coil:heating:gas"] = "Coil:Heating:Gas"
+            vals["coil:heating:electric"] = "Coil:Heating:Electric"
+            vals["coil:heating:water"] = "Coil:Heating:Water"
+            vals["coil:heating:steam"] = "Coil:Heating:Steam"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `heating_coil_object_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Heating Coil Object Type"] = value
 
@@ -6034,6 +6772,9 @@ class AirLoopHvacUnitaryHeatCool(object):
                                  'for field `heating_coil_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `heating_coil_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `heating_coil_name`')
 
         self._data["Heating Coil Name"] = value
@@ -6074,13 +6815,27 @@ class AirLoopHvacUnitaryHeatCool(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `cooling_coil_object_type`')
-            vals = set()
-            vals.add("Coil:Cooling:DX:SingleSpeed")
-            vals.add("Coil:Cooling:DX:VariableSpeed")
-            vals.add("CoilSystem:Cooling:DX:HeatExchangerAssisted")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `cooling_coil_object_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `cooling_coil_object_type`')
+            vals = {}
+            vals["coil:cooling:dx:singlespeed"] = "Coil:Cooling:DX:SingleSpeed"
+            vals["coil:cooling:dx:variablespeed"] = "Coil:Cooling:DX:VariableSpeed"
+            vals["coilsystem:cooling:dx:heatexchangerassisted"] = "CoilSystem:Cooling:DX:HeatExchangerAssisted"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `cooling_coil_object_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Cooling Coil Object Type"] = value
 
@@ -6113,6 +6868,9 @@ class AirLoopHvacUnitaryHeatCool(object):
                                  'for field `cooling_coil_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `cooling_coil_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `cooling_coil_name`')
 
         self._data["Cooling Coil Name"] = value
@@ -6164,13 +6922,27 @@ class AirLoopHvacUnitaryHeatCool(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `dehumidification_control_type`')
-            vals = set()
-            vals.add("None")
-            vals.add("Multimode")
-            vals.add("CoolReheat")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `dehumidification_control_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `dehumidification_control_type`')
+            vals = {}
+            vals["none"] = "None"
+            vals["multimode"] = "Multimode"
+            vals["coolreheat"] = "CoolReheat"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `dehumidification_control_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Dehumidification Control Type"] = value
 
@@ -6212,15 +6984,29 @@ class AirLoopHvacUnitaryHeatCool(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `reheat_coil_object_type`')
-            vals = set()
-            vals.add("Coil:Heating:Gas")
-            vals.add("Coil:Heating:Electric")
-            vals.add("Coil:Heating:Desuperheater")
-            vals.add("Coil:Heating:Water")
-            vals.add("Coil:Heating:Steam")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `reheat_coil_object_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `reheat_coil_object_type`')
+            vals = {}
+            vals["coil:heating:gas"] = "Coil:Heating:Gas"
+            vals["coil:heating:electric"] = "Coil:Heating:Electric"
+            vals["coil:heating:desuperheater"] = "Coil:Heating:Desuperheater"
+            vals["coil:heating:water"] = "Coil:Heating:Water"
+            vals["coil:heating:steam"] = "Coil:Heating:Steam"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `reheat_coil_object_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Reheat Coil Object Type"] = value
 
@@ -6255,6 +7041,9 @@ class AirLoopHvacUnitaryHeatCool(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `reheat_coil_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `reheat_coil_name`')
 
         self._data["Reheat Coil Name"] = value
 
@@ -6280,29 +7069,17 @@ class AirLoopHvacUnitaryHeatCool(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.availability_schedule_name))
-        out.append(self._to_str(self.unitary_system_air_inlet_node_name))
-        out.append(self._to_str(self.unitary_system_air_outlet_node_name))
-        out.append(self._to_str(self.supply_air_fan_operating_mode_schedule_name))
-        out.append(self._to_str(self.maximum_supply_air_temperature))
-        out.append(self._to_str(self.supply_air_flow_rate_during_cooling_operation))
-        out.append(self._to_str(self.supply_air_flow_rate_during_heating_operation))
-        out.append(self._to_str(self.supply_air_flow_rate_when_no_cooling_or_heating_is_needed))
-        out.append(self._to_str(self.controlling_zone_or_thermostat_location))
-        out.append(self._to_str(self.supply_fan_object_type))
-        out.append(self._to_str(self.supply_fan_name))
-        out.append(self._to_str(self.fan_placement))
-        out.append(self._to_str(self.heating_coil_object_type))
-        out.append(self._to_str(self.heating_coil_name))
-        out.append(self._to_str(self.cooling_coil_object_type))
-        out.append(self._to_str(self.cooling_coil_name))
-        out.append(self._to_str(self.dehumidification_control_type))
-        out.append(self._to_str(self.reheat_coil_object_type))
-        out.append(self._to_str(self.reheat_coil_name))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class AirLoopHvacUnitaryHeatPumpAirToAir(object):
     """ Corresponds to IDD object `AirLoopHVAC:UnitaryHeatPump:AirToAir`
@@ -6340,119 +7117,163 @@ class AirLoopHvacUnitaryHeatPumpAirToAir(object):
         self._data["Fan Placement"] = None
         self._data["Supply Air Fan Operating Mode Schedule Name"] = None
         self._data["Dehumidification Control Type"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.availability_schedule_name = None
         else:
             self.availability_schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.air_inlet_node_name = None
         else:
             self.air_inlet_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.air_outlet_node_name = None
         else:
             self.air_outlet_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.supply_air_flow_rate_during_cooling_operation = None
         else:
             self.supply_air_flow_rate_during_cooling_operation = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.supply_air_flow_rate_during_heating_operation = None
         else:
             self.supply_air_flow_rate_during_heating_operation = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.supply_air_flow_rate_when_no_cooling_or_heating_is_needed = None
         else:
             self.supply_air_flow_rate_when_no_cooling_or_heating_is_needed = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.controlling_zone_or_thermostat_location = None
         else:
             self.controlling_zone_or_thermostat_location = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.supply_air_fan_object_type = None
         else:
             self.supply_air_fan_object_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.supply_air_fan_name = None
         else:
             self.supply_air_fan_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.heating_coil_object_type = None
         else:
             self.heating_coil_object_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.heating_coil_name = None
         else:
             self.heating_coil_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.cooling_coil_object_type = None
         else:
             self.cooling_coil_object_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.cooling_coil_name = None
         else:
             self.cooling_coil_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.supplemental_heating_coil_object_type = None
         else:
             self.supplemental_heating_coil_object_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.supplemental_heating_coil_name = None
         else:
             self.supplemental_heating_coil_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.maximum_supply_air_temperature_from_supplemental_heater = None
         else:
             self.maximum_supply_air_temperature_from_supplemental_heater = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.maximum_outdoor_drybulb_temperature_for_supplemental_heater_operation = None
         else:
             self.maximum_outdoor_drybulb_temperature_for_supplemental_heater_operation = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fan_placement = None
         else:
             self.fan_placement = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.supply_air_fan_operating_mode_schedule_name = None
         else:
             self.supply_air_fan_operating_mode_schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.dehumidification_control_type = None
         else:
             self.dehumidification_control_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -6483,6 +7304,9 @@ class AirLoopHvacUnitaryHeatPumpAirToAir(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -6522,6 +7346,9 @@ class AirLoopHvacUnitaryHeatPumpAirToAir(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `availability_schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `availability_schedule_name`')
 
         self._data["Availability Schedule Name"] = value
 
@@ -6555,6 +7382,9 @@ class AirLoopHvacUnitaryHeatPumpAirToAir(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `air_inlet_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `air_inlet_node_name`')
 
         self._data["Air Inlet Node Name"] = value
 
@@ -6587,6 +7417,9 @@ class AirLoopHvacUnitaryHeatPumpAirToAir(object):
                                  'for field `air_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `air_outlet_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `air_outlet_node_name`')
 
         self._data["Air Outlet Node Name"] = value
@@ -6733,6 +7566,9 @@ class AirLoopHvacUnitaryHeatPumpAirToAir(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `controlling_zone_or_thermostat_location`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `controlling_zone_or_thermostat_location`')
 
         self._data["Controlling Zone or Thermostat Location"] = value
 
@@ -6772,12 +7608,26 @@ class AirLoopHvacUnitaryHeatPumpAirToAir(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `supply_air_fan_object_type`')
-            vals = set()
-            vals.add("Fan:OnOff")
-            vals.add("Fan:ConstantVolume")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `supply_air_fan_object_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `supply_air_fan_object_type`')
+            vals = {}
+            vals["fan:onoff"] = "Fan:OnOff"
+            vals["fan:constantvolume"] = "Fan:ConstantVolume"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `supply_air_fan_object_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Supply Air Fan Object Type"] = value
 
@@ -6811,6 +7661,9 @@ class AirLoopHvacUnitaryHeatPumpAirToAir(object):
                                  'for field `supply_air_fan_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `supply_air_fan_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `supply_air_fan_name`')
 
         self._data["Supply Air Fan Name"] = value
@@ -6850,12 +7703,26 @@ class AirLoopHvacUnitaryHeatPumpAirToAir(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `heating_coil_object_type`')
-            vals = set()
-            vals.add("Coil:Heating:DX:SingleSpeed")
-            vals.add("Coil:Heating:DX:VariableSpeed")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `heating_coil_object_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `heating_coil_object_type`')
+            vals = {}
+            vals["coil:heating:dx:singlespeed"] = "Coil:Heating:DX:SingleSpeed"
+            vals["coil:heating:dx:variablespeed"] = "Coil:Heating:DX:VariableSpeed"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `heating_coil_object_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Heating Coil Object Type"] = value
 
@@ -6889,6 +7756,9 @@ class AirLoopHvacUnitaryHeatPumpAirToAir(object):
                                  'for field `heating_coil_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `heating_coil_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `heating_coil_name`')
 
         self._data["Heating Coil Name"] = value
@@ -6930,13 +7800,27 @@ class AirLoopHvacUnitaryHeatPumpAirToAir(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `cooling_coil_object_type`')
-            vals = set()
-            vals.add("Coil:Cooling:DX:SingleSpeed")
-            vals.add("Coil:Cooling:DX:VariableSpeed")
-            vals.add("CoilSystem:Cooling:DX:HeatExchangerAssisted")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `cooling_coil_object_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `cooling_coil_object_type`')
+            vals = {}
+            vals["coil:cooling:dx:singlespeed"] = "Coil:Cooling:DX:SingleSpeed"
+            vals["coil:cooling:dx:variablespeed"] = "Coil:Cooling:DX:VariableSpeed"
+            vals["coilsystem:cooling:dx:heatexchangerassisted"] = "CoilSystem:Cooling:DX:HeatExchangerAssisted"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `cooling_coil_object_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Cooling Coil Object Type"] = value
 
@@ -6970,6 +7854,9 @@ class AirLoopHvacUnitaryHeatPumpAirToAir(object):
                                  'for field `cooling_coil_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `cooling_coil_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `cooling_coil_name`')
 
         self._data["Cooling Coil Name"] = value
@@ -7010,14 +7897,28 @@ class AirLoopHvacUnitaryHeatPumpAirToAir(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `supplemental_heating_coil_object_type`')
-            vals = set()
-            vals.add("Coil:Heating:Gas")
-            vals.add("Coil:Heating:Electric")
-            vals.add("Coil:Heating:Water")
-            vals.add("Coil:Heating:Steam")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `supplemental_heating_coil_object_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `supplemental_heating_coil_object_type`')
+            vals = {}
+            vals["coil:heating:gas"] = "Coil:Heating:Gas"
+            vals["coil:heating:electric"] = "Coil:Heating:Electric"
+            vals["coil:heating:water"] = "Coil:Heating:Water"
+            vals["coil:heating:steam"] = "Coil:Heating:Steam"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `supplemental_heating_coil_object_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Supplemental Heating Coil Object Type"] = value
 
@@ -7051,6 +7952,9 @@ class AirLoopHvacUnitaryHeatPumpAirToAir(object):
                                  'for field `supplemental_heating_coil_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `supplemental_heating_coil_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `supplemental_heating_coil_name`')
 
         self._data["Supplemental Heating Coil Name"] = value
@@ -7156,12 +8060,26 @@ class AirLoopHvacUnitaryHeatPumpAirToAir(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `fan_placement`')
-            vals = set()
-            vals.add("BlowThrough")
-            vals.add("DrawThrough")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `fan_placement`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `fan_placement`')
+            vals = {}
+            vals["blowthrough"] = "BlowThrough"
+            vals["drawthrough"] = "DrawThrough"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `fan_placement`'.format(value))
+            value = vals[value_lower]
 
         self._data["Fan Placement"] = value
 
@@ -7200,6 +8118,9 @@ class AirLoopHvacUnitaryHeatPumpAirToAir(object):
                                  'for field `supply_air_fan_operating_mode_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `supply_air_fan_operating_mode_schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `supply_air_fan_operating_mode_schedule_name`')
 
         self._data["Supply Air Fan Operating Mode Schedule Name"] = value
@@ -7251,13 +8172,27 @@ class AirLoopHvacUnitaryHeatPumpAirToAir(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `dehumidification_control_type`')
-            vals = set()
-            vals.add("None")
-            vals.add("Multimode")
-            vals.add("CoolReheat")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `dehumidification_control_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `dehumidification_control_type`')
+            vals = {}
+            vals["none"] = "None"
+            vals["multimode"] = "Multimode"
+            vals["coolreheat"] = "CoolReheat"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `dehumidification_control_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Dehumidification Control Type"] = value
 
@@ -7283,30 +8218,17 @@ class AirLoopHvacUnitaryHeatPumpAirToAir(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.availability_schedule_name))
-        out.append(self._to_str(self.air_inlet_node_name))
-        out.append(self._to_str(self.air_outlet_node_name))
-        out.append(self._to_str(self.supply_air_flow_rate_during_cooling_operation))
-        out.append(self._to_str(self.supply_air_flow_rate_during_heating_operation))
-        out.append(self._to_str(self.supply_air_flow_rate_when_no_cooling_or_heating_is_needed))
-        out.append(self._to_str(self.controlling_zone_or_thermostat_location))
-        out.append(self._to_str(self.supply_air_fan_object_type))
-        out.append(self._to_str(self.supply_air_fan_name))
-        out.append(self._to_str(self.heating_coil_object_type))
-        out.append(self._to_str(self.heating_coil_name))
-        out.append(self._to_str(self.cooling_coil_object_type))
-        out.append(self._to_str(self.cooling_coil_name))
-        out.append(self._to_str(self.supplemental_heating_coil_object_type))
-        out.append(self._to_str(self.supplemental_heating_coil_name))
-        out.append(self._to_str(self.maximum_supply_air_temperature_from_supplemental_heater))
-        out.append(self._to_str(self.maximum_outdoor_drybulb_temperature_for_supplemental_heater_operation))
-        out.append(self._to_str(self.fan_placement))
-        out.append(self._to_str(self.supply_air_fan_operating_mode_schedule_name))
-        out.append(self._to_str(self.dehumidification_control_type))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class AirLoopHvacUnitaryHeatPumpWaterToAir(object):
     """ Corresponds to IDD object `AirLoopHVAC:UnitaryHeatPump:WaterToAir`
@@ -7351,149 +8273,205 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(object):
         self._data["Supply Air Fan Operating Mode Schedule Name"] = None
         self._data["Dehumidification Control Type"] = None
         self._data["Heat Pump Coil Water Flow Mode"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.availability_schedule_name = None
         else:
             self.availability_schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.air_inlet_node_name = None
         else:
             self.air_inlet_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.air_outlet_node_name = None
         else:
             self.air_outlet_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.supply_air_flow_rate = None
         else:
             self.supply_air_flow_rate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.controlling_zone_or_thermostat_location = None
         else:
             self.controlling_zone_or_thermostat_location = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.supply_air_fan_object_type = None
         else:
             self.supply_air_fan_object_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.supply_air_fan_name = None
         else:
             self.supply_air_fan_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.heating_coil_object_type = None
         else:
             self.heating_coil_object_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.heating_coil_name = None
         else:
             self.heating_coil_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.heating_convergence = None
         else:
             self.heating_convergence = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.cooling_coil_object_type = None
         else:
             self.cooling_coil_object_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.cooling_coil_name = None
         else:
             self.cooling_coil_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.cooling_convergence = None
         else:
             self.cooling_convergence = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.maximum_cycling_rate = None
         else:
             self.maximum_cycling_rate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.heat_pump_time_constant = None
         else:
             self.heat_pump_time_constant = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_oncycle_power_use = None
         else:
             self.fraction_of_oncycle_power_use = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.heat_pump_fan_delay_time = None
         else:
             self.heat_pump_fan_delay_time = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.supplemental_heating_coil_object_type = None
         else:
             self.supplemental_heating_coil_object_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.supplemental_heating_coil_name = None
         else:
             self.supplemental_heating_coil_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.maximum_supply_air_temperature_from_supplemental_heater = None
         else:
             self.maximum_supply_air_temperature_from_supplemental_heater = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.maximum_outdoor_drybulb_temperature_for_supplemental_heater_operation = None
         else:
             self.maximum_outdoor_drybulb_temperature_for_supplemental_heater_operation = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.outdoor_drybulb_temperature_sensor_node_name = None
         else:
             self.outdoor_drybulb_temperature_sensor_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fan_placement = None
         else:
             self.fan_placement = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.supply_air_fan_operating_mode_schedule_name = None
         else:
             self.supply_air_fan_operating_mode_schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.dehumidification_control_type = None
         else:
             self.dehumidification_control_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.heat_pump_coil_water_flow_mode = None
         else:
             self.heat_pump_coil_water_flow_mode = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -7524,6 +8502,9 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -7560,6 +8541,9 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `availability_schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `availability_schedule_name`')
 
         self._data["Availability Schedule Name"] = value
 
@@ -7593,6 +8577,9 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `air_inlet_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `air_inlet_node_name`')
 
         self._data["Air Inlet Node Name"] = value
 
@@ -7625,6 +8612,9 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(object):
                                  'for field `air_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `air_outlet_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `air_outlet_node_name`')
 
         self._data["Air Outlet Node Name"] = value
@@ -7695,6 +8685,9 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `controlling_zone_or_thermostat_location`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `controlling_zone_or_thermostat_location`')
 
         self._data["Controlling Zone or Thermostat Location"] = value
 
@@ -7731,11 +8724,25 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `supply_air_fan_object_type`')
-            vals = set()
-            vals.add("Fan:OnOff")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `supply_air_fan_object_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `supply_air_fan_object_type`')
+            vals = {}
+            vals["fan:onoff"] = "Fan:OnOff"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `supply_air_fan_object_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Supply Air Fan Object Type"] = value
 
@@ -7769,6 +8776,9 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(object):
                                  'for field `supply_air_fan_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `supply_air_fan_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `supply_air_fan_name`')
 
         self._data["Supply Air Fan Name"] = value
@@ -7807,13 +8817,27 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `heating_coil_object_type`')
-            vals = set()
-            vals.add("Coil:Heating:WaterToAirHeatPump:ParameterEstimation")
-            vals.add("Coil:Heating:WaterToAirHeatPump:EquationFit")
-            vals.add("Coil:Heating:WaterToAirHeatPump:VariableSpeedEquationFit")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `heating_coil_object_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `heating_coil_object_type`')
+            vals = {}
+            vals["coil:heating:watertoairheatpump:parameterestimation"] = "Coil:Heating:WaterToAirHeatPump:ParameterEstimation"
+            vals["coil:heating:watertoairheatpump:equationfit"] = "Coil:Heating:WaterToAirHeatPump:EquationFit"
+            vals["coil:heating:watertoairheatpump:variablespeedequationfit"] = "Coil:Heating:WaterToAirHeatPump:VariableSpeedEquationFit"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `heating_coil_object_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Heating Coil Object Type"] = value
 
@@ -7847,6 +8871,9 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(object):
                                  'for field `heating_coil_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `heating_coil_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `heating_coil_name`')
 
         self._data["Heating Coil Name"] = value
@@ -7920,13 +8947,27 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `cooling_coil_object_type`')
-            vals = set()
-            vals.add("Coil:Cooling:WaterToAirHeatPump:ParameterEstimation")
-            vals.add("Coil:Cooling:WaterToAirHeatPump:EquationFit")
-            vals.add("Coil:Cooling:WaterToAirHeatPump:VariableSpeedEquationFit")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `cooling_coil_object_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `cooling_coil_object_type`')
+            vals = {}
+            vals["coil:cooling:watertoairheatpump:parameterestimation"] = "Coil:Cooling:WaterToAirHeatPump:ParameterEstimation"
+            vals["coil:cooling:watertoairheatpump:equationfit"] = "Coil:Cooling:WaterToAirHeatPump:EquationFit"
+            vals["coil:cooling:watertoairheatpump:variablespeedequationfit"] = "Coil:Cooling:WaterToAirHeatPump:VariableSpeedEquationFit"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `cooling_coil_object_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Cooling Coil Object Type"] = value
 
@@ -7960,6 +9001,9 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(object):
                                  'for field `cooling_coil_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `cooling_coil_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `cooling_coil_name`')
 
         self._data["Cooling Coil Name"] = value
@@ -8200,14 +9244,28 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `supplemental_heating_coil_object_type`')
-            vals = set()
-            vals.add("Coil:Heating:Gas")
-            vals.add("Coil:Heating:Electric")
-            vals.add("Coil:Heating:Water")
-            vals.add("Coil:Heating:Steam")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `supplemental_heating_coil_object_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `supplemental_heating_coil_object_type`')
+            vals = {}
+            vals["coil:heating:gas"] = "Coil:Heating:Gas"
+            vals["coil:heating:electric"] = "Coil:Heating:Electric"
+            vals["coil:heating:water"] = "Coil:Heating:Water"
+            vals["coil:heating:steam"] = "Coil:Heating:Steam"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `supplemental_heating_coil_object_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Supplemental Heating Coil Object Type"] = value
 
@@ -8241,6 +9299,9 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(object):
                                  'for field `supplemental_heating_coil_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `supplemental_heating_coil_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `supplemental_heating_coil_name`')
 
         self._data["Supplemental Heating Coil Name"] = value
@@ -8342,6 +9403,9 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `outdoor_drybulb_temperature_sensor_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `outdoor_drybulb_temperature_sensor_node_name`')
 
         self._data["Outdoor Dry-Bulb Temperature Sensor Node Name"] = value
 
@@ -8379,12 +9443,26 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `fan_placement`')
-            vals = set()
-            vals.add("BlowThrough")
-            vals.add("DrawThrough")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `fan_placement`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `fan_placement`')
+            vals = {}
+            vals["blowthrough"] = "BlowThrough"
+            vals["drawthrough"] = "DrawThrough"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `fan_placement`'.format(value))
+            value = vals[value_lower]
 
         self._data["Fan Placement"] = value
 
@@ -8421,6 +9499,9 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(object):
                                  'for field `supply_air_fan_operating_mode_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `supply_air_fan_operating_mode_schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `supply_air_fan_operating_mode_schedule_name`')
 
         self._data["Supply Air Fan Operating Mode Schedule Name"] = value
@@ -8464,12 +9545,26 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `dehumidification_control_type`')
-            vals = set()
-            vals.add("None")
-            vals.add("CoolReheat")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `dehumidification_control_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `dehumidification_control_type`')
+            vals = {}
+            vals["none"] = "None"
+            vals["coolreheat"] = "CoolReheat"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `dehumidification_control_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Dehumidification Control Type"] = value
 
@@ -8512,13 +9607,27 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `heat_pump_coil_water_flow_mode`')
-            vals = set()
-            vals.add("Constant")
-            vals.add("Cycling")
-            vals.add("ConstantOnDemand")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `heat_pump_coil_water_flow_mode`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `heat_pump_coil_water_flow_mode`')
+            vals = {}
+            vals["constant"] = "Constant"
+            vals["cycling"] = "Cycling"
+            vals["constantondemand"] = "ConstantOnDemand"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `heat_pump_coil_water_flow_mode`'.format(value))
+            value = vals[value_lower]
 
         self._data["Heat Pump Coil Water Flow Mode"] = value
 
@@ -8544,36 +9653,17 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.availability_schedule_name))
-        out.append(self._to_str(self.air_inlet_node_name))
-        out.append(self._to_str(self.air_outlet_node_name))
-        out.append(self._to_str(self.supply_air_flow_rate))
-        out.append(self._to_str(self.controlling_zone_or_thermostat_location))
-        out.append(self._to_str(self.supply_air_fan_object_type))
-        out.append(self._to_str(self.supply_air_fan_name))
-        out.append(self._to_str(self.heating_coil_object_type))
-        out.append(self._to_str(self.heating_coil_name))
-        out.append(self._to_str(self.heating_convergence))
-        out.append(self._to_str(self.cooling_coil_object_type))
-        out.append(self._to_str(self.cooling_coil_name))
-        out.append(self._to_str(self.cooling_convergence))
-        out.append(self._to_str(self.maximum_cycling_rate))
-        out.append(self._to_str(self.heat_pump_time_constant))
-        out.append(self._to_str(self.fraction_of_oncycle_power_use))
-        out.append(self._to_str(self.heat_pump_fan_delay_time))
-        out.append(self._to_str(self.supplemental_heating_coil_object_type))
-        out.append(self._to_str(self.supplemental_heating_coil_name))
-        out.append(self._to_str(self.maximum_supply_air_temperature_from_supplemental_heater))
-        out.append(self._to_str(self.maximum_outdoor_drybulb_temperature_for_supplemental_heater_operation))
-        out.append(self._to_str(self.outdoor_drybulb_temperature_sensor_node_name))
-        out.append(self._to_str(self.fan_placement))
-        out.append(self._to_str(self.supply_air_fan_operating_mode_schedule_name))
-        out.append(self._to_str(self.dehumidification_control_type))
-        out.append(self._to_str(self.heat_pump_coil_water_flow_mode))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(object):
     """ Corresponds to IDD object `AirLoopHVAC:UnitaryHeatCool:VAVChangeoverBypass`
@@ -8619,149 +9709,205 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(object):
         self._data["Minimum Outlet Air Temperature During Cooling Operation"] = None
         self._data["Maximum Outlet Air Temperature During Heating Operation"] = None
         self._data["Dehumidification Control Type"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.availability_schedule_name = None
         else:
             self.availability_schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.system_air_flow_rate_during_cooling_operation = None
         else:
             self.system_air_flow_rate_during_cooling_operation = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.system_air_flow_rate_during_heating_operation = None
         else:
             self.system_air_flow_rate_during_heating_operation = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.system_air_flow_rate_when_no_cooling_or_heating_is_needed = None
         else:
             self.system_air_flow_rate_when_no_cooling_or_heating_is_needed = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.outdoor_air_flow_rate_during_cooling_operation = None
         else:
             self.outdoor_air_flow_rate_during_cooling_operation = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.outdoor_air_flow_rate_during_heating_operation = None
         else:
             self.outdoor_air_flow_rate_during_heating_operation = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.outdoor_air_flow_rate_when_no_cooling_or_heating_is_needed = None
         else:
             self.outdoor_air_flow_rate_when_no_cooling_or_heating_is_needed = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.outdoor_air_flow_rate_multiplier_schedule_name = None
         else:
             self.outdoor_air_flow_rate_multiplier_schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.air_inlet_node_name = None
         else:
             self.air_inlet_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.bypass_duct_mixer_node_name = None
         else:
             self.bypass_duct_mixer_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.bypass_duct_splitter_node_name = None
         else:
             self.bypass_duct_splitter_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.air_outlet_node_name = None
         else:
             self.air_outlet_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.outdoor_air_mixer_object_type = None
         else:
             self.outdoor_air_mixer_object_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.outdoor_air_mixer_name = None
         else:
             self.outdoor_air_mixer_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.supply_air_fan_object_type = None
         else:
             self.supply_air_fan_object_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.supply_air_fan_name = None
         else:
             self.supply_air_fan_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.supply_air_fan_placement = None
         else:
             self.supply_air_fan_placement = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.supply_air_fan_operating_mode_schedule_name = None
         else:
             self.supply_air_fan_operating_mode_schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.cooling_coil_object_type = None
         else:
             self.cooling_coil_object_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.cooling_coil_name = None
         else:
             self.cooling_coil_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.heating_coil_object_type = None
         else:
             self.heating_coil_object_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.heating_coil_name = None
         else:
             self.heating_coil_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.priority_control_mode = None
         else:
             self.priority_control_mode = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.minimum_outlet_air_temperature_during_cooling_operation = None
         else:
             self.minimum_outlet_air_temperature_during_cooling_operation = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.maximum_outlet_air_temperature_during_heating_operation = None
         else:
             self.maximum_outlet_air_temperature_during_heating_operation = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.dehumidification_control_type = None
         else:
             self.dehumidification_control_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -8793,6 +9939,9 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -8830,6 +9979,9 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(object):
                                  'for field `availability_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `availability_schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `availability_schedule_name`')
 
         self._data["Availability Schedule Name"] = value
@@ -9095,6 +10247,9 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `outdoor_air_flow_rate_multiplier_schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `outdoor_air_flow_rate_multiplier_schedule_name`')
 
         self._data["Outdoor Air Flow Rate Multiplier Schedule Name"] = value
 
@@ -9128,6 +10283,9 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(object):
                                  'for field `air_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `air_inlet_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `air_inlet_node_name`')
 
         self._data["Air Inlet Node Name"] = value
@@ -9164,6 +10322,9 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(object):
                                  'for field `bypass_duct_mixer_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `bypass_duct_mixer_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `bypass_duct_mixer_node_name`')
 
         self._data["Bypass Duct Mixer Node Name"] = value
@@ -9203,6 +10364,9 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `bypass_duct_splitter_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `bypass_duct_splitter_node_name`')
 
         self._data["Bypass Duct Splitter Node Name"] = value
 
@@ -9236,6 +10400,9 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(object):
                                  'for field `air_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `air_outlet_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `air_outlet_node_name`')
 
         self._data["Air Outlet Node Name"] = value
@@ -9273,11 +10440,25 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `outdoor_air_mixer_object_type`')
-            vals = set()
-            vals.add("OutdoorAir:Mixer")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `outdoor_air_mixer_object_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `outdoor_air_mixer_object_type`')
+            vals = {}
+            vals["outdoorair:mixer"] = "OutdoorAir:Mixer"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `outdoor_air_mixer_object_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Outdoor Air Mixer Object Type"] = value
 
@@ -9311,6 +10492,9 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(object):
                                  'for field `outdoor_air_mixer_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `outdoor_air_mixer_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `outdoor_air_mixer_name`')
 
         self._data["Outdoor Air Mixer Name"] = value
@@ -9349,12 +10533,26 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `supply_air_fan_object_type`')
-            vals = set()
-            vals.add("Fan:OnOff")
-            vals.add("Fan:ConstantVolume")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `supply_air_fan_object_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `supply_air_fan_object_type`')
+            vals = {}
+            vals["fan:onoff"] = "Fan:OnOff"
+            vals["fan:constantvolume"] = "Fan:ConstantVolume"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `supply_air_fan_object_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Supply Air Fan Object Type"] = value
 
@@ -9388,6 +10586,9 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(object):
                                  'for field `supply_air_fan_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `supply_air_fan_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `supply_air_fan_name`')
 
         self._data["Supply Air Fan Name"] = value
@@ -9428,12 +10629,26 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `supply_air_fan_placement`')
-            vals = set()
-            vals.add("BlowThrough")
-            vals.add("DrawThrough")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `supply_air_fan_placement`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `supply_air_fan_placement`')
+            vals = {}
+            vals["blowthrough"] = "BlowThrough"
+            vals["drawthrough"] = "DrawThrough"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `supply_air_fan_placement`'.format(value))
+            value = vals[value_lower]
 
         self._data["Supply Air Fan Placement"] = value
 
@@ -9473,6 +10688,9 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `supply_air_fan_operating_mode_schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `supply_air_fan_operating_mode_schedule_name`')
 
         self._data["Supply Air Fan Operating Mode Schedule Name"] = value
 
@@ -9511,13 +10729,27 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `cooling_coil_object_type`')
-            vals = set()
-            vals.add("Coil:Cooling:DX:SingleSpeed")
-            vals.add("CoilSystem:Cooling:DX:HeatExchangerAssisted")
-            vals.add("Coil:Cooling:DX:TwoStageWithHumidityControlMode")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `cooling_coil_object_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `cooling_coil_object_type`')
+            vals = {}
+            vals["coil:cooling:dx:singlespeed"] = "Coil:Cooling:DX:SingleSpeed"
+            vals["coilsystem:cooling:dx:heatexchangerassisted"] = "CoilSystem:Cooling:DX:HeatExchangerAssisted"
+            vals["coil:cooling:dx:twostagewithhumiditycontrolmode"] = "Coil:Cooling:DX:TwoStageWithHumidityControlMode"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `cooling_coil_object_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Cooling Coil Object Type"] = value
 
@@ -9551,6 +10783,9 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(object):
                                  'for field `cooling_coil_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `cooling_coil_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `cooling_coil_name`')
 
         self._data["Cooling Coil Name"] = value
@@ -9593,15 +10828,29 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `heating_coil_object_type`')
-            vals = set()
-            vals.add("Coil:Heating:DX:SingleSpeed")
-            vals.add("Coil:Heating:Gas")
-            vals.add("Coil:Heating:Electric")
-            vals.add("Coil:Heating:Water")
-            vals.add("Coil:Heating:Steam")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `heating_coil_object_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `heating_coil_object_type`')
+            vals = {}
+            vals["coil:heating:dx:singlespeed"] = "Coil:Heating:DX:SingleSpeed"
+            vals["coil:heating:gas"] = "Coil:Heating:Gas"
+            vals["coil:heating:electric"] = "Coil:Heating:Electric"
+            vals["coil:heating:water"] = "Coil:Heating:Water"
+            vals["coil:heating:steam"] = "Coil:Heating:Steam"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `heating_coil_object_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Heating Coil Object Type"] = value
 
@@ -9635,6 +10884,9 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(object):
                                  'for field `heating_coil_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `heating_coil_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `heating_coil_name`')
 
         self._data["Heating Coil Name"] = value
@@ -9679,13 +10931,27 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `priority_control_mode`')
-            vals = set()
-            vals.add("CoolingPriority")
-            vals.add("HeatingPriority")
-            vals.add("ZonePriority")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `priority_control_mode`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `priority_control_mode`')
+            vals = {}
+            vals["coolingpriority"] = "CoolingPriority"
+            vals["heatingpriority"] = "HeatingPriority"
+            vals["zonepriority"] = "ZonePriority"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `priority_control_mode`'.format(value))
+            value = vals[value_lower]
 
         self._data["Priority Control Mode"] = value
 
@@ -9815,13 +11081,27 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `dehumidification_control_type`')
-            vals = set()
-            vals.add("None")
-            vals.add("Multimode")
-            vals.add("CoolReheat")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `dehumidification_control_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `dehumidification_control_type`')
+            vals = {}
+            vals["none"] = "None"
+            vals["multimode"] = "Multimode"
+            vals["coolreheat"] = "CoolReheat"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `dehumidification_control_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Dehumidification Control Type"] = value
 
@@ -9847,36 +11127,17 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.availability_schedule_name))
-        out.append(self._to_str(self.system_air_flow_rate_during_cooling_operation))
-        out.append(self._to_str(self.system_air_flow_rate_during_heating_operation))
-        out.append(self._to_str(self.system_air_flow_rate_when_no_cooling_or_heating_is_needed))
-        out.append(self._to_str(self.outdoor_air_flow_rate_during_cooling_operation))
-        out.append(self._to_str(self.outdoor_air_flow_rate_during_heating_operation))
-        out.append(self._to_str(self.outdoor_air_flow_rate_when_no_cooling_or_heating_is_needed))
-        out.append(self._to_str(self.outdoor_air_flow_rate_multiplier_schedule_name))
-        out.append(self._to_str(self.air_inlet_node_name))
-        out.append(self._to_str(self.bypass_duct_mixer_node_name))
-        out.append(self._to_str(self.bypass_duct_splitter_node_name))
-        out.append(self._to_str(self.air_outlet_node_name))
-        out.append(self._to_str(self.outdoor_air_mixer_object_type))
-        out.append(self._to_str(self.outdoor_air_mixer_name))
-        out.append(self._to_str(self.supply_air_fan_object_type))
-        out.append(self._to_str(self.supply_air_fan_name))
-        out.append(self._to_str(self.supply_air_fan_placement))
-        out.append(self._to_str(self.supply_air_fan_operating_mode_schedule_name))
-        out.append(self._to_str(self.cooling_coil_object_type))
-        out.append(self._to_str(self.cooling_coil_name))
-        out.append(self._to_str(self.heating_coil_object_type))
-        out.append(self._to_str(self.heating_coil_name))
-        out.append(self._to_str(self.priority_control_mode))
-        out.append(self._to_str(self.minimum_outlet_air_temperature_during_cooling_operation))
-        out.append(self._to_str(self.maximum_outlet_air_temperature_during_heating_operation))
-        out.append(self._to_str(self.dehumidification_control_type))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(object):
     """ Corresponds to IDD object `AirLoopHVAC:UnitaryHeatPump:AirToAir:MultiSpeed`
@@ -9929,189 +11190,261 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(object):
         self._data["Speed 2 Supply Air Flow Rate During Cooling Operation"] = None
         self._data["Speed 3 Supply Air Flow Rate During Cooling Operation"] = None
         self._data["Speed 4 Supply Air Flow Rate During Cooling Operation"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.availability_schedule_name = None
         else:
             self.availability_schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.air_inlet_node_name = None
         else:
             self.air_inlet_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.air_outlet_node_name = None
         else:
             self.air_outlet_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.controlling_zone_or_thermostat_location = None
         else:
             self.controlling_zone_or_thermostat_location = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.supply_air_fan_object_type = None
         else:
             self.supply_air_fan_object_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.supply_air_fan_name = None
         else:
             self.supply_air_fan_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.supply_air_fan_placement = None
         else:
             self.supply_air_fan_placement = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.supply_air_fan_operating_mode_schedule_name = None
         else:
             self.supply_air_fan_operating_mode_schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.heating_coil_object_type = None
         else:
             self.heating_coil_object_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.heating_coil_name = None
         else:
             self.heating_coil_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.minimum_outdoor_drybulb_temperature_for_compressor_operation = None
         else:
             self.minimum_outdoor_drybulb_temperature_for_compressor_operation = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.cooling_coil_object_type = None
         else:
             self.cooling_coil_object_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.cooling_coil_name = None
         else:
             self.cooling_coil_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.supplemental_heating_coil_object_type = None
         else:
             self.supplemental_heating_coil_object_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.supplemental_heating_coil_name = None
         else:
             self.supplemental_heating_coil_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.maximum_supply_air_temperature_from_supplemental_heater = None
         else:
             self.maximum_supply_air_temperature_from_supplemental_heater = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.maximum_outdoor_drybulb_temperature_for_supplemental_heater_operation = None
         else:
             self.maximum_outdoor_drybulb_temperature_for_supplemental_heater_operation = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.auxiliary_oncycle_electric_power = None
         else:
             self.auxiliary_oncycle_electric_power = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.auxiliary_offcycle_electric_power = None
         else:
             self.auxiliary_offcycle_electric_power = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.design_heat_recovery_water_flow_rate = None
         else:
             self.design_heat_recovery_water_flow_rate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.maximum_temperature_for_heat_recovery = None
         else:
             self.maximum_temperature_for_heat_recovery = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.heat_recovery_water_inlet_node_name = None
         else:
             self.heat_recovery_water_inlet_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.heat_recovery_water_outlet_node_name = None
         else:
             self.heat_recovery_water_outlet_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.supply_air_flow_rate_when_no_cooling_or_heating_is_needed = None
         else:
             self.supply_air_flow_rate_when_no_cooling_or_heating_is_needed = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.number_of_speeds_for_heating = None
         else:
             self.number_of_speeds_for_heating = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.number_of_speeds_for_cooling = None
         else:
             self.number_of_speeds_for_cooling = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.speed_1_supply_air_flow_rate_during_heating_operation = None
         else:
             self.speed_1_supply_air_flow_rate_during_heating_operation = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.speed_2_supply_air_flow_rate_during_heating_operation = None
         else:
             self.speed_2_supply_air_flow_rate_during_heating_operation = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.speed_3_supply_air_flow_rate_during_heating_operation = None
         else:
             self.speed_3_supply_air_flow_rate_during_heating_operation = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.speed_4_supply_air_flow_rate_during_heating_operation = None
         else:
             self.speed_4_supply_air_flow_rate_during_heating_operation = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.speed_1_supply_air_flow_rate_during_cooling_operation = None
         else:
             self.speed_1_supply_air_flow_rate_during_cooling_operation = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.speed_2_supply_air_flow_rate_during_cooling_operation = None
         else:
             self.speed_2_supply_air_flow_rate_during_cooling_operation = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.speed_3_supply_air_flow_rate_during_cooling_operation = None
         else:
             self.speed_3_supply_air_flow_rate_during_cooling_operation = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.speed_4_supply_air_flow_rate_during_cooling_operation = None
         else:
             self.speed_4_supply_air_flow_rate_during_cooling_operation = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -10142,6 +11475,9 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -10178,6 +11514,9 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `availability_schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `availability_schedule_name`')
 
         self._data["Availability Schedule Name"] = value
 
@@ -10210,6 +11549,9 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(object):
                                  'for field `air_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `air_inlet_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `air_inlet_node_name`')
 
         self._data["Air Inlet Node Name"] = value
@@ -10244,6 +11586,9 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `air_outlet_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `air_outlet_node_name`')
 
         self._data["Air Outlet Node Name"] = value
 
@@ -10276,6 +11621,9 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(object):
                                  'for field `controlling_zone_or_thermostat_location`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `controlling_zone_or_thermostat_location`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `controlling_zone_or_thermostat_location`')
 
         self._data["Controlling Zone or Thermostat Location"] = value
@@ -10314,12 +11662,26 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `supply_air_fan_object_type`')
-            vals = set()
-            vals.add("Fan:OnOff")
-            vals.add("Fan:ConstantVolume")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `supply_air_fan_object_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `supply_air_fan_object_type`')
+            vals = {}
+            vals["fan:onoff"] = "Fan:OnOff"
+            vals["fan:constantvolume"] = "Fan:ConstantVolume"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `supply_air_fan_object_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Supply Air Fan Object Type"] = value
 
@@ -10353,6 +11715,9 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(object):
                                  'for field `supply_air_fan_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `supply_air_fan_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `supply_air_fan_name`')
 
         self._data["Supply Air Fan Name"] = value
@@ -10394,12 +11759,26 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `supply_air_fan_placement`')
-            vals = set()
-            vals.add("BlowThrough")
-            vals.add("DrawThrough")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `supply_air_fan_placement`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `supply_air_fan_placement`')
+            vals = {}
+            vals["blowthrough"] = "BlowThrough"
+            vals["drawthrough"] = "DrawThrough"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `supply_air_fan_placement`'.format(value))
+            value = vals[value_lower]
 
         self._data["Supply Air Fan Placement"] = value
 
@@ -10438,6 +11817,9 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(object):
                                  'for field `supply_air_fan_operating_mode_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `supply_air_fan_operating_mode_schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `supply_air_fan_operating_mode_schedule_name`')
 
         self._data["Supply Air Fan Operating Mode Schedule Name"] = value
@@ -10479,15 +11861,29 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `heating_coil_object_type`')
-            vals = set()
-            vals.add("Coil:Heating:DX:MultiSpeed")
-            vals.add("Coil:Heating:Electric:MultiStage")
-            vals.add("Coil:Heating:Gas:MultiStage")
-            vals.add("Coil:Heating:Water")
-            vals.add("Coil:Heating:Steam")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `heating_coil_object_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `heating_coil_object_type`')
+            vals = {}
+            vals["coil:heating:dx:multispeed"] = "Coil:Heating:DX:MultiSpeed"
+            vals["coil:heating:electric:multistage"] = "Coil:Heating:Electric:MultiStage"
+            vals["coil:heating:gas:multistage"] = "Coil:Heating:Gas:MultiStage"
+            vals["coil:heating:water"] = "Coil:Heating:Water"
+            vals["coil:heating:steam"] = "Coil:Heating:Steam"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `heating_coil_object_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Heating Coil Object Type"] = value
 
@@ -10520,6 +11916,9 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(object):
                                  'for field `heating_coil_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `heating_coil_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `heating_coil_name`')
 
         self._data["Heating Coil Name"] = value
@@ -10591,11 +11990,25 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `cooling_coil_object_type`')
-            vals = set()
-            vals.add("Coil:Cooling:DX:MultiSpeed")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `cooling_coil_object_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `cooling_coil_object_type`')
+            vals = {}
+            vals["coil:cooling:dx:multispeed"] = "Coil:Cooling:DX:MultiSpeed"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `cooling_coil_object_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Cooling Coil Object Type"] = value
 
@@ -10629,6 +12042,9 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(object):
                                  'for field `cooling_coil_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `cooling_coil_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `cooling_coil_name`')
 
         self._data["Cooling Coil Name"] = value
@@ -10669,14 +12085,28 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `supplemental_heating_coil_object_type`')
-            vals = set()
-            vals.add("Coil:Heating:Gas")
-            vals.add("Coil:Heating:Electric")
-            vals.add("Coil:Heating:Water")
-            vals.add("Coil:Heating:Steam")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `supplemental_heating_coil_object_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `supplemental_heating_coil_object_type`')
+            vals = {}
+            vals["coil:heating:gas"] = "Coil:Heating:Gas"
+            vals["coil:heating:electric"] = "Coil:Heating:Electric"
+            vals["coil:heating:water"] = "Coil:Heating:Water"
+            vals["coil:heating:steam"] = "Coil:Heating:Steam"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `supplemental_heating_coil_object_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Supplemental Heating Coil Object Type"] = value
 
@@ -10710,6 +12140,9 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(object):
                                  'for field `supplemental_heating_coil_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `supplemental_heating_coil_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `supplemental_heating_coil_name`')
 
         self._data["Supplemental Heating Coil Name"] = value
@@ -10961,6 +12394,9 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `heat_recovery_water_inlet_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `heat_recovery_water_inlet_node_name`')
 
         self._data["Heat Recovery Water Inlet Node Name"] = value
 
@@ -10993,6 +12429,9 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(object):
                                  'for field `heat_recovery_water_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `heat_recovery_water_outlet_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `heat_recovery_water_outlet_node_name`')
 
         self._data["Heat Recovery Water Outlet Node Name"] = value
@@ -11435,41 +12874,14 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.availability_schedule_name))
-        out.append(self._to_str(self.air_inlet_node_name))
-        out.append(self._to_str(self.air_outlet_node_name))
-        out.append(self._to_str(self.controlling_zone_or_thermostat_location))
-        out.append(self._to_str(self.supply_air_fan_object_type))
-        out.append(self._to_str(self.supply_air_fan_name))
-        out.append(self._to_str(self.supply_air_fan_placement))
-        out.append(self._to_str(self.supply_air_fan_operating_mode_schedule_name))
-        out.append(self._to_str(self.heating_coil_object_type))
-        out.append(self._to_str(self.heating_coil_name))
-        out.append(self._to_str(self.minimum_outdoor_drybulb_temperature_for_compressor_operation))
-        out.append(self._to_str(self.cooling_coil_object_type))
-        out.append(self._to_str(self.cooling_coil_name))
-        out.append(self._to_str(self.supplemental_heating_coil_object_type))
-        out.append(self._to_str(self.supplemental_heating_coil_name))
-        out.append(self._to_str(self.maximum_supply_air_temperature_from_supplemental_heater))
-        out.append(self._to_str(self.maximum_outdoor_drybulb_temperature_for_supplemental_heater_operation))
-        out.append(self._to_str(self.auxiliary_oncycle_electric_power))
-        out.append(self._to_str(self.auxiliary_offcycle_electric_power))
-        out.append(self._to_str(self.design_heat_recovery_water_flow_rate))
-        out.append(self._to_str(self.maximum_temperature_for_heat_recovery))
-        out.append(self._to_str(self.heat_recovery_water_inlet_node_name))
-        out.append(self._to_str(self.heat_recovery_water_outlet_node_name))
-        out.append(self._to_str(self.supply_air_flow_rate_when_no_cooling_or_heating_is_needed))
-        out.append(self._to_str(self.number_of_speeds_for_heating))
-        out.append(self._to_str(self.number_of_speeds_for_cooling))
-        out.append(self._to_str(self.speed_1_supply_air_flow_rate_during_heating_operation))
-        out.append(self._to_str(self.speed_2_supply_air_flow_rate_during_heating_operation))
-        out.append(self._to_str(self.speed_3_supply_air_flow_rate_during_heating_operation))
-        out.append(self._to_str(self.speed_4_supply_air_flow_rate_during_heating_operation))
-        out.append(self._to_str(self.speed_1_supply_air_flow_rate_during_cooling_operation))
-        out.append(self._to_str(self.speed_2_supply_air_flow_rate_during_cooling_operation))
-        out.append(self._to_str(self.speed_3_supply_air_flow_rate_during_cooling_operation))
-        out.append(self._to_str(self.speed_4_supply_air_flow_rate_during_cooling_operation))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])

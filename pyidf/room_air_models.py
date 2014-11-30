@@ -19,34 +19,44 @@ class RoomAirModelType(object):
         self._data["Zone Name"] = None
         self._data["Room-Air Modeling Type"] = None
         self._data["Air Temperature Coupling Strategy"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.zone_name = None
         else:
             self.zone_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.roomair_modeling_type = None
         else:
             self.roomair_modeling_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.air_temperature_coupling_strategy = None
         else:
             self.air_temperature_coupling_strategy = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -77,6 +87,9 @@ class RoomAirModelType(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -110,6 +123,9 @@ class RoomAirModelType(object):
                                  'for field `zone_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `zone_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `zone_name`')
 
         self._data["Zone Name"] = value
@@ -166,17 +182,31 @@ class RoomAirModelType(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `roomair_modeling_type`')
-            vals = set()
-            vals.add("Mixing")
-            vals.add("UserDefined")
-            vals.add("OneNodeDisplacementVentilation")
-            vals.add("ThreeNodeDisplacementVentilation")
-            vals.add("CrossVentilation")
-            vals.add("UnderFloorAirDistributionInterior")
-            vals.add("UnderFloorAirDistributionExterior")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `roomair_modeling_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `roomair_modeling_type`')
+            vals = {}
+            vals["mixing"] = "Mixing"
+            vals["userdefined"] = "UserDefined"
+            vals["onenodedisplacementventilation"] = "OneNodeDisplacementVentilation"
+            vals["threenodedisplacementventilation"] = "ThreeNodeDisplacementVentilation"
+            vals["crossventilation"] = "CrossVentilation"
+            vals["underfloorairdistributioninterior"] = "UnderFloorAirDistributionInterior"
+            vals["underfloorairdistributionexterior"] = "UnderFloorAirDistributionExterior"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `roomair_modeling_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Room-Air Modeling Type"] = value
 
@@ -214,12 +244,26 @@ class RoomAirModelType(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `air_temperature_coupling_strategy`')
-            vals = set()
-            vals.add("Direct")
-            vals.add("Indirect")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `air_temperature_coupling_strategy`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `air_temperature_coupling_strategy`')
+            vals = {}
+            vals["direct"] = "Direct"
+            vals["indirect"] = "Indirect"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `air_temperature_coupling_strategy`'.format(value))
+            value = vals[value_lower]
 
         self._data["Air Temperature Coupling Strategy"] = value
 
@@ -245,13 +289,17 @@ class RoomAirModelType(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.zone_name))
-        out.append(self._to_str(self.roomair_modeling_type))
-        out.append(self._to_str(self.air_temperature_coupling_strategy))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class RoomAirTemperaturePatternUserDefined(object):
     """ Corresponds to IDD object `RoomAir:TemperaturePattern:UserDefined`
@@ -271,34 +319,44 @@ class RoomAirTemperaturePatternUserDefined(object):
         self._data["Zone Name"] = None
         self._data["Availability Schedule Name"] = None
         self._data["Pattern Control Schedule Name"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.zone_name = None
         else:
             self.zone_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.availability_schedule_name = None
         else:
             self.availability_schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.pattern_control_schedule_name = None
         else:
             self.pattern_control_schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -329,6 +387,9 @@ class RoomAirTemperaturePatternUserDefined(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -362,6 +423,9 @@ class RoomAirTemperaturePatternUserDefined(object):
                                  'for field `zone_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `zone_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `zone_name`')
 
         self._data["Zone Name"] = value
@@ -399,6 +463,9 @@ class RoomAirTemperaturePatternUserDefined(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `availability_schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `availability_schedule_name`')
 
         self._data["Availability Schedule Name"] = value
 
@@ -435,6 +502,9 @@ class RoomAirTemperaturePatternUserDefined(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `pattern_control_schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `pattern_control_schedule_name`')
 
         self._data["Pattern Control Schedule Name"] = value
 
@@ -460,13 +530,17 @@ class RoomAirTemperaturePatternUserDefined(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.zone_name))
-        out.append(self._to_str(self.availability_schedule_name))
-        out.append(self._to_str(self.pattern_control_schedule_name))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class RoomAirTemperaturePatternConstantGradient(object):
     """ Corresponds to IDD object `RoomAir:TemperaturePattern:ConstantGradient`
@@ -488,44 +562,58 @@ class RoomAirTemperaturePatternConstantGradient(object):
         self._data["Return Air Offset"] = None
         self._data["Exhaust Air Offset"] = None
         self._data["Temperature Gradient"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.control_integer_for_pattern_control_schedule_name = None
         else:
             self.control_integer_for_pattern_control_schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.thermostat_offset = None
         else:
             self.thermostat_offset = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.return_air_offset = None
         else:
             self.return_air_offset = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.exhaust_air_offset = None
         else:
             self.exhaust_air_offset = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.temperature_gradient = None
         else:
             self.temperature_gradient = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -556,6 +644,9 @@ class RoomAirTemperaturePatternConstantGradient(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -741,15 +832,17 @@ class RoomAirTemperaturePatternConstantGradient(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.control_integer_for_pattern_control_schedule_name))
-        out.append(self._to_str(self.thermostat_offset))
-        out.append(self._to_str(self.return_air_offset))
-        out.append(self._to_str(self.exhaust_air_offset))
-        out.append(self._to_str(self.temperature_gradient))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class RoomAirTemperaturePatternTwoGradient(object):
     """ Corresponds to IDD object `RoomAir:TemperaturePattern:TwoGradient`
@@ -777,74 +870,100 @@ class RoomAirTemperaturePatternTwoGradient(object):
         self._data["Lower Temperature Bound"] = None
         self._data["Upper Heat Rate Bound"] = None
         self._data["Lower Heat Rate Bound"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.control_integer_for_pattern_control_schedule_name = None
         else:
             self.control_integer_for_pattern_control_schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.thermostat_height = None
         else:
             self.thermostat_height = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.return_air_height = None
         else:
             self.return_air_height = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.exhaust_air_height = None
         else:
             self.exhaust_air_height = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.temperature_gradient_lower_bound = None
         else:
             self.temperature_gradient_lower_bound = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.temperature_gradient_upper_bound = None
         else:
             self.temperature_gradient_upper_bound = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.gradient_interpolation_mode = None
         else:
             self.gradient_interpolation_mode = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.upper_temperature_bound = None
         else:
             self.upper_temperature_bound = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.lower_temperature_bound = None
         else:
             self.lower_temperature_bound = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.upper_heat_rate_bound = None
         else:
             self.upper_heat_rate_bound = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.lower_heat_rate_bound = None
         else:
             self.lower_heat_rate_bound = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -875,6 +994,9 @@ class RoomAirTemperaturePatternTwoGradient(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -1106,15 +1228,29 @@ class RoomAirTemperaturePatternTwoGradient(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `gradient_interpolation_mode`')
-            vals = set()
-            vals.add("OutdoorDryBulbTemperature")
-            vals.add("ZoneDryBulbTemperature")
-            vals.add("ZoneAndOutdoorTemperatureDifference")
-            vals.add("SensibleCoolingLoad")
-            vals.add("SensibleHeatingLoad")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `gradient_interpolation_mode`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `gradient_interpolation_mode`')
+            vals = {}
+            vals["outdoordrybulbtemperature"] = "OutdoorDryBulbTemperature"
+            vals["zonedrybulbtemperature"] = "ZoneDryBulbTemperature"
+            vals["zoneandoutdoortemperaturedifference"] = "ZoneAndOutdoorTemperatureDifference"
+            vals["sensiblecoolingload"] = "SensibleCoolingLoad"
+            vals["sensibleheatingload"] = "SensibleHeatingLoad"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `gradient_interpolation_mode`'.format(value))
+            value = vals[value_lower]
 
         self._data["Gradient Interpolation Mode"] = value
 
@@ -1264,21 +1400,17 @@ class RoomAirTemperaturePatternTwoGradient(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.control_integer_for_pattern_control_schedule_name))
-        out.append(self._to_str(self.thermostat_height))
-        out.append(self._to_str(self.return_air_height))
-        out.append(self._to_str(self.exhaust_air_height))
-        out.append(self._to_str(self.temperature_gradient_lower_bound))
-        out.append(self._to_str(self.temperature_gradient_upper_bound))
-        out.append(self._to_str(self.gradient_interpolation_mode))
-        out.append(self._to_str(self.upper_temperature_bound))
-        out.append(self._to_str(self.lower_temperature_bound))
-        out.append(self._to_str(self.upper_heat_rate_bound))
-        out.append(self._to_str(self.lower_heat_rate_bound))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class RoomAirTemperaturePatternNondimensionalHeight(object):
     """ Corresponds to IDD object `RoomAir:TemperaturePattern:NondimensionalHeight`
@@ -1339,229 +1471,317 @@ class RoomAirTemperaturePatternNondimensionalHeight(object):
         self._data["Pair 18 Delta Adjacent Air Temperature"] = None
         self._data["Pair 19 Zeta Nondimensional Height"] = None
         self._data["Pair 19 Delta Adjacent Air Temperature"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.control_integer_for_pattern_control_schedule_name = None
         else:
             self.control_integer_for_pattern_control_schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.thermostat_offset = None
         else:
             self.thermostat_offset = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.return_air_offset = None
         else:
             self.return_air_offset = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.exhaust_air_offset = None
         else:
             self.exhaust_air_offset = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.pair_1_zeta_nondimensional_height = None
         else:
             self.pair_1_zeta_nondimensional_height = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.pair_1_delta_adjacent_air_temperature = None
         else:
             self.pair_1_delta_adjacent_air_temperature = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.pair_2_zeta_nondimensional_height = None
         else:
             self.pair_2_zeta_nondimensional_height = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.pair_2_delta_adjacent_air_temperature = None
         else:
             self.pair_2_delta_adjacent_air_temperature = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.pair_3_zeta_nondimensional_height = None
         else:
             self.pair_3_zeta_nondimensional_height = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.pair_3_delta_adjacent_air_temperature = None
         else:
             self.pair_3_delta_adjacent_air_temperature = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.pair_4_zeta_nondimensional_height = None
         else:
             self.pair_4_zeta_nondimensional_height = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.pair_4_delta_adjacent_air_temperature = None
         else:
             self.pair_4_delta_adjacent_air_temperature = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.pair_5_zeta_nondimensional_height = None
         else:
             self.pair_5_zeta_nondimensional_height = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.pair_5_delta_adjacent_air_temperature = None
         else:
             self.pair_5_delta_adjacent_air_temperature = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.pair_6_zeta_nondimensional_height = None
         else:
             self.pair_6_zeta_nondimensional_height = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.pair_6_delta_adjacent_air_temperature = None
         else:
             self.pair_6_delta_adjacent_air_temperature = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.pair_7_zeta_nondimensional_height = None
         else:
             self.pair_7_zeta_nondimensional_height = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.pair_7_delta_adjacent_air_temperature = None
         else:
             self.pair_7_delta_adjacent_air_temperature = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.pair_8_zeta_nondimensional_height = None
         else:
             self.pair_8_zeta_nondimensional_height = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.pair_8_delta_adjacent_air_temperature = None
         else:
             self.pair_8_delta_adjacent_air_temperature = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.pair_9_zeta_nondimensional_height = None
         else:
             self.pair_9_zeta_nondimensional_height = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.pair_9_delta_adjacent_air_temperature = None
         else:
             self.pair_9_delta_adjacent_air_temperature = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.pair_10_zeta_nondimensional_height = None
         else:
             self.pair_10_zeta_nondimensional_height = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.pair_10_delta_adjacent_air_temperature = None
         else:
             self.pair_10_delta_adjacent_air_temperature = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.pair_11_zeta_nondimensional_height = None
         else:
             self.pair_11_zeta_nondimensional_height = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.pair_11_delta_adjacent_air_temperature = None
         else:
             self.pair_11_delta_adjacent_air_temperature = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.pair_12_zeta_nondimensional_height = None
         else:
             self.pair_12_zeta_nondimensional_height = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.pair_12_delta_adjacent_air_temperature = None
         else:
             self.pair_12_delta_adjacent_air_temperature = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.pair_13_zeta_nondimensional_height = None
         else:
             self.pair_13_zeta_nondimensional_height = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.pair_13_delta_adjacent_air_temperature = None
         else:
             self.pair_13_delta_adjacent_air_temperature = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.pair_14_zeta_nondimensional_height = None
         else:
             self.pair_14_zeta_nondimensional_height = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.pair_14_delta_adjacent_air_temperature = None
         else:
             self.pair_14_delta_adjacent_air_temperature = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.pair_15_zeta_nondimensional_height = None
         else:
             self.pair_15_zeta_nondimensional_height = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.pair_15_delta_adjacent_air_temperature = None
         else:
             self.pair_15_delta_adjacent_air_temperature = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.pair_16_zeta_nondimensional_height = None
         else:
             self.pair_16_zeta_nondimensional_height = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.pair_16_delta_adjacent_air_temperature = None
         else:
             self.pair_16_delta_adjacent_air_temperature = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.pair_17_zeta_nondimensional_height = None
         else:
             self.pair_17_zeta_nondimensional_height = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.pair_17_delta_adjacent_air_temperature = None
         else:
             self.pair_17_delta_adjacent_air_temperature = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.pair_18_zeta_nondimensional_height = None
         else:
             self.pair_18_zeta_nondimensional_height = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.pair_18_delta_adjacent_air_temperature = None
         else:
             self.pair_18_delta_adjacent_air_temperature = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.pair_19_zeta_nondimensional_height = None
         else:
             self.pair_19_zeta_nondimensional_height = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.pair_19_delta_adjacent_air_temperature = None
         else:
             self.pair_19_delta_adjacent_air_temperature = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -1592,6 +1812,9 @@ class RoomAirTemperaturePatternNondimensionalHeight(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -3061,52 +3284,17 @@ class RoomAirTemperaturePatternNondimensionalHeight(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.control_integer_for_pattern_control_schedule_name))
-        out.append(self._to_str(self.thermostat_offset))
-        out.append(self._to_str(self.return_air_offset))
-        out.append(self._to_str(self.exhaust_air_offset))
-        out.append(self._to_str(self.pair_1_zeta_nondimensional_height))
-        out.append(self._to_str(self.pair_1_delta_adjacent_air_temperature))
-        out.append(self._to_str(self.pair_2_zeta_nondimensional_height))
-        out.append(self._to_str(self.pair_2_delta_adjacent_air_temperature))
-        out.append(self._to_str(self.pair_3_zeta_nondimensional_height))
-        out.append(self._to_str(self.pair_3_delta_adjacent_air_temperature))
-        out.append(self._to_str(self.pair_4_zeta_nondimensional_height))
-        out.append(self._to_str(self.pair_4_delta_adjacent_air_temperature))
-        out.append(self._to_str(self.pair_5_zeta_nondimensional_height))
-        out.append(self._to_str(self.pair_5_delta_adjacent_air_temperature))
-        out.append(self._to_str(self.pair_6_zeta_nondimensional_height))
-        out.append(self._to_str(self.pair_6_delta_adjacent_air_temperature))
-        out.append(self._to_str(self.pair_7_zeta_nondimensional_height))
-        out.append(self._to_str(self.pair_7_delta_adjacent_air_temperature))
-        out.append(self._to_str(self.pair_8_zeta_nondimensional_height))
-        out.append(self._to_str(self.pair_8_delta_adjacent_air_temperature))
-        out.append(self._to_str(self.pair_9_zeta_nondimensional_height))
-        out.append(self._to_str(self.pair_9_delta_adjacent_air_temperature))
-        out.append(self._to_str(self.pair_10_zeta_nondimensional_height))
-        out.append(self._to_str(self.pair_10_delta_adjacent_air_temperature))
-        out.append(self._to_str(self.pair_11_zeta_nondimensional_height))
-        out.append(self._to_str(self.pair_11_delta_adjacent_air_temperature))
-        out.append(self._to_str(self.pair_12_zeta_nondimensional_height))
-        out.append(self._to_str(self.pair_12_delta_adjacent_air_temperature))
-        out.append(self._to_str(self.pair_13_zeta_nondimensional_height))
-        out.append(self._to_str(self.pair_13_delta_adjacent_air_temperature))
-        out.append(self._to_str(self.pair_14_zeta_nondimensional_height))
-        out.append(self._to_str(self.pair_14_delta_adjacent_air_temperature))
-        out.append(self._to_str(self.pair_15_zeta_nondimensional_height))
-        out.append(self._to_str(self.pair_15_delta_adjacent_air_temperature))
-        out.append(self._to_str(self.pair_16_zeta_nondimensional_height))
-        out.append(self._to_str(self.pair_16_delta_adjacent_air_temperature))
-        out.append(self._to_str(self.pair_17_zeta_nondimensional_height))
-        out.append(self._to_str(self.pair_17_delta_adjacent_air_temperature))
-        out.append(self._to_str(self.pair_18_zeta_nondimensional_height))
-        out.append(self._to_str(self.pair_18_delta_adjacent_air_temperature))
-        out.append(self._to_str(self.pair_19_zeta_nondimensional_height))
-        out.append(self._to_str(self.pair_19_delta_adjacent_air_temperature))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class RoomAirTemperaturePatternSurfaceMapping(object):
     """ Corresponds to IDD object `RoomAir:TemperaturePattern:SurfaceMapping`
@@ -3172,249 +3360,345 @@ class RoomAirTemperaturePatternSurfaceMapping(object):
         self._data["Delta Adjacent Air Temperature Pair 20"] = None
         self._data["Surface Name Pair 21"] = None
         self._data["Delta Adjacent Air Temperature Pair 21"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.control_integer_for_pattern_control_schedule_name = None
         else:
             self.control_integer_for_pattern_control_schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.thermostat_offset = None
         else:
             self.thermostat_offset = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.return_air_offset = None
         else:
             self.return_air_offset = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.exhaust_air_offset = None
         else:
             self.exhaust_air_offset = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_name_pair_1 = None
         else:
             self.surface_name_pair_1 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.delta_adjacent_air_temperature_pair_1 = None
         else:
             self.delta_adjacent_air_temperature_pair_1 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_name_pair_2 = None
         else:
             self.surface_name_pair_2 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.delta_adjacent_air_temperature_pair_2 = None
         else:
             self.delta_adjacent_air_temperature_pair_2 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_name_pair_3 = None
         else:
             self.surface_name_pair_3 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.delta_adjacent_air_temperature_pair_3 = None
         else:
             self.delta_adjacent_air_temperature_pair_3 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_name_pair_4 = None
         else:
             self.surface_name_pair_4 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.delta_adjacent_air_temperature_pair_4 = None
         else:
             self.delta_adjacent_air_temperature_pair_4 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_name_pair_5 = None
         else:
             self.surface_name_pair_5 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.delta_adjacent_air_temperature_pair_5 = None
         else:
             self.delta_adjacent_air_temperature_pair_5 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_name_pair_6 = None
         else:
             self.surface_name_pair_6 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.delta_adjacent_air_temperature_pair_6 = None
         else:
             self.delta_adjacent_air_temperature_pair_6 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_name_pair_7 = None
         else:
             self.surface_name_pair_7 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.delta_adjacent_air_temperature_pair_7 = None
         else:
             self.delta_adjacent_air_temperature_pair_7 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_name_pair_8 = None
         else:
             self.surface_name_pair_8 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.delta_adjacent_air_temperature_pair_8 = None
         else:
             self.delta_adjacent_air_temperature_pair_8 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_name_pair_9 = None
         else:
             self.surface_name_pair_9 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.delta_adjacent_air_temperature_pair_9 = None
         else:
             self.delta_adjacent_air_temperature_pair_9 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_name_pair_10 = None
         else:
             self.surface_name_pair_10 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.delta_adjacent_air_temperature_pair_10 = None
         else:
             self.delta_adjacent_air_temperature_pair_10 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_name_pair_11 = None
         else:
             self.surface_name_pair_11 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.delta_adjacent_air_temperature_pair_11 = None
         else:
             self.delta_adjacent_air_temperature_pair_11 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_name_pair_12 = None
         else:
             self.surface_name_pair_12 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.delta_adjacent_air_temperature_pair_12 = None
         else:
             self.delta_adjacent_air_temperature_pair_12 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_name_pair_13 = None
         else:
             self.surface_name_pair_13 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.delta_adjacent_air_temperature_pair_13 = None
         else:
             self.delta_adjacent_air_temperature_pair_13 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_name_pair_14 = None
         else:
             self.surface_name_pair_14 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.delta_adjacent_air_temperature_pair_14 = None
         else:
             self.delta_adjacent_air_temperature_pair_14 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_name_pair_15 = None
         else:
             self.surface_name_pair_15 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.delta_adjacent_air_temperature_pair_15 = None
         else:
             self.delta_adjacent_air_temperature_pair_15 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_name_pair_16 = None
         else:
             self.surface_name_pair_16 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.delta_adjacent_air_temperature_pair_16 = None
         else:
             self.delta_adjacent_air_temperature_pair_16 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_name_pair_17 = None
         else:
             self.surface_name_pair_17 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.delta_adjacent_air_temperature_pair_17 = None
         else:
             self.delta_adjacent_air_temperature_pair_17 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_name_pair_18 = None
         else:
             self.surface_name_pair_18 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.delta_adjacent_air_temperature_pair_18 = None
         else:
             self.delta_adjacent_air_temperature_pair_18 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_name_pair_19 = None
         else:
             self.surface_name_pair_19 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.delta_adjacent_air_temperature_pair_19 = None
         else:
             self.delta_adjacent_air_temperature_pair_19 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_name_pair_20 = None
         else:
             self.surface_name_pair_20 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.delta_adjacent_air_temperature_pair_20 = None
         else:
             self.delta_adjacent_air_temperature_pair_20 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_name_pair_21 = None
         else:
             self.surface_name_pair_21 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.delta_adjacent_air_temperature_pair_21 = None
         else:
             self.delta_adjacent_air_temperature_pair_21 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -3445,6 +3729,9 @@ class RoomAirTemperaturePatternSurfaceMapping(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -3606,6 +3893,9 @@ class RoomAirTemperaturePatternSurfaceMapping(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_name_pair_1`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_name_pair_1`')
 
         self._data["Surface Name Pair 1"] = value
 
@@ -3669,6 +3959,9 @@ class RoomAirTemperaturePatternSurfaceMapping(object):
                                  'for field `surface_name_pair_2`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_name_pair_2`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_name_pair_2`')
 
         self._data["Surface Name Pair 2"] = value
@@ -3734,6 +4027,9 @@ class RoomAirTemperaturePatternSurfaceMapping(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_name_pair_3`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_name_pair_3`')
 
         self._data["Surface Name Pair 3"] = value
 
@@ -3797,6 +4093,9 @@ class RoomAirTemperaturePatternSurfaceMapping(object):
                                  'for field `surface_name_pair_4`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_name_pair_4`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_name_pair_4`')
 
         self._data["Surface Name Pair 4"] = value
@@ -3862,6 +4161,9 @@ class RoomAirTemperaturePatternSurfaceMapping(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_name_pair_5`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_name_pair_5`')
 
         self._data["Surface Name Pair 5"] = value
 
@@ -3925,6 +4227,9 @@ class RoomAirTemperaturePatternSurfaceMapping(object):
                                  'for field `surface_name_pair_6`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_name_pair_6`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_name_pair_6`')
 
         self._data["Surface Name Pair 6"] = value
@@ -3990,6 +4295,9 @@ class RoomAirTemperaturePatternSurfaceMapping(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_name_pair_7`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_name_pair_7`')
 
         self._data["Surface Name Pair 7"] = value
 
@@ -4053,6 +4361,9 @@ class RoomAirTemperaturePatternSurfaceMapping(object):
                                  'for field `surface_name_pair_8`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_name_pair_8`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_name_pair_8`')
 
         self._data["Surface Name Pair 8"] = value
@@ -4118,6 +4429,9 @@ class RoomAirTemperaturePatternSurfaceMapping(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_name_pair_9`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_name_pair_9`')
 
         self._data["Surface Name Pair 9"] = value
 
@@ -4181,6 +4495,9 @@ class RoomAirTemperaturePatternSurfaceMapping(object):
                                  'for field `surface_name_pair_10`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_name_pair_10`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_name_pair_10`')
 
         self._data["Surface Name Pair 10"] = value
@@ -4246,6 +4563,9 @@ class RoomAirTemperaturePatternSurfaceMapping(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_name_pair_11`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_name_pair_11`')
 
         self._data["Surface Name Pair 11"] = value
 
@@ -4309,6 +4629,9 @@ class RoomAirTemperaturePatternSurfaceMapping(object):
                                  'for field `surface_name_pair_12`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_name_pair_12`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_name_pair_12`')
 
         self._data["Surface Name Pair 12"] = value
@@ -4374,6 +4697,9 @@ class RoomAirTemperaturePatternSurfaceMapping(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_name_pair_13`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_name_pair_13`')
 
         self._data["Surface Name Pair 13"] = value
 
@@ -4437,6 +4763,9 @@ class RoomAirTemperaturePatternSurfaceMapping(object):
                                  'for field `surface_name_pair_14`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_name_pair_14`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_name_pair_14`')
 
         self._data["Surface Name Pair 14"] = value
@@ -4502,6 +4831,9 @@ class RoomAirTemperaturePatternSurfaceMapping(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_name_pair_15`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_name_pair_15`')
 
         self._data["Surface Name Pair 15"] = value
 
@@ -4565,6 +4897,9 @@ class RoomAirTemperaturePatternSurfaceMapping(object):
                                  'for field `surface_name_pair_16`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_name_pair_16`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_name_pair_16`')
 
         self._data["Surface Name Pair 16"] = value
@@ -4630,6 +4965,9 @@ class RoomAirTemperaturePatternSurfaceMapping(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_name_pair_17`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_name_pair_17`')
 
         self._data["Surface Name Pair 17"] = value
 
@@ -4693,6 +5031,9 @@ class RoomAirTemperaturePatternSurfaceMapping(object):
                                  'for field `surface_name_pair_18`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_name_pair_18`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_name_pair_18`')
 
         self._data["Surface Name Pair 18"] = value
@@ -4758,6 +5099,9 @@ class RoomAirTemperaturePatternSurfaceMapping(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_name_pair_19`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_name_pair_19`')
 
         self._data["Surface Name Pair 19"] = value
 
@@ -4821,6 +5165,9 @@ class RoomAirTemperaturePatternSurfaceMapping(object):
                                  'for field `surface_name_pair_20`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_name_pair_20`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_name_pair_20`')
 
         self._data["Surface Name Pair 20"] = value
@@ -4886,6 +5233,9 @@ class RoomAirTemperaturePatternSurfaceMapping(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_name_pair_21`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_name_pair_21`')
 
         self._data["Surface Name Pair 21"] = value
 
@@ -4942,56 +5292,17 @@ class RoomAirTemperaturePatternSurfaceMapping(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.control_integer_for_pattern_control_schedule_name))
-        out.append(self._to_str(self.thermostat_offset))
-        out.append(self._to_str(self.return_air_offset))
-        out.append(self._to_str(self.exhaust_air_offset))
-        out.append(self._to_str(self.surface_name_pair_1))
-        out.append(self._to_str(self.delta_adjacent_air_temperature_pair_1))
-        out.append(self._to_str(self.surface_name_pair_2))
-        out.append(self._to_str(self.delta_adjacent_air_temperature_pair_2))
-        out.append(self._to_str(self.surface_name_pair_3))
-        out.append(self._to_str(self.delta_adjacent_air_temperature_pair_3))
-        out.append(self._to_str(self.surface_name_pair_4))
-        out.append(self._to_str(self.delta_adjacent_air_temperature_pair_4))
-        out.append(self._to_str(self.surface_name_pair_5))
-        out.append(self._to_str(self.delta_adjacent_air_temperature_pair_5))
-        out.append(self._to_str(self.surface_name_pair_6))
-        out.append(self._to_str(self.delta_adjacent_air_temperature_pair_6))
-        out.append(self._to_str(self.surface_name_pair_7))
-        out.append(self._to_str(self.delta_adjacent_air_temperature_pair_7))
-        out.append(self._to_str(self.surface_name_pair_8))
-        out.append(self._to_str(self.delta_adjacent_air_temperature_pair_8))
-        out.append(self._to_str(self.surface_name_pair_9))
-        out.append(self._to_str(self.delta_adjacent_air_temperature_pair_9))
-        out.append(self._to_str(self.surface_name_pair_10))
-        out.append(self._to_str(self.delta_adjacent_air_temperature_pair_10))
-        out.append(self._to_str(self.surface_name_pair_11))
-        out.append(self._to_str(self.delta_adjacent_air_temperature_pair_11))
-        out.append(self._to_str(self.surface_name_pair_12))
-        out.append(self._to_str(self.delta_adjacent_air_temperature_pair_12))
-        out.append(self._to_str(self.surface_name_pair_13))
-        out.append(self._to_str(self.delta_adjacent_air_temperature_pair_13))
-        out.append(self._to_str(self.surface_name_pair_14))
-        out.append(self._to_str(self.delta_adjacent_air_temperature_pair_14))
-        out.append(self._to_str(self.surface_name_pair_15))
-        out.append(self._to_str(self.delta_adjacent_air_temperature_pair_15))
-        out.append(self._to_str(self.surface_name_pair_16))
-        out.append(self._to_str(self.delta_adjacent_air_temperature_pair_16))
-        out.append(self._to_str(self.surface_name_pair_17))
-        out.append(self._to_str(self.delta_adjacent_air_temperature_pair_17))
-        out.append(self._to_str(self.surface_name_pair_18))
-        out.append(self._to_str(self.delta_adjacent_air_temperature_pair_18))
-        out.append(self._to_str(self.surface_name_pair_19))
-        out.append(self._to_str(self.delta_adjacent_air_temperature_pair_19))
-        out.append(self._to_str(self.surface_name_pair_20))
-        out.append(self._to_str(self.delta_adjacent_air_temperature_pair_20))
-        out.append(self._to_str(self.surface_name_pair_21))
-        out.append(self._to_str(self.delta_adjacent_air_temperature_pair_21))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class RoomAirNode(object):
     """ Corresponds to IDD object `RoomAir:Node`
@@ -5031,139 +5342,191 @@ class RoomAirNode(object):
         self._data["Surface 19 Name"] = None
         self._data["Surface 20 Name"] = None
         self._data["Surface 21 Name"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.node_type = None
         else:
             self.node_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.zone_name = None
         else:
             self.zone_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.height_of_nodal_control_volume_center = None
         else:
             self.height_of_nodal_control_volume_center = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_1_name = None
         else:
             self.surface_1_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_2_name = None
         else:
             self.surface_2_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_3_name = None
         else:
             self.surface_3_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_4_name = None
         else:
             self.surface_4_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_5_name = None
         else:
             self.surface_5_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_6_name = None
         else:
             self.surface_6_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_7_name = None
         else:
             self.surface_7_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_8_name = None
         else:
             self.surface_8_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_9_name = None
         else:
             self.surface_9_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_10_name = None
         else:
             self.surface_10_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_11_name = None
         else:
             self.surface_11_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_12_name = None
         else:
             self.surface_12_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_13_name = None
         else:
             self.surface_13_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_14_name = None
         else:
             self.surface_14_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_15_name = None
         else:
             self.surface_15_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_16_name = None
         else:
             self.surface_16_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_17_name = None
         else:
             self.surface_17_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_18_name = None
         else:
             self.surface_18_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_19_name = None
         else:
             self.surface_19_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_20_name = None
         else:
             self.surface_20_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_21_name = None
         else:
             self.surface_21_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -5194,6 +5557,9 @@ class RoomAirNode(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -5235,16 +5601,30 @@ class RoomAirNode(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `node_type`')
-            vals = set()
-            vals.add("Inlet")
-            vals.add("Floor")
-            vals.add("Control")
-            vals.add("Ceiling")
-            vals.add("MundtRoom")
-            vals.add("Return")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `node_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `node_type`')
+            vals = {}
+            vals["inlet"] = "Inlet"
+            vals["floor"] = "Floor"
+            vals["control"] = "Control"
+            vals["ceiling"] = "Ceiling"
+            vals["mundtroom"] = "MundtRoom"
+            vals["return"] = "Return"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `node_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Node Type"] = value
 
@@ -5277,6 +5657,9 @@ class RoomAirNode(object):
                                  'for field `zone_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `zone_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `zone_name`')
 
         self._data["Zone Name"] = value
@@ -5342,6 +5725,9 @@ class RoomAirNode(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_1_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_1_name`')
 
         self._data["Surface 1 Name"] = value
 
@@ -5374,6 +5760,9 @@ class RoomAirNode(object):
                                  'for field `surface_2_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_2_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_2_name`')
 
         self._data["Surface 2 Name"] = value
@@ -5408,6 +5797,9 @@ class RoomAirNode(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_3_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_3_name`')
 
         self._data["Surface 3 Name"] = value
 
@@ -5440,6 +5832,9 @@ class RoomAirNode(object):
                                  'for field `surface_4_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_4_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_4_name`')
 
         self._data["Surface 4 Name"] = value
@@ -5474,6 +5869,9 @@ class RoomAirNode(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_5_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_5_name`')
 
         self._data["Surface 5 Name"] = value
 
@@ -5506,6 +5904,9 @@ class RoomAirNode(object):
                                  'for field `surface_6_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_6_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_6_name`')
 
         self._data["Surface 6 Name"] = value
@@ -5540,6 +5941,9 @@ class RoomAirNode(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_7_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_7_name`')
 
         self._data["Surface 7 Name"] = value
 
@@ -5572,6 +5976,9 @@ class RoomAirNode(object):
                                  'for field `surface_8_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_8_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_8_name`')
 
         self._data["Surface 8 Name"] = value
@@ -5606,6 +6013,9 @@ class RoomAirNode(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_9_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_9_name`')
 
         self._data["Surface 9 Name"] = value
 
@@ -5638,6 +6048,9 @@ class RoomAirNode(object):
                                  'for field `surface_10_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_10_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_10_name`')
 
         self._data["Surface 10 Name"] = value
@@ -5672,6 +6085,9 @@ class RoomAirNode(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_11_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_11_name`')
 
         self._data["Surface 11 Name"] = value
 
@@ -5704,6 +6120,9 @@ class RoomAirNode(object):
                                  'for field `surface_12_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_12_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_12_name`')
 
         self._data["Surface 12 Name"] = value
@@ -5738,6 +6157,9 @@ class RoomAirNode(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_13_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_13_name`')
 
         self._data["Surface 13 Name"] = value
 
@@ -5770,6 +6192,9 @@ class RoomAirNode(object):
                                  'for field `surface_14_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_14_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_14_name`')
 
         self._data["Surface 14 Name"] = value
@@ -5804,6 +6229,9 @@ class RoomAirNode(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_15_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_15_name`')
 
         self._data["Surface 15 Name"] = value
 
@@ -5836,6 +6264,9 @@ class RoomAirNode(object):
                                  'for field `surface_16_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_16_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_16_name`')
 
         self._data["Surface 16 Name"] = value
@@ -5870,6 +6301,9 @@ class RoomAirNode(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_17_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_17_name`')
 
         self._data["Surface 17 Name"] = value
 
@@ -5902,6 +6336,9 @@ class RoomAirNode(object):
                                  'for field `surface_18_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_18_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_18_name`')
 
         self._data["Surface 18 Name"] = value
@@ -5936,6 +6373,9 @@ class RoomAirNode(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_19_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_19_name`')
 
         self._data["Surface 19 Name"] = value
 
@@ -5968,6 +6408,9 @@ class RoomAirNode(object):
                                  'for field `surface_20_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_20_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_20_name`')
 
         self._data["Surface 20 Name"] = value
@@ -6002,6 +6445,9 @@ class RoomAirNode(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_21_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_21_name`')
 
         self._data["Surface 21 Name"] = value
 
@@ -6027,34 +6473,17 @@ class RoomAirNode(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.node_type))
-        out.append(self._to_str(self.zone_name))
-        out.append(self._to_str(self.height_of_nodal_control_volume_center))
-        out.append(self._to_str(self.surface_1_name))
-        out.append(self._to_str(self.surface_2_name))
-        out.append(self._to_str(self.surface_3_name))
-        out.append(self._to_str(self.surface_4_name))
-        out.append(self._to_str(self.surface_5_name))
-        out.append(self._to_str(self.surface_6_name))
-        out.append(self._to_str(self.surface_7_name))
-        out.append(self._to_str(self.surface_8_name))
-        out.append(self._to_str(self.surface_9_name))
-        out.append(self._to_str(self.surface_10_name))
-        out.append(self._to_str(self.surface_11_name))
-        out.append(self._to_str(self.surface_12_name))
-        out.append(self._to_str(self.surface_13_name))
-        out.append(self._to_str(self.surface_14_name))
-        out.append(self._to_str(self.surface_15_name))
-        out.append(self._to_str(self.surface_16_name))
-        out.append(self._to_str(self.surface_17_name))
-        out.append(self._to_str(self.surface_18_name))
-        out.append(self._to_str(self.surface_19_name))
-        out.append(self._to_str(self.surface_20_name))
-        out.append(self._to_str(self.surface_21_name))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class RoomAirSettingsOneNodeDisplacementVentilation(object):
     """ Corresponds to IDD object `RoomAirSettings:OneNodeDisplacementVentilation`
@@ -6072,29 +6501,37 @@ class RoomAirSettingsOneNodeDisplacementVentilation(object):
         self._data["Zone Name"] = None
         self._data["Fraction of Convective Internal Loads Added to Floor Air"] = None
         self._data["Fraction of Infiltration Internal Loads Added to Floor Air"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.zone_name = None
         else:
             self.zone_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_convective_internal_loads_added_to_floor_air = None
         else:
             self.fraction_of_convective_internal_loads_added_to_floor_air = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_infiltration_internal_loads_added_to_floor_air = None
         else:
             self.fraction_of_infiltration_internal_loads_added_to_floor_air = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def zone_name(self):
@@ -6125,6 +6562,9 @@ class RoomAirSettingsOneNodeDisplacementVentilation(object):
                                  'for field `zone_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `zone_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `zone_name`')
 
         self._data["Zone Name"] = value
@@ -6227,12 +6667,17 @@ class RoomAirSettingsOneNodeDisplacementVentilation(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.zone_name))
-        out.append(self._to_str(self.fraction_of_convective_internal_loads_added_to_floor_air))
-        out.append(self._to_str(self.fraction_of_infiltration_internal_loads_added_to_floor_air))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class RoomAirSettingsThreeNodeDisplacementVentilation(object):
     """ Corresponds to IDD object `RoomAirSettings:ThreeNodeDisplacementVentilation`
@@ -6253,44 +6698,58 @@ class RoomAirSettingsThreeNodeDisplacementVentilation(object):
         self._data["Thermostat Height"] = None
         self._data["Comfort Height"] = None
         self._data["Temperature Difference Threshold for Reporting"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.zone_name = None
         else:
             self.zone_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.gain_distribution_schedule_name = None
         else:
             self.gain_distribution_schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.number_of_plumes_per_occupant = None
         else:
             self.number_of_plumes_per_occupant = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.thermostat_height = None
         else:
             self.thermostat_height = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.comfort_height = None
         else:
             self.comfort_height = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.temperature_difference_threshold_for_reporting = None
         else:
             self.temperature_difference_threshold_for_reporting = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def zone_name(self):
@@ -6322,6 +6781,9 @@ class RoomAirSettingsThreeNodeDisplacementVentilation(object):
                                  'for field `zone_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `zone_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `zone_name`')
 
         self._data["Zone Name"] = value
@@ -6358,6 +6820,9 @@ class RoomAirSettingsThreeNodeDisplacementVentilation(object):
                                  'for field `gain_distribution_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `gain_distribution_schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `gain_distribution_schedule_name`')
 
         self._data["Gain Distribution Schedule Name"] = value
@@ -6538,15 +7003,17 @@ class RoomAirSettingsThreeNodeDisplacementVentilation(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.zone_name))
-        out.append(self._to_str(self.gain_distribution_schedule_name))
-        out.append(self._to_str(self.number_of_plumes_per_occupant))
-        out.append(self._to_str(self.thermostat_height))
-        out.append(self._to_str(self.comfort_height))
-        out.append(self._to_str(self.temperature_difference_threshold_for_reporting))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class RoomAirSettingsCrossVentilation(object):
     """ Corresponds to IDD object `RoomAirSettings:CrossVentilation`
@@ -6568,29 +7035,37 @@ class RoomAirSettingsCrossVentilation(object):
         self._data["Zone Name"] = None
         self._data["Gain Distribution Schedule Name"] = None
         self._data["Airflow Region Used for Thermal Comfort Evaluation"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.zone_name = None
         else:
             self.zone_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.gain_distribution_schedule_name = None
         else:
             self.gain_distribution_schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.airflow_region_used_for_thermal_comfort_evaluation = None
         else:
             self.airflow_region_used_for_thermal_comfort_evaluation = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def zone_name(self):
@@ -6622,6 +7097,9 @@ class RoomAirSettingsCrossVentilation(object):
                                  'for field `zone_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `zone_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `zone_name`')
 
         self._data["Zone Name"] = value
@@ -6658,6 +7136,9 @@ class RoomAirSettingsCrossVentilation(object):
                                  'for field `gain_distribution_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `gain_distribution_schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `gain_distribution_schedule_name`')
 
         self._data["Gain Distribution Schedule Name"] = value
@@ -6698,12 +7179,26 @@ class RoomAirSettingsCrossVentilation(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `airflow_region_used_for_thermal_comfort_evaluation`')
-            vals = set()
-            vals.add("Jet")
-            vals.add("Recirculation")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `airflow_region_used_for_thermal_comfort_evaluation`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `airflow_region_used_for_thermal_comfort_evaluation`')
+            vals = {}
+            vals["jet"] = "Jet"
+            vals["recirculation"] = "Recirculation"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `airflow_region_used_for_thermal_comfort_evaluation`'.format(value))
+            value = vals[value_lower]
 
         self._data["Airflow Region Used for Thermal Comfort Evaluation"] = value
 
@@ -6729,12 +7224,17 @@ class RoomAirSettingsCrossVentilation(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.zone_name))
-        out.append(self._to_str(self.gain_distribution_schedule_name))
-        out.append(self._to_str(self.airflow_region_used_for_thermal_comfort_evaluation))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class RoomAirSettingsUnderFloorAirDistributionInterior(object):
     """ Corresponds to IDD object `RoomAirSettings:UnderFloorAirDistributionInterior`
@@ -6769,89 +7269,121 @@ class RoomAirSettingsUnderFloorAirDistributionInterior(object):
         self._data["Coefficient C"] = None
         self._data["Coefficient D"] = None
         self._data["Coefficient E"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.zone_name = None
         else:
             self.zone_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.number_of_diffusers = None
         else:
             self.number_of_diffusers = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.power_per_plume = None
         else:
             self.power_per_plume = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.design_effective_area_of_diffuser = None
         else:
             self.design_effective_area_of_diffuser = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.diffuser_slot_angle_from_vertical = None
         else:
             self.diffuser_slot_angle_from_vertical = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.thermostat_height = None
         else:
             self.thermostat_height = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.comfort_height = None
         else:
             self.comfort_height = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.temperature_difference_threshold_for_reporting = None
         else:
             self.temperature_difference_threshold_for_reporting = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.floor_diffuser_type = None
         else:
             self.floor_diffuser_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.transition_height = None
         else:
             self.transition_height = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.coefficient_a = None
         else:
             self.coefficient_a = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.coefficient_b = None
         else:
             self.coefficient_b = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.coefficient_c = None
         else:
             self.coefficient_c = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.coefficient_d = None
         else:
             self.coefficient_d = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.coefficient_e = None
         else:
             self.coefficient_e = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def zone_name(self):
@@ -6883,6 +7415,9 @@ class RoomAirSettingsUnderFloorAirDistributionInterior(object):
                                  'for field `zone_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `zone_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `zone_name`')
 
         self._data["Zone Name"] = value
@@ -7183,15 +7718,29 @@ class RoomAirSettingsUnderFloorAirDistributionInterior(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `floor_diffuser_type`')
-            vals = set()
-            vals.add("Custom")
-            vals.add("Swirl")
-            vals.add("VariableArea")
-            vals.add("HorizontalSwirl")
-            vals.add("LinearBarGrille")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `floor_diffuser_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `floor_diffuser_type`')
+            vals = {}
+            vals["custom"] = "Custom"
+            vals["swirl"] = "Swirl"
+            vals["variablearea"] = "VariableArea"
+            vals["horizontalswirl"] = "HorizontalSwirl"
+            vals["linearbargrille"] = "LinearBarGrille"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `floor_diffuser_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Floor Diffuser Type"] = value
 
@@ -7414,24 +7963,17 @@ class RoomAirSettingsUnderFloorAirDistributionInterior(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.zone_name))
-        out.append(self._to_str(self.number_of_diffusers))
-        out.append(self._to_str(self.power_per_plume))
-        out.append(self._to_str(self.design_effective_area_of_diffuser))
-        out.append(self._to_str(self.diffuser_slot_angle_from_vertical))
-        out.append(self._to_str(self.thermostat_height))
-        out.append(self._to_str(self.comfort_height))
-        out.append(self._to_str(self.temperature_difference_threshold_for_reporting))
-        out.append(self._to_str(self.floor_diffuser_type))
-        out.append(self._to_str(self.transition_height))
-        out.append(self._to_str(self.coefficient_a))
-        out.append(self._to_str(self.coefficient_b))
-        out.append(self._to_str(self.coefficient_c))
-        out.append(self._to_str(self.coefficient_d))
-        out.append(self._to_str(self.coefficient_e))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class RoomAirSettingsUnderFloorAirDistributionExterior(object):
     """ Corresponds to IDD object `RoomAirSettings:UnderFloorAirDistributionExterior`
@@ -7464,89 +8006,121 @@ class RoomAirSettingsUnderFloorAirDistributionExterior(object):
         self._data["Coefficient C in formula Kc = A*Gamma**B + C + D*Gamma + E*Gamma**2"] = None
         self._data["Coefficient D in formula Kc = A*Gamma**B + C + D*Gamma + E*Gamma**2"] = None
         self._data["Coefficient E in formula Kc = A*Gamma**B + C + D*Gamma + E*Gamma**2"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.zone_name = None
         else:
             self.zone_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.number_of_diffusers_per_zone = None
         else:
             self.number_of_diffusers_per_zone = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.power_per_plume = None
         else:
             self.power_per_plume = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.design_effective_area_of_diffuser = None
         else:
             self.design_effective_area_of_diffuser = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.diffuser_slot_angle_from_vertical = None
         else:
             self.diffuser_slot_angle_from_vertical = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.thermostat_height = None
         else:
             self.thermostat_height = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.comfort_height = None
         else:
             self.comfort_height = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.temperature_difference_threshold_for_reporting = None
         else:
             self.temperature_difference_threshold_for_reporting = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.floor_diffuser_type = None
         else:
             self.floor_diffuser_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.transition_height = None
         else:
             self.transition_height = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.coefficient_a_in_formula_kc_agammab_c_dgamma_egamma2 = None
         else:
             self.coefficient_a_in_formula_kc_agammab_c_dgamma_egamma2 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.coefficient_b_in_formula_kc_agammab_c_dgamma_egamma2 = None
         else:
             self.coefficient_b_in_formula_kc_agammab_c_dgamma_egamma2 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.coefficient_c_in_formula_kc_agammab_c_dgamma_egamma2 = None
         else:
             self.coefficient_c_in_formula_kc_agammab_c_dgamma_egamma2 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.coefficient_d_in_formula_kc_agammab_c_dgamma_egamma2 = None
         else:
             self.coefficient_d_in_formula_kc_agammab_c_dgamma_egamma2 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.coefficient_e_in_formula_kc_agammab_c_dgamma_egamma2 = None
         else:
             self.coefficient_e_in_formula_kc_agammab_c_dgamma_egamma2 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def zone_name(self):
@@ -7578,6 +8152,9 @@ class RoomAirSettingsUnderFloorAirDistributionExterior(object):
                                  'for field `zone_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `zone_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `zone_name`')
 
         self._data["Zone Name"] = value
@@ -7877,15 +8454,29 @@ class RoomAirSettingsUnderFloorAirDistributionExterior(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `floor_diffuser_type`')
-            vals = set()
-            vals.add("Custom")
-            vals.add("Swirl")
-            vals.add("VariableArea")
-            vals.add("HorizontalSwirl")
-            vals.add("LinearBarGrille")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `floor_diffuser_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `floor_diffuser_type`')
+            vals = {}
+            vals["custom"] = "Custom"
+            vals["swirl"] = "Swirl"
+            vals["variablearea"] = "VariableArea"
+            vals["horizontalswirl"] = "HorizontalSwirl"
+            vals["linearbargrille"] = "LinearBarGrille"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `floor_diffuser_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Floor Diffuser Type"] = value
 
@@ -8103,21 +8694,14 @@ class RoomAirSettingsUnderFloorAirDistributionExterior(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.zone_name))
-        out.append(self._to_str(self.number_of_diffusers_per_zone))
-        out.append(self._to_str(self.power_per_plume))
-        out.append(self._to_str(self.design_effective_area_of_diffuser))
-        out.append(self._to_str(self.diffuser_slot_angle_from_vertical))
-        out.append(self._to_str(self.thermostat_height))
-        out.append(self._to_str(self.comfort_height))
-        out.append(self._to_str(self.temperature_difference_threshold_for_reporting))
-        out.append(self._to_str(self.floor_diffuser_type))
-        out.append(self._to_str(self.transition_height))
-        out.append(self._to_str(self.coefficient_a_in_formula_kc_agammab_c_dgamma_egamma2))
-        out.append(self._to_str(self.coefficient_b_in_formula_kc_agammab_c_dgamma_egamma2))
-        out.append(self._to_str(self.coefficient_c_in_formula_kc_agammab_c_dgamma_egamma2))
-        out.append(self._to_str(self.coefficient_d_in_formula_kc_agammab_c_dgamma_egamma2))
-        out.append(self._to_str(self.coefficient_e_in_formula_kc_agammab_c_dgamma_egamma2))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])

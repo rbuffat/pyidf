@@ -22,59 +22,79 @@ class Material(object):
         self._data["Thermal Absorptance"] = None
         self._data["Solar Absorptance"] = None
         self._data["Visible Absorptance"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.roughness = None
         else:
             self.roughness = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.thickness = None
         else:
             self.thickness = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.conductivity = None
         else:
             self.conductivity = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.density = None
         else:
             self.density = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.specific_heat = None
         else:
             self.specific_heat = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.thermal_absorptance = None
         else:
             self.thermal_absorptance = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.solar_absorptance = None
         else:
             self.solar_absorptance = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.visible_absorptance = None
         else:
             self.visible_absorptance = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -105,6 +125,9 @@ class Material(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -146,16 +169,30 @@ class Material(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `roughness`')
-            vals = set()
-            vals.add("VeryRough")
-            vals.add("Rough")
-            vals.add("MediumRough")
-            vals.add("MediumSmooth")
-            vals.add("Smooth")
-            vals.add("VerySmooth")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `roughness`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `roughness`')
+            vals = {}
+            vals["veryrough"] = "VeryRough"
+            vals["rough"] = "Rough"
+            vals["mediumrough"] = "MediumRough"
+            vals["mediumsmooth"] = "MediumSmooth"
+            vals["smooth"] = "Smooth"
+            vals["verysmooth"] = "VerySmooth"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `roughness`'.format(value))
+            value = vals[value_lower]
 
         self._data["Roughness"] = value
 
@@ -443,18 +480,17 @@ class Material(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.roughness))
-        out.append(self._to_str(self.thickness))
-        out.append(self._to_str(self.conductivity))
-        out.append(self._to_str(self.density))
-        out.append(self._to_str(self.specific_heat))
-        out.append(self._to_str(self.thermal_absorptance))
-        out.append(self._to_str(self.solar_absorptance))
-        out.append(self._to_str(self.visible_absorptance))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class MaterialNoMass(object):
     """ Corresponds to IDD object `Material:NoMass`
@@ -475,44 +511,58 @@ class MaterialNoMass(object):
         self._data["Thermal Absorptance"] = None
         self._data["Solar Absorptance"] = None
         self._data["Visible Absorptance"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.roughness = None
         else:
             self.roughness = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.thermal_resistance = None
         else:
             self.thermal_resistance = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.thermal_absorptance = None
         else:
             self.thermal_absorptance = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.solar_absorptance = None
         else:
             self.solar_absorptance = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.visible_absorptance = None
         else:
             self.visible_absorptance = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -543,6 +593,9 @@ class MaterialNoMass(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -584,16 +637,30 @@ class MaterialNoMass(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `roughness`')
-            vals = set()
-            vals.add("VeryRough")
-            vals.add("Rough")
-            vals.add("MediumRough")
-            vals.add("MediumSmooth")
-            vals.add("Smooth")
-            vals.add("VerySmooth")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `roughness`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `roughness`')
+            vals = {}
+            vals["veryrough"] = "VeryRough"
+            vals["rough"] = "Rough"
+            vals["mediumrough"] = "MediumRough"
+            vals["mediumsmooth"] = "MediumSmooth"
+            vals["smooth"] = "Smooth"
+            vals["verysmooth"] = "VerySmooth"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `roughness`'.format(value))
+            value = vals[value_lower]
 
         self._data["Roughness"] = value
 
@@ -771,15 +838,17 @@ class MaterialNoMass(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.roughness))
-        out.append(self._to_str(self.thermal_resistance))
-        out.append(self._to_str(self.thermal_absorptance))
-        out.append(self._to_str(self.solar_absorptance))
-        out.append(self._to_str(self.visible_absorptance))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class MaterialInfraredTransparent(object):
     """ Corresponds to IDD object `Material:InfraredTransparent`
@@ -800,19 +869,23 @@ class MaterialInfraredTransparent(object):
         """
         self._data = OrderedDict()
         self._data["Name"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -844,6 +917,9 @@ class MaterialInfraredTransparent(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `name`')
 
         self._data["Name"] = value
 
@@ -869,10 +945,17 @@ class MaterialInfraredTransparent(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class MaterialAirGap(object):
     """ Corresponds to IDD object `Material:AirGap`
@@ -889,24 +972,30 @@ class MaterialAirGap(object):
         self._data = OrderedDict()
         self._data["Name"] = None
         self._data["Thermal Resistance"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.thermal_resistance = None
         else:
             self.thermal_resistance = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -937,6 +1026,9 @@ class MaterialAirGap(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -998,11 +1090,17 @@ class MaterialAirGap(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.thermal_resistance))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class MaterialRoofVegetation(object):
     """ Corresponds to IDD object `Material:RoofVegetation`
@@ -1041,109 +1139,149 @@ class MaterialRoofVegetation(object):
         self._data["Residual Volumetric Moisture Content of the Soil Layer"] = None
         self._data["Initial Volumetric Moisture Content of the Soil Layer"] = None
         self._data["Moisture Diffusion Calculation Method"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.height_of_plants = None
         else:
             self.height_of_plants = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.leaf_area_index = None
         else:
             self.leaf_area_index = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.leaf_reflectivity = None
         else:
             self.leaf_reflectivity = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.leaf_emissivity = None
         else:
             self.leaf_emissivity = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.minimum_stomatal_resistance = None
         else:
             self.minimum_stomatal_resistance = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.soil_layer_name = None
         else:
             self.soil_layer_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.roughness = None
         else:
             self.roughness = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.thickness = None
         else:
             self.thickness = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.conductivity_of_dry_soil = None
         else:
             self.conductivity_of_dry_soil = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.density_of_dry_soil = None
         else:
             self.density_of_dry_soil = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.specific_heat_of_dry_soil = None
         else:
             self.specific_heat_of_dry_soil = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.thermal_absorptance = None
         else:
             self.thermal_absorptance = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.solar_absorptance = None
         else:
             self.solar_absorptance = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.visible_absorptance = None
         else:
             self.visible_absorptance = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.saturation_volumetric_moisture_content_of_the_soil_layer = None
         else:
             self.saturation_volumetric_moisture_content_of_the_soil_layer = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.residual_volumetric_moisture_content_of_the_soil_layer = None
         else:
             self.residual_volumetric_moisture_content_of_the_soil_layer = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.initial_volumetric_moisture_content_of_the_soil_layer = None
         else:
             self.initial_volumetric_moisture_content_of_the_soil_layer = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.moisture_diffusion_calculation_method = None
         else:
             self.moisture_diffusion_calculation_method = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -1174,6 +1312,9 @@ class MaterialRoofVegetation(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -1412,6 +1553,9 @@ class MaterialRoofVegetation(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `soil_layer_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `soil_layer_name`')
 
         self._data["Soil Layer Name"] = value
 
@@ -1453,16 +1597,30 @@ class MaterialRoofVegetation(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `roughness`')
-            vals = set()
-            vals.add("VeryRough")
-            vals.add("MediumRough")
-            vals.add("Rough")
-            vals.add("Smooth")
-            vals.add("MediumSmooth")
-            vals.add("VerySmooth")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `roughness`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `roughness`')
+            vals = {}
+            vals["veryrough"] = "VeryRough"
+            vals["mediumrough"] = "MediumRough"
+            vals["rough"] = "Rough"
+            vals["smooth"] = "Smooth"
+            vals["mediumsmooth"] = "MediumSmooth"
+            vals["verysmooth"] = "VerySmooth"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `roughness`'.format(value))
+            value = vals[value_lower]
 
         self._data["Roughness"] = value
 
@@ -1907,12 +2065,26 @@ class MaterialRoofVegetation(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `moisture_diffusion_calculation_method`')
-            vals = set()
-            vals.add("Simple")
-            vals.add("Advanced")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `moisture_diffusion_calculation_method`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `moisture_diffusion_calculation_method`')
+            vals = {}
+            vals["simple"] = "Simple"
+            vals["advanced"] = "Advanced"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `moisture_diffusion_calculation_method`'.format(value))
+            value = vals[value_lower]
 
         self._data["Moisture Diffusion Calculation Method"] = value
 
@@ -1938,28 +2110,17 @@ class MaterialRoofVegetation(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.height_of_plants))
-        out.append(self._to_str(self.leaf_area_index))
-        out.append(self._to_str(self.leaf_reflectivity))
-        out.append(self._to_str(self.leaf_emissivity))
-        out.append(self._to_str(self.minimum_stomatal_resistance))
-        out.append(self._to_str(self.soil_layer_name))
-        out.append(self._to_str(self.roughness))
-        out.append(self._to_str(self.thickness))
-        out.append(self._to_str(self.conductivity_of_dry_soil))
-        out.append(self._to_str(self.density_of_dry_soil))
-        out.append(self._to_str(self.specific_heat_of_dry_soil))
-        out.append(self._to_str(self.thermal_absorptance))
-        out.append(self._to_str(self.solar_absorptance))
-        out.append(self._to_str(self.visible_absorptance))
-        out.append(self._to_str(self.saturation_volumetric_moisture_content_of_the_soil_layer))
-        out.append(self._to_str(self.residual_volumetric_moisture_content_of_the_soil_layer))
-        out.append(self._to_str(self.initial_volumetric_moisture_content_of_the_soil_layer))
-        out.append(self._to_str(self.moisture_diffusion_calculation_method))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class WindowMaterialSimpleGlazingSystem(object):
     """ Corresponds to IDD object `WindowMaterial:SimpleGlazingSystem`
@@ -1980,34 +2141,44 @@ class WindowMaterialSimpleGlazingSystem(object):
         self._data["U-Factor"] = None
         self._data["Solar Heat Gain Coefficient"] = None
         self._data["Visible Transmittance"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.ufactor = None
         else:
             self.ufactor = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.solar_heat_gain_coefficient = None
         else:
             self.solar_heat_gain_coefficient = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.visible_transmittance = None
         else:
             self.visible_transmittance = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -2038,6 +2209,9 @@ class WindowMaterialSimpleGlazingSystem(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -2184,13 +2358,17 @@ class WindowMaterialSimpleGlazingSystem(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.ufactor))
-        out.append(self._to_str(self.solar_heat_gain_coefficient))
-        out.append(self._to_str(self.visible_transmittance))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class WindowMaterialGlazing(object):
     """ Corresponds to IDD object `WindowMaterial:Glazing`
@@ -2224,104 +2402,142 @@ class WindowMaterialGlazing(object):
         self._data["Solar Diffusing"] = None
         self._data["Youngs modulus"] = None
         self._data["Poissons ratio"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.optical_data_type = None
         else:
             self.optical_data_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.window_glass_spectral_data_set_name = None
         else:
             self.window_glass_spectral_data_set_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.thickness = None
         else:
             self.thickness = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.solar_transmittance_at_normal_incidence = None
         else:
             self.solar_transmittance_at_normal_incidence = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.front_side_solar_reflectance_at_normal_incidence = None
         else:
             self.front_side_solar_reflectance_at_normal_incidence = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.back_side_solar_reflectance_at_normal_incidence = None
         else:
             self.back_side_solar_reflectance_at_normal_incidence = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.visible_transmittance_at_normal_incidence = None
         else:
             self.visible_transmittance_at_normal_incidence = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.front_side_visible_reflectance_at_normal_incidence = None
         else:
             self.front_side_visible_reflectance_at_normal_incidence = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.back_side_visible_reflectance_at_normal_incidence = None
         else:
             self.back_side_visible_reflectance_at_normal_incidence = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.infrared_transmittance_at_normal_incidence = None
         else:
             self.infrared_transmittance_at_normal_incidence = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.front_side_infrared_hemispherical_emissivity = None
         else:
             self.front_side_infrared_hemispherical_emissivity = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.back_side_infrared_hemispherical_emissivity = None
         else:
             self.back_side_infrared_hemispherical_emissivity = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.conductivity = None
         else:
             self.conductivity = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.dirt_correction_factor_for_solar_and_visible_transmittance = None
         else:
             self.dirt_correction_factor_for_solar_and_visible_transmittance = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.solar_diffusing = None
         else:
             self.solar_diffusing = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.youngs_modulus = None
         else:
             self.youngs_modulus = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.poissons_ratio = None
         else:
             self.poissons_ratio = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -2352,6 +2568,9 @@ class WindowMaterialGlazing(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -2390,13 +2609,27 @@ class WindowMaterialGlazing(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `optical_data_type`')
-            vals = set()
-            vals.add("SpectralAverage")
-            vals.add("Spectral")
-            vals.add("BSDF")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `optical_data_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `optical_data_type`')
+            vals = {}
+            vals["spectralaverage"] = "SpectralAverage"
+            vals["spectral"] = "Spectral"
+            vals["bsdf"] = "BSDF"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `optical_data_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Optical Data Type"] = value
 
@@ -2430,6 +2663,9 @@ class WindowMaterialGlazing(object):
                                  'for field `window_glass_spectral_data_set_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `window_glass_spectral_data_set_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `window_glass_spectral_data_set_name`')
 
         self._data["Window Glass Spectral Data Set Name"] = value
@@ -2932,12 +3168,26 @@ class WindowMaterialGlazing(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `solar_diffusing`')
-            vals = set()
-            vals.add("No")
-            vals.add("Yes")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `solar_diffusing`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `solar_diffusing`')
+            vals = {}
+            vals["no"] = "No"
+            vals["yes"] = "Yes"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `solar_diffusing`'.format(value))
+            value = vals[value_lower]
 
         self._data["Solar Diffusing"] = value
 
@@ -3042,27 +3292,17 @@ class WindowMaterialGlazing(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.optical_data_type))
-        out.append(self._to_str(self.window_glass_spectral_data_set_name))
-        out.append(self._to_str(self.thickness))
-        out.append(self._to_str(self.solar_transmittance_at_normal_incidence))
-        out.append(self._to_str(self.front_side_solar_reflectance_at_normal_incidence))
-        out.append(self._to_str(self.back_side_solar_reflectance_at_normal_incidence))
-        out.append(self._to_str(self.visible_transmittance_at_normal_incidence))
-        out.append(self._to_str(self.front_side_visible_reflectance_at_normal_incidence))
-        out.append(self._to_str(self.back_side_visible_reflectance_at_normal_incidence))
-        out.append(self._to_str(self.infrared_transmittance_at_normal_incidence))
-        out.append(self._to_str(self.front_side_infrared_hemispherical_emissivity))
-        out.append(self._to_str(self.back_side_infrared_hemispherical_emissivity))
-        out.append(self._to_str(self.conductivity))
-        out.append(self._to_str(self.dirt_correction_factor_for_solar_and_visible_transmittance))
-        out.append(self._to_str(self.solar_diffusing))
-        out.append(self._to_str(self.youngs_modulus))
-        out.append(self._to_str(self.poissons_ratio))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class WindowMaterialGlazingGroupThermochromic(object):
     """ Corresponds to IDD object `WindowMaterial:GlazingGroup:Thermochromic`
@@ -3168,469 +3408,653 @@ class WindowMaterialGlazingGroupThermochromic(object):
         self._data["Window Material Glazing Name 44"] = None
         self._data["Optical Data Temperature 45"] = None
         self._data["Window Material Glazing Name 45"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.optical_data_temperature_1 = None
         else:
             self.optical_data_temperature_1 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.window_material_glazing_name_1 = None
         else:
             self.window_material_glazing_name_1 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.optical_data_temperature_2 = None
         else:
             self.optical_data_temperature_2 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.window_material_glazing_name_2 = None
         else:
             self.window_material_glazing_name_2 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.optical_data_temperature_3 = None
         else:
             self.optical_data_temperature_3 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.window_material_glazing_name_3 = None
         else:
             self.window_material_glazing_name_3 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.optical_data_temperature_4 = None
         else:
             self.optical_data_temperature_4 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.window_material_glazing_name_4 = None
         else:
             self.window_material_glazing_name_4 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.optical_data_temperature_5 = None
         else:
             self.optical_data_temperature_5 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.window_material_glazing_name_5 = None
         else:
             self.window_material_glazing_name_5 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.optical_data_temperature_6 = None
         else:
             self.optical_data_temperature_6 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.window_material_glazing_name_6 = None
         else:
             self.window_material_glazing_name_6 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.optical_data_temperature_7 = None
         else:
             self.optical_data_temperature_7 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.window_material_glazing_name_7 = None
         else:
             self.window_material_glazing_name_7 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.optical_data_temperature_8 = None
         else:
             self.optical_data_temperature_8 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.window_material_glazing_name_8 = None
         else:
             self.window_material_glazing_name_8 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.optical_data_temperature_9 = None
         else:
             self.optical_data_temperature_9 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.window_material_glazing_name_9 = None
         else:
             self.window_material_glazing_name_9 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.optical_data_temperature_10 = None
         else:
             self.optical_data_temperature_10 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.window_material_glazing_name_10 = None
         else:
             self.window_material_glazing_name_10 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.optical_data_temperature_11 = None
         else:
             self.optical_data_temperature_11 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.window_material_glazing_name_11 = None
         else:
             self.window_material_glazing_name_11 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.optical_data_temperature_12 = None
         else:
             self.optical_data_temperature_12 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.window_material_glazing_name_12 = None
         else:
             self.window_material_glazing_name_12 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.optical_data_temperature_13 = None
         else:
             self.optical_data_temperature_13 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.window_material_glazing_name_13 = None
         else:
             self.window_material_glazing_name_13 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.optical_data_temperature_14 = None
         else:
             self.optical_data_temperature_14 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.window_material_glazing_name_14 = None
         else:
             self.window_material_glazing_name_14 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.optical_data_temperature_15 = None
         else:
             self.optical_data_temperature_15 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.window_material_glazing_name_15 = None
         else:
             self.window_material_glazing_name_15 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.optical_data_temperature_16 = None
         else:
             self.optical_data_temperature_16 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.window_material_glazing_name_16 = None
         else:
             self.window_material_glazing_name_16 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.optical_data_temperature_17 = None
         else:
             self.optical_data_temperature_17 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.window_material_glazing_name_17 = None
         else:
             self.window_material_glazing_name_17 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.optical_data_temperature_18 = None
         else:
             self.optical_data_temperature_18 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.window_material_glazing_name_18 = None
         else:
             self.window_material_glazing_name_18 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.optical_data_temperature_19 = None
         else:
             self.optical_data_temperature_19 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.window_material_glazing_name_19 = None
         else:
             self.window_material_glazing_name_19 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.optical_data_temperature_20 = None
         else:
             self.optical_data_temperature_20 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.window_material_glazing_name_20 = None
         else:
             self.window_material_glazing_name_20 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.optical_data_temperature_21 = None
         else:
             self.optical_data_temperature_21 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.window_material_glazing_name_21 = None
         else:
             self.window_material_glazing_name_21 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.optical_data_temperature_22 = None
         else:
             self.optical_data_temperature_22 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.window_material_glazing_name_22 = None
         else:
             self.window_material_glazing_name_22 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.optical_data_temperature_23 = None
         else:
             self.optical_data_temperature_23 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.window_material_glazing_name_23 = None
         else:
             self.window_material_glazing_name_23 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.optical_data_temperature_24 = None
         else:
             self.optical_data_temperature_24 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.window_material_glazing_name_24 = None
         else:
             self.window_material_glazing_name_24 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.optical_data_temperature_25 = None
         else:
             self.optical_data_temperature_25 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.window_material_glazing_name_25 = None
         else:
             self.window_material_glazing_name_25 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.optical_data_temperature_26 = None
         else:
             self.optical_data_temperature_26 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.window_material_glazing_name_26 = None
         else:
             self.window_material_glazing_name_26 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.optical_data_temperature_27 = None
         else:
             self.optical_data_temperature_27 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.window_material_glazing_name_27 = None
         else:
             self.window_material_glazing_name_27 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.optical_data_temperature_28 = None
         else:
             self.optical_data_temperature_28 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.window_material_glazing_name_28 = None
         else:
             self.window_material_glazing_name_28 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.optical_data_temperature_29 = None
         else:
             self.optical_data_temperature_29 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.window_material_glazing_name_29 = None
         else:
             self.window_material_glazing_name_29 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.optical_data_temperature_30 = None
         else:
             self.optical_data_temperature_30 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.window_material_glazing_name_30 = None
         else:
             self.window_material_glazing_name_30 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.optical_data_temperature_31 = None
         else:
             self.optical_data_temperature_31 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.window_material_glazing_name_31 = None
         else:
             self.window_material_glazing_name_31 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.optical_data_temperature_32 = None
         else:
             self.optical_data_temperature_32 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.window_material_glazing_name_32 = None
         else:
             self.window_material_glazing_name_32 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.optical_data_temperature_33 = None
         else:
             self.optical_data_temperature_33 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.window_material_glazing_name_33 = None
         else:
             self.window_material_glazing_name_33 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.optical_data_temperature_34 = None
         else:
             self.optical_data_temperature_34 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.window_material_glazing_name_34 = None
         else:
             self.window_material_glazing_name_34 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.optical_data_temperature_35 = None
         else:
             self.optical_data_temperature_35 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.window_material_glazing_name_35 = None
         else:
             self.window_material_glazing_name_35 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.optical_data_temperature_36 = None
         else:
             self.optical_data_temperature_36 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.window_material_glazing_name_36 = None
         else:
             self.window_material_glazing_name_36 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.optical_data_temperature_37 = None
         else:
             self.optical_data_temperature_37 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.window_material_glazing_name_37 = None
         else:
             self.window_material_glazing_name_37 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.optical_data_temperature_38 = None
         else:
             self.optical_data_temperature_38 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.window_material_glazing_name_38 = None
         else:
             self.window_material_glazing_name_38 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.optical_data_temperature_39 = None
         else:
             self.optical_data_temperature_39 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.window_material_glazing_name_39 = None
         else:
             self.window_material_glazing_name_39 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.optical_data_temperature_40 = None
         else:
             self.optical_data_temperature_40 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.window_material_glazing_name_40 = None
         else:
             self.window_material_glazing_name_40 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.optical_data_temperature_41 = None
         else:
             self.optical_data_temperature_41 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.window_material_glazing_name_41 = None
         else:
             self.window_material_glazing_name_41 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.optical_data_temperature_42 = None
         else:
             self.optical_data_temperature_42 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.window_material_glazing_name_42 = None
         else:
             self.window_material_glazing_name_42 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.optical_data_temperature_43 = None
         else:
             self.optical_data_temperature_43 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.window_material_glazing_name_43 = None
         else:
             self.window_material_glazing_name_43 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.optical_data_temperature_44 = None
         else:
             self.optical_data_temperature_44 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.window_material_glazing_name_44 = None
         else:
             self.window_material_glazing_name_44 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.optical_data_temperature_45 = None
         else:
             self.optical_data_temperature_45 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.window_material_glazing_name_45 = None
         else:
             self.window_material_glazing_name_45 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -3661,6 +4085,9 @@ class WindowMaterialGlazingGroupThermochromic(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -3727,6 +4154,9 @@ class WindowMaterialGlazingGroupThermochromic(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `window_material_glazing_name_1`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `window_material_glazing_name_1`')
 
         self._data["Window Material Glazing Name 1"] = value
 
@@ -3791,6 +4221,9 @@ class WindowMaterialGlazingGroupThermochromic(object):
                                  'for field `window_material_glazing_name_2`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `window_material_glazing_name_2`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `window_material_glazing_name_2`')
 
         self._data["Window Material Glazing Name 2"] = value
@@ -3857,6 +4290,9 @@ class WindowMaterialGlazingGroupThermochromic(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `window_material_glazing_name_3`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `window_material_glazing_name_3`')
 
         self._data["Window Material Glazing Name 3"] = value
 
@@ -3921,6 +4357,9 @@ class WindowMaterialGlazingGroupThermochromic(object):
                                  'for field `window_material_glazing_name_4`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `window_material_glazing_name_4`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `window_material_glazing_name_4`')
 
         self._data["Window Material Glazing Name 4"] = value
@@ -3987,6 +4426,9 @@ class WindowMaterialGlazingGroupThermochromic(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `window_material_glazing_name_5`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `window_material_glazing_name_5`')
 
         self._data["Window Material Glazing Name 5"] = value
 
@@ -4051,6 +4493,9 @@ class WindowMaterialGlazingGroupThermochromic(object):
                                  'for field `window_material_glazing_name_6`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `window_material_glazing_name_6`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `window_material_glazing_name_6`')
 
         self._data["Window Material Glazing Name 6"] = value
@@ -4117,6 +4562,9 @@ class WindowMaterialGlazingGroupThermochromic(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `window_material_glazing_name_7`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `window_material_glazing_name_7`')
 
         self._data["Window Material Glazing Name 7"] = value
 
@@ -4181,6 +4629,9 @@ class WindowMaterialGlazingGroupThermochromic(object):
                                  'for field `window_material_glazing_name_8`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `window_material_glazing_name_8`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `window_material_glazing_name_8`')
 
         self._data["Window Material Glazing Name 8"] = value
@@ -4247,6 +4698,9 @@ class WindowMaterialGlazingGroupThermochromic(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `window_material_glazing_name_9`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `window_material_glazing_name_9`')
 
         self._data["Window Material Glazing Name 9"] = value
 
@@ -4311,6 +4765,9 @@ class WindowMaterialGlazingGroupThermochromic(object):
                                  'for field `window_material_glazing_name_10`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `window_material_glazing_name_10`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `window_material_glazing_name_10`')
 
         self._data["Window Material Glazing Name 10"] = value
@@ -4377,6 +4834,9 @@ class WindowMaterialGlazingGroupThermochromic(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `window_material_glazing_name_11`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `window_material_glazing_name_11`')
 
         self._data["Window Material Glazing Name 11"] = value
 
@@ -4441,6 +4901,9 @@ class WindowMaterialGlazingGroupThermochromic(object):
                                  'for field `window_material_glazing_name_12`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `window_material_glazing_name_12`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `window_material_glazing_name_12`')
 
         self._data["Window Material Glazing Name 12"] = value
@@ -4507,6 +4970,9 @@ class WindowMaterialGlazingGroupThermochromic(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `window_material_glazing_name_13`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `window_material_glazing_name_13`')
 
         self._data["Window Material Glazing Name 13"] = value
 
@@ -4571,6 +5037,9 @@ class WindowMaterialGlazingGroupThermochromic(object):
                                  'for field `window_material_glazing_name_14`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `window_material_glazing_name_14`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `window_material_glazing_name_14`')
 
         self._data["Window Material Glazing Name 14"] = value
@@ -4637,6 +5106,9 @@ class WindowMaterialGlazingGroupThermochromic(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `window_material_glazing_name_15`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `window_material_glazing_name_15`')
 
         self._data["Window Material Glazing Name 15"] = value
 
@@ -4701,6 +5173,9 @@ class WindowMaterialGlazingGroupThermochromic(object):
                                  'for field `window_material_glazing_name_16`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `window_material_glazing_name_16`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `window_material_glazing_name_16`')
 
         self._data["Window Material Glazing Name 16"] = value
@@ -4767,6 +5242,9 @@ class WindowMaterialGlazingGroupThermochromic(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `window_material_glazing_name_17`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `window_material_glazing_name_17`')
 
         self._data["Window Material Glazing Name 17"] = value
 
@@ -4831,6 +5309,9 @@ class WindowMaterialGlazingGroupThermochromic(object):
                                  'for field `window_material_glazing_name_18`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `window_material_glazing_name_18`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `window_material_glazing_name_18`')
 
         self._data["Window Material Glazing Name 18"] = value
@@ -4897,6 +5378,9 @@ class WindowMaterialGlazingGroupThermochromic(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `window_material_glazing_name_19`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `window_material_glazing_name_19`')
 
         self._data["Window Material Glazing Name 19"] = value
 
@@ -4961,6 +5445,9 @@ class WindowMaterialGlazingGroupThermochromic(object):
                                  'for field `window_material_glazing_name_20`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `window_material_glazing_name_20`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `window_material_glazing_name_20`')
 
         self._data["Window Material Glazing Name 20"] = value
@@ -5027,6 +5514,9 @@ class WindowMaterialGlazingGroupThermochromic(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `window_material_glazing_name_21`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `window_material_glazing_name_21`')
 
         self._data["Window Material Glazing Name 21"] = value
 
@@ -5091,6 +5581,9 @@ class WindowMaterialGlazingGroupThermochromic(object):
                                  'for field `window_material_glazing_name_22`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `window_material_glazing_name_22`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `window_material_glazing_name_22`')
 
         self._data["Window Material Glazing Name 22"] = value
@@ -5157,6 +5650,9 @@ class WindowMaterialGlazingGroupThermochromic(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `window_material_glazing_name_23`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `window_material_glazing_name_23`')
 
         self._data["Window Material Glazing Name 23"] = value
 
@@ -5221,6 +5717,9 @@ class WindowMaterialGlazingGroupThermochromic(object):
                                  'for field `window_material_glazing_name_24`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `window_material_glazing_name_24`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `window_material_glazing_name_24`')
 
         self._data["Window Material Glazing Name 24"] = value
@@ -5287,6 +5786,9 @@ class WindowMaterialGlazingGroupThermochromic(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `window_material_glazing_name_25`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `window_material_glazing_name_25`')
 
         self._data["Window Material Glazing Name 25"] = value
 
@@ -5351,6 +5853,9 @@ class WindowMaterialGlazingGroupThermochromic(object):
                                  'for field `window_material_glazing_name_26`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `window_material_glazing_name_26`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `window_material_glazing_name_26`')
 
         self._data["Window Material Glazing Name 26"] = value
@@ -5417,6 +5922,9 @@ class WindowMaterialGlazingGroupThermochromic(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `window_material_glazing_name_27`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `window_material_glazing_name_27`')
 
         self._data["Window Material Glazing Name 27"] = value
 
@@ -5481,6 +5989,9 @@ class WindowMaterialGlazingGroupThermochromic(object):
                                  'for field `window_material_glazing_name_28`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `window_material_glazing_name_28`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `window_material_glazing_name_28`')
 
         self._data["Window Material Glazing Name 28"] = value
@@ -5547,6 +6058,9 @@ class WindowMaterialGlazingGroupThermochromic(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `window_material_glazing_name_29`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `window_material_glazing_name_29`')
 
         self._data["Window Material Glazing Name 29"] = value
 
@@ -5611,6 +6125,9 @@ class WindowMaterialGlazingGroupThermochromic(object):
                                  'for field `window_material_glazing_name_30`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `window_material_glazing_name_30`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `window_material_glazing_name_30`')
 
         self._data["Window Material Glazing Name 30"] = value
@@ -5677,6 +6194,9 @@ class WindowMaterialGlazingGroupThermochromic(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `window_material_glazing_name_31`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `window_material_glazing_name_31`')
 
         self._data["Window Material Glazing Name 31"] = value
 
@@ -5741,6 +6261,9 @@ class WindowMaterialGlazingGroupThermochromic(object):
                                  'for field `window_material_glazing_name_32`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `window_material_glazing_name_32`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `window_material_glazing_name_32`')
 
         self._data["Window Material Glazing Name 32"] = value
@@ -5807,6 +6330,9 @@ class WindowMaterialGlazingGroupThermochromic(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `window_material_glazing_name_33`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `window_material_glazing_name_33`')
 
         self._data["Window Material Glazing Name 33"] = value
 
@@ -5871,6 +6397,9 @@ class WindowMaterialGlazingGroupThermochromic(object):
                                  'for field `window_material_glazing_name_34`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `window_material_glazing_name_34`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `window_material_glazing_name_34`')
 
         self._data["Window Material Glazing Name 34"] = value
@@ -5937,6 +6466,9 @@ class WindowMaterialGlazingGroupThermochromic(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `window_material_glazing_name_35`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `window_material_glazing_name_35`')
 
         self._data["Window Material Glazing Name 35"] = value
 
@@ -6001,6 +6533,9 @@ class WindowMaterialGlazingGroupThermochromic(object):
                                  'for field `window_material_glazing_name_36`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `window_material_glazing_name_36`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `window_material_glazing_name_36`')
 
         self._data["Window Material Glazing Name 36"] = value
@@ -6067,6 +6602,9 @@ class WindowMaterialGlazingGroupThermochromic(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `window_material_glazing_name_37`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `window_material_glazing_name_37`')
 
         self._data["Window Material Glazing Name 37"] = value
 
@@ -6131,6 +6669,9 @@ class WindowMaterialGlazingGroupThermochromic(object):
                                  'for field `window_material_glazing_name_38`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `window_material_glazing_name_38`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `window_material_glazing_name_38`')
 
         self._data["Window Material Glazing Name 38"] = value
@@ -6197,6 +6738,9 @@ class WindowMaterialGlazingGroupThermochromic(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `window_material_glazing_name_39`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `window_material_glazing_name_39`')
 
         self._data["Window Material Glazing Name 39"] = value
 
@@ -6261,6 +6805,9 @@ class WindowMaterialGlazingGroupThermochromic(object):
                                  'for field `window_material_glazing_name_40`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `window_material_glazing_name_40`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `window_material_glazing_name_40`')
 
         self._data["Window Material Glazing Name 40"] = value
@@ -6327,6 +6874,9 @@ class WindowMaterialGlazingGroupThermochromic(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `window_material_glazing_name_41`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `window_material_glazing_name_41`')
 
         self._data["Window Material Glazing Name 41"] = value
 
@@ -6391,6 +6941,9 @@ class WindowMaterialGlazingGroupThermochromic(object):
                                  'for field `window_material_glazing_name_42`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `window_material_glazing_name_42`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `window_material_glazing_name_42`')
 
         self._data["Window Material Glazing Name 42"] = value
@@ -6457,6 +7010,9 @@ class WindowMaterialGlazingGroupThermochromic(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `window_material_glazing_name_43`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `window_material_glazing_name_43`')
 
         self._data["Window Material Glazing Name 43"] = value
 
@@ -6521,6 +7077,9 @@ class WindowMaterialGlazingGroupThermochromic(object):
                                  'for field `window_material_glazing_name_44`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `window_material_glazing_name_44`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `window_material_glazing_name_44`')
 
         self._data["Window Material Glazing Name 44"] = value
@@ -6587,6 +7146,9 @@ class WindowMaterialGlazingGroupThermochromic(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `window_material_glazing_name_45`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `window_material_glazing_name_45`')
 
         self._data["Window Material Glazing Name 45"] = value
 
@@ -6612,100 +7174,17 @@ class WindowMaterialGlazingGroupThermochromic(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.optical_data_temperature_1))
-        out.append(self._to_str(self.window_material_glazing_name_1))
-        out.append(self._to_str(self.optical_data_temperature_2))
-        out.append(self._to_str(self.window_material_glazing_name_2))
-        out.append(self._to_str(self.optical_data_temperature_3))
-        out.append(self._to_str(self.window_material_glazing_name_3))
-        out.append(self._to_str(self.optical_data_temperature_4))
-        out.append(self._to_str(self.window_material_glazing_name_4))
-        out.append(self._to_str(self.optical_data_temperature_5))
-        out.append(self._to_str(self.window_material_glazing_name_5))
-        out.append(self._to_str(self.optical_data_temperature_6))
-        out.append(self._to_str(self.window_material_glazing_name_6))
-        out.append(self._to_str(self.optical_data_temperature_7))
-        out.append(self._to_str(self.window_material_glazing_name_7))
-        out.append(self._to_str(self.optical_data_temperature_8))
-        out.append(self._to_str(self.window_material_glazing_name_8))
-        out.append(self._to_str(self.optical_data_temperature_9))
-        out.append(self._to_str(self.window_material_glazing_name_9))
-        out.append(self._to_str(self.optical_data_temperature_10))
-        out.append(self._to_str(self.window_material_glazing_name_10))
-        out.append(self._to_str(self.optical_data_temperature_11))
-        out.append(self._to_str(self.window_material_glazing_name_11))
-        out.append(self._to_str(self.optical_data_temperature_12))
-        out.append(self._to_str(self.window_material_glazing_name_12))
-        out.append(self._to_str(self.optical_data_temperature_13))
-        out.append(self._to_str(self.window_material_glazing_name_13))
-        out.append(self._to_str(self.optical_data_temperature_14))
-        out.append(self._to_str(self.window_material_glazing_name_14))
-        out.append(self._to_str(self.optical_data_temperature_15))
-        out.append(self._to_str(self.window_material_glazing_name_15))
-        out.append(self._to_str(self.optical_data_temperature_16))
-        out.append(self._to_str(self.window_material_glazing_name_16))
-        out.append(self._to_str(self.optical_data_temperature_17))
-        out.append(self._to_str(self.window_material_glazing_name_17))
-        out.append(self._to_str(self.optical_data_temperature_18))
-        out.append(self._to_str(self.window_material_glazing_name_18))
-        out.append(self._to_str(self.optical_data_temperature_19))
-        out.append(self._to_str(self.window_material_glazing_name_19))
-        out.append(self._to_str(self.optical_data_temperature_20))
-        out.append(self._to_str(self.window_material_glazing_name_20))
-        out.append(self._to_str(self.optical_data_temperature_21))
-        out.append(self._to_str(self.window_material_glazing_name_21))
-        out.append(self._to_str(self.optical_data_temperature_22))
-        out.append(self._to_str(self.window_material_glazing_name_22))
-        out.append(self._to_str(self.optical_data_temperature_23))
-        out.append(self._to_str(self.window_material_glazing_name_23))
-        out.append(self._to_str(self.optical_data_temperature_24))
-        out.append(self._to_str(self.window_material_glazing_name_24))
-        out.append(self._to_str(self.optical_data_temperature_25))
-        out.append(self._to_str(self.window_material_glazing_name_25))
-        out.append(self._to_str(self.optical_data_temperature_26))
-        out.append(self._to_str(self.window_material_glazing_name_26))
-        out.append(self._to_str(self.optical_data_temperature_27))
-        out.append(self._to_str(self.window_material_glazing_name_27))
-        out.append(self._to_str(self.optical_data_temperature_28))
-        out.append(self._to_str(self.window_material_glazing_name_28))
-        out.append(self._to_str(self.optical_data_temperature_29))
-        out.append(self._to_str(self.window_material_glazing_name_29))
-        out.append(self._to_str(self.optical_data_temperature_30))
-        out.append(self._to_str(self.window_material_glazing_name_30))
-        out.append(self._to_str(self.optical_data_temperature_31))
-        out.append(self._to_str(self.window_material_glazing_name_31))
-        out.append(self._to_str(self.optical_data_temperature_32))
-        out.append(self._to_str(self.window_material_glazing_name_32))
-        out.append(self._to_str(self.optical_data_temperature_33))
-        out.append(self._to_str(self.window_material_glazing_name_33))
-        out.append(self._to_str(self.optical_data_temperature_34))
-        out.append(self._to_str(self.window_material_glazing_name_34))
-        out.append(self._to_str(self.optical_data_temperature_35))
-        out.append(self._to_str(self.window_material_glazing_name_35))
-        out.append(self._to_str(self.optical_data_temperature_36))
-        out.append(self._to_str(self.window_material_glazing_name_36))
-        out.append(self._to_str(self.optical_data_temperature_37))
-        out.append(self._to_str(self.window_material_glazing_name_37))
-        out.append(self._to_str(self.optical_data_temperature_38))
-        out.append(self._to_str(self.window_material_glazing_name_38))
-        out.append(self._to_str(self.optical_data_temperature_39))
-        out.append(self._to_str(self.window_material_glazing_name_39))
-        out.append(self._to_str(self.optical_data_temperature_40))
-        out.append(self._to_str(self.window_material_glazing_name_40))
-        out.append(self._to_str(self.optical_data_temperature_41))
-        out.append(self._to_str(self.window_material_glazing_name_41))
-        out.append(self._to_str(self.optical_data_temperature_42))
-        out.append(self._to_str(self.window_material_glazing_name_42))
-        out.append(self._to_str(self.optical_data_temperature_43))
-        out.append(self._to_str(self.window_material_glazing_name_43))
-        out.append(self._to_str(self.optical_data_temperature_44))
-        out.append(self._to_str(self.window_material_glazing_name_44))
-        out.append(self._to_str(self.optical_data_temperature_45))
-        out.append(self._to_str(self.window_material_glazing_name_45))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class WindowMaterialGlazingRefractionExtinctionMethod(object):
     """ Corresponds to IDD object `WindowMaterial:Glazing:RefractionExtinctionMethod`
@@ -6733,69 +7212,93 @@ class WindowMaterialGlazingRefractionExtinctionMethod(object):
         self._data["Conductivity"] = None
         self._data["Dirt Correction Factor for Solar and Visible Transmittance"] = None
         self._data["Solar Diffusing"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.thickness = None
         else:
             self.thickness = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.solar_index_of_refraction = None
         else:
             self.solar_index_of_refraction = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.solar_extinction_coefficient = None
         else:
             self.solar_extinction_coefficient = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.visible_index_of_refraction = None
         else:
             self.visible_index_of_refraction = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.visible_extinction_coefficient = None
         else:
             self.visible_extinction_coefficient = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.infrared_transmittance_at_normal_incidence = None
         else:
             self.infrared_transmittance_at_normal_incidence = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.infrared_hemispherical_emissivity = None
         else:
             self.infrared_hemispherical_emissivity = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.conductivity = None
         else:
             self.conductivity = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.dirt_correction_factor_for_solar_and_visible_transmittance = None
         else:
             self.dirt_correction_factor_for_solar_and_visible_transmittance = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.solar_diffusing = None
         else:
             self.solar_diffusing = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -6826,6 +7329,9 @@ class WindowMaterialGlazingRefractionExtinctionMethod(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -7192,12 +7698,26 @@ class WindowMaterialGlazingRefractionExtinctionMethod(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `solar_diffusing`')
-            vals = set()
-            vals.add("No")
-            vals.add("Yes")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `solar_diffusing`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `solar_diffusing`')
+            vals = {}
+            vals["no"] = "No"
+            vals["yes"] = "Yes"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `solar_diffusing`'.format(value))
+            value = vals[value_lower]
 
         self._data["Solar Diffusing"] = value
 
@@ -7223,20 +7743,17 @@ class WindowMaterialGlazingRefractionExtinctionMethod(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.thickness))
-        out.append(self._to_str(self.solar_index_of_refraction))
-        out.append(self._to_str(self.solar_extinction_coefficient))
-        out.append(self._to_str(self.visible_index_of_refraction))
-        out.append(self._to_str(self.visible_extinction_coefficient))
-        out.append(self._to_str(self.infrared_transmittance_at_normal_incidence))
-        out.append(self._to_str(self.infrared_hemispherical_emissivity))
-        out.append(self._to_str(self.conductivity))
-        out.append(self._to_str(self.dirt_correction_factor_for_solar_and_visible_transmittance))
-        out.append(self._to_str(self.solar_diffusing))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class WindowMaterialGas(object):
     """ Corresponds to IDD object `WindowMaterial:Gas`
@@ -7265,84 +7782,114 @@ class WindowMaterialGas(object):
         self._data["Specific Heat Coefficient C"] = None
         self._data["Molecular Weight"] = None
         self._data["Specific Heat Ratio"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.gas_type = None
         else:
             self.gas_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.thickness = None
         else:
             self.thickness = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.conductivity_coefficient_a = None
         else:
             self.conductivity_coefficient_a = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.conductivity_coefficient_b = None
         else:
             self.conductivity_coefficient_b = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.conductivity_coefficient_c = None
         else:
             self.conductivity_coefficient_c = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.viscosity_coefficient_a = None
         else:
             self.viscosity_coefficient_a = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.viscosity_coefficient_b = None
         else:
             self.viscosity_coefficient_b = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.viscosity_coefficient_c = None
         else:
             self.viscosity_coefficient_c = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.specific_heat_coefficient_a = None
         else:
             self.specific_heat_coefficient_a = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.specific_heat_coefficient_b = None
         else:
             self.specific_heat_coefficient_b = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.specific_heat_coefficient_c = None
         else:
             self.specific_heat_coefficient_c = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.molecular_weight = None
         else:
             self.molecular_weight = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.specific_heat_ratio = None
         else:
             self.specific_heat_ratio = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -7373,6 +7920,9 @@ class WindowMaterialGas(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -7413,15 +7963,29 @@ class WindowMaterialGas(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `gas_type`')
-            vals = set()
-            vals.add("Air")
-            vals.add("Argon")
-            vals.add("Krypton")
-            vals.add("Xenon")
-            vals.add("Custom")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `gas_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `gas_type`')
+            vals = {}
+            vals["air"] = "Air"
+            vals["argon"] = "Argon"
+            vals["krypton"] = "Krypton"
+            vals["xenon"] = "Xenon"
+            vals["custom"] = "Custom"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `gas_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Gas Type"] = value
 
@@ -7850,23 +8414,17 @@ class WindowMaterialGas(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.gas_type))
-        out.append(self._to_str(self.thickness))
-        out.append(self._to_str(self.conductivity_coefficient_a))
-        out.append(self._to_str(self.conductivity_coefficient_b))
-        out.append(self._to_str(self.conductivity_coefficient_c))
-        out.append(self._to_str(self.viscosity_coefficient_a))
-        out.append(self._to_str(self.viscosity_coefficient_b))
-        out.append(self._to_str(self.viscosity_coefficient_c))
-        out.append(self._to_str(self.specific_heat_coefficient_a))
-        out.append(self._to_str(self.specific_heat_coefficient_b))
-        out.append(self._to_str(self.specific_heat_coefficient_c))
-        out.append(self._to_str(self.molecular_weight))
-        out.append(self._to_str(self.specific_heat_ratio))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class WindowGapSupportPillar(object):
     """ Corresponds to IDD object `WindowGap:SupportPillar`
@@ -7884,29 +8442,37 @@ class WindowGapSupportPillar(object):
         self._data["Name"] = None
         self._data["Spacing"] = None
         self._data["Radius"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.spacing = None
         else:
             self.spacing = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.radius = None
         else:
             self.radius = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -7937,6 +8503,9 @@ class WindowGapSupportPillar(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -8035,12 +8604,17 @@ class WindowGapSupportPillar(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.spacing))
-        out.append(self._to_str(self.radius))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class WindowGapDeflectionState(object):
     """ Corresponds to IDD object `WindowGap:DeflectionState`
@@ -8061,34 +8635,44 @@ class WindowGapDeflectionState(object):
         self._data["Deflected Thickness"] = None
         self._data["Initial Temperature"] = None
         self._data["Initial Pressure"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.deflected_thickness = None
         else:
             self.deflected_thickness = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.initial_temperature = None
         else:
             self.initial_temperature = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.initial_pressure = None
         else:
             self.initial_pressure = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -8119,6 +8703,9 @@ class WindowGapDeflectionState(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -8254,13 +8841,17 @@ class WindowGapDeflectionState(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.deflected_thickness))
-        out.append(self._to_str(self.initial_temperature))
-        out.append(self._to_str(self.initial_pressure))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class WindowMaterialGasMixture(object):
     """ Corresponds to IDD object `WindowMaterial:GasMixture`
@@ -8286,69 +8877,93 @@ class WindowMaterialGasMixture(object):
         self._data["Gas 3 Fraction"] = None
         self._data["Gas 4 Type"] = None
         self._data["Gas 4 Fraction"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.thickness = None
         else:
             self.thickness = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.number_of_gases_in_mixture = None
         else:
             self.number_of_gases_in_mixture = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.gas_1_type = None
         else:
             self.gas_1_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.gas_1_fraction = None
         else:
             self.gas_1_fraction = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.gas_2_type = None
         else:
             self.gas_2_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.gas_2_fraction = None
         else:
             self.gas_2_fraction = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.gas_3_type = None
         else:
             self.gas_3_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.gas_3_fraction = None
         else:
             self.gas_3_fraction = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.gas_4_type = None
         else:
             self.gas_4_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.gas_4_fraction = None
         else:
             self.gas_4_fraction = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -8379,6 +8994,9 @@ class WindowMaterialGasMixture(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -8491,14 +9109,28 @@ class WindowMaterialGasMixture(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `gas_1_type`')
-            vals = set()
-            vals.add("Air")
-            vals.add("Argon")
-            vals.add("Krypton")
-            vals.add("Xenon")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `gas_1_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `gas_1_type`')
+            vals = {}
+            vals["air"] = "Air"
+            vals["argon"] = "Argon"
+            vals["krypton"] = "Krypton"
+            vals["xenon"] = "Xenon"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `gas_1_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Gas 1 Type"] = value
 
@@ -8575,14 +9207,28 @@ class WindowMaterialGasMixture(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `gas_2_type`')
-            vals = set()
-            vals.add("Air")
-            vals.add("Argon")
-            vals.add("Krypton")
-            vals.add("Xenon")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `gas_2_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `gas_2_type`')
+            vals = {}
+            vals["air"] = "Air"
+            vals["argon"] = "Argon"
+            vals["krypton"] = "Krypton"
+            vals["xenon"] = "Xenon"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `gas_2_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Gas 2 Type"] = value
 
@@ -8659,14 +9305,28 @@ class WindowMaterialGasMixture(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `gas_3_type`')
-            vals = set()
-            vals.add("Air")
-            vals.add("Argon")
-            vals.add("Krypton")
-            vals.add("Xenon")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `gas_3_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `gas_3_type`')
+            vals = {}
+            vals["air"] = "Air"
+            vals["argon"] = "Argon"
+            vals["krypton"] = "Krypton"
+            vals["xenon"] = "Xenon"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `gas_3_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Gas 3 Type"] = value
 
@@ -8743,14 +9403,28 @@ class WindowMaterialGasMixture(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `gas_4_type`')
-            vals = set()
-            vals.add("Air")
-            vals.add("Argon")
-            vals.add("Krypton")
-            vals.add("Xenon")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `gas_4_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `gas_4_type`')
+            vals = {}
+            vals["air"] = "Air"
+            vals["argon"] = "Argon"
+            vals["krypton"] = "Krypton"
+            vals["xenon"] = "Xenon"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `gas_4_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Gas 4 Type"] = value
 
@@ -8814,20 +9488,17 @@ class WindowMaterialGasMixture(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.thickness))
-        out.append(self._to_str(self.number_of_gases_in_mixture))
-        out.append(self._to_str(self.gas_1_type))
-        out.append(self._to_str(self.gas_1_fraction))
-        out.append(self._to_str(self.gas_2_type))
-        out.append(self._to_str(self.gas_2_fraction))
-        out.append(self._to_str(self.gas_3_type))
-        out.append(self._to_str(self.gas_3_fraction))
-        out.append(self._to_str(self.gas_4_type))
-        out.append(self._to_str(self.gas_4_fraction))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class WindowMaterialGap(object):
     """ Corresponds to IDD object `WindowMaterial:Gap`
@@ -8851,44 +9522,58 @@ class WindowMaterialGap(object):
         self._data["Pressure"] = None
         self._data["Deflection State"] = None
         self._data["Support Pillar"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.thickness = None
         else:
             self.thickness = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.gas_or_gas_mixture = None
         else:
             self.gas_or_gas_mixture = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.pressure = None
         else:
             self.pressure = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.deflection_state = None
         else:
             self.deflection_state = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.support_pillar = None
         else:
             self.support_pillar = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -8919,6 +9604,9 @@ class WindowMaterialGap(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -8986,6 +9674,9 @@ class WindowMaterialGap(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `gas_or_gas_mixture`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `gas_or_gas_mixture`')
 
         self._data["Gas (or Gas Mixture)"] = value
 
@@ -9052,6 +9743,9 @@ class WindowMaterialGap(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `deflection_state`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `deflection_state`')
 
         self._data["Deflection State"] = value
 
@@ -9087,6 +9781,9 @@ class WindowMaterialGap(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `support_pillar`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `support_pillar`')
 
         self._data["Support Pillar"] = value
 
@@ -9112,15 +9809,17 @@ class WindowMaterialGap(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.thickness))
-        out.append(self._to_str(self.gas_or_gas_mixture))
-        out.append(self._to_str(self.pressure))
-        out.append(self._to_str(self.deflection_state))
-        out.append(self._to_str(self.support_pillar))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class WindowMaterialShade(object):
     """ Corresponds to IDD object `WindowMaterial:Shade`
@@ -9153,89 +9852,121 @@ class WindowMaterialShade(object):
         self._data["Left-Side Opening Multiplier"] = None
         self._data["Right-Side Opening Multiplier"] = None
         self._data["Airflow Permeability"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.solar_transmittance = None
         else:
             self.solar_transmittance = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.solar_reflectance = None
         else:
             self.solar_reflectance = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.visible_transmittance = None
         else:
             self.visible_transmittance = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.visible_reflectance = None
         else:
             self.visible_reflectance = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.infrared_hemispherical_emissivity = None
         else:
             self.infrared_hemispherical_emissivity = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.infrared_transmittance = None
         else:
             self.infrared_transmittance = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.thickness = None
         else:
             self.thickness = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.conductivity = None
         else:
             self.conductivity = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.shade_to_glass_distance = None
         else:
             self.shade_to_glass_distance = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.top_opening_multiplier = None
         else:
             self.top_opening_multiplier = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.bottom_opening_multiplier = None
         else:
             self.bottom_opening_multiplier = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.leftside_opening_multiplier = None
         else:
             self.leftside_opening_multiplier = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.rightside_opening_multiplier = None
         else:
             self.rightside_opening_multiplier = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.airflow_permeability = None
         else:
             self.airflow_permeability = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -9266,6 +9997,9 @@ class WindowMaterialShade(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -9840,24 +10574,17 @@ class WindowMaterialShade(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.solar_transmittance))
-        out.append(self._to_str(self.solar_reflectance))
-        out.append(self._to_str(self.visible_transmittance))
-        out.append(self._to_str(self.visible_reflectance))
-        out.append(self._to_str(self.infrared_hemispherical_emissivity))
-        out.append(self._to_str(self.infrared_transmittance))
-        out.append(self._to_str(self.thickness))
-        out.append(self._to_str(self.conductivity))
-        out.append(self._to_str(self.shade_to_glass_distance))
-        out.append(self._to_str(self.top_opening_multiplier))
-        out.append(self._to_str(self.bottom_opening_multiplier))
-        out.append(self._to_str(self.leftside_opening_multiplier))
-        out.append(self._to_str(self.rightside_opening_multiplier))
-        out.append(self._to_str(self.airflow_permeability))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class WindowMaterialComplexShade(object):
     """ Corresponds to IDD object `WindowMaterial:ComplexShade`
@@ -9890,104 +10617,142 @@ class WindowMaterialComplexShade(object):
         self._data["Slat Angle"] = None
         self._data["Slat Conductivity"] = None
         self._data["Slat Curve"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.layer_type = None
         else:
             self.layer_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.thickness = None
         else:
             self.thickness = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.conductivity = None
         else:
             self.conductivity = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.ir_transmittance = None
         else:
             self.ir_transmittance = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.front_emissivity = None
         else:
             self.front_emissivity = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.back_emissivity = None
         else:
             self.back_emissivity = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.top_opening_multiplier = None
         else:
             self.top_opening_multiplier = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.bottom_opening_multiplier = None
         else:
             self.bottom_opening_multiplier = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.left_side_opening_multiplier = None
         else:
             self.left_side_opening_multiplier = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.right_side_opening_multiplier = None
         else:
             self.right_side_opening_multiplier = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.front_opening_multiplier = None
         else:
             self.front_opening_multiplier = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.slat_width = None
         else:
             self.slat_width = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.slat_spacing = None
         else:
             self.slat_spacing = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.slat_thickness = None
         else:
             self.slat_thickness = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.slat_angle = None
         else:
             self.slat_angle = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.slat_conductivity = None
         else:
             self.slat_conductivity = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.slat_curve = None
         else:
             self.slat_curve = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -10018,6 +10783,9 @@ class WindowMaterialComplexShade(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -10059,15 +10827,29 @@ class WindowMaterialComplexShade(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `layer_type`')
-            vals = set()
-            vals.add("Venetian")
-            vals.add("Woven")
-            vals.add("Perforated")
-            vals.add("BSDF")
-            vals.add("OtherShadingType")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `layer_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `layer_type`')
+            vals = {}
+            vals["venetian"] = "Venetian"
+            vals["woven"] = "Woven"
+            vals["perforated"] = "Perforated"
+            vals["bsdf"] = "BSDF"
+            vals["othershadingtype"] = "OtherShadingType"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `layer_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Layer Type"] = value
 
@@ -10703,27 +11485,17 @@ class WindowMaterialComplexShade(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.layer_type))
-        out.append(self._to_str(self.thickness))
-        out.append(self._to_str(self.conductivity))
-        out.append(self._to_str(self.ir_transmittance))
-        out.append(self._to_str(self.front_emissivity))
-        out.append(self._to_str(self.back_emissivity))
-        out.append(self._to_str(self.top_opening_multiplier))
-        out.append(self._to_str(self.bottom_opening_multiplier))
-        out.append(self._to_str(self.left_side_opening_multiplier))
-        out.append(self._to_str(self.right_side_opening_multiplier))
-        out.append(self._to_str(self.front_opening_multiplier))
-        out.append(self._to_str(self.slat_width))
-        out.append(self._to_str(self.slat_spacing))
-        out.append(self._to_str(self.slat_thickness))
-        out.append(self._to_str(self.slat_angle))
-        out.append(self._to_str(self.slat_conductivity))
-        out.append(self._to_str(self.slat_curve))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class WindowMaterialBlind(object):
     """ Corresponds to IDD object `WindowMaterial:Blind`
@@ -10767,159 +11539,219 @@ class WindowMaterialBlind(object):
         self._data["Blind Right Side Opening Multiplier"] = None
         self._data["Minimum Slat Angle"] = None
         self._data["Maximum Slat Angle"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.slat_orientation = None
         else:
             self.slat_orientation = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.slat_width = None
         else:
             self.slat_width = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.slat_separation = None
         else:
             self.slat_separation = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.slat_thickness = None
         else:
             self.slat_thickness = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.slat_angle = None
         else:
             self.slat_angle = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.slat_conductivity = None
         else:
             self.slat_conductivity = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.slat_beam_solar_transmittance = None
         else:
             self.slat_beam_solar_transmittance = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.front_side_slat_beam_solar_reflectance = None
         else:
             self.front_side_slat_beam_solar_reflectance = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.back_side_slat_beam_solar_reflectance = None
         else:
             self.back_side_slat_beam_solar_reflectance = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.slat_diffuse_solar_transmittance = None
         else:
             self.slat_diffuse_solar_transmittance = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.front_side_slat_diffuse_solar_reflectance = None
         else:
             self.front_side_slat_diffuse_solar_reflectance = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.back_side_slat_diffuse_solar_reflectance = None
         else:
             self.back_side_slat_diffuse_solar_reflectance = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.slat_beam_visible_transmittance = None
         else:
             self.slat_beam_visible_transmittance = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.front_side_slat_beam_visible_reflectance = None
         else:
             self.front_side_slat_beam_visible_reflectance = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.back_side_slat_beam_visible_reflectance = None
         else:
             self.back_side_slat_beam_visible_reflectance = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.slat_diffuse_visible_transmittance = None
         else:
             self.slat_diffuse_visible_transmittance = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.front_side_slat_diffuse_visible_reflectance = None
         else:
             self.front_side_slat_diffuse_visible_reflectance = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.back_side_slat_diffuse_visible_reflectance = None
         else:
             self.back_side_slat_diffuse_visible_reflectance = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.slat_infrared_hemispherical_transmittance = None
         else:
             self.slat_infrared_hemispherical_transmittance = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.front_side_slat_infrared_hemispherical_emissivity = None
         else:
             self.front_side_slat_infrared_hemispherical_emissivity = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.back_side_slat_infrared_hemispherical_emissivity = None
         else:
             self.back_side_slat_infrared_hemispherical_emissivity = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.blind_to_glass_distance = None
         else:
             self.blind_to_glass_distance = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.blind_top_opening_multiplier = None
         else:
             self.blind_top_opening_multiplier = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.blind_bottom_opening_multiplier = None
         else:
             self.blind_bottom_opening_multiplier = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.blind_left_side_opening_multiplier = None
         else:
             self.blind_left_side_opening_multiplier = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.blind_right_side_opening_multiplier = None
         else:
             self.blind_right_side_opening_multiplier = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.minimum_slat_angle = None
         else:
             self.minimum_slat_angle = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.maximum_slat_angle = None
         else:
             self.maximum_slat_angle = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -10950,6 +11782,9 @@ class WindowMaterialBlind(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -10988,12 +11823,26 @@ class WindowMaterialBlind(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `slat_orientation`')
-            vals = set()
-            vals.add("Horizontal")
-            vals.add("Vertical")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `slat_orientation`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `slat_orientation`')
+            vals = {}
+            vals["horizontal"] = "Horizontal"
+            vals["vertical"] = "Vertical"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `slat_orientation`'.format(value))
+            value = vals[value_lower]
 
         self._data["Slat Orientation"] = value
 
@@ -12102,38 +12951,17 @@ class WindowMaterialBlind(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.slat_orientation))
-        out.append(self._to_str(self.slat_width))
-        out.append(self._to_str(self.slat_separation))
-        out.append(self._to_str(self.slat_thickness))
-        out.append(self._to_str(self.slat_angle))
-        out.append(self._to_str(self.slat_conductivity))
-        out.append(self._to_str(self.slat_beam_solar_transmittance))
-        out.append(self._to_str(self.front_side_slat_beam_solar_reflectance))
-        out.append(self._to_str(self.back_side_slat_beam_solar_reflectance))
-        out.append(self._to_str(self.slat_diffuse_solar_transmittance))
-        out.append(self._to_str(self.front_side_slat_diffuse_solar_reflectance))
-        out.append(self._to_str(self.back_side_slat_diffuse_solar_reflectance))
-        out.append(self._to_str(self.slat_beam_visible_transmittance))
-        out.append(self._to_str(self.front_side_slat_beam_visible_reflectance))
-        out.append(self._to_str(self.back_side_slat_beam_visible_reflectance))
-        out.append(self._to_str(self.slat_diffuse_visible_transmittance))
-        out.append(self._to_str(self.front_side_slat_diffuse_visible_reflectance))
-        out.append(self._to_str(self.back_side_slat_diffuse_visible_reflectance))
-        out.append(self._to_str(self.slat_infrared_hemispherical_transmittance))
-        out.append(self._to_str(self.front_side_slat_infrared_hemispherical_emissivity))
-        out.append(self._to_str(self.back_side_slat_infrared_hemispherical_emissivity))
-        out.append(self._to_str(self.blind_to_glass_distance))
-        out.append(self._to_str(self.blind_top_opening_multiplier))
-        out.append(self._to_str(self.blind_bottom_opening_multiplier))
-        out.append(self._to_str(self.blind_left_side_opening_multiplier))
-        out.append(self._to_str(self.blind_right_side_opening_multiplier))
-        out.append(self._to_str(self.minimum_slat_angle))
-        out.append(self._to_str(self.maximum_slat_angle))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class WindowMaterialScreen(object):
     """ Corresponds to IDD object `WindowMaterial:Screen`
@@ -12162,84 +12990,114 @@ class WindowMaterialScreen(object):
         self._data["Left Side Opening Multiplier"] = None
         self._data["Right Side Opening Multiplier"] = None
         self._data["Angle of Resolution for Screen Transmittance Output Map"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.reflected_beam_transmittance_accounting_method = None
         else:
             self.reflected_beam_transmittance_accounting_method = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.diffuse_solar_reflectance = None
         else:
             self.diffuse_solar_reflectance = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.diffuse_visible_reflectance = None
         else:
             self.diffuse_visible_reflectance = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.thermal_hemispherical_emissivity = None
         else:
             self.thermal_hemispherical_emissivity = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.conductivity = None
         else:
             self.conductivity = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.screen_material_spacing = None
         else:
             self.screen_material_spacing = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.screen_material_diameter = None
         else:
             self.screen_material_diameter = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.screen_to_glass_distance = None
         else:
             self.screen_to_glass_distance = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.top_opening_multiplier = None
         else:
             self.top_opening_multiplier = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.bottom_opening_multiplier = None
         else:
             self.bottom_opening_multiplier = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.left_side_opening_multiplier = None
         else:
             self.left_side_opening_multiplier = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.right_side_opening_multiplier = None
         else:
             self.right_side_opening_multiplier = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.angle_of_resolution_for_screen_transmittance_output_map = None
         else:
             self.angle_of_resolution_for_screen_transmittance_output_map = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -12271,6 +13129,9 @@ class WindowMaterialScreen(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -12311,13 +13172,27 @@ class WindowMaterialScreen(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `reflected_beam_transmittance_accounting_method`')
-            vals = set()
-            vals.add("DoNotModel")
-            vals.add("ModelAsDirectBeam")
-            vals.add("ModelAsDiffuse")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `reflected_beam_transmittance_accounting_method`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `reflected_beam_transmittance_accounting_method`')
+            vals = {}
+            vals["donotmodel"] = "DoNotModel"
+            vals["modelasdirectbeam"] = "ModelAsDirectBeam"
+            vals["modelasdiffuse"] = "ModelAsDiffuse"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `reflected_beam_transmittance_accounting_method`'.format(value))
+            value = vals[value_lower]
 
         self._data["Reflected Beam Transmittance Accounting Method"] = value
 
@@ -12809,15 +13684,29 @@ class WindowMaterialScreen(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `angle_of_resolution_for_screen_transmittance_output_map`')
-            vals = set()
-            vals.add("0")
-            vals.add("1")
-            vals.add("2")
-            vals.add("3")
-            vals.add("5")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `angle_of_resolution_for_screen_transmittance_output_map`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `angle_of_resolution_for_screen_transmittance_output_map`')
+            vals = {}
+            vals["0"] = "0"
+            vals["1"] = "1"
+            vals["2"] = "2"
+            vals["3"] = "3"
+            vals["5"] = "5"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `angle_of_resolution_for_screen_transmittance_output_map`'.format(value))
+            value = vals[value_lower]
 
         self._data["Angle of Resolution for Screen Transmittance Output Map"] = value
 
@@ -12843,23 +13732,17 @@ class WindowMaterialScreen(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.reflected_beam_transmittance_accounting_method))
-        out.append(self._to_str(self.diffuse_solar_reflectance))
-        out.append(self._to_str(self.diffuse_visible_reflectance))
-        out.append(self._to_str(self.thermal_hemispherical_emissivity))
-        out.append(self._to_str(self.conductivity))
-        out.append(self._to_str(self.screen_material_spacing))
-        out.append(self._to_str(self.screen_material_diameter))
-        out.append(self._to_str(self.screen_to_glass_distance))
-        out.append(self._to_str(self.top_opening_multiplier))
-        out.append(self._to_str(self.bottom_opening_multiplier))
-        out.append(self._to_str(self.left_side_opening_multiplier))
-        out.append(self._to_str(self.right_side_opening_multiplier))
-        out.append(self._to_str(self.angle_of_resolution_for_screen_transmittance_output_map))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class WindowMaterialShadeEquivalentLayer(object):
     """ Corresponds to IDD object `WindowMaterial:Shade:EquivalentLayer`
@@ -12889,74 +13772,100 @@ class WindowMaterialShadeEquivalentLayer(object):
         self._data["Shade Material Infrared Transmittance"] = None
         self._data["Front Side Shade Material Infrared Emissivity"] = None
         self._data["Back Side Shade Material Infrared Emissivity"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.shade_beambeam_solar_transmittance = None
         else:
             self.shade_beambeam_solar_transmittance = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.front_side_shade_beamdiffuse_solar_transmittance = None
         else:
             self.front_side_shade_beamdiffuse_solar_transmittance = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.back_side_shade_beamdiffuse_solar_transmittance = None
         else:
             self.back_side_shade_beamdiffuse_solar_transmittance = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.front_side_shade_beamdiffuse_solar_reflectance = None
         else:
             self.front_side_shade_beamdiffuse_solar_reflectance = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.back_side_shade_beamdiffuse_solar_reflectance = None
         else:
             self.back_side_shade_beamdiffuse_solar_reflectance = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.shade_beambeam_visible_transmittance_at_normal_incidence = None
         else:
             self.shade_beambeam_visible_transmittance_at_normal_incidence = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.shade_beamdiffuse_visible_transmittance_at_normal_incidence = None
         else:
             self.shade_beamdiffuse_visible_transmittance_at_normal_incidence = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.shade_beamdiffuse_visible_reflectance_at_normal_incidence = None
         else:
             self.shade_beamdiffuse_visible_reflectance_at_normal_incidence = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.shade_material_infrared_transmittance = None
         else:
             self.shade_material_infrared_transmittance = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.front_side_shade_material_infrared_emissivity = None
         else:
             self.front_side_shade_material_infrared_emissivity = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.back_side_shade_material_infrared_emissivity = None
         else:
             self.back_side_shade_material_infrared_emissivity = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -12987,6 +13896,9 @@ class WindowMaterialShadeEquivalentLayer(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -13474,21 +14386,17 @@ class WindowMaterialShadeEquivalentLayer(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.shade_beambeam_solar_transmittance))
-        out.append(self._to_str(self.front_side_shade_beamdiffuse_solar_transmittance))
-        out.append(self._to_str(self.back_side_shade_beamdiffuse_solar_transmittance))
-        out.append(self._to_str(self.front_side_shade_beamdiffuse_solar_reflectance))
-        out.append(self._to_str(self.back_side_shade_beamdiffuse_solar_reflectance))
-        out.append(self._to_str(self.shade_beambeam_visible_transmittance_at_normal_incidence))
-        out.append(self._to_str(self.shade_beamdiffuse_visible_transmittance_at_normal_incidence))
-        out.append(self._to_str(self.shade_beamdiffuse_visible_reflectance_at_normal_incidence))
-        out.append(self._to_str(self.shade_material_infrared_transmittance))
-        out.append(self._to_str(self.front_side_shade_material_infrared_emissivity))
-        out.append(self._to_str(self.back_side_shade_material_infrared_emissivity))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class WindowMaterialDrapeEquivalentLayer(object):
     """ Corresponds to IDD object `WindowMaterial:Drape:EquivalentLayer`
@@ -13520,84 +14428,114 @@ class WindowMaterialDrapeEquivalentLayer(object):
         self._data["Back Side Drape Material Infrared Emissivity"] = None
         self._data["Width of Pleated Fabric"] = None
         self._data["Length of Pleated Fabric"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.drape_beambeam_solar_transmittance_at_normal_incidence = None
         else:
             self.drape_beambeam_solar_transmittance_at_normal_incidence = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.front_side_drape_beamdiffuse_solar_transmittance = None
         else:
             self.front_side_drape_beamdiffuse_solar_transmittance = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.back_side_drape_beamdiffuse_solar_transmittance = None
         else:
             self.back_side_drape_beamdiffuse_solar_transmittance = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.front_side_drape_beamdiffuse_solar_reflectance = None
         else:
             self.front_side_drape_beamdiffuse_solar_reflectance = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.back_side_drape_beamdiffuse_solar_reflectance = None
         else:
             self.back_side_drape_beamdiffuse_solar_reflectance = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.drape_beambeam_visible_transmittance = None
         else:
             self.drape_beambeam_visible_transmittance = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.drape_beamdiffuse_visible_transmittance = None
         else:
             self.drape_beamdiffuse_visible_transmittance = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.drape_beamdiffuse_visible_reflectance = None
         else:
             self.drape_beamdiffuse_visible_reflectance = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.drape_material_infrared_transmittance = None
         else:
             self.drape_material_infrared_transmittance = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.front_side_drape_material_infrared_emissivity = None
         else:
             self.front_side_drape_material_infrared_emissivity = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.back_side_drape_material_infrared_emissivity = None
         else:
             self.back_side_drape_material_infrared_emissivity = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.width_of_pleated_fabric = None
         else:
             self.width_of_pleated_fabric = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.length_of_pleated_fabric = None
         else:
             self.length_of_pleated_fabric = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -13628,6 +14566,9 @@ class WindowMaterialDrapeEquivalentLayer(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -14194,23 +15135,17 @@ class WindowMaterialDrapeEquivalentLayer(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.drape_beambeam_solar_transmittance_at_normal_incidence))
-        out.append(self._to_str(self.front_side_drape_beamdiffuse_solar_transmittance))
-        out.append(self._to_str(self.back_side_drape_beamdiffuse_solar_transmittance))
-        out.append(self._to_str(self.front_side_drape_beamdiffuse_solar_reflectance))
-        out.append(self._to_str(self.back_side_drape_beamdiffuse_solar_reflectance))
-        out.append(self._to_str(self.drape_beambeam_visible_transmittance))
-        out.append(self._to_str(self.drape_beamdiffuse_visible_transmittance))
-        out.append(self._to_str(self.drape_beamdiffuse_visible_reflectance))
-        out.append(self._to_str(self.drape_material_infrared_transmittance))
-        out.append(self._to_str(self.front_side_drape_material_infrared_emissivity))
-        out.append(self._to_str(self.back_side_drape_material_infrared_emissivity))
-        out.append(self._to_str(self.width_of_pleated_fabric))
-        out.append(self._to_str(self.length_of_pleated_fabric))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class WindowMaterialBlindEquivalentLayer(object):
     """ Corresponds to IDD object `WindowMaterial:Blind:EquivalentLayer`
@@ -14252,134 +15187,184 @@ class WindowMaterialBlindEquivalentLayer(object):
         self._data["Front Side Slat Infrared Emissivity"] = None
         self._data["Back Side Slat Infrared Emissivity"] = None
         self._data["Slat Angle Control"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.slat_orientation = None
         else:
             self.slat_orientation = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.slat_width = None
         else:
             self.slat_width = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.slat_separation = None
         else:
             self.slat_separation = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.slat_crown = None
         else:
             self.slat_crown = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.slat_angle = None
         else:
             self.slat_angle = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.front_side_slat_beamdiffuse_solar_transmittance = None
         else:
             self.front_side_slat_beamdiffuse_solar_transmittance = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.back_side_slat_beamdiffuse_solar_transmittance = None
         else:
             self.back_side_slat_beamdiffuse_solar_transmittance = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.front_side_slat_beamdiffuse_solar_reflectance = None
         else:
             self.front_side_slat_beamdiffuse_solar_reflectance = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.back_side_slat_beamdiffuse_solar_reflectance = None
         else:
             self.back_side_slat_beamdiffuse_solar_reflectance = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.front_side_slat_beamdiffuse_visible_transmittance = None
         else:
             self.front_side_slat_beamdiffuse_visible_transmittance = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.back_side_slat_beamdiffuse_visible_transmittance = None
         else:
             self.back_side_slat_beamdiffuse_visible_transmittance = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.front_side_slat_beamdiffuse_visible_reflectance = None
         else:
             self.front_side_slat_beamdiffuse_visible_reflectance = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.back_side_slat_beamdiffuse_visible_reflectance = None
         else:
             self.back_side_slat_beamdiffuse_visible_reflectance = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.slat_diffusediffuse_solar_transmittance = None
         else:
             self.slat_diffusediffuse_solar_transmittance = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.front_side_slat_diffusediffuse_solar_reflectance = None
         else:
             self.front_side_slat_diffusediffuse_solar_reflectance = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.back_side_slat_diffusediffuse_solar_reflectance = None
         else:
             self.back_side_slat_diffusediffuse_solar_reflectance = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.slat_diffusediffuse_visible_transmittance = None
         else:
             self.slat_diffusediffuse_visible_transmittance = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.front_side_slat_diffusediffuse_visible_reflectance = None
         else:
             self.front_side_slat_diffusediffuse_visible_reflectance = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.back_side_slat_diffusediffuse_visible_reflectance = None
         else:
             self.back_side_slat_diffusediffuse_visible_reflectance = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.slat_infrared_transmittance = None
         else:
             self.slat_infrared_transmittance = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.front_side_slat_infrared_emissivity = None
         else:
             self.front_side_slat_infrared_emissivity = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.back_side_slat_infrared_emissivity = None
         else:
             self.back_side_slat_infrared_emissivity = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.slat_angle_control = None
         else:
             self.slat_angle_control = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -14410,6 +15395,9 @@ class WindowMaterialBlindEquivalentLayer(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -14448,12 +15436,26 @@ class WindowMaterialBlindEquivalentLayer(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `slat_orientation`')
-            vals = set()
-            vals.add("Horizontal")
-            vals.add("Vertical")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `slat_orientation`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `slat_orientation`')
+            vals = {}
+            vals["horizontal"] = "Horizontal"
+            vals["vertical"] = "Vertical"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `slat_orientation`'.format(value))
+            value = vals[value_lower]
 
         self._data["Slat Orientation"] = value
 
@@ -15365,13 +16367,27 @@ class WindowMaterialBlindEquivalentLayer(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `slat_angle_control`')
-            vals = set()
-            vals.add("FixedSlatAngle")
-            vals.add("MaximizeSolar")
-            vals.add("BlockBeamSolar")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `slat_angle_control`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `slat_angle_control`')
+            vals = {}
+            vals["fixedslatangle"] = "FixedSlatAngle"
+            vals["maximizesolar"] = "MaximizeSolar"
+            vals["blockbeamsolar"] = "BlockBeamSolar"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `slat_angle_control`'.format(value))
+            value = vals[value_lower]
 
         self._data["Slat Angle Control"] = value
 
@@ -15397,33 +16413,17 @@ class WindowMaterialBlindEquivalentLayer(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.slat_orientation))
-        out.append(self._to_str(self.slat_width))
-        out.append(self._to_str(self.slat_separation))
-        out.append(self._to_str(self.slat_crown))
-        out.append(self._to_str(self.slat_angle))
-        out.append(self._to_str(self.front_side_slat_beamdiffuse_solar_transmittance))
-        out.append(self._to_str(self.back_side_slat_beamdiffuse_solar_transmittance))
-        out.append(self._to_str(self.front_side_slat_beamdiffuse_solar_reflectance))
-        out.append(self._to_str(self.back_side_slat_beamdiffuse_solar_reflectance))
-        out.append(self._to_str(self.front_side_slat_beamdiffuse_visible_transmittance))
-        out.append(self._to_str(self.back_side_slat_beamdiffuse_visible_transmittance))
-        out.append(self._to_str(self.front_side_slat_beamdiffuse_visible_reflectance))
-        out.append(self._to_str(self.back_side_slat_beamdiffuse_visible_reflectance))
-        out.append(self._to_str(self.slat_diffusediffuse_solar_transmittance))
-        out.append(self._to_str(self.front_side_slat_diffusediffuse_solar_reflectance))
-        out.append(self._to_str(self.back_side_slat_diffusediffuse_solar_reflectance))
-        out.append(self._to_str(self.slat_diffusediffuse_visible_transmittance))
-        out.append(self._to_str(self.front_side_slat_diffusediffuse_visible_reflectance))
-        out.append(self._to_str(self.back_side_slat_diffusediffuse_visible_reflectance))
-        out.append(self._to_str(self.slat_infrared_transmittance))
-        out.append(self._to_str(self.front_side_slat_infrared_emissivity))
-        out.append(self._to_str(self.back_side_slat_infrared_emissivity))
-        out.append(self._to_str(self.slat_angle_control))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class WindowMaterialScreenEquivalentLayer(object):
     """ Corresponds to IDD object `WindowMaterial:Screen:EquivalentLayer`
@@ -15450,69 +16450,93 @@ class WindowMaterialScreenEquivalentLayer(object):
         self._data["Screen Infrared Emissivity"] = None
         self._data["Screen Wire Spacing"] = None
         self._data["Screen Wire Diameter"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.screen_beambeam_solar_transmittance = None
         else:
             self.screen_beambeam_solar_transmittance = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.screen_beamdiffuse_solar_transmittance = None
         else:
             self.screen_beamdiffuse_solar_transmittance = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.screen_beamdiffuse_solar_reflectance = None
         else:
             self.screen_beamdiffuse_solar_reflectance = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.screen_beambeam_visible_transmittance = None
         else:
             self.screen_beambeam_visible_transmittance = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.screen_beamdiffuse_visible_transmittance = None
         else:
             self.screen_beamdiffuse_visible_transmittance = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.screen_beamdiffuse_visible_reflectance = None
         else:
             self.screen_beamdiffuse_visible_reflectance = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.screen_infrared_transmittance = None
         else:
             self.screen_infrared_transmittance = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.screen_infrared_emissivity = None
         else:
             self.screen_infrared_emissivity = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.screen_wire_spacing = None
         else:
             self.screen_wire_spacing = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.screen_wire_diameter = None
         else:
             self.screen_wire_diameter = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -15544,6 +16568,9 @@ class WindowMaterialScreenEquivalentLayer(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -15983,20 +17010,17 @@ class WindowMaterialScreenEquivalentLayer(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.screen_beambeam_solar_transmittance))
-        out.append(self._to_str(self.screen_beamdiffuse_solar_transmittance))
-        out.append(self._to_str(self.screen_beamdiffuse_solar_reflectance))
-        out.append(self._to_str(self.screen_beambeam_visible_transmittance))
-        out.append(self._to_str(self.screen_beamdiffuse_visible_transmittance))
-        out.append(self._to_str(self.screen_beamdiffuse_visible_reflectance))
-        out.append(self._to_str(self.screen_infrared_transmittance))
-        out.append(self._to_str(self.screen_infrared_emissivity))
-        out.append(self._to_str(self.screen_wire_spacing))
-        out.append(self._to_str(self.screen_wire_diameter))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class WindowMaterialGlazingEquivalentLayer(object):
     """ Corresponds to IDD object `WindowMaterial:Glazing:EquivalentLayer`
@@ -16040,154 +17064,212 @@ class WindowMaterialGlazingEquivalentLayer(object):
         self._data["Infrared Transmittance (applies to front and back)"] = None
         self._data["Front Side Infrared Emissivity"] = None
         self._data["Back Side Infrared Emissivity"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.optical_data_type = None
         else:
             self.optical_data_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.window_glass_spectral_data_set_name = None
         else:
             self.window_glass_spectral_data_set_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.front_side_beambeam_solar_transmittance = None
         else:
             self.front_side_beambeam_solar_transmittance = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.back_side_beambeam_solar_transmittance = None
         else:
             self.back_side_beambeam_solar_transmittance = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.front_side_beambeam_solar_reflectance = None
         else:
             self.front_side_beambeam_solar_reflectance = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.back_side_beambeam_solar_reflectance = None
         else:
             self.back_side_beambeam_solar_reflectance = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.front_side_beambeam_visible_solar_transmittance = None
         else:
             self.front_side_beambeam_visible_solar_transmittance = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.back_side_beambeam_visible_solar_transmittance = None
         else:
             self.back_side_beambeam_visible_solar_transmittance = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.front_side_beambeam_visible_solar_reflectance = None
         else:
             self.front_side_beambeam_visible_solar_reflectance = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.back_side_beambeam_visible_solar_reflectance = None
         else:
             self.back_side_beambeam_visible_solar_reflectance = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.front_side_beamdiffuse_solar_transmittance = None
         else:
             self.front_side_beamdiffuse_solar_transmittance = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.back_side_beamdiffuse_solar_transmittance = None
         else:
             self.back_side_beamdiffuse_solar_transmittance = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.front_side_beamdiffuse_solar_reflectance = None
         else:
             self.front_side_beamdiffuse_solar_reflectance = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.back_side_beamdiffuse_solar_reflectance = None
         else:
             self.back_side_beamdiffuse_solar_reflectance = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.front_side_beamdiffuse_visible_solar_transmittance = None
         else:
             self.front_side_beamdiffuse_visible_solar_transmittance = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.back_side_beamdiffuse_visible_solar_transmittance = None
         else:
             self.back_side_beamdiffuse_visible_solar_transmittance = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.front_side_beamdiffuse_visible_solar_reflectance = None
         else:
             self.front_side_beamdiffuse_visible_solar_reflectance = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.back_side_beamdiffuse_visible_solar_reflectance = None
         else:
             self.back_side_beamdiffuse_visible_solar_reflectance = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.diffusediffuse_solar_transmittance = None
         else:
             self.diffusediffuse_solar_transmittance = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.front_side_diffusediffuse_solar_reflectance = None
         else:
             self.front_side_diffusediffuse_solar_reflectance = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.back_side_diffusediffuse_solar_reflectance = None
         else:
             self.back_side_diffusediffuse_solar_reflectance = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.diffusediffuse_visible_solar_transmittance = None
         else:
             self.diffusediffuse_visible_solar_transmittance = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.front_side_diffusediffuse_visible_solar_reflectance = None
         else:
             self.front_side_diffusediffuse_visible_solar_reflectance = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.back_side_diffusediffuse_visible_solar_reflectance = None
         else:
             self.back_side_diffusediffuse_visible_solar_reflectance = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.infrared_transmittance_applies_to_front_and_back = None
         else:
             self.infrared_transmittance_applies_to_front_and_back = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.front_side_infrared_emissivity = None
         else:
             self.front_side_infrared_emissivity = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.back_side_infrared_emissivity = None
         else:
             self.back_side_infrared_emissivity = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -16218,6 +17300,9 @@ class WindowMaterialGlazingEquivalentLayer(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -16255,12 +17340,26 @@ class WindowMaterialGlazingEquivalentLayer(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `optical_data_type`')
-            vals = set()
-            vals.add("SpectralAverage")
-            vals.add("Spectral (not supported now)")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `optical_data_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `optical_data_type`')
+            vals = {}
+            vals["spectralaverage"] = "SpectralAverage"
+            vals["spectral (not supported now)"] = "Spectral (not supported now)"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `optical_data_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Optical Data Type"] = value
 
@@ -16294,6 +17393,9 @@ class WindowMaterialGlazingEquivalentLayer(object):
                                  'for field `window_glass_spectral_data_set_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `window_glass_spectral_data_set_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `window_glass_spectral_data_set_name`')
 
         self._data["Window Glass Spectral Data Set Name"] = value
@@ -17355,37 +18457,17 @@ class WindowMaterialGlazingEquivalentLayer(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.optical_data_type))
-        out.append(self._to_str(self.window_glass_spectral_data_set_name))
-        out.append(self._to_str(self.front_side_beambeam_solar_transmittance))
-        out.append(self._to_str(self.back_side_beambeam_solar_transmittance))
-        out.append(self._to_str(self.front_side_beambeam_solar_reflectance))
-        out.append(self._to_str(self.back_side_beambeam_solar_reflectance))
-        out.append(self._to_str(self.front_side_beambeam_visible_solar_transmittance))
-        out.append(self._to_str(self.back_side_beambeam_visible_solar_transmittance))
-        out.append(self._to_str(self.front_side_beambeam_visible_solar_reflectance))
-        out.append(self._to_str(self.back_side_beambeam_visible_solar_reflectance))
-        out.append(self._to_str(self.front_side_beamdiffuse_solar_transmittance))
-        out.append(self._to_str(self.back_side_beamdiffuse_solar_transmittance))
-        out.append(self._to_str(self.front_side_beamdiffuse_solar_reflectance))
-        out.append(self._to_str(self.back_side_beamdiffuse_solar_reflectance))
-        out.append(self._to_str(self.front_side_beamdiffuse_visible_solar_transmittance))
-        out.append(self._to_str(self.back_side_beamdiffuse_visible_solar_transmittance))
-        out.append(self._to_str(self.front_side_beamdiffuse_visible_solar_reflectance))
-        out.append(self._to_str(self.back_side_beamdiffuse_visible_solar_reflectance))
-        out.append(self._to_str(self.diffusediffuse_solar_transmittance))
-        out.append(self._to_str(self.front_side_diffusediffuse_solar_reflectance))
-        out.append(self._to_str(self.back_side_diffusediffuse_solar_reflectance))
-        out.append(self._to_str(self.diffusediffuse_visible_solar_transmittance))
-        out.append(self._to_str(self.front_side_diffusediffuse_visible_solar_reflectance))
-        out.append(self._to_str(self.back_side_diffusediffuse_visible_solar_reflectance))
-        out.append(self._to_str(self.infrared_transmittance_applies_to_front_and_back))
-        out.append(self._to_str(self.front_side_infrared_emissivity))
-        out.append(self._to_str(self.back_side_infrared_emissivity))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class ConstructionWindowEquivalentLayer(object):
     """ Corresponds to IDD object `Construction:WindowEquivalentLayer`
@@ -17414,74 +18496,100 @@ class ConstructionWindowEquivalentLayer(object):
         self._data["Layer 9"] = None
         self._data["Layer 10"] = None
         self._data["Layer 11"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.outside_layer = None
         else:
             self.outside_layer = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.layer_2 = None
         else:
             self.layer_2 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.layer_3 = None
         else:
             self.layer_3 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.layer_4 = None
         else:
             self.layer_4 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.layer_5 = None
         else:
             self.layer_5 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.layer_6 = None
         else:
             self.layer_6 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.layer_7 = None
         else:
             self.layer_7 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.layer_8 = None
         else:
             self.layer_8 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.layer_9 = None
         else:
             self.layer_9 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.layer_10 = None
         else:
             self.layer_10 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.layer_11 = None
         else:
             self.layer_11 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -17512,6 +18620,9 @@ class ConstructionWindowEquivalentLayer(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -17546,6 +18657,9 @@ class ConstructionWindowEquivalentLayer(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `outside_layer`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `outside_layer`')
 
         self._data["Outside Layer"] = value
 
@@ -17578,6 +18692,9 @@ class ConstructionWindowEquivalentLayer(object):
                                  'for field `layer_2`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `layer_2`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `layer_2`')
 
         self._data["Layer 2"] = value
@@ -17612,6 +18729,9 @@ class ConstructionWindowEquivalentLayer(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `layer_3`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `layer_3`')
 
         self._data["Layer 3"] = value
 
@@ -17644,6 +18764,9 @@ class ConstructionWindowEquivalentLayer(object):
                                  'for field `layer_4`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `layer_4`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `layer_4`')
 
         self._data["Layer 4"] = value
@@ -17678,6 +18801,9 @@ class ConstructionWindowEquivalentLayer(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `layer_5`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `layer_5`')
 
         self._data["Layer 5"] = value
 
@@ -17710,6 +18836,9 @@ class ConstructionWindowEquivalentLayer(object):
                                  'for field `layer_6`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `layer_6`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `layer_6`')
 
         self._data["Layer 6"] = value
@@ -17744,6 +18873,9 @@ class ConstructionWindowEquivalentLayer(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `layer_7`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `layer_7`')
 
         self._data["Layer 7"] = value
 
@@ -17776,6 +18908,9 @@ class ConstructionWindowEquivalentLayer(object):
                                  'for field `layer_8`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `layer_8`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `layer_8`')
 
         self._data["Layer 8"] = value
@@ -17810,6 +18945,9 @@ class ConstructionWindowEquivalentLayer(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `layer_9`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `layer_9`')
 
         self._data["Layer 9"] = value
 
@@ -17842,6 +18980,9 @@ class ConstructionWindowEquivalentLayer(object):
                                  'for field `layer_10`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `layer_10`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `layer_10`')
 
         self._data["Layer 10"] = value
@@ -17876,6 +19017,9 @@ class ConstructionWindowEquivalentLayer(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `layer_11`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `layer_11`')
 
         self._data["Layer 11"] = value
 
@@ -17901,21 +19045,17 @@ class ConstructionWindowEquivalentLayer(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.outside_layer))
-        out.append(self._to_str(self.layer_2))
-        out.append(self._to_str(self.layer_3))
-        out.append(self._to_str(self.layer_4))
-        out.append(self._to_str(self.layer_5))
-        out.append(self._to_str(self.layer_6))
-        out.append(self._to_str(self.layer_7))
-        out.append(self._to_str(self.layer_8))
-        out.append(self._to_str(self.layer_9))
-        out.append(self._to_str(self.layer_10))
-        out.append(self._to_str(self.layer_11))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class WindowMaterialGapEquivalentLayer(object):
     """ Corresponds to IDD object `WindowMaterial:Gap:EquivalentLayer`
@@ -17946,89 +19086,121 @@ class WindowMaterialGapEquivalentLayer(object):
         self._data["Specific Heat Coefficient C"] = None
         self._data["Molecular Weight"] = None
         self._data["Specific Heat Ratio"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.gas_type = None
         else:
             self.gas_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.thickness = None
         else:
             self.thickness = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.gap_vent_type = None
         else:
             self.gap_vent_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.conductivity_coefficient_a = None
         else:
             self.conductivity_coefficient_a = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.conductivity_coefficient_b = None
         else:
             self.conductivity_coefficient_b = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.conductivity_coefficient_c = None
         else:
             self.conductivity_coefficient_c = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.viscosity_coefficient_a = None
         else:
             self.viscosity_coefficient_a = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.viscosity_coefficient_b = None
         else:
             self.viscosity_coefficient_b = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.viscosity_coefficient_c = None
         else:
             self.viscosity_coefficient_c = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.specific_heat_coefficient_a = None
         else:
             self.specific_heat_coefficient_a = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.specific_heat_coefficient_b = None
         else:
             self.specific_heat_coefficient_b = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.specific_heat_coefficient_c = None
         else:
             self.specific_heat_coefficient_c = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.molecular_weight = None
         else:
             self.molecular_weight = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.specific_heat_ratio = None
         else:
             self.specific_heat_ratio = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -18059,6 +19231,9 @@ class WindowMaterialGapEquivalentLayer(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -18099,15 +19274,29 @@ class WindowMaterialGapEquivalentLayer(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `gas_type`')
-            vals = set()
-            vals.add("AIR")
-            vals.add("ARGON")
-            vals.add("KRYPTON")
-            vals.add("XENON")
-            vals.add("CUSTOM")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `gas_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `gas_type`')
+            vals = {}
+            vals["air"] = "AIR"
+            vals["argon"] = "ARGON"
+            vals["krypton"] = "KRYPTON"
+            vals["xenon"] = "XENON"
+            vals["custom"] = "CUSTOM"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `gas_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Gas Type"] = value
 
@@ -18185,13 +19374,27 @@ class WindowMaterialGapEquivalentLayer(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `gap_vent_type`')
-            vals = set()
-            vals.add("Sealed")
-            vals.add("VentedIndoor")
-            vals.add("VentedOutdoor")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `gap_vent_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `gap_vent_type`')
+            vals = {}
+            vals["sealed"] = "Sealed"
+            vals["ventedindoor"] = "VentedIndoor"
+            vals["ventedoutdoor"] = "VentedOutdoor"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `gap_vent_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Gap Vent Type"] = value
 
@@ -18584,24 +19787,17 @@ class WindowMaterialGapEquivalentLayer(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.gas_type))
-        out.append(self._to_str(self.thickness))
-        out.append(self._to_str(self.gap_vent_type))
-        out.append(self._to_str(self.conductivity_coefficient_a))
-        out.append(self._to_str(self.conductivity_coefficient_b))
-        out.append(self._to_str(self.conductivity_coefficient_c))
-        out.append(self._to_str(self.viscosity_coefficient_a))
-        out.append(self._to_str(self.viscosity_coefficient_b))
-        out.append(self._to_str(self.viscosity_coefficient_c))
-        out.append(self._to_str(self.specific_heat_coefficient_a))
-        out.append(self._to_str(self.specific_heat_coefficient_b))
-        out.append(self._to_str(self.specific_heat_coefficient_c))
-        out.append(self._to_str(self.molecular_weight))
-        out.append(self._to_str(self.specific_heat_ratio))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class MaterialPropertyMoisturePenetrationDepthSettings(object):
     """ Corresponds to IDD object `MaterialProperty:MoisturePenetrationDepth:Settings`
@@ -18624,44 +19820,58 @@ class MaterialPropertyMoisturePenetrationDepthSettings(object):
         self._data["Moisture Equation Coefficient b"] = None
         self._data["Moisture Equation Coefficient c"] = None
         self._data["Moisture Equation Coefficient d"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.moisture_penetration_depth = None
         else:
             self.moisture_penetration_depth = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.moisture_equation_coefficient_a = None
         else:
             self.moisture_equation_coefficient_a = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.moisture_equation_coefficient_b = None
         else:
             self.moisture_equation_coefficient_b = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.moisture_equation_coefficient_c = None
         else:
             self.moisture_equation_coefficient_c = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.moisture_equation_coefficient_d = None
         else:
             self.moisture_equation_coefficient_d = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -18695,6 +19905,9 @@ class MaterialPropertyMoisturePenetrationDepthSettings(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -18881,15 +20094,17 @@ class MaterialPropertyMoisturePenetrationDepthSettings(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.moisture_penetration_depth))
-        out.append(self._to_str(self.moisture_equation_coefficient_a))
-        out.append(self._to_str(self.moisture_equation_coefficient_b))
-        out.append(self._to_str(self.moisture_equation_coefficient_c))
-        out.append(self._to_str(self.moisture_equation_coefficient_d))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class MaterialPropertyPhaseChange(object):
     """ Corresponds to IDD object `MaterialProperty:PhaseChange`
@@ -18942,184 +20157,254 @@ class MaterialPropertyPhaseChange(object):
         self._data["Enthalpy 15"] = None
         self._data["Temperature 16"] = None
         self._data["Enthalpy 16"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.temperature_coefficient_for_thermal_conductivity = None
         else:
             self.temperature_coefficient_for_thermal_conductivity = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.temperature_1 = None
         else:
             self.temperature_1 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.enthalpy_1 = None
         else:
             self.enthalpy_1 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.temperature_2 = None
         else:
             self.temperature_2 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.enthalpy_2 = None
         else:
             self.enthalpy_2 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.temperature_3 = None
         else:
             self.temperature_3 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.enthalpy_3 = None
         else:
             self.enthalpy_3 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.temperature_4 = None
         else:
             self.temperature_4 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.enthalpy_4 = None
         else:
             self.enthalpy_4 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.temperature_5 = None
         else:
             self.temperature_5 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.enthalpy_5 = None
         else:
             self.enthalpy_5 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.temperature_6 = None
         else:
             self.temperature_6 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.enthalpy_6 = None
         else:
             self.enthalpy_6 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.temperature_7 = None
         else:
             self.temperature_7 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.enthalpy_7 = None
         else:
             self.enthalpy_7 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.temperature_8 = None
         else:
             self.temperature_8 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.enthalpy_8 = None
         else:
             self.enthalpy_8 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.temperature_9 = None
         else:
             self.temperature_9 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.enthalpy_9 = None
         else:
             self.enthalpy_9 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.temperature_10 = None
         else:
             self.temperature_10 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.enthalpy_10 = None
         else:
             self.enthalpy_10 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.temperature_11 = None
         else:
             self.temperature_11 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.enthalpy_11 = None
         else:
             self.enthalpy_11 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.temperature_12 = None
         else:
             self.temperature_12 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.enthalpy_12 = None
         else:
             self.enthalpy_12 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.temperature_13 = None
         else:
             self.temperature_13 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.enthalpy_13 = None
         else:
             self.enthalpy_13 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.temperature_14 = None
         else:
             self.temperature_14 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.enthalpy_14 = None
         else:
             self.enthalpy_14 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.temperature_15 = None
         else:
             self.temperature_15 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.enthalpy_15 = None
         else:
             self.enthalpy_15 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.temperature_16 = None
         else:
             self.temperature_16 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.enthalpy_16 = None
         else:
             self.enthalpy_16 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -19152,6 +20437,9 @@ class MaterialPropertyPhaseChange(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -20269,43 +21557,17 @@ class MaterialPropertyPhaseChange(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.temperature_coefficient_for_thermal_conductivity))
-        out.append(self._to_str(self.temperature_1))
-        out.append(self._to_str(self.enthalpy_1))
-        out.append(self._to_str(self.temperature_2))
-        out.append(self._to_str(self.enthalpy_2))
-        out.append(self._to_str(self.temperature_3))
-        out.append(self._to_str(self.enthalpy_3))
-        out.append(self._to_str(self.temperature_4))
-        out.append(self._to_str(self.enthalpy_4))
-        out.append(self._to_str(self.temperature_5))
-        out.append(self._to_str(self.enthalpy_5))
-        out.append(self._to_str(self.temperature_6))
-        out.append(self._to_str(self.enthalpy_6))
-        out.append(self._to_str(self.temperature_7))
-        out.append(self._to_str(self.enthalpy_7))
-        out.append(self._to_str(self.temperature_8))
-        out.append(self._to_str(self.enthalpy_8))
-        out.append(self._to_str(self.temperature_9))
-        out.append(self._to_str(self.enthalpy_9))
-        out.append(self._to_str(self.temperature_10))
-        out.append(self._to_str(self.enthalpy_10))
-        out.append(self._to_str(self.temperature_11))
-        out.append(self._to_str(self.enthalpy_11))
-        out.append(self._to_str(self.temperature_12))
-        out.append(self._to_str(self.enthalpy_12))
-        out.append(self._to_str(self.temperature_13))
-        out.append(self._to_str(self.enthalpy_13))
-        out.append(self._to_str(self.temperature_14))
-        out.append(self._to_str(self.enthalpy_14))
-        out.append(self._to_str(self.temperature_15))
-        out.append(self._to_str(self.enthalpy_15))
-        out.append(self._to_str(self.temperature_16))
-        out.append(self._to_str(self.enthalpy_16))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class MaterialPropertyVariableThermalConductivity(object):
     """ Corresponds to IDD object `MaterialProperty:VariableThermalConductivity`
@@ -20344,119 +21606,163 @@ class MaterialPropertyVariableThermalConductivity(object):
         self._data["Thermal Conductivity 9"] = None
         self._data["Temperature 10"] = None
         self._data["Thermal Conductivity 10"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.temperature_1 = None
         else:
             self.temperature_1 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.thermal_conductivity_1 = None
         else:
             self.thermal_conductivity_1 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.temperature_2 = None
         else:
             self.temperature_2 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.thermal_conductivity_2 = None
         else:
             self.thermal_conductivity_2 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.temperature_3 = None
         else:
             self.temperature_3 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.thermal_conductivity_3 = None
         else:
             self.thermal_conductivity_3 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.temperature_4 = None
         else:
             self.temperature_4 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.thermal_conductivity_4 = None
         else:
             self.thermal_conductivity_4 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.temperature_5 = None
         else:
             self.temperature_5 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.thermal_conductivity_5 = None
         else:
             self.thermal_conductivity_5 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.temperature_6 = None
         else:
             self.temperature_6 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.thermal_conductivity_6 = None
         else:
             self.thermal_conductivity_6 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.temperature_7 = None
         else:
             self.temperature_7 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.thermal_conductivity_7 = None
         else:
             self.thermal_conductivity_7 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.temperature_8 = None
         else:
             self.temperature_8 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.thermal_conductivity_8 = None
         else:
             self.thermal_conductivity_8 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.temperature_9 = None
         else:
             self.temperature_9 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.thermal_conductivity_9 = None
         else:
             self.thermal_conductivity_9 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.temperature_10 = None
         else:
             self.temperature_10 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.thermal_conductivity_10 = None
         else:
             self.thermal_conductivity_10 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -20489,6 +21795,9 @@ class MaterialPropertyVariableThermalConductivity(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -21175,30 +22484,17 @@ class MaterialPropertyVariableThermalConductivity(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.temperature_1))
-        out.append(self._to_str(self.thermal_conductivity_1))
-        out.append(self._to_str(self.temperature_2))
-        out.append(self._to_str(self.thermal_conductivity_2))
-        out.append(self._to_str(self.temperature_3))
-        out.append(self._to_str(self.thermal_conductivity_3))
-        out.append(self._to_str(self.temperature_4))
-        out.append(self._to_str(self.thermal_conductivity_4))
-        out.append(self._to_str(self.temperature_5))
-        out.append(self._to_str(self.thermal_conductivity_5))
-        out.append(self._to_str(self.temperature_6))
-        out.append(self._to_str(self.thermal_conductivity_6))
-        out.append(self._to_str(self.temperature_7))
-        out.append(self._to_str(self.thermal_conductivity_7))
-        out.append(self._to_str(self.temperature_8))
-        out.append(self._to_str(self.thermal_conductivity_8))
-        out.append(self._to_str(self.temperature_9))
-        out.append(self._to_str(self.thermal_conductivity_9))
-        out.append(self._to_str(self.temperature_10))
-        out.append(self._to_str(self.thermal_conductivity_10))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class MaterialPropertyHeatAndMoistureTransferSettings(object):
     """ Corresponds to IDD object `MaterialProperty:HeatAndMoistureTransfer:Settings`
@@ -21218,29 +22514,37 @@ class MaterialPropertyHeatAndMoistureTransferSettings(object):
         self._data["Material Name"] = None
         self._data["Porosity"] = None
         self._data["Initial Water Content Ratio"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.material_name = None
         else:
             self.material_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.porosity = None
         else:
             self.porosity = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.initial_water_content_ratio = None
         else:
             self.initial_water_content_ratio = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def material_name(self):
@@ -21273,6 +22577,9 @@ class MaterialPropertyHeatAndMoistureTransferSettings(object):
                                  'for field `material_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `material_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `material_name`')
 
         self._data["Material Name"] = value
@@ -21375,12 +22682,17 @@ class MaterialPropertyHeatAndMoistureTransferSettings(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.material_name))
-        out.append(self._to_str(self.porosity))
-        out.append(self._to_str(self.initial_water_content_ratio))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
     """ Corresponds to IDD object `MaterialProperty:HeatAndMoistureTransfer:SorptionIsotherm`
@@ -21449,274 +22761,380 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
         self._data["Moisture Content 24"] = None
         self._data["Relative Humidity Fraction 25"] = None
         self._data["Moisture Content 25"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.material_name = None
         else:
             self.material_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.number_of_isotherm_coordinates = None
         else:
             self.number_of_isotherm_coordinates = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.relative_humidity_fraction_1 = None
         else:
             self.relative_humidity_fraction_1 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.moisture_content_1 = None
         else:
             self.moisture_content_1 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.relative_humidity_fraction_2 = None
         else:
             self.relative_humidity_fraction_2 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.moisture_content_2 = None
         else:
             self.moisture_content_2 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.relative_humidity_fraction_3 = None
         else:
             self.relative_humidity_fraction_3 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.moisture_content_3 = None
         else:
             self.moisture_content_3 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.relative_humidity_fraction_4 = None
         else:
             self.relative_humidity_fraction_4 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.moisture_content_4 = None
         else:
             self.moisture_content_4 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.relative_humidity_fraction_5 = None
         else:
             self.relative_humidity_fraction_5 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.moisture_content_5 = None
         else:
             self.moisture_content_5 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.relative_humidity_fraction_6 = None
         else:
             self.relative_humidity_fraction_6 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.moisture_content_6 = None
         else:
             self.moisture_content_6 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.relative_humidity_fraction_7 = None
         else:
             self.relative_humidity_fraction_7 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.moisture_content_7 = None
         else:
             self.moisture_content_7 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.relative_humidity_fraction_8 = None
         else:
             self.relative_humidity_fraction_8 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.moisture_content_8 = None
         else:
             self.moisture_content_8 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.relative_humidity_fraction_9 = None
         else:
             self.relative_humidity_fraction_9 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.moisture_content_9 = None
         else:
             self.moisture_content_9 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.relative_humidity_fraction_10 = None
         else:
             self.relative_humidity_fraction_10 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.moisture_content_10 = None
         else:
             self.moisture_content_10 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.relative_humidity_fraction_11 = None
         else:
             self.relative_humidity_fraction_11 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.moisture_content_11 = None
         else:
             self.moisture_content_11 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.relative_humidity_fraction_12 = None
         else:
             self.relative_humidity_fraction_12 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.moisture_content_12 = None
         else:
             self.moisture_content_12 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.relative_humidity_fraction_13 = None
         else:
             self.relative_humidity_fraction_13 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.moisture_content_13 = None
         else:
             self.moisture_content_13 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.relative_humidity_fraction_14 = None
         else:
             self.relative_humidity_fraction_14 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.moisture_content_14 = None
         else:
             self.moisture_content_14 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.relative_humidity_fraction_15 = None
         else:
             self.relative_humidity_fraction_15 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.moisture_content_15 = None
         else:
             self.moisture_content_15 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.relative_humidity_fraction_16 = None
         else:
             self.relative_humidity_fraction_16 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.moisture_content_16 = None
         else:
             self.moisture_content_16 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.relative_humidity_fraction_17 = None
         else:
             self.relative_humidity_fraction_17 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.moisture_content_17 = None
         else:
             self.moisture_content_17 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.relative_humidity_fraction_18 = None
         else:
             self.relative_humidity_fraction_18 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.moisture_content_18 = None
         else:
             self.moisture_content_18 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.relative_humidity_fraction_19 = None
         else:
             self.relative_humidity_fraction_19 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.moisture_content_19 = None
         else:
             self.moisture_content_19 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.relative_humidity_fraction_20 = None
         else:
             self.relative_humidity_fraction_20 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.moisture_content_20 = None
         else:
             self.moisture_content_20 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.relative_humidity_fraction_21 = None
         else:
             self.relative_humidity_fraction_21 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.moisture_content_21 = None
         else:
             self.moisture_content_21 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.relative_humidity_fraction_22 = None
         else:
             self.relative_humidity_fraction_22 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.moisture_content_22 = None
         else:
             self.moisture_content_22 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.relative_humidity_fraction_23 = None
         else:
             self.relative_humidity_fraction_23 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.moisture_content_23 = None
         else:
             self.moisture_content_23 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.relative_humidity_fraction_24 = None
         else:
             self.relative_humidity_fraction_24 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.moisture_content_24 = None
         else:
             self.moisture_content_24 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.relative_humidity_fraction_25 = None
         else:
             self.relative_humidity_fraction_25 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.moisture_content_25 = None
         else:
             self.moisture_content_25 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def material_name(self):
@@ -21748,6 +23166,9 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
                                  'for field `material_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `material_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `material_name`')
 
         self._data["Material Name"] = value
@@ -23688,61 +25109,17 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.material_name))
-        out.append(self._to_str(self.number_of_isotherm_coordinates))
-        out.append(self._to_str(self.relative_humidity_fraction_1))
-        out.append(self._to_str(self.moisture_content_1))
-        out.append(self._to_str(self.relative_humidity_fraction_2))
-        out.append(self._to_str(self.moisture_content_2))
-        out.append(self._to_str(self.relative_humidity_fraction_3))
-        out.append(self._to_str(self.moisture_content_3))
-        out.append(self._to_str(self.relative_humidity_fraction_4))
-        out.append(self._to_str(self.moisture_content_4))
-        out.append(self._to_str(self.relative_humidity_fraction_5))
-        out.append(self._to_str(self.moisture_content_5))
-        out.append(self._to_str(self.relative_humidity_fraction_6))
-        out.append(self._to_str(self.moisture_content_6))
-        out.append(self._to_str(self.relative_humidity_fraction_7))
-        out.append(self._to_str(self.moisture_content_7))
-        out.append(self._to_str(self.relative_humidity_fraction_8))
-        out.append(self._to_str(self.moisture_content_8))
-        out.append(self._to_str(self.relative_humidity_fraction_9))
-        out.append(self._to_str(self.moisture_content_9))
-        out.append(self._to_str(self.relative_humidity_fraction_10))
-        out.append(self._to_str(self.moisture_content_10))
-        out.append(self._to_str(self.relative_humidity_fraction_11))
-        out.append(self._to_str(self.moisture_content_11))
-        out.append(self._to_str(self.relative_humidity_fraction_12))
-        out.append(self._to_str(self.moisture_content_12))
-        out.append(self._to_str(self.relative_humidity_fraction_13))
-        out.append(self._to_str(self.moisture_content_13))
-        out.append(self._to_str(self.relative_humidity_fraction_14))
-        out.append(self._to_str(self.moisture_content_14))
-        out.append(self._to_str(self.relative_humidity_fraction_15))
-        out.append(self._to_str(self.moisture_content_15))
-        out.append(self._to_str(self.relative_humidity_fraction_16))
-        out.append(self._to_str(self.moisture_content_16))
-        out.append(self._to_str(self.relative_humidity_fraction_17))
-        out.append(self._to_str(self.moisture_content_17))
-        out.append(self._to_str(self.relative_humidity_fraction_18))
-        out.append(self._to_str(self.moisture_content_18))
-        out.append(self._to_str(self.relative_humidity_fraction_19))
-        out.append(self._to_str(self.moisture_content_19))
-        out.append(self._to_str(self.relative_humidity_fraction_20))
-        out.append(self._to_str(self.moisture_content_20))
-        out.append(self._to_str(self.relative_humidity_fraction_21))
-        out.append(self._to_str(self.moisture_content_21))
-        out.append(self._to_str(self.relative_humidity_fraction_22))
-        out.append(self._to_str(self.moisture_content_22))
-        out.append(self._to_str(self.relative_humidity_fraction_23))
-        out.append(self._to_str(self.moisture_content_23))
-        out.append(self._to_str(self.relative_humidity_fraction_24))
-        out.append(self._to_str(self.moisture_content_24))
-        out.append(self._to_str(self.relative_humidity_fraction_25))
-        out.append(self._to_str(self.moisture_content_25))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class MaterialPropertyHeatAndMoistureTransferSuction(object):
     """ Corresponds to IDD object `MaterialProperty:HeatAndMoistureTransfer:Suction`
@@ -23811,274 +25188,380 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
         self._data["Liquid Transport Coefficient 24"] = None
         self._data["Moisture Content 25"] = None
         self._data["Liquid Transport Coefficient 25"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.material_name = None
         else:
             self.material_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.number_of_suction_points = None
         else:
             self.number_of_suction_points = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.moisture_content_1 = None
         else:
             self.moisture_content_1 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.liquid_transport_coefficient_1 = None
         else:
             self.liquid_transport_coefficient_1 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.moisture_content_2 = None
         else:
             self.moisture_content_2 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.liquid_transport_coefficient_2 = None
         else:
             self.liquid_transport_coefficient_2 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.moisture_content_3 = None
         else:
             self.moisture_content_3 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.liquid_transport_coefficient_3 = None
         else:
             self.liquid_transport_coefficient_3 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.moisture_content_4 = None
         else:
             self.moisture_content_4 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.liquid_transport_coefficient_4 = None
         else:
             self.liquid_transport_coefficient_4 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.moisture_content_5 = None
         else:
             self.moisture_content_5 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.liquid_transport_coefficient_5 = None
         else:
             self.liquid_transport_coefficient_5 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.moisture_content_6 = None
         else:
             self.moisture_content_6 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.liquid_transport_coefficient_6 = None
         else:
             self.liquid_transport_coefficient_6 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.moisture_content_7 = None
         else:
             self.moisture_content_7 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.liquid_transport_coefficient_7 = None
         else:
             self.liquid_transport_coefficient_7 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.moisture_content_8 = None
         else:
             self.moisture_content_8 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.liquid_transport_coefficient_8 = None
         else:
             self.liquid_transport_coefficient_8 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.moisture_content_9 = None
         else:
             self.moisture_content_9 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.liquid_transport_coefficient_9 = None
         else:
             self.liquid_transport_coefficient_9 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.moisture_content_10 = None
         else:
             self.moisture_content_10 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.liquid_transport_coefficient_10 = None
         else:
             self.liquid_transport_coefficient_10 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.moisture_content_11 = None
         else:
             self.moisture_content_11 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.liquid_transport_coefficient_11 = None
         else:
             self.liquid_transport_coefficient_11 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.moisture_content_12 = None
         else:
             self.moisture_content_12 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.liquid_transport_coefficient_12 = None
         else:
             self.liquid_transport_coefficient_12 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.moisture_content_13 = None
         else:
             self.moisture_content_13 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.liquid_transport_coefficient_13 = None
         else:
             self.liquid_transport_coefficient_13 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.moisture_content_14 = None
         else:
             self.moisture_content_14 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.liquid_transport_coefficient_14 = None
         else:
             self.liquid_transport_coefficient_14 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.moisture_content_15 = None
         else:
             self.moisture_content_15 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.liquid_transport_coefficient_15 = None
         else:
             self.liquid_transport_coefficient_15 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.moisture_content_16 = None
         else:
             self.moisture_content_16 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.liquid_transport_coefficient_16 = None
         else:
             self.liquid_transport_coefficient_16 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.moisture_content_17 = None
         else:
             self.moisture_content_17 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.liquid_transport_coefficient_17 = None
         else:
             self.liquid_transport_coefficient_17 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.moisture_content_18 = None
         else:
             self.moisture_content_18 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.liquid_transport_coefficient_18 = None
         else:
             self.liquid_transport_coefficient_18 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.moisture_content_19 = None
         else:
             self.moisture_content_19 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.liquid_transport_coefficient_19 = None
         else:
             self.liquid_transport_coefficient_19 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.moisture_content_20 = None
         else:
             self.moisture_content_20 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.liquid_transport_coefficient_20 = None
         else:
             self.liquid_transport_coefficient_20 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.moisture_content_21 = None
         else:
             self.moisture_content_21 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.liquid_transport_coefficient_21 = None
         else:
             self.liquid_transport_coefficient_21 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.moisture_content_22 = None
         else:
             self.moisture_content_22 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.liquid_transport_coefficient_22 = None
         else:
             self.liquid_transport_coefficient_22 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.moisture_content_23 = None
         else:
             self.moisture_content_23 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.liquid_transport_coefficient_23 = None
         else:
             self.liquid_transport_coefficient_23 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.moisture_content_24 = None
         else:
             self.moisture_content_24 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.liquid_transport_coefficient_24 = None
         else:
             self.liquid_transport_coefficient_24 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.moisture_content_25 = None
         else:
             self.moisture_content_25 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.liquid_transport_coefficient_25 = None
         else:
             self.liquid_transport_coefficient_25 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def material_name(self):
@@ -24110,6 +25593,9 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
                                  'for field `material_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `material_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `material_name`')
 
         self._data["Material Name"] = value
@@ -25925,61 +27411,17 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.material_name))
-        out.append(self._to_str(self.number_of_suction_points))
-        out.append(self._to_str(self.moisture_content_1))
-        out.append(self._to_str(self.liquid_transport_coefficient_1))
-        out.append(self._to_str(self.moisture_content_2))
-        out.append(self._to_str(self.liquid_transport_coefficient_2))
-        out.append(self._to_str(self.moisture_content_3))
-        out.append(self._to_str(self.liquid_transport_coefficient_3))
-        out.append(self._to_str(self.moisture_content_4))
-        out.append(self._to_str(self.liquid_transport_coefficient_4))
-        out.append(self._to_str(self.moisture_content_5))
-        out.append(self._to_str(self.liquid_transport_coefficient_5))
-        out.append(self._to_str(self.moisture_content_6))
-        out.append(self._to_str(self.liquid_transport_coefficient_6))
-        out.append(self._to_str(self.moisture_content_7))
-        out.append(self._to_str(self.liquid_transport_coefficient_7))
-        out.append(self._to_str(self.moisture_content_8))
-        out.append(self._to_str(self.liquid_transport_coefficient_8))
-        out.append(self._to_str(self.moisture_content_9))
-        out.append(self._to_str(self.liquid_transport_coefficient_9))
-        out.append(self._to_str(self.moisture_content_10))
-        out.append(self._to_str(self.liquid_transport_coefficient_10))
-        out.append(self._to_str(self.moisture_content_11))
-        out.append(self._to_str(self.liquid_transport_coefficient_11))
-        out.append(self._to_str(self.moisture_content_12))
-        out.append(self._to_str(self.liquid_transport_coefficient_12))
-        out.append(self._to_str(self.moisture_content_13))
-        out.append(self._to_str(self.liquid_transport_coefficient_13))
-        out.append(self._to_str(self.moisture_content_14))
-        out.append(self._to_str(self.liquid_transport_coefficient_14))
-        out.append(self._to_str(self.moisture_content_15))
-        out.append(self._to_str(self.liquid_transport_coefficient_15))
-        out.append(self._to_str(self.moisture_content_16))
-        out.append(self._to_str(self.liquid_transport_coefficient_16))
-        out.append(self._to_str(self.moisture_content_17))
-        out.append(self._to_str(self.liquid_transport_coefficient_17))
-        out.append(self._to_str(self.moisture_content_18))
-        out.append(self._to_str(self.liquid_transport_coefficient_18))
-        out.append(self._to_str(self.moisture_content_19))
-        out.append(self._to_str(self.liquid_transport_coefficient_19))
-        out.append(self._to_str(self.moisture_content_20))
-        out.append(self._to_str(self.liquid_transport_coefficient_20))
-        out.append(self._to_str(self.moisture_content_21))
-        out.append(self._to_str(self.liquid_transport_coefficient_21))
-        out.append(self._to_str(self.moisture_content_22))
-        out.append(self._to_str(self.liquid_transport_coefficient_22))
-        out.append(self._to_str(self.moisture_content_23))
-        out.append(self._to_str(self.liquid_transport_coefficient_23))
-        out.append(self._to_str(self.moisture_content_24))
-        out.append(self._to_str(self.liquid_transport_coefficient_24))
-        out.append(self._to_str(self.moisture_content_25))
-        out.append(self._to_str(self.liquid_transport_coefficient_25))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
     """ Corresponds to IDD object `MaterialProperty:HeatAndMoistureTransfer:Redistribution`
@@ -26048,274 +27490,380 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
         self._data["Liquid Transport Coefficient 24"] = None
         self._data["Moisture Content 25"] = None
         self._data["Liquid Transport Coefficient 25"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.material_name = None
         else:
             self.material_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.number_of_redistribution_points = None
         else:
             self.number_of_redistribution_points = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.moisture_content_1 = None
         else:
             self.moisture_content_1 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.liquid_transport_coefficient_1 = None
         else:
             self.liquid_transport_coefficient_1 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.moisture_content_2 = None
         else:
             self.moisture_content_2 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.liquid_transport_coefficient_2 = None
         else:
             self.liquid_transport_coefficient_2 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.moisture_content_3 = None
         else:
             self.moisture_content_3 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.liquid_transport_coefficient_3 = None
         else:
             self.liquid_transport_coefficient_3 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.moisture_content_4 = None
         else:
             self.moisture_content_4 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.liquid_transport_coefficient_4 = None
         else:
             self.liquid_transport_coefficient_4 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.moisture_content_5 = None
         else:
             self.moisture_content_5 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.liquid_transport_coefficient_5 = None
         else:
             self.liquid_transport_coefficient_5 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.moisture_content_6 = None
         else:
             self.moisture_content_6 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.liquid_transport_coefficient_6 = None
         else:
             self.liquid_transport_coefficient_6 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.moisture_content_7 = None
         else:
             self.moisture_content_7 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.liquid_transport_coefficient_7 = None
         else:
             self.liquid_transport_coefficient_7 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.moisture_content_8 = None
         else:
             self.moisture_content_8 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.liquid_transport_coefficient_8 = None
         else:
             self.liquid_transport_coefficient_8 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.moisture_content_9 = None
         else:
             self.moisture_content_9 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.liquid_transport_coefficient_9 = None
         else:
             self.liquid_transport_coefficient_9 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.moisture_content_10 = None
         else:
             self.moisture_content_10 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.liquid_transport_coefficient_10 = None
         else:
             self.liquid_transport_coefficient_10 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.moisture_content_11 = None
         else:
             self.moisture_content_11 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.liquid_transport_coefficient_11 = None
         else:
             self.liquid_transport_coefficient_11 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.moisture_content_12 = None
         else:
             self.moisture_content_12 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.liquid_transport_coefficient_12 = None
         else:
             self.liquid_transport_coefficient_12 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.moisture_content_13 = None
         else:
             self.moisture_content_13 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.liquid_transport_coefficient_13 = None
         else:
             self.liquid_transport_coefficient_13 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.moisture_content_14 = None
         else:
             self.moisture_content_14 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.liquid_transport_coefficient_14 = None
         else:
             self.liquid_transport_coefficient_14 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.moisture_content_15 = None
         else:
             self.moisture_content_15 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.liquid_transport_coefficient_15 = None
         else:
             self.liquid_transport_coefficient_15 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.moisture_content_16 = None
         else:
             self.moisture_content_16 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.liquid_transport_coefficient_16 = None
         else:
             self.liquid_transport_coefficient_16 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.moisture_content_17 = None
         else:
             self.moisture_content_17 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.liquid_transport_coefficient_17 = None
         else:
             self.liquid_transport_coefficient_17 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.moisture_content_18 = None
         else:
             self.moisture_content_18 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.liquid_transport_coefficient_18 = None
         else:
             self.liquid_transport_coefficient_18 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.moisture_content_19 = None
         else:
             self.moisture_content_19 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.liquid_transport_coefficient_19 = None
         else:
             self.liquid_transport_coefficient_19 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.moisture_content_20 = None
         else:
             self.moisture_content_20 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.liquid_transport_coefficient_20 = None
         else:
             self.liquid_transport_coefficient_20 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.moisture_content_21 = None
         else:
             self.moisture_content_21 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.liquid_transport_coefficient_21 = None
         else:
             self.liquid_transport_coefficient_21 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.moisture_content_22 = None
         else:
             self.moisture_content_22 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.liquid_transport_coefficient_22 = None
         else:
             self.liquid_transport_coefficient_22 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.moisture_content_23 = None
         else:
             self.moisture_content_23 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.liquid_transport_coefficient_23 = None
         else:
             self.liquid_transport_coefficient_23 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.moisture_content_24 = None
         else:
             self.moisture_content_24 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.liquid_transport_coefficient_24 = None
         else:
             self.liquid_transport_coefficient_24 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.moisture_content_25 = None
         else:
             self.moisture_content_25 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.liquid_transport_coefficient_25 = None
         else:
             self.liquid_transport_coefficient_25 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def material_name(self):
@@ -26347,6 +27895,9 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
                                  'for field `material_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `material_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `material_name`')
 
         self._data["Material Name"] = value
@@ -28162,61 +29713,17 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.material_name))
-        out.append(self._to_str(self.number_of_redistribution_points))
-        out.append(self._to_str(self.moisture_content_1))
-        out.append(self._to_str(self.liquid_transport_coefficient_1))
-        out.append(self._to_str(self.moisture_content_2))
-        out.append(self._to_str(self.liquid_transport_coefficient_2))
-        out.append(self._to_str(self.moisture_content_3))
-        out.append(self._to_str(self.liquid_transport_coefficient_3))
-        out.append(self._to_str(self.moisture_content_4))
-        out.append(self._to_str(self.liquid_transport_coefficient_4))
-        out.append(self._to_str(self.moisture_content_5))
-        out.append(self._to_str(self.liquid_transport_coefficient_5))
-        out.append(self._to_str(self.moisture_content_6))
-        out.append(self._to_str(self.liquid_transport_coefficient_6))
-        out.append(self._to_str(self.moisture_content_7))
-        out.append(self._to_str(self.liquid_transport_coefficient_7))
-        out.append(self._to_str(self.moisture_content_8))
-        out.append(self._to_str(self.liquid_transport_coefficient_8))
-        out.append(self._to_str(self.moisture_content_9))
-        out.append(self._to_str(self.liquid_transport_coefficient_9))
-        out.append(self._to_str(self.moisture_content_10))
-        out.append(self._to_str(self.liquid_transport_coefficient_10))
-        out.append(self._to_str(self.moisture_content_11))
-        out.append(self._to_str(self.liquid_transport_coefficient_11))
-        out.append(self._to_str(self.moisture_content_12))
-        out.append(self._to_str(self.liquid_transport_coefficient_12))
-        out.append(self._to_str(self.moisture_content_13))
-        out.append(self._to_str(self.liquid_transport_coefficient_13))
-        out.append(self._to_str(self.moisture_content_14))
-        out.append(self._to_str(self.liquid_transport_coefficient_14))
-        out.append(self._to_str(self.moisture_content_15))
-        out.append(self._to_str(self.liquid_transport_coefficient_15))
-        out.append(self._to_str(self.moisture_content_16))
-        out.append(self._to_str(self.liquid_transport_coefficient_16))
-        out.append(self._to_str(self.moisture_content_17))
-        out.append(self._to_str(self.liquid_transport_coefficient_17))
-        out.append(self._to_str(self.moisture_content_18))
-        out.append(self._to_str(self.liquid_transport_coefficient_18))
-        out.append(self._to_str(self.moisture_content_19))
-        out.append(self._to_str(self.liquid_transport_coefficient_19))
-        out.append(self._to_str(self.moisture_content_20))
-        out.append(self._to_str(self.liquid_transport_coefficient_20))
-        out.append(self._to_str(self.moisture_content_21))
-        out.append(self._to_str(self.liquid_transport_coefficient_21))
-        out.append(self._to_str(self.moisture_content_22))
-        out.append(self._to_str(self.liquid_transport_coefficient_22))
-        out.append(self._to_str(self.moisture_content_23))
-        out.append(self._to_str(self.liquid_transport_coefficient_23))
-        out.append(self._to_str(self.moisture_content_24))
-        out.append(self._to_str(self.liquid_transport_coefficient_24))
-        out.append(self._to_str(self.moisture_content_25))
-        out.append(self._to_str(self.liquid_transport_coefficient_25))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
     """ Corresponds to IDD object `MaterialProperty:HeatAndMoistureTransfer:Diffusion`
@@ -28285,274 +29792,380 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
         self._data["Water Vapor Diffusion Resistance Factor 24"] = None
         self._data["Relative Humidity Fraction 25"] = None
         self._data["Water Vapor Diffusion Resistance Factor 25"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.material_name = None
         else:
             self.material_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.number_of_data_pairs = None
         else:
             self.number_of_data_pairs = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.relative_humidity_fraction_1 = None
         else:
             self.relative_humidity_fraction_1 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.water_vapor_diffusion_resistance_factor_1 = None
         else:
             self.water_vapor_diffusion_resistance_factor_1 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.relative_humidity_fraction_2 = None
         else:
             self.relative_humidity_fraction_2 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.water_vapor_diffusion_resistance_factor_2 = None
         else:
             self.water_vapor_diffusion_resistance_factor_2 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.relative_humidity_fraction_3 = None
         else:
             self.relative_humidity_fraction_3 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.water_vapor_diffusion_resistance_factor_3 = None
         else:
             self.water_vapor_diffusion_resistance_factor_3 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.relative_humidity_fraction_4 = None
         else:
             self.relative_humidity_fraction_4 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.water_vapor_diffusion_resistance_factor_4 = None
         else:
             self.water_vapor_diffusion_resistance_factor_4 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.relative_humidity_fraction_5 = None
         else:
             self.relative_humidity_fraction_5 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.water_vapor_diffusion_resistance_factor_5 = None
         else:
             self.water_vapor_diffusion_resistance_factor_5 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.relative_humidity_fraction_6 = None
         else:
             self.relative_humidity_fraction_6 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.water_vapor_diffusion_resistance_factor_6 = None
         else:
             self.water_vapor_diffusion_resistance_factor_6 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.relative_humidity_fraction_7 = None
         else:
             self.relative_humidity_fraction_7 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.water_vapor_diffusion_resistance_factor_7 = None
         else:
             self.water_vapor_diffusion_resistance_factor_7 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.relative_humidity_fraction_8 = None
         else:
             self.relative_humidity_fraction_8 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.water_vapor_diffusion_resistance_factor_8 = None
         else:
             self.water_vapor_diffusion_resistance_factor_8 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.relative_humidity_fraction_9 = None
         else:
             self.relative_humidity_fraction_9 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.water_vapor_diffusion_resistance_factor_9 = None
         else:
             self.water_vapor_diffusion_resistance_factor_9 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.relative_humidity_fraction_10 = None
         else:
             self.relative_humidity_fraction_10 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.water_vapor_diffusion_resistance_factor_10 = None
         else:
             self.water_vapor_diffusion_resistance_factor_10 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.relative_humidity_fraction_11 = None
         else:
             self.relative_humidity_fraction_11 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.water_vapor_diffusion_resistance_factor_11 = None
         else:
             self.water_vapor_diffusion_resistance_factor_11 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.relative_humidity_fraction_12 = None
         else:
             self.relative_humidity_fraction_12 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.water_vapor_diffusion_resistance_factor_12 = None
         else:
             self.water_vapor_diffusion_resistance_factor_12 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.relative_humidity_fraction_13 = None
         else:
             self.relative_humidity_fraction_13 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.water_vapor_diffusion_resistance_factor_13 = None
         else:
             self.water_vapor_diffusion_resistance_factor_13 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.relative_humidity_fraction_14 = None
         else:
             self.relative_humidity_fraction_14 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.water_vapor_diffusion_resistance_factor_14 = None
         else:
             self.water_vapor_diffusion_resistance_factor_14 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.relative_humidity_fraction_15 = None
         else:
             self.relative_humidity_fraction_15 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.water_vapor_diffusion_resistance_factor_15 = None
         else:
             self.water_vapor_diffusion_resistance_factor_15 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.relative_humidity_fraction_16 = None
         else:
             self.relative_humidity_fraction_16 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.water_vapor_diffusion_resistance_factor_16 = None
         else:
             self.water_vapor_diffusion_resistance_factor_16 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.relative_humidity_fraction_17 = None
         else:
             self.relative_humidity_fraction_17 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.water_vapor_diffusion_resistance_factor_17 = None
         else:
             self.water_vapor_diffusion_resistance_factor_17 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.relative_humidity_fraction_18 = None
         else:
             self.relative_humidity_fraction_18 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.water_vapor_diffusion_resistance_factor_18 = None
         else:
             self.water_vapor_diffusion_resistance_factor_18 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.relative_humidity_fraction_19 = None
         else:
             self.relative_humidity_fraction_19 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.water_vapor_diffusion_resistance_factor_19 = None
         else:
             self.water_vapor_diffusion_resistance_factor_19 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.relative_humidity_fraction_20 = None
         else:
             self.relative_humidity_fraction_20 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.water_vapor_diffusion_resistance_factor_20 = None
         else:
             self.water_vapor_diffusion_resistance_factor_20 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.relative_humidity_fraction_21 = None
         else:
             self.relative_humidity_fraction_21 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.water_vapor_diffusion_resistance_factor_21 = None
         else:
             self.water_vapor_diffusion_resistance_factor_21 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.relative_humidity_fraction_22 = None
         else:
             self.relative_humidity_fraction_22 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.water_vapor_diffusion_resistance_factor_22 = None
         else:
             self.water_vapor_diffusion_resistance_factor_22 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.relative_humidity_fraction_23 = None
         else:
             self.relative_humidity_fraction_23 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.water_vapor_diffusion_resistance_factor_23 = None
         else:
             self.water_vapor_diffusion_resistance_factor_23 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.relative_humidity_fraction_24 = None
         else:
             self.relative_humidity_fraction_24 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.water_vapor_diffusion_resistance_factor_24 = None
         else:
             self.water_vapor_diffusion_resistance_factor_24 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.relative_humidity_fraction_25 = None
         else:
             self.relative_humidity_fraction_25 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.water_vapor_diffusion_resistance_factor_25 = None
         else:
             self.water_vapor_diffusion_resistance_factor_25 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def material_name(self):
@@ -28584,6 +30197,9 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
                                  'for field `material_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `material_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `material_name`')
 
         self._data["Material Name"] = value
@@ -30524,61 +32140,17 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.material_name))
-        out.append(self._to_str(self.number_of_data_pairs))
-        out.append(self._to_str(self.relative_humidity_fraction_1))
-        out.append(self._to_str(self.water_vapor_diffusion_resistance_factor_1))
-        out.append(self._to_str(self.relative_humidity_fraction_2))
-        out.append(self._to_str(self.water_vapor_diffusion_resistance_factor_2))
-        out.append(self._to_str(self.relative_humidity_fraction_3))
-        out.append(self._to_str(self.water_vapor_diffusion_resistance_factor_3))
-        out.append(self._to_str(self.relative_humidity_fraction_4))
-        out.append(self._to_str(self.water_vapor_diffusion_resistance_factor_4))
-        out.append(self._to_str(self.relative_humidity_fraction_5))
-        out.append(self._to_str(self.water_vapor_diffusion_resistance_factor_5))
-        out.append(self._to_str(self.relative_humidity_fraction_6))
-        out.append(self._to_str(self.water_vapor_diffusion_resistance_factor_6))
-        out.append(self._to_str(self.relative_humidity_fraction_7))
-        out.append(self._to_str(self.water_vapor_diffusion_resistance_factor_7))
-        out.append(self._to_str(self.relative_humidity_fraction_8))
-        out.append(self._to_str(self.water_vapor_diffusion_resistance_factor_8))
-        out.append(self._to_str(self.relative_humidity_fraction_9))
-        out.append(self._to_str(self.water_vapor_diffusion_resistance_factor_9))
-        out.append(self._to_str(self.relative_humidity_fraction_10))
-        out.append(self._to_str(self.water_vapor_diffusion_resistance_factor_10))
-        out.append(self._to_str(self.relative_humidity_fraction_11))
-        out.append(self._to_str(self.water_vapor_diffusion_resistance_factor_11))
-        out.append(self._to_str(self.relative_humidity_fraction_12))
-        out.append(self._to_str(self.water_vapor_diffusion_resistance_factor_12))
-        out.append(self._to_str(self.relative_humidity_fraction_13))
-        out.append(self._to_str(self.water_vapor_diffusion_resistance_factor_13))
-        out.append(self._to_str(self.relative_humidity_fraction_14))
-        out.append(self._to_str(self.water_vapor_diffusion_resistance_factor_14))
-        out.append(self._to_str(self.relative_humidity_fraction_15))
-        out.append(self._to_str(self.water_vapor_diffusion_resistance_factor_15))
-        out.append(self._to_str(self.relative_humidity_fraction_16))
-        out.append(self._to_str(self.water_vapor_diffusion_resistance_factor_16))
-        out.append(self._to_str(self.relative_humidity_fraction_17))
-        out.append(self._to_str(self.water_vapor_diffusion_resistance_factor_17))
-        out.append(self._to_str(self.relative_humidity_fraction_18))
-        out.append(self._to_str(self.water_vapor_diffusion_resistance_factor_18))
-        out.append(self._to_str(self.relative_humidity_fraction_19))
-        out.append(self._to_str(self.water_vapor_diffusion_resistance_factor_19))
-        out.append(self._to_str(self.relative_humidity_fraction_20))
-        out.append(self._to_str(self.water_vapor_diffusion_resistance_factor_20))
-        out.append(self._to_str(self.relative_humidity_fraction_21))
-        out.append(self._to_str(self.water_vapor_diffusion_resistance_factor_21))
-        out.append(self._to_str(self.relative_humidity_fraction_22))
-        out.append(self._to_str(self.water_vapor_diffusion_resistance_factor_22))
-        out.append(self._to_str(self.relative_humidity_fraction_23))
-        out.append(self._to_str(self.water_vapor_diffusion_resistance_factor_23))
-        out.append(self._to_str(self.relative_humidity_fraction_24))
-        out.append(self._to_str(self.water_vapor_diffusion_resistance_factor_24))
-        out.append(self._to_str(self.relative_humidity_fraction_25))
-        out.append(self._to_str(self.water_vapor_diffusion_resistance_factor_25))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
     """ Corresponds to IDD object `MaterialProperty:HeatAndMoistureTransfer:ThermalConductivity`
@@ -30647,274 +32219,380 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
         self._data["Thermal Conductivity 24"] = None
         self._data["Moisture Content 25"] = None
         self._data["Thermal Conductivity 25"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.material_name = None
         else:
             self.material_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.number_of_thermal_coordinates = None
         else:
             self.number_of_thermal_coordinates = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.moisture_content_1 = None
         else:
             self.moisture_content_1 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.thermal_conductivity_1 = None
         else:
             self.thermal_conductivity_1 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.moisture_content_2 = None
         else:
             self.moisture_content_2 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.thermal_conductivity_2 = None
         else:
             self.thermal_conductivity_2 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.moisture_content_3 = None
         else:
             self.moisture_content_3 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.thermal_conductivity_3 = None
         else:
             self.thermal_conductivity_3 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.moisture_content_4 = None
         else:
             self.moisture_content_4 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.thermal_conductivity_4 = None
         else:
             self.thermal_conductivity_4 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.moisture_content_5 = None
         else:
             self.moisture_content_5 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.thermal_conductivity_5 = None
         else:
             self.thermal_conductivity_5 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.moisture_content_6 = None
         else:
             self.moisture_content_6 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.thermal_conductivity_6 = None
         else:
             self.thermal_conductivity_6 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.moisture_content_7 = None
         else:
             self.moisture_content_7 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.thermal_conductivity_7 = None
         else:
             self.thermal_conductivity_7 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.moisture_content_8 = None
         else:
             self.moisture_content_8 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.thermal_conductivity_8 = None
         else:
             self.thermal_conductivity_8 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.moisture_content_9 = None
         else:
             self.moisture_content_9 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.thermal_conductivity_9 = None
         else:
             self.thermal_conductivity_9 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.moisture_content_10 = None
         else:
             self.moisture_content_10 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.thermal_conductivity_10 = None
         else:
             self.thermal_conductivity_10 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.moisture_content_11 = None
         else:
             self.moisture_content_11 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.thermal_conductivity_11 = None
         else:
             self.thermal_conductivity_11 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.moisture_content_12 = None
         else:
             self.moisture_content_12 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.thermal_conductivity_12 = None
         else:
             self.thermal_conductivity_12 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.moisture_content_13 = None
         else:
             self.moisture_content_13 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.thermal_conductivity_13 = None
         else:
             self.thermal_conductivity_13 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.moisture_content_14 = None
         else:
             self.moisture_content_14 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.thermal_conductivity_14 = None
         else:
             self.thermal_conductivity_14 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.moisture_content_15 = None
         else:
             self.moisture_content_15 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.thermal_conductivity_15 = None
         else:
             self.thermal_conductivity_15 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.moisture_content_16 = None
         else:
             self.moisture_content_16 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.thermal_conductivity_16 = None
         else:
             self.thermal_conductivity_16 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.moisture_content_17 = None
         else:
             self.moisture_content_17 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.thermal_conductivity_17 = None
         else:
             self.thermal_conductivity_17 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.moisture_content_18 = None
         else:
             self.moisture_content_18 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.thermal_conductivity_18 = None
         else:
             self.thermal_conductivity_18 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.moisture_content_19 = None
         else:
             self.moisture_content_19 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.thermal_conductivity_19 = None
         else:
             self.thermal_conductivity_19 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.moisture_content_20 = None
         else:
             self.moisture_content_20 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.thermal_conductivity_20 = None
         else:
             self.thermal_conductivity_20 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.moisture_content_21 = None
         else:
             self.moisture_content_21 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.thermal_conductivity_21 = None
         else:
             self.thermal_conductivity_21 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.moisture_content_22 = None
         else:
             self.moisture_content_22 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.thermal_conductivity_22 = None
         else:
             self.thermal_conductivity_22 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.moisture_content_23 = None
         else:
             self.moisture_content_23 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.thermal_conductivity_23 = None
         else:
             self.thermal_conductivity_23 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.moisture_content_24 = None
         else:
             self.moisture_content_24 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.thermal_conductivity_24 = None
         else:
             self.thermal_conductivity_24 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.moisture_content_25 = None
         else:
             self.moisture_content_25 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.thermal_conductivity_25 = None
         else:
             self.thermal_conductivity_25 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def material_name(self):
@@ -30946,6 +32624,9 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
                                  'for field `material_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `material_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `material_name`')
 
         self._data["Material Name"] = value
@@ -32761,61 +34442,17 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.material_name))
-        out.append(self._to_str(self.number_of_thermal_coordinates))
-        out.append(self._to_str(self.moisture_content_1))
-        out.append(self._to_str(self.thermal_conductivity_1))
-        out.append(self._to_str(self.moisture_content_2))
-        out.append(self._to_str(self.thermal_conductivity_2))
-        out.append(self._to_str(self.moisture_content_3))
-        out.append(self._to_str(self.thermal_conductivity_3))
-        out.append(self._to_str(self.moisture_content_4))
-        out.append(self._to_str(self.thermal_conductivity_4))
-        out.append(self._to_str(self.moisture_content_5))
-        out.append(self._to_str(self.thermal_conductivity_5))
-        out.append(self._to_str(self.moisture_content_6))
-        out.append(self._to_str(self.thermal_conductivity_6))
-        out.append(self._to_str(self.moisture_content_7))
-        out.append(self._to_str(self.thermal_conductivity_7))
-        out.append(self._to_str(self.moisture_content_8))
-        out.append(self._to_str(self.thermal_conductivity_8))
-        out.append(self._to_str(self.moisture_content_9))
-        out.append(self._to_str(self.thermal_conductivity_9))
-        out.append(self._to_str(self.moisture_content_10))
-        out.append(self._to_str(self.thermal_conductivity_10))
-        out.append(self._to_str(self.moisture_content_11))
-        out.append(self._to_str(self.thermal_conductivity_11))
-        out.append(self._to_str(self.moisture_content_12))
-        out.append(self._to_str(self.thermal_conductivity_12))
-        out.append(self._to_str(self.moisture_content_13))
-        out.append(self._to_str(self.thermal_conductivity_13))
-        out.append(self._to_str(self.moisture_content_14))
-        out.append(self._to_str(self.thermal_conductivity_14))
-        out.append(self._to_str(self.moisture_content_15))
-        out.append(self._to_str(self.thermal_conductivity_15))
-        out.append(self._to_str(self.moisture_content_16))
-        out.append(self._to_str(self.thermal_conductivity_16))
-        out.append(self._to_str(self.moisture_content_17))
-        out.append(self._to_str(self.thermal_conductivity_17))
-        out.append(self._to_str(self.moisture_content_18))
-        out.append(self._to_str(self.thermal_conductivity_18))
-        out.append(self._to_str(self.moisture_content_19))
-        out.append(self._to_str(self.thermal_conductivity_19))
-        out.append(self._to_str(self.moisture_content_20))
-        out.append(self._to_str(self.thermal_conductivity_20))
-        out.append(self._to_str(self.moisture_content_21))
-        out.append(self._to_str(self.thermal_conductivity_21))
-        out.append(self._to_str(self.moisture_content_22))
-        out.append(self._to_str(self.thermal_conductivity_22))
-        out.append(self._to_str(self.moisture_content_23))
-        out.append(self._to_str(self.thermal_conductivity_23))
-        out.append(self._to_str(self.moisture_content_24))
-        out.append(self._to_str(self.thermal_conductivity_24))
-        out.append(self._to_str(self.moisture_content_25))
-        out.append(self._to_str(self.thermal_conductivity_25))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class Construction(object):
     """ Corresponds to IDD object `Construction`
@@ -32843,69 +34480,93 @@ class Construction(object):
         self._data["Layer 8"] = None
         self._data["Layer 9"] = None
         self._data["Layer 10"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.outside_layer = None
         else:
             self.outside_layer = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.layer_2 = None
         else:
             self.layer_2 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.layer_3 = None
         else:
             self.layer_3 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.layer_4 = None
         else:
             self.layer_4 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.layer_5 = None
         else:
             self.layer_5 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.layer_6 = None
         else:
             self.layer_6 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.layer_7 = None
         else:
             self.layer_7 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.layer_8 = None
         else:
             self.layer_8 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.layer_9 = None
         else:
             self.layer_9 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.layer_10 = None
         else:
             self.layer_10 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -32936,6 +34597,9 @@ class Construction(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -32970,6 +34634,9 @@ class Construction(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `outside_layer`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `outside_layer`')
 
         self._data["Outside Layer"] = value
 
@@ -33002,6 +34669,9 @@ class Construction(object):
                                  'for field `layer_2`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `layer_2`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `layer_2`')
 
         self._data["Layer 2"] = value
@@ -33036,6 +34706,9 @@ class Construction(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `layer_3`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `layer_3`')
 
         self._data["Layer 3"] = value
 
@@ -33068,6 +34741,9 @@ class Construction(object):
                                  'for field `layer_4`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `layer_4`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `layer_4`')
 
         self._data["Layer 4"] = value
@@ -33102,6 +34778,9 @@ class Construction(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `layer_5`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `layer_5`')
 
         self._data["Layer 5"] = value
 
@@ -33134,6 +34813,9 @@ class Construction(object):
                                  'for field `layer_6`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `layer_6`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `layer_6`')
 
         self._data["Layer 6"] = value
@@ -33168,6 +34850,9 @@ class Construction(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `layer_7`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `layer_7`')
 
         self._data["Layer 7"] = value
 
@@ -33200,6 +34885,9 @@ class Construction(object):
                                  'for field `layer_8`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `layer_8`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `layer_8`')
 
         self._data["Layer 8"] = value
@@ -33234,6 +34922,9 @@ class Construction(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `layer_9`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `layer_9`')
 
         self._data["Layer 9"] = value
 
@@ -33267,6 +34958,9 @@ class Construction(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `layer_10`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `layer_10`')
 
         self._data["Layer 10"] = value
 
@@ -33292,20 +34986,17 @@ class Construction(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.outside_layer))
-        out.append(self._to_str(self.layer_2))
-        out.append(self._to_str(self.layer_3))
-        out.append(self._to_str(self.layer_4))
-        out.append(self._to_str(self.layer_5))
-        out.append(self._to_str(self.layer_6))
-        out.append(self._to_str(self.layer_7))
-        out.append(self._to_str(self.layer_8))
-        out.append(self._to_str(self.layer_9))
-        out.append(self._to_str(self.layer_10))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class ConstructionCfactorUndergroundWall(object):
     """ Corresponds to IDD object `Construction:CfactorUndergroundWall`
@@ -33323,29 +35014,37 @@ class ConstructionCfactorUndergroundWall(object):
         self._data["Name"] = None
         self._data["C-Factor"] = None
         self._data["Height"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.cfactor = None
         else:
             self.cfactor = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.height = None
         else:
             self.height = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -33376,6 +35075,9 @@ class ConstructionCfactorUndergroundWall(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -33474,12 +35176,17 @@ class ConstructionCfactorUndergroundWall(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.cfactor))
-        out.append(self._to_str(self.height))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class ConstructionFfactorGroundFloor(object):
     """ Corresponds to IDD object `Construction:FfactorGroundFloor`
@@ -33498,34 +35205,44 @@ class ConstructionFfactorGroundFloor(object):
         self._data["F-Factor"] = None
         self._data["Area"] = None
         self._data["PerimeterExposed"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.ffactor = None
         else:
             self.ffactor = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.area = None
         else:
             self.area = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.perimeterexposed = None
         else:
             self.perimeterexposed = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -33556,6 +35273,9 @@ class ConstructionFfactorGroundFloor(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -33690,13 +35410,17 @@ class ConstructionFfactorGroundFloor(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.ffactor))
-        out.append(self._to_str(self.area))
-        out.append(self._to_str(self.perimeterexposed))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class ConstructionInternalSource(object):
     """ Corresponds to IDD object `Construction:InternalSource`
@@ -33728,89 +35452,121 @@ class ConstructionInternalSource(object):
         self._data["Layer 8"] = None
         self._data["Layer 9"] = None
         self._data["Layer 10"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.source_present_after_layer_number = None
         else:
             self.source_present_after_layer_number = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.temperature_calculation_requested_after_layer_number = None
         else:
             self.temperature_calculation_requested_after_layer_number = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.dimensions_for_the_ctf_calculation = None
         else:
             self.dimensions_for_the_ctf_calculation = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.tube_spacing = None
         else:
             self.tube_spacing = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.outside_layer = None
         else:
             self.outside_layer = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.layer_2 = None
         else:
             self.layer_2 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.layer_3 = None
         else:
             self.layer_3 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.layer_4 = None
         else:
             self.layer_4 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.layer_5 = None
         else:
             self.layer_5 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.layer_6 = None
         else:
             self.layer_6 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.layer_7 = None
         else:
             self.layer_7 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.layer_8 = None
         else:
             self.layer_8 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.layer_9 = None
         else:
             self.layer_9 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.layer_10 = None
         else:
             self.layer_10 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -33841,6 +35597,9 @@ class ConstructionInternalSource(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -34013,6 +35772,9 @@ class ConstructionInternalSource(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `outside_layer`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `outside_layer`')
 
         self._data["Outside Layer"] = value
 
@@ -34045,6 +35807,9 @@ class ConstructionInternalSource(object):
                                  'for field `layer_2`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `layer_2`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `layer_2`')
 
         self._data["Layer 2"] = value
@@ -34079,6 +35844,9 @@ class ConstructionInternalSource(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `layer_3`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `layer_3`')
 
         self._data["Layer 3"] = value
 
@@ -34111,6 +35879,9 @@ class ConstructionInternalSource(object):
                                  'for field `layer_4`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `layer_4`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `layer_4`')
 
         self._data["Layer 4"] = value
@@ -34145,6 +35916,9 @@ class ConstructionInternalSource(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `layer_5`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `layer_5`')
 
         self._data["Layer 5"] = value
 
@@ -34177,6 +35951,9 @@ class ConstructionInternalSource(object):
                                  'for field `layer_6`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `layer_6`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `layer_6`')
 
         self._data["Layer 6"] = value
@@ -34211,6 +35988,9 @@ class ConstructionInternalSource(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `layer_7`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `layer_7`')
 
         self._data["Layer 7"] = value
 
@@ -34243,6 +36023,9 @@ class ConstructionInternalSource(object):
                                  'for field `layer_8`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `layer_8`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `layer_8`')
 
         self._data["Layer 8"] = value
@@ -34277,6 +36060,9 @@ class ConstructionInternalSource(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `layer_9`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `layer_9`')
 
         self._data["Layer 9"] = value
 
@@ -34310,6 +36096,9 @@ class ConstructionInternalSource(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `layer_10`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `layer_10`')
 
         self._data["Layer 10"] = value
 
@@ -34335,24 +36124,17 @@ class ConstructionInternalSource(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.source_present_after_layer_number))
-        out.append(self._to_str(self.temperature_calculation_requested_after_layer_number))
-        out.append(self._to_str(self.dimensions_for_the_ctf_calculation))
-        out.append(self._to_str(self.tube_spacing))
-        out.append(self._to_str(self.outside_layer))
-        out.append(self._to_str(self.layer_2))
-        out.append(self._to_str(self.layer_3))
-        out.append(self._to_str(self.layer_4))
-        out.append(self._to_str(self.layer_5))
-        out.append(self._to_str(self.layer_6))
-        out.append(self._to_str(self.layer_7))
-        out.append(self._to_str(self.layer_8))
-        out.append(self._to_str(self.layer_9))
-        out.append(self._to_str(self.layer_10))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class WindowThermalModelParams(object):
     """ Corresponds to IDD object `WindowThermalModel:Params`
@@ -34375,54 +36157,72 @@ class WindowThermalModelParams(object):
         self._data["Vacuum Pressure Limit"] = None
         self._data["Initial temperature"] = None
         self._data["Initial pressure"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.standard = None
         else:
             self.standard = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.thermal_model = None
         else:
             self.thermal_model = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.sdscalar = None
         else:
             self.sdscalar = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.deflection_model = None
         else:
             self.deflection_model = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.vacuum_pressure_limit = None
         else:
             self.vacuum_pressure_limit = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.initial_temperature = None
         else:
             self.initial_temperature = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.initial_pressure = None
         else:
             self.initial_pressure = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -34453,6 +36253,9 @@ class WindowThermalModelParams(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -34492,13 +36295,27 @@ class WindowThermalModelParams(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `standard`')
-            vals = set()
-            vals.add("ISO15099")
-            vals.add("EN673Declared")
-            vals.add("EN673Design")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `standard`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `standard`')
+            vals = {}
+            vals["iso15099"] = "ISO15099"
+            vals["en673declared"] = "EN673Declared"
+            vals["en673design"] = "EN673Design"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `standard`'.format(value))
+            value = vals[value_lower]
 
         self._data["standard"] = value
 
@@ -34538,14 +36355,28 @@ class WindowThermalModelParams(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `thermal_model`')
-            vals = set()
-            vals.add("ISO15099")
-            vals.add("ScaledCavityWidth")
-            vals.add("ConvectiveScalarModel_NoSDThickness")
-            vals.add("ConvectiveScalarModel_withSDThickness")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `thermal_model`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `thermal_model`')
+            vals = {}
+            vals["iso15099"] = "ISO15099"
+            vals["scaledcavitywidth"] = "ScaledCavityWidth"
+            vals["convectivescalarmodel_nosdthickness"] = "ConvectiveScalarModel_NoSDThickness"
+            vals["convectivescalarmodel_withsdthickness"] = "ConvectiveScalarModel_withSDThickness"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `thermal_model`'.format(value))
+            value = vals[value_lower]
 
         self._data["Thermal Model"] = value
 
@@ -34623,13 +36454,27 @@ class WindowThermalModelParams(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `deflection_model`')
-            vals = set()
-            vals.add("NoDeflection")
-            vals.add("TemperatureAndPressureInput")
-            vals.add("MeasuredDeflection")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `deflection_model`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `deflection_model`')
+            vals = {}
+            vals["nodeflection"] = "NoDeflection"
+            vals["temperatureandpressureinput"] = "TemperatureAndPressureInput"
+            vals["measureddeflection"] = "MeasuredDeflection"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `deflection_model`'.format(value))
+            value = vals[value_lower]
 
         self._data["Deflection Model"] = value
 
@@ -34753,17 +36598,17 @@ class WindowThermalModelParams(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.standard))
-        out.append(self._to_str(self.thermal_model))
-        out.append(self._to_str(self.sdscalar))
-        out.append(self._to_str(self.deflection_model))
-        out.append(self._to_str(self.vacuum_pressure_limit))
-        out.append(self._to_str(self.initial_temperature))
-        out.append(self._to_str(self.initial_pressure))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class ConstructionComplexFenestrationState(object):
     """ Corresponds to IDD object `Construction:ComplexFenestrationState`
@@ -34815,194 +36660,268 @@ class ConstructionComplexFenestrationState(object):
         self._data["Layer 5 Name"] = None
         self._data["Layer 5 Directional Front Absoptance Matrix Name"] = None
         self._data["Layer 5 Directional Back Absoptance Matrix Name"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.basis_type = None
         else:
             self.basis_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.basis_symmetry_type = None
         else:
             self.basis_symmetry_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.window_thermal_model = None
         else:
             self.window_thermal_model = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.basis_matrix_name = None
         else:
             self.basis_matrix_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.solar_optical_complex_front_transmittance_matrix_name = None
         else:
             self.solar_optical_complex_front_transmittance_matrix_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.solar_optical_complex_back_reflectance_matrix_name = None
         else:
             self.solar_optical_complex_back_reflectance_matrix_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.visible_optical_complex_front_transmittance_matrix_name = None
         else:
             self.visible_optical_complex_front_transmittance_matrix_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.visible_optical_complex_back_transmittance_matrix_name = None
         else:
             self.visible_optical_complex_back_transmittance_matrix_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.outside_layer_name = None
         else:
             self.outside_layer_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.outside_layer_directional_front_absoptance_matrix_name = None
         else:
             self.outside_layer_directional_front_absoptance_matrix_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.outside_layer_directional_back_absoptance_matrix_name = None
         else:
             self.outside_layer_directional_back_absoptance_matrix_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.gap_1_name = None
         else:
             self.gap_1_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.cfs_gap_1_directional_front_absoptance_matrix_name = None
         else:
             self.cfs_gap_1_directional_front_absoptance_matrix_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.cfs_gap_1_directional_back_absoptance_matrix_name = None
         else:
             self.cfs_gap_1_directional_back_absoptance_matrix_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.layer_2_name = None
         else:
             self.layer_2_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.layer_2_directional_front_absoptance_matrix_name = None
         else:
             self.layer_2_directional_front_absoptance_matrix_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.layer_2_directional_back_absoptance_matrix_name = None
         else:
             self.layer_2_directional_back_absoptance_matrix_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.gap_2_name = None
         else:
             self.gap_2_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.gap_2_directional_front_absoptance_matrix_name = None
         else:
             self.gap_2_directional_front_absoptance_matrix_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.gap_2_directional_back_absoptance_matrix_name = None
         else:
             self.gap_2_directional_back_absoptance_matrix_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.layer_3_material = None
         else:
             self.layer_3_material = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.layer_3_directional_front_absoptance_matrix_name = None
         else:
             self.layer_3_directional_front_absoptance_matrix_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.layer_3_directional_back_absoptance_matrix_name = None
         else:
             self.layer_3_directional_back_absoptance_matrix_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.gap_3_name = None
         else:
             self.gap_3_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.gap_3_directional_front_absoptance_matrix_name = None
         else:
             self.gap_3_directional_front_absoptance_matrix_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.gap_3_directional_back_absoptance_matrix_name = None
         else:
             self.gap_3_directional_back_absoptance_matrix_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.layer_4_name = None
         else:
             self.layer_4_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.layer_4_directional_front_absoptance_matrix_name = None
         else:
             self.layer_4_directional_front_absoptance_matrix_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.layer_4_directional_back_absoptance_matrix_name = None
         else:
             self.layer_4_directional_back_absoptance_matrix_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.gap_4_name = None
         else:
             self.gap_4_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.gap_4_directional_front_absoptance_matrix_name = None
         else:
             self.gap_4_directional_front_absoptance_matrix_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.gap_4_directional_back_absoptance_matrix_name = None
         else:
             self.gap_4_directional_back_absoptance_matrix_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.layer_5_name = None
         else:
             self.layer_5_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.layer_5_directional_front_absoptance_matrix_name = None
         else:
             self.layer_5_directional_front_absoptance_matrix_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.layer_5_directional_back_absoptance_matrix_name = None
         else:
             self.layer_5_directional_back_absoptance_matrix_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -35033,6 +36952,9 @@ class ConstructionComplexFenestrationState(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -35071,12 +36993,26 @@ class ConstructionComplexFenestrationState(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `basis_type`')
-            vals = set()
-            vals.add("LBNLWINDOW")
-            vals.add("UserDefined")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `basis_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `basis_type`')
+            vals = {}
+            vals["lbnlwindow"] = "LBNLWINDOW"
+            vals["userdefined"] = "UserDefined"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `basis_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Basis Type"] = value
 
@@ -35114,12 +37050,26 @@ class ConstructionComplexFenestrationState(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `basis_symmetry_type`')
-            vals = set()
-            vals.add("Axisymmetric")
-            vals.add("None")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `basis_symmetry_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `basis_symmetry_type`')
+            vals = {}
+            vals["axisymmetric"] = "Axisymmetric"
+            vals["none"] = "None"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `basis_symmetry_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Basis Symmetry Type"] = value
 
@@ -35152,6 +37102,9 @@ class ConstructionComplexFenestrationState(object):
                                  'for field `window_thermal_model`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `window_thermal_model`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `window_thermal_model`')
 
         self._data["Window Thermal Model"] = value
@@ -35186,6 +37139,9 @@ class ConstructionComplexFenestrationState(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `basis_matrix_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `basis_matrix_name`')
 
         self._data["Basis Matrix Name"] = value
 
@@ -35218,6 +37174,9 @@ class ConstructionComplexFenestrationState(object):
                                  'for field `solar_optical_complex_front_transmittance_matrix_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `solar_optical_complex_front_transmittance_matrix_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `solar_optical_complex_front_transmittance_matrix_name`')
 
         self._data["Solar Optical Complex Front Transmittance Matrix Name"] = value
@@ -35252,6 +37211,9 @@ class ConstructionComplexFenestrationState(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `solar_optical_complex_back_reflectance_matrix_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `solar_optical_complex_back_reflectance_matrix_name`')
 
         self._data["Solar Optical Complex Back Reflectance Matrix Name"] = value
 
@@ -35284,6 +37246,9 @@ class ConstructionComplexFenestrationState(object):
                                  'for field `visible_optical_complex_front_transmittance_matrix_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `visible_optical_complex_front_transmittance_matrix_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `visible_optical_complex_front_transmittance_matrix_name`')
 
         self._data["Visible Optical Complex Front Transmittance Matrix Name"] = value
@@ -35318,6 +37283,9 @@ class ConstructionComplexFenestrationState(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `visible_optical_complex_back_transmittance_matrix_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `visible_optical_complex_back_transmittance_matrix_name`')
 
         self._data["Visible Optical Complex Back Transmittance Matrix Name"] = value
 
@@ -35350,6 +37318,9 @@ class ConstructionComplexFenestrationState(object):
                                  'for field `outside_layer_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `outside_layer_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `outside_layer_name`')
 
         self._data["Outside Layer Name"] = value
@@ -35384,6 +37355,9 @@ class ConstructionComplexFenestrationState(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `outside_layer_directional_front_absoptance_matrix_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `outside_layer_directional_front_absoptance_matrix_name`')
 
         self._data["Outside Layer Directional Front Absoptance Matrix Name"] = value
 
@@ -35417,6 +37391,9 @@ class ConstructionComplexFenestrationState(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `outside_layer_directional_back_absoptance_matrix_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `outside_layer_directional_back_absoptance_matrix_name`')
 
         self._data["Outside Layer Directional Back Absoptance Matrix Name"] = value
 
@@ -35449,6 +37426,9 @@ class ConstructionComplexFenestrationState(object):
                                  'for field `gap_1_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `gap_1_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `gap_1_name`')
 
         self._data["Gap 1 Name"] = value
@@ -35484,6 +37464,9 @@ class ConstructionComplexFenestrationState(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `cfs_gap_1_directional_front_absoptance_matrix_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `cfs_gap_1_directional_front_absoptance_matrix_name`')
 
         self._data["CFS Gap 1 Directional Front Absoptance Matrix Name"] = value
 
@@ -35518,6 +37501,9 @@ class ConstructionComplexFenestrationState(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `cfs_gap_1_directional_back_absoptance_matrix_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `cfs_gap_1_directional_back_absoptance_matrix_name`')
 
         self._data["CFS Gap 1 Directional Back Absoptance Matrix Name"] = value
 
@@ -35550,6 +37536,9 @@ class ConstructionComplexFenestrationState(object):
                                  'for field `layer_2_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `layer_2_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `layer_2_name`')
 
         self._data["Layer 2 Name"] = value
@@ -35584,6 +37573,9 @@ class ConstructionComplexFenestrationState(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `layer_2_directional_front_absoptance_matrix_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `layer_2_directional_front_absoptance_matrix_name`')
 
         self._data["Layer 2 Directional Front Absoptance Matrix Name"] = value
 
@@ -35617,6 +37609,9 @@ class ConstructionComplexFenestrationState(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `layer_2_directional_back_absoptance_matrix_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `layer_2_directional_back_absoptance_matrix_name`')
 
         self._data["Layer 2 Directional Back Absoptance Matrix Name"] = value
 
@@ -35649,6 +37644,9 @@ class ConstructionComplexFenestrationState(object):
                                  'for field `gap_2_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `gap_2_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `gap_2_name`')
 
         self._data["Gap 2 Name"] = value
@@ -35684,6 +37682,9 @@ class ConstructionComplexFenestrationState(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `gap_2_directional_front_absoptance_matrix_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `gap_2_directional_front_absoptance_matrix_name`')
 
         self._data["Gap 2 Directional Front Absoptance Matrix Name"] = value
 
@@ -35718,6 +37719,9 @@ class ConstructionComplexFenestrationState(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `gap_2_directional_back_absoptance_matrix_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `gap_2_directional_back_absoptance_matrix_name`')
 
         self._data["Gap 2 Directional Back Absoptance Matrix Name"] = value
 
@@ -35750,6 +37754,9 @@ class ConstructionComplexFenestrationState(object):
                                  'for field `layer_3_material`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `layer_3_material`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `layer_3_material`')
 
         self._data["Layer 3 Material"] = value
@@ -35784,6 +37791,9 @@ class ConstructionComplexFenestrationState(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `layer_3_directional_front_absoptance_matrix_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `layer_3_directional_front_absoptance_matrix_name`')
 
         self._data["Layer 3 Directional Front Absoptance Matrix Name"] = value
 
@@ -35817,6 +37827,9 @@ class ConstructionComplexFenestrationState(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `layer_3_directional_back_absoptance_matrix_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `layer_3_directional_back_absoptance_matrix_name`')
 
         self._data["Layer 3 Directional Back Absoptance Matrix Name"] = value
 
@@ -35849,6 +37862,9 @@ class ConstructionComplexFenestrationState(object):
                                  'for field `gap_3_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `gap_3_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `gap_3_name`')
 
         self._data["Gap 3 Name"] = value
@@ -35884,6 +37900,9 @@ class ConstructionComplexFenestrationState(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `gap_3_directional_front_absoptance_matrix_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `gap_3_directional_front_absoptance_matrix_name`')
 
         self._data["Gap 3 Directional Front Absoptance Matrix Name"] = value
 
@@ -35918,6 +37937,9 @@ class ConstructionComplexFenestrationState(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `gap_3_directional_back_absoptance_matrix_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `gap_3_directional_back_absoptance_matrix_name`')
 
         self._data["Gap 3 Directional Back Absoptance Matrix Name"] = value
 
@@ -35950,6 +37972,9 @@ class ConstructionComplexFenestrationState(object):
                                  'for field `layer_4_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `layer_4_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `layer_4_name`')
 
         self._data["Layer 4 Name"] = value
@@ -35984,6 +38009,9 @@ class ConstructionComplexFenestrationState(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `layer_4_directional_front_absoptance_matrix_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `layer_4_directional_front_absoptance_matrix_name`')
 
         self._data["Layer 4 Directional Front Absoptance Matrix Name"] = value
 
@@ -36017,6 +38045,9 @@ class ConstructionComplexFenestrationState(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `layer_4_directional_back_absoptance_matrix_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `layer_4_directional_back_absoptance_matrix_name`')
 
         self._data["Layer 4 Directional Back Absoptance Matrix Name"] = value
 
@@ -36049,6 +38080,9 @@ class ConstructionComplexFenestrationState(object):
                                  'for field `gap_4_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `gap_4_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `gap_4_name`')
 
         self._data["Gap 4 Name"] = value
@@ -36084,6 +38118,9 @@ class ConstructionComplexFenestrationState(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `gap_4_directional_front_absoptance_matrix_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `gap_4_directional_front_absoptance_matrix_name`')
 
         self._data["Gap 4 Directional Front Absoptance Matrix Name"] = value
 
@@ -36118,6 +38155,9 @@ class ConstructionComplexFenestrationState(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `gap_4_directional_back_absoptance_matrix_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `gap_4_directional_back_absoptance_matrix_name`')
 
         self._data["Gap 4 Directional Back Absoptance Matrix Name"] = value
 
@@ -36150,6 +38190,9 @@ class ConstructionComplexFenestrationState(object):
                                  'for field `layer_5_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `layer_5_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `layer_5_name`')
 
         self._data["Layer 5 Name"] = value
@@ -36184,6 +38227,9 @@ class ConstructionComplexFenestrationState(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `layer_5_directional_front_absoptance_matrix_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `layer_5_directional_front_absoptance_matrix_name`')
 
         self._data["Layer 5 Directional Front Absoptance Matrix Name"] = value
 
@@ -36217,6 +38263,9 @@ class ConstructionComplexFenestrationState(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `layer_5_directional_back_absoptance_matrix_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `layer_5_directional_back_absoptance_matrix_name`')
 
         self._data["Layer 5 Directional Back Absoptance Matrix Name"] = value
 
@@ -36242,45 +38291,17 @@ class ConstructionComplexFenestrationState(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.basis_type))
-        out.append(self._to_str(self.basis_symmetry_type))
-        out.append(self._to_str(self.window_thermal_model))
-        out.append(self._to_str(self.basis_matrix_name))
-        out.append(self._to_str(self.solar_optical_complex_front_transmittance_matrix_name))
-        out.append(self._to_str(self.solar_optical_complex_back_reflectance_matrix_name))
-        out.append(self._to_str(self.visible_optical_complex_front_transmittance_matrix_name))
-        out.append(self._to_str(self.visible_optical_complex_back_transmittance_matrix_name))
-        out.append(self._to_str(self.outside_layer_name))
-        out.append(self._to_str(self.outside_layer_directional_front_absoptance_matrix_name))
-        out.append(self._to_str(self.outside_layer_directional_back_absoptance_matrix_name))
-        out.append(self._to_str(self.gap_1_name))
-        out.append(self._to_str(self.cfs_gap_1_directional_front_absoptance_matrix_name))
-        out.append(self._to_str(self.cfs_gap_1_directional_back_absoptance_matrix_name))
-        out.append(self._to_str(self.layer_2_name))
-        out.append(self._to_str(self.layer_2_directional_front_absoptance_matrix_name))
-        out.append(self._to_str(self.layer_2_directional_back_absoptance_matrix_name))
-        out.append(self._to_str(self.gap_2_name))
-        out.append(self._to_str(self.gap_2_directional_front_absoptance_matrix_name))
-        out.append(self._to_str(self.gap_2_directional_back_absoptance_matrix_name))
-        out.append(self._to_str(self.layer_3_material))
-        out.append(self._to_str(self.layer_3_directional_front_absoptance_matrix_name))
-        out.append(self._to_str(self.layer_3_directional_back_absoptance_matrix_name))
-        out.append(self._to_str(self.gap_3_name))
-        out.append(self._to_str(self.gap_3_directional_front_absoptance_matrix_name))
-        out.append(self._to_str(self.gap_3_directional_back_absoptance_matrix_name))
-        out.append(self._to_str(self.layer_4_name))
-        out.append(self._to_str(self.layer_4_directional_front_absoptance_matrix_name))
-        out.append(self._to_str(self.layer_4_directional_back_absoptance_matrix_name))
-        out.append(self._to_str(self.gap_4_name))
-        out.append(self._to_str(self.gap_4_directional_front_absoptance_matrix_name))
-        out.append(self._to_str(self.gap_4_directional_back_absoptance_matrix_name))
-        out.append(self._to_str(self.layer_5_name))
-        out.append(self._to_str(self.layer_5_directional_front_absoptance_matrix_name))
-        out.append(self._to_str(self.layer_5_directional_back_absoptance_matrix_name))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class ConstructionWindowDataFile(object):
     """ Corresponds to IDD object `Construction:WindowDataFile`
@@ -36297,24 +38318,30 @@ class ConstructionWindowDataFile(object):
         self._data = OrderedDict()
         self._data["Name"] = None
         self._data["File Name"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.file_name = None
         else:
             self.file_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -36345,6 +38372,9 @@ class ConstructionWindowDataFile(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -36381,6 +38411,9 @@ class ConstructionWindowDataFile(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `file_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `file_name`')
 
         self._data["File Name"] = value
 
@@ -36406,8 +38439,14 @@ class ConstructionWindowDataFile(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.file_name))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])

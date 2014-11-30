@@ -27,84 +27,114 @@ class AirflowNetworkSimulationControl(object):
         self._data["Azimuth Angle of Long Axis of Building"] = None
         self._data["Ratio of Building Width Along Short Axis to Width Along Long Axis"] = None
         self._data["Height Dependence of External Node Temperature"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.airflownetwork_control = None
         else:
             self.airflownetwork_control = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wind_pressure_coefficient_type = None
         else:
             self.wind_pressure_coefficient_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.airflownetwork_wind_pressure_coefficient_array_name = None
         else:
             self.airflownetwork_wind_pressure_coefficient_array_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.height_selection_for_local_wind_pressure_calculation = None
         else:
             self.height_selection_for_local_wind_pressure_calculation = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.building_type = None
         else:
             self.building_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.maximum_number_of_iterations = None
         else:
             self.maximum_number_of_iterations = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.initialization_type = None
         else:
             self.initialization_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.relative_airflow_convergence_tolerance = None
         else:
             self.relative_airflow_convergence_tolerance = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.absolute_airflow_convergence_tolerance = None
         else:
             self.absolute_airflow_convergence_tolerance = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.convergence_acceleration_limit = None
         else:
             self.convergence_acceleration_limit = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.azimuth_angle_of_long_axis_of_building = None
         else:
             self.azimuth_angle_of_long_axis_of_building = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.ratio_of_building_width_along_short_axis_to_width_along_long_axis = None
         else:
             self.ratio_of_building_width_along_short_axis_to_width_along_long_axis = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.height_dependence_of_external_node_temperature = None
         else:
             self.height_dependence_of_external_node_temperature = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -136,6 +166,9 @@ class AirflowNetworkSimulationControl(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -189,14 +222,28 @@ class AirflowNetworkSimulationControl(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `airflownetwork_control`')
-            vals = set()
-            vals.add("MultizoneWithDistribution")
-            vals.add("MultizoneWithoutDistribution")
-            vals.add("MultizoneWithDistributionOnlyDuringFanOperation")
-            vals.add("NoMultizoneOrDistribution")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `airflownetwork_control`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `airflownetwork_control`')
+            vals = {}
+            vals["multizonewithdistribution"] = "MultizoneWithDistribution"
+            vals["multizonewithoutdistribution"] = "MultizoneWithoutDistribution"
+            vals["multizonewithdistributiononlyduringfanoperation"] = "MultizoneWithDistributionOnlyDuringFanOperation"
+            vals["nomultizoneordistribution"] = "NoMultizoneOrDistribution"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `airflownetwork_control`'.format(value))
+            value = vals[value_lower]
 
         self._data["AirflowNetwork Control"] = value
 
@@ -241,12 +288,26 @@ class AirflowNetworkSimulationControl(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `wind_pressure_coefficient_type`')
-            vals = set()
-            vals.add("Input")
-            vals.add("SurfaceAverageCalculation")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `wind_pressure_coefficient_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `wind_pressure_coefficient_type`')
+            vals = {}
+            vals["input"] = "Input"
+            vals["surfaceaveragecalculation"] = "SurfaceAverageCalculation"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `wind_pressure_coefficient_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Wind Pressure Coefficient Type"] = value
 
@@ -280,6 +341,9 @@ class AirflowNetworkSimulationControl(object):
                                  'for field `airflownetwork_wind_pressure_coefficient_array_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `airflownetwork_wind_pressure_coefficient_array_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `airflownetwork_wind_pressure_coefficient_array_name`')
 
         self._data["AirflowNetwork Wind Pressure Coefficient Array Name"] = value
@@ -324,12 +388,26 @@ class AirflowNetworkSimulationControl(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `height_selection_for_local_wind_pressure_calculation`')
-            vals = set()
-            vals.add("ExternalNode")
-            vals.add("OpeningHeight")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `height_selection_for_local_wind_pressure_calculation`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `height_selection_for_local_wind_pressure_calculation`')
+            vals = {}
+            vals["externalnode"] = "ExternalNode"
+            vals["openingheight"] = "OpeningHeight"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `height_selection_for_local_wind_pressure_calculation`'.format(value))
+            value = vals[value_lower]
 
         self._data["Height Selection for Local Wind Pressure Calculation"] = value
 
@@ -369,12 +447,26 @@ class AirflowNetworkSimulationControl(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `building_type`')
-            vals = set()
-            vals.add("LowRise")
-            vals.add("HighRise")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `building_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `building_type`')
+            vals = {}
+            vals["lowrise"] = "LowRise"
+            vals["highrise"] = "HighRise"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `building_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Building Type"] = value
 
@@ -454,12 +546,26 @@ class AirflowNetworkSimulationControl(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `initialization_type`')
-            vals = set()
-            vals.add("LinearInitializationMethod")
-            vals.add("ZeroNodePressures")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `initialization_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `initialization_type`')
+            vals = {}
+            vals["linearinitializationmethod"] = "LinearInitializationMethod"
+            vals["zeronodepressures"] = "ZeroNodePressures"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `initialization_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Initialization Type"] = value
 
@@ -703,12 +809,26 @@ class AirflowNetworkSimulationControl(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `height_dependence_of_external_node_temperature`')
-            vals = set()
-            vals.add("Yes")
-            vals.add("No")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `height_dependence_of_external_node_temperature`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `height_dependence_of_external_node_temperature`')
+            vals = {}
+            vals["yes"] = "Yes"
+            vals["no"] = "No"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `height_dependence_of_external_node_temperature`'.format(value))
+            value = vals[value_lower]
 
         self._data["Height Dependence of External Node Temperature"] = value
 
@@ -734,23 +854,17 @@ class AirflowNetworkSimulationControl(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.airflownetwork_control))
-        out.append(self._to_str(self.wind_pressure_coefficient_type))
-        out.append(self._to_str(self.airflownetwork_wind_pressure_coefficient_array_name))
-        out.append(self._to_str(self.height_selection_for_local_wind_pressure_calculation))
-        out.append(self._to_str(self.building_type))
-        out.append(self._to_str(self.maximum_number_of_iterations))
-        out.append(self._to_str(self.initialization_type))
-        out.append(self._to_str(self.relative_airflow_convergence_tolerance))
-        out.append(self._to_str(self.absolute_airflow_convergence_tolerance))
-        out.append(self._to_str(self.convergence_acceleration_limit))
-        out.append(self._to_str(self.azimuth_angle_of_long_axis_of_building))
-        out.append(self._to_str(self.ratio_of_building_width_along_short_axis_to_width_along_long_axis))
-        out.append(self._to_str(self.height_dependence_of_external_node_temperature))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class AirflowNetworkMultiZoneZone(object):
     """ Corresponds to IDD object `AirflowNetwork:MultiZone:Zone`
@@ -777,69 +891,93 @@ class AirflowNetworkMultiZoneZone(object):
         self._data["Venting Availability Schedule Name"] = None
         self._data["Single Sided Wind Pressure Coefficient Algorithm"] = None
         self._data["Facade Width"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.zone_name = None
         else:
             self.zone_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.ventilation_control_mode = None
         else:
             self.ventilation_control_mode = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.ventilation_control_zone_temperature_setpoint_schedule_name = None
         else:
             self.ventilation_control_zone_temperature_setpoint_schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.minimum_venting_open_factor = None
         else:
             self.minimum_venting_open_factor = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.indoor_and_outdoor_temperature_difference_lower_limit_for_maximum_venting_open_factor = None
         else:
             self.indoor_and_outdoor_temperature_difference_lower_limit_for_maximum_venting_open_factor = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.indoor_and_outdoor_temperature_difference_upper_limit_for_minimun_venting_open_factor = None
         else:
             self.indoor_and_outdoor_temperature_difference_upper_limit_for_minimun_venting_open_factor = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.indoor_and_outdoor_enthalpy_difference_lower_limit_for_maximum_venting_open_factor = None
         else:
             self.indoor_and_outdoor_enthalpy_difference_lower_limit_for_maximum_venting_open_factor = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.indoor_and_outdoor_enthalpy_difference_upper_limit_for_minimun_venting_open_factor = None
         else:
             self.indoor_and_outdoor_enthalpy_difference_upper_limit_for_minimun_venting_open_factor = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.venting_availability_schedule_name = None
         else:
             self.venting_availability_schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.single_sided_wind_pressure_coefficient_algorithm = None
         else:
             self.single_sided_wind_pressure_coefficient_algorithm = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.facade_width = None
         else:
             self.facade_width = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def zone_name(self):
@@ -871,6 +1009,9 @@ class AirflowNetworkMultiZoneZone(object):
                                  'for field `zone_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `zone_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `zone_name`')
 
         self._data["Zone Name"] = value
@@ -919,16 +1060,30 @@ class AirflowNetworkMultiZoneZone(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `ventilation_control_mode`')
-            vals = set()
-            vals.add("Temperature")
-            vals.add("Enthalpy")
-            vals.add("Constant")
-            vals.add("ASHRAE55Adaptive")
-            vals.add("CEN15251Adaptive")
-            vals.add("NoVent")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `ventilation_control_mode`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `ventilation_control_mode`')
+            vals = {}
+            vals["temperature"] = "Temperature"
+            vals["enthalpy"] = "Enthalpy"
+            vals["constant"] = "Constant"
+            vals["ashrae55adaptive"] = "ASHRAE55Adaptive"
+            vals["cen15251adaptive"] = "CEN15251Adaptive"
+            vals["novent"] = "NoVent"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `ventilation_control_mode`'.format(value))
+            value = vals[value_lower]
 
         self._data["Ventilation Control Mode"] = value
 
@@ -962,6 +1117,9 @@ class AirflowNetworkMultiZoneZone(object):
                                  'for field `ventilation_control_zone_temperature_setpoint_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `ventilation_control_zone_temperature_setpoint_schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `ventilation_control_zone_temperature_setpoint_schedule_name`')
 
         self._data["Ventilation Control Zone Temperature Setpoint Schedule Name"] = value
@@ -1203,6 +1361,9 @@ class AirflowNetworkMultiZoneZone(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `venting_availability_schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `venting_availability_schedule_name`')
 
         self._data["Venting Availability Schedule Name"] = value
 
@@ -1243,12 +1404,26 @@ class AirflowNetworkMultiZoneZone(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `single_sided_wind_pressure_coefficient_algorithm`')
-            vals = set()
-            vals.add("Advanced")
-            vals.add("Standard")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `single_sided_wind_pressure_coefficient_algorithm`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `single_sided_wind_pressure_coefficient_algorithm`')
+            vals = {}
+            vals["advanced"] = "Advanced"
+            vals["standard"] = "Standard"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `single_sided_wind_pressure_coefficient_algorithm`'.format(value))
+            value = vals[value_lower]
 
         self._data["Single Sided Wind Pressure Coefficient Algorithm"] = value
 
@@ -1311,20 +1486,17 @@ class AirflowNetworkMultiZoneZone(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.zone_name))
-        out.append(self._to_str(self.ventilation_control_mode))
-        out.append(self._to_str(self.ventilation_control_zone_temperature_setpoint_schedule_name))
-        out.append(self._to_str(self.minimum_venting_open_factor))
-        out.append(self._to_str(self.indoor_and_outdoor_temperature_difference_lower_limit_for_maximum_venting_open_factor))
-        out.append(self._to_str(self.indoor_and_outdoor_temperature_difference_upper_limit_for_minimun_venting_open_factor))
-        out.append(self._to_str(self.indoor_and_outdoor_enthalpy_difference_lower_limit_for_maximum_venting_open_factor))
-        out.append(self._to_str(self.indoor_and_outdoor_enthalpy_difference_upper_limit_for_minimun_venting_open_factor))
-        out.append(self._to_str(self.venting_availability_schedule_name))
-        out.append(self._to_str(self.single_sided_wind_pressure_coefficient_algorithm))
-        out.append(self._to_str(self.facade_width))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class AirflowNetworkMultiZoneSurface(object):
     """ Corresponds to IDD object `AirflowNetwork:MultiZone:Surface`
@@ -1353,74 +1525,100 @@ class AirflowNetworkMultiZoneSurface(object):
         self._data["Indoor and Outdoor Enthalpy Difference Lower Limit For Maximum Venting Open Factor"] = None
         self._data["Indoor and Outdoor Enthalpy Difference Upper Limit for Minimun Venting Open Factor"] = None
         self._data["Venting Availability Schedule Name"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.surface_name = None
         else:
             self.surface_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.leakage_component_name = None
         else:
             self.leakage_component_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.external_node_name = None
         else:
             self.external_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.window_or_door_opening_factor_or_crack_factor = None
         else:
             self.window_or_door_opening_factor_or_crack_factor = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.ventilation_control_mode = None
         else:
             self.ventilation_control_mode = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.ventilation_control_zone_temperature_setpoint_schedule_name = None
         else:
             self.ventilation_control_zone_temperature_setpoint_schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.minimum_venting_open_factor = None
         else:
             self.minimum_venting_open_factor = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.indoor_and_outdoor_temperature_difference_lower_limit_for_maximum_venting_open_factor = None
         else:
             self.indoor_and_outdoor_temperature_difference_lower_limit_for_maximum_venting_open_factor = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.indoor_and_outdoor_temperature_difference_upper_limit_for_minimun_venting_open_factor = None
         else:
             self.indoor_and_outdoor_temperature_difference_upper_limit_for_minimun_venting_open_factor = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.indoor_and_outdoor_enthalpy_difference_lower_limit_for_maximum_venting_open_factor = None
         else:
             self.indoor_and_outdoor_enthalpy_difference_lower_limit_for_maximum_venting_open_factor = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.indoor_and_outdoor_enthalpy_difference_upper_limit_for_minimun_venting_open_factor = None
         else:
             self.indoor_and_outdoor_enthalpy_difference_upper_limit_for_minimun_venting_open_factor = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.venting_availability_schedule_name = None
         else:
             self.venting_availability_schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def surface_name(self):
@@ -1452,6 +1650,9 @@ class AirflowNetworkMultiZoneSurface(object):
                                  'for field `surface_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_name`')
 
         self._data["Surface Name"] = value
@@ -1496,6 +1697,9 @@ class AirflowNetworkMultiZoneSurface(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `leakage_component_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `leakage_component_name`')
 
         self._data["Leakage Component Name"] = value
 
@@ -1530,6 +1734,9 @@ class AirflowNetworkMultiZoneSurface(object):
                                  'for field `external_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `external_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `external_node_name`')
 
         self._data["External Node Name"] = value
@@ -1628,19 +1835,33 @@ class AirflowNetworkMultiZoneSurface(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `ventilation_control_mode`')
-            vals = set()
-            vals.add("Temperature")
-            vals.add("Enthalpy")
-            vals.add("Constant")
-            vals.add("ASHRAE55Adaptive")
-            vals.add("CEN15251Adaptive")
-            vals.add("NoVent")
-            vals.add("ZoneLevel")
-            vals.add("AdjacentTemperature")
-            vals.add("AdjacentEnthalpy")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `ventilation_control_mode`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `ventilation_control_mode`')
+            vals = {}
+            vals["temperature"] = "Temperature"
+            vals["enthalpy"] = "Enthalpy"
+            vals["constant"] = "Constant"
+            vals["ashrae55adaptive"] = "ASHRAE55Adaptive"
+            vals["cen15251adaptive"] = "CEN15251Adaptive"
+            vals["novent"] = "NoVent"
+            vals["zonelevel"] = "ZoneLevel"
+            vals["adjacenttemperature"] = "AdjacentTemperature"
+            vals["adjacententhalpy"] = "AdjacentEnthalpy"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `ventilation_control_mode`'.format(value))
+            value = vals[value_lower]
 
         self._data["Ventilation Control Mode"] = value
 
@@ -1674,6 +1895,9 @@ class AirflowNetworkMultiZoneSurface(object):
                                  'for field `ventilation_control_zone_temperature_setpoint_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `ventilation_control_zone_temperature_setpoint_schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `ventilation_control_zone_temperature_setpoint_schedule_name`')
 
         self._data["Ventilation Control Zone Temperature Setpoint Schedule Name"] = value
@@ -1914,6 +2138,9 @@ class AirflowNetworkMultiZoneSurface(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `venting_availability_schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `venting_availability_schedule_name`')
 
         self._data["Venting Availability Schedule Name"] = value
 
@@ -1939,21 +2166,17 @@ class AirflowNetworkMultiZoneSurface(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.surface_name))
-        out.append(self._to_str(self.leakage_component_name))
-        out.append(self._to_str(self.external_node_name))
-        out.append(self._to_str(self.window_or_door_opening_factor_or_crack_factor))
-        out.append(self._to_str(self.ventilation_control_mode))
-        out.append(self._to_str(self.ventilation_control_zone_temperature_setpoint_schedule_name))
-        out.append(self._to_str(self.minimum_venting_open_factor))
-        out.append(self._to_str(self.indoor_and_outdoor_temperature_difference_lower_limit_for_maximum_venting_open_factor))
-        out.append(self._to_str(self.indoor_and_outdoor_temperature_difference_upper_limit_for_minimun_venting_open_factor))
-        out.append(self._to_str(self.indoor_and_outdoor_enthalpy_difference_lower_limit_for_maximum_venting_open_factor))
-        out.append(self._to_str(self.indoor_and_outdoor_enthalpy_difference_upper_limit_for_minimun_venting_open_factor))
-        out.append(self._to_str(self.venting_availability_schedule_name))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class AirflowNetworkMultiZoneReferenceCrackConditions(object):
     """ Corresponds to IDD object `AirflowNetwork:MultiZone:ReferenceCrackConditions`
@@ -1972,34 +2195,44 @@ class AirflowNetworkMultiZoneReferenceCrackConditions(object):
         self._data["Reference Temperature"] = None
         self._data["Reference Barometric Pressure"] = None
         self._data["Reference Humidity Ratio"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.reference_temperature = None
         else:
             self.reference_temperature = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.reference_barometric_pressure = None
         else:
             self.reference_barometric_pressure = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.reference_humidity_ratio = None
         else:
             self.reference_humidity_ratio = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -2031,6 +2264,9 @@ class AirflowNetworkMultiZoneReferenceCrackConditions(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -2165,13 +2401,17 @@ class AirflowNetworkMultiZoneReferenceCrackConditions(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.reference_temperature))
-        out.append(self._to_str(self.reference_barometric_pressure))
-        out.append(self._to_str(self.reference_humidity_ratio))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class AirflowNetworkMultiZoneSurfaceCrack(object):
     """ Corresponds to IDD object `AirflowNetwork:MultiZone:Surface:Crack`
@@ -2190,34 +2430,44 @@ class AirflowNetworkMultiZoneSurfaceCrack(object):
         self._data["Air Mass Flow Coefficient at Reference Conditions"] = None
         self._data["Air Mass Flow Exponent"] = None
         self._data["Reference Crack Conditions"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.air_mass_flow_coefficient_at_reference_conditions = None
         else:
             self.air_mass_flow_coefficient_at_reference_conditions = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.air_mass_flow_exponent = None
         else:
             self.air_mass_flow_exponent = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.reference_crack_conditions = None
         else:
             self.reference_crack_conditions = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -2249,6 +2499,9 @@ class AirflowNetworkMultiZoneSurfaceCrack(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -2364,6 +2617,9 @@ class AirflowNetworkMultiZoneSurfaceCrack(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `reference_crack_conditions`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `reference_crack_conditions`')
 
         self._data["Reference Crack Conditions"] = value
 
@@ -2389,13 +2645,17 @@ class AirflowNetworkMultiZoneSurfaceCrack(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.air_mass_flow_coefficient_at_reference_conditions))
-        out.append(self._to_str(self.air_mass_flow_exponent))
-        out.append(self._to_str(self.reference_crack_conditions))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class AirflowNetworkMultiZoneSurfaceEffectiveLeakageArea(object):
     """ Corresponds to IDD object `AirflowNetwork:MultiZone:Surface:EffectiveLeakageArea`
@@ -2415,39 +2675,51 @@ class AirflowNetworkMultiZoneSurfaceEffectiveLeakageArea(object):
         self._data["Discharge Coefficient"] = None
         self._data["Reference Pressure Difference"] = None
         self._data["Air Mass Flow Exponent"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.effective_leakage_area = None
         else:
             self.effective_leakage_area = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.discharge_coefficient = None
         else:
             self.discharge_coefficient = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.reference_pressure_difference = None
         else:
             self.reference_pressure_difference = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.air_mass_flow_exponent = None
         else:
             self.air_mass_flow_exponent = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -2479,6 +2751,9 @@ class AirflowNetworkMultiZoneSurfaceEffectiveLeakageArea(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -2656,14 +2931,17 @@ class AirflowNetworkMultiZoneSurfaceEffectiveLeakageArea(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.effective_leakage_area))
-        out.append(self._to_str(self.discharge_coefficient))
-        out.append(self._to_str(self.reference_pressure_difference))
-        out.append(self._to_str(self.air_mass_flow_exponent))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class AirflowNetworkMultiZoneComponentDetailedOpening(object):
     """ Corresponds to IDD object `AirflowNetwork:MultiZone:Component:DetailedOpening`
@@ -2705,144 +2983,198 @@ class AirflowNetworkMultiZoneComponentDetailedOpening(object):
         self._data["Width Factor for Opening Factor 4"] = None
         self._data["Height Factor for Opening Factor 4"] = None
         self._data["Start Height Factor for Opening Factor 4"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.air_mass_flow_coefficient_when_opening_is_closed = None
         else:
             self.air_mass_flow_coefficient_when_opening_is_closed = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.air_mass_flow_exponent_when_opening_is_closed = None
         else:
             self.air_mass_flow_exponent_when_opening_is_closed = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.type_of_rectanguler_large_vertical_opening_lvo = None
         else:
             self.type_of_rectanguler_large_vertical_opening_lvo = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.extra_crack_length_or_height_of_pivoting_axis = None
         else:
             self.extra_crack_length_or_height_of_pivoting_axis = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.number_of_sets_of_opening_factor_data = None
         else:
             self.number_of_sets_of_opening_factor_data = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.opening_factor_1 = None
         else:
             self.opening_factor_1 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.discharge_coefficient_for_opening_factor_1 = None
         else:
             self.discharge_coefficient_for_opening_factor_1 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.width_factor_for_opening_factor_1 = None
         else:
             self.width_factor_for_opening_factor_1 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.height_factor_for_opening_factor_1 = None
         else:
             self.height_factor_for_opening_factor_1 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.start_height_factor_for_opening_factor_1 = None
         else:
             self.start_height_factor_for_opening_factor_1 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.opening_factor_2 = None
         else:
             self.opening_factor_2 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.discharge_coefficient_for_opening_factor_2 = None
         else:
             self.discharge_coefficient_for_opening_factor_2 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.width_factor_for_opening_factor_2 = None
         else:
             self.width_factor_for_opening_factor_2 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.height_factor_for_opening_factor_2 = None
         else:
             self.height_factor_for_opening_factor_2 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.start_height_factor_for_opening_factor_2 = None
         else:
             self.start_height_factor_for_opening_factor_2 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.opening_factor_3 = None
         else:
             self.opening_factor_3 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.discharge_coefficient_for_opening_factor_3 = None
         else:
             self.discharge_coefficient_for_opening_factor_3 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.width_factor_for_opening_factor_3 = None
         else:
             self.width_factor_for_opening_factor_3 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.height_factor_for_opening_factor_3 = None
         else:
             self.height_factor_for_opening_factor_3 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.start_height_factor_for_opening_factor_3 = None
         else:
             self.start_height_factor_for_opening_factor_3 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.opening_factor_4 = None
         else:
             self.opening_factor_4 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.discharge_coefficient_for_opening_factor_4 = None
         else:
             self.discharge_coefficient_for_opening_factor_4 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.width_factor_for_opening_factor_4 = None
         else:
             self.width_factor_for_opening_factor_4 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.height_factor_for_opening_factor_4 = None
         else:
             self.height_factor_for_opening_factor_4 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.start_height_factor_for_opening_factor_4 = None
         else:
             self.start_height_factor_for_opening_factor_4 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -2874,6 +3206,9 @@ class AirflowNetworkMultiZoneComponentDetailedOpening(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -2995,12 +3330,26 @@ class AirflowNetworkMultiZoneComponentDetailedOpening(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `type_of_rectanguler_large_vertical_opening_lvo`')
-            vals = set()
-            vals.add("NonPivoted")
-            vals.add("HorizontallyPivoted")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `type_of_rectanguler_large_vertical_opening_lvo`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `type_of_rectanguler_large_vertical_opening_lvo`')
+            vals = {}
+            vals["nonpivoted"] = "NonPivoted"
+            vals["horizontallypivoted"] = "HorizontallyPivoted"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `type_of_rectanguler_large_vertical_opening_lvo`'.format(value))
+            value = vals[value_lower]
 
         self._data["Type of Rectanguler Large Vertical Opening (LVO)"] = value
 
@@ -3953,35 +4302,17 @@ class AirflowNetworkMultiZoneComponentDetailedOpening(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.air_mass_flow_coefficient_when_opening_is_closed))
-        out.append(self._to_str(self.air_mass_flow_exponent_when_opening_is_closed))
-        out.append(self._to_str(self.type_of_rectanguler_large_vertical_opening_lvo))
-        out.append(self._to_str(self.extra_crack_length_or_height_of_pivoting_axis))
-        out.append(self._to_str(self.number_of_sets_of_opening_factor_data))
-        out.append(self._to_str(self.opening_factor_1))
-        out.append(self._to_str(self.discharge_coefficient_for_opening_factor_1))
-        out.append(self._to_str(self.width_factor_for_opening_factor_1))
-        out.append(self._to_str(self.height_factor_for_opening_factor_1))
-        out.append(self._to_str(self.start_height_factor_for_opening_factor_1))
-        out.append(self._to_str(self.opening_factor_2))
-        out.append(self._to_str(self.discharge_coefficient_for_opening_factor_2))
-        out.append(self._to_str(self.width_factor_for_opening_factor_2))
-        out.append(self._to_str(self.height_factor_for_opening_factor_2))
-        out.append(self._to_str(self.start_height_factor_for_opening_factor_2))
-        out.append(self._to_str(self.opening_factor_3))
-        out.append(self._to_str(self.discharge_coefficient_for_opening_factor_3))
-        out.append(self._to_str(self.width_factor_for_opening_factor_3))
-        out.append(self._to_str(self.height_factor_for_opening_factor_3))
-        out.append(self._to_str(self.start_height_factor_for_opening_factor_3))
-        out.append(self._to_str(self.opening_factor_4))
-        out.append(self._to_str(self.discharge_coefficient_for_opening_factor_4))
-        out.append(self._to_str(self.width_factor_for_opening_factor_4))
-        out.append(self._to_str(self.height_factor_for_opening_factor_4))
-        out.append(self._to_str(self.start_height_factor_for_opening_factor_4))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class AirflowNetworkMultiZoneComponentSimpleOpening(object):
     """ Corresponds to IDD object `AirflowNetwork:MultiZone:Component:SimpleOpening`
@@ -4002,39 +4333,51 @@ class AirflowNetworkMultiZoneComponentSimpleOpening(object):
         self._data["Air Mass Flow Exponent When Opening is Closed"] = None
         self._data["Minimum Density Difference for Two-Way Flow"] = None
         self._data["Discharge Coefficient"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.air_mass_flow_coefficient_when_opening_is_closed = None
         else:
             self.air_mass_flow_coefficient_when_opening_is_closed = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.air_mass_flow_exponent_when_opening_is_closed = None
         else:
             self.air_mass_flow_exponent_when_opening_is_closed = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.minimum_density_difference_for_twoway_flow = None
         else:
             self.minimum_density_difference_for_twoway_flow = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.discharge_coefficient = None
         else:
             self.discharge_coefficient = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -4066,6 +4409,9 @@ class AirflowNetworkMultiZoneComponentSimpleOpening(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -4246,14 +4592,17 @@ class AirflowNetworkMultiZoneComponentSimpleOpening(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.air_mass_flow_coefficient_when_opening_is_closed))
-        out.append(self._to_str(self.air_mass_flow_exponent_when_opening_is_closed))
-        out.append(self._to_str(self.minimum_density_difference_for_twoway_flow))
-        out.append(self._to_str(self.discharge_coefficient))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class AirflowNetworkMultiZoneComponentHorizontalOpening(object):
     """ Corresponds to IDD object `AirflowNetwork:MultiZone:Component:HorizontalOpening`
@@ -4273,39 +4622,51 @@ class AirflowNetworkMultiZoneComponentHorizontalOpening(object):
         self._data["Air Mass Flow Exponent When Opening is Closed"] = None
         self._data["Sloping Plane Angle"] = None
         self._data["Discharge Coefficient"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.air_mass_flow_coefficient_when_opening_is_closed = None
         else:
             self.air_mass_flow_coefficient_when_opening_is_closed = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.air_mass_flow_exponent_when_opening_is_closed = None
         else:
             self.air_mass_flow_exponent_when_opening_is_closed = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.sloping_plane_angle = None
         else:
             self.sloping_plane_angle = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.discharge_coefficient = None
         else:
             self.discharge_coefficient = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -4337,6 +4698,9 @@ class AirflowNetworkMultiZoneComponentHorizontalOpening(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -4522,14 +4886,17 @@ class AirflowNetworkMultiZoneComponentHorizontalOpening(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.air_mass_flow_coefficient_when_opening_is_closed))
-        out.append(self._to_str(self.air_mass_flow_exponent_when_opening_is_closed))
-        out.append(self._to_str(self.sloping_plane_angle))
-        out.append(self._to_str(self.discharge_coefficient))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class AirflowNetworkMultiZoneComponentZoneExhaustFan(object):
     """ Corresponds to IDD object `AirflowNetwork:MultiZone:Component:ZoneExhaustFan`
@@ -4549,34 +4916,44 @@ class AirflowNetworkMultiZoneComponentZoneExhaustFan(object):
         self._data["Air Mass Flow Coefficient When the Zone Exhaust Fan is Off at Reference Conditions"] = None
         self._data["Air Mass Flow Exponent When the Zone Exhaust Fan is Off"] = None
         self._data["Reference Crack Conditions"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.air_mass_flow_coefficient_when_the_zone_exhaust_fan_is_off_at_reference_conditions = None
         else:
             self.air_mass_flow_coefficient_when_the_zone_exhaust_fan_is_off_at_reference_conditions = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.air_mass_flow_exponent_when_the_zone_exhaust_fan_is_off = None
         else:
             self.air_mass_flow_exponent_when_the_zone_exhaust_fan_is_off = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.reference_crack_conditions = None
         else:
             self.reference_crack_conditions = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -4608,6 +4985,9 @@ class AirflowNetworkMultiZoneComponentZoneExhaustFan(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -4728,6 +5108,9 @@ class AirflowNetworkMultiZoneComponentZoneExhaustFan(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `reference_crack_conditions`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `reference_crack_conditions`')
 
         self._data["Reference Crack Conditions"] = value
 
@@ -4753,13 +5136,17 @@ class AirflowNetworkMultiZoneComponentZoneExhaustFan(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.air_mass_flow_coefficient_when_the_zone_exhaust_fan_is_off_at_reference_conditions))
-        out.append(self._to_str(self.air_mass_flow_exponent_when_the_zone_exhaust_fan_is_off))
-        out.append(self._to_str(self.reference_crack_conditions))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class AirflowNetworkMultiZoneExternalNode(object):
     """ Corresponds to IDD object `AirflowNetwork:MultiZone:ExternalNode`
@@ -4777,29 +5164,37 @@ class AirflowNetworkMultiZoneExternalNode(object):
         self._data["Name"] = None
         self._data["External Node Height"] = None
         self._data["Wind Pressure Coefficient Values Object Name"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.external_node_height = None
         else:
             self.external_node_height = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wind_pressure_coefficient_values_object_name = None
         else:
             self.wind_pressure_coefficient_values_object_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -4832,6 +5227,9 @@ class AirflowNetworkMultiZoneExternalNode(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -4900,6 +5298,9 @@ class AirflowNetworkMultiZoneExternalNode(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `wind_pressure_coefficient_values_object_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `wind_pressure_coefficient_values_object_name`')
 
         self._data["Wind Pressure Coefficient Values Object Name"] = value
 
@@ -4925,12 +5326,17 @@ class AirflowNetworkMultiZoneExternalNode(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.external_node_height))
-        out.append(self._to_str(self.wind_pressure_coefficient_values_object_name))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class AirflowNetworkMultiZoneWindPressureCoefficientArray(object):
     """ Corresponds to IDD object `AirflowNetwork:MultiZone:WindPressureCoefficientArray`
@@ -4985,199 +5391,275 @@ class AirflowNetworkMultiZoneWindPressureCoefficientArray(object):
         self._data["Wind Direction 34"] = None
         self._data["Wind Direction 35"] = None
         self._data["Wind Direction 36"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wind_direction_1 = None
         else:
             self.wind_direction_1 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wind_direction_2 = None
         else:
             self.wind_direction_2 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wind_direction_3 = None
         else:
             self.wind_direction_3 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wind_direction_4 = None
         else:
             self.wind_direction_4 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wind_direction_5 = None
         else:
             self.wind_direction_5 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wind_direction_6 = None
         else:
             self.wind_direction_6 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wind_direction_7 = None
         else:
             self.wind_direction_7 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wind_direction_8 = None
         else:
             self.wind_direction_8 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wind_direction_9 = None
         else:
             self.wind_direction_9 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wind_direction_10 = None
         else:
             self.wind_direction_10 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wind_direction_11 = None
         else:
             self.wind_direction_11 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wind_direction_12 = None
         else:
             self.wind_direction_12 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wind_direction_13 = None
         else:
             self.wind_direction_13 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wind_direction_14 = None
         else:
             self.wind_direction_14 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wind_direction_15 = None
         else:
             self.wind_direction_15 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wind_direction_16 = None
         else:
             self.wind_direction_16 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wind_direction_17 = None
         else:
             self.wind_direction_17 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wind_direction_18 = None
         else:
             self.wind_direction_18 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wind_direction_19 = None
         else:
             self.wind_direction_19 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wind_direction_20 = None
         else:
             self.wind_direction_20 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wind_direction_21 = None
         else:
             self.wind_direction_21 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wind_direction_22 = None
         else:
             self.wind_direction_22 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wind_direction_23 = None
         else:
             self.wind_direction_23 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wind_direction_24 = None
         else:
             self.wind_direction_24 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wind_direction_25 = None
         else:
             self.wind_direction_25 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wind_direction_26 = None
         else:
             self.wind_direction_26 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wind_direction_27 = None
         else:
             self.wind_direction_27 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wind_direction_28 = None
         else:
             self.wind_direction_28 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wind_direction_29 = None
         else:
             self.wind_direction_29 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wind_direction_30 = None
         else:
             self.wind_direction_30 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wind_direction_31 = None
         else:
             self.wind_direction_31 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wind_direction_32 = None
         else:
             self.wind_direction_32 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wind_direction_33 = None
         else:
             self.wind_direction_33 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wind_direction_34 = None
         else:
             self.wind_direction_34 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wind_direction_35 = None
         else:
             self.wind_direction_35 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wind_direction_36 = None
         else:
             self.wind_direction_36 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -5209,6 +5691,9 @@ class AirflowNetworkMultiZoneWindPressureCoefficientArray(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -6675,46 +7160,17 @@ class AirflowNetworkMultiZoneWindPressureCoefficientArray(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.wind_direction_1))
-        out.append(self._to_str(self.wind_direction_2))
-        out.append(self._to_str(self.wind_direction_3))
-        out.append(self._to_str(self.wind_direction_4))
-        out.append(self._to_str(self.wind_direction_5))
-        out.append(self._to_str(self.wind_direction_6))
-        out.append(self._to_str(self.wind_direction_7))
-        out.append(self._to_str(self.wind_direction_8))
-        out.append(self._to_str(self.wind_direction_9))
-        out.append(self._to_str(self.wind_direction_10))
-        out.append(self._to_str(self.wind_direction_11))
-        out.append(self._to_str(self.wind_direction_12))
-        out.append(self._to_str(self.wind_direction_13))
-        out.append(self._to_str(self.wind_direction_14))
-        out.append(self._to_str(self.wind_direction_15))
-        out.append(self._to_str(self.wind_direction_16))
-        out.append(self._to_str(self.wind_direction_17))
-        out.append(self._to_str(self.wind_direction_18))
-        out.append(self._to_str(self.wind_direction_19))
-        out.append(self._to_str(self.wind_direction_20))
-        out.append(self._to_str(self.wind_direction_21))
-        out.append(self._to_str(self.wind_direction_22))
-        out.append(self._to_str(self.wind_direction_23))
-        out.append(self._to_str(self.wind_direction_24))
-        out.append(self._to_str(self.wind_direction_25))
-        out.append(self._to_str(self.wind_direction_26))
-        out.append(self._to_str(self.wind_direction_27))
-        out.append(self._to_str(self.wind_direction_28))
-        out.append(self._to_str(self.wind_direction_29))
-        out.append(self._to_str(self.wind_direction_30))
-        out.append(self._to_str(self.wind_direction_31))
-        out.append(self._to_str(self.wind_direction_32))
-        out.append(self._to_str(self.wind_direction_33))
-        out.append(self._to_str(self.wind_direction_34))
-        out.append(self._to_str(self.wind_direction_35))
-        out.append(self._to_str(self.wind_direction_36))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class AirflowNetworkMultiZoneWindPressureCoefficientValues(object):
     """ Corresponds to IDD object `AirflowNetwork:MultiZone:WindPressureCoefficientValues`
@@ -6769,204 +7225,282 @@ class AirflowNetworkMultiZoneWindPressureCoefficientValues(object):
         self._data["Wind Pressure Coefficient Value 34"] = None
         self._data["Wind Pressure Coefficient Value 35"] = None
         self._data["Wind Pressure Coefficient Value 36"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.airflownetworkmultizonewindpressurecoefficientarray_name = None
         else:
             self.airflownetworkmultizonewindpressurecoefficientarray_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wind_pressure_coefficient_value_1 = None
         else:
             self.wind_pressure_coefficient_value_1 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wind_pressure_coefficient_value_2 = None
         else:
             self.wind_pressure_coefficient_value_2 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wind_pressure_coefficient_value_3 = None
         else:
             self.wind_pressure_coefficient_value_3 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wind_pressure_coefficient_value_4 = None
         else:
             self.wind_pressure_coefficient_value_4 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wind_pressure_coefficient_value_5 = None
         else:
             self.wind_pressure_coefficient_value_5 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wind_pressure_coefficient_value_6 = None
         else:
             self.wind_pressure_coefficient_value_6 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wind_pressure_coefficient_value_7 = None
         else:
             self.wind_pressure_coefficient_value_7 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wind_pressure_coefficient_value_8 = None
         else:
             self.wind_pressure_coefficient_value_8 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wind_pressure_coefficient_value_9 = None
         else:
             self.wind_pressure_coefficient_value_9 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wind_pressure_coefficient_value_10 = None
         else:
             self.wind_pressure_coefficient_value_10 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wind_pressure_coefficient_value_11 = None
         else:
             self.wind_pressure_coefficient_value_11 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wind_pressure_coefficient_value_12 = None
         else:
             self.wind_pressure_coefficient_value_12 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wind_pressure_coefficient_value_13 = None
         else:
             self.wind_pressure_coefficient_value_13 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wind_pressure_coefficient_value_14 = None
         else:
             self.wind_pressure_coefficient_value_14 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wind_pressure_coefficient_value_15 = None
         else:
             self.wind_pressure_coefficient_value_15 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wind_pressure_coefficient_value_16 = None
         else:
             self.wind_pressure_coefficient_value_16 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wind_pressure_coefficient_value_17 = None
         else:
             self.wind_pressure_coefficient_value_17 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wind_pressure_coefficient_value_18 = None
         else:
             self.wind_pressure_coefficient_value_18 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wind_pressure_coefficient_value_19 = None
         else:
             self.wind_pressure_coefficient_value_19 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wind_pressure_coefficient_value_20 = None
         else:
             self.wind_pressure_coefficient_value_20 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wind_pressure_coefficient_value_21 = None
         else:
             self.wind_pressure_coefficient_value_21 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wind_pressure_coefficient_value_22 = None
         else:
             self.wind_pressure_coefficient_value_22 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wind_pressure_coefficient_value_23 = None
         else:
             self.wind_pressure_coefficient_value_23 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wind_pressure_coefficient_value_24 = None
         else:
             self.wind_pressure_coefficient_value_24 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wind_pressure_coefficient_value_25 = None
         else:
             self.wind_pressure_coefficient_value_25 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wind_pressure_coefficient_value_26 = None
         else:
             self.wind_pressure_coefficient_value_26 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wind_pressure_coefficient_value_27 = None
         else:
             self.wind_pressure_coefficient_value_27 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wind_pressure_coefficient_value_28 = None
         else:
             self.wind_pressure_coefficient_value_28 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wind_pressure_coefficient_value_29 = None
         else:
             self.wind_pressure_coefficient_value_29 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wind_pressure_coefficient_value_30 = None
         else:
             self.wind_pressure_coefficient_value_30 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wind_pressure_coefficient_value_31 = None
         else:
             self.wind_pressure_coefficient_value_31 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wind_pressure_coefficient_value_32 = None
         else:
             self.wind_pressure_coefficient_value_32 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wind_pressure_coefficient_value_33 = None
         else:
             self.wind_pressure_coefficient_value_33 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wind_pressure_coefficient_value_34 = None
         else:
             self.wind_pressure_coefficient_value_34 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wind_pressure_coefficient_value_35 = None
         else:
             self.wind_pressure_coefficient_value_35 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.wind_pressure_coefficient_value_36 = None
         else:
             self.wind_pressure_coefficient_value_36 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -6998,6 +7532,9 @@ class AirflowNetworkMultiZoneWindPressureCoefficientValues(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -7032,6 +7569,9 @@ class AirflowNetworkMultiZoneWindPressureCoefficientValues(object):
                                  'for field `airflownetworkmultizonewindpressurecoefficientarray_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `airflownetworkmultizonewindpressurecoefficientarray_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `airflownetworkmultizonewindpressurecoefficientarray_name`')
 
         self._data["AirflowNetwork:MultiZone:WindPressureCoefficientArray Name"] = value
@@ -8210,47 +8750,17 @@ class AirflowNetworkMultiZoneWindPressureCoefficientValues(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.airflownetworkmultizonewindpressurecoefficientarray_name))
-        out.append(self._to_str(self.wind_pressure_coefficient_value_1))
-        out.append(self._to_str(self.wind_pressure_coefficient_value_2))
-        out.append(self._to_str(self.wind_pressure_coefficient_value_3))
-        out.append(self._to_str(self.wind_pressure_coefficient_value_4))
-        out.append(self._to_str(self.wind_pressure_coefficient_value_5))
-        out.append(self._to_str(self.wind_pressure_coefficient_value_6))
-        out.append(self._to_str(self.wind_pressure_coefficient_value_7))
-        out.append(self._to_str(self.wind_pressure_coefficient_value_8))
-        out.append(self._to_str(self.wind_pressure_coefficient_value_9))
-        out.append(self._to_str(self.wind_pressure_coefficient_value_10))
-        out.append(self._to_str(self.wind_pressure_coefficient_value_11))
-        out.append(self._to_str(self.wind_pressure_coefficient_value_12))
-        out.append(self._to_str(self.wind_pressure_coefficient_value_13))
-        out.append(self._to_str(self.wind_pressure_coefficient_value_14))
-        out.append(self._to_str(self.wind_pressure_coefficient_value_15))
-        out.append(self._to_str(self.wind_pressure_coefficient_value_16))
-        out.append(self._to_str(self.wind_pressure_coefficient_value_17))
-        out.append(self._to_str(self.wind_pressure_coefficient_value_18))
-        out.append(self._to_str(self.wind_pressure_coefficient_value_19))
-        out.append(self._to_str(self.wind_pressure_coefficient_value_20))
-        out.append(self._to_str(self.wind_pressure_coefficient_value_21))
-        out.append(self._to_str(self.wind_pressure_coefficient_value_22))
-        out.append(self._to_str(self.wind_pressure_coefficient_value_23))
-        out.append(self._to_str(self.wind_pressure_coefficient_value_24))
-        out.append(self._to_str(self.wind_pressure_coefficient_value_25))
-        out.append(self._to_str(self.wind_pressure_coefficient_value_26))
-        out.append(self._to_str(self.wind_pressure_coefficient_value_27))
-        out.append(self._to_str(self.wind_pressure_coefficient_value_28))
-        out.append(self._to_str(self.wind_pressure_coefficient_value_29))
-        out.append(self._to_str(self.wind_pressure_coefficient_value_30))
-        out.append(self._to_str(self.wind_pressure_coefficient_value_31))
-        out.append(self._to_str(self.wind_pressure_coefficient_value_32))
-        out.append(self._to_str(self.wind_pressure_coefficient_value_33))
-        out.append(self._to_str(self.wind_pressure_coefficient_value_34))
-        out.append(self._to_str(self.wind_pressure_coefficient_value_35))
-        out.append(self._to_str(self.wind_pressure_coefficient_value_36))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class AirflowNetworkDistributionNode(object):
     """ Corresponds to IDD object `AirflowNetwork:Distribution:Node`
@@ -8269,34 +8779,44 @@ class AirflowNetworkDistributionNode(object):
         self._data["Component Name or Node Name"] = None
         self._data["Component Object Type or Node Type"] = None
         self._data["Node Height"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.component_name_or_node_name = None
         else:
             self.component_name_or_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.component_object_type_or_node_type = None
         else:
             self.component_object_type_or_node_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.node_height = None
         else:
             self.node_height = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -8328,6 +8848,9 @@ class AirflowNetworkDistributionNode(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -8365,6 +8888,9 @@ class AirflowNetworkDistributionNode(object):
                                  'for field `component_name_or_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `component_name_or_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `component_name_or_node_name`')
 
         self._data["Component Name or Node Name"] = value
@@ -8419,17 +8945,31 @@ class AirflowNetworkDistributionNode(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `component_object_type_or_node_type`')
-            vals = set()
-            vals.add("AirLoopHVAC:ZoneMixer")
-            vals.add("AirLoopHVAC:ZoneSplitter")
-            vals.add("AirLoopHVAC:OutdoorAirSystem")
-            vals.add("OAMixerOutdoorAirStreamNode")
-            vals.add("OutdoorAir:NodeList")
-            vals.add("OutdoorAir:Node")
-            vals.add("Other")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `component_object_type_or_node_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `component_object_type_or_node_type`')
+            vals = {}
+            vals["airloophvac:zonemixer"] = "AirLoopHVAC:ZoneMixer"
+            vals["airloophvac:zonesplitter"] = "AirLoopHVAC:ZoneSplitter"
+            vals["airloophvac:outdoorairsystem"] = "AirLoopHVAC:OutdoorAirSystem"
+            vals["oamixeroutdoorairstreamnode"] = "OAMixerOutdoorAirStreamNode"
+            vals["outdoorair:nodelist"] = "OutdoorAir:NodeList"
+            vals["outdoorair:node"] = "OutdoorAir:Node"
+            vals["other"] = "Other"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `component_object_type_or_node_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Component Object Type or Node Type"] = value
 
@@ -8488,13 +9028,17 @@ class AirflowNetworkDistributionNode(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.component_name_or_node_name))
-        out.append(self._to_str(self.component_object_type_or_node_type))
-        out.append(self._to_str(self.node_height))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class AirflowNetworkDistributionComponentLeak(object):
     """ Corresponds to IDD object `AirflowNetwork:Distribution:Component:Leak`
@@ -8512,29 +9056,37 @@ class AirflowNetworkDistributionComponentLeak(object):
         self._data["Name"] = None
         self._data["Air Mass Flow Coefficient"] = None
         self._data["Air Mass Flow Exponent"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.air_mass_flow_coefficient = None
         else:
             self.air_mass_flow_coefficient = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.air_mass_flow_exponent = None
         else:
             self.air_mass_flow_exponent = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -8566,6 +9118,9 @@ class AirflowNetworkDistributionComponentLeak(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -8672,12 +9227,17 @@ class AirflowNetworkDistributionComponentLeak(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.air_mass_flow_coefficient))
-        out.append(self._to_str(self.air_mass_flow_exponent))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class AirflowNetworkDistributionComponentLeakageRatio(object):
     """ Corresponds to IDD object `AirflowNetwork:Distribution:Component:LeakageRatio`
@@ -8698,39 +9258,51 @@ class AirflowNetworkDistributionComponentLeakageRatio(object):
         self._data["Maximum Flow Rate"] = None
         self._data["Reference Pressure Difference"] = None
         self._data["Air Mass Flow Exponent"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.effective_leakage_ratio = None
         else:
             self.effective_leakage_ratio = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.maximum_flow_rate = None
         else:
             self.maximum_flow_rate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.reference_pressure_difference = None
         else:
             self.reference_pressure_difference = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.air_mass_flow_exponent = None
         else:
             self.air_mass_flow_exponent = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -8762,6 +9334,9 @@ class AirflowNetworkDistributionComponentLeakageRatio(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -8941,14 +9516,17 @@ class AirflowNetworkDistributionComponentLeakageRatio(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.effective_leakage_ratio))
-        out.append(self._to_str(self.maximum_flow_rate))
-        out.append(self._to_str(self.reference_pressure_difference))
-        out.append(self._to_str(self.air_mass_flow_exponent))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class AirflowNetworkDistributionComponentDuct(object):
     """ Corresponds to IDD object `AirflowNetwork:Distribution:Component:Duct`
@@ -8971,54 +9549,72 @@ class AirflowNetworkDistributionComponentDuct(object):
         self._data["Coefficient for Local Dynamic Loss Due to Fitting"] = None
         self._data["Overall Heat Transmittance Coefficient (U-Factor) from Air to Air"] = None
         self._data["Overall Moisture Transmittance Coefficient from Air to Air"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.duct_length = None
         else:
             self.duct_length = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.hydraulic_diameter = None
         else:
             self.hydraulic_diameter = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.cross_section_area = None
         else:
             self.cross_section_area = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_roughness = None
         else:
             self.surface_roughness = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.coefficient_for_local_dynamic_loss_due_to_fitting = None
         else:
             self.coefficient_for_local_dynamic_loss_due_to_fitting = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.overall_heat_transmittance_coefficient_ufactor_from_air_to_air = None
         else:
             self.overall_heat_transmittance_coefficient_ufactor_from_air_to_air = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.overall_moisture_transmittance_coefficient_from_air_to_air = None
         else:
             self.overall_moisture_transmittance_coefficient_from_air_to_air = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -9050,6 +9646,9 @@ class AirflowNetworkDistributionComponentDuct(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -9337,17 +9936,17 @@ class AirflowNetworkDistributionComponentDuct(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.duct_length))
-        out.append(self._to_str(self.hydraulic_diameter))
-        out.append(self._to_str(self.cross_section_area))
-        out.append(self._to_str(self.surface_roughness))
-        out.append(self._to_str(self.coefficient_for_local_dynamic_loss_due_to_fitting))
-        out.append(self._to_str(self.overall_heat_transmittance_coefficient_ufactor_from_air_to_air))
-        out.append(self._to_str(self.overall_moisture_transmittance_coefficient_from_air_to_air))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class AirflowNetworkDistributionComponentFan(object):
     """ Corresponds to IDD object `AirflowNetwork:Distribution:Component:Fan`
@@ -9364,24 +9963,30 @@ class AirflowNetworkDistributionComponentFan(object):
         self._data = OrderedDict()
         self._data["Fan Name"] = None
         self._data["Supply Fan Object Type"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.fan_name = None
         else:
             self.fan_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.supply_fan_object_type = None
         else:
             self.supply_fan_object_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def fan_name(self):
@@ -9413,6 +10018,9 @@ class AirflowNetworkDistributionComponentFan(object):
                                  'for field `fan_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `fan_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `fan_name`')
 
         self._data["Fan Name"] = value
@@ -9452,13 +10060,27 @@ class AirflowNetworkDistributionComponentFan(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `supply_fan_object_type`')
-            vals = set()
-            vals.add("Fan:OnOff")
-            vals.add("Fan:ConstantVolume")
-            vals.add("Fan:VariableVolume")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `supply_fan_object_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `supply_fan_object_type`')
+            vals = {}
+            vals["fan:onoff"] = "Fan:OnOff"
+            vals["fan:constantvolume"] = "Fan:ConstantVolume"
+            vals["fan:variablevolume"] = "Fan:VariableVolume"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `supply_fan_object_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Supply Fan Object Type"] = value
 
@@ -9484,11 +10106,17 @@ class AirflowNetworkDistributionComponentFan(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.fan_name))
-        out.append(self._to_str(self.supply_fan_object_type))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class AirflowNetworkDistributionComponentCoil(object):
     """ Corresponds to IDD object `AirflowNetwork:Distribution:Component:Coil`
@@ -9507,34 +10135,44 @@ class AirflowNetworkDistributionComponentCoil(object):
         self._data["Coil Object Type"] = None
         self._data["Air Path Length"] = None
         self._data["Air Path Hydraulic Diameter"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.coil_name = None
         else:
             self.coil_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.coil_object_type = None
         else:
             self.coil_object_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.air_path_length = None
         else:
             self.air_path_length = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.air_path_hydraulic_diameter = None
         else:
             self.air_path_hydraulic_diameter = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def coil_name(self):
@@ -9566,6 +10204,9 @@ class AirflowNetworkDistributionComponentCoil(object):
                                  'for field `coil_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `coil_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `coil_name`')
 
         self._data["Coil Name"] = value
@@ -9613,21 +10254,35 @@ class AirflowNetworkDistributionComponentCoil(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `coil_object_type`')
-            vals = set()
-            vals.add("Coil:Cooling:DX:SingleSpeed")
-            vals.add("Coil:Heating:Gas")
-            vals.add("Coil:Heating:Electric")
-            vals.add("Coil:Heating:DX:SingleSpeed")
-            vals.add("Coil:Cooling:Water")
-            vals.add("Coil:Heating:Water")
-            vals.add("Coil:Cooling:Water:DetailedGeometry")
-            vals.add("Coil:Cooling:DX:TwoStageWithHumidityControlMode")
-            vals.add("Coil:Cooling:DX:MultiSpeed")
-            vals.add("Coil:Heating:DX:MultiSpeed")
-            vals.add("Coil:Heating:Desuperheater")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `coil_object_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `coil_object_type`')
+            vals = {}
+            vals["coil:cooling:dx:singlespeed"] = "Coil:Cooling:DX:SingleSpeed"
+            vals["coil:heating:gas"] = "Coil:Heating:Gas"
+            vals["coil:heating:electric"] = "Coil:Heating:Electric"
+            vals["coil:heating:dx:singlespeed"] = "Coil:Heating:DX:SingleSpeed"
+            vals["coil:cooling:water"] = "Coil:Cooling:Water"
+            vals["coil:heating:water"] = "Coil:Heating:Water"
+            vals["coil:cooling:water:detailedgeometry"] = "Coil:Cooling:Water:DetailedGeometry"
+            vals["coil:cooling:dx:twostagewithhumiditycontrolmode"] = "Coil:Cooling:DX:TwoStageWithHumidityControlMode"
+            vals["coil:cooling:dx:multispeed"] = "Coil:Cooling:DX:MultiSpeed"
+            vals["coil:heating:dx:multispeed"] = "Coil:Heating:DX:MultiSpeed"
+            vals["coil:heating:desuperheater"] = "Coil:Heating:Desuperheater"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `coil_object_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Coil Object Type"] = value
 
@@ -9726,13 +10381,17 @@ class AirflowNetworkDistributionComponentCoil(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.coil_name))
-        out.append(self._to_str(self.coil_object_type))
-        out.append(self._to_str(self.air_path_length))
-        out.append(self._to_str(self.air_path_hydraulic_diameter))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class AirflowNetworkDistributionComponentHeatExchanger(object):
     """ Corresponds to IDD object `AirflowNetwork:Distribution:Component:HeatExchanger`
@@ -9751,34 +10410,44 @@ class AirflowNetworkDistributionComponentHeatExchanger(object):
         self._data["HeatExchanger Object Type"] = None
         self._data["Air Path Length"] = None
         self._data["Air Path Hydraulic Diameter"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.heatexchanger_name = None
         else:
             self.heatexchanger_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.heatexchanger_object_type = None
         else:
             self.heatexchanger_object_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.air_path_length = None
         else:
             self.air_path_length = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.air_path_hydraulic_diameter = None
         else:
             self.air_path_hydraulic_diameter = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def heatexchanger_name(self):
@@ -9810,6 +10479,9 @@ class AirflowNetworkDistributionComponentHeatExchanger(object):
                                  'for field `heatexchanger_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `heatexchanger_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `heatexchanger_name`')
 
         self._data["HeatExchanger Name"] = value
@@ -9849,13 +10521,27 @@ class AirflowNetworkDistributionComponentHeatExchanger(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `heatexchanger_object_type`')
-            vals = set()
-            vals.add("HeatExchanger:AirToAir:FlatPlate")
-            vals.add("HeatExchanger:AirToAir:SensibleAndLatent")
-            vals.add("HeatExchanger:Desiccant:BalancedFlow")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `heatexchanger_object_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `heatexchanger_object_type`')
+            vals = {}
+            vals["heatexchanger:airtoair:flatplate"] = "HeatExchanger:AirToAir:FlatPlate"
+            vals["heatexchanger:airtoair:sensibleandlatent"] = "HeatExchanger:AirToAir:SensibleAndLatent"
+            vals["heatexchanger:desiccant:balancedflow"] = "HeatExchanger:Desiccant:BalancedFlow"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `heatexchanger_object_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["HeatExchanger Object Type"] = value
 
@@ -9954,13 +10640,17 @@ class AirflowNetworkDistributionComponentHeatExchanger(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.heatexchanger_name))
-        out.append(self._to_str(self.heatexchanger_object_type))
-        out.append(self._to_str(self.air_path_length))
-        out.append(self._to_str(self.air_path_hydraulic_diameter))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class AirflowNetworkDistributionComponentTerminalUnit(object):
     """ Corresponds to IDD object `AirflowNetwork:Distribution:Component:TerminalUnit`
@@ -9979,34 +10669,44 @@ class AirflowNetworkDistributionComponentTerminalUnit(object):
         self._data["Terminal Unit Object Type"] = None
         self._data["Air Path Length"] = None
         self._data["Air Path Hydraulic Diameter"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.terminal_unit_name = None
         else:
             self.terminal_unit_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.terminal_unit_object_type = None
         else:
             self.terminal_unit_object_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.air_path_length = None
         else:
             self.air_path_length = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.air_path_hydraulic_diameter = None
         else:
             self.air_path_hydraulic_diameter = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def terminal_unit_name(self):
@@ -10038,6 +10738,9 @@ class AirflowNetworkDistributionComponentTerminalUnit(object):
                                  'for field `terminal_unit_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `terminal_unit_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `terminal_unit_name`')
 
         self._data["Terminal Unit Name"] = value
@@ -10076,12 +10779,26 @@ class AirflowNetworkDistributionComponentTerminalUnit(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `terminal_unit_object_type`')
-            vals = set()
-            vals.add("AirTerminal:SingleDuct:ConstantVolume:Reheat")
-            vals.add("AirTerminal:SingleDuct:VAV:Reheat")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `terminal_unit_object_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `terminal_unit_object_type`')
+            vals = {}
+            vals["airterminal:singleduct:constantvolume:reheat"] = "AirTerminal:SingleDuct:ConstantVolume:Reheat"
+            vals["airterminal:singleduct:vav:reheat"] = "AirTerminal:SingleDuct:VAV:Reheat"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `terminal_unit_object_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Terminal Unit Object Type"] = value
 
@@ -10180,13 +10897,17 @@ class AirflowNetworkDistributionComponentTerminalUnit(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.terminal_unit_name))
-        out.append(self._to_str(self.terminal_unit_object_type))
-        out.append(self._to_str(self.air_path_length))
-        out.append(self._to_str(self.air_path_hydraulic_diameter))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class AirflowNetworkDistributionComponentConstantPressureDrop(object):
     """ Corresponds to IDD object `AirflowNetwork:Distribution:Component:ConstantPressureDrop`
@@ -10205,24 +10926,30 @@ class AirflowNetworkDistributionComponentConstantPressureDrop(object):
         self._data = OrderedDict()
         self._data["Name"] = None
         self._data["Pressure Difference Across the Component"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.pressure_difference_across_the_component = None
         else:
             self.pressure_difference_across_the_component = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -10254,6 +10981,9 @@ class AirflowNetworkDistributionComponentConstantPressureDrop(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -10316,11 +11046,17 @@ class AirflowNetworkDistributionComponentConstantPressureDrop(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.pressure_difference_across_the_component))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class AirflowNetworkDistributionLinkage(object):
     """ Corresponds to IDD object `AirflowNetwork:Distribution:Linkage`
@@ -10340,39 +11076,51 @@ class AirflowNetworkDistributionLinkage(object):
         self._data["Node 2 Name"] = None
         self._data["Component Name"] = None
         self._data["Thermal Zone Name"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.node_1_name = None
         else:
             self.node_1_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.node_2_name = None
         else:
             self.node_2_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.component_name = None
         else:
             self.component_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.thermal_zone_name = None
         else:
             self.thermal_zone_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -10404,6 +11152,9 @@ class AirflowNetworkDistributionLinkage(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -10439,6 +11190,9 @@ class AirflowNetworkDistributionLinkage(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `node_1_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `node_1_name`')
 
         self._data["Node 1 Name"] = value
 
@@ -10472,6 +11226,9 @@ class AirflowNetworkDistributionLinkage(object):
                                  'for field `node_2_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `node_2_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `node_2_name`')
 
         self._data["Node 2 Name"] = value
@@ -10509,6 +11266,9 @@ class AirflowNetworkDistributionLinkage(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `component_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `component_name`')
 
         self._data["Component Name"] = value
 
@@ -10545,6 +11305,9 @@ class AirflowNetworkDistributionLinkage(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `thermal_zone_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `thermal_zone_name`')
 
         self._data["Thermal Zone Name"] = value
 
@@ -10570,11 +11333,14 @@ class AirflowNetworkDistributionLinkage(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.node_1_name))
-        out.append(self._to_str(self.node_2_name))
-        out.append(self._to_str(self.component_name))
-        out.append(self._to_str(self.thermal_zone_name))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])

@@ -19,29 +19,37 @@ class EnergyManagementSystemSensor(object):
         self._data["Name"] = None
         self._data["Output:Variable or Output:Meter Index Key Name"] = None
         self._data["Output:Variable or Output:Meter Name"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.outputvariable_or_outputmeter_index_key_name = None
         else:
             self.outputvariable_or_outputmeter_index_key_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.outputvariable_or_outputmeter_name = None
         else:
             self.outputvariable_or_outputmeter_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -74,6 +82,9 @@ class EnergyManagementSystemSensor(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -108,6 +119,9 @@ class EnergyManagementSystemSensor(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `outputvariable_or_outputmeter_index_key_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `outputvariable_or_outputmeter_index_key_name`')
 
         self._data["Output:Variable or Output:Meter Index Key Name"] = value
 
@@ -141,6 +155,9 @@ class EnergyManagementSystemSensor(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `outputvariable_or_outputmeter_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `outputvariable_or_outputmeter_name`')
 
         self._data["Output:Variable or Output:Meter Name"] = value
 
@@ -166,12 +183,17 @@ class EnergyManagementSystemSensor(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.outputvariable_or_outputmeter_index_key_name))
-        out.append(self._to_str(self.outputvariable_or_outputmeter_name))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class EnergyManagementSystemActuator(object):
     """ Corresponds to IDD object `EnergyManagementSystem:Actuator`
@@ -190,34 +212,44 @@ class EnergyManagementSystemActuator(object):
         self._data["Actuated Component Unique Name"] = None
         self._data["Actuated Component Type"] = None
         self._data["Actuated Component Control Type"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.actuated_component_unique_name = None
         else:
             self.actuated_component_unique_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.actuated_component_type = None
         else:
             self.actuated_component_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.actuated_component_control_type = None
         else:
             self.actuated_component_control_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -250,6 +282,9 @@ class EnergyManagementSystemActuator(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -284,6 +319,9 @@ class EnergyManagementSystemActuator(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `actuated_component_unique_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `actuated_component_unique_name`')
 
         self._data["Actuated Component Unique Name"] = value
 
@@ -316,6 +354,9 @@ class EnergyManagementSystemActuator(object):
                                  'for field `actuated_component_type`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `actuated_component_type`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `actuated_component_type`')
 
         self._data["Actuated Component Type"] = value
@@ -350,6 +391,9 @@ class EnergyManagementSystemActuator(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `actuated_component_control_type`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `actuated_component_control_type`')
 
         self._data["Actuated Component Control Type"] = value
 
@@ -375,13 +419,17 @@ class EnergyManagementSystemActuator(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.actuated_component_unique_name))
-        out.append(self._to_str(self.actuated_component_type))
-        out.append(self._to_str(self.actuated_component_control_type))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class EnergyManagementSystemProgramCallingManager(object):
     """ Corresponds to IDD object `EnergyManagementSystem:ProgramCallingManager`
@@ -425,149 +473,205 @@ class EnergyManagementSystemProgramCallingManager(object):
         self._data["Program Name 23"] = None
         self._data["Program Name 24"] = None
         self._data["Program Name 25"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.energyplus_model_calling_point = None
         else:
             self.energyplus_model_calling_point = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.program_name_1 = None
         else:
             self.program_name_1 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.program_name_2 = None
         else:
             self.program_name_2 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.program_name_3 = None
         else:
             self.program_name_3 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.program_name_4 = None
         else:
             self.program_name_4 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.program_name_5 = None
         else:
             self.program_name_5 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.program_name_6 = None
         else:
             self.program_name_6 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.program_name_7 = None
         else:
             self.program_name_7 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.program_name_8 = None
         else:
             self.program_name_8 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.program_name_9 = None
         else:
             self.program_name_9 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.program_name_10 = None
         else:
             self.program_name_10 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.program_name_11 = None
         else:
             self.program_name_11 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.program_name_12 = None
         else:
             self.program_name_12 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.program_name_13 = None
         else:
             self.program_name_13 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.program_name_14 = None
         else:
             self.program_name_14 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.program_name_15 = None
         else:
             self.program_name_15 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.program_name_16 = None
         else:
             self.program_name_16 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.program_name_17 = None
         else:
             self.program_name_17 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.program_name_18 = None
         else:
             self.program_name_18 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.program_name_19 = None
         else:
             self.program_name_19 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.program_name_20 = None
         else:
             self.program_name_20 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.program_name_21 = None
         else:
             self.program_name_21 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.program_name_22 = None
         else:
             self.program_name_22 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.program_name_23 = None
         else:
             self.program_name_23 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.program_name_24 = None
         else:
             self.program_name_24 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.program_name_25 = None
         else:
             self.program_name_25 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -599,6 +703,9 @@ class EnergyManagementSystemProgramCallingManager(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -649,25 +756,39 @@ class EnergyManagementSystemProgramCallingManager(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `energyplus_model_calling_point`')
-            vals = set()
-            vals.add("BeginNewEnvironment")
-            vals.add("AfterNewEnvironmentWarmUpIsComplete")
-            vals.add("BeginTimestepBeforePredictor")
-            vals.add("AfterPredictorBeforeHVACManagers")
-            vals.add("AfterPredictorAfterHVACManagers")
-            vals.add("InsideHVACSystemIterationLoop")
-            vals.add("EndOfZoneTimestepBeforeZoneReporting")
-            vals.add("EndOfZoneTimestepAfterZoneReporting")
-            vals.add("EndOfSystemTimestepBeforeHVACReporting")
-            vals.add("EndOfSystemTimestepAfterHVACReporting")
-            vals.add("EndOfZoneSizing")
-            vals.add("EndOfSystemSizing")
-            vals.add("AfterComponentInputReadIn")
-            vals.add("UserDefinedComponentModel")
-            vals.add("UnitarySystemSizing")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `energyplus_model_calling_point`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `energyplus_model_calling_point`')
+            vals = {}
+            vals["beginnewenvironment"] = "BeginNewEnvironment"
+            vals["afternewenvironmentwarmupiscomplete"] = "AfterNewEnvironmentWarmUpIsComplete"
+            vals["begintimestepbeforepredictor"] = "BeginTimestepBeforePredictor"
+            vals["afterpredictorbeforehvacmanagers"] = "AfterPredictorBeforeHVACManagers"
+            vals["afterpredictorafterhvacmanagers"] = "AfterPredictorAfterHVACManagers"
+            vals["insidehvacsystemiterationloop"] = "InsideHVACSystemIterationLoop"
+            vals["endofzonetimestepbeforezonereporting"] = "EndOfZoneTimestepBeforeZoneReporting"
+            vals["endofzonetimestepafterzonereporting"] = "EndOfZoneTimestepAfterZoneReporting"
+            vals["endofsystemtimestepbeforehvacreporting"] = "EndOfSystemTimestepBeforeHVACReporting"
+            vals["endofsystemtimestepafterhvacreporting"] = "EndOfSystemTimestepAfterHVACReporting"
+            vals["endofzonesizing"] = "EndOfZoneSizing"
+            vals["endofsystemsizing"] = "EndOfSystemSizing"
+            vals["aftercomponentinputreadin"] = "AfterComponentInputReadIn"
+            vals["userdefinedcomponentmodel"] = "UserDefinedComponentModel"
+            vals["unitarysystemsizing"] = "UnitarySystemSizing"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `energyplus_model_calling_point`'.format(value))
+            value = vals[value_lower]
 
         self._data["EnergyPlus Model Calling Point"] = value
 
@@ -701,6 +822,9 @@ class EnergyManagementSystemProgramCallingManager(object):
                                  'for field `program_name_1`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `program_name_1`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `program_name_1`')
 
         self._data["Program Name 1"] = value
@@ -736,6 +860,9 @@ class EnergyManagementSystemProgramCallingManager(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `program_name_2`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `program_name_2`')
 
         self._data["Program Name 2"] = value
 
@@ -769,6 +896,9 @@ class EnergyManagementSystemProgramCallingManager(object):
                                  'for field `program_name_3`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `program_name_3`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `program_name_3`')
 
         self._data["Program Name 3"] = value
@@ -804,6 +934,9 @@ class EnergyManagementSystemProgramCallingManager(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `program_name_4`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `program_name_4`')
 
         self._data["Program Name 4"] = value
 
@@ -837,6 +970,9 @@ class EnergyManagementSystemProgramCallingManager(object):
                                  'for field `program_name_5`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `program_name_5`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `program_name_5`')
 
         self._data["Program Name 5"] = value
@@ -872,6 +1008,9 @@ class EnergyManagementSystemProgramCallingManager(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `program_name_6`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `program_name_6`')
 
         self._data["Program Name 6"] = value
 
@@ -905,6 +1044,9 @@ class EnergyManagementSystemProgramCallingManager(object):
                                  'for field `program_name_7`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `program_name_7`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `program_name_7`')
 
         self._data["Program Name 7"] = value
@@ -940,6 +1082,9 @@ class EnergyManagementSystemProgramCallingManager(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `program_name_8`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `program_name_8`')
 
         self._data["Program Name 8"] = value
 
@@ -973,6 +1118,9 @@ class EnergyManagementSystemProgramCallingManager(object):
                                  'for field `program_name_9`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `program_name_9`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `program_name_9`')
 
         self._data["Program Name 9"] = value
@@ -1008,6 +1156,9 @@ class EnergyManagementSystemProgramCallingManager(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `program_name_10`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `program_name_10`')
 
         self._data["Program Name 10"] = value
 
@@ -1041,6 +1192,9 @@ class EnergyManagementSystemProgramCallingManager(object):
                                  'for field `program_name_11`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `program_name_11`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `program_name_11`')
 
         self._data["Program Name 11"] = value
@@ -1076,6 +1230,9 @@ class EnergyManagementSystemProgramCallingManager(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `program_name_12`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `program_name_12`')
 
         self._data["Program Name 12"] = value
 
@@ -1109,6 +1266,9 @@ class EnergyManagementSystemProgramCallingManager(object):
                                  'for field `program_name_13`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `program_name_13`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `program_name_13`')
 
         self._data["Program Name 13"] = value
@@ -1144,6 +1304,9 @@ class EnergyManagementSystemProgramCallingManager(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `program_name_14`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `program_name_14`')
 
         self._data["Program Name 14"] = value
 
@@ -1177,6 +1340,9 @@ class EnergyManagementSystemProgramCallingManager(object):
                                  'for field `program_name_15`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `program_name_15`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `program_name_15`')
 
         self._data["Program Name 15"] = value
@@ -1212,6 +1378,9 @@ class EnergyManagementSystemProgramCallingManager(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `program_name_16`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `program_name_16`')
 
         self._data["Program Name 16"] = value
 
@@ -1245,6 +1414,9 @@ class EnergyManagementSystemProgramCallingManager(object):
                                  'for field `program_name_17`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `program_name_17`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `program_name_17`')
 
         self._data["Program Name 17"] = value
@@ -1280,6 +1452,9 @@ class EnergyManagementSystemProgramCallingManager(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `program_name_18`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `program_name_18`')
 
         self._data["Program Name 18"] = value
 
@@ -1313,6 +1488,9 @@ class EnergyManagementSystemProgramCallingManager(object):
                                  'for field `program_name_19`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `program_name_19`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `program_name_19`')
 
         self._data["Program Name 19"] = value
@@ -1348,6 +1526,9 @@ class EnergyManagementSystemProgramCallingManager(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `program_name_20`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `program_name_20`')
 
         self._data["Program Name 20"] = value
 
@@ -1381,6 +1562,9 @@ class EnergyManagementSystemProgramCallingManager(object):
                                  'for field `program_name_21`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `program_name_21`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `program_name_21`')
 
         self._data["Program Name 21"] = value
@@ -1416,6 +1600,9 @@ class EnergyManagementSystemProgramCallingManager(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `program_name_22`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `program_name_22`')
 
         self._data["Program Name 22"] = value
 
@@ -1449,6 +1636,9 @@ class EnergyManagementSystemProgramCallingManager(object):
                                  'for field `program_name_23`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `program_name_23`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `program_name_23`')
 
         self._data["Program Name 23"] = value
@@ -1484,6 +1674,9 @@ class EnergyManagementSystemProgramCallingManager(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `program_name_24`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `program_name_24`')
 
         self._data["Program Name 24"] = value
 
@@ -1518,6 +1711,9 @@ class EnergyManagementSystemProgramCallingManager(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `program_name_25`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `program_name_25`')
 
         self._data["Program Name 25"] = value
 
@@ -1543,36 +1739,17 @@ class EnergyManagementSystemProgramCallingManager(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.energyplus_model_calling_point))
-        out.append(self._to_str(self.program_name_1))
-        out.append(self._to_str(self.program_name_2))
-        out.append(self._to_str(self.program_name_3))
-        out.append(self._to_str(self.program_name_4))
-        out.append(self._to_str(self.program_name_5))
-        out.append(self._to_str(self.program_name_6))
-        out.append(self._to_str(self.program_name_7))
-        out.append(self._to_str(self.program_name_8))
-        out.append(self._to_str(self.program_name_9))
-        out.append(self._to_str(self.program_name_10))
-        out.append(self._to_str(self.program_name_11))
-        out.append(self._to_str(self.program_name_12))
-        out.append(self._to_str(self.program_name_13))
-        out.append(self._to_str(self.program_name_14))
-        out.append(self._to_str(self.program_name_15))
-        out.append(self._to_str(self.program_name_16))
-        out.append(self._to_str(self.program_name_17))
-        out.append(self._to_str(self.program_name_18))
-        out.append(self._to_str(self.program_name_19))
-        out.append(self._to_str(self.program_name_20))
-        out.append(self._to_str(self.program_name_21))
-        out.append(self._to_str(self.program_name_22))
-        out.append(self._to_str(self.program_name_23))
-        out.append(self._to_str(self.program_name_24))
-        out.append(self._to_str(self.program_name_25))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class EnergyManagementSystemOutputVariable(object):
     """ Corresponds to IDD object `EnergyManagementSystem:OutputVariable`
@@ -1593,44 +1770,58 @@ class EnergyManagementSystemOutputVariable(object):
         self._data["Update Frequency"] = None
         self._data["EMS Program or Subroutine Name"] = None
         self._data["Units"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.ems_variable_name = None
         else:
             self.ems_variable_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.type_of_data_in_variable = None
         else:
             self.type_of_data_in_variable = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.update_frequency = None
         else:
             self.update_frequency = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.ems_program_or_subroutine_name = None
         else:
             self.ems_program_or_subroutine_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.units = None
         else:
             self.units = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -1661,6 +1852,9 @@ class EnergyManagementSystemOutputVariable(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -1695,6 +1889,9 @@ class EnergyManagementSystemOutputVariable(object):
                                  'for field `ems_variable_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `ems_variable_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `ems_variable_name`')
 
         self._data["EMS Variable Name"] = value
@@ -1732,12 +1929,26 @@ class EnergyManagementSystemOutputVariable(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `type_of_data_in_variable`')
-            vals = set()
-            vals.add("Averaged")
-            vals.add("Summed")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `type_of_data_in_variable`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `type_of_data_in_variable`')
+            vals = {}
+            vals["averaged"] = "Averaged"
+            vals["summed"] = "Summed"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `type_of_data_in_variable`'.format(value))
+            value = vals[value_lower]
 
         self._data["Type of Data in Variable"] = value
 
@@ -1774,12 +1985,26 @@ class EnergyManagementSystemOutputVariable(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `update_frequency`')
-            vals = set()
-            vals.add("ZoneTimestep")
-            vals.add("SystemTimestep")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `update_frequency`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `update_frequency`')
+            vals = {}
+            vals["zonetimestep"] = "ZoneTimestep"
+            vals["systemtimestep"] = "SystemTimestep"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `update_frequency`'.format(value))
+            value = vals[value_lower]
 
         self._data["Update Frequency"] = value
 
@@ -1813,6 +2038,9 @@ class EnergyManagementSystemOutputVariable(object):
                                  'for field `ems_program_or_subroutine_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `ems_program_or_subroutine_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `ems_program_or_subroutine_name`')
 
         self._data["EMS Program or Subroutine Name"] = value
@@ -1849,6 +2077,9 @@ class EnergyManagementSystemOutputVariable(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `units`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `units`')
 
         self._data["Units"] = value
 
@@ -1874,15 +2105,17 @@ class EnergyManagementSystemOutputVariable(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.ems_variable_name))
-        out.append(self._to_str(self.type_of_data_in_variable))
-        out.append(self._to_str(self.update_frequency))
-        out.append(self._to_str(self.ems_program_or_subroutine_name))
-        out.append(self._to_str(self.units))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class EnergyManagementSystemMeteredOutputVariable(object):
     """ Corresponds to IDD object `EnergyManagementSystem:MeteredOutputVariable`
@@ -1906,59 +2139,79 @@ class EnergyManagementSystemMeteredOutputVariable(object):
         self._data["End-Use Category"] = None
         self._data["End-Use Subcategory"] = None
         self._data["Units"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.ems_variable_name = None
         else:
             self.ems_variable_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.update_frequency = None
         else:
             self.update_frequency = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.ems_program_or_subroutine_name = None
         else:
             self.ems_program_or_subroutine_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.resource_type = None
         else:
             self.resource_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.group_type = None
         else:
             self.group_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.enduse_category = None
         else:
             self.enduse_category = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.enduse_subcategory = None
         else:
             self.enduse_subcategory = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.units = None
         else:
             self.units = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -1989,6 +2242,9 @@ class EnergyManagementSystemMeteredOutputVariable(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -2023,6 +2279,9 @@ class EnergyManagementSystemMeteredOutputVariable(object):
                                  'for field `ems_variable_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `ems_variable_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `ems_variable_name`')
 
         self._data["EMS Variable Name"] = value
@@ -2060,12 +2319,26 @@ class EnergyManagementSystemMeteredOutputVariable(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `update_frequency`')
-            vals = set()
-            vals.add("ZoneTimestep")
-            vals.add("SystemTimestep")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `update_frequency`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `update_frequency`')
+            vals = {}
+            vals["zonetimestep"] = "ZoneTimestep"
+            vals["systemtimestep"] = "SystemTimestep"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `update_frequency`'.format(value))
+            value = vals[value_lower]
 
         self._data["Update Frequency"] = value
 
@@ -2099,6 +2372,9 @@ class EnergyManagementSystemMeteredOutputVariable(object):
                                  'for field `ems_program_or_subroutine_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `ems_program_or_subroutine_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `ems_program_or_subroutine_name`')
 
         self._data["EMS Program or Subroutine Name"] = value
@@ -2158,33 +2434,47 @@ class EnergyManagementSystemMeteredOutputVariable(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `resource_type`')
-            vals = set()
-            vals.add("Electricity")
-            vals.add("NaturalGas")
-            vals.add("Gasoline")
-            vals.add("Diesel")
-            vals.add("Coal")
-            vals.add("FuelOil#1")
-            vals.add("FuelOil#2")
-            vals.add("Propane")
-            vals.add("OtherFuel1")
-            vals.add("OtherFuel2")
-            vals.add("WaterUse")
-            vals.add("OnSiteWaterProduced")
-            vals.add("MainsWaterSupply")
-            vals.add("RainWaterCollected")
-            vals.add("WellWaterDrawn")
-            vals.add("CondensateWaterCollected")
-            vals.add("EnergyTransfer")
-            vals.add("Steam")
-            vals.add("DistrictCooling")
-            vals.add("DistrictHeating")
-            vals.add("ElectricityProducedOnSite")
-            vals.add("SolarWaterHeating")
-            vals.add("SolarAirHeating")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `resource_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `resource_type`')
+            vals = {}
+            vals["electricity"] = "Electricity"
+            vals["naturalgas"] = "NaturalGas"
+            vals["gasoline"] = "Gasoline"
+            vals["diesel"] = "Diesel"
+            vals["coal"] = "Coal"
+            vals["fueloil#1"] = "FuelOil#1"
+            vals["fueloil#2"] = "FuelOil#2"
+            vals["propane"] = "Propane"
+            vals["otherfuel1"] = "OtherFuel1"
+            vals["otherfuel2"] = "OtherFuel2"
+            vals["wateruse"] = "WaterUse"
+            vals["onsitewaterproduced"] = "OnSiteWaterProduced"
+            vals["mainswatersupply"] = "MainsWaterSupply"
+            vals["rainwatercollected"] = "RainWaterCollected"
+            vals["wellwaterdrawn"] = "WellWaterDrawn"
+            vals["condensatewatercollected"] = "CondensateWaterCollected"
+            vals["energytransfer"] = "EnergyTransfer"
+            vals["steam"] = "Steam"
+            vals["districtcooling"] = "DistrictCooling"
+            vals["districtheating"] = "DistrictHeating"
+            vals["electricityproducedonsite"] = "ElectricityProducedOnSite"
+            vals["solarwaterheating"] = "SolarWaterHeating"
+            vals["solarairheating"] = "SolarAirHeating"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `resource_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Resource Type"] = value
 
@@ -2223,13 +2513,27 @@ class EnergyManagementSystemMeteredOutputVariable(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `group_type`')
-            vals = set()
-            vals.add("Building")
-            vals.add("HVAC")
-            vals.add("Plant")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `group_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `group_type`')
+            vals = {}
+            vals["building"] = "Building"
+            vals["hvac"] = "HVAC"
+            vals["plant"] = "Plant"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `group_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Group Type"] = value
 
@@ -2279,24 +2583,38 @@ class EnergyManagementSystemMeteredOutputVariable(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `enduse_category`')
-            vals = set()
-            vals.add("Heating")
-            vals.add("Cooling")
-            vals.add("InteriorLights")
-            vals.add("ExteriorLights")
-            vals.add("InteriorEquipment")
-            vals.add("ExteriorEquipment")
-            vals.add("Fans")
-            vals.add("Pumps")
-            vals.add("HeatRejection")
-            vals.add("Humidifier")
-            vals.add("HeatRecovery")
-            vals.add("WaterSystems")
-            vals.add("Refrigeration")
-            vals.add("OnSiteGeneration")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `enduse_category`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `enduse_category`')
+            vals = {}
+            vals["heating"] = "Heating"
+            vals["cooling"] = "Cooling"
+            vals["interiorlights"] = "InteriorLights"
+            vals["exteriorlights"] = "ExteriorLights"
+            vals["interiorequipment"] = "InteriorEquipment"
+            vals["exteriorequipment"] = "ExteriorEquipment"
+            vals["fans"] = "Fans"
+            vals["pumps"] = "Pumps"
+            vals["heatrejection"] = "HeatRejection"
+            vals["humidifier"] = "Humidifier"
+            vals["heatrecovery"] = "HeatRecovery"
+            vals["watersystems"] = "WaterSystems"
+            vals["refrigeration"] = "Refrigeration"
+            vals["onsitegeneration"] = "OnSiteGeneration"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `enduse_category`'.format(value))
+            value = vals[value_lower]
 
         self._data["End-Use Category"] = value
 
@@ -2330,6 +2648,9 @@ class EnergyManagementSystemMeteredOutputVariable(object):
                                  'for field `enduse_subcategory`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `enduse_subcategory`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `enduse_subcategory`')
 
         self._data["End-Use Subcategory"] = value
@@ -2366,6 +2687,9 @@ class EnergyManagementSystemMeteredOutputVariable(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `units`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `units`')
 
         self._data["Units"] = value
 
@@ -2391,18 +2715,17 @@ class EnergyManagementSystemMeteredOutputVariable(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.ems_variable_name))
-        out.append(self._to_str(self.update_frequency))
-        out.append(self._to_str(self.ems_program_or_subroutine_name))
-        out.append(self._to_str(self.resource_type))
-        out.append(self._to_str(self.group_type))
-        out.append(self._to_str(self.enduse_category))
-        out.append(self._to_str(self.enduse_subcategory))
-        out.append(self._to_str(self.units))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class EnergyManagementSystemTrendVariable(object):
     """ Corresponds to IDD object `EnergyManagementSystem:TrendVariable`
@@ -2421,29 +2744,37 @@ class EnergyManagementSystemTrendVariable(object):
         self._data["Name"] = None
         self._data["EMS Variable Name"] = None
         self._data["Number of Timesteps to be Logged"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.ems_variable_name = None
         else:
             self.ems_variable_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.number_of_timesteps_to_be_logged = None
         else:
             self.number_of_timesteps_to_be_logged = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -2475,6 +2806,9 @@ class EnergyManagementSystemTrendVariable(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -2509,6 +2843,9 @@ class EnergyManagementSystemTrendVariable(object):
                                  'for field `ems_variable_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `ems_variable_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `ems_variable_name`')
 
         self._data["EMS Variable Name"] = value
@@ -2569,12 +2906,17 @@ class EnergyManagementSystemTrendVariable(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.ems_variable_name))
-        out.append(self._to_str(self.number_of_timesteps_to_be_logged))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class EnergyManagementSystemInternalVariable(object):
     """ Corresponds to IDD object `EnergyManagementSystem:InternalVariable`
@@ -2592,29 +2934,37 @@ class EnergyManagementSystemInternalVariable(object):
         self._data["Name"] = None
         self._data["Internal Data Index Key Name"] = None
         self._data["Internal Data Type"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.internal_data_index_key_name = None
         else:
             self.internal_data_index_key_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.internal_data_type = None
         else:
             self.internal_data_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -2647,6 +2997,9 @@ class EnergyManagementSystemInternalVariable(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -2681,6 +3034,9 @@ class EnergyManagementSystemInternalVariable(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `internal_data_index_key_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `internal_data_index_key_name`')
 
         self._data["Internal Data Index Key Name"] = value
 
@@ -2714,6 +3070,9 @@ class EnergyManagementSystemInternalVariable(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `internal_data_type`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `internal_data_type`')
 
         self._data["Internal Data Type"] = value
 
@@ -2739,12 +3098,17 @@ class EnergyManagementSystemInternalVariable(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.internal_data_index_key_name))
-        out.append(self._to_str(self.internal_data_type))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class EnergyManagementSystemCurveOrTableIndexVariable(object):
     """ Corresponds to IDD object `EnergyManagementSystem:CurveOrTableIndexVariable`
@@ -2761,24 +3125,30 @@ class EnergyManagementSystemCurveOrTableIndexVariable(object):
         self._data = OrderedDict()
         self._data["Name"] = None
         self._data["Curve or Table Object Name"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.curve_or_table_object_name = None
         else:
             self.curve_or_table_object_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -2811,6 +3181,9 @@ class EnergyManagementSystemCurveOrTableIndexVariable(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -2845,6 +3218,9 @@ class EnergyManagementSystemCurveOrTableIndexVariable(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `curve_or_table_object_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `curve_or_table_object_name`')
 
         self._data["Curve or Table Object Name"] = value
 
@@ -2870,11 +3246,17 @@ class EnergyManagementSystemCurveOrTableIndexVariable(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.curve_or_table_object_name))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class EnergyManagementSystemConstructionIndexVariable(object):
     """ Corresponds to IDD object `EnergyManagementSystem:ConstructionIndexVariable`
@@ -2891,24 +3273,30 @@ class EnergyManagementSystemConstructionIndexVariable(object):
         self._data = OrderedDict()
         self._data["Name"] = None
         self._data["Construction Object Name"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.construction_object_name = None
         else:
             self.construction_object_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -2941,6 +3329,9 @@ class EnergyManagementSystemConstructionIndexVariable(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -2975,6 +3366,9 @@ class EnergyManagementSystemConstructionIndexVariable(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `construction_object_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `construction_object_name`')
 
         self._data["Construction Object Name"] = value
 
@@ -3000,8 +3394,14 @@ class EnergyManagementSystemConstructionIndexVariable(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.construction_object_name))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])

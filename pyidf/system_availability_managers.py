@@ -16,24 +16,30 @@ class AvailabilityManagerScheduled(object):
         self._data = OrderedDict()
         self._data["Name"] = None
         self._data["Schedule Name"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.schedule_name = None
         else:
             self.schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -64,6 +70,9 @@ class AvailabilityManagerScheduled(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -98,6 +107,9 @@ class AvailabilityManagerScheduled(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `schedule_name`')
 
         self._data["Schedule Name"] = value
 
@@ -123,11 +135,17 @@ class AvailabilityManagerScheduled(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.schedule_name))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class AvailabilityManagerScheduledOn(object):
     """ Corresponds to IDD object `AvailabilityManager:ScheduledOn`
@@ -145,24 +163,30 @@ class AvailabilityManagerScheduledOn(object):
         self._data = OrderedDict()
         self._data["Name"] = None
         self._data["Schedule Name"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.schedule_name = None
         else:
             self.schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -193,6 +217,9 @@ class AvailabilityManagerScheduledOn(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -227,6 +254,9 @@ class AvailabilityManagerScheduledOn(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `schedule_name`')
 
         self._data["Schedule Name"] = value
 
@@ -252,11 +282,17 @@ class AvailabilityManagerScheduledOn(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.schedule_name))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class AvailabilityManagerScheduledOff(object):
     """ Corresponds to IDD object `AvailabilityManager:ScheduledOff`
@@ -274,24 +310,30 @@ class AvailabilityManagerScheduledOff(object):
         self._data = OrderedDict()
         self._data["Name"] = None
         self._data["Schedule Name"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.schedule_name = None
         else:
             self.schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -322,6 +364,9 @@ class AvailabilityManagerScheduledOff(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -356,6 +401,9 @@ class AvailabilityManagerScheduledOff(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `schedule_name`')
 
         self._data["Schedule Name"] = value
 
@@ -381,11 +429,17 @@ class AvailabilityManagerScheduledOff(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.schedule_name))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class AvailabilityManagerOptimumStart(object):
     """ Corresponds to IDD object `AvailabilityManager:OptimumStart`
@@ -414,84 +468,114 @@ class AvailabilityManagerOptimumStart(object):
         self._data["Initial Temperature Gradient during Heating"] = None
         self._data["Constant Start Time"] = None
         self._data["Number of Previous Days"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.applicability_schedule_name = None
         else:
             self.applicability_schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fan_schedule_name = None
         else:
             self.fan_schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.control_type = None
         else:
             self.control_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.control_zone_name = None
         else:
             self.control_zone_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.zone_list_name = None
         else:
             self.zone_list_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.maximum_value_for_optimum_start_time = None
         else:
             self.maximum_value_for_optimum_start_time = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.control_algorithm = None
         else:
             self.control_algorithm = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.constant_temperature_gradient_during_cooling = None
         else:
             self.constant_temperature_gradient_during_cooling = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.constant_temperature_gradient_during_heating = None
         else:
             self.constant_temperature_gradient_during_heating = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.initial_temperature_gradient_during_cooling = None
         else:
             self.initial_temperature_gradient_during_cooling = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.initial_temperature_gradient_during_heating = None
         else:
             self.initial_temperature_gradient_during_heating = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.constant_start_time = None
         else:
             self.constant_start_time = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.number_of_previous_days = None
         else:
             self.number_of_previous_days = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -522,6 +606,9 @@ class AvailabilityManagerOptimumStart(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -556,6 +643,9 @@ class AvailabilityManagerOptimumStart(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `applicability_schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `applicability_schedule_name`')
 
         self._data["Applicability Schedule Name"] = value
 
@@ -588,6 +678,9 @@ class AvailabilityManagerOptimumStart(object):
                                  'for field `fan_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `fan_schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `fan_schedule_name`')
 
         self._data["Fan Schedule Name"] = value
@@ -627,13 +720,27 @@ class AvailabilityManagerOptimumStart(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `control_type`')
-            vals = set()
-            vals.add("StayOff")
-            vals.add("ControlZone")
-            vals.add("MaximumofZoneList")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `control_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `control_type`')
+            vals = {}
+            vals["stayoff"] = "StayOff"
+            vals["controlzone"] = "ControlZone"
+            vals["maximumofzonelist"] = "MaximumofZoneList"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `control_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Control Type"] = value
 
@@ -667,6 +774,9 @@ class AvailabilityManagerOptimumStart(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `control_zone_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `control_zone_name`')
 
         self._data["Control Zone Name"] = value
 
@@ -699,6 +809,9 @@ class AvailabilityManagerOptimumStart(object):
                                  'for field `zone_list_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `zone_list_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `zone_list_name`')
 
         self._data["Zone List Name"] = value
@@ -772,14 +885,28 @@ class AvailabilityManagerOptimumStart(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `control_algorithm`')
-            vals = set()
-            vals.add("ConstantTemperatureGradient")
-            vals.add("AdaptiveTemperatureGradient")
-            vals.add("AdaptiveASHRAE")
-            vals.add("ConstantStartTime")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `control_algorithm`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `control_algorithm`')
+            vals = {}
+            vals["constanttemperaturegradient"] = "ConstantTemperatureGradient"
+            vals["adaptivetemperaturegradient"] = "AdaptiveTemperatureGradient"
+            vals["adaptiveashrae"] = "AdaptiveASHRAE"
+            vals["constantstarttime"] = "ConstantStartTime"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `control_algorithm`'.format(value))
+            value = vals[value_lower]
 
         self._data["Control Algorithm"] = value
 
@@ -1003,23 +1130,17 @@ class AvailabilityManagerOptimumStart(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.applicability_schedule_name))
-        out.append(self._to_str(self.fan_schedule_name))
-        out.append(self._to_str(self.control_type))
-        out.append(self._to_str(self.control_zone_name))
-        out.append(self._to_str(self.zone_list_name))
-        out.append(self._to_str(self.maximum_value_for_optimum_start_time))
-        out.append(self._to_str(self.control_algorithm))
-        out.append(self._to_str(self.constant_temperature_gradient_during_cooling))
-        out.append(self._to_str(self.constant_temperature_gradient_during_heating))
-        out.append(self._to_str(self.initial_temperature_gradient_during_cooling))
-        out.append(self._to_str(self.initial_temperature_gradient_during_heating))
-        out.append(self._to_str(self.constant_start_time))
-        out.append(self._to_str(self.number_of_previous_days))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class AvailabilityManagerNightCycle(object):
     """ Corresponds to IDD object `AvailabilityManager:NightCycle`
@@ -1042,49 +1163,65 @@ class AvailabilityManagerNightCycle(object):
         self._data["Thermostat Tolerance"] = None
         self._data["Cycling Run Time"] = None
         self._data["Control Zone Name"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.applicability_schedule_name = None
         else:
             self.applicability_schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fan_schedule_name = None
         else:
             self.fan_schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.control_type = None
         else:
             self.control_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.thermostat_tolerance = None
         else:
             self.thermostat_tolerance = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.cycling_run_time = None
         else:
             self.cycling_run_time = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.control_zone_name = None
         else:
             self.control_zone_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -1115,6 +1252,9 @@ class AvailabilityManagerNightCycle(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -1149,6 +1289,9 @@ class AvailabilityManagerNightCycle(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `applicability_schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `applicability_schedule_name`')
 
         self._data["Applicability Schedule Name"] = value
 
@@ -1181,6 +1324,9 @@ class AvailabilityManagerNightCycle(object):
                                  'for field `fan_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `fan_schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `fan_schedule_name`')
 
         self._data["Fan Schedule Name"] = value
@@ -1224,14 +1370,28 @@ class AvailabilityManagerNightCycle(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `control_type`')
-            vals = set()
-            vals.add("StayOff")
-            vals.add("CycleOnAny")
-            vals.add("CycleOnControlZone")
-            vals.add("CycleOnAnyZoneFansOnly")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `control_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `control_type`')
+            vals = {}
+            vals["stayoff"] = "StayOff"
+            vals["cycleonany"] = "CycleOnAny"
+            vals["cycleoncontrolzone"] = "CycleOnControlZone"
+            vals["cycleonanyzonefansonly"] = "CycleOnAnyZoneFansOnly"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `control_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Control Type"] = value
 
@@ -1332,6 +1492,9 @@ class AvailabilityManagerNightCycle(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `control_zone_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `control_zone_name`')
 
         self._data["Control Zone Name"] = value
 
@@ -1357,16 +1520,17 @@ class AvailabilityManagerNightCycle(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.applicability_schedule_name))
-        out.append(self._to_str(self.fan_schedule_name))
-        out.append(self._to_str(self.control_type))
-        out.append(self._to_str(self.thermostat_tolerance))
-        out.append(self._to_str(self.cycling_run_time))
-        out.append(self._to_str(self.control_zone_name))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class AvailabilityManagerDifferentialThermostat(object):
     """ Corresponds to IDD object `AvailabilityManager:DifferentialThermostat`
@@ -1386,39 +1550,51 @@ class AvailabilityManagerDifferentialThermostat(object):
         self._data["Cold Node Name"] = None
         self._data["Temperature Difference On Limit"] = None
         self._data["Temperature Difference Off Limit"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.hot_node_name = None
         else:
             self.hot_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.cold_node_name = None
         else:
             self.cold_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.temperature_difference_on_limit = None
         else:
             self.temperature_difference_on_limit = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.temperature_difference_off_limit = None
         else:
             self.temperature_difference_off_limit = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -1449,6 +1625,9 @@ class AvailabilityManagerDifferentialThermostat(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -1483,6 +1662,9 @@ class AvailabilityManagerDifferentialThermostat(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `hot_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `hot_node_name`')
 
         self._data["Hot Node Name"] = value
 
@@ -1515,6 +1697,9 @@ class AvailabilityManagerDifferentialThermostat(object):
                                  'for field `cold_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `cold_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `cold_node_name`')
 
         self._data["Cold Node Name"] = value
@@ -1604,14 +1789,17 @@ class AvailabilityManagerDifferentialThermostat(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.hot_node_name))
-        out.append(self._to_str(self.cold_node_name))
-        out.append(self._to_str(self.temperature_difference_on_limit))
-        out.append(self._to_str(self.temperature_difference_off_limit))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class AvailabilityManagerHighTemperatureTurnOff(object):
     """ Corresponds to IDD object `AvailabilityManager:HighTemperatureTurnOff`
@@ -1629,29 +1817,37 @@ class AvailabilityManagerHighTemperatureTurnOff(object):
         self._data["Name"] = None
         self._data["Sensor Node Name"] = None
         self._data["Temperature"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.sensor_node_name = None
         else:
             self.sensor_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.temperature = None
         else:
             self.temperature = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -1682,6 +1878,9 @@ class AvailabilityManagerHighTemperatureTurnOff(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -1715,6 +1914,9 @@ class AvailabilityManagerHighTemperatureTurnOff(object):
                                  'for field `sensor_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `sensor_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `sensor_node_name`')
 
         self._data["Sensor Node Name"] = value
@@ -1772,12 +1974,17 @@ class AvailabilityManagerHighTemperatureTurnOff(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.sensor_node_name))
-        out.append(self._to_str(self.temperature))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class AvailabilityManagerHighTemperatureTurnOn(object):
     """ Corresponds to IDD object `AvailabilityManager:HighTemperatureTurnOn`
@@ -1795,29 +2002,37 @@ class AvailabilityManagerHighTemperatureTurnOn(object):
         self._data["Name"] = None
         self._data["Sensor Node Name"] = None
         self._data["Temperature"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.sensor_node_name = None
         else:
             self.sensor_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.temperature = None
         else:
             self.temperature = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -1848,6 +2063,9 @@ class AvailabilityManagerHighTemperatureTurnOn(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -1881,6 +2099,9 @@ class AvailabilityManagerHighTemperatureTurnOn(object):
                                  'for field `sensor_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `sensor_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `sensor_node_name`')
 
         self._data["Sensor Node Name"] = value
@@ -1938,12 +2159,17 @@ class AvailabilityManagerHighTemperatureTurnOn(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.sensor_node_name))
-        out.append(self._to_str(self.temperature))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class AvailabilityManagerLowTemperatureTurnOff(object):
     """ Corresponds to IDD object `AvailabilityManager:LowTemperatureTurnOff`
@@ -1962,34 +2188,44 @@ class AvailabilityManagerLowTemperatureTurnOff(object):
         self._data["Sensor Node Name"] = None
         self._data["Temperature"] = None
         self._data["Applicability Schedule Name"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.sensor_node_name = None
         else:
             self.sensor_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.temperature = None
         else:
             self.temperature = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.applicability_schedule_name = None
         else:
             self.applicability_schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -2020,6 +2256,9 @@ class AvailabilityManagerLowTemperatureTurnOff(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -2053,6 +2292,9 @@ class AvailabilityManagerLowTemperatureTurnOff(object):
                                  'for field `sensor_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `sensor_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `sensor_node_name`')
 
         self._data["Sensor Node Name"] = value
@@ -2119,6 +2361,9 @@ class AvailabilityManagerLowTemperatureTurnOff(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `applicability_schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `applicability_schedule_name`')
 
         self._data["Applicability Schedule Name"] = value
 
@@ -2144,13 +2389,17 @@ class AvailabilityManagerLowTemperatureTurnOff(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.sensor_node_name))
-        out.append(self._to_str(self.temperature))
-        out.append(self._to_str(self.applicability_schedule_name))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class AvailabilityManagerLowTemperatureTurnOn(object):
     """ Corresponds to IDD object `AvailabilityManager:LowTemperatureTurnOn`
@@ -2168,29 +2417,37 @@ class AvailabilityManagerLowTemperatureTurnOn(object):
         self._data["Name"] = None
         self._data["Sensor Node Name"] = None
         self._data["Temperature"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.sensor_node_name = None
         else:
             self.sensor_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.temperature = None
         else:
             self.temperature = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -2221,6 +2478,9 @@ class AvailabilityManagerLowTemperatureTurnOn(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -2254,6 +2514,9 @@ class AvailabilityManagerLowTemperatureTurnOn(object):
                                  'for field `sensor_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `sensor_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `sensor_node_name`')
 
         self._data["Sensor Node Name"] = value
@@ -2311,12 +2574,17 @@ class AvailabilityManagerLowTemperatureTurnOn(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.sensor_node_name))
-        out.append(self._to_str(self.temperature))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class AvailabilityManagerNightVentilation(object):
     """ Corresponds to IDD object `AvailabilityManager:NightVentilation`
@@ -2340,54 +2608,72 @@ class AvailabilityManagerNightVentilation(object):
         self._data["Ventilation Temperature Low Limit"] = None
         self._data["Night Venting Flow Fraction"] = None
         self._data["Control Zone Name"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.applicability_schedule_name = None
         else:
             self.applicability_schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fan_schedule_name = None
         else:
             self.fan_schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.ventilation_temperature_schedule_name = None
         else:
             self.ventilation_temperature_schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.ventilation_temperature_difference = None
         else:
             self.ventilation_temperature_difference = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.ventilation_temperature_low_limit = None
         else:
             self.ventilation_temperature_low_limit = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.night_venting_flow_fraction = None
         else:
             self.night_venting_flow_fraction = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.control_zone_name = None
         else:
             self.control_zone_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -2418,6 +2704,9 @@ class AvailabilityManagerNightVentilation(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -2452,6 +2741,9 @@ class AvailabilityManagerNightVentilation(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `applicability_schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `applicability_schedule_name`')
 
         self._data["Applicability Schedule Name"] = value
 
@@ -2484,6 +2776,9 @@ class AvailabilityManagerNightVentilation(object):
                                  'for field `fan_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `fan_schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `fan_schedule_name`')
 
         self._data["Fan Schedule Name"] = value
@@ -2519,6 +2814,9 @@ class AvailabilityManagerNightVentilation(object):
                                  'for field `ventilation_temperature_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `ventilation_temperature_schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `ventilation_temperature_schedule_name`')
 
         self._data["Ventilation Temperature Schedule Name"] = value
@@ -2661,6 +2959,9 @@ class AvailabilityManagerNightVentilation(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `control_zone_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `control_zone_name`')
 
         self._data["Control Zone Name"] = value
 
@@ -2686,17 +2987,17 @@ class AvailabilityManagerNightVentilation(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.applicability_schedule_name))
-        out.append(self._to_str(self.fan_schedule_name))
-        out.append(self._to_str(self.ventilation_temperature_schedule_name))
-        out.append(self._to_str(self.ventilation_temperature_difference))
-        out.append(self._to_str(self.ventilation_temperature_low_limit))
-        out.append(self._to_str(self.night_venting_flow_fraction))
-        out.append(self._to_str(self.control_zone_name))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class AvailabilityManagerHybridVentilation(object):
     """ Corresponds to IDD object `AvailabilityManager:HybridVentilation`
@@ -2739,99 +3040,135 @@ class AvailabilityManagerHybridVentilation(object):
         self._data["AirflowNetwork Control Type Schedule Name"] = None
         self._data["Simple Airflow Control Type Schedule Name"] = None
         self._data["ZoneVentilation Object Name"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.hvac_air_loop_name = None
         else:
             self.hvac_air_loop_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.controlled_zone_name = None
         else:
             self.controlled_zone_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.ventilation_control_mode_schedule_name = None
         else:
             self.ventilation_control_mode_schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.use_weather_file_rain_indicators = None
         else:
             self.use_weather_file_rain_indicators = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.maximum_wind_speed = None
         else:
             self.maximum_wind_speed = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.minimum_outdoor_temperature = None
         else:
             self.minimum_outdoor_temperature = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.maximum_outdoor_temperature = None
         else:
             self.maximum_outdoor_temperature = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.minimum_outdoor_enthalpy = None
         else:
             self.minimum_outdoor_enthalpy = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.maximum_outdoor_enthalpy = None
         else:
             self.maximum_outdoor_enthalpy = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.minimum_outdoor_dewpoint = None
         else:
             self.minimum_outdoor_dewpoint = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.maximum_outdoor_dewpoint = None
         else:
             self.maximum_outdoor_dewpoint = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.minimum_outdoor_ventilation_air_schedule_name = None
         else:
             self.minimum_outdoor_ventilation_air_schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.opening_factor_function_of_wind_speed_curve_name = None
         else:
             self.opening_factor_function_of_wind_speed_curve_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.airflownetwork_control_type_schedule_name = None
         else:
             self.airflownetwork_control_type_schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.simple_airflow_control_type_schedule_name = None
         else:
             self.simple_airflow_control_type_schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.zoneventilation_object_name = None
         else:
             self.zoneventilation_object_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -2862,6 +3199,9 @@ class AvailabilityManagerHybridVentilation(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -2899,6 +3239,9 @@ class AvailabilityManagerHybridVentilation(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `hvac_air_loop_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `hvac_air_loop_name`')
 
         self._data["HVAC Air Loop Name"] = value
 
@@ -2933,6 +3276,9 @@ class AvailabilityManagerHybridVentilation(object):
                                  'for field `controlled_zone_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `controlled_zone_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `controlled_zone_name`')
 
         self._data["Controlled Zone Name"] = value
@@ -2973,6 +3319,9 @@ class AvailabilityManagerHybridVentilation(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `ventilation_control_mode_schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `ventilation_control_mode_schedule_name`')
 
         self._data["Ventilation Control Mode Schedule Name"] = value
 
@@ -3012,12 +3361,26 @@ class AvailabilityManagerHybridVentilation(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `use_weather_file_rain_indicators`')
-            vals = set()
-            vals.add("Yes")
-            vals.add("No")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `use_weather_file_rain_indicators`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `use_weather_file_rain_indicators`')
+            vals = {}
+            vals["yes"] = "Yes"
+            vals["no"] = "No"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `use_weather_file_rain_indicators`'.format(value))
+            value = vals[value_lower]
 
         self._data["Use Weather File Rain Indicators"] = value
 
@@ -3339,6 +3702,9 @@ class AvailabilityManagerHybridVentilation(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `minimum_outdoor_ventilation_air_schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `minimum_outdoor_ventilation_air_schedule_name`')
 
         self._data["Minimum Outdoor Ventilation Air Schedule Name"] = value
 
@@ -3376,6 +3742,9 @@ class AvailabilityManagerHybridVentilation(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `opening_factor_function_of_wind_speed_curve_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `opening_factor_function_of_wind_speed_curve_name`')
 
         self._data["Opening Factor Function of Wind Speed Curve Name"] = value
 
@@ -3410,6 +3779,9 @@ class AvailabilityManagerHybridVentilation(object):
                                  'for field `airflownetwork_control_type_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `airflownetwork_control_type_schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `airflownetwork_control_type_schedule_name`')
 
         self._data["AirflowNetwork Control Type Schedule Name"] = value
@@ -3446,6 +3818,9 @@ class AvailabilityManagerHybridVentilation(object):
                                  'for field `simple_airflow_control_type_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `simple_airflow_control_type_schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `simple_airflow_control_type_schedule_name`')
 
         self._data["Simple Airflow Control Type Schedule Name"] = value
@@ -3487,6 +3862,9 @@ class AvailabilityManagerHybridVentilation(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `zoneventilation_object_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `zoneventilation_object_name`')
 
         self._data["ZoneVentilation Object Name"] = value
 
@@ -3512,26 +3890,17 @@ class AvailabilityManagerHybridVentilation(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.hvac_air_loop_name))
-        out.append(self._to_str(self.controlled_zone_name))
-        out.append(self._to_str(self.ventilation_control_mode_schedule_name))
-        out.append(self._to_str(self.use_weather_file_rain_indicators))
-        out.append(self._to_str(self.maximum_wind_speed))
-        out.append(self._to_str(self.minimum_outdoor_temperature))
-        out.append(self._to_str(self.maximum_outdoor_temperature))
-        out.append(self._to_str(self.minimum_outdoor_enthalpy))
-        out.append(self._to_str(self.maximum_outdoor_enthalpy))
-        out.append(self._to_str(self.minimum_outdoor_dewpoint))
-        out.append(self._to_str(self.maximum_outdoor_dewpoint))
-        out.append(self._to_str(self.minimum_outdoor_ventilation_air_schedule_name))
-        out.append(self._to_str(self.opening_factor_function_of_wind_speed_curve_name))
-        out.append(self._to_str(self.airflownetwork_control_type_schedule_name))
-        out.append(self._to_str(self.simple_airflow_control_type_schedule_name))
-        out.append(self._to_str(self.zoneventilation_object_name))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class AvailabilityManagerAssignmentList(object):
     """ Corresponds to IDD object `AvailabilityManagerAssignmentList`
@@ -3562,79 +3931,107 @@ class AvailabilityManagerAssignmentList(object):
         self._data["Availability Manager 5 Name"] = None
         self._data["Availability Manager 6 Object Type"] = None
         self._data["Availability Manager 6 Name"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.availability_manager_1_object_type = None
         else:
             self.availability_manager_1_object_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.availability_manager_1_name = None
         else:
             self.availability_manager_1_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.availability_manager_2_object_type = None
         else:
             self.availability_manager_2_object_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.availability_manager_2_name = None
         else:
             self.availability_manager_2_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.availability_manager_3_object_type = None
         else:
             self.availability_manager_3_object_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.availability_manager_3_name = None
         else:
             self.availability_manager_3_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.availability_manager_4_object_type = None
         else:
             self.availability_manager_4_object_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.availability_manager_4_name = None
         else:
             self.availability_manager_4_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.availability_manager_5_object_type = None
         else:
             self.availability_manager_5_object_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.availability_manager_5_name = None
         else:
             self.availability_manager_5_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.availability_manager_6_object_type = None
         else:
             self.availability_manager_6_object_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.availability_manager_6_name = None
         else:
             self.availability_manager_6_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -3665,6 +4062,9 @@ class AvailabilityManagerAssignmentList(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -3710,20 +4110,34 @@ class AvailabilityManagerAssignmentList(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `availability_manager_1_object_type`')
-            vals = set()
-            vals.add("AvailabilityManager:Scheduled")
-            vals.add("AvailabilityManager:ScheduledOn")
-            vals.add("AvailabilityManager:ScheduledOff")
-            vals.add("AvailabilityManager:NightCycle")
-            vals.add("AvailabilityManager:DifferentialThermostat")
-            vals.add("AvailabilityManager:HighTemperatureTurnOff")
-            vals.add("AvailabilityManager:HighTemperatureTurnOn")
-            vals.add("AvailabilityManager:LowTemperatureTurnOff")
-            vals.add("AvailabilityManager:LowTemperatureTurnOn")
-            vals.add("AvailabilityManager:NightVentilation")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `availability_manager_1_object_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `availability_manager_1_object_type`')
+            vals = {}
+            vals["availabilitymanager:scheduled"] = "AvailabilityManager:Scheduled"
+            vals["availabilitymanager:scheduledon"] = "AvailabilityManager:ScheduledOn"
+            vals["availabilitymanager:scheduledoff"] = "AvailabilityManager:ScheduledOff"
+            vals["availabilitymanager:nightcycle"] = "AvailabilityManager:NightCycle"
+            vals["availabilitymanager:differentialthermostat"] = "AvailabilityManager:DifferentialThermostat"
+            vals["availabilitymanager:hightemperatureturnoff"] = "AvailabilityManager:HighTemperatureTurnOff"
+            vals["availabilitymanager:hightemperatureturnon"] = "AvailabilityManager:HighTemperatureTurnOn"
+            vals["availabilitymanager:lowtemperatureturnoff"] = "AvailabilityManager:LowTemperatureTurnOff"
+            vals["availabilitymanager:lowtemperatureturnon"] = "AvailabilityManager:LowTemperatureTurnOn"
+            vals["availabilitymanager:nightventilation"] = "AvailabilityManager:NightVentilation"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `availability_manager_1_object_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Availability Manager 1 Object Type"] = value
 
@@ -3756,6 +4170,9 @@ class AvailabilityManagerAssignmentList(object):
                                  'for field `availability_manager_1_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `availability_manager_1_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `availability_manager_1_name`')
 
         self._data["Availability Manager 1 Name"] = value
@@ -3801,20 +4218,34 @@ class AvailabilityManagerAssignmentList(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `availability_manager_2_object_type`')
-            vals = set()
-            vals.add("AvailabilityManager:Scheduled")
-            vals.add("AvailabilityManager:ScheduledOn")
-            vals.add("AvailabilityManager:ScheduledOff")
-            vals.add("AvailabilityManager:NightCycle")
-            vals.add("AvailabilityManager:DifferentialThermostat")
-            vals.add("AvailabilityManager:HighTemperatureTurnOff")
-            vals.add("AvailabilityManager:HighTemperatureTurnOn")
-            vals.add("AvailabilityManager:LowTemperatureTurnOff")
-            vals.add("AvailabilityManager:LowTemperatureTurnOn")
-            vals.add("AvailabilityManager:NightVentilation")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `availability_manager_2_object_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `availability_manager_2_object_type`')
+            vals = {}
+            vals["availabilitymanager:scheduled"] = "AvailabilityManager:Scheduled"
+            vals["availabilitymanager:scheduledon"] = "AvailabilityManager:ScheduledOn"
+            vals["availabilitymanager:scheduledoff"] = "AvailabilityManager:ScheduledOff"
+            vals["availabilitymanager:nightcycle"] = "AvailabilityManager:NightCycle"
+            vals["availabilitymanager:differentialthermostat"] = "AvailabilityManager:DifferentialThermostat"
+            vals["availabilitymanager:hightemperatureturnoff"] = "AvailabilityManager:HighTemperatureTurnOff"
+            vals["availabilitymanager:hightemperatureturnon"] = "AvailabilityManager:HighTemperatureTurnOn"
+            vals["availabilitymanager:lowtemperatureturnoff"] = "AvailabilityManager:LowTemperatureTurnOff"
+            vals["availabilitymanager:lowtemperatureturnon"] = "AvailabilityManager:LowTemperatureTurnOn"
+            vals["availabilitymanager:nightventilation"] = "AvailabilityManager:NightVentilation"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `availability_manager_2_object_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Availability Manager 2 Object Type"] = value
 
@@ -3847,6 +4278,9 @@ class AvailabilityManagerAssignmentList(object):
                                  'for field `availability_manager_2_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `availability_manager_2_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `availability_manager_2_name`')
 
         self._data["Availability Manager 2 Name"] = value
@@ -3892,20 +4326,34 @@ class AvailabilityManagerAssignmentList(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `availability_manager_3_object_type`')
-            vals = set()
-            vals.add("AvailabilityManager:Scheduled")
-            vals.add("AvailabilityManager:ScheduledOn")
-            vals.add("AvailabilityManager:ScheduledOff")
-            vals.add("AvailabilityManager:NightCycle")
-            vals.add("AvailabilityManager:DifferentialThermostat")
-            vals.add("AvailabilityManager:HighTemperatureTurnOff")
-            vals.add("AvailabilityManager:HighTemperatureTurnOn")
-            vals.add("AvailabilityManager:LowTemperatureTurnOff")
-            vals.add("AvailabilityManager:LowTemperatureTurnOn")
-            vals.add("AvailabilityManager:NightVentilation")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `availability_manager_3_object_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `availability_manager_3_object_type`')
+            vals = {}
+            vals["availabilitymanager:scheduled"] = "AvailabilityManager:Scheduled"
+            vals["availabilitymanager:scheduledon"] = "AvailabilityManager:ScheduledOn"
+            vals["availabilitymanager:scheduledoff"] = "AvailabilityManager:ScheduledOff"
+            vals["availabilitymanager:nightcycle"] = "AvailabilityManager:NightCycle"
+            vals["availabilitymanager:differentialthermostat"] = "AvailabilityManager:DifferentialThermostat"
+            vals["availabilitymanager:hightemperatureturnoff"] = "AvailabilityManager:HighTemperatureTurnOff"
+            vals["availabilitymanager:hightemperatureturnon"] = "AvailabilityManager:HighTemperatureTurnOn"
+            vals["availabilitymanager:lowtemperatureturnoff"] = "AvailabilityManager:LowTemperatureTurnOff"
+            vals["availabilitymanager:lowtemperatureturnon"] = "AvailabilityManager:LowTemperatureTurnOn"
+            vals["availabilitymanager:nightventilation"] = "AvailabilityManager:NightVentilation"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `availability_manager_3_object_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Availability Manager 3 Object Type"] = value
 
@@ -3938,6 +4386,9 @@ class AvailabilityManagerAssignmentList(object):
                                  'for field `availability_manager_3_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `availability_manager_3_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `availability_manager_3_name`')
 
         self._data["Availability Manager 3 Name"] = value
@@ -3983,20 +4434,34 @@ class AvailabilityManagerAssignmentList(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `availability_manager_4_object_type`')
-            vals = set()
-            vals.add("AvailabilityManager:Scheduled")
-            vals.add("AvailabilityManager:ScheduledOn")
-            vals.add("AvailabilityManager:ScheduledOff")
-            vals.add("AvailabilityManager:NightCycle")
-            vals.add("AvailabilityManager:DifferentialThermostat")
-            vals.add("AvailabilityManager:HighTemperatureTurnOff")
-            vals.add("AvailabilityManager:HighTemperatureTurnOn")
-            vals.add("AvailabilityManager:LowTemperatureTurnOff")
-            vals.add("AvailabilityManager:LowTemperatureTurnOn")
-            vals.add("AvailabilityManager:NightVentilation")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `availability_manager_4_object_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `availability_manager_4_object_type`')
+            vals = {}
+            vals["availabilitymanager:scheduled"] = "AvailabilityManager:Scheduled"
+            vals["availabilitymanager:scheduledon"] = "AvailabilityManager:ScheduledOn"
+            vals["availabilitymanager:scheduledoff"] = "AvailabilityManager:ScheduledOff"
+            vals["availabilitymanager:nightcycle"] = "AvailabilityManager:NightCycle"
+            vals["availabilitymanager:differentialthermostat"] = "AvailabilityManager:DifferentialThermostat"
+            vals["availabilitymanager:hightemperatureturnoff"] = "AvailabilityManager:HighTemperatureTurnOff"
+            vals["availabilitymanager:hightemperatureturnon"] = "AvailabilityManager:HighTemperatureTurnOn"
+            vals["availabilitymanager:lowtemperatureturnoff"] = "AvailabilityManager:LowTemperatureTurnOff"
+            vals["availabilitymanager:lowtemperatureturnon"] = "AvailabilityManager:LowTemperatureTurnOn"
+            vals["availabilitymanager:nightventilation"] = "AvailabilityManager:NightVentilation"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `availability_manager_4_object_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Availability Manager 4 Object Type"] = value
 
@@ -4029,6 +4494,9 @@ class AvailabilityManagerAssignmentList(object):
                                  'for field `availability_manager_4_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `availability_manager_4_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `availability_manager_4_name`')
 
         self._data["Availability Manager 4 Name"] = value
@@ -4074,20 +4542,34 @@ class AvailabilityManagerAssignmentList(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `availability_manager_5_object_type`')
-            vals = set()
-            vals.add("AvailabilityManager:Scheduled")
-            vals.add("AvailabilityManager:ScheduledOn")
-            vals.add("AvailabilityManager:ScheduledOff")
-            vals.add("AvailabilityManager:NightCycle")
-            vals.add("AvailabilityManager:DifferentialThermostat")
-            vals.add("AvailabilityManager:HighTemperatureTurnOff")
-            vals.add("AvailabilityManager:HighTemperatureTurnOn")
-            vals.add("AvailabilityManager:LowTemperatureTurnOff")
-            vals.add("AvailabilityManager:LowTemperatureTurnOn")
-            vals.add("AvailabilityManager:NightVentilation")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `availability_manager_5_object_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `availability_manager_5_object_type`')
+            vals = {}
+            vals["availabilitymanager:scheduled"] = "AvailabilityManager:Scheduled"
+            vals["availabilitymanager:scheduledon"] = "AvailabilityManager:ScheduledOn"
+            vals["availabilitymanager:scheduledoff"] = "AvailabilityManager:ScheduledOff"
+            vals["availabilitymanager:nightcycle"] = "AvailabilityManager:NightCycle"
+            vals["availabilitymanager:differentialthermostat"] = "AvailabilityManager:DifferentialThermostat"
+            vals["availabilitymanager:hightemperatureturnoff"] = "AvailabilityManager:HighTemperatureTurnOff"
+            vals["availabilitymanager:hightemperatureturnon"] = "AvailabilityManager:HighTemperatureTurnOn"
+            vals["availabilitymanager:lowtemperatureturnoff"] = "AvailabilityManager:LowTemperatureTurnOff"
+            vals["availabilitymanager:lowtemperatureturnon"] = "AvailabilityManager:LowTemperatureTurnOn"
+            vals["availabilitymanager:nightventilation"] = "AvailabilityManager:NightVentilation"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `availability_manager_5_object_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Availability Manager 5 Object Type"] = value
 
@@ -4120,6 +4602,9 @@ class AvailabilityManagerAssignmentList(object):
                                  'for field `availability_manager_5_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `availability_manager_5_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `availability_manager_5_name`')
 
         self._data["Availability Manager 5 Name"] = value
@@ -4165,20 +4650,34 @@ class AvailabilityManagerAssignmentList(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `availability_manager_6_object_type`')
-            vals = set()
-            vals.add("AvailabilityManager:Scheduled")
-            vals.add("AvailabilityManager:ScheduledOn")
-            vals.add("AvailabilityManager:ScheduledOff")
-            vals.add("AvailabilityManager:NightCycle")
-            vals.add("AvailabilityManager:DifferentialThermostat")
-            vals.add("AvailabilityManager:HighTemperatureTurnOff")
-            vals.add("AvailabilityManager:HighTemperatureTurnOn")
-            vals.add("AvailabilityManager:LowTemperatureTurnOff")
-            vals.add("AvailabilityManager:LowTemperatureTurnOn")
-            vals.add("AvailabilityManager:NightVentilation")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `availability_manager_6_object_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `availability_manager_6_object_type`')
+            vals = {}
+            vals["availabilitymanager:scheduled"] = "AvailabilityManager:Scheduled"
+            vals["availabilitymanager:scheduledon"] = "AvailabilityManager:ScheduledOn"
+            vals["availabilitymanager:scheduledoff"] = "AvailabilityManager:ScheduledOff"
+            vals["availabilitymanager:nightcycle"] = "AvailabilityManager:NightCycle"
+            vals["availabilitymanager:differentialthermostat"] = "AvailabilityManager:DifferentialThermostat"
+            vals["availabilitymanager:hightemperatureturnoff"] = "AvailabilityManager:HighTemperatureTurnOff"
+            vals["availabilitymanager:hightemperatureturnon"] = "AvailabilityManager:HighTemperatureTurnOn"
+            vals["availabilitymanager:lowtemperatureturnoff"] = "AvailabilityManager:LowTemperatureTurnOff"
+            vals["availabilitymanager:lowtemperatureturnon"] = "AvailabilityManager:LowTemperatureTurnOn"
+            vals["availabilitymanager:nightventilation"] = "AvailabilityManager:NightVentilation"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `availability_manager_6_object_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Availability Manager 6 Object Type"] = value
 
@@ -4212,6 +4711,9 @@ class AvailabilityManagerAssignmentList(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `availability_manager_6_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `availability_manager_6_name`')
 
         self._data["Availability Manager 6 Name"] = value
 
@@ -4237,19 +4739,14 @@ class AvailabilityManagerAssignmentList(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.availability_manager_1_object_type))
-        out.append(self._to_str(self.availability_manager_1_name))
-        out.append(self._to_str(self.availability_manager_2_object_type))
-        out.append(self._to_str(self.availability_manager_2_name))
-        out.append(self._to_str(self.availability_manager_3_object_type))
-        out.append(self._to_str(self.availability_manager_3_name))
-        out.append(self._to_str(self.availability_manager_4_object_type))
-        out.append(self._to_str(self.availability_manager_4_name))
-        out.append(self._to_str(self.availability_manager_5_object_type))
-        out.append(self._to_str(self.availability_manager_5_name))
-        out.append(self._to_str(self.availability_manager_6_object_type))
-        out.append(self._to_str(self.availability_manager_6_name))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])

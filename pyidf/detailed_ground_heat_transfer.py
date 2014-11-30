@@ -17,29 +17,37 @@ class GroundHeatTransferControl(object):
         self._data["Name"] = None
         self._data["Run Basement Preprocessor"] = None
         self._data["Run Slab Preprocessor"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.run_basement_preprocessor = None
         else:
             self.run_basement_preprocessor = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.run_slab_preprocessor = None
         else:
             self.run_slab_preprocessor = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -71,6 +79,9 @@ class GroundHeatTransferControl(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -109,12 +120,26 @@ class GroundHeatTransferControl(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `run_basement_preprocessor`')
-            vals = set()
-            vals.add("Yes")
-            vals.add("No")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `run_basement_preprocessor`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `run_basement_preprocessor`')
+            vals = {}
+            vals["yes"] = "Yes"
+            vals["no"] = "No"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `run_basement_preprocessor`'.format(value))
+            value = vals[value_lower]
 
         self._data["Run Basement Preprocessor"] = value
 
@@ -152,12 +177,26 @@ class GroundHeatTransferControl(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `run_slab_preprocessor`')
-            vals = set()
-            vals.add("Yes")
-            vals.add("No")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `run_slab_preprocessor`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `run_slab_preprocessor`')
+            vals = {}
+            vals["yes"] = "Yes"
+            vals["no"] = "No"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `run_slab_preprocessor`'.format(value))
+            value = vals[value_lower]
 
         self._data["Run Slab Preprocessor"] = value
 
@@ -183,12 +222,17 @@ class GroundHeatTransferControl(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.run_basement_preprocessor))
-        out.append(self._to_str(self.run_slab_preprocessor))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class GroundHeatTransferSlabMaterials(object):
     """ Corresponds to IDD object `GroundHeatTransfer:Slab:Materials`
@@ -212,59 +256,79 @@ class GroundHeatTransferSlabMaterials(object):
         self._data["Z0: Surface Roughness: Snow"] = None
         self._data["HIN: Indoor HConv: Downward Flow"] = None
         self._data["HIN: Indoor HConv: Upward"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.nmat_number_of_materials = None
         else:
             self.nmat_number_of_materials = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.albedo_surface_albedo_no_snow = None
         else:
             self.albedo_surface_albedo_no_snow = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.albedo_surface_albedo_snow = None
         else:
             self.albedo_surface_albedo_snow = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.epslw_surface_emissivity_no_snow = None
         else:
             self.epslw_surface_emissivity_no_snow = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.epslw_surface_emissivity_snow = None
         else:
             self.epslw_surface_emissivity_snow = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.z0_surface_roughness_no_snow = None
         else:
             self.z0_surface_roughness_no_snow = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.z0_surface_roughness_snow = None
         else:
             self.z0_surface_roughness_snow = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.hin_indoor_hconv_downward_flow = None
         else:
             self.hin_indoor_hconv_downward_flow = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.hin_indoor_hconv_upward = None
         else:
             self.hin_indoor_hconv_upward = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def nmat_number_of_materials(self):
@@ -633,18 +697,17 @@ class GroundHeatTransferSlabMaterials(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.nmat_number_of_materials))
-        out.append(self._to_str(self.albedo_surface_albedo_no_snow))
-        out.append(self._to_str(self.albedo_surface_albedo_snow))
-        out.append(self._to_str(self.epslw_surface_emissivity_no_snow))
-        out.append(self._to_str(self.epslw_surface_emissivity_snow))
-        out.append(self._to_str(self.z0_surface_roughness_no_snow))
-        out.append(self._to_str(self.z0_surface_roughness_snow))
-        out.append(self._to_str(self.hin_indoor_hconv_downward_flow))
-        out.append(self._to_str(self.hin_indoor_hconv_upward))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class GroundHeatTransferSlabMatlProps(object):
     """ Corresponds to IDD object `GroundHeatTransfer:Slab:MatlProps`
@@ -666,44 +729,58 @@ class GroundHeatTransferSlabMatlProps(object):
         self._data["CP: Soil CP"] = None
         self._data["TCON: Slab k"] = None
         self._data["TCON: Soil k"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.rho_slab_material_density = None
         else:
             self.rho_slab_material_density = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.rho_soil_density = None
         else:
             self.rho_soil_density = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.cp_slab_cp = None
         else:
             self.cp_slab_cp = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.cp_soil_cp = None
         else:
             self.cp_soil_cp = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.tcon_slab_k = None
         else:
             self.tcon_slab_k = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.tcon_soil_k = None
         else:
             self.tcon_soil_k = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def rho_slab_material_density(self):
@@ -955,15 +1032,17 @@ class GroundHeatTransferSlabMatlProps(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.rho_slab_material_density))
-        out.append(self._to_str(self.rho_soil_density))
-        out.append(self._to_str(self.cp_slab_cp))
-        out.append(self._to_str(self.cp_soil_cp))
-        out.append(self._to_str(self.tcon_slab_k))
-        out.append(self._to_str(self.tcon_soil_k))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class GroundHeatTransferSlabBoundConds(object):
     """ Corresponds to IDD object `GroundHeatTransfer:Slab:BoundConds`
@@ -983,39 +1062,51 @@ class GroundHeatTransferSlabBoundConds(object):
         self._data["TDEEPin"] = None
         self._data["USRHflag: Is the ground surface h specified by the user?"] = None
         self._data["USERH: User specified ground surface heat transfer coefficient"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.evtr_is_surface_evapotranspiration_modeled = None
         else:
             self.evtr_is_surface_evapotranspiration_modeled = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fixbc_is_the_lower_boundary_at_a_fixed_temperature = None
         else:
             self.fixbc_is_the_lower_boundary_at_a_fixed_temperature = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.tdeepin = None
         else:
             self.tdeepin = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.usrhflag_is_the_ground_surface_h_specified_by_the_user = None
         else:
             self.usrhflag_is_the_ground_surface_h_specified_by_the_user = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.userh_user_specified_ground_surface_heat_transfer_coefficient = None
         else:
             self.userh_user_specified_ground_surface_heat_transfer_coefficient = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def evtr_is_surface_evapotranspiration_modeled(self):
@@ -1055,12 +1146,26 @@ class GroundHeatTransferSlabBoundConds(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `evtr_is_surface_evapotranspiration_modeled`')
-            vals = set()
-            vals.add("TRUE")
-            vals.add("FALSE")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `evtr_is_surface_evapotranspiration_modeled`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `evtr_is_surface_evapotranspiration_modeled`')
+            vals = {}
+            vals["true"] = "TRUE"
+            vals["false"] = "FALSE"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `evtr_is_surface_evapotranspiration_modeled`'.format(value))
+            value = vals[value_lower]
 
         self._data["EVTR: Is surface evapotranspiration modeled"] = value
 
@@ -1101,12 +1206,26 @@ class GroundHeatTransferSlabBoundConds(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `fixbc_is_the_lower_boundary_at_a_fixed_temperature`')
-            vals = set()
-            vals.add("TRUE")
-            vals.add("FALSE")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `fixbc_is_the_lower_boundary_at_a_fixed_temperature`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `fixbc_is_the_lower_boundary_at_a_fixed_temperature`')
+            vals = {}
+            vals["true"] = "TRUE"
+            vals["false"] = "FALSE"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `fixbc_is_the_lower_boundary_at_a_fixed_temperature`'.format(value))
+            value = vals[value_lower]
 
         self._data["FIXBC: is the lower boundary at a fixed temperature"] = value
 
@@ -1180,12 +1299,26 @@ class GroundHeatTransferSlabBoundConds(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `usrhflag_is_the_ground_surface_h_specified_by_the_user`')
-            vals = set()
-            vals.add("TRUE")
-            vals.add("FALSE")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `usrhflag_is_the_ground_surface_h_specified_by_the_user`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `usrhflag_is_the_ground_surface_h_specified_by_the_user`')
+            vals = {}
+            vals["true"] = "TRUE"
+            vals["false"] = "FALSE"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `usrhflag_is_the_ground_surface_h_specified_by_the_user`'.format(value))
+            value = vals[value_lower]
 
         self._data["USRHflag: Is the ground surface h specified by the user?"] = value
 
@@ -1244,14 +1377,17 @@ class GroundHeatTransferSlabBoundConds(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.evtr_is_surface_evapotranspiration_modeled))
-        out.append(self._to_str(self.fixbc_is_the_lower_boundary_at_a_fixed_temperature))
-        out.append(self._to_str(self.tdeepin))
-        out.append(self._to_str(self.usrhflag_is_the_ground_surface_h_specified_by_the_user))
-        out.append(self._to_str(self.userh_user_specified_ground_surface_heat_transfer_coefficient))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class GroundHeatTransferSlabBldgProps(object):
     """ Corresponds to IDD object `GroundHeatTransfer:Slab:BldgProps`
@@ -1291,99 +1427,135 @@ class GroundHeatTransferSlabBldgProps(object):
         self._data["TIN12: December Indoor Average Temperature Setpoint"] = None
         self._data["TINAmp: Daily Indoor sine wave variation amplitude"] = None
         self._data["ConvTol: Convergence Tolerance"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.iyrs_number_of_years_to_iterate = None
         else:
             self.iyrs_number_of_years_to_iterate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.shape_slab_shape = None
         else:
             self.shape_slab_shape = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.hbldg_building_height = None
         else:
             self.hbldg_building_height = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.tin1_january_indoor_average_temperature_setpoint = None
         else:
             self.tin1_january_indoor_average_temperature_setpoint = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.tin2_february_indoor_average_temperature_setpoint = None
         else:
             self.tin2_february_indoor_average_temperature_setpoint = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.tin3_march_indoor_average_temperature_setpoint = None
         else:
             self.tin3_march_indoor_average_temperature_setpoint = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.tin4_april_indoor_average_temperature_setpoint = None
         else:
             self.tin4_april_indoor_average_temperature_setpoint = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.tin5_may_indoor_average_temperature_setpoint = None
         else:
             self.tin5_may_indoor_average_temperature_setpoint = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.tin6_june_indoor_average_temperature_setpoint = None
         else:
             self.tin6_june_indoor_average_temperature_setpoint = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.tin7_july_indoor_average_temperature_setpoint = None
         else:
             self.tin7_july_indoor_average_temperature_setpoint = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.tin8_august_indoor_average_temperature_setpoint = None
         else:
             self.tin8_august_indoor_average_temperature_setpoint = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.tin9_september_indoor_average_temperature_setpoint = None
         else:
             self.tin9_september_indoor_average_temperature_setpoint = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.tin10_october_indoor_average_temperature_setpoint = None
         else:
             self.tin10_october_indoor_average_temperature_setpoint = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.tin11_november_indoor_average_temperature_setpoint = None
         else:
             self.tin11_november_indoor_average_temperature_setpoint = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.tin12_december_indoor_average_temperature_setpoint = None
         else:
             self.tin12_december_indoor_average_temperature_setpoint = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.tinamp_daily_indoor_sine_wave_variation_amplitude = None
         else:
             self.tinamp_daily_indoor_sine_wave_variation_amplitude = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.convtol_convergence_tolerance = None
         else:
             self.convtol_convergence_tolerance = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def iyrs_number_of_years_to_iterate(self):
@@ -1990,26 +2162,17 @@ class GroundHeatTransferSlabBldgProps(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.iyrs_number_of_years_to_iterate))
-        out.append(self._to_str(self.shape_slab_shape))
-        out.append(self._to_str(self.hbldg_building_height))
-        out.append(self._to_str(self.tin1_january_indoor_average_temperature_setpoint))
-        out.append(self._to_str(self.tin2_february_indoor_average_temperature_setpoint))
-        out.append(self._to_str(self.tin3_march_indoor_average_temperature_setpoint))
-        out.append(self._to_str(self.tin4_april_indoor_average_temperature_setpoint))
-        out.append(self._to_str(self.tin5_may_indoor_average_temperature_setpoint))
-        out.append(self._to_str(self.tin6_june_indoor_average_temperature_setpoint))
-        out.append(self._to_str(self.tin7_july_indoor_average_temperature_setpoint))
-        out.append(self._to_str(self.tin8_august_indoor_average_temperature_setpoint))
-        out.append(self._to_str(self.tin9_september_indoor_average_temperature_setpoint))
-        out.append(self._to_str(self.tin10_october_indoor_average_temperature_setpoint))
-        out.append(self._to_str(self.tin11_november_indoor_average_temperature_setpoint))
-        out.append(self._to_str(self.tin12_december_indoor_average_temperature_setpoint))
-        out.append(self._to_str(self.tinamp_daily_indoor_sine_wave_variation_amplitude))
-        out.append(self._to_str(self.convtol_convergence_tolerance))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class GroundHeatTransferSlabInsulation(object):
     """ Corresponds to IDD object `GroundHeatTransfer:Slab:Insulation`
@@ -2031,39 +2194,51 @@ class GroundHeatTransferSlabInsulation(object):
         self._data["RVINS: R value of vertical insulation"] = None
         self._data["ZVINS: Depth of vertical insulation"] = None
         self._data["IVINS: Flag: Is there vertical insulation"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.rins_r_value_of_under_slab_insulation = None
         else:
             self.rins_r_value_of_under_slab_insulation = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.dins_width_of_strip_of_under_slab_insulation = None
         else:
             self.dins_width_of_strip_of_under_slab_insulation = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.rvins_r_value_of_vertical_insulation = None
         else:
             self.rvins_r_value_of_vertical_insulation = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.zvins_depth_of_vertical_insulation = None
         else:
             self.zvins_depth_of_vertical_insulation = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.ivins_flag_is_there_vertical_insulation = None
         else:
             self.ivins_flag_is_there_vertical_insulation = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def rins_r_value_of_under_slab_insulation(self):
@@ -2247,12 +2422,26 @@ class GroundHeatTransferSlabInsulation(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `ivins_flag_is_there_vertical_insulation`')
-            vals = set()
-            vals.add("0")
-            vals.add("1")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `ivins_flag_is_there_vertical_insulation`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `ivins_flag_is_there_vertical_insulation`')
+            vals = {}
+            vals["0"] = "0"
+            vals["1"] = "1"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `ivins_flag_is_there_vertical_insulation`'.format(value))
+            value = vals[value_lower]
 
         self._data["IVINS: Flag: Is there vertical insulation"] = value
 
@@ -2278,14 +2467,17 @@ class GroundHeatTransferSlabInsulation(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.rins_r_value_of_under_slab_insulation))
-        out.append(self._to_str(self.dins_width_of_strip_of_under_slab_insulation))
-        out.append(self._to_str(self.rvins_r_value_of_vertical_insulation))
-        out.append(self._to_str(self.zvins_depth_of_vertical_insulation))
-        out.append(self._to_str(self.ivins_flag_is_there_vertical_insulation))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class GroundHeatTransferSlabEquivalentSlab(object):
     """ Corresponds to IDD object `GroundHeatTransfer:Slab:EquivalentSlab`
@@ -2307,34 +2499,44 @@ class GroundHeatTransferSlabEquivalentSlab(object):
         self._data["SLABDEPTH: Thickness of slab on grade"] = None
         self._data["CLEARANCE: Distance from edge of slab to domain edge"] = None
         self._data["ZCLEARANCE: Distance from bottom of slab to domain bottom"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.apratio_the_area_to_perimeter_ratio_for_this_slab = None
         else:
             self.apratio_the_area_to_perimeter_ratio_for_this_slab = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.slabdepth_thickness_of_slab_on_grade = None
         else:
             self.slabdepth_thickness_of_slab_on_grade = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.clearance_distance_from_edge_of_slab_to_domain_edge = None
         else:
             self.clearance_distance_from_edge_of_slab_to_domain_edge = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.zclearance_distance_from_bottom_of_slab_to_domain_bottom = None
         else:
             self.zclearance_distance_from_bottom_of_slab_to_domain_bottom = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def apratio_the_area_to_perimeter_ratio_for_this_slab(self):
@@ -2508,13 +2710,17 @@ class GroundHeatTransferSlabEquivalentSlab(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.apratio_the_area_to_perimeter_ratio_for_this_slab))
-        out.append(self._to_str(self.slabdepth_thickness_of_slab_on_grade))
-        out.append(self._to_str(self.clearance_distance_from_edge_of_slab_to_domain_edge))
-        out.append(self._to_str(self.zclearance_distance_from_bottom_of_slab_to_domain_bottom))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class GroundHeatTransferSlabAutoGrid(object):
     """ Corresponds to IDD object `GroundHeatTransfer:Slab:AutoGrid`
@@ -2537,39 +2743,51 @@ class GroundHeatTransferSlabAutoGrid(object):
         self._data["SLABDEPTH: Thickness of slab on grade"] = None
         self._data["CLEARANCE: Distance from edge of slab to domain edge"] = None
         self._data["ZCLEARANCE: Distance from bottom of slab to domain bottom"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.slabx_x_dimension_of_the_building_slab = None
         else:
             self.slabx_x_dimension_of_the_building_slab = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.slaby_y_dimension_of_the_building_slab = None
         else:
             self.slaby_y_dimension_of_the_building_slab = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.slabdepth_thickness_of_slab_on_grade = None
         else:
             self.slabdepth_thickness_of_slab_on_grade = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.clearance_distance_from_edge_of_slab_to_domain_edge = None
         else:
             self.clearance_distance_from_edge_of_slab_to_domain_edge = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.zclearance_distance_from_bottom_of_slab_to_domain_bottom = None
         else:
             self.zclearance_distance_from_bottom_of_slab_to_domain_bottom = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def slabx_x_dimension_of_the_building_slab(self):
@@ -2761,14 +2979,17 @@ class GroundHeatTransferSlabAutoGrid(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.slabx_x_dimension_of_the_building_slab))
-        out.append(self._to_str(self.slaby_y_dimension_of_the_building_slab))
-        out.append(self._to_str(self.slabdepth_thickness_of_slab_on_grade))
-        out.append(self._to_str(self.clearance_distance_from_edge_of_slab_to_domain_edge))
-        out.append(self._to_str(self.zclearance_distance_from_bottom_of_slab_to_domain_bottom))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class GroundHeatTransferSlabManualGrid(object):
     """ Corresponds to IDD object `GroundHeatTransfer:Slab:ManualGrid`
@@ -2790,39 +3011,51 @@ class GroundHeatTransferSlabManualGrid(object):
         self._data["NZ: Number of cells in the Z direction"] = None
         self._data["IBOX: X direction cell indicator of slab edge"] = None
         self._data["JBOX: Y direction cell indicator of slab edge"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.nx_number_of_cells_in_the_x_direction = None
         else:
             self.nx_number_of_cells_in_the_x_direction = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.ny_number_of_cells_in_the_y_direction = None
         else:
             self.ny_number_of_cells_in_the_y_direction = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.nz_number_of_cells_in_the_z_direction = None
         else:
             self.nz_number_of_cells_in_the_z_direction = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.ibox_x_direction_cell_indicator_of_slab_edge = None
         else:
             self.ibox_x_direction_cell_indicator_of_slab_edge = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.jbox_y_direction_cell_indicator_of_slab_edge = None
         else:
             self.jbox_y_direction_cell_indicator_of_slab_edge = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def nx_number_of_cells_in_the_x_direction(self):
@@ -3010,14 +3243,17 @@ class GroundHeatTransferSlabManualGrid(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.nx_number_of_cells_in_the_x_direction))
-        out.append(self._to_str(self.ny_number_of_cells_in_the_y_direction))
-        out.append(self._to_str(self.nz_number_of_cells_in_the_z_direction))
-        out.append(self._to_str(self.ibox_x_direction_cell_indicator_of_slab_edge))
-        out.append(self._to_str(self.jbox_y_direction_cell_indicator_of_slab_edge))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class GroundHeatTransferBasementSimParameters(object):
     """ Corresponds to IDD object `GroundHeatTransfer:Basement:SimParameters`
@@ -3035,24 +3271,30 @@ class GroundHeatTransferBasementSimParameters(object):
         self._data = OrderedDict()
         self._data["F: Multiplier for the ADI solution"] = None
         self._data["IYRS: Maximum number of yearly iterations:"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.f_multiplier_for_the_adi_solution = None
         else:
             self.f_multiplier_for_the_adi_solution = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.iyrs_maximum_number_of_yearly_iterations = None
         else:
             self.iyrs_maximum_number_of_yearly_iterations = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def f_multiplier_for_the_adi_solution(self):
@@ -3152,11 +3394,17 @@ class GroundHeatTransferBasementSimParameters(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.f_multiplier_for_the_adi_solution))
-        out.append(self._to_str(self.iyrs_maximum_number_of_yearly_iterations))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class GroundHeatTransferBasementMatlProps(object):
     """ Corresponds to IDD object `GroundHeatTransfer:Basement:MatlProps`
@@ -3192,109 +3440,149 @@ class GroundHeatTransferBasementMatlProps(object):
         self._data["thermal conductivity for soil"] = None
         self._data["thermal conductivity for gravel"] = None
         self._data["thermal conductivity for wood"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.nmat_number_of_materials_in_this_domain = None
         else:
             self.nmat_number_of_materials_in_this_domain = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.density_for_foundation_wall = None
         else:
             self.density_for_foundation_wall = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.density_for_floor_slab = None
         else:
             self.density_for_floor_slab = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.density_for_ceiling = None
         else:
             self.density_for_ceiling = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.density_for_soil = None
         else:
             self.density_for_soil = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.density_for_gravel = None
         else:
             self.density_for_gravel = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.density_for_wood = None
         else:
             self.density_for_wood = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.specific_heat_for_foundation_wall = None
         else:
             self.specific_heat_for_foundation_wall = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.specific_heat_for_floor_slab = None
         else:
             self.specific_heat_for_floor_slab = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.specific_heat_for_ceiling = None
         else:
             self.specific_heat_for_ceiling = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.specific_heat_for_soil = None
         else:
             self.specific_heat_for_soil = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.specific_heat_for_gravel = None
         else:
             self.specific_heat_for_gravel = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.specific_heat_for_wood = None
         else:
             self.specific_heat_for_wood = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.thermal_conductivity_for_foundation_wall = None
         else:
             self.thermal_conductivity_for_foundation_wall = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.thermal_conductivity_for_floor_slab = None
         else:
             self.thermal_conductivity_for_floor_slab = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.thermal_conductivity_for_ceiling = None
         else:
             self.thermal_conductivity_for_ceiling = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.thermal_conductivity_for_soil = None
         else:
             self.thermal_conductivity_for_soil = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.thermal_conductivity_for_gravel = None
         else:
             self.thermal_conductivity_for_gravel = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.thermal_conductivity_for_wood = None
         else:
             self.thermal_conductivity_for_wood = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def nmat_number_of_materials_in_this_domain(self):
@@ -4000,28 +4288,17 @@ class GroundHeatTransferBasementMatlProps(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.nmat_number_of_materials_in_this_domain))
-        out.append(self._to_str(self.density_for_foundation_wall))
-        out.append(self._to_str(self.density_for_floor_slab))
-        out.append(self._to_str(self.density_for_ceiling))
-        out.append(self._to_str(self.density_for_soil))
-        out.append(self._to_str(self.density_for_gravel))
-        out.append(self._to_str(self.density_for_wood))
-        out.append(self._to_str(self.specific_heat_for_foundation_wall))
-        out.append(self._to_str(self.specific_heat_for_floor_slab))
-        out.append(self._to_str(self.specific_heat_for_ceiling))
-        out.append(self._to_str(self.specific_heat_for_soil))
-        out.append(self._to_str(self.specific_heat_for_gravel))
-        out.append(self._to_str(self.specific_heat_for_wood))
-        out.append(self._to_str(self.thermal_conductivity_for_foundation_wall))
-        out.append(self._to_str(self.thermal_conductivity_for_floor_slab))
-        out.append(self._to_str(self.thermal_conductivity_for_ceiling))
-        out.append(self._to_str(self.thermal_conductivity_for_soil))
-        out.append(self._to_str(self.thermal_conductivity_for_gravel))
-        out.append(self._to_str(self.thermal_conductivity_for_wood))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class GroundHeatTransferBasementInsulation(object):
     """ Corresponds to IDD object `GroundHeatTransfer:Basement:Insulation`
@@ -4039,24 +4316,30 @@ class GroundHeatTransferBasementInsulation(object):
         self._data = OrderedDict()
         self._data["REXT: R Value of any exterior insulation"] = None
         self._data["INSFULL: Flag: Is the wall fully insulated?"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.rext_r_value_of_any_exterior_insulation = None
         else:
             self.rext_r_value_of_any_exterior_insulation = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.insfull_flag_is_the_wall_fully_insulated = None
         else:
             self.insfull_flag_is_the_wall_fully_insulated = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def rext_r_value_of_any_exterior_insulation(self):
@@ -4128,12 +4411,26 @@ class GroundHeatTransferBasementInsulation(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `insfull_flag_is_the_wall_fully_insulated`')
-            vals = set()
-            vals.add("TRUE")
-            vals.add("FALSE")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `insfull_flag_is_the_wall_fully_insulated`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `insfull_flag_is_the_wall_fully_insulated`')
+            vals = {}
+            vals["true"] = "TRUE"
+            vals["false"] = "FALSE"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `insfull_flag_is_the_wall_fully_insulated`'.format(value))
+            value = vals[value_lower]
 
         self._data["INSFULL: Flag: Is the wall fully insulated?"] = value
 
@@ -4159,11 +4456,17 @@ class GroundHeatTransferBasementInsulation(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.rext_r_value_of_any_exterior_insulation))
-        out.append(self._to_str(self.insfull_flag_is_the_wall_fully_insulated))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class GroundHeatTransferBasementSurfaceProps(object):
     """ Corresponds to IDD object `GroundHeatTransfer:Basement:SurfaceProps`
@@ -4186,49 +4489,65 @@ class GroundHeatTransferBasementSurfaceProps(object):
         self._data["VEGHT: Surface roughness No snow conditions"] = None
         self._data["VEGHT: Surface roughness Snow conditions"] = None
         self._data["PET: Flag, Potential evapotranspiration on?"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.albedo_surface_albedo_for_no_snow_conditions = None
         else:
             self.albedo_surface_albedo_for_no_snow_conditions = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.albedo_surface_albedo_for_snow_conditions = None
         else:
             self.albedo_surface_albedo_for_snow_conditions = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.epsln_surface_emissivity_no_snow = None
         else:
             self.epsln_surface_emissivity_no_snow = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.epsln_surface_emissivity_with_snow = None
         else:
             self.epsln_surface_emissivity_with_snow = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.veght_surface_roughness_no_snow_conditions = None
         else:
             self.veght_surface_roughness_no_snow_conditions = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.veght_surface_roughness_snow_conditions = None
         else:
             self.veght_surface_roughness_snow_conditions = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.pet_flag_potential_evapotranspiration_on = None
         else:
             self.pet_flag_potential_evapotranspiration_on = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def albedo_surface_albedo_for_no_snow_conditions(self):
@@ -4493,12 +4812,26 @@ class GroundHeatTransferBasementSurfaceProps(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `pet_flag_potential_evapotranspiration_on`')
-            vals = set()
-            vals.add("TRUE")
-            vals.add("FALSE")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `pet_flag_potential_evapotranspiration_on`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `pet_flag_potential_evapotranspiration_on`')
+            vals = {}
+            vals["true"] = "TRUE"
+            vals["false"] = "FALSE"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `pet_flag_potential_evapotranspiration_on`'.format(value))
+            value = vals[value_lower]
 
         self._data["PET: Flag, Potential evapotranspiration on?"] = value
 
@@ -4524,16 +4857,17 @@ class GroundHeatTransferBasementSurfaceProps(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.albedo_surface_albedo_for_no_snow_conditions))
-        out.append(self._to_str(self.albedo_surface_albedo_for_snow_conditions))
-        out.append(self._to_str(self.epsln_surface_emissivity_no_snow))
-        out.append(self._to_str(self.epsln_surface_emissivity_with_snow))
-        out.append(self._to_str(self.veght_surface_roughness_no_snow_conditions))
-        out.append(self._to_str(self.veght_surface_roughness_snow_conditions))
-        out.append(self._to_str(self.pet_flag_potential_evapotranspiration_on))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class GroundHeatTransferBasementBldgData(object):
     """ Corresponds to IDD object `GroundHeatTransfer:Basement:BldgData`
@@ -4554,39 +4888,51 @@ class GroundHeatTransferBasementBldgData(object):
         self._data["DGRAVXY: Width of gravel pit beside basement wall"] = None
         self._data["DGRAVZN: Gravel depth extending above the floor slab"] = None
         self._data["DGRAVZP: Gravel depth below the floor slab"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.dwall_wall_thickness = None
         else:
             self.dwall_wall_thickness = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.dslab_floor_slab_thickness = None
         else:
             self.dslab_floor_slab_thickness = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.dgravxy_width_of_gravel_pit_beside_basement_wall = None
         else:
             self.dgravxy_width_of_gravel_pit_beside_basement_wall = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.dgravzn_gravel_depth_extending_above_the_floor_slab = None
         else:
             self.dgravzn_gravel_depth_extending_above_the_floor_slab = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.dgravzp_gravel_depth_below_the_floor_slab = None
         else:
             self.dgravzp_gravel_depth_below_the_floor_slab = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def dwall_wall_thickness(self):
@@ -4794,14 +5140,17 @@ class GroundHeatTransferBasementBldgData(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.dwall_wall_thickness))
-        out.append(self._to_str(self.dslab_floor_slab_thickness))
-        out.append(self._to_str(self.dgravxy_width_of_gravel_pit_beside_basement_wall))
-        out.append(self._to_str(self.dgravzn_gravel_depth_extending_above_the_floor_slab))
-        out.append(self._to_str(self.dgravzp_gravel_depth_below_the_floor_slab))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class GroundHeatTransferBasementInterior(object):
     """ Corresponds to IDD object `GroundHeatTransfer:Basement:Interior`
@@ -4824,49 +5173,65 @@ class GroundHeatTransferBasementInterior(object):
         self._data["HIN: Downward combined (convection and radiation) heat transfer coefficient"] = None
         self._data["HIN: Upward combined (convection and radiation) heat transfer coefficient"] = None
         self._data["HIN: Horizontal combined (convection and radiation) heat transfer coefficient"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.cond_flag_is_the_basement_conditioned = None
         else:
             self.cond_flag_is_the_basement_conditioned = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.hin_downward_convection_only_heat_transfer_coefficient = None
         else:
             self.hin_downward_convection_only_heat_transfer_coefficient = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.hin_upward_convection_only_heat_transfer_coefficient = None
         else:
             self.hin_upward_convection_only_heat_transfer_coefficient = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.hin_horizontal_convection_only_heat_transfer_coefficient = None
         else:
             self.hin_horizontal_convection_only_heat_transfer_coefficient = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.hin_downward_combined_convection_and_radiation_heat_transfer_coefficient = None
         else:
             self.hin_downward_combined_convection_and_radiation_heat_transfer_coefficient = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.hin_upward_combined_convection_and_radiation_heat_transfer_coefficient = None
         else:
             self.hin_upward_combined_convection_and_radiation_heat_transfer_coefficient = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.hin_horizontal_combined_convection_and_radiation_heat_transfer_coefficient = None
         else:
             self.hin_horizontal_combined_convection_and_radiation_heat_transfer_coefficient = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def cond_flag_is_the_basement_conditioned(self):
@@ -4903,12 +5268,26 @@ class GroundHeatTransferBasementInterior(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `cond_flag_is_the_basement_conditioned`')
-            vals = set()
-            vals.add("TRUE")
-            vals.add("FALSE")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `cond_flag_is_the_basement_conditioned`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `cond_flag_is_the_basement_conditioned`')
+            vals = {}
+            vals["true"] = "TRUE"
+            vals["false"] = "FALSE"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `cond_flag_is_the_basement_conditioned`'.format(value))
+            value = vals[value_lower]
 
         self._data["COND: Flag: Is the basement conditioned?"] = value
 
@@ -5150,16 +5529,17 @@ class GroundHeatTransferBasementInterior(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.cond_flag_is_the_basement_conditioned))
-        out.append(self._to_str(self.hin_downward_convection_only_heat_transfer_coefficient))
-        out.append(self._to_str(self.hin_upward_convection_only_heat_transfer_coefficient))
-        out.append(self._to_str(self.hin_horizontal_convection_only_heat_transfer_coefficient))
-        out.append(self._to_str(self.hin_downward_combined_convection_and_radiation_heat_transfer_coefficient))
-        out.append(self._to_str(self.hin_upward_combined_convection_and_radiation_heat_transfer_coefficient))
-        out.append(self._to_str(self.hin_horizontal_combined_convection_and_radiation_heat_transfer_coefficient))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class GroundHeatTransferBasementComBldg(object):
     """ Corresponds to IDD object `GroundHeatTransfer:Basement:ComBldg`
@@ -5187,79 +5567,107 @@ class GroundHeatTransferBasementComBldg(object):
         self._data["November average temperature"] = None
         self._data["December average temperature"] = None
         self._data["Daily variation sine wave amplitude"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.january_average_temperature = None
         else:
             self.january_average_temperature = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.february_average_temperature = None
         else:
             self.february_average_temperature = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.march_average_temperature = None
         else:
             self.march_average_temperature = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.april_average_temperature = None
         else:
             self.april_average_temperature = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.may_average_temperature = None
         else:
             self.may_average_temperature = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.june_average_temperature = None
         else:
             self.june_average_temperature = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.july_average_temperature = None
         else:
             self.july_average_temperature = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.august_average_temperature = None
         else:
             self.august_average_temperature = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.september_average_temperature = None
         else:
             self.september_average_temperature = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.october_average_temperature = None
         else:
             self.october_average_temperature = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.november_average_temperature = None
         else:
             self.november_average_temperature = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.december_average_temperature = None
         else:
             self.december_average_temperature = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.daily_variation_sine_wave_amplitude = None
         else:
             self.daily_variation_sine_wave_amplitude = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def january_average_temperature(self):
@@ -5700,22 +6108,17 @@ class GroundHeatTransferBasementComBldg(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.january_average_temperature))
-        out.append(self._to_str(self.february_average_temperature))
-        out.append(self._to_str(self.march_average_temperature))
-        out.append(self._to_str(self.april_average_temperature))
-        out.append(self._to_str(self.may_average_temperature))
-        out.append(self._to_str(self.june_average_temperature))
-        out.append(self._to_str(self.july_average_temperature))
-        out.append(self._to_str(self.august_average_temperature))
-        out.append(self._to_str(self.september_average_temperature))
-        out.append(self._to_str(self.october_average_temperature))
-        out.append(self._to_str(self.november_average_temperature))
-        out.append(self._to_str(self.december_average_temperature))
-        out.append(self._to_str(self.daily_variation_sine_wave_amplitude))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class GroundHeatTransferBasementEquivSlab(object):
     """ Corresponds to IDD object `GroundHeatTransfer:Basement:EquivSlab`
@@ -5734,24 +6137,30 @@ class GroundHeatTransferBasementEquivSlab(object):
         self._data = OrderedDict()
         self._data["APRatio: The area to perimeter ratio for this slab"] = None
         self._data["EquivSizing: Flag"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.apratio_the_area_to_perimeter_ratio_for_this_slab = None
         else:
             self.apratio_the_area_to_perimeter_ratio_for_this_slab = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.equivsizing_flag = None
         else:
             self.equivsizing_flag = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def apratio_the_area_to_perimeter_ratio_for_this_slab(self):
@@ -5824,12 +6233,26 @@ class GroundHeatTransferBasementEquivSlab(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `equivsizing_flag`')
-            vals = set()
-            vals.add("TRUE")
-            vals.add("FALSE")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `equivsizing_flag`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `equivsizing_flag`')
+            vals = {}
+            vals["true"] = "TRUE"
+            vals["false"] = "FALSE"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `equivsizing_flag`'.format(value))
+            value = vals[value_lower]
 
         self._data["EquivSizing: Flag"] = value
 
@@ -5855,11 +6278,17 @@ class GroundHeatTransferBasementEquivSlab(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.apratio_the_area_to_perimeter_ratio_for_this_slab))
-        out.append(self._to_str(self.equivsizing_flag))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class GroundHeatTransferBasementEquivAutoGrid(object):
     """ Corresponds to IDD object `GroundHeatTransfer:Basement:EquivAutoGrid`
@@ -5877,29 +6306,37 @@ class GroundHeatTransferBasementEquivAutoGrid(object):
         self._data["CLEARANCE: Distance from outside of wall to edge of 3-D ground domain"] = None
         self._data["SlabDepth: Thickness of the floor slab"] = None
         self._data["BaseDepth: Depth of the basement wall below grade"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.clearance_distance_from_outside_of_wall_to_edge_of_3d_ground_domain = None
         else:
             self.clearance_distance_from_outside_of_wall_to_edge_of_3d_ground_domain = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.slabdepth_thickness_of_the_floor_slab = None
         else:
             self.slabdepth_thickness_of_the_floor_slab = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.basedepth_depth_of_the_basement_wall_below_grade = None
         else:
             self.basedepth_depth_of_the_basement_wall_below_grade = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def clearance_distance_from_outside_of_wall_to_edge_of_3d_ground_domain(self):
@@ -6031,12 +6468,17 @@ class GroundHeatTransferBasementEquivAutoGrid(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.clearance_distance_from_outside_of_wall_to_edge_of_3d_ground_domain))
-        out.append(self._to_str(self.slabdepth_thickness_of_the_floor_slab))
-        out.append(self._to_str(self.basedepth_depth_of_the_basement_wall_below_grade))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class GroundHeatTransferBasementAutoGrid(object):
     """ Corresponds to IDD object `GroundHeatTransfer:Basement:AutoGrid`
@@ -6059,44 +6501,58 @@ class GroundHeatTransferBasementAutoGrid(object):
         self._data["ConcAGHeight: Height of the foundation wall above grade"] = None
         self._data["SlabDepth: Thickness of the floor slab"] = None
         self._data["BaseDepth: Depth of the basement wall below grade"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.clearance_distance_from_outside_of_wall_to_edge_ = None
         else:
             self.clearance_distance_from_outside_of_wall_to_edge_ = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.slabx_x_dimension_of_the_building_slab = None
         else:
             self.slabx_x_dimension_of_the_building_slab = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.slaby_y_dimension_of_the_building_slab = None
         else:
             self.slaby_y_dimension_of_the_building_slab = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.concagheight_height_of_the_foundation_wall_above_grade = None
         else:
             self.concagheight_height_of_the_foundation_wall_above_grade = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.slabdepth_thickness_of_the_floor_slab = None
         else:
             self.slabdepth_thickness_of_the_floor_slab = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.basedepth_depth_of_the_basement_wall_below_grade = None
         else:
             self.basedepth_depth_of_the_basement_wall_below_grade = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def clearance_distance_from_outside_of_wall_to_edge_(self):
@@ -6338,15 +6794,17 @@ class GroundHeatTransferBasementAutoGrid(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.clearance_distance_from_outside_of_wall_to_edge_))
-        out.append(self._to_str(self.slabx_x_dimension_of_the_building_slab))
-        out.append(self._to_str(self.slaby_y_dimension_of_the_building_slab))
-        out.append(self._to_str(self.concagheight_height_of_the_foundation_wall_above_grade))
-        out.append(self._to_str(self.slabdepth_thickness_of_the_floor_slab))
-        out.append(self._to_str(self.basedepth_depth_of_the_basement_wall_below_grade))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class GroundHeatTransferBasementManualGrid(object):
     """ Corresponds to IDD object `GroundHeatTransfer:Basement:ManualGrid`
@@ -6368,49 +6826,65 @@ class GroundHeatTransferBasementManualGrid(object):
         self._data["IBASE: X direction cell indicator of slab edge: 5-20]"] = None
         self._data["JBASE: Y direction cell indicator of slab edge: 5-20]"] = None
         self._data["KBASE: Z direction cell indicator of the top of the floor slab: 5-20]"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.nx_number_of_cells_in_the_x_direction_20 = None
         else:
             self.nx_number_of_cells_in_the_x_direction_20 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.ny_number_of_cells_in_the_y_direction_20 = None
         else:
             self.ny_number_of_cells_in_the_y_direction_20 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.nzag_number_of_cells_in_the_z_direction_above_grade_4_always = None
         else:
             self.nzag_number_of_cells_in_the_z_direction_above_grade_4_always = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.nzbg_number_of_cells_in_z_direction_below_grade_1035 = None
         else:
             self.nzbg_number_of_cells_in_z_direction_below_grade_1035 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.ibase_x_direction_cell_indicator_of_slab_edge_520 = None
         else:
             self.ibase_x_direction_cell_indicator_of_slab_edge_520 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.jbase_y_direction_cell_indicator_of_slab_edge_520 = None
         else:
             self.jbase_y_direction_cell_indicator_of_slab_edge_520 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.kbase_z_direction_cell_indicator_of_the_top_of_the_floor_slab_520 = None
         else:
             self.kbase_z_direction_cell_indicator_of_the_top_of_the_floor_slab_520 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def nx_number_of_cells_in_the_x_direction_20(self):
@@ -6660,13 +7134,14 @@ class GroundHeatTransferBasementManualGrid(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.nx_number_of_cells_in_the_x_direction_20))
-        out.append(self._to_str(self.ny_number_of_cells_in_the_y_direction_20))
-        out.append(self._to_str(self.nzag_number_of_cells_in_the_z_direction_above_grade_4_always))
-        out.append(self._to_str(self.nzbg_number_of_cells_in_z_direction_below_grade_1035))
-        out.append(self._to_str(self.ibase_x_direction_cell_indicator_of_slab_edge_520))
-        out.append(self._to_str(self.jbase_y_direction_cell_indicator_of_slab_edge_520))
-        out.append(self._to_str(self.kbase_z_direction_cell_indicator_of_the_top_of_the_floor_slab_520))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])

@@ -26,59 +26,79 @@ class ControllerWaterCoil(object):
         self._data["Controller Convergence Tolerance"] = None
         self._data["Maximum Actuated Flow"] = None
         self._data["Minimum Actuated Flow"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.control_variable = None
         else:
             self.control_variable = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.action = None
         else:
             self.action = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.actuator_variable = None
         else:
             self.actuator_variable = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.sensor_node_name = None
         else:
             self.sensor_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.actuator_node_name = None
         else:
             self.actuator_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.controller_convergence_tolerance = None
         else:
             self.controller_convergence_tolerance = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.maximum_actuated_flow = None
         else:
             self.maximum_actuated_flow = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.minimum_actuated_flow = None
         else:
             self.minimum_actuated_flow = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -109,6 +129,9 @@ class ControllerWaterCoil(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -152,13 +175,27 @@ class ControllerWaterCoil(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `control_variable`')
-            vals = set()
-            vals.add("Temperature")
-            vals.add("HumidityRatio")
-            vals.add("TemperatureAndHumidityRatio")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `control_variable`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `control_variable`')
+            vals = {}
+            vals["temperature"] = "Temperature"
+            vals["humidityratio"] = "HumidityRatio"
+            vals["temperatureandhumidityratio"] = "TemperatureAndHumidityRatio"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `control_variable`'.format(value))
+            value = vals[value_lower]
 
         self._data["Control Variable"] = value
 
@@ -198,12 +235,26 @@ class ControllerWaterCoil(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `action`')
-            vals = set()
-            vals.add("Normal")
-            vals.add("Reverse")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `action`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `action`')
+            vals = {}
+            vals["normal"] = "Normal"
+            vals["reverse"] = "Reverse"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `action`'.format(value))
+            value = vals[value_lower]
 
         self._data["Action"] = value
 
@@ -239,11 +290,25 @@ class ControllerWaterCoil(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `actuator_variable`')
-            vals = set()
-            vals.add("Flow")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `actuator_variable`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `actuator_variable`')
+            vals = {}
+            vals["flow"] = "Flow"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `actuator_variable`'.format(value))
+            value = vals[value_lower]
 
         self._data["Actuator Variable"] = value
 
@@ -277,6 +342,9 @@ class ControllerWaterCoil(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `sensor_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `sensor_node_name`')
 
         self._data["Sensor Node Name"] = value
 
@@ -309,6 +377,9 @@ class ControllerWaterCoil(object):
                                  'for field `actuator_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `actuator_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `actuator_node_name`')
 
         self._data["Actuator Node Name"] = value
@@ -429,18 +500,17 @@ class ControllerWaterCoil(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.control_variable))
-        out.append(self._to_str(self.action))
-        out.append(self._to_str(self.actuator_variable))
-        out.append(self._to_str(self.sensor_node_name))
-        out.append(self._to_str(self.actuator_node_name))
-        out.append(self._to_str(self.controller_convergence_tolerance))
-        out.append(self._to_str(self.maximum_actuated_flow))
-        out.append(self._to_str(self.minimum_actuated_flow))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class ControllerOutdoorAir(object):
     """ Corresponds to IDD object `Controller:OutdoorAir`
@@ -482,144 +552,198 @@ class ControllerOutdoorAir(object):
         self._data["High Humidity Outdoor Air Flow Ratio"] = None
         self._data["Control High Indoor Humidity Based on Outdoor Humidity Ratio"] = None
         self._data["Heat Recovery Bypass Control Type"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.relief_air_outlet_node_name = None
         else:
             self.relief_air_outlet_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.return_air_node_name = None
         else:
             self.return_air_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.mixed_air_node_name = None
         else:
             self.mixed_air_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.actuator_node_name = None
         else:
             self.actuator_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.minimum_outdoor_air_flow_rate = None
         else:
             self.minimum_outdoor_air_flow_rate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.maximum_outdoor_air_flow_rate = None
         else:
             self.maximum_outdoor_air_flow_rate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.economizer_control_type = None
         else:
             self.economizer_control_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.economizer_control_action_type = None
         else:
             self.economizer_control_action_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.economizer_maximum_limit_drybulb_temperature = None
         else:
             self.economizer_maximum_limit_drybulb_temperature = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.economizer_maximum_limit_enthalpy = None
         else:
             self.economizer_maximum_limit_enthalpy = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.economizer_maximum_limit_dewpoint_temperature = None
         else:
             self.economizer_maximum_limit_dewpoint_temperature = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.electronic_enthalpy_limit_curve_name = None
         else:
             self.electronic_enthalpy_limit_curve_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.economizer_minimum_limit_drybulb_temperature = None
         else:
             self.economizer_minimum_limit_drybulb_temperature = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.lockout_type = None
         else:
             self.lockout_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.minimum_limit_type = None
         else:
             self.minimum_limit_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.minimum_outdoor_air_schedule_name = None
         else:
             self.minimum_outdoor_air_schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.minimum_fraction_of_outdoor_air_schedule_name = None
         else:
             self.minimum_fraction_of_outdoor_air_schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.maximum_fraction_of_outdoor_air_schedule_name = None
         else:
             self.maximum_fraction_of_outdoor_air_schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.mechanical_ventilation_controller_name = None
         else:
             self.mechanical_ventilation_controller_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.time_of_day_economizer_control_schedule_name = None
         else:
             self.time_of_day_economizer_control_schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.high_humidity_control = None
         else:
             self.high_humidity_control = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.humidistat_control_zone_name = None
         else:
             self.humidistat_control_zone_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.high_humidity_outdoor_air_flow_ratio = None
         else:
             self.high_humidity_outdoor_air_flow_ratio = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.control_high_indoor_humidity_based_on_outdoor_humidity_ratio = None
         else:
             self.control_high_indoor_humidity_based_on_outdoor_humidity_ratio = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.heat_recovery_bypass_control_type = None
         else:
             self.heat_recovery_bypass_control_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -650,6 +774,9 @@ class ControllerOutdoorAir(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -684,6 +811,9 @@ class ControllerOutdoorAir(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `relief_air_outlet_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `relief_air_outlet_node_name`')
 
         self._data["Relief Air Outlet Node Name"] = value
 
@@ -716,6 +846,9 @@ class ControllerOutdoorAir(object):
                                  'for field `return_air_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `return_air_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `return_air_node_name`')
 
         self._data["Return Air Node Name"] = value
@@ -750,6 +883,9 @@ class ControllerOutdoorAir(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `mixed_air_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `mixed_air_node_name`')
 
         self._data["Mixed Air Node Name"] = value
 
@@ -783,6 +919,9 @@ class ControllerOutdoorAir(object):
                                  'for field `actuator_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `actuator_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `actuator_node_name`')
 
         self._data["Actuator Node Name"] = value
@@ -889,18 +1028,32 @@ class ControllerOutdoorAir(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `economizer_control_type`')
-            vals = set()
-            vals.add("FixedDryBulb")
-            vals.add("FixedEnthalpy")
-            vals.add("DifferentialDryBulb")
-            vals.add("DifferentialEnthalpy")
-            vals.add("FixedDewPointAndDryBulb")
-            vals.add("ElectronicEnthalpy")
-            vals.add("DifferentialDryBulbAndEnthalpy")
-            vals.add("NoEconomizer")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `economizer_control_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `economizer_control_type`')
+            vals = {}
+            vals["fixeddrybulb"] = "FixedDryBulb"
+            vals["fixedenthalpy"] = "FixedEnthalpy"
+            vals["differentialdrybulb"] = "DifferentialDryBulb"
+            vals["differentialenthalpy"] = "DifferentialEnthalpy"
+            vals["fixeddewpointanddrybulb"] = "FixedDewPointAndDryBulb"
+            vals["electronicenthalpy"] = "ElectronicEnthalpy"
+            vals["differentialdrybulbandenthalpy"] = "DifferentialDryBulbAndEnthalpy"
+            vals["noeconomizer"] = "NoEconomizer"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `economizer_control_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Economizer Control Type"] = value
 
@@ -938,12 +1091,26 @@ class ControllerOutdoorAir(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `economizer_control_action_type`')
-            vals = set()
-            vals.add("ModulateFlow")
-            vals.add("MinimumFlowWithBypass")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `economizer_control_action_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `economizer_control_action_type`')
+            vals = {}
+            vals["modulateflow"] = "ModulateFlow"
+            vals["minimumflowwithbypass"] = "MinimumFlowWithBypass"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `economizer_control_action_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Economizer Control Action Type"] = value
 
@@ -1084,6 +1251,9 @@ class ControllerOutdoorAir(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `electronic_enthalpy_limit_curve_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `electronic_enthalpy_limit_curve_name`')
 
         self._data["Electronic Enthalpy Limit Curve Name"] = value
 
@@ -1156,13 +1326,27 @@ class ControllerOutdoorAir(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `lockout_type`')
-            vals = set()
-            vals.add("NoLockout")
-            vals.add("LockoutWithHeating")
-            vals.add("LockoutWithCompressor")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `lockout_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `lockout_type`')
+            vals = {}
+            vals["nolockout"] = "NoLockout"
+            vals["lockoutwithheating"] = "LockoutWithHeating"
+            vals["lockoutwithcompressor"] = "LockoutWithCompressor"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `lockout_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Lockout Type"] = value
 
@@ -1200,12 +1384,26 @@ class ControllerOutdoorAir(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `minimum_limit_type`')
-            vals = set()
-            vals.add("FixedMinimum")
-            vals.add("ProportionalMinimum")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `minimum_limit_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `minimum_limit_type`')
+            vals = {}
+            vals["fixedminimum"] = "FixedMinimum"
+            vals["proportionalminimum"] = "ProportionalMinimum"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `minimum_limit_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Minimum Limit Type"] = value
 
@@ -1239,6 +1437,9 @@ class ControllerOutdoorAir(object):
                                  'for field `minimum_outdoor_air_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `minimum_outdoor_air_schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `minimum_outdoor_air_schedule_name`')
 
         self._data["Minimum Outdoor Air Schedule Name"] = value
@@ -1274,6 +1475,9 @@ class ControllerOutdoorAir(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `minimum_fraction_of_outdoor_air_schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `minimum_fraction_of_outdoor_air_schedule_name`')
 
         self._data["Minimum Fraction of Outdoor Air Schedule Name"] = value
 
@@ -1307,6 +1511,9 @@ class ControllerOutdoorAir(object):
                                  'for field `maximum_fraction_of_outdoor_air_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `maximum_fraction_of_outdoor_air_schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `maximum_fraction_of_outdoor_air_schedule_name`')
 
         self._data["Maximum Fraction of Outdoor Air Schedule Name"] = value
@@ -1343,6 +1550,9 @@ class ControllerOutdoorAir(object):
                                  'for field `mechanical_ventilation_controller_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `mechanical_ventilation_controller_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `mechanical_ventilation_controller_name`')
 
         self._data["Mechanical Ventilation Controller Name"] = value
@@ -1381,6 +1591,9 @@ class ControllerOutdoorAir(object):
                                  'for field `time_of_day_economizer_control_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `time_of_day_economizer_control_schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `time_of_day_economizer_control_schedule_name`')
 
         self._data["Time of Day Economizer Control Schedule Name"] = value
@@ -1423,12 +1636,26 @@ class ControllerOutdoorAir(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `high_humidity_control`')
-            vals = set()
-            vals.add("Yes")
-            vals.add("No")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `high_humidity_control`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `high_humidity_control`')
+            vals = {}
+            vals["yes"] = "Yes"
+            vals["no"] = "No"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `high_humidity_control`'.format(value))
+            value = vals[value_lower]
 
         self._data["High Humidity Control"] = value
 
@@ -1463,6 +1690,9 @@ class ControllerOutdoorAir(object):
                                  'for field `humidistat_control_zone_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `humidistat_control_zone_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `humidistat_control_zone_name`')
 
         self._data["Humidistat Control Zone Name"] = value
@@ -1545,12 +1775,26 @@ class ControllerOutdoorAir(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `control_high_indoor_humidity_based_on_outdoor_humidity_ratio`')
-            vals = set()
-            vals.add("Yes")
-            vals.add("No")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `control_high_indoor_humidity_based_on_outdoor_humidity_ratio`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `control_high_indoor_humidity_based_on_outdoor_humidity_ratio`')
+            vals = {}
+            vals["yes"] = "Yes"
+            vals["no"] = "No"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `control_high_indoor_humidity_based_on_outdoor_humidity_ratio`'.format(value))
+            value = vals[value_lower]
 
         self._data["Control High Indoor Humidity Based on Outdoor Humidity Ratio"] = value
 
@@ -1591,6 +1835,9 @@ class ControllerOutdoorAir(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `heat_recovery_bypass_control_type`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `heat_recovery_bypass_control_type`')
 
         self._data["Heat Recovery Bypass Control Type"] = value
 
@@ -1616,35 +1863,17 @@ class ControllerOutdoorAir(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.relief_air_outlet_node_name))
-        out.append(self._to_str(self.return_air_node_name))
-        out.append(self._to_str(self.mixed_air_node_name))
-        out.append(self._to_str(self.actuator_node_name))
-        out.append(self._to_str(self.minimum_outdoor_air_flow_rate))
-        out.append(self._to_str(self.maximum_outdoor_air_flow_rate))
-        out.append(self._to_str(self.economizer_control_type))
-        out.append(self._to_str(self.economizer_control_action_type))
-        out.append(self._to_str(self.economizer_maximum_limit_drybulb_temperature))
-        out.append(self._to_str(self.economizer_maximum_limit_enthalpy))
-        out.append(self._to_str(self.economizer_maximum_limit_dewpoint_temperature))
-        out.append(self._to_str(self.electronic_enthalpy_limit_curve_name))
-        out.append(self._to_str(self.economizer_minimum_limit_drybulb_temperature))
-        out.append(self._to_str(self.lockout_type))
-        out.append(self._to_str(self.minimum_limit_type))
-        out.append(self._to_str(self.minimum_outdoor_air_schedule_name))
-        out.append(self._to_str(self.minimum_fraction_of_outdoor_air_schedule_name))
-        out.append(self._to_str(self.maximum_fraction_of_outdoor_air_schedule_name))
-        out.append(self._to_str(self.mechanical_ventilation_controller_name))
-        out.append(self._to_str(self.time_of_day_economizer_control_schedule_name))
-        out.append(self._to_str(self.high_humidity_control))
-        out.append(self._to_str(self.humidistat_control_zone_name))
-        out.append(self._to_str(self.high_humidity_outdoor_air_flow_ratio))
-        out.append(self._to_str(self.control_high_indoor_humidity_based_on_outdoor_humidity_ratio))
-        out.append(self._to_str(self.heat_recovery_bypass_control_type))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class ControllerMechanicalVentilation(object):
     """ Corresponds to IDD object `Controller:MechanicalVentilation`
@@ -1820,789 +2049,1101 @@ class ControllerMechanicalVentilation(object):
         self._data["Zone 50 Name"] = None
         self._data["Design Specification Outdoor Air Object Name 50"] = None
         self._data["Design Specification Zone Air Distribution Object Name 50"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.availability_schedule_name = None
         else:
             self.availability_schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.demand_controlled_ventilation = None
         else:
             self.demand_controlled_ventilation = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.system_outdoor_air_method = None
         else:
             self.system_outdoor_air_method = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.zone_maximum_outdoor_air_fraction = None
         else:
             self.zone_maximum_outdoor_air_fraction = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.zone_1_name = None
         else:
             self.zone_1_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.design_specification_outdoor_air_object_name_1 = None
         else:
             self.design_specification_outdoor_air_object_name_1 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.design_specification_zone_air_distribution_object_name_1 = None
         else:
             self.design_specification_zone_air_distribution_object_name_1 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.zone_2_name = None
         else:
             self.zone_2_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.design_specification_outdoor_air_object_name_2 = None
         else:
             self.design_specification_outdoor_air_object_name_2 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.design_specification_zone_air_distribution_object_name_2 = None
         else:
             self.design_specification_zone_air_distribution_object_name_2 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.zone_3_name = None
         else:
             self.zone_3_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.design_specification_outdoor_air_object_name_3 = None
         else:
             self.design_specification_outdoor_air_object_name_3 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.design_specification_zone_air_distribution_object_name_3 = None
         else:
             self.design_specification_zone_air_distribution_object_name_3 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.zone_4_name = None
         else:
             self.zone_4_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.design_specification_outdoor_air_object_name_4 = None
         else:
             self.design_specification_outdoor_air_object_name_4 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.design_specification_zone_air_distribution_object_name_4 = None
         else:
             self.design_specification_zone_air_distribution_object_name_4 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.zone_5_name = None
         else:
             self.zone_5_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.design_specification_outdoor_air_object_name_5 = None
         else:
             self.design_specification_outdoor_air_object_name_5 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.design_specification_zone_air_distribution_object_name_5 = None
         else:
             self.design_specification_zone_air_distribution_object_name_5 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.zone_6_name = None
         else:
             self.zone_6_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.design_specification_outdoor_air_object_name_6 = None
         else:
             self.design_specification_outdoor_air_object_name_6 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.design_specification_zone_air_distribution_object_name_6 = None
         else:
             self.design_specification_zone_air_distribution_object_name_6 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.zone_7_name = None
         else:
             self.zone_7_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.design_specification_outdoor_air_object_name_7 = None
         else:
             self.design_specification_outdoor_air_object_name_7 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.design_specification_zone_air_distribution_object_name_7 = None
         else:
             self.design_specification_zone_air_distribution_object_name_7 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.zone_8_name = None
         else:
             self.zone_8_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.design_specification_outdoor_air_object_name_8 = None
         else:
             self.design_specification_outdoor_air_object_name_8 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.design_specification_zone_air_distribution_object_name_8 = None
         else:
             self.design_specification_zone_air_distribution_object_name_8 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.zone_9_name = None
         else:
             self.zone_9_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.design_specification_outdoor_air_object_name_9 = None
         else:
             self.design_specification_outdoor_air_object_name_9 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.design_specification_zone_air_distribution_object_name_9 = None
         else:
             self.design_specification_zone_air_distribution_object_name_9 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.zone_10_name = None
         else:
             self.zone_10_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.design_specification_outdoor_air_object_name_10 = None
         else:
             self.design_specification_outdoor_air_object_name_10 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.design_specification_zone_air_distribution_object_name_10 = None
         else:
             self.design_specification_zone_air_distribution_object_name_10 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.zone_11_name = None
         else:
             self.zone_11_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.design_specification_outdoor_air_object_name_11 = None
         else:
             self.design_specification_outdoor_air_object_name_11 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.design_specification_zone_air_distribution_object_name_11 = None
         else:
             self.design_specification_zone_air_distribution_object_name_11 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.zone_12_name = None
         else:
             self.zone_12_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.design_specification_outdoor_air_object_name_12 = None
         else:
             self.design_specification_outdoor_air_object_name_12 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.design_specification_zone_air_distribution_object_name_12 = None
         else:
             self.design_specification_zone_air_distribution_object_name_12 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.zone_13_name = None
         else:
             self.zone_13_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.design_specification_outdoor_air_object_name_13 = None
         else:
             self.design_specification_outdoor_air_object_name_13 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.design_specification_zone_air_distribution_object_name_13 = None
         else:
             self.design_specification_zone_air_distribution_object_name_13 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.zone_14_name = None
         else:
             self.zone_14_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.design_specification_outdoor_air_object_name_14 = None
         else:
             self.design_specification_outdoor_air_object_name_14 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.design_specification_zone_air_distribution_object_name_14 = None
         else:
             self.design_specification_zone_air_distribution_object_name_14 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.zone_15_name = None
         else:
             self.zone_15_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.design_specification_outdoor_air_object_name_15 = None
         else:
             self.design_specification_outdoor_air_object_name_15 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.design_specification_zone_air_distribution_object_name_15 = None
         else:
             self.design_specification_zone_air_distribution_object_name_15 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.zone_16_name = None
         else:
             self.zone_16_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.design_specification_outdoor_air_object_name_16 = None
         else:
             self.design_specification_outdoor_air_object_name_16 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.design_specification_zone_air_distribution_object_name_16 = None
         else:
             self.design_specification_zone_air_distribution_object_name_16 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.zone_17_name = None
         else:
             self.zone_17_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.design_specification_outdoor_air_object_name_17 = None
         else:
             self.design_specification_outdoor_air_object_name_17 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.design_specification_zone_air_distribution_object_name_17 = None
         else:
             self.design_specification_zone_air_distribution_object_name_17 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.zone_18_name = None
         else:
             self.zone_18_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.design_specification_outdoor_air_object_name_18 = None
         else:
             self.design_specification_outdoor_air_object_name_18 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.design_specification_zone_air_distribution_object_name_18 = None
         else:
             self.design_specification_zone_air_distribution_object_name_18 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.zone_19_name = None
         else:
             self.zone_19_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.design_specification_outdoor_air_object_name_19 = None
         else:
             self.design_specification_outdoor_air_object_name_19 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.design_specification_zone_air_distribution_object_name_19 = None
         else:
             self.design_specification_zone_air_distribution_object_name_19 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.zone_20_name = None
         else:
             self.zone_20_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.design_specification_outdoor_air_object_name_20 = None
         else:
             self.design_specification_outdoor_air_object_name_20 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.design_specification_zone_air_distribution_object_name_20 = None
         else:
             self.design_specification_zone_air_distribution_object_name_20 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.zone_21_name = None
         else:
             self.zone_21_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.design_specification_outdoor_air_object_name_21 = None
         else:
             self.design_specification_outdoor_air_object_name_21 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.design_specification_zone_air_distribution_object_name_21 = None
         else:
             self.design_specification_zone_air_distribution_object_name_21 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.zone_22_name = None
         else:
             self.zone_22_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.design_specification_outdoor_air_object_name_22 = None
         else:
             self.design_specification_outdoor_air_object_name_22 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.design_specification_zone_air_distribution_object_name_22 = None
         else:
             self.design_specification_zone_air_distribution_object_name_22 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.zone_23_name = None
         else:
             self.zone_23_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.design_specification_outdoor_air_object_name_23 = None
         else:
             self.design_specification_outdoor_air_object_name_23 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.design_specification_zone_air_distribution_object_name_23 = None
         else:
             self.design_specification_zone_air_distribution_object_name_23 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.zone_24_name = None
         else:
             self.zone_24_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.design_specification_outdoor_air_object_name_24 = None
         else:
             self.design_specification_outdoor_air_object_name_24 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.design_specification_zone_air_distribution_object_name_24 = None
         else:
             self.design_specification_zone_air_distribution_object_name_24 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.zone_25_name = None
         else:
             self.zone_25_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.design_specification_outdoor_air_object_name_25 = None
         else:
             self.design_specification_outdoor_air_object_name_25 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.design_specification_zone_air_distribution_object_name_25 = None
         else:
             self.design_specification_zone_air_distribution_object_name_25 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.zone_26_name = None
         else:
             self.zone_26_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.design_specification_outdoor_air_object_name_26 = None
         else:
             self.design_specification_outdoor_air_object_name_26 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.design_specification_zone_air_distribution_object_name_26 = None
         else:
             self.design_specification_zone_air_distribution_object_name_26 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.zone_27_name = None
         else:
             self.zone_27_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.design_specification_outdoor_air_object_name_27 = None
         else:
             self.design_specification_outdoor_air_object_name_27 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.design_specification_zone_air_distribution_object_name_27 = None
         else:
             self.design_specification_zone_air_distribution_object_name_27 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.zone_28_name = None
         else:
             self.zone_28_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.design_specification_outdoor_air_object_name_28 = None
         else:
             self.design_specification_outdoor_air_object_name_28 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.design_specification_zone_air_distribution_object_name_28 = None
         else:
             self.design_specification_zone_air_distribution_object_name_28 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.zone_29_name = None
         else:
             self.zone_29_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.design_specification_outdoor_air_object_name_29 = None
         else:
             self.design_specification_outdoor_air_object_name_29 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.design_specification_zone_air_distribution_object_name_29 = None
         else:
             self.design_specification_zone_air_distribution_object_name_29 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.zone_30_name = None
         else:
             self.zone_30_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.design_specification_outdoor_air_object_name_30 = None
         else:
             self.design_specification_outdoor_air_object_name_30 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.design_specification_zone_air_distribution_object_name_30 = None
         else:
             self.design_specification_zone_air_distribution_object_name_30 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.zone_31_name = None
         else:
             self.zone_31_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.design_specification_outdoor_air_object_name_31 = None
         else:
             self.design_specification_outdoor_air_object_name_31 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.design_specification_zone_air_distribution_object_name_31 = None
         else:
             self.design_specification_zone_air_distribution_object_name_31 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.zone_32_name = None
         else:
             self.zone_32_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.design_specification_outdoor_air_object_name_32 = None
         else:
             self.design_specification_outdoor_air_object_name_32 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.design_specification_zone_air_distribution_object_name_32 = None
         else:
             self.design_specification_zone_air_distribution_object_name_32 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.zone_33_name = None
         else:
             self.zone_33_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.design_specification_outdoor_air_object_name_33 = None
         else:
             self.design_specification_outdoor_air_object_name_33 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.design_specification_zone_air_distribution_object_name_33 = None
         else:
             self.design_specification_zone_air_distribution_object_name_33 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.zone_34_name = None
         else:
             self.zone_34_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.design_specification_outdoor_air_object_name_34 = None
         else:
             self.design_specification_outdoor_air_object_name_34 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.design_specification_zone_air_distribution_object_name_34 = None
         else:
             self.design_specification_zone_air_distribution_object_name_34 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.zone_35_name = None
         else:
             self.zone_35_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.design_specification_outdoor_air_object_name_35 = None
         else:
             self.design_specification_outdoor_air_object_name_35 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.design_specification_zone_air_distribution_object_name_35 = None
         else:
             self.design_specification_zone_air_distribution_object_name_35 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.zone_36_name = None
         else:
             self.zone_36_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.design_specification_outdoor_air_object_name_36 = None
         else:
             self.design_specification_outdoor_air_object_name_36 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.design_specification_zone_air_distribution_object_name_36 = None
         else:
             self.design_specification_zone_air_distribution_object_name_36 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.zone_37_name = None
         else:
             self.zone_37_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.design_specification_outdoor_air_object_name_37 = None
         else:
             self.design_specification_outdoor_air_object_name_37 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.design_specification_zone_air_distribution_object_name_37 = None
         else:
             self.design_specification_zone_air_distribution_object_name_37 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.zone_38_name = None
         else:
             self.zone_38_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.design_specification_outdoor_air_object_name_38 = None
         else:
             self.design_specification_outdoor_air_object_name_38 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.design_specification_zone_air_distribution_object_name_38 = None
         else:
             self.design_specification_zone_air_distribution_object_name_38 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.zone_39_name = None
         else:
             self.zone_39_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.design_specification_outdoor_air_object_name_39 = None
         else:
             self.design_specification_outdoor_air_object_name_39 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.design_specification_zone_air_distribution_object_name_39 = None
         else:
             self.design_specification_zone_air_distribution_object_name_39 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.zone_40_name = None
         else:
             self.zone_40_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.design_specification_outdoor_air_object_name_40 = None
         else:
             self.design_specification_outdoor_air_object_name_40 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.design_specification_zone_air_distribution_object_name_40 = None
         else:
             self.design_specification_zone_air_distribution_object_name_40 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.zone_41_name = None
         else:
             self.zone_41_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.design_specification_outdoor_air_object_name_41 = None
         else:
             self.design_specification_outdoor_air_object_name_41 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.design_specification_zone_air_distribution_object_name_41 = None
         else:
             self.design_specification_zone_air_distribution_object_name_41 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.zone_42_name = None
         else:
             self.zone_42_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.design_specification_outdoor_air_object_name_42 = None
         else:
             self.design_specification_outdoor_air_object_name_42 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.design_specification_zone_air_distribution_object_name_42 = None
         else:
             self.design_specification_zone_air_distribution_object_name_42 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.zone_43_name = None
         else:
             self.zone_43_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.design_specification_outdoor_air_object_name_43 = None
         else:
             self.design_specification_outdoor_air_object_name_43 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.design_specification_zone_air_distribution_object_name_43 = None
         else:
             self.design_specification_zone_air_distribution_object_name_43 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.zone_44_name = None
         else:
             self.zone_44_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.design_specification_outdoor_air_object_name_44 = None
         else:
             self.design_specification_outdoor_air_object_name_44 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.design_specification_zone_air_distribution_object_name_44 = None
         else:
             self.design_specification_zone_air_distribution_object_name_44 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.zone_45_name = None
         else:
             self.zone_45_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.design_specification_outdoor_air_object_name_45 = None
         else:
             self.design_specification_outdoor_air_object_name_45 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.design_specification_zone_air_distribution_object_name_45 = None
         else:
             self.design_specification_zone_air_distribution_object_name_45 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.zone_46_name = None
         else:
             self.zone_46_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.design_specification_outdoor_air_object_name_46 = None
         else:
             self.design_specification_outdoor_air_object_name_46 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.design_specification_zone_air_distribution_object_name_46 = None
         else:
             self.design_specification_zone_air_distribution_object_name_46 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.zone_47_name = None
         else:
             self.zone_47_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.design_specification_outdoor_air_object_name_47 = None
         else:
             self.design_specification_outdoor_air_object_name_47 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.design_specification_zone_air_distribution_object_name_47 = None
         else:
             self.design_specification_zone_air_distribution_object_name_47 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.zone_48_name = None
         else:
             self.zone_48_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.design_specification_outdoor_air_object_name_48 = None
         else:
             self.design_specification_outdoor_air_object_name_48 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.design_specification_zone_air_distribution_object_name_48 = None
         else:
             self.design_specification_zone_air_distribution_object_name_48 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.zone_49_name = None
         else:
             self.zone_49_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.design_specification_outdoor_air_object_name_49 = None
         else:
             self.design_specification_outdoor_air_object_name_49 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.design_specification_zone_air_distribution_object_name_49 = None
         else:
             self.design_specification_zone_air_distribution_object_name_49 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.zone_50_name = None
         else:
             self.zone_50_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.design_specification_outdoor_air_object_name_50 = None
         else:
             self.design_specification_outdoor_air_object_name_50 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.design_specification_zone_air_distribution_object_name_50 = None
         else:
             self.design_specification_zone_air_distribution_object_name_50 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -2633,6 +3174,9 @@ class ControllerMechanicalVentilation(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -2668,6 +3212,9 @@ class ControllerMechanicalVentilation(object):
                                  'for field `availability_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `availability_schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `availability_schedule_name`')
 
         self._data["Availability Schedule Name"] = value
@@ -2706,12 +3253,26 @@ class ControllerMechanicalVentilation(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `demand_controlled_ventilation`')
-            vals = set()
-            vals.add("Yes")
-            vals.add("No")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `demand_controlled_ventilation`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `demand_controlled_ventilation`')
+            vals = {}
+            vals["yes"] = "Yes"
+            vals["no"] = "No"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `demand_controlled_ventilation`'.format(value))
+            value = vals[value_lower]
 
         self._data["Demand Controlled Ventilation"] = value
 
@@ -2752,15 +3313,29 @@ class ControllerMechanicalVentilation(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `system_outdoor_air_method`')
-            vals = set()
-            vals.add("ZoneSum")
-            vals.add("VentilationRateProcedure")
-            vals.add("IndoorAirQualityProcedure")
-            vals.add("ProportionalControl")
-            vals.add("IndoorAirQualityProcedureGenericContaminant")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `system_outdoor_air_method`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `system_outdoor_air_method`')
+            vals = {}
+            vals["zonesum"] = "ZoneSum"
+            vals["ventilationrateprocedure"] = "VentilationRateProcedure"
+            vals["indoorairqualityprocedure"] = "IndoorAirQualityProcedure"
+            vals["proportionalcontrol"] = "ProportionalControl"
+            vals["indoorairqualityproceduregenericcontaminant"] = "IndoorAirQualityProcedureGenericContaminant"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `system_outdoor_air_method`'.format(value))
+            value = vals[value_lower]
 
         self._data["System Outdoor Air Method"] = value
 
@@ -2831,6 +3406,9 @@ class ControllerMechanicalVentilation(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `zone_1_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `zone_1_name`')
 
         self._data["Zone 1 Name"] = value
 
@@ -2864,6 +3442,9 @@ class ControllerMechanicalVentilation(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `design_specification_outdoor_air_object_name_1`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `design_specification_outdoor_air_object_name_1`')
 
         self._data["Design Specification Outdoor Air Object Name 1"] = value
 
@@ -2896,6 +3477,9 @@ class ControllerMechanicalVentilation(object):
                                  'for field `design_specification_zone_air_distribution_object_name_1`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `design_specification_zone_air_distribution_object_name_1`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `design_specification_zone_air_distribution_object_name_1`')
 
         self._data["Design Specification Zone Air Distribution Object Name 1"] = value
@@ -2931,6 +3515,9 @@ class ControllerMechanicalVentilation(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `zone_2_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `zone_2_name`')
 
         self._data["Zone 2 Name"] = value
 
@@ -2964,6 +3551,9 @@ class ControllerMechanicalVentilation(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `design_specification_outdoor_air_object_name_2`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `design_specification_outdoor_air_object_name_2`')
 
         self._data["Design Specification Outdoor Air Object Name 2"] = value
 
@@ -2996,6 +3586,9 @@ class ControllerMechanicalVentilation(object):
                                  'for field `design_specification_zone_air_distribution_object_name_2`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `design_specification_zone_air_distribution_object_name_2`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `design_specification_zone_air_distribution_object_name_2`')
 
         self._data["Design Specification Zone Air Distribution Object Name 2"] = value
@@ -3031,6 +3624,9 @@ class ControllerMechanicalVentilation(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `zone_3_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `zone_3_name`')
 
         self._data["Zone 3 Name"] = value
 
@@ -3064,6 +3660,9 @@ class ControllerMechanicalVentilation(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `design_specification_outdoor_air_object_name_3`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `design_specification_outdoor_air_object_name_3`')
 
         self._data["Design Specification Outdoor Air Object Name 3"] = value
 
@@ -3096,6 +3695,9 @@ class ControllerMechanicalVentilation(object):
                                  'for field `design_specification_zone_air_distribution_object_name_3`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `design_specification_zone_air_distribution_object_name_3`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `design_specification_zone_air_distribution_object_name_3`')
 
         self._data["Design Specification Zone Air Distribution Object Name 3"] = value
@@ -3131,6 +3733,9 @@ class ControllerMechanicalVentilation(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `zone_4_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `zone_4_name`')
 
         self._data["Zone 4 Name"] = value
 
@@ -3164,6 +3769,9 @@ class ControllerMechanicalVentilation(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `design_specification_outdoor_air_object_name_4`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `design_specification_outdoor_air_object_name_4`')
 
         self._data["Design Specification Outdoor Air Object Name 4"] = value
 
@@ -3196,6 +3804,9 @@ class ControllerMechanicalVentilation(object):
                                  'for field `design_specification_zone_air_distribution_object_name_4`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `design_specification_zone_air_distribution_object_name_4`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `design_specification_zone_air_distribution_object_name_4`')
 
         self._data["Design Specification Zone Air Distribution Object Name 4"] = value
@@ -3231,6 +3842,9 @@ class ControllerMechanicalVentilation(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `zone_5_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `zone_5_name`')
 
         self._data["Zone 5 Name"] = value
 
@@ -3264,6 +3878,9 @@ class ControllerMechanicalVentilation(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `design_specification_outdoor_air_object_name_5`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `design_specification_outdoor_air_object_name_5`')
 
         self._data["Design Specification Outdoor Air Object Name 5"] = value
 
@@ -3296,6 +3913,9 @@ class ControllerMechanicalVentilation(object):
                                  'for field `design_specification_zone_air_distribution_object_name_5`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `design_specification_zone_air_distribution_object_name_5`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `design_specification_zone_air_distribution_object_name_5`')
 
         self._data["Design Specification Zone Air Distribution Object Name 5"] = value
@@ -3331,6 +3951,9 @@ class ControllerMechanicalVentilation(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `zone_6_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `zone_6_name`')
 
         self._data["Zone 6 Name"] = value
 
@@ -3364,6 +3987,9 @@ class ControllerMechanicalVentilation(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `design_specification_outdoor_air_object_name_6`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `design_specification_outdoor_air_object_name_6`')
 
         self._data["Design Specification Outdoor Air Object Name 6"] = value
 
@@ -3396,6 +4022,9 @@ class ControllerMechanicalVentilation(object):
                                  'for field `design_specification_zone_air_distribution_object_name_6`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `design_specification_zone_air_distribution_object_name_6`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `design_specification_zone_air_distribution_object_name_6`')
 
         self._data["Design Specification Zone Air Distribution Object Name 6"] = value
@@ -3431,6 +4060,9 @@ class ControllerMechanicalVentilation(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `zone_7_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `zone_7_name`')
 
         self._data["Zone 7 Name"] = value
 
@@ -3464,6 +4096,9 @@ class ControllerMechanicalVentilation(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `design_specification_outdoor_air_object_name_7`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `design_specification_outdoor_air_object_name_7`')
 
         self._data["Design Specification Outdoor Air Object Name 7"] = value
 
@@ -3496,6 +4131,9 @@ class ControllerMechanicalVentilation(object):
                                  'for field `design_specification_zone_air_distribution_object_name_7`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `design_specification_zone_air_distribution_object_name_7`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `design_specification_zone_air_distribution_object_name_7`')
 
         self._data["Design Specification Zone Air Distribution Object Name 7"] = value
@@ -3531,6 +4169,9 @@ class ControllerMechanicalVentilation(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `zone_8_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `zone_8_name`')
 
         self._data["Zone 8 Name"] = value
 
@@ -3564,6 +4205,9 @@ class ControllerMechanicalVentilation(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `design_specification_outdoor_air_object_name_8`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `design_specification_outdoor_air_object_name_8`')
 
         self._data["Design Specification Outdoor Air Object Name 8"] = value
 
@@ -3596,6 +4240,9 @@ class ControllerMechanicalVentilation(object):
                                  'for field `design_specification_zone_air_distribution_object_name_8`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `design_specification_zone_air_distribution_object_name_8`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `design_specification_zone_air_distribution_object_name_8`')
 
         self._data["Design Specification Zone Air Distribution Object Name 8"] = value
@@ -3631,6 +4278,9 @@ class ControllerMechanicalVentilation(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `zone_9_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `zone_9_name`')
 
         self._data["Zone 9 Name"] = value
 
@@ -3664,6 +4314,9 @@ class ControllerMechanicalVentilation(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `design_specification_outdoor_air_object_name_9`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `design_specification_outdoor_air_object_name_9`')
 
         self._data["Design Specification Outdoor Air Object Name 9"] = value
 
@@ -3696,6 +4349,9 @@ class ControllerMechanicalVentilation(object):
                                  'for field `design_specification_zone_air_distribution_object_name_9`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `design_specification_zone_air_distribution_object_name_9`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `design_specification_zone_air_distribution_object_name_9`')
 
         self._data["Design Specification Zone Air Distribution Object Name 9"] = value
@@ -3731,6 +4387,9 @@ class ControllerMechanicalVentilation(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `zone_10_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `zone_10_name`')
 
         self._data["Zone 10 Name"] = value
 
@@ -3764,6 +4423,9 @@ class ControllerMechanicalVentilation(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `design_specification_outdoor_air_object_name_10`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `design_specification_outdoor_air_object_name_10`')
 
         self._data["Design Specification Outdoor Air Object Name 10"] = value
 
@@ -3796,6 +4458,9 @@ class ControllerMechanicalVentilation(object):
                                  'for field `design_specification_zone_air_distribution_object_name_10`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `design_specification_zone_air_distribution_object_name_10`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `design_specification_zone_air_distribution_object_name_10`')
 
         self._data["Design Specification Zone Air Distribution Object Name 10"] = value
@@ -3831,6 +4496,9 @@ class ControllerMechanicalVentilation(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `zone_11_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `zone_11_name`')
 
         self._data["Zone 11 Name"] = value
 
@@ -3864,6 +4532,9 @@ class ControllerMechanicalVentilation(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `design_specification_outdoor_air_object_name_11`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `design_specification_outdoor_air_object_name_11`')
 
         self._data["Design Specification Outdoor Air Object Name 11"] = value
 
@@ -3896,6 +4567,9 @@ class ControllerMechanicalVentilation(object):
                                  'for field `design_specification_zone_air_distribution_object_name_11`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `design_specification_zone_air_distribution_object_name_11`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `design_specification_zone_air_distribution_object_name_11`')
 
         self._data["Design Specification Zone Air Distribution Object Name 11"] = value
@@ -3931,6 +4605,9 @@ class ControllerMechanicalVentilation(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `zone_12_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `zone_12_name`')
 
         self._data["Zone 12 Name"] = value
 
@@ -3964,6 +4641,9 @@ class ControllerMechanicalVentilation(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `design_specification_outdoor_air_object_name_12`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `design_specification_outdoor_air_object_name_12`')
 
         self._data["Design Specification Outdoor Air Object Name 12"] = value
 
@@ -3996,6 +4676,9 @@ class ControllerMechanicalVentilation(object):
                                  'for field `design_specification_zone_air_distribution_object_name_12`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `design_specification_zone_air_distribution_object_name_12`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `design_specification_zone_air_distribution_object_name_12`')
 
         self._data["Design Specification Zone Air Distribution Object Name 12"] = value
@@ -4031,6 +4714,9 @@ class ControllerMechanicalVentilation(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `zone_13_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `zone_13_name`')
 
         self._data["Zone 13 Name"] = value
 
@@ -4064,6 +4750,9 @@ class ControllerMechanicalVentilation(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `design_specification_outdoor_air_object_name_13`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `design_specification_outdoor_air_object_name_13`')
 
         self._data["Design Specification Outdoor Air Object Name 13"] = value
 
@@ -4096,6 +4785,9 @@ class ControllerMechanicalVentilation(object):
                                  'for field `design_specification_zone_air_distribution_object_name_13`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `design_specification_zone_air_distribution_object_name_13`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `design_specification_zone_air_distribution_object_name_13`')
 
         self._data["Design Specification Zone Air Distribution Object Name 13"] = value
@@ -4131,6 +4823,9 @@ class ControllerMechanicalVentilation(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `zone_14_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `zone_14_name`')
 
         self._data["Zone 14 Name"] = value
 
@@ -4164,6 +4859,9 @@ class ControllerMechanicalVentilation(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `design_specification_outdoor_air_object_name_14`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `design_specification_outdoor_air_object_name_14`')
 
         self._data["Design Specification Outdoor Air Object Name 14"] = value
 
@@ -4196,6 +4894,9 @@ class ControllerMechanicalVentilation(object):
                                  'for field `design_specification_zone_air_distribution_object_name_14`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `design_specification_zone_air_distribution_object_name_14`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `design_specification_zone_air_distribution_object_name_14`')
 
         self._data["Design Specification Zone Air Distribution Object Name 14"] = value
@@ -4231,6 +4932,9 @@ class ControllerMechanicalVentilation(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `zone_15_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `zone_15_name`')
 
         self._data["Zone 15 Name"] = value
 
@@ -4264,6 +4968,9 @@ class ControllerMechanicalVentilation(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `design_specification_outdoor_air_object_name_15`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `design_specification_outdoor_air_object_name_15`')
 
         self._data["Design Specification Outdoor Air Object Name 15"] = value
 
@@ -4296,6 +5003,9 @@ class ControllerMechanicalVentilation(object):
                                  'for field `design_specification_zone_air_distribution_object_name_15`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `design_specification_zone_air_distribution_object_name_15`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `design_specification_zone_air_distribution_object_name_15`')
 
         self._data["Design Specification Zone Air Distribution Object Name 15"] = value
@@ -4331,6 +5041,9 @@ class ControllerMechanicalVentilation(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `zone_16_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `zone_16_name`')
 
         self._data["Zone 16 Name"] = value
 
@@ -4364,6 +5077,9 @@ class ControllerMechanicalVentilation(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `design_specification_outdoor_air_object_name_16`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `design_specification_outdoor_air_object_name_16`')
 
         self._data["Design Specification Outdoor Air Object Name 16"] = value
 
@@ -4396,6 +5112,9 @@ class ControllerMechanicalVentilation(object):
                                  'for field `design_specification_zone_air_distribution_object_name_16`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `design_specification_zone_air_distribution_object_name_16`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `design_specification_zone_air_distribution_object_name_16`')
 
         self._data["Design Specification Zone Air Distribution Object Name 16"] = value
@@ -4431,6 +5150,9 @@ class ControllerMechanicalVentilation(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `zone_17_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `zone_17_name`')
 
         self._data["Zone 17 Name"] = value
 
@@ -4464,6 +5186,9 @@ class ControllerMechanicalVentilation(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `design_specification_outdoor_air_object_name_17`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `design_specification_outdoor_air_object_name_17`')
 
         self._data["Design Specification Outdoor Air Object Name 17"] = value
 
@@ -4496,6 +5221,9 @@ class ControllerMechanicalVentilation(object):
                                  'for field `design_specification_zone_air_distribution_object_name_17`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `design_specification_zone_air_distribution_object_name_17`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `design_specification_zone_air_distribution_object_name_17`')
 
         self._data["Design Specification Zone Air Distribution Object Name 17"] = value
@@ -4531,6 +5259,9 @@ class ControllerMechanicalVentilation(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `zone_18_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `zone_18_name`')
 
         self._data["Zone 18 Name"] = value
 
@@ -4564,6 +5295,9 @@ class ControllerMechanicalVentilation(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `design_specification_outdoor_air_object_name_18`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `design_specification_outdoor_air_object_name_18`')
 
         self._data["Design Specification Outdoor Air Object Name 18"] = value
 
@@ -4596,6 +5330,9 @@ class ControllerMechanicalVentilation(object):
                                  'for field `design_specification_zone_air_distribution_object_name_18`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `design_specification_zone_air_distribution_object_name_18`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `design_specification_zone_air_distribution_object_name_18`')
 
         self._data["Design Specification Zone Air Distribution Object Name 18"] = value
@@ -4631,6 +5368,9 @@ class ControllerMechanicalVentilation(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `zone_19_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `zone_19_name`')
 
         self._data["Zone 19 Name"] = value
 
@@ -4664,6 +5404,9 @@ class ControllerMechanicalVentilation(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `design_specification_outdoor_air_object_name_19`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `design_specification_outdoor_air_object_name_19`')
 
         self._data["Design Specification Outdoor Air Object Name 19"] = value
 
@@ -4696,6 +5439,9 @@ class ControllerMechanicalVentilation(object):
                                  'for field `design_specification_zone_air_distribution_object_name_19`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `design_specification_zone_air_distribution_object_name_19`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `design_specification_zone_air_distribution_object_name_19`')
 
         self._data["Design Specification Zone Air Distribution Object Name 19"] = value
@@ -4731,6 +5477,9 @@ class ControllerMechanicalVentilation(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `zone_20_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `zone_20_name`')
 
         self._data["Zone 20 Name"] = value
 
@@ -4764,6 +5513,9 @@ class ControllerMechanicalVentilation(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `design_specification_outdoor_air_object_name_20`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `design_specification_outdoor_air_object_name_20`')
 
         self._data["Design Specification Outdoor Air Object Name 20"] = value
 
@@ -4796,6 +5548,9 @@ class ControllerMechanicalVentilation(object):
                                  'for field `design_specification_zone_air_distribution_object_name_20`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `design_specification_zone_air_distribution_object_name_20`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `design_specification_zone_air_distribution_object_name_20`')
 
         self._data["Design Specification Zone Air Distribution Object Name 20"] = value
@@ -4831,6 +5586,9 @@ class ControllerMechanicalVentilation(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `zone_21_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `zone_21_name`')
 
         self._data["Zone 21 Name"] = value
 
@@ -4864,6 +5622,9 @@ class ControllerMechanicalVentilation(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `design_specification_outdoor_air_object_name_21`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `design_specification_outdoor_air_object_name_21`')
 
         self._data["Design Specification Outdoor Air Object Name 21"] = value
 
@@ -4896,6 +5657,9 @@ class ControllerMechanicalVentilation(object):
                                  'for field `design_specification_zone_air_distribution_object_name_21`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `design_specification_zone_air_distribution_object_name_21`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `design_specification_zone_air_distribution_object_name_21`')
 
         self._data["Design Specification Zone Air Distribution Object Name 21"] = value
@@ -4931,6 +5695,9 @@ class ControllerMechanicalVentilation(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `zone_22_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `zone_22_name`')
 
         self._data["Zone 22 Name"] = value
 
@@ -4964,6 +5731,9 @@ class ControllerMechanicalVentilation(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `design_specification_outdoor_air_object_name_22`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `design_specification_outdoor_air_object_name_22`')
 
         self._data["Design Specification Outdoor Air Object Name 22"] = value
 
@@ -4996,6 +5766,9 @@ class ControllerMechanicalVentilation(object):
                                  'for field `design_specification_zone_air_distribution_object_name_22`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `design_specification_zone_air_distribution_object_name_22`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `design_specification_zone_air_distribution_object_name_22`')
 
         self._data["Design Specification Zone Air Distribution Object Name 22"] = value
@@ -5031,6 +5804,9 @@ class ControllerMechanicalVentilation(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `zone_23_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `zone_23_name`')
 
         self._data["Zone 23 Name"] = value
 
@@ -5064,6 +5840,9 @@ class ControllerMechanicalVentilation(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `design_specification_outdoor_air_object_name_23`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `design_specification_outdoor_air_object_name_23`')
 
         self._data["Design Specification Outdoor Air Object Name 23"] = value
 
@@ -5096,6 +5875,9 @@ class ControllerMechanicalVentilation(object):
                                  'for field `design_specification_zone_air_distribution_object_name_23`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `design_specification_zone_air_distribution_object_name_23`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `design_specification_zone_air_distribution_object_name_23`')
 
         self._data["Design Specification Zone Air Distribution Object Name 23"] = value
@@ -5131,6 +5913,9 @@ class ControllerMechanicalVentilation(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `zone_24_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `zone_24_name`')
 
         self._data["Zone 24 Name"] = value
 
@@ -5164,6 +5949,9 @@ class ControllerMechanicalVentilation(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `design_specification_outdoor_air_object_name_24`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `design_specification_outdoor_air_object_name_24`')
 
         self._data["Design Specification Outdoor Air Object Name 24"] = value
 
@@ -5196,6 +5984,9 @@ class ControllerMechanicalVentilation(object):
                                  'for field `design_specification_zone_air_distribution_object_name_24`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `design_specification_zone_air_distribution_object_name_24`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `design_specification_zone_air_distribution_object_name_24`')
 
         self._data["Design Specification Zone Air Distribution Object Name 24"] = value
@@ -5231,6 +6022,9 @@ class ControllerMechanicalVentilation(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `zone_25_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `zone_25_name`')
 
         self._data["Zone 25 Name"] = value
 
@@ -5264,6 +6058,9 @@ class ControllerMechanicalVentilation(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `design_specification_outdoor_air_object_name_25`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `design_specification_outdoor_air_object_name_25`')
 
         self._data["Design Specification Outdoor Air Object Name 25"] = value
 
@@ -5296,6 +6093,9 @@ class ControllerMechanicalVentilation(object):
                                  'for field `design_specification_zone_air_distribution_object_name_25`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `design_specification_zone_air_distribution_object_name_25`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `design_specification_zone_air_distribution_object_name_25`')
 
         self._data["Design Specification Zone Air Distribution Object Name 25"] = value
@@ -5331,6 +6131,9 @@ class ControllerMechanicalVentilation(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `zone_26_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `zone_26_name`')
 
         self._data["Zone 26 Name"] = value
 
@@ -5364,6 +6167,9 @@ class ControllerMechanicalVentilation(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `design_specification_outdoor_air_object_name_26`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `design_specification_outdoor_air_object_name_26`')
 
         self._data["Design Specification Outdoor Air Object Name 26"] = value
 
@@ -5396,6 +6202,9 @@ class ControllerMechanicalVentilation(object):
                                  'for field `design_specification_zone_air_distribution_object_name_26`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `design_specification_zone_air_distribution_object_name_26`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `design_specification_zone_air_distribution_object_name_26`')
 
         self._data["Design Specification Zone Air Distribution Object Name 26"] = value
@@ -5431,6 +6240,9 @@ class ControllerMechanicalVentilation(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `zone_27_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `zone_27_name`')
 
         self._data["Zone 27 Name"] = value
 
@@ -5464,6 +6276,9 @@ class ControllerMechanicalVentilation(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `design_specification_outdoor_air_object_name_27`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `design_specification_outdoor_air_object_name_27`')
 
         self._data["Design Specification Outdoor Air Object Name 27"] = value
 
@@ -5496,6 +6311,9 @@ class ControllerMechanicalVentilation(object):
                                  'for field `design_specification_zone_air_distribution_object_name_27`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `design_specification_zone_air_distribution_object_name_27`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `design_specification_zone_air_distribution_object_name_27`')
 
         self._data["Design Specification Zone Air Distribution Object Name 27"] = value
@@ -5531,6 +6349,9 @@ class ControllerMechanicalVentilation(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `zone_28_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `zone_28_name`')
 
         self._data["Zone 28 Name"] = value
 
@@ -5564,6 +6385,9 @@ class ControllerMechanicalVentilation(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `design_specification_outdoor_air_object_name_28`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `design_specification_outdoor_air_object_name_28`')
 
         self._data["Design Specification Outdoor Air Object Name 28"] = value
 
@@ -5596,6 +6420,9 @@ class ControllerMechanicalVentilation(object):
                                  'for field `design_specification_zone_air_distribution_object_name_28`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `design_specification_zone_air_distribution_object_name_28`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `design_specification_zone_air_distribution_object_name_28`')
 
         self._data["Design Specification Zone Air Distribution Object Name 28"] = value
@@ -5631,6 +6458,9 @@ class ControllerMechanicalVentilation(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `zone_29_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `zone_29_name`')
 
         self._data["Zone 29 Name"] = value
 
@@ -5664,6 +6494,9 @@ class ControllerMechanicalVentilation(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `design_specification_outdoor_air_object_name_29`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `design_specification_outdoor_air_object_name_29`')
 
         self._data["Design Specification Outdoor Air Object Name 29"] = value
 
@@ -5696,6 +6529,9 @@ class ControllerMechanicalVentilation(object):
                                  'for field `design_specification_zone_air_distribution_object_name_29`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `design_specification_zone_air_distribution_object_name_29`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `design_specification_zone_air_distribution_object_name_29`')
 
         self._data["Design Specification Zone Air Distribution Object Name 29"] = value
@@ -5731,6 +6567,9 @@ class ControllerMechanicalVentilation(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `zone_30_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `zone_30_name`')
 
         self._data["Zone 30 Name"] = value
 
@@ -5764,6 +6603,9 @@ class ControllerMechanicalVentilation(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `design_specification_outdoor_air_object_name_30`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `design_specification_outdoor_air_object_name_30`')
 
         self._data["Design Specification Outdoor Air Object Name 30"] = value
 
@@ -5796,6 +6638,9 @@ class ControllerMechanicalVentilation(object):
                                  'for field `design_specification_zone_air_distribution_object_name_30`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `design_specification_zone_air_distribution_object_name_30`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `design_specification_zone_air_distribution_object_name_30`')
 
         self._data["Design Specification Zone Air Distribution Object Name 30"] = value
@@ -5831,6 +6676,9 @@ class ControllerMechanicalVentilation(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `zone_31_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `zone_31_name`')
 
         self._data["Zone 31 Name"] = value
 
@@ -5864,6 +6712,9 @@ class ControllerMechanicalVentilation(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `design_specification_outdoor_air_object_name_31`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `design_specification_outdoor_air_object_name_31`')
 
         self._data["Design Specification Outdoor Air Object Name 31"] = value
 
@@ -5896,6 +6747,9 @@ class ControllerMechanicalVentilation(object):
                                  'for field `design_specification_zone_air_distribution_object_name_31`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `design_specification_zone_air_distribution_object_name_31`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `design_specification_zone_air_distribution_object_name_31`')
 
         self._data["Design Specification Zone Air Distribution Object Name 31"] = value
@@ -5931,6 +6785,9 @@ class ControllerMechanicalVentilation(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `zone_32_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `zone_32_name`')
 
         self._data["Zone 32 Name"] = value
 
@@ -5964,6 +6821,9 @@ class ControllerMechanicalVentilation(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `design_specification_outdoor_air_object_name_32`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `design_specification_outdoor_air_object_name_32`')
 
         self._data["Design Specification Outdoor Air Object Name 32"] = value
 
@@ -5996,6 +6856,9 @@ class ControllerMechanicalVentilation(object):
                                  'for field `design_specification_zone_air_distribution_object_name_32`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `design_specification_zone_air_distribution_object_name_32`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `design_specification_zone_air_distribution_object_name_32`')
 
         self._data["Design Specification Zone Air Distribution Object Name 32"] = value
@@ -6031,6 +6894,9 @@ class ControllerMechanicalVentilation(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `zone_33_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `zone_33_name`')
 
         self._data["Zone 33 Name"] = value
 
@@ -6064,6 +6930,9 @@ class ControllerMechanicalVentilation(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `design_specification_outdoor_air_object_name_33`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `design_specification_outdoor_air_object_name_33`')
 
         self._data["Design Specification Outdoor Air Object Name 33"] = value
 
@@ -6096,6 +6965,9 @@ class ControllerMechanicalVentilation(object):
                                  'for field `design_specification_zone_air_distribution_object_name_33`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `design_specification_zone_air_distribution_object_name_33`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `design_specification_zone_air_distribution_object_name_33`')
 
         self._data["Design Specification Zone Air Distribution Object Name 33"] = value
@@ -6131,6 +7003,9 @@ class ControllerMechanicalVentilation(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `zone_34_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `zone_34_name`')
 
         self._data["Zone 34 Name"] = value
 
@@ -6164,6 +7039,9 @@ class ControllerMechanicalVentilation(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `design_specification_outdoor_air_object_name_34`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `design_specification_outdoor_air_object_name_34`')
 
         self._data["Design Specification Outdoor Air Object Name 34"] = value
 
@@ -6196,6 +7074,9 @@ class ControllerMechanicalVentilation(object):
                                  'for field `design_specification_zone_air_distribution_object_name_34`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `design_specification_zone_air_distribution_object_name_34`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `design_specification_zone_air_distribution_object_name_34`')
 
         self._data["Design Specification Zone Air Distribution Object Name 34"] = value
@@ -6231,6 +7112,9 @@ class ControllerMechanicalVentilation(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `zone_35_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `zone_35_name`')
 
         self._data["Zone 35 Name"] = value
 
@@ -6264,6 +7148,9 @@ class ControllerMechanicalVentilation(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `design_specification_outdoor_air_object_name_35`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `design_specification_outdoor_air_object_name_35`')
 
         self._data["Design Specification Outdoor Air Object Name 35"] = value
 
@@ -6296,6 +7183,9 @@ class ControllerMechanicalVentilation(object):
                                  'for field `design_specification_zone_air_distribution_object_name_35`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `design_specification_zone_air_distribution_object_name_35`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `design_specification_zone_air_distribution_object_name_35`')
 
         self._data["Design Specification Zone Air Distribution Object Name 35"] = value
@@ -6331,6 +7221,9 @@ class ControllerMechanicalVentilation(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `zone_36_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `zone_36_name`')
 
         self._data["Zone 36 Name"] = value
 
@@ -6364,6 +7257,9 @@ class ControllerMechanicalVentilation(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `design_specification_outdoor_air_object_name_36`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `design_specification_outdoor_air_object_name_36`')
 
         self._data["Design Specification Outdoor Air Object Name 36"] = value
 
@@ -6396,6 +7292,9 @@ class ControllerMechanicalVentilation(object):
                                  'for field `design_specification_zone_air_distribution_object_name_36`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `design_specification_zone_air_distribution_object_name_36`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `design_specification_zone_air_distribution_object_name_36`')
 
         self._data["Design Specification Zone Air Distribution Object Name 36"] = value
@@ -6431,6 +7330,9 @@ class ControllerMechanicalVentilation(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `zone_37_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `zone_37_name`')
 
         self._data["Zone 37 Name"] = value
 
@@ -6464,6 +7366,9 @@ class ControllerMechanicalVentilation(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `design_specification_outdoor_air_object_name_37`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `design_specification_outdoor_air_object_name_37`')
 
         self._data["Design Specification Outdoor Air Object Name 37"] = value
 
@@ -6496,6 +7401,9 @@ class ControllerMechanicalVentilation(object):
                                  'for field `design_specification_zone_air_distribution_object_name_37`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `design_specification_zone_air_distribution_object_name_37`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `design_specification_zone_air_distribution_object_name_37`')
 
         self._data["Design Specification Zone Air Distribution Object Name 37"] = value
@@ -6531,6 +7439,9 @@ class ControllerMechanicalVentilation(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `zone_38_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `zone_38_name`')
 
         self._data["Zone 38 Name"] = value
 
@@ -6564,6 +7475,9 @@ class ControllerMechanicalVentilation(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `design_specification_outdoor_air_object_name_38`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `design_specification_outdoor_air_object_name_38`')
 
         self._data["Design Specification Outdoor Air Object Name 38"] = value
 
@@ -6596,6 +7510,9 @@ class ControllerMechanicalVentilation(object):
                                  'for field `design_specification_zone_air_distribution_object_name_38`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `design_specification_zone_air_distribution_object_name_38`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `design_specification_zone_air_distribution_object_name_38`')
 
         self._data["Design Specification Zone Air Distribution Object Name 38"] = value
@@ -6631,6 +7548,9 @@ class ControllerMechanicalVentilation(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `zone_39_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `zone_39_name`')
 
         self._data["Zone 39 Name"] = value
 
@@ -6664,6 +7584,9 @@ class ControllerMechanicalVentilation(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `design_specification_outdoor_air_object_name_39`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `design_specification_outdoor_air_object_name_39`')
 
         self._data["Design Specification Outdoor Air Object Name 39"] = value
 
@@ -6696,6 +7619,9 @@ class ControllerMechanicalVentilation(object):
                                  'for field `design_specification_zone_air_distribution_object_name_39`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `design_specification_zone_air_distribution_object_name_39`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `design_specification_zone_air_distribution_object_name_39`')
 
         self._data["Design Specification Zone Air Distribution Object Name 39"] = value
@@ -6731,6 +7657,9 @@ class ControllerMechanicalVentilation(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `zone_40_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `zone_40_name`')
 
         self._data["Zone 40 Name"] = value
 
@@ -6764,6 +7693,9 @@ class ControllerMechanicalVentilation(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `design_specification_outdoor_air_object_name_40`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `design_specification_outdoor_air_object_name_40`')
 
         self._data["Design Specification Outdoor Air Object Name 40"] = value
 
@@ -6796,6 +7728,9 @@ class ControllerMechanicalVentilation(object):
                                  'for field `design_specification_zone_air_distribution_object_name_40`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `design_specification_zone_air_distribution_object_name_40`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `design_specification_zone_air_distribution_object_name_40`')
 
         self._data["Design Specification Zone Air Distribution Object Name 40"] = value
@@ -6831,6 +7766,9 @@ class ControllerMechanicalVentilation(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `zone_41_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `zone_41_name`')
 
         self._data["Zone 41 Name"] = value
 
@@ -6864,6 +7802,9 @@ class ControllerMechanicalVentilation(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `design_specification_outdoor_air_object_name_41`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `design_specification_outdoor_air_object_name_41`')
 
         self._data["Design Specification Outdoor Air Object Name 41"] = value
 
@@ -6896,6 +7837,9 @@ class ControllerMechanicalVentilation(object):
                                  'for field `design_specification_zone_air_distribution_object_name_41`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `design_specification_zone_air_distribution_object_name_41`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `design_specification_zone_air_distribution_object_name_41`')
 
         self._data["Design Specification Zone Air Distribution Object Name 41"] = value
@@ -6931,6 +7875,9 @@ class ControllerMechanicalVentilation(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `zone_42_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `zone_42_name`')
 
         self._data["Zone 42 Name"] = value
 
@@ -6964,6 +7911,9 @@ class ControllerMechanicalVentilation(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `design_specification_outdoor_air_object_name_42`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `design_specification_outdoor_air_object_name_42`')
 
         self._data["Design Specification Outdoor Air Object Name 42"] = value
 
@@ -6996,6 +7946,9 @@ class ControllerMechanicalVentilation(object):
                                  'for field `design_specification_zone_air_distribution_object_name_42`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `design_specification_zone_air_distribution_object_name_42`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `design_specification_zone_air_distribution_object_name_42`')
 
         self._data["Design Specification Zone Air Distribution Object Name 42"] = value
@@ -7031,6 +7984,9 @@ class ControllerMechanicalVentilation(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `zone_43_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `zone_43_name`')
 
         self._data["Zone 43 Name"] = value
 
@@ -7064,6 +8020,9 @@ class ControllerMechanicalVentilation(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `design_specification_outdoor_air_object_name_43`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `design_specification_outdoor_air_object_name_43`')
 
         self._data["Design Specification Outdoor Air Object Name 43"] = value
 
@@ -7096,6 +8055,9 @@ class ControllerMechanicalVentilation(object):
                                  'for field `design_specification_zone_air_distribution_object_name_43`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `design_specification_zone_air_distribution_object_name_43`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `design_specification_zone_air_distribution_object_name_43`')
 
         self._data["Design Specification Zone Air Distribution Object Name 43"] = value
@@ -7131,6 +8093,9 @@ class ControllerMechanicalVentilation(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `zone_44_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `zone_44_name`')
 
         self._data["Zone 44 Name"] = value
 
@@ -7164,6 +8129,9 @@ class ControllerMechanicalVentilation(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `design_specification_outdoor_air_object_name_44`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `design_specification_outdoor_air_object_name_44`')
 
         self._data["Design Specification Outdoor Air Object Name 44"] = value
 
@@ -7196,6 +8164,9 @@ class ControllerMechanicalVentilation(object):
                                  'for field `design_specification_zone_air_distribution_object_name_44`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `design_specification_zone_air_distribution_object_name_44`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `design_specification_zone_air_distribution_object_name_44`')
 
         self._data["Design Specification Zone Air Distribution Object Name 44"] = value
@@ -7231,6 +8202,9 @@ class ControllerMechanicalVentilation(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `zone_45_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `zone_45_name`')
 
         self._data["Zone 45 Name"] = value
 
@@ -7264,6 +8238,9 @@ class ControllerMechanicalVentilation(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `design_specification_outdoor_air_object_name_45`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `design_specification_outdoor_air_object_name_45`')
 
         self._data["Design Specification Outdoor Air Object Name 45"] = value
 
@@ -7296,6 +8273,9 @@ class ControllerMechanicalVentilation(object):
                                  'for field `design_specification_zone_air_distribution_object_name_45`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `design_specification_zone_air_distribution_object_name_45`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `design_specification_zone_air_distribution_object_name_45`')
 
         self._data["Design Specification Zone Air Distribution Object Name 45"] = value
@@ -7331,6 +8311,9 @@ class ControllerMechanicalVentilation(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `zone_46_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `zone_46_name`')
 
         self._data["Zone 46 Name"] = value
 
@@ -7364,6 +8347,9 @@ class ControllerMechanicalVentilation(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `design_specification_outdoor_air_object_name_46`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `design_specification_outdoor_air_object_name_46`')
 
         self._data["Design Specification Outdoor Air Object Name 46"] = value
 
@@ -7396,6 +8382,9 @@ class ControllerMechanicalVentilation(object):
                                  'for field `design_specification_zone_air_distribution_object_name_46`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `design_specification_zone_air_distribution_object_name_46`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `design_specification_zone_air_distribution_object_name_46`')
 
         self._data["Design Specification Zone Air Distribution Object Name 46"] = value
@@ -7431,6 +8420,9 @@ class ControllerMechanicalVentilation(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `zone_47_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `zone_47_name`')
 
         self._data["Zone 47 Name"] = value
 
@@ -7464,6 +8456,9 @@ class ControllerMechanicalVentilation(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `design_specification_outdoor_air_object_name_47`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `design_specification_outdoor_air_object_name_47`')
 
         self._data["Design Specification Outdoor Air Object Name 47"] = value
 
@@ -7496,6 +8491,9 @@ class ControllerMechanicalVentilation(object):
                                  'for field `design_specification_zone_air_distribution_object_name_47`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `design_specification_zone_air_distribution_object_name_47`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `design_specification_zone_air_distribution_object_name_47`')
 
         self._data["Design Specification Zone Air Distribution Object Name 47"] = value
@@ -7531,6 +8529,9 @@ class ControllerMechanicalVentilation(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `zone_48_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `zone_48_name`')
 
         self._data["Zone 48 Name"] = value
 
@@ -7564,6 +8565,9 @@ class ControllerMechanicalVentilation(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `design_specification_outdoor_air_object_name_48`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `design_specification_outdoor_air_object_name_48`')
 
         self._data["Design Specification Outdoor Air Object Name 48"] = value
 
@@ -7596,6 +8600,9 @@ class ControllerMechanicalVentilation(object):
                                  'for field `design_specification_zone_air_distribution_object_name_48`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `design_specification_zone_air_distribution_object_name_48`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `design_specification_zone_air_distribution_object_name_48`')
 
         self._data["Design Specification Zone Air Distribution Object Name 48"] = value
@@ -7631,6 +8638,9 @@ class ControllerMechanicalVentilation(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `zone_49_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `zone_49_name`')
 
         self._data["Zone 49 Name"] = value
 
@@ -7664,6 +8674,9 @@ class ControllerMechanicalVentilation(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `design_specification_outdoor_air_object_name_49`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `design_specification_outdoor_air_object_name_49`')
 
         self._data["Design Specification Outdoor Air Object Name 49"] = value
 
@@ -7696,6 +8709,9 @@ class ControllerMechanicalVentilation(object):
                                  'for field `design_specification_zone_air_distribution_object_name_49`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `design_specification_zone_air_distribution_object_name_49`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `design_specification_zone_air_distribution_object_name_49`')
 
         self._data["Design Specification Zone Air Distribution Object Name 49"] = value
@@ -7731,6 +8747,9 @@ class ControllerMechanicalVentilation(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `zone_50_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `zone_50_name`')
 
         self._data["Zone 50 Name"] = value
 
@@ -7763,6 +8782,9 @@ class ControllerMechanicalVentilation(object):
                                  'for field `design_specification_outdoor_air_object_name_50`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `design_specification_outdoor_air_object_name_50`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `design_specification_outdoor_air_object_name_50`')
 
         self._data["Design Specification Outdoor Air Object Name 50"] = value
@@ -7797,6 +8819,9 @@ class ControllerMechanicalVentilation(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `design_specification_zone_air_distribution_object_name_50`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `design_specification_zone_air_distribution_object_name_50`')
 
         self._data["Design Specification Zone Air Distribution Object Name 50"] = value
 
@@ -7822,164 +8847,17 @@ class ControllerMechanicalVentilation(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.availability_schedule_name))
-        out.append(self._to_str(self.demand_controlled_ventilation))
-        out.append(self._to_str(self.system_outdoor_air_method))
-        out.append(self._to_str(self.zone_maximum_outdoor_air_fraction))
-        out.append(self._to_str(self.zone_1_name))
-        out.append(self._to_str(self.design_specification_outdoor_air_object_name_1))
-        out.append(self._to_str(self.design_specification_zone_air_distribution_object_name_1))
-        out.append(self._to_str(self.zone_2_name))
-        out.append(self._to_str(self.design_specification_outdoor_air_object_name_2))
-        out.append(self._to_str(self.design_specification_zone_air_distribution_object_name_2))
-        out.append(self._to_str(self.zone_3_name))
-        out.append(self._to_str(self.design_specification_outdoor_air_object_name_3))
-        out.append(self._to_str(self.design_specification_zone_air_distribution_object_name_3))
-        out.append(self._to_str(self.zone_4_name))
-        out.append(self._to_str(self.design_specification_outdoor_air_object_name_4))
-        out.append(self._to_str(self.design_specification_zone_air_distribution_object_name_4))
-        out.append(self._to_str(self.zone_5_name))
-        out.append(self._to_str(self.design_specification_outdoor_air_object_name_5))
-        out.append(self._to_str(self.design_specification_zone_air_distribution_object_name_5))
-        out.append(self._to_str(self.zone_6_name))
-        out.append(self._to_str(self.design_specification_outdoor_air_object_name_6))
-        out.append(self._to_str(self.design_specification_zone_air_distribution_object_name_6))
-        out.append(self._to_str(self.zone_7_name))
-        out.append(self._to_str(self.design_specification_outdoor_air_object_name_7))
-        out.append(self._to_str(self.design_specification_zone_air_distribution_object_name_7))
-        out.append(self._to_str(self.zone_8_name))
-        out.append(self._to_str(self.design_specification_outdoor_air_object_name_8))
-        out.append(self._to_str(self.design_specification_zone_air_distribution_object_name_8))
-        out.append(self._to_str(self.zone_9_name))
-        out.append(self._to_str(self.design_specification_outdoor_air_object_name_9))
-        out.append(self._to_str(self.design_specification_zone_air_distribution_object_name_9))
-        out.append(self._to_str(self.zone_10_name))
-        out.append(self._to_str(self.design_specification_outdoor_air_object_name_10))
-        out.append(self._to_str(self.design_specification_zone_air_distribution_object_name_10))
-        out.append(self._to_str(self.zone_11_name))
-        out.append(self._to_str(self.design_specification_outdoor_air_object_name_11))
-        out.append(self._to_str(self.design_specification_zone_air_distribution_object_name_11))
-        out.append(self._to_str(self.zone_12_name))
-        out.append(self._to_str(self.design_specification_outdoor_air_object_name_12))
-        out.append(self._to_str(self.design_specification_zone_air_distribution_object_name_12))
-        out.append(self._to_str(self.zone_13_name))
-        out.append(self._to_str(self.design_specification_outdoor_air_object_name_13))
-        out.append(self._to_str(self.design_specification_zone_air_distribution_object_name_13))
-        out.append(self._to_str(self.zone_14_name))
-        out.append(self._to_str(self.design_specification_outdoor_air_object_name_14))
-        out.append(self._to_str(self.design_specification_zone_air_distribution_object_name_14))
-        out.append(self._to_str(self.zone_15_name))
-        out.append(self._to_str(self.design_specification_outdoor_air_object_name_15))
-        out.append(self._to_str(self.design_specification_zone_air_distribution_object_name_15))
-        out.append(self._to_str(self.zone_16_name))
-        out.append(self._to_str(self.design_specification_outdoor_air_object_name_16))
-        out.append(self._to_str(self.design_specification_zone_air_distribution_object_name_16))
-        out.append(self._to_str(self.zone_17_name))
-        out.append(self._to_str(self.design_specification_outdoor_air_object_name_17))
-        out.append(self._to_str(self.design_specification_zone_air_distribution_object_name_17))
-        out.append(self._to_str(self.zone_18_name))
-        out.append(self._to_str(self.design_specification_outdoor_air_object_name_18))
-        out.append(self._to_str(self.design_specification_zone_air_distribution_object_name_18))
-        out.append(self._to_str(self.zone_19_name))
-        out.append(self._to_str(self.design_specification_outdoor_air_object_name_19))
-        out.append(self._to_str(self.design_specification_zone_air_distribution_object_name_19))
-        out.append(self._to_str(self.zone_20_name))
-        out.append(self._to_str(self.design_specification_outdoor_air_object_name_20))
-        out.append(self._to_str(self.design_specification_zone_air_distribution_object_name_20))
-        out.append(self._to_str(self.zone_21_name))
-        out.append(self._to_str(self.design_specification_outdoor_air_object_name_21))
-        out.append(self._to_str(self.design_specification_zone_air_distribution_object_name_21))
-        out.append(self._to_str(self.zone_22_name))
-        out.append(self._to_str(self.design_specification_outdoor_air_object_name_22))
-        out.append(self._to_str(self.design_specification_zone_air_distribution_object_name_22))
-        out.append(self._to_str(self.zone_23_name))
-        out.append(self._to_str(self.design_specification_outdoor_air_object_name_23))
-        out.append(self._to_str(self.design_specification_zone_air_distribution_object_name_23))
-        out.append(self._to_str(self.zone_24_name))
-        out.append(self._to_str(self.design_specification_outdoor_air_object_name_24))
-        out.append(self._to_str(self.design_specification_zone_air_distribution_object_name_24))
-        out.append(self._to_str(self.zone_25_name))
-        out.append(self._to_str(self.design_specification_outdoor_air_object_name_25))
-        out.append(self._to_str(self.design_specification_zone_air_distribution_object_name_25))
-        out.append(self._to_str(self.zone_26_name))
-        out.append(self._to_str(self.design_specification_outdoor_air_object_name_26))
-        out.append(self._to_str(self.design_specification_zone_air_distribution_object_name_26))
-        out.append(self._to_str(self.zone_27_name))
-        out.append(self._to_str(self.design_specification_outdoor_air_object_name_27))
-        out.append(self._to_str(self.design_specification_zone_air_distribution_object_name_27))
-        out.append(self._to_str(self.zone_28_name))
-        out.append(self._to_str(self.design_specification_outdoor_air_object_name_28))
-        out.append(self._to_str(self.design_specification_zone_air_distribution_object_name_28))
-        out.append(self._to_str(self.zone_29_name))
-        out.append(self._to_str(self.design_specification_outdoor_air_object_name_29))
-        out.append(self._to_str(self.design_specification_zone_air_distribution_object_name_29))
-        out.append(self._to_str(self.zone_30_name))
-        out.append(self._to_str(self.design_specification_outdoor_air_object_name_30))
-        out.append(self._to_str(self.design_specification_zone_air_distribution_object_name_30))
-        out.append(self._to_str(self.zone_31_name))
-        out.append(self._to_str(self.design_specification_outdoor_air_object_name_31))
-        out.append(self._to_str(self.design_specification_zone_air_distribution_object_name_31))
-        out.append(self._to_str(self.zone_32_name))
-        out.append(self._to_str(self.design_specification_outdoor_air_object_name_32))
-        out.append(self._to_str(self.design_specification_zone_air_distribution_object_name_32))
-        out.append(self._to_str(self.zone_33_name))
-        out.append(self._to_str(self.design_specification_outdoor_air_object_name_33))
-        out.append(self._to_str(self.design_specification_zone_air_distribution_object_name_33))
-        out.append(self._to_str(self.zone_34_name))
-        out.append(self._to_str(self.design_specification_outdoor_air_object_name_34))
-        out.append(self._to_str(self.design_specification_zone_air_distribution_object_name_34))
-        out.append(self._to_str(self.zone_35_name))
-        out.append(self._to_str(self.design_specification_outdoor_air_object_name_35))
-        out.append(self._to_str(self.design_specification_zone_air_distribution_object_name_35))
-        out.append(self._to_str(self.zone_36_name))
-        out.append(self._to_str(self.design_specification_outdoor_air_object_name_36))
-        out.append(self._to_str(self.design_specification_zone_air_distribution_object_name_36))
-        out.append(self._to_str(self.zone_37_name))
-        out.append(self._to_str(self.design_specification_outdoor_air_object_name_37))
-        out.append(self._to_str(self.design_specification_zone_air_distribution_object_name_37))
-        out.append(self._to_str(self.zone_38_name))
-        out.append(self._to_str(self.design_specification_outdoor_air_object_name_38))
-        out.append(self._to_str(self.design_specification_zone_air_distribution_object_name_38))
-        out.append(self._to_str(self.zone_39_name))
-        out.append(self._to_str(self.design_specification_outdoor_air_object_name_39))
-        out.append(self._to_str(self.design_specification_zone_air_distribution_object_name_39))
-        out.append(self._to_str(self.zone_40_name))
-        out.append(self._to_str(self.design_specification_outdoor_air_object_name_40))
-        out.append(self._to_str(self.design_specification_zone_air_distribution_object_name_40))
-        out.append(self._to_str(self.zone_41_name))
-        out.append(self._to_str(self.design_specification_outdoor_air_object_name_41))
-        out.append(self._to_str(self.design_specification_zone_air_distribution_object_name_41))
-        out.append(self._to_str(self.zone_42_name))
-        out.append(self._to_str(self.design_specification_outdoor_air_object_name_42))
-        out.append(self._to_str(self.design_specification_zone_air_distribution_object_name_42))
-        out.append(self._to_str(self.zone_43_name))
-        out.append(self._to_str(self.design_specification_outdoor_air_object_name_43))
-        out.append(self._to_str(self.design_specification_zone_air_distribution_object_name_43))
-        out.append(self._to_str(self.zone_44_name))
-        out.append(self._to_str(self.design_specification_outdoor_air_object_name_44))
-        out.append(self._to_str(self.design_specification_zone_air_distribution_object_name_44))
-        out.append(self._to_str(self.zone_45_name))
-        out.append(self._to_str(self.design_specification_outdoor_air_object_name_45))
-        out.append(self._to_str(self.design_specification_zone_air_distribution_object_name_45))
-        out.append(self._to_str(self.zone_46_name))
-        out.append(self._to_str(self.design_specification_outdoor_air_object_name_46))
-        out.append(self._to_str(self.design_specification_zone_air_distribution_object_name_46))
-        out.append(self._to_str(self.zone_47_name))
-        out.append(self._to_str(self.design_specification_outdoor_air_object_name_47))
-        out.append(self._to_str(self.design_specification_zone_air_distribution_object_name_47))
-        out.append(self._to_str(self.zone_48_name))
-        out.append(self._to_str(self.design_specification_outdoor_air_object_name_48))
-        out.append(self._to_str(self.design_specification_zone_air_distribution_object_name_48))
-        out.append(self._to_str(self.zone_49_name))
-        out.append(self._to_str(self.design_specification_outdoor_air_object_name_49))
-        out.append(self._to_str(self.design_specification_zone_air_distribution_object_name_49))
-        out.append(self._to_str(self.zone_50_name))
-        out.append(self._to_str(self.design_specification_outdoor_air_object_name_50))
-        out.append(self._to_str(self.design_specification_zone_air_distribution_object_name_50))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class AirLoopHvacControllerList(object):
     """ Corresponds to IDD object `AirLoopHVAC:ControllerList`
@@ -8011,99 +8889,135 @@ class AirLoopHvacControllerList(object):
         self._data["Controller 7 Name"] = None
         self._data["Controller 8 Object Type"] = None
         self._data["Controller 8 Name"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.controller_1_object_type = None
         else:
             self.controller_1_object_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.controller_1_name = None
         else:
             self.controller_1_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.controller_2_object_type = None
         else:
             self.controller_2_object_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.controller_2_name = None
         else:
             self.controller_2_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.controller_3_object_type = None
         else:
             self.controller_3_object_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.controller_3_name = None
         else:
             self.controller_3_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.controller_4_object_type = None
         else:
             self.controller_4_object_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.controller_4_name = None
         else:
             self.controller_4_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.controller_5_object_type = None
         else:
             self.controller_5_object_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.controller_5_name = None
         else:
             self.controller_5_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.controller_6_object_type = None
         else:
             self.controller_6_object_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.controller_6_name = None
         else:
             self.controller_6_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.controller_7_object_type = None
         else:
             self.controller_7_object_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.controller_7_name = None
         else:
             self.controller_7_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.controller_8_object_type = None
         else:
             self.controller_8_object_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.controller_8_name = None
         else:
             self.controller_8_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -8134,6 +9048,9 @@ class AirLoopHvacControllerList(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -8171,12 +9088,26 @@ class AirLoopHvacControllerList(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `controller_1_object_type`')
-            vals = set()
-            vals.add("Controller:WaterCoil")
-            vals.add("Controller:OutdoorAir")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `controller_1_object_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `controller_1_object_type`')
+            vals = {}
+            vals["controller:watercoil"] = "Controller:WaterCoil"
+            vals["controller:outdoorair"] = "Controller:OutdoorAir"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `controller_1_object_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Controller 1 Object Type"] = value
 
@@ -8209,6 +9140,9 @@ class AirLoopHvacControllerList(object):
                                  'for field `controller_1_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `controller_1_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `controller_1_name`')
 
         self._data["Controller 1 Name"] = value
@@ -8246,12 +9180,26 @@ class AirLoopHvacControllerList(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `controller_2_object_type`')
-            vals = set()
-            vals.add("Controller:WaterCoil")
-            vals.add("Controller:OutdoorAir")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `controller_2_object_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `controller_2_object_type`')
+            vals = {}
+            vals["controller:watercoil"] = "Controller:WaterCoil"
+            vals["controller:outdoorair"] = "Controller:OutdoorAir"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `controller_2_object_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Controller 2 Object Type"] = value
 
@@ -8284,6 +9232,9 @@ class AirLoopHvacControllerList(object):
                                  'for field `controller_2_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `controller_2_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `controller_2_name`')
 
         self._data["Controller 2 Name"] = value
@@ -8321,12 +9272,26 @@ class AirLoopHvacControllerList(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `controller_3_object_type`')
-            vals = set()
-            vals.add("Controller:WaterCoil")
-            vals.add("Controller:OutdoorAir")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `controller_3_object_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `controller_3_object_type`')
+            vals = {}
+            vals["controller:watercoil"] = "Controller:WaterCoil"
+            vals["controller:outdoorair"] = "Controller:OutdoorAir"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `controller_3_object_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Controller 3 Object Type"] = value
 
@@ -8359,6 +9324,9 @@ class AirLoopHvacControllerList(object):
                                  'for field `controller_3_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `controller_3_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `controller_3_name`')
 
         self._data["Controller 3 Name"] = value
@@ -8396,12 +9364,26 @@ class AirLoopHvacControllerList(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `controller_4_object_type`')
-            vals = set()
-            vals.add("Controller:WaterCoil")
-            vals.add("Controller:OutdoorAir")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `controller_4_object_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `controller_4_object_type`')
+            vals = {}
+            vals["controller:watercoil"] = "Controller:WaterCoil"
+            vals["controller:outdoorair"] = "Controller:OutdoorAir"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `controller_4_object_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Controller 4 Object Type"] = value
 
@@ -8434,6 +9416,9 @@ class AirLoopHvacControllerList(object):
                                  'for field `controller_4_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `controller_4_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `controller_4_name`')
 
         self._data["Controller 4 Name"] = value
@@ -8471,12 +9456,26 @@ class AirLoopHvacControllerList(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `controller_5_object_type`')
-            vals = set()
-            vals.add("Controller:WaterCoil")
-            vals.add("Controller:OutdoorAir")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `controller_5_object_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `controller_5_object_type`')
+            vals = {}
+            vals["controller:watercoil"] = "Controller:WaterCoil"
+            vals["controller:outdoorair"] = "Controller:OutdoorAir"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `controller_5_object_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Controller 5 Object Type"] = value
 
@@ -8509,6 +9508,9 @@ class AirLoopHvacControllerList(object):
                                  'for field `controller_5_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `controller_5_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `controller_5_name`')
 
         self._data["Controller 5 Name"] = value
@@ -8546,12 +9548,26 @@ class AirLoopHvacControllerList(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `controller_6_object_type`')
-            vals = set()
-            vals.add("Controller:WaterCoil")
-            vals.add("Controller:OutdoorAir")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `controller_6_object_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `controller_6_object_type`')
+            vals = {}
+            vals["controller:watercoil"] = "Controller:WaterCoil"
+            vals["controller:outdoorair"] = "Controller:OutdoorAir"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `controller_6_object_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Controller 6 Object Type"] = value
 
@@ -8584,6 +9600,9 @@ class AirLoopHvacControllerList(object):
                                  'for field `controller_6_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `controller_6_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `controller_6_name`')
 
         self._data["Controller 6 Name"] = value
@@ -8621,12 +9640,26 @@ class AirLoopHvacControllerList(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `controller_7_object_type`')
-            vals = set()
-            vals.add("Controller:WaterCoil")
-            vals.add("Controller:OutdoorAir")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `controller_7_object_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `controller_7_object_type`')
+            vals = {}
+            vals["controller:watercoil"] = "Controller:WaterCoil"
+            vals["controller:outdoorair"] = "Controller:OutdoorAir"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `controller_7_object_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Controller 7 Object Type"] = value
 
@@ -8659,6 +9692,9 @@ class AirLoopHvacControllerList(object):
                                  'for field `controller_7_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `controller_7_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `controller_7_name`')
 
         self._data["Controller 7 Name"] = value
@@ -8696,12 +9732,26 @@ class AirLoopHvacControllerList(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `controller_8_object_type`')
-            vals = set()
-            vals.add("Controller:WaterCoil")
-            vals.add("Controller:OutdoorAir")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `controller_8_object_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `controller_8_object_type`')
+            vals = {}
+            vals["controller:watercoil"] = "Controller:WaterCoil"
+            vals["controller:outdoorair"] = "Controller:OutdoorAir"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `controller_8_object_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Controller 8 Object Type"] = value
 
@@ -8735,6 +9785,9 @@ class AirLoopHvacControllerList(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `controller_8_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `controller_8_name`')
 
         self._data["Controller 8 Name"] = value
 
@@ -8760,23 +9813,14 @@ class AirLoopHvacControllerList(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.controller_1_object_type))
-        out.append(self._to_str(self.controller_1_name))
-        out.append(self._to_str(self.controller_2_object_type))
-        out.append(self._to_str(self.controller_2_name))
-        out.append(self._to_str(self.controller_3_object_type))
-        out.append(self._to_str(self.controller_3_name))
-        out.append(self._to_str(self.controller_4_object_type))
-        out.append(self._to_str(self.controller_4_name))
-        out.append(self._to_str(self.controller_5_object_type))
-        out.append(self._to_str(self.controller_5_name))
-        out.append(self._to_str(self.controller_6_object_type))
-        out.append(self._to_str(self.controller_6_name))
-        out.append(self._to_str(self.controller_7_object_type))
-        out.append(self._to_str(self.controller_7_name))
-        out.append(self._to_str(self.controller_8_object_type))
-        out.append(self._to_str(self.controller_8_name))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])

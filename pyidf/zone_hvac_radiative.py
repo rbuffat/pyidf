@@ -228,1084 +228,1514 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
         self._data["Fraction of Radiant Energy to Surface 99"] = None
         self._data["Surface 100 Name"] = None
         self._data["Fraction of Radiant Energy to Surface 100"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.availability_schedule_name = None
         else:
             self.availability_schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.inlet_node_name = None
         else:
             self.inlet_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.outlet_node_name = None
         else:
             self.outlet_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.rated_average_water_temperature = None
         else:
             self.rated_average_water_temperature = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.rated_water_mass_flow_rate = None
         else:
             self.rated_water_mass_flow_rate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.heating_design_capacity_method = None
         else:
             self.heating_design_capacity_method = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.heating_design_capacity = None
         else:
             self.heating_design_capacity = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.heating_design_capacity_per_floor_area = None
         else:
             self.heating_design_capacity_per_floor_area = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_autosized_heating_design_capacity = None
         else:
             self.fraction_of_autosized_heating_design_capacity = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.maximum_water_flow_rate = None
         else:
             self.maximum_water_flow_rate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.convergence_tolerance = None
         else:
             self.convergence_tolerance = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_radiant = None
         else:
             self.fraction_radiant = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_incident_on_people = None
         else:
             self.fraction_of_radiant_energy_incident_on_people = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_1_name = None
         else:
             self.surface_1_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_1 = None
         else:
             self.fraction_of_radiant_energy_to_surface_1 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_2_name = None
         else:
             self.surface_2_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_2 = None
         else:
             self.fraction_of_radiant_energy_to_surface_2 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_3_name = None
         else:
             self.surface_3_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_3 = None
         else:
             self.fraction_of_radiant_energy_to_surface_3 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_4_name = None
         else:
             self.surface_4_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_4 = None
         else:
             self.fraction_of_radiant_energy_to_surface_4 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_5_name = None
         else:
             self.surface_5_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_5 = None
         else:
             self.fraction_of_radiant_energy_to_surface_5 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_6_name = None
         else:
             self.surface_6_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_6 = None
         else:
             self.fraction_of_radiant_energy_to_surface_6 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_7_name = None
         else:
             self.surface_7_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_7 = None
         else:
             self.fraction_of_radiant_energy_to_surface_7 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_8_name = None
         else:
             self.surface_8_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_8 = None
         else:
             self.fraction_of_radiant_energy_to_surface_8 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_9_name = None
         else:
             self.surface_9_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_9 = None
         else:
             self.fraction_of_radiant_energy_to_surface_9 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_10_name = None
         else:
             self.surface_10_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_10 = None
         else:
             self.fraction_of_radiant_energy_to_surface_10 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_11_name = None
         else:
             self.surface_11_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_11 = None
         else:
             self.fraction_of_radiant_energy_to_surface_11 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_12_name = None
         else:
             self.surface_12_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_12 = None
         else:
             self.fraction_of_radiant_energy_to_surface_12 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_13_name = None
         else:
             self.surface_13_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_13 = None
         else:
             self.fraction_of_radiant_energy_to_surface_13 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_14_name = None
         else:
             self.surface_14_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_14 = None
         else:
             self.fraction_of_radiant_energy_to_surface_14 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_15_name = None
         else:
             self.surface_15_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_15 = None
         else:
             self.fraction_of_radiant_energy_to_surface_15 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_16_name = None
         else:
             self.surface_16_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_16 = None
         else:
             self.fraction_of_radiant_energy_to_surface_16 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_17_name = None
         else:
             self.surface_17_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_17 = None
         else:
             self.fraction_of_radiant_energy_to_surface_17 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_18_name = None
         else:
             self.surface_18_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_18 = None
         else:
             self.fraction_of_radiant_energy_to_surface_18 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_19_name = None
         else:
             self.surface_19_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_19 = None
         else:
             self.fraction_of_radiant_energy_to_surface_19 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_20_name = None
         else:
             self.surface_20_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_20 = None
         else:
             self.fraction_of_radiant_energy_to_surface_20 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_21_name = None
         else:
             self.surface_21_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_21 = None
         else:
             self.fraction_of_radiant_energy_to_surface_21 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_22_name = None
         else:
             self.surface_22_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_22 = None
         else:
             self.fraction_of_radiant_energy_to_surface_22 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_23_name = None
         else:
             self.surface_23_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_23 = None
         else:
             self.fraction_of_radiant_energy_to_surface_23 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_24_name = None
         else:
             self.surface_24_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_24 = None
         else:
             self.fraction_of_radiant_energy_to_surface_24 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_25_name = None
         else:
             self.surface_25_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_25 = None
         else:
             self.fraction_of_radiant_energy_to_surface_25 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_26_name = None
         else:
             self.surface_26_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_26 = None
         else:
             self.fraction_of_radiant_energy_to_surface_26 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_27_name = None
         else:
             self.surface_27_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_27 = None
         else:
             self.fraction_of_radiant_energy_to_surface_27 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_28_name = None
         else:
             self.surface_28_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_28 = None
         else:
             self.fraction_of_radiant_energy_to_surface_28 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_29_name = None
         else:
             self.surface_29_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_29 = None
         else:
             self.fraction_of_radiant_energy_to_surface_29 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_30_name = None
         else:
             self.surface_30_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_30 = None
         else:
             self.fraction_of_radiant_energy_to_surface_30 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_31_name = None
         else:
             self.surface_31_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_31 = None
         else:
             self.fraction_of_radiant_energy_to_surface_31 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_32_name = None
         else:
             self.surface_32_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_32 = None
         else:
             self.fraction_of_radiant_energy_to_surface_32 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_33_name = None
         else:
             self.surface_33_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_33 = None
         else:
             self.fraction_of_radiant_energy_to_surface_33 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_34_name = None
         else:
             self.surface_34_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_34 = None
         else:
             self.fraction_of_radiant_energy_to_surface_34 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_35_name = None
         else:
             self.surface_35_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_35 = None
         else:
             self.fraction_of_radiant_energy_to_surface_35 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_36_name = None
         else:
             self.surface_36_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_36 = None
         else:
             self.fraction_of_radiant_energy_to_surface_36 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_37_name = None
         else:
             self.surface_37_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_37 = None
         else:
             self.fraction_of_radiant_energy_to_surface_37 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_38_name = None
         else:
             self.surface_38_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_38 = None
         else:
             self.fraction_of_radiant_energy_to_surface_38 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_39_name = None
         else:
             self.surface_39_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_39 = None
         else:
             self.fraction_of_radiant_energy_to_surface_39 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_40_name = None
         else:
             self.surface_40_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_40 = None
         else:
             self.fraction_of_radiant_energy_to_surface_40 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_41_name = None
         else:
             self.surface_41_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_41 = None
         else:
             self.fraction_of_radiant_energy_to_surface_41 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_42_name = None
         else:
             self.surface_42_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_42 = None
         else:
             self.fraction_of_radiant_energy_to_surface_42 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_43_name = None
         else:
             self.surface_43_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_43 = None
         else:
             self.fraction_of_radiant_energy_to_surface_43 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_44_name = None
         else:
             self.surface_44_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_44 = None
         else:
             self.fraction_of_radiant_energy_to_surface_44 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_45_name = None
         else:
             self.surface_45_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_45 = None
         else:
             self.fraction_of_radiant_energy_to_surface_45 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_46_name = None
         else:
             self.surface_46_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_46 = None
         else:
             self.fraction_of_radiant_energy_to_surface_46 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_47_name = None
         else:
             self.surface_47_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_47 = None
         else:
             self.fraction_of_radiant_energy_to_surface_47 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_48_name = None
         else:
             self.surface_48_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_48 = None
         else:
             self.fraction_of_radiant_energy_to_surface_48 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_49_name = None
         else:
             self.surface_49_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_49 = None
         else:
             self.fraction_of_radiant_energy_to_surface_49 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_50_name = None
         else:
             self.surface_50_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_50 = None
         else:
             self.fraction_of_radiant_energy_to_surface_50 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_51_name = None
         else:
             self.surface_51_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_51 = None
         else:
             self.fraction_of_radiant_energy_to_surface_51 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_52_name = None
         else:
             self.surface_52_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_52 = None
         else:
             self.fraction_of_radiant_energy_to_surface_52 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_53_name = None
         else:
             self.surface_53_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_53 = None
         else:
             self.fraction_of_radiant_energy_to_surface_53 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_54_name = None
         else:
             self.surface_54_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_54 = None
         else:
             self.fraction_of_radiant_energy_to_surface_54 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_55_name = None
         else:
             self.surface_55_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_55 = None
         else:
             self.fraction_of_radiant_energy_to_surface_55 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_56_name = None
         else:
             self.surface_56_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_56 = None
         else:
             self.fraction_of_radiant_energy_to_surface_56 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_57_name = None
         else:
             self.surface_57_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_57 = None
         else:
             self.fraction_of_radiant_energy_to_surface_57 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_58_name = None
         else:
             self.surface_58_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_58 = None
         else:
             self.fraction_of_radiant_energy_to_surface_58 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_59_name = None
         else:
             self.surface_59_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_59 = None
         else:
             self.fraction_of_radiant_energy_to_surface_59 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_60_name = None
         else:
             self.surface_60_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_60 = None
         else:
             self.fraction_of_radiant_energy_to_surface_60 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_61_name = None
         else:
             self.surface_61_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_61 = None
         else:
             self.fraction_of_radiant_energy_to_surface_61 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_62_name = None
         else:
             self.surface_62_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_62 = None
         else:
             self.fraction_of_radiant_energy_to_surface_62 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_63_name = None
         else:
             self.surface_63_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_63 = None
         else:
             self.fraction_of_radiant_energy_to_surface_63 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_64_name = None
         else:
             self.surface_64_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_64 = None
         else:
             self.fraction_of_radiant_energy_to_surface_64 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_65_name = None
         else:
             self.surface_65_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_65 = None
         else:
             self.fraction_of_radiant_energy_to_surface_65 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_66_name = None
         else:
             self.surface_66_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_66 = None
         else:
             self.fraction_of_radiant_energy_to_surface_66 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_67_name = None
         else:
             self.surface_67_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_67 = None
         else:
             self.fraction_of_radiant_energy_to_surface_67 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_68_name = None
         else:
             self.surface_68_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_68 = None
         else:
             self.fraction_of_radiant_energy_to_surface_68 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_69_name = None
         else:
             self.surface_69_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_69 = None
         else:
             self.fraction_of_radiant_energy_to_surface_69 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_70_name = None
         else:
             self.surface_70_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_70 = None
         else:
             self.fraction_of_radiant_energy_to_surface_70 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_71_name = None
         else:
             self.surface_71_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_71 = None
         else:
             self.fraction_of_radiant_energy_to_surface_71 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_72_name = None
         else:
             self.surface_72_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_72 = None
         else:
             self.fraction_of_radiant_energy_to_surface_72 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_73_name = None
         else:
             self.surface_73_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_73 = None
         else:
             self.fraction_of_radiant_energy_to_surface_73 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_74_name = None
         else:
             self.surface_74_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_74 = None
         else:
             self.fraction_of_radiant_energy_to_surface_74 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_75_name = None
         else:
             self.surface_75_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_75 = None
         else:
             self.fraction_of_radiant_energy_to_surface_75 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_76_name = None
         else:
             self.surface_76_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_76 = None
         else:
             self.fraction_of_radiant_energy_to_surface_76 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_77_name = None
         else:
             self.surface_77_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_77 = None
         else:
             self.fraction_of_radiant_energy_to_surface_77 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_78_name = None
         else:
             self.surface_78_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_78 = None
         else:
             self.fraction_of_radiant_energy_to_surface_78 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_79_name = None
         else:
             self.surface_79_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_79 = None
         else:
             self.fraction_of_radiant_energy_to_surface_79 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_80_name = None
         else:
             self.surface_80_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_80 = None
         else:
             self.fraction_of_radiant_energy_to_surface_80 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_81_name = None
         else:
             self.surface_81_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_81 = None
         else:
             self.fraction_of_radiant_energy_to_surface_81 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_82_name = None
         else:
             self.surface_82_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_82 = None
         else:
             self.fraction_of_radiant_energy_to_surface_82 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_83_name = None
         else:
             self.surface_83_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_83 = None
         else:
             self.fraction_of_radiant_energy_to_surface_83 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_84_name = None
         else:
             self.surface_84_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_84 = None
         else:
             self.fraction_of_radiant_energy_to_surface_84 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_85_name = None
         else:
             self.surface_85_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_85 = None
         else:
             self.fraction_of_radiant_energy_to_surface_85 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_86_name = None
         else:
             self.surface_86_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_86 = None
         else:
             self.fraction_of_radiant_energy_to_surface_86 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_87_name = None
         else:
             self.surface_87_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_87 = None
         else:
             self.fraction_of_radiant_energy_to_surface_87 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_88_name = None
         else:
             self.surface_88_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_88 = None
         else:
             self.fraction_of_radiant_energy_to_surface_88 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_89_name = None
         else:
             self.surface_89_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_89 = None
         else:
             self.fraction_of_radiant_energy_to_surface_89 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_90_name = None
         else:
             self.surface_90_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_90 = None
         else:
             self.fraction_of_radiant_energy_to_surface_90 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_91_name = None
         else:
             self.surface_91_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_91 = None
         else:
             self.fraction_of_radiant_energy_to_surface_91 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_92_name = None
         else:
             self.surface_92_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_92 = None
         else:
             self.fraction_of_radiant_energy_to_surface_92 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_93_name = None
         else:
             self.surface_93_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_93 = None
         else:
             self.fraction_of_radiant_energy_to_surface_93 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_94_name = None
         else:
             self.surface_94_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_94 = None
         else:
             self.fraction_of_radiant_energy_to_surface_94 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_95_name = None
         else:
             self.surface_95_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_95 = None
         else:
             self.fraction_of_radiant_energy_to_surface_95 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_96_name = None
         else:
             self.surface_96_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_96 = None
         else:
             self.fraction_of_radiant_energy_to_surface_96 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_97_name = None
         else:
             self.surface_97_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_97 = None
         else:
             self.fraction_of_radiant_energy_to_surface_97 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_98_name = None
         else:
             self.surface_98_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_98 = None
         else:
             self.fraction_of_radiant_energy_to_surface_98 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_99_name = None
         else:
             self.surface_99_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_99 = None
         else:
             self.fraction_of_radiant_energy_to_surface_99 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_100_name = None
         else:
             self.surface_100_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_100 = None
         else:
             self.fraction_of_radiant_energy_to_surface_100 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -1336,6 +1766,9 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -1372,6 +1805,9 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `availability_schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `availability_schedule_name`')
 
         self._data["Availability Schedule Name"] = value
 
@@ -1405,6 +1841,9 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `inlet_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `inlet_node_name`')
 
         self._data["Inlet Node Name"] = value
 
@@ -1437,6 +1876,9 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
                                  'for field `outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `outlet_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `outlet_node_name`')
 
         self._data["Outlet Node Name"] = value
@@ -1568,13 +2010,27 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `heating_design_capacity_method`')
-            vals = set()
-            vals.add("HeatingDesignCapacity")
-            vals.add("CapacityPerFloorArea")
-            vals.add("FractionOfAutosizedHeatingCapacity")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `heating_design_capacity_method`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `heating_design_capacity_method`')
+            vals = {}
+            vals["heatingdesigncapacity"] = "HeatingDesignCapacity"
+            vals["capacityperfloorarea"] = "CapacityPerFloorArea"
+            vals["fractionofautosizedheatingcapacity"] = "FractionOfAutosizedHeatingCapacity"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `heating_design_capacity_method`'.format(value))
+            value = vals[value_lower]
 
         self._data["Heating Design Capacity Method"] = value
 
@@ -1866,6 +2322,9 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_1_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_1_name`')
 
         self._data["Surface 1 Name"] = value
 
@@ -1936,6 +2395,9 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
                                  'for field `surface_2_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_2_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_2_name`')
 
         self._data["Surface 2 Name"] = value
@@ -2008,6 +2470,9 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_3_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_3_name`')
 
         self._data["Surface 3 Name"] = value
 
@@ -2078,6 +2543,9 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
                                  'for field `surface_4_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_4_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_4_name`')
 
         self._data["Surface 4 Name"] = value
@@ -2150,6 +2618,9 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_5_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_5_name`')
 
         self._data["Surface 5 Name"] = value
 
@@ -2220,6 +2691,9 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
                                  'for field `surface_6_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_6_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_6_name`')
 
         self._data["Surface 6 Name"] = value
@@ -2292,6 +2766,9 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_7_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_7_name`')
 
         self._data["Surface 7 Name"] = value
 
@@ -2362,6 +2839,9 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
                                  'for field `surface_8_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_8_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_8_name`')
 
         self._data["Surface 8 Name"] = value
@@ -2434,6 +2914,9 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_9_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_9_name`')
 
         self._data["Surface 9 Name"] = value
 
@@ -2504,6 +2987,9 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
                                  'for field `surface_10_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_10_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_10_name`')
 
         self._data["Surface 10 Name"] = value
@@ -2576,6 +3062,9 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_11_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_11_name`')
 
         self._data["Surface 11 Name"] = value
 
@@ -2646,6 +3135,9 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
                                  'for field `surface_12_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_12_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_12_name`')
 
         self._data["Surface 12 Name"] = value
@@ -2718,6 +3210,9 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_13_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_13_name`')
 
         self._data["Surface 13 Name"] = value
 
@@ -2788,6 +3283,9 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
                                  'for field `surface_14_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_14_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_14_name`')
 
         self._data["Surface 14 Name"] = value
@@ -2860,6 +3358,9 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_15_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_15_name`')
 
         self._data["Surface 15 Name"] = value
 
@@ -2930,6 +3431,9 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
                                  'for field `surface_16_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_16_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_16_name`')
 
         self._data["Surface 16 Name"] = value
@@ -3002,6 +3506,9 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_17_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_17_name`')
 
         self._data["Surface 17 Name"] = value
 
@@ -3072,6 +3579,9 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
                                  'for field `surface_18_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_18_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_18_name`')
 
         self._data["Surface 18 Name"] = value
@@ -3144,6 +3654,9 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_19_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_19_name`')
 
         self._data["Surface 19 Name"] = value
 
@@ -3214,6 +3727,9 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
                                  'for field `surface_20_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_20_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_20_name`')
 
         self._data["Surface 20 Name"] = value
@@ -3286,6 +3802,9 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_21_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_21_name`')
 
         self._data["Surface 21 Name"] = value
 
@@ -3356,6 +3875,9 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
                                  'for field `surface_22_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_22_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_22_name`')
 
         self._data["Surface 22 Name"] = value
@@ -3428,6 +3950,9 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_23_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_23_name`')
 
         self._data["Surface 23 Name"] = value
 
@@ -3498,6 +4023,9 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
                                  'for field `surface_24_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_24_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_24_name`')
 
         self._data["Surface 24 Name"] = value
@@ -3570,6 +4098,9 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_25_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_25_name`')
 
         self._data["Surface 25 Name"] = value
 
@@ -3640,6 +4171,9 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
                                  'for field `surface_26_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_26_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_26_name`')
 
         self._data["Surface 26 Name"] = value
@@ -3712,6 +4246,9 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_27_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_27_name`')
 
         self._data["Surface 27 Name"] = value
 
@@ -3782,6 +4319,9 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
                                  'for field `surface_28_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_28_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_28_name`')
 
         self._data["Surface 28 Name"] = value
@@ -3854,6 +4394,9 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_29_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_29_name`')
 
         self._data["Surface 29 Name"] = value
 
@@ -3924,6 +4467,9 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
                                  'for field `surface_30_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_30_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_30_name`')
 
         self._data["Surface 30 Name"] = value
@@ -3996,6 +4542,9 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_31_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_31_name`')
 
         self._data["Surface 31 Name"] = value
 
@@ -4066,6 +4615,9 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
                                  'for field `surface_32_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_32_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_32_name`')
 
         self._data["Surface 32 Name"] = value
@@ -4138,6 +4690,9 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_33_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_33_name`')
 
         self._data["Surface 33 Name"] = value
 
@@ -4208,6 +4763,9 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
                                  'for field `surface_34_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_34_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_34_name`')
 
         self._data["Surface 34 Name"] = value
@@ -4280,6 +4838,9 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_35_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_35_name`')
 
         self._data["Surface 35 Name"] = value
 
@@ -4350,6 +4911,9 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
                                  'for field `surface_36_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_36_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_36_name`')
 
         self._data["Surface 36 Name"] = value
@@ -4422,6 +4986,9 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_37_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_37_name`')
 
         self._data["Surface 37 Name"] = value
 
@@ -4492,6 +5059,9 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
                                  'for field `surface_38_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_38_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_38_name`')
 
         self._data["Surface 38 Name"] = value
@@ -4564,6 +5134,9 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_39_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_39_name`')
 
         self._data["Surface 39 Name"] = value
 
@@ -4634,6 +5207,9 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
                                  'for field `surface_40_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_40_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_40_name`')
 
         self._data["Surface 40 Name"] = value
@@ -4706,6 +5282,9 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_41_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_41_name`')
 
         self._data["Surface 41 Name"] = value
 
@@ -4776,6 +5355,9 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
                                  'for field `surface_42_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_42_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_42_name`')
 
         self._data["Surface 42 Name"] = value
@@ -4848,6 +5430,9 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_43_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_43_name`')
 
         self._data["Surface 43 Name"] = value
 
@@ -4918,6 +5503,9 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
                                  'for field `surface_44_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_44_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_44_name`')
 
         self._data["Surface 44 Name"] = value
@@ -4990,6 +5578,9 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_45_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_45_name`')
 
         self._data["Surface 45 Name"] = value
 
@@ -5060,6 +5651,9 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
                                  'for field `surface_46_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_46_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_46_name`')
 
         self._data["Surface 46 Name"] = value
@@ -5132,6 +5726,9 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_47_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_47_name`')
 
         self._data["Surface 47 Name"] = value
 
@@ -5202,6 +5799,9 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
                                  'for field `surface_48_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_48_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_48_name`')
 
         self._data["Surface 48 Name"] = value
@@ -5274,6 +5874,9 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_49_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_49_name`')
 
         self._data["Surface 49 Name"] = value
 
@@ -5344,6 +5947,9 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
                                  'for field `surface_50_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_50_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_50_name`')
 
         self._data["Surface 50 Name"] = value
@@ -5416,6 +6022,9 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_51_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_51_name`')
 
         self._data["Surface 51 Name"] = value
 
@@ -5486,6 +6095,9 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
                                  'for field `surface_52_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_52_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_52_name`')
 
         self._data["Surface 52 Name"] = value
@@ -5558,6 +6170,9 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_53_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_53_name`')
 
         self._data["Surface 53 Name"] = value
 
@@ -5628,6 +6243,9 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
                                  'for field `surface_54_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_54_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_54_name`')
 
         self._data["Surface 54 Name"] = value
@@ -5700,6 +6318,9 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_55_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_55_name`')
 
         self._data["Surface 55 Name"] = value
 
@@ -5770,6 +6391,9 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
                                  'for field `surface_56_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_56_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_56_name`')
 
         self._data["Surface 56 Name"] = value
@@ -5842,6 +6466,9 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_57_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_57_name`')
 
         self._data["Surface 57 Name"] = value
 
@@ -5912,6 +6539,9 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
                                  'for field `surface_58_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_58_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_58_name`')
 
         self._data["Surface 58 Name"] = value
@@ -5984,6 +6614,9 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_59_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_59_name`')
 
         self._data["Surface 59 Name"] = value
 
@@ -6054,6 +6687,9 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
                                  'for field `surface_60_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_60_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_60_name`')
 
         self._data["Surface 60 Name"] = value
@@ -6126,6 +6762,9 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_61_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_61_name`')
 
         self._data["Surface 61 Name"] = value
 
@@ -6196,6 +6835,9 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
                                  'for field `surface_62_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_62_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_62_name`')
 
         self._data["Surface 62 Name"] = value
@@ -6268,6 +6910,9 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_63_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_63_name`')
 
         self._data["Surface 63 Name"] = value
 
@@ -6338,6 +6983,9 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
                                  'for field `surface_64_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_64_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_64_name`')
 
         self._data["Surface 64 Name"] = value
@@ -6410,6 +7058,9 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_65_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_65_name`')
 
         self._data["Surface 65 Name"] = value
 
@@ -6480,6 +7131,9 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
                                  'for field `surface_66_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_66_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_66_name`')
 
         self._data["Surface 66 Name"] = value
@@ -6552,6 +7206,9 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_67_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_67_name`')
 
         self._data["Surface 67 Name"] = value
 
@@ -6622,6 +7279,9 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
                                  'for field `surface_68_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_68_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_68_name`')
 
         self._data["Surface 68 Name"] = value
@@ -6694,6 +7354,9 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_69_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_69_name`')
 
         self._data["Surface 69 Name"] = value
 
@@ -6764,6 +7427,9 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
                                  'for field `surface_70_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_70_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_70_name`')
 
         self._data["Surface 70 Name"] = value
@@ -6836,6 +7502,9 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_71_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_71_name`')
 
         self._data["Surface 71 Name"] = value
 
@@ -6906,6 +7575,9 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
                                  'for field `surface_72_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_72_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_72_name`')
 
         self._data["Surface 72 Name"] = value
@@ -6978,6 +7650,9 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_73_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_73_name`')
 
         self._data["Surface 73 Name"] = value
 
@@ -7048,6 +7723,9 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
                                  'for field `surface_74_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_74_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_74_name`')
 
         self._data["Surface 74 Name"] = value
@@ -7120,6 +7798,9 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_75_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_75_name`')
 
         self._data["Surface 75 Name"] = value
 
@@ -7190,6 +7871,9 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
                                  'for field `surface_76_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_76_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_76_name`')
 
         self._data["Surface 76 Name"] = value
@@ -7262,6 +7946,9 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_77_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_77_name`')
 
         self._data["Surface 77 Name"] = value
 
@@ -7332,6 +8019,9 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
                                  'for field `surface_78_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_78_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_78_name`')
 
         self._data["Surface 78 Name"] = value
@@ -7404,6 +8094,9 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_79_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_79_name`')
 
         self._data["Surface 79 Name"] = value
 
@@ -7474,6 +8167,9 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
                                  'for field `surface_80_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_80_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_80_name`')
 
         self._data["Surface 80 Name"] = value
@@ -7546,6 +8242,9 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_81_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_81_name`')
 
         self._data["Surface 81 Name"] = value
 
@@ -7616,6 +8315,9 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
                                  'for field `surface_82_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_82_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_82_name`')
 
         self._data["Surface 82 Name"] = value
@@ -7688,6 +8390,9 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_83_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_83_name`')
 
         self._data["Surface 83 Name"] = value
 
@@ -7758,6 +8463,9 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
                                  'for field `surface_84_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_84_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_84_name`')
 
         self._data["Surface 84 Name"] = value
@@ -7830,6 +8538,9 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_85_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_85_name`')
 
         self._data["Surface 85 Name"] = value
 
@@ -7900,6 +8611,9 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
                                  'for field `surface_86_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_86_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_86_name`')
 
         self._data["Surface 86 Name"] = value
@@ -7972,6 +8686,9 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_87_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_87_name`')
 
         self._data["Surface 87 Name"] = value
 
@@ -8042,6 +8759,9 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
                                  'for field `surface_88_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_88_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_88_name`')
 
         self._data["Surface 88 Name"] = value
@@ -8114,6 +8834,9 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_89_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_89_name`')
 
         self._data["Surface 89 Name"] = value
 
@@ -8184,6 +8907,9 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
                                  'for field `surface_90_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_90_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_90_name`')
 
         self._data["Surface 90 Name"] = value
@@ -8256,6 +8982,9 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_91_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_91_name`')
 
         self._data["Surface 91 Name"] = value
 
@@ -8326,6 +9055,9 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
                                  'for field `surface_92_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_92_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_92_name`')
 
         self._data["Surface 92 Name"] = value
@@ -8398,6 +9130,9 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_93_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_93_name`')
 
         self._data["Surface 93 Name"] = value
 
@@ -8468,6 +9203,9 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
                                  'for field `surface_94_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_94_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_94_name`')
 
         self._data["Surface 94 Name"] = value
@@ -8540,6 +9278,9 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_95_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_95_name`')
 
         self._data["Surface 95 Name"] = value
 
@@ -8610,6 +9351,9 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
                                  'for field `surface_96_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_96_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_96_name`')
 
         self._data["Surface 96 Name"] = value
@@ -8682,6 +9426,9 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_97_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_97_name`')
 
         self._data["Surface 97 Name"] = value
 
@@ -8752,6 +9499,9 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
                                  'for field `surface_98_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_98_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_98_name`')
 
         self._data["Surface 98 Name"] = value
@@ -8824,6 +9574,9 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_99_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_99_name`')
 
         self._data["Surface 99 Name"] = value
 
@@ -8895,6 +9648,9 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_100_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_100_name`')
 
         self._data["Surface 100 Name"] = value
 
@@ -8958,223 +9714,17 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.availability_schedule_name))
-        out.append(self._to_str(self.inlet_node_name))
-        out.append(self._to_str(self.outlet_node_name))
-        out.append(self._to_str(self.rated_average_water_temperature))
-        out.append(self._to_str(self.rated_water_mass_flow_rate))
-        out.append(self._to_str(self.heating_design_capacity_method))
-        out.append(self._to_str(self.heating_design_capacity))
-        out.append(self._to_str(self.heating_design_capacity_per_floor_area))
-        out.append(self._to_str(self.fraction_of_autosized_heating_design_capacity))
-        out.append(self._to_str(self.maximum_water_flow_rate))
-        out.append(self._to_str(self.convergence_tolerance))
-        out.append(self._to_str(self.fraction_radiant))
-        out.append(self._to_str(self.fraction_of_radiant_energy_incident_on_people))
-        out.append(self._to_str(self.surface_1_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_1))
-        out.append(self._to_str(self.surface_2_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_2))
-        out.append(self._to_str(self.surface_3_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_3))
-        out.append(self._to_str(self.surface_4_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_4))
-        out.append(self._to_str(self.surface_5_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_5))
-        out.append(self._to_str(self.surface_6_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_6))
-        out.append(self._to_str(self.surface_7_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_7))
-        out.append(self._to_str(self.surface_8_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_8))
-        out.append(self._to_str(self.surface_9_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_9))
-        out.append(self._to_str(self.surface_10_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_10))
-        out.append(self._to_str(self.surface_11_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_11))
-        out.append(self._to_str(self.surface_12_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_12))
-        out.append(self._to_str(self.surface_13_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_13))
-        out.append(self._to_str(self.surface_14_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_14))
-        out.append(self._to_str(self.surface_15_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_15))
-        out.append(self._to_str(self.surface_16_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_16))
-        out.append(self._to_str(self.surface_17_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_17))
-        out.append(self._to_str(self.surface_18_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_18))
-        out.append(self._to_str(self.surface_19_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_19))
-        out.append(self._to_str(self.surface_20_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_20))
-        out.append(self._to_str(self.surface_21_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_21))
-        out.append(self._to_str(self.surface_22_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_22))
-        out.append(self._to_str(self.surface_23_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_23))
-        out.append(self._to_str(self.surface_24_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_24))
-        out.append(self._to_str(self.surface_25_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_25))
-        out.append(self._to_str(self.surface_26_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_26))
-        out.append(self._to_str(self.surface_27_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_27))
-        out.append(self._to_str(self.surface_28_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_28))
-        out.append(self._to_str(self.surface_29_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_29))
-        out.append(self._to_str(self.surface_30_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_30))
-        out.append(self._to_str(self.surface_31_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_31))
-        out.append(self._to_str(self.surface_32_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_32))
-        out.append(self._to_str(self.surface_33_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_33))
-        out.append(self._to_str(self.surface_34_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_34))
-        out.append(self._to_str(self.surface_35_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_35))
-        out.append(self._to_str(self.surface_36_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_36))
-        out.append(self._to_str(self.surface_37_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_37))
-        out.append(self._to_str(self.surface_38_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_38))
-        out.append(self._to_str(self.surface_39_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_39))
-        out.append(self._to_str(self.surface_40_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_40))
-        out.append(self._to_str(self.surface_41_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_41))
-        out.append(self._to_str(self.surface_42_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_42))
-        out.append(self._to_str(self.surface_43_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_43))
-        out.append(self._to_str(self.surface_44_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_44))
-        out.append(self._to_str(self.surface_45_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_45))
-        out.append(self._to_str(self.surface_46_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_46))
-        out.append(self._to_str(self.surface_47_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_47))
-        out.append(self._to_str(self.surface_48_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_48))
-        out.append(self._to_str(self.surface_49_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_49))
-        out.append(self._to_str(self.surface_50_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_50))
-        out.append(self._to_str(self.surface_51_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_51))
-        out.append(self._to_str(self.surface_52_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_52))
-        out.append(self._to_str(self.surface_53_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_53))
-        out.append(self._to_str(self.surface_54_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_54))
-        out.append(self._to_str(self.surface_55_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_55))
-        out.append(self._to_str(self.surface_56_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_56))
-        out.append(self._to_str(self.surface_57_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_57))
-        out.append(self._to_str(self.surface_58_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_58))
-        out.append(self._to_str(self.surface_59_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_59))
-        out.append(self._to_str(self.surface_60_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_60))
-        out.append(self._to_str(self.surface_61_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_61))
-        out.append(self._to_str(self.surface_62_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_62))
-        out.append(self._to_str(self.surface_63_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_63))
-        out.append(self._to_str(self.surface_64_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_64))
-        out.append(self._to_str(self.surface_65_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_65))
-        out.append(self._to_str(self.surface_66_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_66))
-        out.append(self._to_str(self.surface_67_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_67))
-        out.append(self._to_str(self.surface_68_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_68))
-        out.append(self._to_str(self.surface_69_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_69))
-        out.append(self._to_str(self.surface_70_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_70))
-        out.append(self._to_str(self.surface_71_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_71))
-        out.append(self._to_str(self.surface_72_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_72))
-        out.append(self._to_str(self.surface_73_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_73))
-        out.append(self._to_str(self.surface_74_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_74))
-        out.append(self._to_str(self.surface_75_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_75))
-        out.append(self._to_str(self.surface_76_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_76))
-        out.append(self._to_str(self.surface_77_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_77))
-        out.append(self._to_str(self.surface_78_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_78))
-        out.append(self._to_str(self.surface_79_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_79))
-        out.append(self._to_str(self.surface_80_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_80))
-        out.append(self._to_str(self.surface_81_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_81))
-        out.append(self._to_str(self.surface_82_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_82))
-        out.append(self._to_str(self.surface_83_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_83))
-        out.append(self._to_str(self.surface_84_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_84))
-        out.append(self._to_str(self.surface_85_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_85))
-        out.append(self._to_str(self.surface_86_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_86))
-        out.append(self._to_str(self.surface_87_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_87))
-        out.append(self._to_str(self.surface_88_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_88))
-        out.append(self._to_str(self.surface_89_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_89))
-        out.append(self._to_str(self.surface_90_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_90))
-        out.append(self._to_str(self.surface_91_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_91))
-        out.append(self._to_str(self.surface_92_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_92))
-        out.append(self._to_str(self.surface_93_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_93))
-        out.append(self._to_str(self.surface_94_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_94))
-        out.append(self._to_str(self.surface_95_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_95))
-        out.append(self._to_str(self.surface_96_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_96))
-        out.append(self._to_str(self.surface_97_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_97))
-        out.append(self._to_str(self.surface_98_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_98))
-        out.append(self._to_str(self.surface_99_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_99))
-        out.append(self._to_str(self.surface_100_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_100))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     """ Corresponds to IDD object `ZoneHVAC:Baseboard:RadiantConvective:Steam`
@@ -9403,1079 +9953,1507 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
         self._data["Fraction of Radiant Energy to Surface 99"] = None
         self._data["Surface 100 Name"] = None
         self._data["Fraction of Radiant Energy to Surface 100"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.availability_schedule_name = None
         else:
             self.availability_schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.inlet_node_name = None
         else:
             self.inlet_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.outlet_node_name = None
         else:
             self.outlet_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.heating_design_capacity_method = None
         else:
             self.heating_design_capacity_method = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.heating_design_capacity = None
         else:
             self.heating_design_capacity = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.heating_design_capacity_per_floor_area = None
         else:
             self.heating_design_capacity_per_floor_area = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_autosized_heating_design_capacity = None
         else:
             self.fraction_of_autosized_heating_design_capacity = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.degree_of_subcooling = None
         else:
             self.degree_of_subcooling = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.maximum_steam_flow_rate = None
         else:
             self.maximum_steam_flow_rate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.convergence_tolerance = None
         else:
             self.convergence_tolerance = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_radiant = None
         else:
             self.fraction_radiant = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_incident_on_people = None
         else:
             self.fraction_of_radiant_energy_incident_on_people = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_1_name = None
         else:
             self.surface_1_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_1 = None
         else:
             self.fraction_of_radiant_energy_to_surface_1 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_2_name = None
         else:
             self.surface_2_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_2 = None
         else:
             self.fraction_of_radiant_energy_to_surface_2 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_3_name = None
         else:
             self.surface_3_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_3 = None
         else:
             self.fraction_of_radiant_energy_to_surface_3 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_4_name = None
         else:
             self.surface_4_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_4 = None
         else:
             self.fraction_of_radiant_energy_to_surface_4 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_5_name = None
         else:
             self.surface_5_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_5 = None
         else:
             self.fraction_of_radiant_energy_to_surface_5 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_6_name = None
         else:
             self.surface_6_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_6 = None
         else:
             self.fraction_of_radiant_energy_to_surface_6 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_7_name = None
         else:
             self.surface_7_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_7 = None
         else:
             self.fraction_of_radiant_energy_to_surface_7 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_8_name = None
         else:
             self.surface_8_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_8 = None
         else:
             self.fraction_of_radiant_energy_to_surface_8 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_9_name = None
         else:
             self.surface_9_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_9 = None
         else:
             self.fraction_of_radiant_energy_to_surface_9 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_10_name = None
         else:
             self.surface_10_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_10 = None
         else:
             self.fraction_of_radiant_energy_to_surface_10 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_11_name = None
         else:
             self.surface_11_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_11 = None
         else:
             self.fraction_of_radiant_energy_to_surface_11 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_12_name = None
         else:
             self.surface_12_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_12 = None
         else:
             self.fraction_of_radiant_energy_to_surface_12 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_13_name = None
         else:
             self.surface_13_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_13 = None
         else:
             self.fraction_of_radiant_energy_to_surface_13 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_14_name = None
         else:
             self.surface_14_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_14 = None
         else:
             self.fraction_of_radiant_energy_to_surface_14 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_15_name = None
         else:
             self.surface_15_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_15 = None
         else:
             self.fraction_of_radiant_energy_to_surface_15 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_16_name = None
         else:
             self.surface_16_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_16 = None
         else:
             self.fraction_of_radiant_energy_to_surface_16 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_17_name = None
         else:
             self.surface_17_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_17 = None
         else:
             self.fraction_of_radiant_energy_to_surface_17 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_18_name = None
         else:
             self.surface_18_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_18 = None
         else:
             self.fraction_of_radiant_energy_to_surface_18 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_19_name = None
         else:
             self.surface_19_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_19 = None
         else:
             self.fraction_of_radiant_energy_to_surface_19 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_20_name = None
         else:
             self.surface_20_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_20 = None
         else:
             self.fraction_of_radiant_energy_to_surface_20 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_21_name = None
         else:
             self.surface_21_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_21 = None
         else:
             self.fraction_of_radiant_energy_to_surface_21 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_22_name = None
         else:
             self.surface_22_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_22 = None
         else:
             self.fraction_of_radiant_energy_to_surface_22 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_23_name = None
         else:
             self.surface_23_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_23 = None
         else:
             self.fraction_of_radiant_energy_to_surface_23 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_24_name = None
         else:
             self.surface_24_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_24 = None
         else:
             self.fraction_of_radiant_energy_to_surface_24 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_25_name = None
         else:
             self.surface_25_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_25 = None
         else:
             self.fraction_of_radiant_energy_to_surface_25 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_26_name = None
         else:
             self.surface_26_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_26 = None
         else:
             self.fraction_of_radiant_energy_to_surface_26 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_27_name = None
         else:
             self.surface_27_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_27 = None
         else:
             self.fraction_of_radiant_energy_to_surface_27 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_28_name = None
         else:
             self.surface_28_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_28 = None
         else:
             self.fraction_of_radiant_energy_to_surface_28 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_29_name = None
         else:
             self.surface_29_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_29 = None
         else:
             self.fraction_of_radiant_energy_to_surface_29 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_30_name = None
         else:
             self.surface_30_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_30 = None
         else:
             self.fraction_of_radiant_energy_to_surface_30 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_31_name = None
         else:
             self.surface_31_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_31 = None
         else:
             self.fraction_of_radiant_energy_to_surface_31 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_32_name = None
         else:
             self.surface_32_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_32 = None
         else:
             self.fraction_of_radiant_energy_to_surface_32 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_33_name = None
         else:
             self.surface_33_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_33 = None
         else:
             self.fraction_of_radiant_energy_to_surface_33 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_34_name = None
         else:
             self.surface_34_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_34 = None
         else:
             self.fraction_of_radiant_energy_to_surface_34 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_35_name = None
         else:
             self.surface_35_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_35 = None
         else:
             self.fraction_of_radiant_energy_to_surface_35 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_36_name = None
         else:
             self.surface_36_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_36 = None
         else:
             self.fraction_of_radiant_energy_to_surface_36 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_37_name = None
         else:
             self.surface_37_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_37 = None
         else:
             self.fraction_of_radiant_energy_to_surface_37 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_38_name = None
         else:
             self.surface_38_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_38 = None
         else:
             self.fraction_of_radiant_energy_to_surface_38 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_39_name = None
         else:
             self.surface_39_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_39 = None
         else:
             self.fraction_of_radiant_energy_to_surface_39 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_40_name = None
         else:
             self.surface_40_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_40 = None
         else:
             self.fraction_of_radiant_energy_to_surface_40 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_41_name = None
         else:
             self.surface_41_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_41 = None
         else:
             self.fraction_of_radiant_energy_to_surface_41 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_42_name = None
         else:
             self.surface_42_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_42 = None
         else:
             self.fraction_of_radiant_energy_to_surface_42 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_43_name = None
         else:
             self.surface_43_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_43 = None
         else:
             self.fraction_of_radiant_energy_to_surface_43 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_44_name = None
         else:
             self.surface_44_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_44 = None
         else:
             self.fraction_of_radiant_energy_to_surface_44 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_45_name = None
         else:
             self.surface_45_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_45 = None
         else:
             self.fraction_of_radiant_energy_to_surface_45 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_46_name = None
         else:
             self.surface_46_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_46 = None
         else:
             self.fraction_of_radiant_energy_to_surface_46 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_47_name = None
         else:
             self.surface_47_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_47 = None
         else:
             self.fraction_of_radiant_energy_to_surface_47 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_48_name = None
         else:
             self.surface_48_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_48 = None
         else:
             self.fraction_of_radiant_energy_to_surface_48 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_49_name = None
         else:
             self.surface_49_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_49 = None
         else:
             self.fraction_of_radiant_energy_to_surface_49 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_50_name = None
         else:
             self.surface_50_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_50 = None
         else:
             self.fraction_of_radiant_energy_to_surface_50 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_51_name = None
         else:
             self.surface_51_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_51 = None
         else:
             self.fraction_of_radiant_energy_to_surface_51 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_52_name = None
         else:
             self.surface_52_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_52 = None
         else:
             self.fraction_of_radiant_energy_to_surface_52 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_53_name = None
         else:
             self.surface_53_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_53 = None
         else:
             self.fraction_of_radiant_energy_to_surface_53 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_54_name = None
         else:
             self.surface_54_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_54 = None
         else:
             self.fraction_of_radiant_energy_to_surface_54 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_55_name = None
         else:
             self.surface_55_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_55 = None
         else:
             self.fraction_of_radiant_energy_to_surface_55 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_56_name = None
         else:
             self.surface_56_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_56 = None
         else:
             self.fraction_of_radiant_energy_to_surface_56 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_57_name = None
         else:
             self.surface_57_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_57 = None
         else:
             self.fraction_of_radiant_energy_to_surface_57 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_58_name = None
         else:
             self.surface_58_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_58 = None
         else:
             self.fraction_of_radiant_energy_to_surface_58 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_59_name = None
         else:
             self.surface_59_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_59 = None
         else:
             self.fraction_of_radiant_energy_to_surface_59 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_60_name = None
         else:
             self.surface_60_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_60 = None
         else:
             self.fraction_of_radiant_energy_to_surface_60 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_61_name = None
         else:
             self.surface_61_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_61 = None
         else:
             self.fraction_of_radiant_energy_to_surface_61 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_62_name = None
         else:
             self.surface_62_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_62 = None
         else:
             self.fraction_of_radiant_energy_to_surface_62 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_63_name = None
         else:
             self.surface_63_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_63 = None
         else:
             self.fraction_of_radiant_energy_to_surface_63 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_64_name = None
         else:
             self.surface_64_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_64 = None
         else:
             self.fraction_of_radiant_energy_to_surface_64 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_65_name = None
         else:
             self.surface_65_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_65 = None
         else:
             self.fraction_of_radiant_energy_to_surface_65 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_66_name = None
         else:
             self.surface_66_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_66 = None
         else:
             self.fraction_of_radiant_energy_to_surface_66 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_67_name = None
         else:
             self.surface_67_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_67 = None
         else:
             self.fraction_of_radiant_energy_to_surface_67 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_68_name = None
         else:
             self.surface_68_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_68 = None
         else:
             self.fraction_of_radiant_energy_to_surface_68 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_69_name = None
         else:
             self.surface_69_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_69 = None
         else:
             self.fraction_of_radiant_energy_to_surface_69 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_70_name = None
         else:
             self.surface_70_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_70 = None
         else:
             self.fraction_of_radiant_energy_to_surface_70 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_71_name = None
         else:
             self.surface_71_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_71 = None
         else:
             self.fraction_of_radiant_energy_to_surface_71 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_72_name = None
         else:
             self.surface_72_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_72 = None
         else:
             self.fraction_of_radiant_energy_to_surface_72 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_73_name = None
         else:
             self.surface_73_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_73 = None
         else:
             self.fraction_of_radiant_energy_to_surface_73 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_74_name = None
         else:
             self.surface_74_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_74 = None
         else:
             self.fraction_of_radiant_energy_to_surface_74 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_75_name = None
         else:
             self.surface_75_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_75 = None
         else:
             self.fraction_of_radiant_energy_to_surface_75 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_76_name = None
         else:
             self.surface_76_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_76 = None
         else:
             self.fraction_of_radiant_energy_to_surface_76 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_77_name = None
         else:
             self.surface_77_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_77 = None
         else:
             self.fraction_of_radiant_energy_to_surface_77 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_78_name = None
         else:
             self.surface_78_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_78 = None
         else:
             self.fraction_of_radiant_energy_to_surface_78 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_79_name = None
         else:
             self.surface_79_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_79 = None
         else:
             self.fraction_of_radiant_energy_to_surface_79 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_80_name = None
         else:
             self.surface_80_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_80 = None
         else:
             self.fraction_of_radiant_energy_to_surface_80 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_81_name = None
         else:
             self.surface_81_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_81 = None
         else:
             self.fraction_of_radiant_energy_to_surface_81 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_82_name = None
         else:
             self.surface_82_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_82 = None
         else:
             self.fraction_of_radiant_energy_to_surface_82 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_83_name = None
         else:
             self.surface_83_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_83 = None
         else:
             self.fraction_of_radiant_energy_to_surface_83 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_84_name = None
         else:
             self.surface_84_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_84 = None
         else:
             self.fraction_of_radiant_energy_to_surface_84 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_85_name = None
         else:
             self.surface_85_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_85 = None
         else:
             self.fraction_of_radiant_energy_to_surface_85 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_86_name = None
         else:
             self.surface_86_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_86 = None
         else:
             self.fraction_of_radiant_energy_to_surface_86 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_87_name = None
         else:
             self.surface_87_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_87 = None
         else:
             self.fraction_of_radiant_energy_to_surface_87 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_88_name = None
         else:
             self.surface_88_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_88 = None
         else:
             self.fraction_of_radiant_energy_to_surface_88 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_89_name = None
         else:
             self.surface_89_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_89 = None
         else:
             self.fraction_of_radiant_energy_to_surface_89 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_90_name = None
         else:
             self.surface_90_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_90 = None
         else:
             self.fraction_of_radiant_energy_to_surface_90 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_91_name = None
         else:
             self.surface_91_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_91 = None
         else:
             self.fraction_of_radiant_energy_to_surface_91 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_92_name = None
         else:
             self.surface_92_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_92 = None
         else:
             self.fraction_of_radiant_energy_to_surface_92 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_93_name = None
         else:
             self.surface_93_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_93 = None
         else:
             self.fraction_of_radiant_energy_to_surface_93 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_94_name = None
         else:
             self.surface_94_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_94 = None
         else:
             self.fraction_of_radiant_energy_to_surface_94 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_95_name = None
         else:
             self.surface_95_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_95 = None
         else:
             self.fraction_of_radiant_energy_to_surface_95 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_96_name = None
         else:
             self.surface_96_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_96 = None
         else:
             self.fraction_of_radiant_energy_to_surface_96 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_97_name = None
         else:
             self.surface_97_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_97 = None
         else:
             self.fraction_of_radiant_energy_to_surface_97 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_98_name = None
         else:
             self.surface_98_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_98 = None
         else:
             self.fraction_of_radiant_energy_to_surface_98 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_99_name = None
         else:
             self.surface_99_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_99 = None
         else:
             self.fraction_of_radiant_energy_to_surface_99 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_100_name = None
         else:
             self.surface_100_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_100 = None
         else:
             self.fraction_of_radiant_energy_to_surface_100 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -10506,6 +11484,9 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -10542,6 +11523,9 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `availability_schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `availability_schedule_name`')
 
         self._data["Availability Schedule Name"] = value
 
@@ -10575,6 +11559,9 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `inlet_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `inlet_node_name`')
 
         self._data["Inlet Node Name"] = value
 
@@ -10607,6 +11594,9 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
                                  'for field `outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `outlet_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `outlet_node_name`')
 
         self._data["Outlet Node Name"] = value
@@ -10652,13 +11642,27 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `heating_design_capacity_method`')
-            vals = set()
-            vals.add("HeatingDesignCapacity")
-            vals.add("CapacityPerFloorArea")
-            vals.add("FractionOfAutosizedHeatingCapacity")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `heating_design_capacity_method`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `heating_design_capacity_method`')
+            vals = {}
+            vals["heatingdesigncapacity"] = "HeatingDesignCapacity"
+            vals["capacityperfloorarea"] = "CapacityPerFloorArea"
+            vals["fractionofautosizedheatingcapacity"] = "FractionOfAutosizedHeatingCapacity"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `heating_design_capacity_method`'.format(value))
+            value = vals[value_lower]
 
         self._data["Heating Design Capacity Method"] = value
 
@@ -10987,6 +11991,9 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_1_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_1_name`')
 
         self._data["Surface 1 Name"] = value
 
@@ -11057,6 +12064,9 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
                                  'for field `surface_2_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_2_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_2_name`')
 
         self._data["Surface 2 Name"] = value
@@ -11129,6 +12139,9 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_3_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_3_name`')
 
         self._data["Surface 3 Name"] = value
 
@@ -11199,6 +12212,9 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
                                  'for field `surface_4_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_4_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_4_name`')
 
         self._data["Surface 4 Name"] = value
@@ -11271,6 +12287,9 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_5_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_5_name`')
 
         self._data["Surface 5 Name"] = value
 
@@ -11341,6 +12360,9 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
                                  'for field `surface_6_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_6_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_6_name`')
 
         self._data["Surface 6 Name"] = value
@@ -11413,6 +12435,9 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_7_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_7_name`')
 
         self._data["Surface 7 Name"] = value
 
@@ -11483,6 +12508,9 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
                                  'for field `surface_8_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_8_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_8_name`')
 
         self._data["Surface 8 Name"] = value
@@ -11555,6 +12583,9 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_9_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_9_name`')
 
         self._data["Surface 9 Name"] = value
 
@@ -11625,6 +12656,9 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
                                  'for field `surface_10_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_10_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_10_name`')
 
         self._data["Surface 10 Name"] = value
@@ -11697,6 +12731,9 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_11_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_11_name`')
 
         self._data["Surface 11 Name"] = value
 
@@ -11767,6 +12804,9 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
                                  'for field `surface_12_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_12_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_12_name`')
 
         self._data["Surface 12 Name"] = value
@@ -11839,6 +12879,9 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_13_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_13_name`')
 
         self._data["Surface 13 Name"] = value
 
@@ -11909,6 +12952,9 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
                                  'for field `surface_14_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_14_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_14_name`')
 
         self._data["Surface 14 Name"] = value
@@ -11981,6 +13027,9 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_15_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_15_name`')
 
         self._data["Surface 15 Name"] = value
 
@@ -12051,6 +13100,9 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
                                  'for field `surface_16_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_16_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_16_name`')
 
         self._data["Surface 16 Name"] = value
@@ -12123,6 +13175,9 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_17_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_17_name`')
 
         self._data["Surface 17 Name"] = value
 
@@ -12193,6 +13248,9 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
                                  'for field `surface_18_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_18_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_18_name`')
 
         self._data["Surface 18 Name"] = value
@@ -12265,6 +13323,9 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_19_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_19_name`')
 
         self._data["Surface 19 Name"] = value
 
@@ -12335,6 +13396,9 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
                                  'for field `surface_20_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_20_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_20_name`')
 
         self._data["Surface 20 Name"] = value
@@ -12407,6 +13471,9 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_21_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_21_name`')
 
         self._data["Surface 21 Name"] = value
 
@@ -12477,6 +13544,9 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
                                  'for field `surface_22_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_22_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_22_name`')
 
         self._data["Surface 22 Name"] = value
@@ -12549,6 +13619,9 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_23_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_23_name`')
 
         self._data["Surface 23 Name"] = value
 
@@ -12619,6 +13692,9 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
                                  'for field `surface_24_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_24_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_24_name`')
 
         self._data["Surface 24 Name"] = value
@@ -12691,6 +13767,9 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_25_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_25_name`')
 
         self._data["Surface 25 Name"] = value
 
@@ -12761,6 +13840,9 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
                                  'for field `surface_26_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_26_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_26_name`')
 
         self._data["Surface 26 Name"] = value
@@ -12833,6 +13915,9 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_27_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_27_name`')
 
         self._data["Surface 27 Name"] = value
 
@@ -12903,6 +13988,9 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
                                  'for field `surface_28_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_28_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_28_name`')
 
         self._data["Surface 28 Name"] = value
@@ -12975,6 +14063,9 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_29_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_29_name`')
 
         self._data["Surface 29 Name"] = value
 
@@ -13045,6 +14136,9 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
                                  'for field `surface_30_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_30_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_30_name`')
 
         self._data["Surface 30 Name"] = value
@@ -13117,6 +14211,9 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_31_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_31_name`')
 
         self._data["Surface 31 Name"] = value
 
@@ -13187,6 +14284,9 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
                                  'for field `surface_32_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_32_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_32_name`')
 
         self._data["Surface 32 Name"] = value
@@ -13259,6 +14359,9 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_33_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_33_name`')
 
         self._data["Surface 33 Name"] = value
 
@@ -13329,6 +14432,9 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
                                  'for field `surface_34_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_34_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_34_name`')
 
         self._data["Surface 34 Name"] = value
@@ -13401,6 +14507,9 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_35_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_35_name`')
 
         self._data["Surface 35 Name"] = value
 
@@ -13471,6 +14580,9 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
                                  'for field `surface_36_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_36_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_36_name`')
 
         self._data["Surface 36 Name"] = value
@@ -13543,6 +14655,9 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_37_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_37_name`')
 
         self._data["Surface 37 Name"] = value
 
@@ -13613,6 +14728,9 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
                                  'for field `surface_38_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_38_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_38_name`')
 
         self._data["Surface 38 Name"] = value
@@ -13685,6 +14803,9 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_39_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_39_name`')
 
         self._data["Surface 39 Name"] = value
 
@@ -13755,6 +14876,9 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
                                  'for field `surface_40_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_40_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_40_name`')
 
         self._data["Surface 40 Name"] = value
@@ -13827,6 +14951,9 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_41_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_41_name`')
 
         self._data["Surface 41 Name"] = value
 
@@ -13897,6 +15024,9 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
                                  'for field `surface_42_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_42_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_42_name`')
 
         self._data["Surface 42 Name"] = value
@@ -13969,6 +15099,9 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_43_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_43_name`')
 
         self._data["Surface 43 Name"] = value
 
@@ -14039,6 +15172,9 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
                                  'for field `surface_44_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_44_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_44_name`')
 
         self._data["Surface 44 Name"] = value
@@ -14111,6 +15247,9 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_45_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_45_name`')
 
         self._data["Surface 45 Name"] = value
 
@@ -14181,6 +15320,9 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
                                  'for field `surface_46_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_46_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_46_name`')
 
         self._data["Surface 46 Name"] = value
@@ -14253,6 +15395,9 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_47_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_47_name`')
 
         self._data["Surface 47 Name"] = value
 
@@ -14323,6 +15468,9 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
                                  'for field `surface_48_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_48_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_48_name`')
 
         self._data["Surface 48 Name"] = value
@@ -14395,6 +15543,9 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_49_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_49_name`')
 
         self._data["Surface 49 Name"] = value
 
@@ -14465,6 +15616,9 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
                                  'for field `surface_50_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_50_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_50_name`')
 
         self._data["Surface 50 Name"] = value
@@ -14537,6 +15691,9 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_51_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_51_name`')
 
         self._data["Surface 51 Name"] = value
 
@@ -14607,6 +15764,9 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
                                  'for field `surface_52_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_52_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_52_name`')
 
         self._data["Surface 52 Name"] = value
@@ -14679,6 +15839,9 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_53_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_53_name`')
 
         self._data["Surface 53 Name"] = value
 
@@ -14749,6 +15912,9 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
                                  'for field `surface_54_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_54_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_54_name`')
 
         self._data["Surface 54 Name"] = value
@@ -14821,6 +15987,9 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_55_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_55_name`')
 
         self._data["Surface 55 Name"] = value
 
@@ -14891,6 +16060,9 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
                                  'for field `surface_56_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_56_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_56_name`')
 
         self._data["Surface 56 Name"] = value
@@ -14963,6 +16135,9 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_57_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_57_name`')
 
         self._data["Surface 57 Name"] = value
 
@@ -15033,6 +16208,9 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
                                  'for field `surface_58_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_58_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_58_name`')
 
         self._data["Surface 58 Name"] = value
@@ -15105,6 +16283,9 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_59_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_59_name`')
 
         self._data["Surface 59 Name"] = value
 
@@ -15175,6 +16356,9 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
                                  'for field `surface_60_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_60_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_60_name`')
 
         self._data["Surface 60 Name"] = value
@@ -15247,6 +16431,9 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_61_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_61_name`')
 
         self._data["Surface 61 Name"] = value
 
@@ -15317,6 +16504,9 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
                                  'for field `surface_62_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_62_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_62_name`')
 
         self._data["Surface 62 Name"] = value
@@ -15389,6 +16579,9 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_63_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_63_name`')
 
         self._data["Surface 63 Name"] = value
 
@@ -15459,6 +16652,9 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
                                  'for field `surface_64_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_64_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_64_name`')
 
         self._data["Surface 64 Name"] = value
@@ -15531,6 +16727,9 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_65_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_65_name`')
 
         self._data["Surface 65 Name"] = value
 
@@ -15601,6 +16800,9 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
                                  'for field `surface_66_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_66_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_66_name`')
 
         self._data["Surface 66 Name"] = value
@@ -15673,6 +16875,9 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_67_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_67_name`')
 
         self._data["Surface 67 Name"] = value
 
@@ -15743,6 +16948,9 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
                                  'for field `surface_68_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_68_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_68_name`')
 
         self._data["Surface 68 Name"] = value
@@ -15815,6 +17023,9 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_69_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_69_name`')
 
         self._data["Surface 69 Name"] = value
 
@@ -15885,6 +17096,9 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
                                  'for field `surface_70_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_70_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_70_name`')
 
         self._data["Surface 70 Name"] = value
@@ -15957,6 +17171,9 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_71_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_71_name`')
 
         self._data["Surface 71 Name"] = value
 
@@ -16027,6 +17244,9 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
                                  'for field `surface_72_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_72_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_72_name`')
 
         self._data["Surface 72 Name"] = value
@@ -16099,6 +17319,9 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_73_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_73_name`')
 
         self._data["Surface 73 Name"] = value
 
@@ -16169,6 +17392,9 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
                                  'for field `surface_74_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_74_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_74_name`')
 
         self._data["Surface 74 Name"] = value
@@ -16241,6 +17467,9 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_75_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_75_name`')
 
         self._data["Surface 75 Name"] = value
 
@@ -16311,6 +17540,9 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
                                  'for field `surface_76_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_76_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_76_name`')
 
         self._data["Surface 76 Name"] = value
@@ -16383,6 +17615,9 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_77_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_77_name`')
 
         self._data["Surface 77 Name"] = value
 
@@ -16453,6 +17688,9 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
                                  'for field `surface_78_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_78_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_78_name`')
 
         self._data["Surface 78 Name"] = value
@@ -16525,6 +17763,9 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_79_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_79_name`')
 
         self._data["Surface 79 Name"] = value
 
@@ -16595,6 +17836,9 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
                                  'for field `surface_80_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_80_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_80_name`')
 
         self._data["Surface 80 Name"] = value
@@ -16667,6 +17911,9 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_81_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_81_name`')
 
         self._data["Surface 81 Name"] = value
 
@@ -16737,6 +17984,9 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
                                  'for field `surface_82_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_82_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_82_name`')
 
         self._data["Surface 82 Name"] = value
@@ -16809,6 +18059,9 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_83_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_83_name`')
 
         self._data["Surface 83 Name"] = value
 
@@ -16879,6 +18132,9 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
                                  'for field `surface_84_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_84_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_84_name`')
 
         self._data["Surface 84 Name"] = value
@@ -16951,6 +18207,9 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_85_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_85_name`')
 
         self._data["Surface 85 Name"] = value
 
@@ -17021,6 +18280,9 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
                                  'for field `surface_86_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_86_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_86_name`')
 
         self._data["Surface 86 Name"] = value
@@ -17093,6 +18355,9 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_87_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_87_name`')
 
         self._data["Surface 87 Name"] = value
 
@@ -17163,6 +18428,9 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
                                  'for field `surface_88_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_88_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_88_name`')
 
         self._data["Surface 88 Name"] = value
@@ -17235,6 +18503,9 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_89_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_89_name`')
 
         self._data["Surface 89 Name"] = value
 
@@ -17305,6 +18576,9 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
                                  'for field `surface_90_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_90_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_90_name`')
 
         self._data["Surface 90 Name"] = value
@@ -17377,6 +18651,9 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_91_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_91_name`')
 
         self._data["Surface 91 Name"] = value
 
@@ -17447,6 +18724,9 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
                                  'for field `surface_92_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_92_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_92_name`')
 
         self._data["Surface 92 Name"] = value
@@ -17519,6 +18799,9 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_93_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_93_name`')
 
         self._data["Surface 93 Name"] = value
 
@@ -17589,6 +18872,9 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
                                  'for field `surface_94_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_94_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_94_name`')
 
         self._data["Surface 94 Name"] = value
@@ -17661,6 +18947,9 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_95_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_95_name`')
 
         self._data["Surface 95 Name"] = value
 
@@ -17731,6 +19020,9 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
                                  'for field `surface_96_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_96_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_96_name`')
 
         self._data["Surface 96 Name"] = value
@@ -17803,6 +19095,9 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_97_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_97_name`')
 
         self._data["Surface 97 Name"] = value
 
@@ -17873,6 +19168,9 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
                                  'for field `surface_98_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_98_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_98_name`')
 
         self._data["Surface 98 Name"] = value
@@ -17945,6 +19243,9 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_99_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_99_name`')
 
         self._data["Surface 99 Name"] = value
 
@@ -18016,6 +19317,9 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_100_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_100_name`')
 
         self._data["Surface 100 Name"] = value
 
@@ -18079,222 +19383,17 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.availability_schedule_name))
-        out.append(self._to_str(self.inlet_node_name))
-        out.append(self._to_str(self.outlet_node_name))
-        out.append(self._to_str(self.heating_design_capacity_method))
-        out.append(self._to_str(self.heating_design_capacity))
-        out.append(self._to_str(self.heating_design_capacity_per_floor_area))
-        out.append(self._to_str(self.fraction_of_autosized_heating_design_capacity))
-        out.append(self._to_str(self.degree_of_subcooling))
-        out.append(self._to_str(self.maximum_steam_flow_rate))
-        out.append(self._to_str(self.convergence_tolerance))
-        out.append(self._to_str(self.fraction_radiant))
-        out.append(self._to_str(self.fraction_of_radiant_energy_incident_on_people))
-        out.append(self._to_str(self.surface_1_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_1))
-        out.append(self._to_str(self.surface_2_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_2))
-        out.append(self._to_str(self.surface_3_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_3))
-        out.append(self._to_str(self.surface_4_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_4))
-        out.append(self._to_str(self.surface_5_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_5))
-        out.append(self._to_str(self.surface_6_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_6))
-        out.append(self._to_str(self.surface_7_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_7))
-        out.append(self._to_str(self.surface_8_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_8))
-        out.append(self._to_str(self.surface_9_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_9))
-        out.append(self._to_str(self.surface_10_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_10))
-        out.append(self._to_str(self.surface_11_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_11))
-        out.append(self._to_str(self.surface_12_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_12))
-        out.append(self._to_str(self.surface_13_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_13))
-        out.append(self._to_str(self.surface_14_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_14))
-        out.append(self._to_str(self.surface_15_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_15))
-        out.append(self._to_str(self.surface_16_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_16))
-        out.append(self._to_str(self.surface_17_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_17))
-        out.append(self._to_str(self.surface_18_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_18))
-        out.append(self._to_str(self.surface_19_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_19))
-        out.append(self._to_str(self.surface_20_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_20))
-        out.append(self._to_str(self.surface_21_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_21))
-        out.append(self._to_str(self.surface_22_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_22))
-        out.append(self._to_str(self.surface_23_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_23))
-        out.append(self._to_str(self.surface_24_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_24))
-        out.append(self._to_str(self.surface_25_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_25))
-        out.append(self._to_str(self.surface_26_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_26))
-        out.append(self._to_str(self.surface_27_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_27))
-        out.append(self._to_str(self.surface_28_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_28))
-        out.append(self._to_str(self.surface_29_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_29))
-        out.append(self._to_str(self.surface_30_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_30))
-        out.append(self._to_str(self.surface_31_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_31))
-        out.append(self._to_str(self.surface_32_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_32))
-        out.append(self._to_str(self.surface_33_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_33))
-        out.append(self._to_str(self.surface_34_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_34))
-        out.append(self._to_str(self.surface_35_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_35))
-        out.append(self._to_str(self.surface_36_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_36))
-        out.append(self._to_str(self.surface_37_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_37))
-        out.append(self._to_str(self.surface_38_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_38))
-        out.append(self._to_str(self.surface_39_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_39))
-        out.append(self._to_str(self.surface_40_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_40))
-        out.append(self._to_str(self.surface_41_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_41))
-        out.append(self._to_str(self.surface_42_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_42))
-        out.append(self._to_str(self.surface_43_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_43))
-        out.append(self._to_str(self.surface_44_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_44))
-        out.append(self._to_str(self.surface_45_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_45))
-        out.append(self._to_str(self.surface_46_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_46))
-        out.append(self._to_str(self.surface_47_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_47))
-        out.append(self._to_str(self.surface_48_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_48))
-        out.append(self._to_str(self.surface_49_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_49))
-        out.append(self._to_str(self.surface_50_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_50))
-        out.append(self._to_str(self.surface_51_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_51))
-        out.append(self._to_str(self.surface_52_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_52))
-        out.append(self._to_str(self.surface_53_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_53))
-        out.append(self._to_str(self.surface_54_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_54))
-        out.append(self._to_str(self.surface_55_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_55))
-        out.append(self._to_str(self.surface_56_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_56))
-        out.append(self._to_str(self.surface_57_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_57))
-        out.append(self._to_str(self.surface_58_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_58))
-        out.append(self._to_str(self.surface_59_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_59))
-        out.append(self._to_str(self.surface_60_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_60))
-        out.append(self._to_str(self.surface_61_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_61))
-        out.append(self._to_str(self.surface_62_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_62))
-        out.append(self._to_str(self.surface_63_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_63))
-        out.append(self._to_str(self.surface_64_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_64))
-        out.append(self._to_str(self.surface_65_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_65))
-        out.append(self._to_str(self.surface_66_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_66))
-        out.append(self._to_str(self.surface_67_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_67))
-        out.append(self._to_str(self.surface_68_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_68))
-        out.append(self._to_str(self.surface_69_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_69))
-        out.append(self._to_str(self.surface_70_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_70))
-        out.append(self._to_str(self.surface_71_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_71))
-        out.append(self._to_str(self.surface_72_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_72))
-        out.append(self._to_str(self.surface_73_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_73))
-        out.append(self._to_str(self.surface_74_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_74))
-        out.append(self._to_str(self.surface_75_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_75))
-        out.append(self._to_str(self.surface_76_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_76))
-        out.append(self._to_str(self.surface_77_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_77))
-        out.append(self._to_str(self.surface_78_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_78))
-        out.append(self._to_str(self.surface_79_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_79))
-        out.append(self._to_str(self.surface_80_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_80))
-        out.append(self._to_str(self.surface_81_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_81))
-        out.append(self._to_str(self.surface_82_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_82))
-        out.append(self._to_str(self.surface_83_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_83))
-        out.append(self._to_str(self.surface_84_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_84))
-        out.append(self._to_str(self.surface_85_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_85))
-        out.append(self._to_str(self.surface_86_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_86))
-        out.append(self._to_str(self.surface_87_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_87))
-        out.append(self._to_str(self.surface_88_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_88))
-        out.append(self._to_str(self.surface_89_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_89))
-        out.append(self._to_str(self.surface_90_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_90))
-        out.append(self._to_str(self.surface_91_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_91))
-        out.append(self._to_str(self.surface_92_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_92))
-        out.append(self._to_str(self.surface_93_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_93))
-        out.append(self._to_str(self.surface_94_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_94))
-        out.append(self._to_str(self.surface_95_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_95))
-        out.append(self._to_str(self.surface_96_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_96))
-        out.append(self._to_str(self.surface_97_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_97))
-        out.append(self._to_str(self.surface_98_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_98))
-        out.append(self._to_str(self.surface_99_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_99))
-        out.append(self._to_str(self.surface_100_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_100))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     """ Corresponds to IDD object `ZoneHVAC:Baseboard:RadiantConvective:Electric`
@@ -18519,1059 +19618,1479 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
         self._data["Fraction of Radiant Energy to Surface 99"] = None
         self._data["Surface 100 Name"] = None
         self._data["Fraction of Radiant Energy to Surface 100"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.availability_schedule_name = None
         else:
             self.availability_schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.heating_design_capacity_method = None
         else:
             self.heating_design_capacity_method = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.heating_design_capacity = None
         else:
             self.heating_design_capacity = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.heating_design_capacity_per_floor_area = None
         else:
             self.heating_design_capacity_per_floor_area = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_autosized_heating_design_capacity = None
         else:
             self.fraction_of_autosized_heating_design_capacity = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.efficiency = None
         else:
             self.efficiency = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_radiant = None
         else:
             self.fraction_radiant = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_incident_on_people = None
         else:
             self.fraction_of_radiant_energy_incident_on_people = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_1_name = None
         else:
             self.surface_1_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_1 = None
         else:
             self.fraction_of_radiant_energy_to_surface_1 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_2_name = None
         else:
             self.surface_2_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_2 = None
         else:
             self.fraction_of_radiant_energy_to_surface_2 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_3_name = None
         else:
             self.surface_3_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_3 = None
         else:
             self.fraction_of_radiant_energy_to_surface_3 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_4_name = None
         else:
             self.surface_4_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_4 = None
         else:
             self.fraction_of_radiant_energy_to_surface_4 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_5_name = None
         else:
             self.surface_5_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_5 = None
         else:
             self.fraction_of_radiant_energy_to_surface_5 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_6_name = None
         else:
             self.surface_6_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_6 = None
         else:
             self.fraction_of_radiant_energy_to_surface_6 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_7_name = None
         else:
             self.surface_7_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_7 = None
         else:
             self.fraction_of_radiant_energy_to_surface_7 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_8_name = None
         else:
             self.surface_8_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_8 = None
         else:
             self.fraction_of_radiant_energy_to_surface_8 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_9_name = None
         else:
             self.surface_9_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_9 = None
         else:
             self.fraction_of_radiant_energy_to_surface_9 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_10_name = None
         else:
             self.surface_10_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_10 = None
         else:
             self.fraction_of_radiant_energy_to_surface_10 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_11_name = None
         else:
             self.surface_11_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_11 = None
         else:
             self.fraction_of_radiant_energy_to_surface_11 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_12_name = None
         else:
             self.surface_12_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_12 = None
         else:
             self.fraction_of_radiant_energy_to_surface_12 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_13_name = None
         else:
             self.surface_13_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_13 = None
         else:
             self.fraction_of_radiant_energy_to_surface_13 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_14_name = None
         else:
             self.surface_14_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_14 = None
         else:
             self.fraction_of_radiant_energy_to_surface_14 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_15_name = None
         else:
             self.surface_15_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_15 = None
         else:
             self.fraction_of_radiant_energy_to_surface_15 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_16_name = None
         else:
             self.surface_16_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_16 = None
         else:
             self.fraction_of_radiant_energy_to_surface_16 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_17_name = None
         else:
             self.surface_17_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_17 = None
         else:
             self.fraction_of_radiant_energy_to_surface_17 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_18_name = None
         else:
             self.surface_18_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_18 = None
         else:
             self.fraction_of_radiant_energy_to_surface_18 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_19_name = None
         else:
             self.surface_19_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_19 = None
         else:
             self.fraction_of_radiant_energy_to_surface_19 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_20_name = None
         else:
             self.surface_20_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_20 = None
         else:
             self.fraction_of_radiant_energy_to_surface_20 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_21_name = None
         else:
             self.surface_21_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_21 = None
         else:
             self.fraction_of_radiant_energy_to_surface_21 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_22_name = None
         else:
             self.surface_22_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_22 = None
         else:
             self.fraction_of_radiant_energy_to_surface_22 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_23_name = None
         else:
             self.surface_23_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_23 = None
         else:
             self.fraction_of_radiant_energy_to_surface_23 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_24_name = None
         else:
             self.surface_24_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_24 = None
         else:
             self.fraction_of_radiant_energy_to_surface_24 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_25_name = None
         else:
             self.surface_25_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_25 = None
         else:
             self.fraction_of_radiant_energy_to_surface_25 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_26_name = None
         else:
             self.surface_26_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_26 = None
         else:
             self.fraction_of_radiant_energy_to_surface_26 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_27_name = None
         else:
             self.surface_27_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_27 = None
         else:
             self.fraction_of_radiant_energy_to_surface_27 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_28_name = None
         else:
             self.surface_28_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_28 = None
         else:
             self.fraction_of_radiant_energy_to_surface_28 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_29_name = None
         else:
             self.surface_29_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_29 = None
         else:
             self.fraction_of_radiant_energy_to_surface_29 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_30_name = None
         else:
             self.surface_30_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_30 = None
         else:
             self.fraction_of_radiant_energy_to_surface_30 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_31_name = None
         else:
             self.surface_31_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_31 = None
         else:
             self.fraction_of_radiant_energy_to_surface_31 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_32_name = None
         else:
             self.surface_32_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_32 = None
         else:
             self.fraction_of_radiant_energy_to_surface_32 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_33_name = None
         else:
             self.surface_33_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_33 = None
         else:
             self.fraction_of_radiant_energy_to_surface_33 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_34_name = None
         else:
             self.surface_34_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_34 = None
         else:
             self.fraction_of_radiant_energy_to_surface_34 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_35_name = None
         else:
             self.surface_35_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_35 = None
         else:
             self.fraction_of_radiant_energy_to_surface_35 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_36_name = None
         else:
             self.surface_36_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_36 = None
         else:
             self.fraction_of_radiant_energy_to_surface_36 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_37_name = None
         else:
             self.surface_37_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_37 = None
         else:
             self.fraction_of_radiant_energy_to_surface_37 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_38_name = None
         else:
             self.surface_38_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_38 = None
         else:
             self.fraction_of_radiant_energy_to_surface_38 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_39_name = None
         else:
             self.surface_39_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_39 = None
         else:
             self.fraction_of_radiant_energy_to_surface_39 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_40_name = None
         else:
             self.surface_40_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_40 = None
         else:
             self.fraction_of_radiant_energy_to_surface_40 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_41_name = None
         else:
             self.surface_41_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_41 = None
         else:
             self.fraction_of_radiant_energy_to_surface_41 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_42_name = None
         else:
             self.surface_42_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_42 = None
         else:
             self.fraction_of_radiant_energy_to_surface_42 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_43_name = None
         else:
             self.surface_43_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_43 = None
         else:
             self.fraction_of_radiant_energy_to_surface_43 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_44_name = None
         else:
             self.surface_44_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_44 = None
         else:
             self.fraction_of_radiant_energy_to_surface_44 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_45_name = None
         else:
             self.surface_45_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_45 = None
         else:
             self.fraction_of_radiant_energy_to_surface_45 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_46_name = None
         else:
             self.surface_46_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_46 = None
         else:
             self.fraction_of_radiant_energy_to_surface_46 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_47_name = None
         else:
             self.surface_47_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_47 = None
         else:
             self.fraction_of_radiant_energy_to_surface_47 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_48_name = None
         else:
             self.surface_48_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_48 = None
         else:
             self.fraction_of_radiant_energy_to_surface_48 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_49_name = None
         else:
             self.surface_49_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_49 = None
         else:
             self.fraction_of_radiant_energy_to_surface_49 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_50_name = None
         else:
             self.surface_50_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_50 = None
         else:
             self.fraction_of_radiant_energy_to_surface_50 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_51_name = None
         else:
             self.surface_51_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_51 = None
         else:
             self.fraction_of_radiant_energy_to_surface_51 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_52_name = None
         else:
             self.surface_52_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_52 = None
         else:
             self.fraction_of_radiant_energy_to_surface_52 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_53_name = None
         else:
             self.surface_53_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_53 = None
         else:
             self.fraction_of_radiant_energy_to_surface_53 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_54_name = None
         else:
             self.surface_54_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_54 = None
         else:
             self.fraction_of_radiant_energy_to_surface_54 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_55_name = None
         else:
             self.surface_55_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_55 = None
         else:
             self.fraction_of_radiant_energy_to_surface_55 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_56_name = None
         else:
             self.surface_56_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_56 = None
         else:
             self.fraction_of_radiant_energy_to_surface_56 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_57_name = None
         else:
             self.surface_57_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_57 = None
         else:
             self.fraction_of_radiant_energy_to_surface_57 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_58_name = None
         else:
             self.surface_58_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_58 = None
         else:
             self.fraction_of_radiant_energy_to_surface_58 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_59_name = None
         else:
             self.surface_59_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_59 = None
         else:
             self.fraction_of_radiant_energy_to_surface_59 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_60_name = None
         else:
             self.surface_60_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_60 = None
         else:
             self.fraction_of_radiant_energy_to_surface_60 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_61_name = None
         else:
             self.surface_61_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_61 = None
         else:
             self.fraction_of_radiant_energy_to_surface_61 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_62_name = None
         else:
             self.surface_62_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_62 = None
         else:
             self.fraction_of_radiant_energy_to_surface_62 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_63_name = None
         else:
             self.surface_63_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_63 = None
         else:
             self.fraction_of_radiant_energy_to_surface_63 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_64_name = None
         else:
             self.surface_64_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_64 = None
         else:
             self.fraction_of_radiant_energy_to_surface_64 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_65_name = None
         else:
             self.surface_65_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_65 = None
         else:
             self.fraction_of_radiant_energy_to_surface_65 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_66_name = None
         else:
             self.surface_66_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_66 = None
         else:
             self.fraction_of_radiant_energy_to_surface_66 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_67_name = None
         else:
             self.surface_67_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_67 = None
         else:
             self.fraction_of_radiant_energy_to_surface_67 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_68_name = None
         else:
             self.surface_68_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_68 = None
         else:
             self.fraction_of_radiant_energy_to_surface_68 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_69_name = None
         else:
             self.surface_69_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_69 = None
         else:
             self.fraction_of_radiant_energy_to_surface_69 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_70_name = None
         else:
             self.surface_70_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_70 = None
         else:
             self.fraction_of_radiant_energy_to_surface_70 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_71_name = None
         else:
             self.surface_71_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_71 = None
         else:
             self.fraction_of_radiant_energy_to_surface_71 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_72_name = None
         else:
             self.surface_72_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_72 = None
         else:
             self.fraction_of_radiant_energy_to_surface_72 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_73_name = None
         else:
             self.surface_73_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_73 = None
         else:
             self.fraction_of_radiant_energy_to_surface_73 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_74_name = None
         else:
             self.surface_74_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_74 = None
         else:
             self.fraction_of_radiant_energy_to_surface_74 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_75_name = None
         else:
             self.surface_75_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_75 = None
         else:
             self.fraction_of_radiant_energy_to_surface_75 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_76_name = None
         else:
             self.surface_76_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_76 = None
         else:
             self.fraction_of_radiant_energy_to_surface_76 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_77_name = None
         else:
             self.surface_77_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_77 = None
         else:
             self.fraction_of_radiant_energy_to_surface_77 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_78_name = None
         else:
             self.surface_78_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_78 = None
         else:
             self.fraction_of_radiant_energy_to_surface_78 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_79_name = None
         else:
             self.surface_79_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_79 = None
         else:
             self.fraction_of_radiant_energy_to_surface_79 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_80_name = None
         else:
             self.surface_80_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_80 = None
         else:
             self.fraction_of_radiant_energy_to_surface_80 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_81_name = None
         else:
             self.surface_81_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_81 = None
         else:
             self.fraction_of_radiant_energy_to_surface_81 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_82_name = None
         else:
             self.surface_82_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_82 = None
         else:
             self.fraction_of_radiant_energy_to_surface_82 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_83_name = None
         else:
             self.surface_83_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_83 = None
         else:
             self.fraction_of_radiant_energy_to_surface_83 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_84_name = None
         else:
             self.surface_84_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_84 = None
         else:
             self.fraction_of_radiant_energy_to_surface_84 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_85_name = None
         else:
             self.surface_85_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_85 = None
         else:
             self.fraction_of_radiant_energy_to_surface_85 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_86_name = None
         else:
             self.surface_86_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_86 = None
         else:
             self.fraction_of_radiant_energy_to_surface_86 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_87_name = None
         else:
             self.surface_87_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_87 = None
         else:
             self.fraction_of_radiant_energy_to_surface_87 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_88_name = None
         else:
             self.surface_88_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_88 = None
         else:
             self.fraction_of_radiant_energy_to_surface_88 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_89_name = None
         else:
             self.surface_89_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_89 = None
         else:
             self.fraction_of_radiant_energy_to_surface_89 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_90_name = None
         else:
             self.surface_90_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_90 = None
         else:
             self.fraction_of_radiant_energy_to_surface_90 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_91_name = None
         else:
             self.surface_91_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_91 = None
         else:
             self.fraction_of_radiant_energy_to_surface_91 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_92_name = None
         else:
             self.surface_92_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_92 = None
         else:
             self.fraction_of_radiant_energy_to_surface_92 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_93_name = None
         else:
             self.surface_93_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_93 = None
         else:
             self.fraction_of_radiant_energy_to_surface_93 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_94_name = None
         else:
             self.surface_94_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_94 = None
         else:
             self.fraction_of_radiant_energy_to_surface_94 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_95_name = None
         else:
             self.surface_95_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_95 = None
         else:
             self.fraction_of_radiant_energy_to_surface_95 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_96_name = None
         else:
             self.surface_96_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_96 = None
         else:
             self.fraction_of_radiant_energy_to_surface_96 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_97_name = None
         else:
             self.surface_97_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_97 = None
         else:
             self.fraction_of_radiant_energy_to_surface_97 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_98_name = None
         else:
             self.surface_98_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_98 = None
         else:
             self.fraction_of_radiant_energy_to_surface_98 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_99_name = None
         else:
             self.surface_99_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_99 = None
         else:
             self.fraction_of_radiant_energy_to_surface_99 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_100_name = None
         else:
             self.surface_100_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_100 = None
         else:
             self.fraction_of_radiant_energy_to_surface_100 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -19602,6 +21121,9 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -19637,6 +21159,9 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
                                  'for field `availability_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `availability_schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `availability_schedule_name`')
 
         self._data["Availability Schedule Name"] = value
@@ -19682,13 +21207,27 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `heating_design_capacity_method`')
-            vals = set()
-            vals.add("HeatingDesignCapacity")
-            vals.add("CapacityPerFloorArea")
-            vals.add("FractionOfAutosizedHeatingCapacity")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `heating_design_capacity_method`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `heating_design_capacity_method`')
+            vals = {}
+            vals["heatingdesigncapacity"] = "HeatingDesignCapacity"
+            vals["capacityperfloorarea"] = "CapacityPerFloorArea"
+            vals["fractionofautosizedheatingcapacity"] = "FractionOfAutosizedHeatingCapacity"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `heating_design_capacity_method`'.format(value))
+            value = vals[value_lower]
 
         self._data["Heating Design Capacity Method"] = value
 
@@ -19950,6 +21489,9 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_1_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_1_name`')
 
         self._data["Surface 1 Name"] = value
 
@@ -20020,6 +21562,9 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
                                  'for field `surface_2_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_2_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_2_name`')
 
         self._data["Surface 2 Name"] = value
@@ -20092,6 +21637,9 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_3_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_3_name`')
 
         self._data["Surface 3 Name"] = value
 
@@ -20162,6 +21710,9 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
                                  'for field `surface_4_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_4_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_4_name`')
 
         self._data["Surface 4 Name"] = value
@@ -20234,6 +21785,9 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_5_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_5_name`')
 
         self._data["Surface 5 Name"] = value
 
@@ -20304,6 +21858,9 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
                                  'for field `surface_6_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_6_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_6_name`')
 
         self._data["Surface 6 Name"] = value
@@ -20376,6 +21933,9 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_7_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_7_name`')
 
         self._data["Surface 7 Name"] = value
 
@@ -20446,6 +22006,9 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
                                  'for field `surface_8_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_8_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_8_name`')
 
         self._data["Surface 8 Name"] = value
@@ -20518,6 +22081,9 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_9_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_9_name`')
 
         self._data["Surface 9 Name"] = value
 
@@ -20588,6 +22154,9 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
                                  'for field `surface_10_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_10_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_10_name`')
 
         self._data["Surface 10 Name"] = value
@@ -20660,6 +22229,9 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_11_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_11_name`')
 
         self._data["Surface 11 Name"] = value
 
@@ -20730,6 +22302,9 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
                                  'for field `surface_12_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_12_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_12_name`')
 
         self._data["Surface 12 Name"] = value
@@ -20802,6 +22377,9 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_13_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_13_name`')
 
         self._data["Surface 13 Name"] = value
 
@@ -20872,6 +22450,9 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
                                  'for field `surface_14_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_14_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_14_name`')
 
         self._data["Surface 14 Name"] = value
@@ -20944,6 +22525,9 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_15_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_15_name`')
 
         self._data["Surface 15 Name"] = value
 
@@ -21014,6 +22598,9 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
                                  'for field `surface_16_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_16_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_16_name`')
 
         self._data["Surface 16 Name"] = value
@@ -21086,6 +22673,9 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_17_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_17_name`')
 
         self._data["Surface 17 Name"] = value
 
@@ -21156,6 +22746,9 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
                                  'for field `surface_18_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_18_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_18_name`')
 
         self._data["Surface 18 Name"] = value
@@ -21228,6 +22821,9 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_19_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_19_name`')
 
         self._data["Surface 19 Name"] = value
 
@@ -21298,6 +22894,9 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
                                  'for field `surface_20_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_20_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_20_name`')
 
         self._data["Surface 20 Name"] = value
@@ -21370,6 +22969,9 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_21_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_21_name`')
 
         self._data["Surface 21 Name"] = value
 
@@ -21440,6 +23042,9 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
                                  'for field `surface_22_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_22_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_22_name`')
 
         self._data["Surface 22 Name"] = value
@@ -21512,6 +23117,9 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_23_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_23_name`')
 
         self._data["Surface 23 Name"] = value
 
@@ -21582,6 +23190,9 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
                                  'for field `surface_24_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_24_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_24_name`')
 
         self._data["Surface 24 Name"] = value
@@ -21654,6 +23265,9 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_25_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_25_name`')
 
         self._data["Surface 25 Name"] = value
 
@@ -21724,6 +23338,9 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
                                  'for field `surface_26_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_26_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_26_name`')
 
         self._data["Surface 26 Name"] = value
@@ -21796,6 +23413,9 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_27_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_27_name`')
 
         self._data["Surface 27 Name"] = value
 
@@ -21866,6 +23486,9 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
                                  'for field `surface_28_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_28_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_28_name`')
 
         self._data["Surface 28 Name"] = value
@@ -21938,6 +23561,9 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_29_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_29_name`')
 
         self._data["Surface 29 Name"] = value
 
@@ -22008,6 +23634,9 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
                                  'for field `surface_30_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_30_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_30_name`')
 
         self._data["Surface 30 Name"] = value
@@ -22080,6 +23709,9 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_31_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_31_name`')
 
         self._data["Surface 31 Name"] = value
 
@@ -22150,6 +23782,9 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
                                  'for field `surface_32_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_32_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_32_name`')
 
         self._data["Surface 32 Name"] = value
@@ -22222,6 +23857,9 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_33_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_33_name`')
 
         self._data["Surface 33 Name"] = value
 
@@ -22292,6 +23930,9 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
                                  'for field `surface_34_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_34_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_34_name`')
 
         self._data["Surface 34 Name"] = value
@@ -22364,6 +24005,9 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_35_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_35_name`')
 
         self._data["Surface 35 Name"] = value
 
@@ -22434,6 +24078,9 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
                                  'for field `surface_36_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_36_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_36_name`')
 
         self._data["Surface 36 Name"] = value
@@ -22506,6 +24153,9 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_37_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_37_name`')
 
         self._data["Surface 37 Name"] = value
 
@@ -22576,6 +24226,9 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
                                  'for field `surface_38_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_38_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_38_name`')
 
         self._data["Surface 38 Name"] = value
@@ -22648,6 +24301,9 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_39_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_39_name`')
 
         self._data["Surface 39 Name"] = value
 
@@ -22718,6 +24374,9 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
                                  'for field `surface_40_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_40_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_40_name`')
 
         self._data["Surface 40 Name"] = value
@@ -22790,6 +24449,9 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_41_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_41_name`')
 
         self._data["Surface 41 Name"] = value
 
@@ -22860,6 +24522,9 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
                                  'for field `surface_42_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_42_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_42_name`')
 
         self._data["Surface 42 Name"] = value
@@ -22932,6 +24597,9 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_43_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_43_name`')
 
         self._data["Surface 43 Name"] = value
 
@@ -23002,6 +24670,9 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
                                  'for field `surface_44_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_44_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_44_name`')
 
         self._data["Surface 44 Name"] = value
@@ -23074,6 +24745,9 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_45_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_45_name`')
 
         self._data["Surface 45 Name"] = value
 
@@ -23144,6 +24818,9 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
                                  'for field `surface_46_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_46_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_46_name`')
 
         self._data["Surface 46 Name"] = value
@@ -23216,6 +24893,9 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_47_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_47_name`')
 
         self._data["Surface 47 Name"] = value
 
@@ -23286,6 +24966,9 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
                                  'for field `surface_48_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_48_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_48_name`')
 
         self._data["Surface 48 Name"] = value
@@ -23358,6 +25041,9 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_49_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_49_name`')
 
         self._data["Surface 49 Name"] = value
 
@@ -23428,6 +25114,9 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
                                  'for field `surface_50_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_50_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_50_name`')
 
         self._data["Surface 50 Name"] = value
@@ -23500,6 +25189,9 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_51_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_51_name`')
 
         self._data["Surface 51 Name"] = value
 
@@ -23570,6 +25262,9 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
                                  'for field `surface_52_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_52_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_52_name`')
 
         self._data["Surface 52 Name"] = value
@@ -23642,6 +25337,9 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_53_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_53_name`')
 
         self._data["Surface 53 Name"] = value
 
@@ -23712,6 +25410,9 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
                                  'for field `surface_54_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_54_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_54_name`')
 
         self._data["Surface 54 Name"] = value
@@ -23784,6 +25485,9 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_55_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_55_name`')
 
         self._data["Surface 55 Name"] = value
 
@@ -23854,6 +25558,9 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
                                  'for field `surface_56_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_56_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_56_name`')
 
         self._data["Surface 56 Name"] = value
@@ -23926,6 +25633,9 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_57_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_57_name`')
 
         self._data["Surface 57 Name"] = value
 
@@ -23996,6 +25706,9 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
                                  'for field `surface_58_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_58_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_58_name`')
 
         self._data["Surface 58 Name"] = value
@@ -24068,6 +25781,9 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_59_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_59_name`')
 
         self._data["Surface 59 Name"] = value
 
@@ -24138,6 +25854,9 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
                                  'for field `surface_60_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_60_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_60_name`')
 
         self._data["Surface 60 Name"] = value
@@ -24210,6 +25929,9 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_61_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_61_name`')
 
         self._data["Surface 61 Name"] = value
 
@@ -24280,6 +26002,9 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
                                  'for field `surface_62_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_62_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_62_name`')
 
         self._data["Surface 62 Name"] = value
@@ -24352,6 +26077,9 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_63_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_63_name`')
 
         self._data["Surface 63 Name"] = value
 
@@ -24422,6 +26150,9 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
                                  'for field `surface_64_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_64_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_64_name`')
 
         self._data["Surface 64 Name"] = value
@@ -24494,6 +26225,9 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_65_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_65_name`')
 
         self._data["Surface 65 Name"] = value
 
@@ -24564,6 +26298,9 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
                                  'for field `surface_66_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_66_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_66_name`')
 
         self._data["Surface 66 Name"] = value
@@ -24636,6 +26373,9 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_67_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_67_name`')
 
         self._data["Surface 67 Name"] = value
 
@@ -24706,6 +26446,9 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
                                  'for field `surface_68_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_68_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_68_name`')
 
         self._data["Surface 68 Name"] = value
@@ -24778,6 +26521,9 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_69_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_69_name`')
 
         self._data["Surface 69 Name"] = value
 
@@ -24848,6 +26594,9 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
                                  'for field `surface_70_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_70_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_70_name`')
 
         self._data["Surface 70 Name"] = value
@@ -24920,6 +26669,9 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_71_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_71_name`')
 
         self._data["Surface 71 Name"] = value
 
@@ -24990,6 +26742,9 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
                                  'for field `surface_72_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_72_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_72_name`')
 
         self._data["Surface 72 Name"] = value
@@ -25062,6 +26817,9 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_73_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_73_name`')
 
         self._data["Surface 73 Name"] = value
 
@@ -25132,6 +26890,9 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
                                  'for field `surface_74_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_74_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_74_name`')
 
         self._data["Surface 74 Name"] = value
@@ -25204,6 +26965,9 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_75_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_75_name`')
 
         self._data["Surface 75 Name"] = value
 
@@ -25274,6 +27038,9 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
                                  'for field `surface_76_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_76_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_76_name`')
 
         self._data["Surface 76 Name"] = value
@@ -25346,6 +27113,9 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_77_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_77_name`')
 
         self._data["Surface 77 Name"] = value
 
@@ -25416,6 +27186,9 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
                                  'for field `surface_78_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_78_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_78_name`')
 
         self._data["Surface 78 Name"] = value
@@ -25488,6 +27261,9 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_79_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_79_name`')
 
         self._data["Surface 79 Name"] = value
 
@@ -25558,6 +27334,9 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
                                  'for field `surface_80_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_80_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_80_name`')
 
         self._data["Surface 80 Name"] = value
@@ -25630,6 +27409,9 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_81_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_81_name`')
 
         self._data["Surface 81 Name"] = value
 
@@ -25700,6 +27482,9 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
                                  'for field `surface_82_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_82_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_82_name`')
 
         self._data["Surface 82 Name"] = value
@@ -25772,6 +27557,9 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_83_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_83_name`')
 
         self._data["Surface 83 Name"] = value
 
@@ -25842,6 +27630,9 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
                                  'for field `surface_84_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_84_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_84_name`')
 
         self._data["Surface 84 Name"] = value
@@ -25914,6 +27705,9 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_85_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_85_name`')
 
         self._data["Surface 85 Name"] = value
 
@@ -25984,6 +27778,9 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
                                  'for field `surface_86_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_86_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_86_name`')
 
         self._data["Surface 86 Name"] = value
@@ -26056,6 +27853,9 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_87_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_87_name`')
 
         self._data["Surface 87 Name"] = value
 
@@ -26126,6 +27926,9 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
                                  'for field `surface_88_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_88_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_88_name`')
 
         self._data["Surface 88 Name"] = value
@@ -26198,6 +28001,9 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_89_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_89_name`')
 
         self._data["Surface 89 Name"] = value
 
@@ -26268,6 +28074,9 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
                                  'for field `surface_90_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_90_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_90_name`')
 
         self._data["Surface 90 Name"] = value
@@ -26340,6 +28149,9 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_91_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_91_name`')
 
         self._data["Surface 91 Name"] = value
 
@@ -26410,6 +28222,9 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
                                  'for field `surface_92_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_92_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_92_name`')
 
         self._data["Surface 92 Name"] = value
@@ -26482,6 +28297,9 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_93_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_93_name`')
 
         self._data["Surface 93 Name"] = value
 
@@ -26552,6 +28370,9 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
                                  'for field `surface_94_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_94_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_94_name`')
 
         self._data["Surface 94 Name"] = value
@@ -26624,6 +28445,9 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_95_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_95_name`')
 
         self._data["Surface 95 Name"] = value
 
@@ -26694,6 +28518,9 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
                                  'for field `surface_96_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_96_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_96_name`')
 
         self._data["Surface 96 Name"] = value
@@ -26766,6 +28593,9 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_97_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_97_name`')
 
         self._data["Surface 97 Name"] = value
 
@@ -26836,6 +28666,9 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
                                  'for field `surface_98_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_98_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_98_name`')
 
         self._data["Surface 98 Name"] = value
@@ -26908,6 +28741,9 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_99_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_99_name`')
 
         self._data["Surface 99 Name"] = value
 
@@ -26979,6 +28815,9 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_100_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_100_name`')
 
         self._data["Surface 100 Name"] = value
 
@@ -27042,218 +28881,17 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.availability_schedule_name))
-        out.append(self._to_str(self.heating_design_capacity_method))
-        out.append(self._to_str(self.heating_design_capacity))
-        out.append(self._to_str(self.heating_design_capacity_per_floor_area))
-        out.append(self._to_str(self.fraction_of_autosized_heating_design_capacity))
-        out.append(self._to_str(self.efficiency))
-        out.append(self._to_str(self.fraction_radiant))
-        out.append(self._to_str(self.fraction_of_radiant_energy_incident_on_people))
-        out.append(self._to_str(self.surface_1_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_1))
-        out.append(self._to_str(self.surface_2_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_2))
-        out.append(self._to_str(self.surface_3_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_3))
-        out.append(self._to_str(self.surface_4_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_4))
-        out.append(self._to_str(self.surface_5_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_5))
-        out.append(self._to_str(self.surface_6_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_6))
-        out.append(self._to_str(self.surface_7_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_7))
-        out.append(self._to_str(self.surface_8_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_8))
-        out.append(self._to_str(self.surface_9_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_9))
-        out.append(self._to_str(self.surface_10_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_10))
-        out.append(self._to_str(self.surface_11_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_11))
-        out.append(self._to_str(self.surface_12_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_12))
-        out.append(self._to_str(self.surface_13_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_13))
-        out.append(self._to_str(self.surface_14_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_14))
-        out.append(self._to_str(self.surface_15_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_15))
-        out.append(self._to_str(self.surface_16_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_16))
-        out.append(self._to_str(self.surface_17_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_17))
-        out.append(self._to_str(self.surface_18_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_18))
-        out.append(self._to_str(self.surface_19_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_19))
-        out.append(self._to_str(self.surface_20_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_20))
-        out.append(self._to_str(self.surface_21_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_21))
-        out.append(self._to_str(self.surface_22_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_22))
-        out.append(self._to_str(self.surface_23_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_23))
-        out.append(self._to_str(self.surface_24_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_24))
-        out.append(self._to_str(self.surface_25_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_25))
-        out.append(self._to_str(self.surface_26_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_26))
-        out.append(self._to_str(self.surface_27_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_27))
-        out.append(self._to_str(self.surface_28_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_28))
-        out.append(self._to_str(self.surface_29_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_29))
-        out.append(self._to_str(self.surface_30_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_30))
-        out.append(self._to_str(self.surface_31_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_31))
-        out.append(self._to_str(self.surface_32_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_32))
-        out.append(self._to_str(self.surface_33_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_33))
-        out.append(self._to_str(self.surface_34_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_34))
-        out.append(self._to_str(self.surface_35_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_35))
-        out.append(self._to_str(self.surface_36_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_36))
-        out.append(self._to_str(self.surface_37_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_37))
-        out.append(self._to_str(self.surface_38_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_38))
-        out.append(self._to_str(self.surface_39_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_39))
-        out.append(self._to_str(self.surface_40_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_40))
-        out.append(self._to_str(self.surface_41_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_41))
-        out.append(self._to_str(self.surface_42_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_42))
-        out.append(self._to_str(self.surface_43_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_43))
-        out.append(self._to_str(self.surface_44_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_44))
-        out.append(self._to_str(self.surface_45_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_45))
-        out.append(self._to_str(self.surface_46_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_46))
-        out.append(self._to_str(self.surface_47_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_47))
-        out.append(self._to_str(self.surface_48_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_48))
-        out.append(self._to_str(self.surface_49_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_49))
-        out.append(self._to_str(self.surface_50_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_50))
-        out.append(self._to_str(self.surface_51_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_51))
-        out.append(self._to_str(self.surface_52_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_52))
-        out.append(self._to_str(self.surface_53_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_53))
-        out.append(self._to_str(self.surface_54_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_54))
-        out.append(self._to_str(self.surface_55_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_55))
-        out.append(self._to_str(self.surface_56_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_56))
-        out.append(self._to_str(self.surface_57_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_57))
-        out.append(self._to_str(self.surface_58_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_58))
-        out.append(self._to_str(self.surface_59_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_59))
-        out.append(self._to_str(self.surface_60_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_60))
-        out.append(self._to_str(self.surface_61_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_61))
-        out.append(self._to_str(self.surface_62_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_62))
-        out.append(self._to_str(self.surface_63_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_63))
-        out.append(self._to_str(self.surface_64_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_64))
-        out.append(self._to_str(self.surface_65_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_65))
-        out.append(self._to_str(self.surface_66_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_66))
-        out.append(self._to_str(self.surface_67_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_67))
-        out.append(self._to_str(self.surface_68_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_68))
-        out.append(self._to_str(self.surface_69_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_69))
-        out.append(self._to_str(self.surface_70_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_70))
-        out.append(self._to_str(self.surface_71_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_71))
-        out.append(self._to_str(self.surface_72_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_72))
-        out.append(self._to_str(self.surface_73_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_73))
-        out.append(self._to_str(self.surface_74_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_74))
-        out.append(self._to_str(self.surface_75_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_75))
-        out.append(self._to_str(self.surface_76_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_76))
-        out.append(self._to_str(self.surface_77_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_77))
-        out.append(self._to_str(self.surface_78_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_78))
-        out.append(self._to_str(self.surface_79_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_79))
-        out.append(self._to_str(self.surface_80_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_80))
-        out.append(self._to_str(self.surface_81_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_81))
-        out.append(self._to_str(self.surface_82_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_82))
-        out.append(self._to_str(self.surface_83_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_83))
-        out.append(self._to_str(self.surface_84_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_84))
-        out.append(self._to_str(self.surface_85_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_85))
-        out.append(self._to_str(self.surface_86_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_86))
-        out.append(self._to_str(self.surface_87_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_87))
-        out.append(self._to_str(self.surface_88_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_88))
-        out.append(self._to_str(self.surface_89_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_89))
-        out.append(self._to_str(self.surface_90_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_90))
-        out.append(self._to_str(self.surface_91_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_91))
-        out.append(self._to_str(self.surface_92_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_92))
-        out.append(self._to_str(self.surface_93_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_93))
-        out.append(self._to_str(self.surface_94_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_94))
-        out.append(self._to_str(self.surface_95_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_95))
-        out.append(self._to_str(self.surface_96_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_96))
-        out.append(self._to_str(self.surface_97_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_97))
-        out.append(self._to_str(self.surface_98_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_98))
-        out.append(self._to_str(self.surface_99_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_99))
-        out.append(self._to_str(self.surface_100_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_100))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class ZoneHvacBaseboardConvectiveWater(object):
     """ Corresponds to IDD object `ZoneHVAC:Baseboard:Convective:Water`
@@ -27279,69 +28917,93 @@ class ZoneHvacBaseboardConvectiveWater(object):
         self._data["U-Factor Times Area Value"] = None
         self._data["Maximum Water Flow Rate"] = None
         self._data["Convergence Tolerance"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.availability_schedule_name = None
         else:
             self.availability_schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.inlet_node_name = None
         else:
             self.inlet_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.outlet_node_name = None
         else:
             self.outlet_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.heating_design_capacity_method = None
         else:
             self.heating_design_capacity_method = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.heating_design_capacity = None
         else:
             self.heating_design_capacity = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.heating_design_capacity_per_floor_area = None
         else:
             self.heating_design_capacity_per_floor_area = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_autosized_heating_design_capacity = None
         else:
             self.fraction_of_autosized_heating_design_capacity = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.ufactor_times_area_value = None
         else:
             self.ufactor_times_area_value = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.maximum_water_flow_rate = None
         else:
             self.maximum_water_flow_rate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.convergence_tolerance = None
         else:
             self.convergence_tolerance = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -27372,6 +29034,9 @@ class ZoneHvacBaseboardConvectiveWater(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -27408,6 +29073,9 @@ class ZoneHvacBaseboardConvectiveWater(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `availability_schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `availability_schedule_name`')
 
         self._data["Availability Schedule Name"] = value
 
@@ -27441,6 +29109,9 @@ class ZoneHvacBaseboardConvectiveWater(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `inlet_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `inlet_node_name`')
 
         self._data["Inlet Node Name"] = value
 
@@ -27473,6 +29144,9 @@ class ZoneHvacBaseboardConvectiveWater(object):
                                  'for field `outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `outlet_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `outlet_node_name`')
 
         self._data["Outlet Node Name"] = value
@@ -27518,13 +29192,27 @@ class ZoneHvacBaseboardConvectiveWater(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `heating_design_capacity_method`')
-            vals = set()
-            vals.add("HeatingDesignCapacity")
-            vals.add("CapacityPerFloorArea")
-            vals.add("FractionOfAutosizedHeatingCapacity")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `heating_design_capacity_method`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `heating_design_capacity_method`')
+            vals = {}
+            vals["heatingdesigncapacity"] = "HeatingDesignCapacity"
+            vals["capacityperfloorarea"] = "CapacityPerFloorArea"
+            vals["fractionofautosizedheatingcapacity"] = "FractionOfAutosizedHeatingCapacity"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `heating_design_capacity_method`'.format(value))
+            value = vals[value_lower]
 
         self._data["Heating Design Capacity Method"] = value
 
@@ -27760,20 +29448,17 @@ class ZoneHvacBaseboardConvectiveWater(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.availability_schedule_name))
-        out.append(self._to_str(self.inlet_node_name))
-        out.append(self._to_str(self.outlet_node_name))
-        out.append(self._to_str(self.heating_design_capacity_method))
-        out.append(self._to_str(self.heating_design_capacity))
-        out.append(self._to_str(self.heating_design_capacity_per_floor_area))
-        out.append(self._to_str(self.fraction_of_autosized_heating_design_capacity))
-        out.append(self._to_str(self.ufactor_times_area_value))
-        out.append(self._to_str(self.maximum_water_flow_rate))
-        out.append(self._to_str(self.convergence_tolerance))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class ZoneHvacBaseboardConvectiveElectric(object):
     """ Corresponds to IDD object `ZoneHVAC:Baseboard:Convective:Electric`
@@ -27795,49 +29480,65 @@ class ZoneHvacBaseboardConvectiveElectric(object):
         self._data["Heating Design Capacity Per Floor Area"] = None
         self._data["Fraction of Autosized Heating Design Capacity"] = None
         self._data["Efficiency"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.availability_schedule_name = None
         else:
             self.availability_schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.heating_design_capacity_method = None
         else:
             self.heating_design_capacity_method = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.heating_design_capacity = None
         else:
             self.heating_design_capacity = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.heating_design_capacity_per_floor_area = None
         else:
             self.heating_design_capacity_per_floor_area = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_autosized_heating_design_capacity = None
         else:
             self.fraction_of_autosized_heating_design_capacity = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.efficiency = None
         else:
             self.efficiency = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -27868,6 +29569,9 @@ class ZoneHvacBaseboardConvectiveElectric(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -27903,6 +29607,9 @@ class ZoneHvacBaseboardConvectiveElectric(object):
                                  'for field `availability_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `availability_schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `availability_schedule_name`')
 
         self._data["Availability Schedule Name"] = value
@@ -27948,13 +29655,27 @@ class ZoneHvacBaseboardConvectiveElectric(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `heating_design_capacity_method`')
-            vals = set()
-            vals.add("HeatingDesignCapacity")
-            vals.add("CapacityPerFloorArea")
-            vals.add("FractionOfAutosizedHeatingCapacity")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `heating_design_capacity_method`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `heating_design_capacity_method`')
+            vals = {}
+            vals["heatingdesigncapacity"] = "HeatingDesignCapacity"
+            vals["capacityperfloorarea"] = "CapacityPerFloorArea"
+            vals["fractionofautosizedheatingcapacity"] = "FractionOfAutosizedHeatingCapacity"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `heating_design_capacity_method`'.format(value))
+            value = vals[value_lower]
 
         self._data["Heating Design Capacity Method"] = value
 
@@ -28131,16 +29852,17 @@ class ZoneHvacBaseboardConvectiveElectric(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.availability_schedule_name))
-        out.append(self._to_str(self.heating_design_capacity_method))
-        out.append(self._to_str(self.heating_design_capacity))
-        out.append(self._to_str(self.heating_design_capacity_per_floor_area))
-        out.append(self._to_str(self.fraction_of_autosized_heating_design_capacity))
-        out.append(self._to_str(self.efficiency))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class ZoneHvacLowTemperatureRadiantVariableFlow(object):
     """ Corresponds to IDD object `ZoneHVAC:LowTemperatureRadiant:VariableFlow`
@@ -28186,159 +29908,219 @@ class ZoneHvacLowTemperatureRadiantVariableFlow(object):
         self._data["Condensation Control Dewpoint Offset"] = None
         self._data["Number of Circuits"] = None
         self._data["Circuit Length"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.availability_schedule_name = None
         else:
             self.availability_schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.zone_name = None
         else:
             self.zone_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_name_or_radiant_surface_group_name = None
         else:
             self.surface_name_or_radiant_surface_group_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.hydronic_tubing_inside_diameter = None
         else:
             self.hydronic_tubing_inside_diameter = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.hydronic_tubing_length = None
         else:
             self.hydronic_tubing_length = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.temperature_control_type = None
         else:
             self.temperature_control_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.heating_design_capacity_method = None
         else:
             self.heating_design_capacity_method = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.heating_design_capacity = None
         else:
             self.heating_design_capacity = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.heating_design_capacity_per_floor_area = None
         else:
             self.heating_design_capacity_per_floor_area = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_autosized_heating_design_capacity = None
         else:
             self.fraction_of_autosized_heating_design_capacity = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.maximum_hot_water_flow = None
         else:
             self.maximum_hot_water_flow = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.heating_water_inlet_node_name = None
         else:
             self.heating_water_inlet_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.heating_water_outlet_node_name = None
         else:
             self.heating_water_outlet_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.heating_control_throttling_range = None
         else:
             self.heating_control_throttling_range = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.heating_control_temperature_schedule_name = None
         else:
             self.heating_control_temperature_schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.cooling_design_capacity_method = None
         else:
             self.cooling_design_capacity_method = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.cooling_design_capacity = None
         else:
             self.cooling_design_capacity = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.cooling_design_capacity_per_floor_area = None
         else:
             self.cooling_design_capacity_per_floor_area = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_autosized_cooling_design_capacity = None
         else:
             self.fraction_of_autosized_cooling_design_capacity = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.maximum_cold_water_flow = None
         else:
             self.maximum_cold_water_flow = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.cooling_water_inlet_node_name = None
         else:
             self.cooling_water_inlet_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.cooling_water_outlet_node_name = None
         else:
             self.cooling_water_outlet_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.cooling_control_throttling_range = None
         else:
             self.cooling_control_throttling_range = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.cooling_control_temperature_schedule_name = None
         else:
             self.cooling_control_temperature_schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.condensation_control_type = None
         else:
             self.condensation_control_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.condensation_control_dewpoint_offset = None
         else:
             self.condensation_control_dewpoint_offset = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.number_of_circuits = None
         else:
             self.number_of_circuits = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.circuit_length = None
         else:
             self.circuit_length = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -28369,6 +30151,9 @@ class ZoneHvacLowTemperatureRadiantVariableFlow(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -28405,6 +30190,9 @@ class ZoneHvacLowTemperatureRadiantVariableFlow(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `availability_schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `availability_schedule_name`')
 
         self._data["Availability Schedule Name"] = value
 
@@ -28438,6 +30226,9 @@ class ZoneHvacLowTemperatureRadiantVariableFlow(object):
                                  'for field `zone_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `zone_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `zone_name`')
 
         self._data["Zone Name"] = value
@@ -28474,6 +30265,9 @@ class ZoneHvacLowTemperatureRadiantVariableFlow(object):
                                  'for field `surface_name_or_radiant_surface_group_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_name_or_radiant_surface_group_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_name_or_radiant_surface_group_name`')
 
         self._data["Surface Name or Radiant Surface Group Name"] = value
@@ -28589,15 +30383,29 @@ class ZoneHvacLowTemperatureRadiantVariableFlow(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `temperature_control_type`')
-            vals = set()
-            vals.add("MeanAirTemperature")
-            vals.add("MeanRadiantTemperature")
-            vals.add("OperativeTemperature")
-            vals.add("OutdoorDryBulbTemperature")
-            vals.add("OutdoorWetBulbTemperature")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `temperature_control_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `temperature_control_type`')
+            vals = {}
+            vals["meanairtemperature"] = "MeanAirTemperature"
+            vals["meanradianttemperature"] = "MeanRadiantTemperature"
+            vals["operativetemperature"] = "OperativeTemperature"
+            vals["outdoordrybulbtemperature"] = "OutdoorDryBulbTemperature"
+            vals["outdoorwetbulbtemperature"] = "OutdoorWetBulbTemperature"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `temperature_control_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Temperature Control Type"] = value
 
@@ -28642,13 +30450,27 @@ class ZoneHvacLowTemperatureRadiantVariableFlow(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `heating_design_capacity_method`')
-            vals = set()
-            vals.add("HeatingDesignCapacity")
-            vals.add("CapacityPerFloorArea")
-            vals.add("FractionOfAutosizedHeatingCapacity")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `heating_design_capacity_method`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `heating_design_capacity_method`')
+            vals = {}
+            vals["heatingdesigncapacity"] = "HeatingDesignCapacity"
+            vals["capacityperfloorarea"] = "CapacityPerFloorArea"
+            vals["fractionofautosizedheatingcapacity"] = "FractionOfAutosizedHeatingCapacity"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `heating_design_capacity_method`'.format(value))
+            value = vals[value_lower]
 
         self._data["Heating Design Capacity Method"] = value
 
@@ -28830,6 +30652,9 @@ class ZoneHvacLowTemperatureRadiantVariableFlow(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `heating_water_inlet_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `heating_water_inlet_node_name`')
 
         self._data["Heating Water Inlet Node Name"] = value
 
@@ -28862,6 +30687,9 @@ class ZoneHvacLowTemperatureRadiantVariableFlow(object):
                                  'for field `heating_water_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `heating_water_outlet_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `heating_water_outlet_node_name`')
 
         self._data["Heating Water Outlet Node Name"] = value
@@ -28932,6 +30760,9 @@ class ZoneHvacLowTemperatureRadiantVariableFlow(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `heating_control_temperature_schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `heating_control_temperature_schedule_name`')
 
         self._data["Heating Control Temperature Schedule Name"] = value
 
@@ -28978,14 +30809,28 @@ class ZoneHvacLowTemperatureRadiantVariableFlow(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `cooling_design_capacity_method`')
-            vals = set()
-            vals.add("None")
-            vals.add("CoolingDesignCapacity")
-            vals.add("CapacityPerFloorArea")
-            vals.add("FractionOfAutosizedCoolingCapacity")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `cooling_design_capacity_method`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `cooling_design_capacity_method`')
+            vals = {}
+            vals["none"] = "None"
+            vals["coolingdesigncapacity"] = "CoolingDesignCapacity"
+            vals["capacityperfloorarea"] = "CapacityPerFloorArea"
+            vals["fractionofautosizedcoolingcapacity"] = "FractionOfAutosizedCoolingCapacity"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `cooling_design_capacity_method`'.format(value))
+            value = vals[value_lower]
 
         self._data["Cooling Design Capacity Method"] = value
 
@@ -29165,6 +31010,9 @@ class ZoneHvacLowTemperatureRadiantVariableFlow(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `cooling_water_inlet_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `cooling_water_inlet_node_name`')
 
         self._data["Cooling Water Inlet Node Name"] = value
 
@@ -29197,6 +31045,9 @@ class ZoneHvacLowTemperatureRadiantVariableFlow(object):
                                  'for field `cooling_water_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `cooling_water_outlet_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `cooling_water_outlet_node_name`')
 
         self._data["Cooling Water Outlet Node Name"] = value
@@ -29267,6 +31118,9 @@ class ZoneHvacLowTemperatureRadiantVariableFlow(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `cooling_control_temperature_schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `cooling_control_temperature_schedule_name`')
 
         self._data["Cooling Control Temperature Schedule Name"] = value
 
@@ -29305,13 +31159,27 @@ class ZoneHvacLowTemperatureRadiantVariableFlow(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `condensation_control_type`')
-            vals = set()
-            vals.add("Off")
-            vals.add("SimpleOff")
-            vals.add("VariableOff")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `condensation_control_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `condensation_control_type`')
+            vals = {}
+            vals["off"] = "Off"
+            vals["simpleoff"] = "SimpleOff"
+            vals["variableoff"] = "VariableOff"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `condensation_control_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Condensation Control Type"] = value
 
@@ -29381,12 +31249,26 @@ class ZoneHvacLowTemperatureRadiantVariableFlow(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `number_of_circuits`')
-            vals = set()
-            vals.add("OnePerSurface")
-            vals.add("CalculateFromCircuitLength")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `number_of_circuits`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `number_of_circuits`')
+            vals = {}
+            vals["onepersurface"] = "OnePerSurface"
+            vals["calculatefromcircuitlength"] = "CalculateFromCircuitLength"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `number_of_circuits`'.format(value))
+            value = vals[value_lower]
 
         self._data["Number of Circuits"] = value
 
@@ -29444,38 +31326,17 @@ class ZoneHvacLowTemperatureRadiantVariableFlow(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.availability_schedule_name))
-        out.append(self._to_str(self.zone_name))
-        out.append(self._to_str(self.surface_name_or_radiant_surface_group_name))
-        out.append(self._to_str(self.hydronic_tubing_inside_diameter))
-        out.append(self._to_str(self.hydronic_tubing_length))
-        out.append(self._to_str(self.temperature_control_type))
-        out.append(self._to_str(self.heating_design_capacity_method))
-        out.append(self._to_str(self.heating_design_capacity))
-        out.append(self._to_str(self.heating_design_capacity_per_floor_area))
-        out.append(self._to_str(self.fraction_of_autosized_heating_design_capacity))
-        out.append(self._to_str(self.maximum_hot_water_flow))
-        out.append(self._to_str(self.heating_water_inlet_node_name))
-        out.append(self._to_str(self.heating_water_outlet_node_name))
-        out.append(self._to_str(self.heating_control_throttling_range))
-        out.append(self._to_str(self.heating_control_temperature_schedule_name))
-        out.append(self._to_str(self.cooling_design_capacity_method))
-        out.append(self._to_str(self.cooling_design_capacity))
-        out.append(self._to_str(self.cooling_design_capacity_per_floor_area))
-        out.append(self._to_str(self.fraction_of_autosized_cooling_design_capacity))
-        out.append(self._to_str(self.maximum_cold_water_flow))
-        out.append(self._to_str(self.cooling_water_inlet_node_name))
-        out.append(self._to_str(self.cooling_water_outlet_node_name))
-        out.append(self._to_str(self.cooling_control_throttling_range))
-        out.append(self._to_str(self.cooling_control_temperature_schedule_name))
-        out.append(self._to_str(self.condensation_control_type))
-        out.append(self._to_str(self.condensation_control_dewpoint_offset))
-        out.append(self._to_str(self.number_of_circuits))
-        out.append(self._to_str(self.circuit_length))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class ZoneHvacLowTemperatureRadiantConstantFlow(object):
     """ Corresponds to IDD object `ZoneHVAC:LowTemperatureRadiant:ConstantFlow`
@@ -29521,159 +31382,219 @@ class ZoneHvacLowTemperatureRadiantConstantFlow(object):
         self._data["Condensation Control Dewpoint Offset"] = None
         self._data["Number of Circuits"] = None
         self._data["Circuit Length"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.availability_schedule_name = None
         else:
             self.availability_schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.zone_name = None
         else:
             self.zone_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_name_or_radiant_surface_group_name = None
         else:
             self.surface_name_or_radiant_surface_group_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.hydronic_tubing_inside_diameter = None
         else:
             self.hydronic_tubing_inside_diameter = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.hydronic_tubing_length = None
         else:
             self.hydronic_tubing_length = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.temperature_control_type = None
         else:
             self.temperature_control_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.rated_flow_rate = None
         else:
             self.rated_flow_rate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.pump_flow_rate_schedule_name = None
         else:
             self.pump_flow_rate_schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.rated_pump_head = None
         else:
             self.rated_pump_head = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.rated_power_consumption = None
         else:
             self.rated_power_consumption = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.motor_efficiency = None
         else:
             self.motor_efficiency = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_motor_inefficiencies_to_fluid_stream = None
         else:
             self.fraction_of_motor_inefficiencies_to_fluid_stream = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.heating_water_inlet_node_name = None
         else:
             self.heating_water_inlet_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.heating_water_outlet_node_name = None
         else:
             self.heating_water_outlet_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.heating_high_water_temperature_schedule_name = None
         else:
             self.heating_high_water_temperature_schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.heating_low_water_temperature_schedule_name = None
         else:
             self.heating_low_water_temperature_schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.heating_high_control_temperature_schedule_name = None
         else:
             self.heating_high_control_temperature_schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.heating_low_control_temperature_schedule_name = None
         else:
             self.heating_low_control_temperature_schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.cooling_water_inlet_node_name = None
         else:
             self.cooling_water_inlet_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.cooling_water_outlet_node_name = None
         else:
             self.cooling_water_outlet_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.cooling_high_water_temperature_schedule_name = None
         else:
             self.cooling_high_water_temperature_schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.cooling_low_water_temperature_schedule_name = None
         else:
             self.cooling_low_water_temperature_schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.cooling_high_control_temperature_schedule_name = None
         else:
             self.cooling_high_control_temperature_schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.cooling_low_control_temperature_schedule_name = None
         else:
             self.cooling_low_control_temperature_schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.condensation_control_type = None
         else:
             self.condensation_control_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.condensation_control_dewpoint_offset = None
         else:
             self.condensation_control_dewpoint_offset = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.number_of_circuits = None
         else:
             self.number_of_circuits = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.circuit_length = None
         else:
             self.circuit_length = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -29704,6 +31625,9 @@ class ZoneHvacLowTemperatureRadiantConstantFlow(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -29740,6 +31664,9 @@ class ZoneHvacLowTemperatureRadiantConstantFlow(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `availability_schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `availability_schedule_name`')
 
         self._data["Availability Schedule Name"] = value
 
@@ -29773,6 +31700,9 @@ class ZoneHvacLowTemperatureRadiantConstantFlow(object):
                                  'for field `zone_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `zone_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `zone_name`')
 
         self._data["Zone Name"] = value
@@ -29809,6 +31739,9 @@ class ZoneHvacLowTemperatureRadiantConstantFlow(object):
                                  'for field `surface_name_or_radiant_surface_group_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_name_or_radiant_surface_group_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_name_or_radiant_surface_group_name`')
 
         self._data["Surface Name or Radiant Surface Group Name"] = value
@@ -29923,15 +31856,29 @@ class ZoneHvacLowTemperatureRadiantConstantFlow(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `temperature_control_type`')
-            vals = set()
-            vals.add("MeanAirTemperature")
-            vals.add("MeanRadiantTemperature")
-            vals.add("OperativeTemperature")
-            vals.add("OutdoorDryBulbTemperature")
-            vals.add("OutdoorWetBulbTemperature")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `temperature_control_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `temperature_control_type`')
+            vals = {}
+            vals["meanairtemperature"] = "MeanAirTemperature"
+            vals["meanradianttemperature"] = "MeanRadiantTemperature"
+            vals["operativetemperature"] = "OperativeTemperature"
+            vals["outdoordrybulbtemperature"] = "OutdoorDryBulbTemperature"
+            vals["outdoorwetbulbtemperature"] = "OutdoorWetBulbTemperature"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `temperature_control_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Temperature Control Type"] = value
 
@@ -30000,6 +31947,9 @@ class ZoneHvacLowTemperatureRadiantConstantFlow(object):
                                  'for field `pump_flow_rate_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `pump_flow_rate_schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `pump_flow_rate_schedule_name`')
 
         self._data["Pump Flow Rate Schedule Name"] = value
@@ -30176,6 +32126,9 @@ class ZoneHvacLowTemperatureRadiantConstantFlow(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `heating_water_inlet_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `heating_water_inlet_node_name`')
 
         self._data["Heating Water Inlet Node Name"] = value
 
@@ -30208,6 +32161,9 @@ class ZoneHvacLowTemperatureRadiantConstantFlow(object):
                                  'for field `heating_water_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `heating_water_outlet_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `heating_water_outlet_node_name`')
 
         self._data["Heating Water Outlet Node Name"] = value
@@ -30253,6 +32209,9 @@ class ZoneHvacLowTemperatureRadiantConstantFlow(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `heating_high_water_temperature_schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `heating_high_water_temperature_schedule_name`')
 
         self._data["Heating High Water Temperature Schedule Name"] = value
 
@@ -30285,6 +32244,9 @@ class ZoneHvacLowTemperatureRadiantConstantFlow(object):
                                  'for field `heating_low_water_temperature_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `heating_low_water_temperature_schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `heating_low_water_temperature_schedule_name`')
 
         self._data["Heating Low Water Temperature Schedule Name"] = value
@@ -30319,6 +32281,9 @@ class ZoneHvacLowTemperatureRadiantConstantFlow(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `heating_high_control_temperature_schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `heating_high_control_temperature_schedule_name`')
 
         self._data["Heating High Control Temperature Schedule Name"] = value
 
@@ -30351,6 +32316,9 @@ class ZoneHvacLowTemperatureRadiantConstantFlow(object):
                                  'for field `heating_low_control_temperature_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `heating_low_control_temperature_schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `heating_low_control_temperature_schedule_name`')
 
         self._data["Heating Low Control Temperature Schedule Name"] = value
@@ -30385,6 +32353,9 @@ class ZoneHvacLowTemperatureRadiantConstantFlow(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `cooling_water_inlet_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `cooling_water_inlet_node_name`')
 
         self._data["Cooling Water Inlet Node Name"] = value
 
@@ -30417,6 +32388,9 @@ class ZoneHvacLowTemperatureRadiantConstantFlow(object):
                                  'for field `cooling_water_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `cooling_water_outlet_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `cooling_water_outlet_node_name`')
 
         self._data["Cooling Water Outlet Node Name"] = value
@@ -30453,6 +32427,9 @@ class ZoneHvacLowTemperatureRadiantConstantFlow(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `cooling_high_water_temperature_schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `cooling_high_water_temperature_schedule_name`')
 
         self._data["Cooling High Water Temperature Schedule Name"] = value
 
@@ -30485,6 +32462,9 @@ class ZoneHvacLowTemperatureRadiantConstantFlow(object):
                                  'for field `cooling_low_water_temperature_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `cooling_low_water_temperature_schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `cooling_low_water_temperature_schedule_name`')
 
         self._data["Cooling Low Water Temperature Schedule Name"] = value
@@ -30519,6 +32499,9 @@ class ZoneHvacLowTemperatureRadiantConstantFlow(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `cooling_high_control_temperature_schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `cooling_high_control_temperature_schedule_name`')
 
         self._data["Cooling High Control Temperature Schedule Name"] = value
 
@@ -30551,6 +32534,9 @@ class ZoneHvacLowTemperatureRadiantConstantFlow(object):
                                  'for field `cooling_low_control_temperature_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `cooling_low_control_temperature_schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `cooling_low_control_temperature_schedule_name`')
 
         self._data["Cooling Low Control Temperature Schedule Name"] = value
@@ -30590,13 +32576,27 @@ class ZoneHvacLowTemperatureRadiantConstantFlow(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `condensation_control_type`')
-            vals = set()
-            vals.add("Off")
-            vals.add("SimpleOff")
-            vals.add("VariableOff")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `condensation_control_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `condensation_control_type`')
+            vals = {}
+            vals["off"] = "Off"
+            vals["simpleoff"] = "SimpleOff"
+            vals["variableoff"] = "VariableOff"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `condensation_control_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Condensation Control Type"] = value
 
@@ -30666,12 +32666,26 @@ class ZoneHvacLowTemperatureRadiantConstantFlow(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `number_of_circuits`')
-            vals = set()
-            vals.add("OnePerSurface")
-            vals.add("CalculateFromCircuitLength")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `number_of_circuits`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `number_of_circuits`')
+            vals = {}
+            vals["onepersurface"] = "OnePerSurface"
+            vals["calculatefromcircuitlength"] = "CalculateFromCircuitLength"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `number_of_circuits`'.format(value))
+            value = vals[value_lower]
 
         self._data["Number of Circuits"] = value
 
@@ -30729,38 +32743,17 @@ class ZoneHvacLowTemperatureRadiantConstantFlow(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.availability_schedule_name))
-        out.append(self._to_str(self.zone_name))
-        out.append(self._to_str(self.surface_name_or_radiant_surface_group_name))
-        out.append(self._to_str(self.hydronic_tubing_inside_diameter))
-        out.append(self._to_str(self.hydronic_tubing_length))
-        out.append(self._to_str(self.temperature_control_type))
-        out.append(self._to_str(self.rated_flow_rate))
-        out.append(self._to_str(self.pump_flow_rate_schedule_name))
-        out.append(self._to_str(self.rated_pump_head))
-        out.append(self._to_str(self.rated_power_consumption))
-        out.append(self._to_str(self.motor_efficiency))
-        out.append(self._to_str(self.fraction_of_motor_inefficiencies_to_fluid_stream))
-        out.append(self._to_str(self.heating_water_inlet_node_name))
-        out.append(self._to_str(self.heating_water_outlet_node_name))
-        out.append(self._to_str(self.heating_high_water_temperature_schedule_name))
-        out.append(self._to_str(self.heating_low_water_temperature_schedule_name))
-        out.append(self._to_str(self.heating_high_control_temperature_schedule_name))
-        out.append(self._to_str(self.heating_low_control_temperature_schedule_name))
-        out.append(self._to_str(self.cooling_water_inlet_node_name))
-        out.append(self._to_str(self.cooling_water_outlet_node_name))
-        out.append(self._to_str(self.cooling_high_water_temperature_schedule_name))
-        out.append(self._to_str(self.cooling_low_water_temperature_schedule_name))
-        out.append(self._to_str(self.cooling_high_control_temperature_schedule_name))
-        out.append(self._to_str(self.cooling_low_control_temperature_schedule_name))
-        out.append(self._to_str(self.condensation_control_type))
-        out.append(self._to_str(self.condensation_control_dewpoint_offset))
-        out.append(self._to_str(self.number_of_circuits))
-        out.append(self._to_str(self.circuit_length))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class ZoneHvacLowTemperatureRadiantElectric(object):
     """ Corresponds to IDD object `ZoneHVAC:LowTemperatureRadiant:Electric`
@@ -30786,69 +32779,93 @@ class ZoneHvacLowTemperatureRadiantElectric(object):
         self._data["Temperature Control Type"] = None
         self._data["Heating Throttling Range"] = None
         self._data["Heating Setpoint Temperature Schedule Name"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.availability_schedule_name = None
         else:
             self.availability_schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.zone_name = None
         else:
             self.zone_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_name_or_radiant_surface_group_name = None
         else:
             self.surface_name_or_radiant_surface_group_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.heating_design_capacity_method = None
         else:
             self.heating_design_capacity_method = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.heating_design_capacity = None
         else:
             self.heating_design_capacity = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.heating_design_capacity_per_floor_area = None
         else:
             self.heating_design_capacity_per_floor_area = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_autosized_heating_design_capacity = None
         else:
             self.fraction_of_autosized_heating_design_capacity = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.temperature_control_type = None
         else:
             self.temperature_control_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.heating_throttling_range = None
         else:
             self.heating_throttling_range = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.heating_setpoint_temperature_schedule_name = None
         else:
             self.heating_setpoint_temperature_schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -30879,6 +32896,9 @@ class ZoneHvacLowTemperatureRadiantElectric(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -30915,6 +32935,9 @@ class ZoneHvacLowTemperatureRadiantElectric(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `availability_schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `availability_schedule_name`')
 
         self._data["Availability Schedule Name"] = value
 
@@ -30948,6 +32971,9 @@ class ZoneHvacLowTemperatureRadiantElectric(object):
                                  'for field `zone_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `zone_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `zone_name`')
 
         self._data["Zone Name"] = value
@@ -30984,6 +33010,9 @@ class ZoneHvacLowTemperatureRadiantElectric(object):
                                  'for field `surface_name_or_radiant_surface_group_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_name_or_radiant_surface_group_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_name_or_radiant_surface_group_name`')
 
         self._data["Surface Name or Radiant Surface Group Name"] = value
@@ -31029,13 +33058,27 @@ class ZoneHvacLowTemperatureRadiantElectric(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `heating_design_capacity_method`')
-            vals = set()
-            vals.add("HeatingDesignCapacity")
-            vals.add("CapacityPerFloorArea")
-            vals.add("FractionOfAutosizedHeatingCapacity")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `heating_design_capacity_method`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `heating_design_capacity_method`')
+            vals = {}
+            vals["heatingdesigncapacity"] = "HeatingDesignCapacity"
+            vals["capacityperfloorarea"] = "CapacityPerFloorArea"
+            vals["fractionofautosizedheatingcapacity"] = "FractionOfAutosizedHeatingCapacity"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `heating_design_capacity_method`'.format(value))
+            value = vals[value_lower]
 
         self._data["Heating Design Capacity Method"] = value
 
@@ -31189,15 +33232,29 @@ class ZoneHvacLowTemperatureRadiantElectric(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `temperature_control_type`')
-            vals = set()
-            vals.add("MeanAirTemperature")
-            vals.add("MeanRadiantTemperature")
-            vals.add("OperativeTemperature")
-            vals.add("OutdoorDryBulbTemperature")
-            vals.add("OutdoorWetBulbTemperature")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `temperature_control_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `temperature_control_type`')
+            vals = {}
+            vals["meanairtemperature"] = "MeanAirTemperature"
+            vals["meanradianttemperature"] = "MeanRadiantTemperature"
+            vals["operativetemperature"] = "OperativeTemperature"
+            vals["outdoordrybulbtemperature"] = "OutdoorDryBulbTemperature"
+            vals["outdoorwetbulbtemperature"] = "OutdoorWetBulbTemperature"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `temperature_control_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Temperature Control Type"] = value
 
@@ -31267,6 +33324,9 @@ class ZoneHvacLowTemperatureRadiantElectric(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `heating_setpoint_temperature_schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `heating_setpoint_temperature_schedule_name`')
 
         self._data["Heating Setpoint Temperature Schedule Name"] = value
 
@@ -31292,20 +33352,17 @@ class ZoneHvacLowTemperatureRadiantElectric(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.availability_schedule_name))
-        out.append(self._to_str(self.zone_name))
-        out.append(self._to_str(self.surface_name_or_radiant_surface_group_name))
-        out.append(self._to_str(self.heating_design_capacity_method))
-        out.append(self._to_str(self.heating_design_capacity))
-        out.append(self._to_str(self.heating_design_capacity_per_floor_area))
-        out.append(self._to_str(self.fraction_of_autosized_heating_design_capacity))
-        out.append(self._to_str(self.temperature_control_type))
-        out.append(self._to_str(self.heating_throttling_range))
-        out.append(self._to_str(self.heating_setpoint_temperature_schedule_name))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
     """ Corresponds to IDD object `ZoneHVAC:LowTemperatureRadiant:SurfaceGroup`
@@ -31524,1019 +33581,1423 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
         self._data["Flow Fraction for Surface 99"] = None
         self._data["Surface 100 Name"] = None
         self._data["Flow Fraction for Surface 100"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_1_name = None
         else:
             self.surface_1_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.flow_fraction_for_surface_1 = None
         else:
             self.flow_fraction_for_surface_1 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_2_name = None
         else:
             self.surface_2_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.flow_fraction_for_surface_2 = None
         else:
             self.flow_fraction_for_surface_2 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_3_name = None
         else:
             self.surface_3_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.flow_fraction_for_surface_3 = None
         else:
             self.flow_fraction_for_surface_3 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_4_name = None
         else:
             self.surface_4_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.flow_fraction_for_surface_4 = None
         else:
             self.flow_fraction_for_surface_4 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_5_name = None
         else:
             self.surface_5_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.flow_fraction_for_surface_5 = None
         else:
             self.flow_fraction_for_surface_5 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_6_name = None
         else:
             self.surface_6_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.flow_fraction_for_surface_6 = None
         else:
             self.flow_fraction_for_surface_6 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_7_name = None
         else:
             self.surface_7_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.flow_fraction_for_surface_7 = None
         else:
             self.flow_fraction_for_surface_7 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_8_name = None
         else:
             self.surface_8_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.flow_fraction_for_surface_8 = None
         else:
             self.flow_fraction_for_surface_8 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_9_name = None
         else:
             self.surface_9_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.flow_fraction_for_surface_9 = None
         else:
             self.flow_fraction_for_surface_9 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_10_name = None
         else:
             self.surface_10_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.flow_fraction_for_surface_10 = None
         else:
             self.flow_fraction_for_surface_10 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_11_name = None
         else:
             self.surface_11_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.flow_fraction_for_surface_11 = None
         else:
             self.flow_fraction_for_surface_11 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_12_name = None
         else:
             self.surface_12_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.flow_fraction_for_surface_12 = None
         else:
             self.flow_fraction_for_surface_12 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_13_name = None
         else:
             self.surface_13_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.flow_fraction_for_surface_13 = None
         else:
             self.flow_fraction_for_surface_13 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_14_name = None
         else:
             self.surface_14_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.flow_fraction_for_surface_14 = None
         else:
             self.flow_fraction_for_surface_14 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_15_name = None
         else:
             self.surface_15_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.flow_fraction_for_surface_15 = None
         else:
             self.flow_fraction_for_surface_15 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_16_name = None
         else:
             self.surface_16_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.flow_fraction_for_surface_16 = None
         else:
             self.flow_fraction_for_surface_16 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_17_name = None
         else:
             self.surface_17_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.flow_fraction_for_surface_17 = None
         else:
             self.flow_fraction_for_surface_17 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_18_name = None
         else:
             self.surface_18_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.flow_fraction_for_surface_18 = None
         else:
             self.flow_fraction_for_surface_18 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_19_name = None
         else:
             self.surface_19_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.flow_fraction_for_surface_19 = None
         else:
             self.flow_fraction_for_surface_19 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_20_name = None
         else:
             self.surface_20_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.flow_fraction_for_surface_20 = None
         else:
             self.flow_fraction_for_surface_20 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_21_name = None
         else:
             self.surface_21_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.flow_fraction_for_surface_21 = None
         else:
             self.flow_fraction_for_surface_21 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_22_name = None
         else:
             self.surface_22_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.flow_fraction_for_surface_22 = None
         else:
             self.flow_fraction_for_surface_22 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_23_name = None
         else:
             self.surface_23_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.flow_fraction_for_surface_23 = None
         else:
             self.flow_fraction_for_surface_23 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_24_name = None
         else:
             self.surface_24_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.flow_fraction_for_surface_24 = None
         else:
             self.flow_fraction_for_surface_24 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_25_name = None
         else:
             self.surface_25_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.flow_fraction_for_surface_25 = None
         else:
             self.flow_fraction_for_surface_25 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_26_name = None
         else:
             self.surface_26_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.flow_fraction_for_surface_26 = None
         else:
             self.flow_fraction_for_surface_26 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_27_name = None
         else:
             self.surface_27_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.flow_fraction_for_surface_27 = None
         else:
             self.flow_fraction_for_surface_27 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_28_name = None
         else:
             self.surface_28_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.flow_fraction_for_surface_28 = None
         else:
             self.flow_fraction_for_surface_28 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_29_name = None
         else:
             self.surface_29_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.flow_fraction_for_surface_29 = None
         else:
             self.flow_fraction_for_surface_29 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_30_name = None
         else:
             self.surface_30_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.flow_fraction_for_surface_30 = None
         else:
             self.flow_fraction_for_surface_30 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_31_name = None
         else:
             self.surface_31_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.flow_fraction_for_surface_31 = None
         else:
             self.flow_fraction_for_surface_31 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_32_name = None
         else:
             self.surface_32_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.flow_fraction_for_surface_32 = None
         else:
             self.flow_fraction_for_surface_32 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_33_name = None
         else:
             self.surface_33_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.flow_fraction_for_surface_33 = None
         else:
             self.flow_fraction_for_surface_33 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_34_name = None
         else:
             self.surface_34_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.flow_fraction_for_surface_34 = None
         else:
             self.flow_fraction_for_surface_34 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_35_name = None
         else:
             self.surface_35_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.flow_fraction_for_surface_35 = None
         else:
             self.flow_fraction_for_surface_35 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_36_name = None
         else:
             self.surface_36_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.flow_fraction_for_surface_36 = None
         else:
             self.flow_fraction_for_surface_36 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_37_name = None
         else:
             self.surface_37_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.flow_fraction_for_surface_37 = None
         else:
             self.flow_fraction_for_surface_37 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_38_name = None
         else:
             self.surface_38_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.flow_fraction_for_surface_38 = None
         else:
             self.flow_fraction_for_surface_38 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_39_name = None
         else:
             self.surface_39_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.flow_fraction_for_surface_39 = None
         else:
             self.flow_fraction_for_surface_39 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_40_name = None
         else:
             self.surface_40_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.flow_fraction_for_surface_40 = None
         else:
             self.flow_fraction_for_surface_40 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_41_name = None
         else:
             self.surface_41_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.flow_fraction_for_surface_41 = None
         else:
             self.flow_fraction_for_surface_41 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_42_name = None
         else:
             self.surface_42_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.flow_fraction_for_surface_42 = None
         else:
             self.flow_fraction_for_surface_42 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_43_name = None
         else:
             self.surface_43_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.flow_fraction_for_surface_43 = None
         else:
             self.flow_fraction_for_surface_43 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_44_name = None
         else:
             self.surface_44_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.flow_fraction_for_surface_44 = None
         else:
             self.flow_fraction_for_surface_44 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_45_name = None
         else:
             self.surface_45_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.flow_fraction_for_surface_45 = None
         else:
             self.flow_fraction_for_surface_45 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_46_name = None
         else:
             self.surface_46_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.flow_fraction_for_surface_46 = None
         else:
             self.flow_fraction_for_surface_46 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_47_name = None
         else:
             self.surface_47_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.flow_fraction_for_surface_47 = None
         else:
             self.flow_fraction_for_surface_47 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_48_name = None
         else:
             self.surface_48_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.flow_fraction_for_surface_48 = None
         else:
             self.flow_fraction_for_surface_48 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_49_name = None
         else:
             self.surface_49_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.flow_fraction_for_surface_49 = None
         else:
             self.flow_fraction_for_surface_49 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_50_name = None
         else:
             self.surface_50_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.flow_fraction_for_surface_50 = None
         else:
             self.flow_fraction_for_surface_50 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_51_name = None
         else:
             self.surface_51_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.flow_fraction_for_surface_51 = None
         else:
             self.flow_fraction_for_surface_51 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_52_name = None
         else:
             self.surface_52_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.flow_fraction_for_surface_52 = None
         else:
             self.flow_fraction_for_surface_52 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_53_name = None
         else:
             self.surface_53_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.flow_fraction_for_surface_53 = None
         else:
             self.flow_fraction_for_surface_53 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_54_name = None
         else:
             self.surface_54_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.flow_fraction_for_surface_54 = None
         else:
             self.flow_fraction_for_surface_54 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_55_name = None
         else:
             self.surface_55_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.flow_fraction_for_surface_55 = None
         else:
             self.flow_fraction_for_surface_55 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_56_name = None
         else:
             self.surface_56_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.flow_fraction_for_surface_56 = None
         else:
             self.flow_fraction_for_surface_56 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_57_name = None
         else:
             self.surface_57_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.flow_fraction_for_surface_57 = None
         else:
             self.flow_fraction_for_surface_57 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_58_name = None
         else:
             self.surface_58_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.flow_fraction_for_surface_58 = None
         else:
             self.flow_fraction_for_surface_58 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_59_name = None
         else:
             self.surface_59_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.flow_fraction_for_surface_59 = None
         else:
             self.flow_fraction_for_surface_59 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_60_name = None
         else:
             self.surface_60_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.flow_fraction_for_surface_60 = None
         else:
             self.flow_fraction_for_surface_60 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_61_name = None
         else:
             self.surface_61_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.flow_fraction_for_surface_61 = None
         else:
             self.flow_fraction_for_surface_61 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_62_name = None
         else:
             self.surface_62_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.flow_fraction_for_surface_62 = None
         else:
             self.flow_fraction_for_surface_62 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_63_name = None
         else:
             self.surface_63_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.flow_fraction_for_surface_63 = None
         else:
             self.flow_fraction_for_surface_63 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_64_name = None
         else:
             self.surface_64_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.flow_fraction_for_surface_64 = None
         else:
             self.flow_fraction_for_surface_64 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_65_name = None
         else:
             self.surface_65_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.flow_fraction_for_surface_65 = None
         else:
             self.flow_fraction_for_surface_65 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_66_name = None
         else:
             self.surface_66_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.flow_fraction_for_surface_66 = None
         else:
             self.flow_fraction_for_surface_66 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_67_name = None
         else:
             self.surface_67_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.flow_fraction_for_surface_67 = None
         else:
             self.flow_fraction_for_surface_67 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_68_name = None
         else:
             self.surface_68_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.flow_fraction_for_surface_68 = None
         else:
             self.flow_fraction_for_surface_68 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_69_name = None
         else:
             self.surface_69_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.flow_fraction_for_surface_69 = None
         else:
             self.flow_fraction_for_surface_69 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_70_name = None
         else:
             self.surface_70_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.flow_fraction_for_surface_70 = None
         else:
             self.flow_fraction_for_surface_70 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_71_name = None
         else:
             self.surface_71_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.flow_fraction_for_surface_71 = None
         else:
             self.flow_fraction_for_surface_71 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_72_name = None
         else:
             self.surface_72_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.flow_fraction_for_surface_72 = None
         else:
             self.flow_fraction_for_surface_72 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_73_name = None
         else:
             self.surface_73_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.flow_fraction_for_surface_73 = None
         else:
             self.flow_fraction_for_surface_73 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_74_name = None
         else:
             self.surface_74_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.flow_fraction_for_surface_74 = None
         else:
             self.flow_fraction_for_surface_74 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_75_name = None
         else:
             self.surface_75_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.flow_fraction_for_surface_75 = None
         else:
             self.flow_fraction_for_surface_75 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_76_name = None
         else:
             self.surface_76_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.flow_fraction_for_surface_76 = None
         else:
             self.flow_fraction_for_surface_76 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_77_name = None
         else:
             self.surface_77_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.flow_fraction_for_surface_77 = None
         else:
             self.flow_fraction_for_surface_77 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_78_name = None
         else:
             self.surface_78_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.flow_fraction_for_surface_78 = None
         else:
             self.flow_fraction_for_surface_78 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_79_name = None
         else:
             self.surface_79_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.flow_fraction_for_surface_79 = None
         else:
             self.flow_fraction_for_surface_79 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_80_name = None
         else:
             self.surface_80_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.flow_fraction_for_surface_80 = None
         else:
             self.flow_fraction_for_surface_80 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_81_name = None
         else:
             self.surface_81_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.flow_fraction_for_surface_81 = None
         else:
             self.flow_fraction_for_surface_81 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_82_name = None
         else:
             self.surface_82_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.flow_fraction_for_surface_82 = None
         else:
             self.flow_fraction_for_surface_82 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_83_name = None
         else:
             self.surface_83_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.flow_fraction_for_surface_83 = None
         else:
             self.flow_fraction_for_surface_83 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_84_name = None
         else:
             self.surface_84_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.flow_fraction_for_surface_84 = None
         else:
             self.flow_fraction_for_surface_84 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_85_name = None
         else:
             self.surface_85_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.flow_fraction_for_surface_85 = None
         else:
             self.flow_fraction_for_surface_85 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_86_name = None
         else:
             self.surface_86_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.flow_fraction_for_surface_86 = None
         else:
             self.flow_fraction_for_surface_86 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_87_name = None
         else:
             self.surface_87_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.flow_fraction_for_surface_87 = None
         else:
             self.flow_fraction_for_surface_87 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_88_name = None
         else:
             self.surface_88_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.flow_fraction_for_surface_88 = None
         else:
             self.flow_fraction_for_surface_88 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_89_name = None
         else:
             self.surface_89_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.flow_fraction_for_surface_89 = None
         else:
             self.flow_fraction_for_surface_89 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_90_name = None
         else:
             self.surface_90_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.flow_fraction_for_surface_90 = None
         else:
             self.flow_fraction_for_surface_90 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_91_name = None
         else:
             self.surface_91_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.flow_fraction_for_surface_91 = None
         else:
             self.flow_fraction_for_surface_91 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_92_name = None
         else:
             self.surface_92_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.flow_fraction_for_surface_92 = None
         else:
             self.flow_fraction_for_surface_92 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_93_name = None
         else:
             self.surface_93_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.flow_fraction_for_surface_93 = None
         else:
             self.flow_fraction_for_surface_93 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_94_name = None
         else:
             self.surface_94_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.flow_fraction_for_surface_94 = None
         else:
             self.flow_fraction_for_surface_94 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_95_name = None
         else:
             self.surface_95_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.flow_fraction_for_surface_95 = None
         else:
             self.flow_fraction_for_surface_95 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_96_name = None
         else:
             self.surface_96_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.flow_fraction_for_surface_96 = None
         else:
             self.flow_fraction_for_surface_96 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_97_name = None
         else:
             self.surface_97_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.flow_fraction_for_surface_97 = None
         else:
             self.flow_fraction_for_surface_97 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_98_name = None
         else:
             self.surface_98_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.flow_fraction_for_surface_98 = None
         else:
             self.flow_fraction_for_surface_98 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_99_name = None
         else:
             self.surface_99_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.flow_fraction_for_surface_99 = None
         else:
             self.flow_fraction_for_surface_99 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_100_name = None
         else:
             self.surface_100_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.flow_fraction_for_surface_100 = None
         else:
             self.flow_fraction_for_surface_100 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -32567,6 +35028,9 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -32600,6 +35064,9 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
                                  'for field `surface_1_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_1_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_1_name`')
 
         self._data["Surface 1 Name"] = value
@@ -32668,6 +35135,9 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_2_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_2_name`')
 
         self._data["Surface 2 Name"] = value
 
@@ -32734,6 +35204,9 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
                                  'for field `surface_3_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_3_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_3_name`')
 
         self._data["Surface 3 Name"] = value
@@ -32802,6 +35275,9 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_4_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_4_name`')
 
         self._data["Surface 4 Name"] = value
 
@@ -32868,6 +35344,9 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
                                  'for field `surface_5_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_5_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_5_name`')
 
         self._data["Surface 5 Name"] = value
@@ -32936,6 +35415,9 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_6_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_6_name`')
 
         self._data["Surface 6 Name"] = value
 
@@ -33002,6 +35484,9 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
                                  'for field `surface_7_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_7_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_7_name`')
 
         self._data["Surface 7 Name"] = value
@@ -33070,6 +35555,9 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_8_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_8_name`')
 
         self._data["Surface 8 Name"] = value
 
@@ -33136,6 +35624,9 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
                                  'for field `surface_9_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_9_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_9_name`')
 
         self._data["Surface 9 Name"] = value
@@ -33204,6 +35695,9 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_10_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_10_name`')
 
         self._data["Surface 10 Name"] = value
 
@@ -33270,6 +35764,9 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
                                  'for field `surface_11_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_11_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_11_name`')
 
         self._data["Surface 11 Name"] = value
@@ -33338,6 +35835,9 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_12_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_12_name`')
 
         self._data["Surface 12 Name"] = value
 
@@ -33404,6 +35904,9 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
                                  'for field `surface_13_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_13_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_13_name`')
 
         self._data["Surface 13 Name"] = value
@@ -33472,6 +35975,9 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_14_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_14_name`')
 
         self._data["Surface 14 Name"] = value
 
@@ -33538,6 +36044,9 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
                                  'for field `surface_15_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_15_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_15_name`')
 
         self._data["Surface 15 Name"] = value
@@ -33606,6 +36115,9 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_16_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_16_name`')
 
         self._data["Surface 16 Name"] = value
 
@@ -33672,6 +36184,9 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
                                  'for field `surface_17_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_17_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_17_name`')
 
         self._data["Surface 17 Name"] = value
@@ -33740,6 +36255,9 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_18_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_18_name`')
 
         self._data["Surface 18 Name"] = value
 
@@ -33806,6 +36324,9 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
                                  'for field `surface_19_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_19_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_19_name`')
 
         self._data["Surface 19 Name"] = value
@@ -33874,6 +36395,9 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_20_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_20_name`')
 
         self._data["Surface 20 Name"] = value
 
@@ -33940,6 +36464,9 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
                                  'for field `surface_21_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_21_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_21_name`')
 
         self._data["Surface 21 Name"] = value
@@ -34008,6 +36535,9 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_22_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_22_name`')
 
         self._data["Surface 22 Name"] = value
 
@@ -34074,6 +36604,9 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
                                  'for field `surface_23_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_23_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_23_name`')
 
         self._data["Surface 23 Name"] = value
@@ -34142,6 +36675,9 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_24_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_24_name`')
 
         self._data["Surface 24 Name"] = value
 
@@ -34208,6 +36744,9 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
                                  'for field `surface_25_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_25_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_25_name`')
 
         self._data["Surface 25 Name"] = value
@@ -34276,6 +36815,9 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_26_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_26_name`')
 
         self._data["Surface 26 Name"] = value
 
@@ -34342,6 +36884,9 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
                                  'for field `surface_27_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_27_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_27_name`')
 
         self._data["Surface 27 Name"] = value
@@ -34410,6 +36955,9 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_28_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_28_name`')
 
         self._data["Surface 28 Name"] = value
 
@@ -34476,6 +37024,9 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
                                  'for field `surface_29_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_29_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_29_name`')
 
         self._data["Surface 29 Name"] = value
@@ -34544,6 +37095,9 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_30_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_30_name`')
 
         self._data["Surface 30 Name"] = value
 
@@ -34610,6 +37164,9 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
                                  'for field `surface_31_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_31_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_31_name`')
 
         self._data["Surface 31 Name"] = value
@@ -34678,6 +37235,9 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_32_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_32_name`')
 
         self._data["Surface 32 Name"] = value
 
@@ -34744,6 +37304,9 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
                                  'for field `surface_33_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_33_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_33_name`')
 
         self._data["Surface 33 Name"] = value
@@ -34812,6 +37375,9 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_34_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_34_name`')
 
         self._data["Surface 34 Name"] = value
 
@@ -34878,6 +37444,9 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
                                  'for field `surface_35_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_35_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_35_name`')
 
         self._data["Surface 35 Name"] = value
@@ -34946,6 +37515,9 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_36_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_36_name`')
 
         self._data["Surface 36 Name"] = value
 
@@ -35012,6 +37584,9 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
                                  'for field `surface_37_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_37_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_37_name`')
 
         self._data["Surface 37 Name"] = value
@@ -35080,6 +37655,9 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_38_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_38_name`')
 
         self._data["Surface 38 Name"] = value
 
@@ -35146,6 +37724,9 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
                                  'for field `surface_39_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_39_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_39_name`')
 
         self._data["Surface 39 Name"] = value
@@ -35214,6 +37795,9 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_40_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_40_name`')
 
         self._data["Surface 40 Name"] = value
 
@@ -35280,6 +37864,9 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
                                  'for field `surface_41_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_41_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_41_name`')
 
         self._data["Surface 41 Name"] = value
@@ -35348,6 +37935,9 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_42_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_42_name`')
 
         self._data["Surface 42 Name"] = value
 
@@ -35414,6 +38004,9 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
                                  'for field `surface_43_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_43_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_43_name`')
 
         self._data["Surface 43 Name"] = value
@@ -35482,6 +38075,9 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_44_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_44_name`')
 
         self._data["Surface 44 Name"] = value
 
@@ -35548,6 +38144,9 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
                                  'for field `surface_45_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_45_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_45_name`')
 
         self._data["Surface 45 Name"] = value
@@ -35616,6 +38215,9 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_46_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_46_name`')
 
         self._data["Surface 46 Name"] = value
 
@@ -35682,6 +38284,9 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
                                  'for field `surface_47_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_47_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_47_name`')
 
         self._data["Surface 47 Name"] = value
@@ -35750,6 +38355,9 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_48_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_48_name`')
 
         self._data["Surface 48 Name"] = value
 
@@ -35816,6 +38424,9 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
                                  'for field `surface_49_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_49_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_49_name`')
 
         self._data["Surface 49 Name"] = value
@@ -35884,6 +38495,9 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_50_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_50_name`')
 
         self._data["Surface 50 Name"] = value
 
@@ -35950,6 +38564,9 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
                                  'for field `surface_51_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_51_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_51_name`')
 
         self._data["Surface 51 Name"] = value
@@ -36018,6 +38635,9 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_52_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_52_name`')
 
         self._data["Surface 52 Name"] = value
 
@@ -36084,6 +38704,9 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
                                  'for field `surface_53_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_53_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_53_name`')
 
         self._data["Surface 53 Name"] = value
@@ -36152,6 +38775,9 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_54_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_54_name`')
 
         self._data["Surface 54 Name"] = value
 
@@ -36218,6 +38844,9 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
                                  'for field `surface_55_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_55_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_55_name`')
 
         self._data["Surface 55 Name"] = value
@@ -36286,6 +38915,9 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_56_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_56_name`')
 
         self._data["Surface 56 Name"] = value
 
@@ -36352,6 +38984,9 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
                                  'for field `surface_57_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_57_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_57_name`')
 
         self._data["Surface 57 Name"] = value
@@ -36420,6 +39055,9 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_58_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_58_name`')
 
         self._data["Surface 58 Name"] = value
 
@@ -36486,6 +39124,9 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
                                  'for field `surface_59_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_59_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_59_name`')
 
         self._data["Surface 59 Name"] = value
@@ -36554,6 +39195,9 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_60_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_60_name`')
 
         self._data["Surface 60 Name"] = value
 
@@ -36620,6 +39264,9 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
                                  'for field `surface_61_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_61_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_61_name`')
 
         self._data["Surface 61 Name"] = value
@@ -36688,6 +39335,9 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_62_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_62_name`')
 
         self._data["Surface 62 Name"] = value
 
@@ -36754,6 +39404,9 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
                                  'for field `surface_63_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_63_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_63_name`')
 
         self._data["Surface 63 Name"] = value
@@ -36822,6 +39475,9 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_64_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_64_name`')
 
         self._data["Surface 64 Name"] = value
 
@@ -36888,6 +39544,9 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
                                  'for field `surface_65_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_65_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_65_name`')
 
         self._data["Surface 65 Name"] = value
@@ -36956,6 +39615,9 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_66_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_66_name`')
 
         self._data["Surface 66 Name"] = value
 
@@ -37022,6 +39684,9 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
                                  'for field `surface_67_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_67_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_67_name`')
 
         self._data["Surface 67 Name"] = value
@@ -37090,6 +39755,9 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_68_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_68_name`')
 
         self._data["Surface 68 Name"] = value
 
@@ -37156,6 +39824,9 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
                                  'for field `surface_69_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_69_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_69_name`')
 
         self._data["Surface 69 Name"] = value
@@ -37224,6 +39895,9 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_70_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_70_name`')
 
         self._data["Surface 70 Name"] = value
 
@@ -37290,6 +39964,9 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
                                  'for field `surface_71_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_71_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_71_name`')
 
         self._data["Surface 71 Name"] = value
@@ -37358,6 +40035,9 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_72_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_72_name`')
 
         self._data["Surface 72 Name"] = value
 
@@ -37424,6 +40104,9 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
                                  'for field `surface_73_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_73_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_73_name`')
 
         self._data["Surface 73 Name"] = value
@@ -37492,6 +40175,9 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_74_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_74_name`')
 
         self._data["Surface 74 Name"] = value
 
@@ -37558,6 +40244,9 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
                                  'for field `surface_75_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_75_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_75_name`')
 
         self._data["Surface 75 Name"] = value
@@ -37626,6 +40315,9 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_76_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_76_name`')
 
         self._data["Surface 76 Name"] = value
 
@@ -37692,6 +40384,9 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
                                  'for field `surface_77_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_77_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_77_name`')
 
         self._data["Surface 77 Name"] = value
@@ -37760,6 +40455,9 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_78_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_78_name`')
 
         self._data["Surface 78 Name"] = value
 
@@ -37826,6 +40524,9 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
                                  'for field `surface_79_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_79_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_79_name`')
 
         self._data["Surface 79 Name"] = value
@@ -37894,6 +40595,9 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_80_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_80_name`')
 
         self._data["Surface 80 Name"] = value
 
@@ -37960,6 +40664,9 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
                                  'for field `surface_81_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_81_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_81_name`')
 
         self._data["Surface 81 Name"] = value
@@ -38028,6 +40735,9 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_82_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_82_name`')
 
         self._data["Surface 82 Name"] = value
 
@@ -38094,6 +40804,9 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
                                  'for field `surface_83_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_83_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_83_name`')
 
         self._data["Surface 83 Name"] = value
@@ -38162,6 +40875,9 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_84_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_84_name`')
 
         self._data["Surface 84 Name"] = value
 
@@ -38228,6 +40944,9 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
                                  'for field `surface_85_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_85_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_85_name`')
 
         self._data["Surface 85 Name"] = value
@@ -38296,6 +41015,9 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_86_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_86_name`')
 
         self._data["Surface 86 Name"] = value
 
@@ -38362,6 +41084,9 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
                                  'for field `surface_87_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_87_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_87_name`')
 
         self._data["Surface 87 Name"] = value
@@ -38430,6 +41155,9 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_88_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_88_name`')
 
         self._data["Surface 88 Name"] = value
 
@@ -38496,6 +41224,9 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
                                  'for field `surface_89_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_89_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_89_name`')
 
         self._data["Surface 89 Name"] = value
@@ -38564,6 +41295,9 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_90_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_90_name`')
 
         self._data["Surface 90 Name"] = value
 
@@ -38630,6 +41364,9 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
                                  'for field `surface_91_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_91_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_91_name`')
 
         self._data["Surface 91 Name"] = value
@@ -38698,6 +41435,9 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_92_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_92_name`')
 
         self._data["Surface 92 Name"] = value
 
@@ -38764,6 +41504,9 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
                                  'for field `surface_93_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_93_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_93_name`')
 
         self._data["Surface 93 Name"] = value
@@ -38832,6 +41575,9 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_94_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_94_name`')
 
         self._data["Surface 94 Name"] = value
 
@@ -38898,6 +41644,9 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
                                  'for field `surface_95_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_95_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_95_name`')
 
         self._data["Surface 95 Name"] = value
@@ -38966,6 +41715,9 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_96_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_96_name`')
 
         self._data["Surface 96 Name"] = value
 
@@ -39032,6 +41784,9 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
                                  'for field `surface_97_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_97_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_97_name`')
 
         self._data["Surface 97 Name"] = value
@@ -39100,6 +41855,9 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_98_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_98_name`')
 
         self._data["Surface 98 Name"] = value
 
@@ -39166,6 +41924,9 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
                                  'for field `surface_99_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_99_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_99_name`')
 
         self._data["Surface 99 Name"] = value
@@ -39234,6 +41995,9 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_100_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_100_name`')
 
         self._data["Surface 100 Name"] = value
 
@@ -39293,210 +42057,17 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.surface_1_name))
-        out.append(self._to_str(self.flow_fraction_for_surface_1))
-        out.append(self._to_str(self.surface_2_name))
-        out.append(self._to_str(self.flow_fraction_for_surface_2))
-        out.append(self._to_str(self.surface_3_name))
-        out.append(self._to_str(self.flow_fraction_for_surface_3))
-        out.append(self._to_str(self.surface_4_name))
-        out.append(self._to_str(self.flow_fraction_for_surface_4))
-        out.append(self._to_str(self.surface_5_name))
-        out.append(self._to_str(self.flow_fraction_for_surface_5))
-        out.append(self._to_str(self.surface_6_name))
-        out.append(self._to_str(self.flow_fraction_for_surface_6))
-        out.append(self._to_str(self.surface_7_name))
-        out.append(self._to_str(self.flow_fraction_for_surface_7))
-        out.append(self._to_str(self.surface_8_name))
-        out.append(self._to_str(self.flow_fraction_for_surface_8))
-        out.append(self._to_str(self.surface_9_name))
-        out.append(self._to_str(self.flow_fraction_for_surface_9))
-        out.append(self._to_str(self.surface_10_name))
-        out.append(self._to_str(self.flow_fraction_for_surface_10))
-        out.append(self._to_str(self.surface_11_name))
-        out.append(self._to_str(self.flow_fraction_for_surface_11))
-        out.append(self._to_str(self.surface_12_name))
-        out.append(self._to_str(self.flow_fraction_for_surface_12))
-        out.append(self._to_str(self.surface_13_name))
-        out.append(self._to_str(self.flow_fraction_for_surface_13))
-        out.append(self._to_str(self.surface_14_name))
-        out.append(self._to_str(self.flow_fraction_for_surface_14))
-        out.append(self._to_str(self.surface_15_name))
-        out.append(self._to_str(self.flow_fraction_for_surface_15))
-        out.append(self._to_str(self.surface_16_name))
-        out.append(self._to_str(self.flow_fraction_for_surface_16))
-        out.append(self._to_str(self.surface_17_name))
-        out.append(self._to_str(self.flow_fraction_for_surface_17))
-        out.append(self._to_str(self.surface_18_name))
-        out.append(self._to_str(self.flow_fraction_for_surface_18))
-        out.append(self._to_str(self.surface_19_name))
-        out.append(self._to_str(self.flow_fraction_for_surface_19))
-        out.append(self._to_str(self.surface_20_name))
-        out.append(self._to_str(self.flow_fraction_for_surface_20))
-        out.append(self._to_str(self.surface_21_name))
-        out.append(self._to_str(self.flow_fraction_for_surface_21))
-        out.append(self._to_str(self.surface_22_name))
-        out.append(self._to_str(self.flow_fraction_for_surface_22))
-        out.append(self._to_str(self.surface_23_name))
-        out.append(self._to_str(self.flow_fraction_for_surface_23))
-        out.append(self._to_str(self.surface_24_name))
-        out.append(self._to_str(self.flow_fraction_for_surface_24))
-        out.append(self._to_str(self.surface_25_name))
-        out.append(self._to_str(self.flow_fraction_for_surface_25))
-        out.append(self._to_str(self.surface_26_name))
-        out.append(self._to_str(self.flow_fraction_for_surface_26))
-        out.append(self._to_str(self.surface_27_name))
-        out.append(self._to_str(self.flow_fraction_for_surface_27))
-        out.append(self._to_str(self.surface_28_name))
-        out.append(self._to_str(self.flow_fraction_for_surface_28))
-        out.append(self._to_str(self.surface_29_name))
-        out.append(self._to_str(self.flow_fraction_for_surface_29))
-        out.append(self._to_str(self.surface_30_name))
-        out.append(self._to_str(self.flow_fraction_for_surface_30))
-        out.append(self._to_str(self.surface_31_name))
-        out.append(self._to_str(self.flow_fraction_for_surface_31))
-        out.append(self._to_str(self.surface_32_name))
-        out.append(self._to_str(self.flow_fraction_for_surface_32))
-        out.append(self._to_str(self.surface_33_name))
-        out.append(self._to_str(self.flow_fraction_for_surface_33))
-        out.append(self._to_str(self.surface_34_name))
-        out.append(self._to_str(self.flow_fraction_for_surface_34))
-        out.append(self._to_str(self.surface_35_name))
-        out.append(self._to_str(self.flow_fraction_for_surface_35))
-        out.append(self._to_str(self.surface_36_name))
-        out.append(self._to_str(self.flow_fraction_for_surface_36))
-        out.append(self._to_str(self.surface_37_name))
-        out.append(self._to_str(self.flow_fraction_for_surface_37))
-        out.append(self._to_str(self.surface_38_name))
-        out.append(self._to_str(self.flow_fraction_for_surface_38))
-        out.append(self._to_str(self.surface_39_name))
-        out.append(self._to_str(self.flow_fraction_for_surface_39))
-        out.append(self._to_str(self.surface_40_name))
-        out.append(self._to_str(self.flow_fraction_for_surface_40))
-        out.append(self._to_str(self.surface_41_name))
-        out.append(self._to_str(self.flow_fraction_for_surface_41))
-        out.append(self._to_str(self.surface_42_name))
-        out.append(self._to_str(self.flow_fraction_for_surface_42))
-        out.append(self._to_str(self.surface_43_name))
-        out.append(self._to_str(self.flow_fraction_for_surface_43))
-        out.append(self._to_str(self.surface_44_name))
-        out.append(self._to_str(self.flow_fraction_for_surface_44))
-        out.append(self._to_str(self.surface_45_name))
-        out.append(self._to_str(self.flow_fraction_for_surface_45))
-        out.append(self._to_str(self.surface_46_name))
-        out.append(self._to_str(self.flow_fraction_for_surface_46))
-        out.append(self._to_str(self.surface_47_name))
-        out.append(self._to_str(self.flow_fraction_for_surface_47))
-        out.append(self._to_str(self.surface_48_name))
-        out.append(self._to_str(self.flow_fraction_for_surface_48))
-        out.append(self._to_str(self.surface_49_name))
-        out.append(self._to_str(self.flow_fraction_for_surface_49))
-        out.append(self._to_str(self.surface_50_name))
-        out.append(self._to_str(self.flow_fraction_for_surface_50))
-        out.append(self._to_str(self.surface_51_name))
-        out.append(self._to_str(self.flow_fraction_for_surface_51))
-        out.append(self._to_str(self.surface_52_name))
-        out.append(self._to_str(self.flow_fraction_for_surface_52))
-        out.append(self._to_str(self.surface_53_name))
-        out.append(self._to_str(self.flow_fraction_for_surface_53))
-        out.append(self._to_str(self.surface_54_name))
-        out.append(self._to_str(self.flow_fraction_for_surface_54))
-        out.append(self._to_str(self.surface_55_name))
-        out.append(self._to_str(self.flow_fraction_for_surface_55))
-        out.append(self._to_str(self.surface_56_name))
-        out.append(self._to_str(self.flow_fraction_for_surface_56))
-        out.append(self._to_str(self.surface_57_name))
-        out.append(self._to_str(self.flow_fraction_for_surface_57))
-        out.append(self._to_str(self.surface_58_name))
-        out.append(self._to_str(self.flow_fraction_for_surface_58))
-        out.append(self._to_str(self.surface_59_name))
-        out.append(self._to_str(self.flow_fraction_for_surface_59))
-        out.append(self._to_str(self.surface_60_name))
-        out.append(self._to_str(self.flow_fraction_for_surface_60))
-        out.append(self._to_str(self.surface_61_name))
-        out.append(self._to_str(self.flow_fraction_for_surface_61))
-        out.append(self._to_str(self.surface_62_name))
-        out.append(self._to_str(self.flow_fraction_for_surface_62))
-        out.append(self._to_str(self.surface_63_name))
-        out.append(self._to_str(self.flow_fraction_for_surface_63))
-        out.append(self._to_str(self.surface_64_name))
-        out.append(self._to_str(self.flow_fraction_for_surface_64))
-        out.append(self._to_str(self.surface_65_name))
-        out.append(self._to_str(self.flow_fraction_for_surface_65))
-        out.append(self._to_str(self.surface_66_name))
-        out.append(self._to_str(self.flow_fraction_for_surface_66))
-        out.append(self._to_str(self.surface_67_name))
-        out.append(self._to_str(self.flow_fraction_for_surface_67))
-        out.append(self._to_str(self.surface_68_name))
-        out.append(self._to_str(self.flow_fraction_for_surface_68))
-        out.append(self._to_str(self.surface_69_name))
-        out.append(self._to_str(self.flow_fraction_for_surface_69))
-        out.append(self._to_str(self.surface_70_name))
-        out.append(self._to_str(self.flow_fraction_for_surface_70))
-        out.append(self._to_str(self.surface_71_name))
-        out.append(self._to_str(self.flow_fraction_for_surface_71))
-        out.append(self._to_str(self.surface_72_name))
-        out.append(self._to_str(self.flow_fraction_for_surface_72))
-        out.append(self._to_str(self.surface_73_name))
-        out.append(self._to_str(self.flow_fraction_for_surface_73))
-        out.append(self._to_str(self.surface_74_name))
-        out.append(self._to_str(self.flow_fraction_for_surface_74))
-        out.append(self._to_str(self.surface_75_name))
-        out.append(self._to_str(self.flow_fraction_for_surface_75))
-        out.append(self._to_str(self.surface_76_name))
-        out.append(self._to_str(self.flow_fraction_for_surface_76))
-        out.append(self._to_str(self.surface_77_name))
-        out.append(self._to_str(self.flow_fraction_for_surface_77))
-        out.append(self._to_str(self.surface_78_name))
-        out.append(self._to_str(self.flow_fraction_for_surface_78))
-        out.append(self._to_str(self.surface_79_name))
-        out.append(self._to_str(self.flow_fraction_for_surface_79))
-        out.append(self._to_str(self.surface_80_name))
-        out.append(self._to_str(self.flow_fraction_for_surface_80))
-        out.append(self._to_str(self.surface_81_name))
-        out.append(self._to_str(self.flow_fraction_for_surface_81))
-        out.append(self._to_str(self.surface_82_name))
-        out.append(self._to_str(self.flow_fraction_for_surface_82))
-        out.append(self._to_str(self.surface_83_name))
-        out.append(self._to_str(self.flow_fraction_for_surface_83))
-        out.append(self._to_str(self.surface_84_name))
-        out.append(self._to_str(self.flow_fraction_for_surface_84))
-        out.append(self._to_str(self.surface_85_name))
-        out.append(self._to_str(self.flow_fraction_for_surface_85))
-        out.append(self._to_str(self.surface_86_name))
-        out.append(self._to_str(self.flow_fraction_for_surface_86))
-        out.append(self._to_str(self.surface_87_name))
-        out.append(self._to_str(self.flow_fraction_for_surface_87))
-        out.append(self._to_str(self.surface_88_name))
-        out.append(self._to_str(self.flow_fraction_for_surface_88))
-        out.append(self._to_str(self.surface_89_name))
-        out.append(self._to_str(self.flow_fraction_for_surface_89))
-        out.append(self._to_str(self.surface_90_name))
-        out.append(self._to_str(self.flow_fraction_for_surface_90))
-        out.append(self._to_str(self.surface_91_name))
-        out.append(self._to_str(self.flow_fraction_for_surface_91))
-        out.append(self._to_str(self.surface_92_name))
-        out.append(self._to_str(self.flow_fraction_for_surface_92))
-        out.append(self._to_str(self.surface_93_name))
-        out.append(self._to_str(self.flow_fraction_for_surface_93))
-        out.append(self._to_str(self.surface_94_name))
-        out.append(self._to_str(self.flow_fraction_for_surface_94))
-        out.append(self._to_str(self.surface_95_name))
-        out.append(self._to_str(self.flow_fraction_for_surface_95))
-        out.append(self._to_str(self.surface_96_name))
-        out.append(self._to_str(self.flow_fraction_for_surface_96))
-        out.append(self._to_str(self.surface_97_name))
-        out.append(self._to_str(self.flow_fraction_for_surface_97))
-        out.append(self._to_str(self.surface_98_name))
-        out.append(self._to_str(self.flow_fraction_for_surface_98))
-        out.append(self._to_str(self.surface_99_name))
-        out.append(self._to_str(self.flow_fraction_for_surface_99))
-        out.append(self._to_str(self.surface_100_name))
-        out.append(self._to_str(self.flow_fraction_for_surface_100))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class ZoneHvacHighTemperatureRadiant(object):
     """ Corresponds to IDD object `ZoneHVAC:HighTemperatureRadiant`
@@ -39728,1094 +42299,1528 @@ class ZoneHvacHighTemperatureRadiant(object):
         self._data["Fraction of Radiant Energy to Surface 99"] = None
         self._data["Surface 100 Name"] = None
         self._data["Fraction of Radiant Energy to Surface 100"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.availability_schedule_name = None
         else:
             self.availability_schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.zone_name = None
         else:
             self.zone_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.heating_design_capacity_method = None
         else:
             self.heating_design_capacity_method = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.heating_design_capacity = None
         else:
             self.heating_design_capacity = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.heating_design_capacity_per_floor_area = None
         else:
             self.heating_design_capacity_per_floor_area = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_autosized_heating_design_capacity = None
         else:
             self.fraction_of_autosized_heating_design_capacity = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fuel_type = None
         else:
             self.fuel_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.combustion_efficiency = None
         else:
             self.combustion_efficiency = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_input_converted_to_radiant_energy = None
         else:
             self.fraction_of_input_converted_to_radiant_energy = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_input_converted_to_latent_energy = None
         else:
             self.fraction_of_input_converted_to_latent_energy = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_input_that_is_lost = None
         else:
             self.fraction_of_input_that_is_lost = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.temperature_control_type = None
         else:
             self.temperature_control_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.heating_throttling_range = None
         else:
             self.heating_throttling_range = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.heating_setpoint_temperature_schedule_name = None
         else:
             self.heating_setpoint_temperature_schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_incident_on_people = None
         else:
             self.fraction_of_radiant_energy_incident_on_people = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_1_name = None
         else:
             self.surface_1_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_1 = None
         else:
             self.fraction_of_radiant_energy_to_surface_1 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_2_name = None
         else:
             self.surface_2_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_2 = None
         else:
             self.fraction_of_radiant_energy_to_surface_2 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_3_name = None
         else:
             self.surface_3_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_3 = None
         else:
             self.fraction_of_radiant_energy_to_surface_3 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_4_name = None
         else:
             self.surface_4_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_4 = None
         else:
             self.fraction_of_radiant_energy_to_surface_4 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_5_name = None
         else:
             self.surface_5_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_5 = None
         else:
             self.fraction_of_radiant_energy_to_surface_5 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_6_name = None
         else:
             self.surface_6_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_6 = None
         else:
             self.fraction_of_radiant_energy_to_surface_6 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_7_name = None
         else:
             self.surface_7_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_7 = None
         else:
             self.fraction_of_radiant_energy_to_surface_7 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_8_name = None
         else:
             self.surface_8_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_8 = None
         else:
             self.fraction_of_radiant_energy_to_surface_8 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_9_name = None
         else:
             self.surface_9_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_9 = None
         else:
             self.fraction_of_radiant_energy_to_surface_9 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_10_name = None
         else:
             self.surface_10_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_10 = None
         else:
             self.fraction_of_radiant_energy_to_surface_10 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_11_name = None
         else:
             self.surface_11_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_11 = None
         else:
             self.fraction_of_radiant_energy_to_surface_11 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_12_name = None
         else:
             self.surface_12_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_12 = None
         else:
             self.fraction_of_radiant_energy_to_surface_12 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_13_name = None
         else:
             self.surface_13_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_13 = None
         else:
             self.fraction_of_radiant_energy_to_surface_13 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_14_name = None
         else:
             self.surface_14_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_14 = None
         else:
             self.fraction_of_radiant_energy_to_surface_14 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_15_name = None
         else:
             self.surface_15_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_15 = None
         else:
             self.fraction_of_radiant_energy_to_surface_15 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_16_name = None
         else:
             self.surface_16_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_16 = None
         else:
             self.fraction_of_radiant_energy_to_surface_16 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_17_name = None
         else:
             self.surface_17_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_17 = None
         else:
             self.fraction_of_radiant_energy_to_surface_17 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_18_name = None
         else:
             self.surface_18_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_18 = None
         else:
             self.fraction_of_radiant_energy_to_surface_18 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_19_name = None
         else:
             self.surface_19_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_19 = None
         else:
             self.fraction_of_radiant_energy_to_surface_19 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_20_name = None
         else:
             self.surface_20_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_20 = None
         else:
             self.fraction_of_radiant_energy_to_surface_20 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_21_name = None
         else:
             self.surface_21_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_21 = None
         else:
             self.fraction_of_radiant_energy_to_surface_21 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_22_name = None
         else:
             self.surface_22_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_22 = None
         else:
             self.fraction_of_radiant_energy_to_surface_22 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_23_name = None
         else:
             self.surface_23_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_23 = None
         else:
             self.fraction_of_radiant_energy_to_surface_23 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_24_name = None
         else:
             self.surface_24_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_24 = None
         else:
             self.fraction_of_radiant_energy_to_surface_24 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_25_name = None
         else:
             self.surface_25_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_25 = None
         else:
             self.fraction_of_radiant_energy_to_surface_25 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_26_name = None
         else:
             self.surface_26_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_26 = None
         else:
             self.fraction_of_radiant_energy_to_surface_26 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_27_name = None
         else:
             self.surface_27_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_27 = None
         else:
             self.fraction_of_radiant_energy_to_surface_27 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_28_name = None
         else:
             self.surface_28_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_28 = None
         else:
             self.fraction_of_radiant_energy_to_surface_28 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_29_name = None
         else:
             self.surface_29_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_29 = None
         else:
             self.fraction_of_radiant_energy_to_surface_29 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_30_name = None
         else:
             self.surface_30_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_30 = None
         else:
             self.fraction_of_radiant_energy_to_surface_30 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_31_name = None
         else:
             self.surface_31_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_31 = None
         else:
             self.fraction_of_radiant_energy_to_surface_31 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_32_name = None
         else:
             self.surface_32_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_32 = None
         else:
             self.fraction_of_radiant_energy_to_surface_32 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_33_name = None
         else:
             self.surface_33_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_33 = None
         else:
             self.fraction_of_radiant_energy_to_surface_33 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_34_name = None
         else:
             self.surface_34_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_34 = None
         else:
             self.fraction_of_radiant_energy_to_surface_34 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_35_name = None
         else:
             self.surface_35_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_35 = None
         else:
             self.fraction_of_radiant_energy_to_surface_35 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_36_name = None
         else:
             self.surface_36_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_36 = None
         else:
             self.fraction_of_radiant_energy_to_surface_36 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_37_name = None
         else:
             self.surface_37_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_37 = None
         else:
             self.fraction_of_radiant_energy_to_surface_37 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_38_name = None
         else:
             self.surface_38_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_38 = None
         else:
             self.fraction_of_radiant_energy_to_surface_38 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_39_name = None
         else:
             self.surface_39_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_39 = None
         else:
             self.fraction_of_radiant_energy_to_surface_39 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_40_name = None
         else:
             self.surface_40_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_40 = None
         else:
             self.fraction_of_radiant_energy_to_surface_40 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_41_name = None
         else:
             self.surface_41_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_41 = None
         else:
             self.fraction_of_radiant_energy_to_surface_41 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_42_name = None
         else:
             self.surface_42_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_42 = None
         else:
             self.fraction_of_radiant_energy_to_surface_42 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_43_name = None
         else:
             self.surface_43_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_43 = None
         else:
             self.fraction_of_radiant_energy_to_surface_43 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_44_name = None
         else:
             self.surface_44_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_44 = None
         else:
             self.fraction_of_radiant_energy_to_surface_44 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_45_name = None
         else:
             self.surface_45_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_45 = None
         else:
             self.fraction_of_radiant_energy_to_surface_45 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_46_name = None
         else:
             self.surface_46_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_46 = None
         else:
             self.fraction_of_radiant_energy_to_surface_46 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_47_name = None
         else:
             self.surface_47_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_47 = None
         else:
             self.fraction_of_radiant_energy_to_surface_47 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_48_name = None
         else:
             self.surface_48_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_48 = None
         else:
             self.fraction_of_radiant_energy_to_surface_48 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_49_name = None
         else:
             self.surface_49_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_49 = None
         else:
             self.fraction_of_radiant_energy_to_surface_49 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_50_name = None
         else:
             self.surface_50_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_50 = None
         else:
             self.fraction_of_radiant_energy_to_surface_50 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_51_name = None
         else:
             self.surface_51_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_51 = None
         else:
             self.fraction_of_radiant_energy_to_surface_51 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_52_name = None
         else:
             self.surface_52_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_52 = None
         else:
             self.fraction_of_radiant_energy_to_surface_52 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_53_name = None
         else:
             self.surface_53_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_53 = None
         else:
             self.fraction_of_radiant_energy_to_surface_53 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_54_name = None
         else:
             self.surface_54_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_54 = None
         else:
             self.fraction_of_radiant_energy_to_surface_54 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_55_name = None
         else:
             self.surface_55_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_55 = None
         else:
             self.fraction_of_radiant_energy_to_surface_55 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_56_name = None
         else:
             self.surface_56_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_56 = None
         else:
             self.fraction_of_radiant_energy_to_surface_56 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_57_name = None
         else:
             self.surface_57_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_57 = None
         else:
             self.fraction_of_radiant_energy_to_surface_57 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_58_name = None
         else:
             self.surface_58_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_58 = None
         else:
             self.fraction_of_radiant_energy_to_surface_58 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_59_name = None
         else:
             self.surface_59_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_59 = None
         else:
             self.fraction_of_radiant_energy_to_surface_59 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_60_name = None
         else:
             self.surface_60_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_60 = None
         else:
             self.fraction_of_radiant_energy_to_surface_60 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_61_name = None
         else:
             self.surface_61_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_61 = None
         else:
             self.fraction_of_radiant_energy_to_surface_61 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_62_name = None
         else:
             self.surface_62_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_62 = None
         else:
             self.fraction_of_radiant_energy_to_surface_62 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_63_name = None
         else:
             self.surface_63_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_63 = None
         else:
             self.fraction_of_radiant_energy_to_surface_63 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_64_name = None
         else:
             self.surface_64_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_64 = None
         else:
             self.fraction_of_radiant_energy_to_surface_64 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_65_name = None
         else:
             self.surface_65_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_65 = None
         else:
             self.fraction_of_radiant_energy_to_surface_65 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_66_name = None
         else:
             self.surface_66_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_66 = None
         else:
             self.fraction_of_radiant_energy_to_surface_66 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_67_name = None
         else:
             self.surface_67_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_67 = None
         else:
             self.fraction_of_radiant_energy_to_surface_67 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_68_name = None
         else:
             self.surface_68_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_68 = None
         else:
             self.fraction_of_radiant_energy_to_surface_68 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_69_name = None
         else:
             self.surface_69_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_69 = None
         else:
             self.fraction_of_radiant_energy_to_surface_69 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_70_name = None
         else:
             self.surface_70_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_70 = None
         else:
             self.fraction_of_radiant_energy_to_surface_70 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_71_name = None
         else:
             self.surface_71_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_71 = None
         else:
             self.fraction_of_radiant_energy_to_surface_71 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_72_name = None
         else:
             self.surface_72_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_72 = None
         else:
             self.fraction_of_radiant_energy_to_surface_72 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_73_name = None
         else:
             self.surface_73_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_73 = None
         else:
             self.fraction_of_radiant_energy_to_surface_73 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_74_name = None
         else:
             self.surface_74_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_74 = None
         else:
             self.fraction_of_radiant_energy_to_surface_74 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_75_name = None
         else:
             self.surface_75_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_75 = None
         else:
             self.fraction_of_radiant_energy_to_surface_75 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_76_name = None
         else:
             self.surface_76_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_76 = None
         else:
             self.fraction_of_radiant_energy_to_surface_76 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_77_name = None
         else:
             self.surface_77_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_77 = None
         else:
             self.fraction_of_radiant_energy_to_surface_77 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_78_name = None
         else:
             self.surface_78_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_78 = None
         else:
             self.fraction_of_radiant_energy_to_surface_78 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_79_name = None
         else:
             self.surface_79_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_79 = None
         else:
             self.fraction_of_radiant_energy_to_surface_79 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_80_name = None
         else:
             self.surface_80_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_80 = None
         else:
             self.fraction_of_radiant_energy_to_surface_80 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_81_name = None
         else:
             self.surface_81_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_81 = None
         else:
             self.fraction_of_radiant_energy_to_surface_81 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_82_name = None
         else:
             self.surface_82_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_82 = None
         else:
             self.fraction_of_radiant_energy_to_surface_82 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_83_name = None
         else:
             self.surface_83_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_83 = None
         else:
             self.fraction_of_radiant_energy_to_surface_83 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_84_name = None
         else:
             self.surface_84_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_84 = None
         else:
             self.fraction_of_radiant_energy_to_surface_84 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_85_name = None
         else:
             self.surface_85_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_85 = None
         else:
             self.fraction_of_radiant_energy_to_surface_85 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_86_name = None
         else:
             self.surface_86_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_86 = None
         else:
             self.fraction_of_radiant_energy_to_surface_86 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_87_name = None
         else:
             self.surface_87_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_87 = None
         else:
             self.fraction_of_radiant_energy_to_surface_87 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_88_name = None
         else:
             self.surface_88_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_88 = None
         else:
             self.fraction_of_radiant_energy_to_surface_88 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_89_name = None
         else:
             self.surface_89_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_89 = None
         else:
             self.fraction_of_radiant_energy_to_surface_89 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_90_name = None
         else:
             self.surface_90_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_90 = None
         else:
             self.fraction_of_radiant_energy_to_surface_90 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_91_name = None
         else:
             self.surface_91_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_91 = None
         else:
             self.fraction_of_radiant_energy_to_surface_91 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_92_name = None
         else:
             self.surface_92_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_92 = None
         else:
             self.fraction_of_radiant_energy_to_surface_92 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_93_name = None
         else:
             self.surface_93_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_93 = None
         else:
             self.fraction_of_radiant_energy_to_surface_93 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_94_name = None
         else:
             self.surface_94_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_94 = None
         else:
             self.fraction_of_radiant_energy_to_surface_94 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_95_name = None
         else:
             self.surface_95_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_95 = None
         else:
             self.fraction_of_radiant_energy_to_surface_95 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_96_name = None
         else:
             self.surface_96_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_96 = None
         else:
             self.fraction_of_radiant_energy_to_surface_96 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_97_name = None
         else:
             self.surface_97_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_97 = None
         else:
             self.fraction_of_radiant_energy_to_surface_97 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_98_name = None
         else:
             self.surface_98_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_98 = None
         else:
             self.fraction_of_radiant_energy_to_surface_98 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_99_name = None
         else:
             self.surface_99_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_99 = None
         else:
             self.fraction_of_radiant_energy_to_surface_99 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_100_name = None
         else:
             self.surface_100_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_of_radiant_energy_to_surface_100 = None
         else:
             self.fraction_of_radiant_energy_to_surface_100 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -40846,6 +43851,9 @@ class ZoneHvacHighTemperatureRadiant(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -40882,6 +43890,9 @@ class ZoneHvacHighTemperatureRadiant(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `availability_schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `availability_schedule_name`')
 
         self._data["Availability Schedule Name"] = value
 
@@ -40915,6 +43926,9 @@ class ZoneHvacHighTemperatureRadiant(object):
                                  'for field `zone_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `zone_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `zone_name`')
 
         self._data["Zone Name"] = value
@@ -40960,13 +43974,27 @@ class ZoneHvacHighTemperatureRadiant(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `heating_design_capacity_method`')
-            vals = set()
-            vals.add("HeatingDesignCapacity")
-            vals.add("CapacityPerFloorArea")
-            vals.add("FractionOfAutosizedHeatingCapacity")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `heating_design_capacity_method`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `heating_design_capacity_method`')
+            vals = {}
+            vals["heatingdesigncapacity"] = "HeatingDesignCapacity"
+            vals["capacityperfloorarea"] = "CapacityPerFloorArea"
+            vals["fractionofautosizedheatingcapacity"] = "FractionOfAutosizedHeatingCapacity"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `heating_design_capacity_method`'.format(value))
+            value = vals[value_lower]
 
         self._data["Heating Design Capacity Method"] = value
 
@@ -41115,12 +44143,26 @@ class ZoneHvacHighTemperatureRadiant(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `fuel_type`')
-            vals = set()
-            vals.add("NaturalGas")
-            vals.add("Electricity")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `fuel_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `fuel_type`')
+            vals = {}
+            vals["naturalgas"] = "NaturalGas"
+            vals["electricity"] = "Electricity"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `fuel_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Fuel Type"] = value
 
@@ -41322,16 +44364,30 @@ class ZoneHvacHighTemperatureRadiant(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `temperature_control_type`')
-            vals = set()
-            vals.add("MeanAirTemperature")
-            vals.add("MeanRadiantTemperature")
-            vals.add("OperativeTemperature")
-            vals.add("MeanAirTemperatureSetpoint")
-            vals.add("MeanRadiantTemperatureSetpoint")
-            vals.add("OperativeTemperatureSetpoint")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `temperature_control_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `temperature_control_type`')
+            vals = {}
+            vals["meanairtemperature"] = "MeanAirTemperature"
+            vals["meanradianttemperature"] = "MeanRadiantTemperature"
+            vals["operativetemperature"] = "OperativeTemperature"
+            vals["meanairtemperaturesetpoint"] = "MeanAirTemperatureSetpoint"
+            vals["meanradianttemperaturesetpoint"] = "MeanRadiantTemperatureSetpoint"
+            vals["operativetemperaturesetpoint"] = "OperativeTemperatureSetpoint"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `temperature_control_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Temperature Control Type"] = value
 
@@ -41401,6 +44457,9 @@ class ZoneHvacHighTemperatureRadiant(object):
                                  'for field `heating_setpoint_temperature_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `heating_setpoint_temperature_schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `heating_setpoint_temperature_schedule_name`')
 
         self._data["Heating Setpoint Temperature Schedule Name"] = value
@@ -41476,6 +44535,9 @@ class ZoneHvacHighTemperatureRadiant(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_1_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_1_name`')
 
         self._data["Surface 1 Name"] = value
 
@@ -41546,6 +44608,9 @@ class ZoneHvacHighTemperatureRadiant(object):
                                  'for field `surface_2_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_2_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_2_name`')
 
         self._data["Surface 2 Name"] = value
@@ -41618,6 +44683,9 @@ class ZoneHvacHighTemperatureRadiant(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_3_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_3_name`')
 
         self._data["Surface 3 Name"] = value
 
@@ -41688,6 +44756,9 @@ class ZoneHvacHighTemperatureRadiant(object):
                                  'for field `surface_4_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_4_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_4_name`')
 
         self._data["Surface 4 Name"] = value
@@ -41760,6 +44831,9 @@ class ZoneHvacHighTemperatureRadiant(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_5_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_5_name`')
 
         self._data["Surface 5 Name"] = value
 
@@ -41830,6 +44904,9 @@ class ZoneHvacHighTemperatureRadiant(object):
                                  'for field `surface_6_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_6_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_6_name`')
 
         self._data["Surface 6 Name"] = value
@@ -41902,6 +44979,9 @@ class ZoneHvacHighTemperatureRadiant(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_7_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_7_name`')
 
         self._data["Surface 7 Name"] = value
 
@@ -41972,6 +45052,9 @@ class ZoneHvacHighTemperatureRadiant(object):
                                  'for field `surface_8_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_8_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_8_name`')
 
         self._data["Surface 8 Name"] = value
@@ -42044,6 +45127,9 @@ class ZoneHvacHighTemperatureRadiant(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_9_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_9_name`')
 
         self._data["Surface 9 Name"] = value
 
@@ -42114,6 +45200,9 @@ class ZoneHvacHighTemperatureRadiant(object):
                                  'for field `surface_10_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_10_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_10_name`')
 
         self._data["Surface 10 Name"] = value
@@ -42186,6 +45275,9 @@ class ZoneHvacHighTemperatureRadiant(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_11_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_11_name`')
 
         self._data["Surface 11 Name"] = value
 
@@ -42256,6 +45348,9 @@ class ZoneHvacHighTemperatureRadiant(object):
                                  'for field `surface_12_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_12_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_12_name`')
 
         self._data["Surface 12 Name"] = value
@@ -42328,6 +45423,9 @@ class ZoneHvacHighTemperatureRadiant(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_13_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_13_name`')
 
         self._data["Surface 13 Name"] = value
 
@@ -42398,6 +45496,9 @@ class ZoneHvacHighTemperatureRadiant(object):
                                  'for field `surface_14_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_14_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_14_name`')
 
         self._data["Surface 14 Name"] = value
@@ -42470,6 +45571,9 @@ class ZoneHvacHighTemperatureRadiant(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_15_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_15_name`')
 
         self._data["Surface 15 Name"] = value
 
@@ -42540,6 +45644,9 @@ class ZoneHvacHighTemperatureRadiant(object):
                                  'for field `surface_16_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_16_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_16_name`')
 
         self._data["Surface 16 Name"] = value
@@ -42612,6 +45719,9 @@ class ZoneHvacHighTemperatureRadiant(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_17_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_17_name`')
 
         self._data["Surface 17 Name"] = value
 
@@ -42682,6 +45792,9 @@ class ZoneHvacHighTemperatureRadiant(object):
                                  'for field `surface_18_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_18_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_18_name`')
 
         self._data["Surface 18 Name"] = value
@@ -42754,6 +45867,9 @@ class ZoneHvacHighTemperatureRadiant(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_19_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_19_name`')
 
         self._data["Surface 19 Name"] = value
 
@@ -42824,6 +45940,9 @@ class ZoneHvacHighTemperatureRadiant(object):
                                  'for field `surface_20_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_20_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_20_name`')
 
         self._data["Surface 20 Name"] = value
@@ -42896,6 +46015,9 @@ class ZoneHvacHighTemperatureRadiant(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_21_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_21_name`')
 
         self._data["Surface 21 Name"] = value
 
@@ -42966,6 +46088,9 @@ class ZoneHvacHighTemperatureRadiant(object):
                                  'for field `surface_22_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_22_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_22_name`')
 
         self._data["Surface 22 Name"] = value
@@ -43038,6 +46163,9 @@ class ZoneHvacHighTemperatureRadiant(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_23_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_23_name`')
 
         self._data["Surface 23 Name"] = value
 
@@ -43108,6 +46236,9 @@ class ZoneHvacHighTemperatureRadiant(object):
                                  'for field `surface_24_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_24_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_24_name`')
 
         self._data["Surface 24 Name"] = value
@@ -43180,6 +46311,9 @@ class ZoneHvacHighTemperatureRadiant(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_25_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_25_name`')
 
         self._data["Surface 25 Name"] = value
 
@@ -43250,6 +46384,9 @@ class ZoneHvacHighTemperatureRadiant(object):
                                  'for field `surface_26_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_26_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_26_name`')
 
         self._data["Surface 26 Name"] = value
@@ -43322,6 +46459,9 @@ class ZoneHvacHighTemperatureRadiant(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_27_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_27_name`')
 
         self._data["Surface 27 Name"] = value
 
@@ -43392,6 +46532,9 @@ class ZoneHvacHighTemperatureRadiant(object):
                                  'for field `surface_28_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_28_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_28_name`')
 
         self._data["Surface 28 Name"] = value
@@ -43464,6 +46607,9 @@ class ZoneHvacHighTemperatureRadiant(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_29_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_29_name`')
 
         self._data["Surface 29 Name"] = value
 
@@ -43534,6 +46680,9 @@ class ZoneHvacHighTemperatureRadiant(object):
                                  'for field `surface_30_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_30_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_30_name`')
 
         self._data["Surface 30 Name"] = value
@@ -43606,6 +46755,9 @@ class ZoneHvacHighTemperatureRadiant(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_31_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_31_name`')
 
         self._data["Surface 31 Name"] = value
 
@@ -43676,6 +46828,9 @@ class ZoneHvacHighTemperatureRadiant(object):
                                  'for field `surface_32_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_32_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_32_name`')
 
         self._data["Surface 32 Name"] = value
@@ -43748,6 +46903,9 @@ class ZoneHvacHighTemperatureRadiant(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_33_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_33_name`')
 
         self._data["Surface 33 Name"] = value
 
@@ -43818,6 +46976,9 @@ class ZoneHvacHighTemperatureRadiant(object):
                                  'for field `surface_34_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_34_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_34_name`')
 
         self._data["Surface 34 Name"] = value
@@ -43890,6 +47051,9 @@ class ZoneHvacHighTemperatureRadiant(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_35_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_35_name`')
 
         self._data["Surface 35 Name"] = value
 
@@ -43960,6 +47124,9 @@ class ZoneHvacHighTemperatureRadiant(object):
                                  'for field `surface_36_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_36_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_36_name`')
 
         self._data["Surface 36 Name"] = value
@@ -44032,6 +47199,9 @@ class ZoneHvacHighTemperatureRadiant(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_37_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_37_name`')
 
         self._data["Surface 37 Name"] = value
 
@@ -44102,6 +47272,9 @@ class ZoneHvacHighTemperatureRadiant(object):
                                  'for field `surface_38_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_38_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_38_name`')
 
         self._data["Surface 38 Name"] = value
@@ -44174,6 +47347,9 @@ class ZoneHvacHighTemperatureRadiant(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_39_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_39_name`')
 
         self._data["Surface 39 Name"] = value
 
@@ -44244,6 +47420,9 @@ class ZoneHvacHighTemperatureRadiant(object):
                                  'for field `surface_40_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_40_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_40_name`')
 
         self._data["Surface 40 Name"] = value
@@ -44316,6 +47495,9 @@ class ZoneHvacHighTemperatureRadiant(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_41_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_41_name`')
 
         self._data["Surface 41 Name"] = value
 
@@ -44386,6 +47568,9 @@ class ZoneHvacHighTemperatureRadiant(object):
                                  'for field `surface_42_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_42_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_42_name`')
 
         self._data["Surface 42 Name"] = value
@@ -44458,6 +47643,9 @@ class ZoneHvacHighTemperatureRadiant(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_43_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_43_name`')
 
         self._data["Surface 43 Name"] = value
 
@@ -44528,6 +47716,9 @@ class ZoneHvacHighTemperatureRadiant(object):
                                  'for field `surface_44_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_44_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_44_name`')
 
         self._data["Surface 44 Name"] = value
@@ -44600,6 +47791,9 @@ class ZoneHvacHighTemperatureRadiant(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_45_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_45_name`')
 
         self._data["Surface 45 Name"] = value
 
@@ -44670,6 +47864,9 @@ class ZoneHvacHighTemperatureRadiant(object):
                                  'for field `surface_46_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_46_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_46_name`')
 
         self._data["Surface 46 Name"] = value
@@ -44742,6 +47939,9 @@ class ZoneHvacHighTemperatureRadiant(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_47_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_47_name`')
 
         self._data["Surface 47 Name"] = value
 
@@ -44812,6 +48012,9 @@ class ZoneHvacHighTemperatureRadiant(object):
                                  'for field `surface_48_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_48_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_48_name`')
 
         self._data["Surface 48 Name"] = value
@@ -44884,6 +48087,9 @@ class ZoneHvacHighTemperatureRadiant(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_49_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_49_name`')
 
         self._data["Surface 49 Name"] = value
 
@@ -44954,6 +48160,9 @@ class ZoneHvacHighTemperatureRadiant(object):
                                  'for field `surface_50_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_50_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_50_name`')
 
         self._data["Surface 50 Name"] = value
@@ -45026,6 +48235,9 @@ class ZoneHvacHighTemperatureRadiant(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_51_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_51_name`')
 
         self._data["Surface 51 Name"] = value
 
@@ -45096,6 +48308,9 @@ class ZoneHvacHighTemperatureRadiant(object):
                                  'for field `surface_52_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_52_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_52_name`')
 
         self._data["Surface 52 Name"] = value
@@ -45168,6 +48383,9 @@ class ZoneHvacHighTemperatureRadiant(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_53_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_53_name`')
 
         self._data["Surface 53 Name"] = value
 
@@ -45238,6 +48456,9 @@ class ZoneHvacHighTemperatureRadiant(object):
                                  'for field `surface_54_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_54_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_54_name`')
 
         self._data["Surface 54 Name"] = value
@@ -45310,6 +48531,9 @@ class ZoneHvacHighTemperatureRadiant(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_55_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_55_name`')
 
         self._data["Surface 55 Name"] = value
 
@@ -45380,6 +48604,9 @@ class ZoneHvacHighTemperatureRadiant(object):
                                  'for field `surface_56_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_56_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_56_name`')
 
         self._data["Surface 56 Name"] = value
@@ -45452,6 +48679,9 @@ class ZoneHvacHighTemperatureRadiant(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_57_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_57_name`')
 
         self._data["Surface 57 Name"] = value
 
@@ -45522,6 +48752,9 @@ class ZoneHvacHighTemperatureRadiant(object):
                                  'for field `surface_58_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_58_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_58_name`')
 
         self._data["Surface 58 Name"] = value
@@ -45594,6 +48827,9 @@ class ZoneHvacHighTemperatureRadiant(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_59_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_59_name`')
 
         self._data["Surface 59 Name"] = value
 
@@ -45664,6 +48900,9 @@ class ZoneHvacHighTemperatureRadiant(object):
                                  'for field `surface_60_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_60_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_60_name`')
 
         self._data["Surface 60 Name"] = value
@@ -45736,6 +48975,9 @@ class ZoneHvacHighTemperatureRadiant(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_61_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_61_name`')
 
         self._data["Surface 61 Name"] = value
 
@@ -45806,6 +49048,9 @@ class ZoneHvacHighTemperatureRadiant(object):
                                  'for field `surface_62_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_62_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_62_name`')
 
         self._data["Surface 62 Name"] = value
@@ -45878,6 +49123,9 @@ class ZoneHvacHighTemperatureRadiant(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_63_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_63_name`')
 
         self._data["Surface 63 Name"] = value
 
@@ -45948,6 +49196,9 @@ class ZoneHvacHighTemperatureRadiant(object):
                                  'for field `surface_64_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_64_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_64_name`')
 
         self._data["Surface 64 Name"] = value
@@ -46020,6 +49271,9 @@ class ZoneHvacHighTemperatureRadiant(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_65_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_65_name`')
 
         self._data["Surface 65 Name"] = value
 
@@ -46090,6 +49344,9 @@ class ZoneHvacHighTemperatureRadiant(object):
                                  'for field `surface_66_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_66_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_66_name`')
 
         self._data["Surface 66 Name"] = value
@@ -46162,6 +49419,9 @@ class ZoneHvacHighTemperatureRadiant(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_67_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_67_name`')
 
         self._data["Surface 67 Name"] = value
 
@@ -46232,6 +49492,9 @@ class ZoneHvacHighTemperatureRadiant(object):
                                  'for field `surface_68_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_68_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_68_name`')
 
         self._data["Surface 68 Name"] = value
@@ -46304,6 +49567,9 @@ class ZoneHvacHighTemperatureRadiant(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_69_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_69_name`')
 
         self._data["Surface 69 Name"] = value
 
@@ -46374,6 +49640,9 @@ class ZoneHvacHighTemperatureRadiant(object):
                                  'for field `surface_70_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_70_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_70_name`')
 
         self._data["Surface 70 Name"] = value
@@ -46446,6 +49715,9 @@ class ZoneHvacHighTemperatureRadiant(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_71_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_71_name`')
 
         self._data["Surface 71 Name"] = value
 
@@ -46516,6 +49788,9 @@ class ZoneHvacHighTemperatureRadiant(object):
                                  'for field `surface_72_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_72_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_72_name`')
 
         self._data["Surface 72 Name"] = value
@@ -46588,6 +49863,9 @@ class ZoneHvacHighTemperatureRadiant(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_73_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_73_name`')
 
         self._data["Surface 73 Name"] = value
 
@@ -46658,6 +49936,9 @@ class ZoneHvacHighTemperatureRadiant(object):
                                  'for field `surface_74_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_74_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_74_name`')
 
         self._data["Surface 74 Name"] = value
@@ -46730,6 +50011,9 @@ class ZoneHvacHighTemperatureRadiant(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_75_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_75_name`')
 
         self._data["Surface 75 Name"] = value
 
@@ -46800,6 +50084,9 @@ class ZoneHvacHighTemperatureRadiant(object):
                                  'for field `surface_76_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_76_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_76_name`')
 
         self._data["Surface 76 Name"] = value
@@ -46872,6 +50159,9 @@ class ZoneHvacHighTemperatureRadiant(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_77_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_77_name`')
 
         self._data["Surface 77 Name"] = value
 
@@ -46942,6 +50232,9 @@ class ZoneHvacHighTemperatureRadiant(object):
                                  'for field `surface_78_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_78_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_78_name`')
 
         self._data["Surface 78 Name"] = value
@@ -47014,6 +50307,9 @@ class ZoneHvacHighTemperatureRadiant(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_79_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_79_name`')
 
         self._data["Surface 79 Name"] = value
 
@@ -47084,6 +50380,9 @@ class ZoneHvacHighTemperatureRadiant(object):
                                  'for field `surface_80_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_80_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_80_name`')
 
         self._data["Surface 80 Name"] = value
@@ -47156,6 +50455,9 @@ class ZoneHvacHighTemperatureRadiant(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_81_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_81_name`')
 
         self._data["Surface 81 Name"] = value
 
@@ -47226,6 +50528,9 @@ class ZoneHvacHighTemperatureRadiant(object):
                                  'for field `surface_82_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_82_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_82_name`')
 
         self._data["Surface 82 Name"] = value
@@ -47298,6 +50603,9 @@ class ZoneHvacHighTemperatureRadiant(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_83_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_83_name`')
 
         self._data["Surface 83 Name"] = value
 
@@ -47368,6 +50676,9 @@ class ZoneHvacHighTemperatureRadiant(object):
                                  'for field `surface_84_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_84_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_84_name`')
 
         self._data["Surface 84 Name"] = value
@@ -47440,6 +50751,9 @@ class ZoneHvacHighTemperatureRadiant(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_85_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_85_name`')
 
         self._data["Surface 85 Name"] = value
 
@@ -47510,6 +50824,9 @@ class ZoneHvacHighTemperatureRadiant(object):
                                  'for field `surface_86_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_86_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_86_name`')
 
         self._data["Surface 86 Name"] = value
@@ -47582,6 +50899,9 @@ class ZoneHvacHighTemperatureRadiant(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_87_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_87_name`')
 
         self._data["Surface 87 Name"] = value
 
@@ -47652,6 +50972,9 @@ class ZoneHvacHighTemperatureRadiant(object):
                                  'for field `surface_88_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_88_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_88_name`')
 
         self._data["Surface 88 Name"] = value
@@ -47724,6 +51047,9 @@ class ZoneHvacHighTemperatureRadiant(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_89_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_89_name`')
 
         self._data["Surface 89 Name"] = value
 
@@ -47794,6 +51120,9 @@ class ZoneHvacHighTemperatureRadiant(object):
                                  'for field `surface_90_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_90_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_90_name`')
 
         self._data["Surface 90 Name"] = value
@@ -47866,6 +51195,9 @@ class ZoneHvacHighTemperatureRadiant(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_91_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_91_name`')
 
         self._data["Surface 91 Name"] = value
 
@@ -47936,6 +51268,9 @@ class ZoneHvacHighTemperatureRadiant(object):
                                  'for field `surface_92_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_92_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_92_name`')
 
         self._data["Surface 92 Name"] = value
@@ -48008,6 +51343,9 @@ class ZoneHvacHighTemperatureRadiant(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_93_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_93_name`')
 
         self._data["Surface 93 Name"] = value
 
@@ -48078,6 +51416,9 @@ class ZoneHvacHighTemperatureRadiant(object):
                                  'for field `surface_94_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_94_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_94_name`')
 
         self._data["Surface 94 Name"] = value
@@ -48150,6 +51491,9 @@ class ZoneHvacHighTemperatureRadiant(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_95_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_95_name`')
 
         self._data["Surface 95 Name"] = value
 
@@ -48220,6 +51564,9 @@ class ZoneHvacHighTemperatureRadiant(object):
                                  'for field `surface_96_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_96_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_96_name`')
 
         self._data["Surface 96 Name"] = value
@@ -48292,6 +51639,9 @@ class ZoneHvacHighTemperatureRadiant(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_97_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_97_name`')
 
         self._data["Surface 97 Name"] = value
 
@@ -48362,6 +51712,9 @@ class ZoneHvacHighTemperatureRadiant(object):
                                  'for field `surface_98_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_98_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_98_name`')
 
         self._data["Surface 98 Name"] = value
@@ -48434,6 +51787,9 @@ class ZoneHvacHighTemperatureRadiant(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_99_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_99_name`')
 
         self._data["Surface 99 Name"] = value
 
@@ -48505,6 +51861,9 @@ class ZoneHvacHighTemperatureRadiant(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_100_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_100_name`')
 
         self._data["Surface 100 Name"] = value
 
@@ -48568,225 +51927,17 @@ class ZoneHvacHighTemperatureRadiant(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.availability_schedule_name))
-        out.append(self._to_str(self.zone_name))
-        out.append(self._to_str(self.heating_design_capacity_method))
-        out.append(self._to_str(self.heating_design_capacity))
-        out.append(self._to_str(self.heating_design_capacity_per_floor_area))
-        out.append(self._to_str(self.fraction_of_autosized_heating_design_capacity))
-        out.append(self._to_str(self.fuel_type))
-        out.append(self._to_str(self.combustion_efficiency))
-        out.append(self._to_str(self.fraction_of_input_converted_to_radiant_energy))
-        out.append(self._to_str(self.fraction_of_input_converted_to_latent_energy))
-        out.append(self._to_str(self.fraction_of_input_that_is_lost))
-        out.append(self._to_str(self.temperature_control_type))
-        out.append(self._to_str(self.heating_throttling_range))
-        out.append(self._to_str(self.heating_setpoint_temperature_schedule_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_incident_on_people))
-        out.append(self._to_str(self.surface_1_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_1))
-        out.append(self._to_str(self.surface_2_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_2))
-        out.append(self._to_str(self.surface_3_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_3))
-        out.append(self._to_str(self.surface_4_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_4))
-        out.append(self._to_str(self.surface_5_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_5))
-        out.append(self._to_str(self.surface_6_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_6))
-        out.append(self._to_str(self.surface_7_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_7))
-        out.append(self._to_str(self.surface_8_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_8))
-        out.append(self._to_str(self.surface_9_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_9))
-        out.append(self._to_str(self.surface_10_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_10))
-        out.append(self._to_str(self.surface_11_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_11))
-        out.append(self._to_str(self.surface_12_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_12))
-        out.append(self._to_str(self.surface_13_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_13))
-        out.append(self._to_str(self.surface_14_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_14))
-        out.append(self._to_str(self.surface_15_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_15))
-        out.append(self._to_str(self.surface_16_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_16))
-        out.append(self._to_str(self.surface_17_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_17))
-        out.append(self._to_str(self.surface_18_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_18))
-        out.append(self._to_str(self.surface_19_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_19))
-        out.append(self._to_str(self.surface_20_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_20))
-        out.append(self._to_str(self.surface_21_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_21))
-        out.append(self._to_str(self.surface_22_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_22))
-        out.append(self._to_str(self.surface_23_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_23))
-        out.append(self._to_str(self.surface_24_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_24))
-        out.append(self._to_str(self.surface_25_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_25))
-        out.append(self._to_str(self.surface_26_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_26))
-        out.append(self._to_str(self.surface_27_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_27))
-        out.append(self._to_str(self.surface_28_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_28))
-        out.append(self._to_str(self.surface_29_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_29))
-        out.append(self._to_str(self.surface_30_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_30))
-        out.append(self._to_str(self.surface_31_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_31))
-        out.append(self._to_str(self.surface_32_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_32))
-        out.append(self._to_str(self.surface_33_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_33))
-        out.append(self._to_str(self.surface_34_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_34))
-        out.append(self._to_str(self.surface_35_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_35))
-        out.append(self._to_str(self.surface_36_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_36))
-        out.append(self._to_str(self.surface_37_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_37))
-        out.append(self._to_str(self.surface_38_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_38))
-        out.append(self._to_str(self.surface_39_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_39))
-        out.append(self._to_str(self.surface_40_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_40))
-        out.append(self._to_str(self.surface_41_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_41))
-        out.append(self._to_str(self.surface_42_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_42))
-        out.append(self._to_str(self.surface_43_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_43))
-        out.append(self._to_str(self.surface_44_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_44))
-        out.append(self._to_str(self.surface_45_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_45))
-        out.append(self._to_str(self.surface_46_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_46))
-        out.append(self._to_str(self.surface_47_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_47))
-        out.append(self._to_str(self.surface_48_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_48))
-        out.append(self._to_str(self.surface_49_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_49))
-        out.append(self._to_str(self.surface_50_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_50))
-        out.append(self._to_str(self.surface_51_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_51))
-        out.append(self._to_str(self.surface_52_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_52))
-        out.append(self._to_str(self.surface_53_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_53))
-        out.append(self._to_str(self.surface_54_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_54))
-        out.append(self._to_str(self.surface_55_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_55))
-        out.append(self._to_str(self.surface_56_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_56))
-        out.append(self._to_str(self.surface_57_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_57))
-        out.append(self._to_str(self.surface_58_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_58))
-        out.append(self._to_str(self.surface_59_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_59))
-        out.append(self._to_str(self.surface_60_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_60))
-        out.append(self._to_str(self.surface_61_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_61))
-        out.append(self._to_str(self.surface_62_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_62))
-        out.append(self._to_str(self.surface_63_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_63))
-        out.append(self._to_str(self.surface_64_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_64))
-        out.append(self._to_str(self.surface_65_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_65))
-        out.append(self._to_str(self.surface_66_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_66))
-        out.append(self._to_str(self.surface_67_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_67))
-        out.append(self._to_str(self.surface_68_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_68))
-        out.append(self._to_str(self.surface_69_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_69))
-        out.append(self._to_str(self.surface_70_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_70))
-        out.append(self._to_str(self.surface_71_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_71))
-        out.append(self._to_str(self.surface_72_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_72))
-        out.append(self._to_str(self.surface_73_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_73))
-        out.append(self._to_str(self.surface_74_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_74))
-        out.append(self._to_str(self.surface_75_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_75))
-        out.append(self._to_str(self.surface_76_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_76))
-        out.append(self._to_str(self.surface_77_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_77))
-        out.append(self._to_str(self.surface_78_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_78))
-        out.append(self._to_str(self.surface_79_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_79))
-        out.append(self._to_str(self.surface_80_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_80))
-        out.append(self._to_str(self.surface_81_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_81))
-        out.append(self._to_str(self.surface_82_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_82))
-        out.append(self._to_str(self.surface_83_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_83))
-        out.append(self._to_str(self.surface_84_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_84))
-        out.append(self._to_str(self.surface_85_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_85))
-        out.append(self._to_str(self.surface_86_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_86))
-        out.append(self._to_str(self.surface_87_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_87))
-        out.append(self._to_str(self.surface_88_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_88))
-        out.append(self._to_str(self.surface_89_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_89))
-        out.append(self._to_str(self.surface_90_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_90))
-        out.append(self._to_str(self.surface_91_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_91))
-        out.append(self._to_str(self.surface_92_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_92))
-        out.append(self._to_str(self.surface_93_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_93))
-        out.append(self._to_str(self.surface_94_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_94))
-        out.append(self._to_str(self.surface_95_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_95))
-        out.append(self._to_str(self.surface_96_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_96))
-        out.append(self._to_str(self.surface_97_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_97))
-        out.append(self._to_str(self.surface_98_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_98))
-        out.append(self._to_str(self.surface_99_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_99))
-        out.append(self._to_str(self.surface_100_name))
-        out.append(self._to_str(self.fraction_of_radiant_energy_to_surface_100))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class ZoneHvacVentilatedSlab(object):
     """ Corresponds to IDD object `ZoneHVAC:VentilatedSlab`
@@ -48842,214 +51993,296 @@ class ZoneHvacVentilatedSlab(object):
         self._data["Cold Water Inlet Node Name"] = None
         self._data["Availability Manager List Name"] = None
         self._data["Design Specification ZoneHVAC Sizing Object Name"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.availability_schedule_name = None
         else:
             self.availability_schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.zone_name = None
         else:
             self.zone_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_name_or_radiant_surface_group_name = None
         else:
             self.surface_name_or_radiant_surface_group_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.maximum_air_flow_rate = None
         else:
             self.maximum_air_flow_rate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.outdoor_air_control_type = None
         else:
             self.outdoor_air_control_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.minimum_outdoor_air_flow_rate = None
         else:
             self.minimum_outdoor_air_flow_rate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.minimum_outdoor_air_schedule_name = None
         else:
             self.minimum_outdoor_air_schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.maximum_outdoor_air_flow_rate = None
         else:
             self.maximum_outdoor_air_flow_rate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.maximum_outdoor_air_fraction_or_temperature_schedule_name = None
         else:
             self.maximum_outdoor_air_fraction_or_temperature_schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.system_configuration_type = None
         else:
             self.system_configuration_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.hollow_core_inside_diameter = None
         else:
             self.hollow_core_inside_diameter = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.hollow_core_length = None
         else:
             self.hollow_core_length = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.number_of_cores = None
         else:
             self.number_of_cores = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.temperature_control_type = None
         else:
             self.temperature_control_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.heating_high_air_temperature_schedule_name = None
         else:
             self.heating_high_air_temperature_schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.heating_low_air_temperature_schedule_name = None
         else:
             self.heating_low_air_temperature_schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.heating_high_control_temperature_schedule_name = None
         else:
             self.heating_high_control_temperature_schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.heating_low_control_temperature_schedule_name = None
         else:
             self.heating_low_control_temperature_schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.cooling_high_air_temperature_schedule_name = None
         else:
             self.cooling_high_air_temperature_schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.cooling_low_air_temperature_schedule_name = None
         else:
             self.cooling_low_air_temperature_schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.cooling_high_control_temperature_schedule_name = None
         else:
             self.cooling_high_control_temperature_schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.cooling_low_control_temperature_schedule_name = None
         else:
             self.cooling_low_control_temperature_schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.return_air_node_name = None
         else:
             self.return_air_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.slab_in_node_name = None
         else:
             self.slab_in_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.zone_supply_air_node_name = None
         else:
             self.zone_supply_air_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.outdoor_air_node_name = None
         else:
             self.outdoor_air_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.relief_air_node_name = None
         else:
             self.relief_air_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.outdoor_air_mixer_outlet_node_name = None
         else:
             self.outdoor_air_mixer_outlet_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fan_outlet_node_name = None
         else:
             self.fan_outlet_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fan_name = None
         else:
             self.fan_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.coil_option_type = None
         else:
             self.coil_option_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.heating_coil_object_type = None
         else:
             self.heating_coil_object_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.heating_coil_name = None
         else:
             self.heating_coil_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.hot_water_or_steam_inlet_node_name = None
         else:
             self.hot_water_or_steam_inlet_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.cooling_coil_object_type = None
         else:
             self.cooling_coil_object_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.cooling_coil_name = None
         else:
             self.cooling_coil_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.cold_water_inlet_node_name = None
         else:
             self.cold_water_inlet_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.availability_manager_list_name = None
         else:
             self.availability_manager_list_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.design_specification_zonehvac_sizing_object_name = None
         else:
             self.design_specification_zonehvac_sizing_object_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -49080,6 +52313,9 @@ class ZoneHvacVentilatedSlab(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -49116,6 +52352,9 @@ class ZoneHvacVentilatedSlab(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `availability_schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `availability_schedule_name`')
 
         self._data["Availability Schedule Name"] = value
 
@@ -49150,6 +52389,9 @@ class ZoneHvacVentilatedSlab(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `zone_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `zone_name`')
 
         self._data["Zone Name"] = value
 
@@ -49183,6 +52425,9 @@ class ZoneHvacVentilatedSlab(object):
                                  'for field `surface_name_or_radiant_surface_group_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_name_or_radiant_surface_group_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_name_or_radiant_surface_group_name`')
 
         self._data["Surface Name or Radiant Surface Group Name"] = value
@@ -49256,13 +52501,27 @@ class ZoneHvacVentilatedSlab(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `outdoor_air_control_type`')
-            vals = set()
-            vals.add("VariablePercent")
-            vals.add("FixedTemperature")
-            vals.add("FixedAmount")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `outdoor_air_control_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `outdoor_air_control_type`')
+            vals = {}
+            vals["variablepercent"] = "VariablePercent"
+            vals["fixedtemperature"] = "FixedTemperature"
+            vals["fixedamount"] = "FixedAmount"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `outdoor_air_control_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Outdoor Air Control Type"] = value
 
@@ -49330,6 +52589,9 @@ class ZoneHvacVentilatedSlab(object):
                                  'for field `minimum_outdoor_air_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `minimum_outdoor_air_schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `minimum_outdoor_air_schedule_name`')
 
         self._data["Minimum Outdoor Air Schedule Name"] = value
@@ -49401,6 +52663,9 @@ class ZoneHvacVentilatedSlab(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `maximum_outdoor_air_fraction_or_temperature_schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `maximum_outdoor_air_fraction_or_temperature_schedule_name`')
 
         self._data["Maximum Outdoor Air Fraction or Temperature Schedule Name"] = value
 
@@ -49439,13 +52704,27 @@ class ZoneHvacVentilatedSlab(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `system_configuration_type`')
-            vals = set()
-            vals.add("SlabOnly")
-            vals.add("SlabAndZone")
-            vals.add("SeriesSlabs")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `system_configuration_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `system_configuration_type`')
+            vals = {}
+            vals["slabonly"] = "SlabOnly"
+            vals["slabandzone"] = "SlabAndZone"
+            vals["seriesslabs"] = "SeriesSlabs"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `system_configuration_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["System Configuration Type"] = value
 
@@ -49597,17 +52876,31 @@ class ZoneHvacVentilatedSlab(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `temperature_control_type`')
-            vals = set()
-            vals.add("MeanAirTemperature")
-            vals.add("MeanRadiantTemperature")
-            vals.add("OperativeTemperature")
-            vals.add("OutdoorDryBulbTemperature")
-            vals.add("OutdoorWetBulbTemperature")
-            vals.add("SurfaceTemperature")
-            vals.add("ZoneAirDewPointTemperature")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `temperature_control_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `temperature_control_type`')
+            vals = {}
+            vals["meanairtemperature"] = "MeanAirTemperature"
+            vals["meanradianttemperature"] = "MeanRadiantTemperature"
+            vals["operativetemperature"] = "OperativeTemperature"
+            vals["outdoordrybulbtemperature"] = "OutdoorDryBulbTemperature"
+            vals["outdoorwetbulbtemperature"] = "OutdoorWetBulbTemperature"
+            vals["surfacetemperature"] = "SurfaceTemperature"
+            vals["zoneairdewpointtemperature"] = "ZoneAirDewPointTemperature"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `temperature_control_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Temperature Control Type"] = value
 
@@ -49652,6 +52945,9 @@ class ZoneHvacVentilatedSlab(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `heating_high_air_temperature_schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `heating_high_air_temperature_schedule_name`')
 
         self._data["Heating High Air Temperature Schedule Name"] = value
 
@@ -49684,6 +52980,9 @@ class ZoneHvacVentilatedSlab(object):
                                  'for field `heating_low_air_temperature_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `heating_low_air_temperature_schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `heating_low_air_temperature_schedule_name`')
 
         self._data["Heating Low Air Temperature Schedule Name"] = value
@@ -49718,6 +53017,9 @@ class ZoneHvacVentilatedSlab(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `heating_high_control_temperature_schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `heating_high_control_temperature_schedule_name`')
 
         self._data["Heating High Control Temperature Schedule Name"] = value
 
@@ -49750,6 +53052,9 @@ class ZoneHvacVentilatedSlab(object):
                                  'for field `heating_low_control_temperature_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `heating_low_control_temperature_schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `heating_low_control_temperature_schedule_name`')
 
         self._data["Heating Low Control Temperature Schedule Name"] = value
@@ -49786,6 +53091,9 @@ class ZoneHvacVentilatedSlab(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `cooling_high_air_temperature_schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `cooling_high_air_temperature_schedule_name`')
 
         self._data["Cooling High Air Temperature Schedule Name"] = value
 
@@ -49818,6 +53126,9 @@ class ZoneHvacVentilatedSlab(object):
                                  'for field `cooling_low_air_temperature_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `cooling_low_air_temperature_schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `cooling_low_air_temperature_schedule_name`')
 
         self._data["Cooling Low Air Temperature Schedule Name"] = value
@@ -49852,6 +53163,9 @@ class ZoneHvacVentilatedSlab(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `cooling_high_control_temperature_schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `cooling_high_control_temperature_schedule_name`')
 
         self._data["Cooling High Control Temperature Schedule Name"] = value
 
@@ -49884,6 +53198,9 @@ class ZoneHvacVentilatedSlab(object):
                                  'for field `cooling_low_control_temperature_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `cooling_low_control_temperature_schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `cooling_low_control_temperature_schedule_name`')
 
         self._data["Cooling Low Control Temperature Schedule Name"] = value
@@ -49920,6 +53237,9 @@ class ZoneHvacVentilatedSlab(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `return_air_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `return_air_node_name`')
 
         self._data["Return Air Node Name"] = value
 
@@ -49953,6 +53273,9 @@ class ZoneHvacVentilatedSlab(object):
                                  'for field `slab_in_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `slab_in_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `slab_in_node_name`')
 
         self._data["Slab In Node Name"] = value
@@ -49990,6 +53313,9 @@ class ZoneHvacVentilatedSlab(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `zone_supply_air_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `zone_supply_air_node_name`')
 
         self._data["Zone Supply Air Node Name"] = value
 
@@ -50025,6 +53351,9 @@ class ZoneHvacVentilatedSlab(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `outdoor_air_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `outdoor_air_node_name`')
 
         self._data["Outdoor Air Node Name"] = value
 
@@ -50058,6 +53387,9 @@ class ZoneHvacVentilatedSlab(object):
                                  'for field `relief_air_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `relief_air_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `relief_air_node_name`')
 
         self._data["Relief Air Node Name"] = value
@@ -50093,6 +53425,9 @@ class ZoneHvacVentilatedSlab(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `outdoor_air_mixer_outlet_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `outdoor_air_mixer_outlet_node_name`')
 
         self._data["Outdoor Air Mixer Outlet Node Name"] = value
 
@@ -50127,6 +53462,9 @@ class ZoneHvacVentilatedSlab(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `fan_outlet_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `fan_outlet_node_name`')
 
         self._data["Fan Outlet Node Name"] = value
 
@@ -50160,6 +53498,9 @@ class ZoneHvacVentilatedSlab(object):
                                  'for field `fan_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `fan_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `fan_name`')
 
         self._data["Fan Name"] = value
@@ -50199,14 +53540,28 @@ class ZoneHvacVentilatedSlab(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `coil_option_type`')
-            vals = set()
-            vals.add("None")
-            vals.add("Heating")
-            vals.add("Cooling")
-            vals.add("HeatingAndCooling")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `coil_option_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `coil_option_type`')
+            vals = {}
+            vals["none"] = "None"
+            vals["heating"] = "Heating"
+            vals["cooling"] = "Cooling"
+            vals["heatingandcooling"] = "HeatingAndCooling"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `coil_option_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Coil Option Type"] = value
 
@@ -50245,14 +53600,28 @@ class ZoneHvacVentilatedSlab(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `heating_coil_object_type`')
-            vals = set()
-            vals.add("Coil:Heating:Water")
-            vals.add("Coil:Heating:Electric")
-            vals.add("Coil:Heating:Gas")
-            vals.add("Coil:Heating:Steam")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `heating_coil_object_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `heating_coil_object_type`')
+            vals = {}
+            vals["coil:heating:water"] = "Coil:Heating:Water"
+            vals["coil:heating:electric"] = "Coil:Heating:Electric"
+            vals["coil:heating:gas"] = "Coil:Heating:Gas"
+            vals["coil:heating:steam"] = "Coil:Heating:Steam"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `heating_coil_object_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Heating Coil Object Type"] = value
 
@@ -50286,6 +53655,9 @@ class ZoneHvacVentilatedSlab(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `heating_coil_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `heating_coil_name`')
 
         self._data["Heating Coil Name"] = value
 
@@ -50318,6 +53690,9 @@ class ZoneHvacVentilatedSlab(object):
                                  'for field `hot_water_or_steam_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `hot_water_or_steam_inlet_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `hot_water_or_steam_inlet_node_name`')
 
         self._data["Hot Water or Steam Inlet Node Name"] = value
@@ -50356,13 +53731,27 @@ class ZoneHvacVentilatedSlab(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `cooling_coil_object_type`')
-            vals = set()
-            vals.add("Coil:Cooling:Water")
-            vals.add("Coil:Cooling:Water:DetailedGeometry")
-            vals.add("CoilSystem:Cooling:Water:HeatExchangerAssisted")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `cooling_coil_object_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `cooling_coil_object_type`')
+            vals = {}
+            vals["coil:cooling:water"] = "Coil:Cooling:Water"
+            vals["coil:cooling:water:detailedgeometry"] = "Coil:Cooling:Water:DetailedGeometry"
+            vals["coilsystem:cooling:water:heatexchangerassisted"] = "CoilSystem:Cooling:Water:HeatExchangerAssisted"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `cooling_coil_object_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Cooling Coil Object Type"] = value
 
@@ -50396,6 +53785,9 @@ class ZoneHvacVentilatedSlab(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `cooling_coil_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `cooling_coil_name`')
 
         self._data["Cooling Coil Name"] = value
 
@@ -50428,6 +53820,9 @@ class ZoneHvacVentilatedSlab(object):
                                  'for field `cold_water_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `cold_water_inlet_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `cold_water_inlet_node_name`')
 
         self._data["Cold Water Inlet Node Name"] = value
@@ -50463,6 +53858,9 @@ class ZoneHvacVentilatedSlab(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `availability_manager_list_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `availability_manager_list_name`')
 
         self._data["Availability Manager List Name"] = value
 
@@ -50497,6 +53895,9 @@ class ZoneHvacVentilatedSlab(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `design_specification_zonehvac_sizing_object_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `design_specification_zonehvac_sizing_object_name`')
 
         self._data["Design Specification ZoneHVAC Sizing Object Name"] = value
 
@@ -50522,49 +53923,17 @@ class ZoneHvacVentilatedSlab(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.availability_schedule_name))
-        out.append(self._to_str(self.zone_name))
-        out.append(self._to_str(self.surface_name_or_radiant_surface_group_name))
-        out.append(self._to_str(self.maximum_air_flow_rate))
-        out.append(self._to_str(self.outdoor_air_control_type))
-        out.append(self._to_str(self.minimum_outdoor_air_flow_rate))
-        out.append(self._to_str(self.minimum_outdoor_air_schedule_name))
-        out.append(self._to_str(self.maximum_outdoor_air_flow_rate))
-        out.append(self._to_str(self.maximum_outdoor_air_fraction_or_temperature_schedule_name))
-        out.append(self._to_str(self.system_configuration_type))
-        out.append(self._to_str(self.hollow_core_inside_diameter))
-        out.append(self._to_str(self.hollow_core_length))
-        out.append(self._to_str(self.number_of_cores))
-        out.append(self._to_str(self.temperature_control_type))
-        out.append(self._to_str(self.heating_high_air_temperature_schedule_name))
-        out.append(self._to_str(self.heating_low_air_temperature_schedule_name))
-        out.append(self._to_str(self.heating_high_control_temperature_schedule_name))
-        out.append(self._to_str(self.heating_low_control_temperature_schedule_name))
-        out.append(self._to_str(self.cooling_high_air_temperature_schedule_name))
-        out.append(self._to_str(self.cooling_low_air_temperature_schedule_name))
-        out.append(self._to_str(self.cooling_high_control_temperature_schedule_name))
-        out.append(self._to_str(self.cooling_low_control_temperature_schedule_name))
-        out.append(self._to_str(self.return_air_node_name))
-        out.append(self._to_str(self.slab_in_node_name))
-        out.append(self._to_str(self.zone_supply_air_node_name))
-        out.append(self._to_str(self.outdoor_air_node_name))
-        out.append(self._to_str(self.relief_air_node_name))
-        out.append(self._to_str(self.outdoor_air_mixer_outlet_node_name))
-        out.append(self._to_str(self.fan_outlet_node_name))
-        out.append(self._to_str(self.fan_name))
-        out.append(self._to_str(self.coil_option_type))
-        out.append(self._to_str(self.heating_coil_object_type))
-        out.append(self._to_str(self.heating_coil_name))
-        out.append(self._to_str(self.hot_water_or_steam_inlet_node_name))
-        out.append(self._to_str(self.cooling_coil_object_type))
-        out.append(self._to_str(self.cooling_coil_name))
-        out.append(self._to_str(self.cold_water_inlet_node_name))
-        out.append(self._to_str(self.availability_manager_list_name))
-        out.append(self._to_str(self.design_specification_zonehvac_sizing_object_name))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class ZoneHvacVentilatedSlabSlabGroup(object):
     """ Corresponds to IDD object `ZoneHVAC:VentilatedSlab:SlabGroup`
@@ -50653,369 +54022,513 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
         self._data["Core Numbers for Surface 10"] = None
         self._data["Slab Inlet Node Name for Surface 10"] = None
         self._data["Slab Outlet Node Name for Surface 10"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.zone_1_name = None
         else:
             self.zone_1_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_1_name = None
         else:
             self.surface_1_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.core_diameter_for_surface_1 = None
         else:
             self.core_diameter_for_surface_1 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.core_length_for_surface_1 = None
         else:
             self.core_length_for_surface_1 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.core_numbers_for_surface_1 = None
         else:
             self.core_numbers_for_surface_1 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.slab_inlet_node_name_for_surface_1 = None
         else:
             self.slab_inlet_node_name_for_surface_1 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.slab_outlet_node_name_for_surface_1 = None
         else:
             self.slab_outlet_node_name_for_surface_1 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.zone_2_name = None
         else:
             self.zone_2_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_2_name = None
         else:
             self.surface_2_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.core_diameter_for_surface_2 = None
         else:
             self.core_diameter_for_surface_2 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.core_length_for_surface_2 = None
         else:
             self.core_length_for_surface_2 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.core_numbers_for_surface_2 = None
         else:
             self.core_numbers_for_surface_2 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.slab_inlet_node_name_for_surface_2 = None
         else:
             self.slab_inlet_node_name_for_surface_2 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.slab_outlet_node_name_for_surface_2 = None
         else:
             self.slab_outlet_node_name_for_surface_2 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.zone_3_name = None
         else:
             self.zone_3_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_3_name = None
         else:
             self.surface_3_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.core_diameter_for_surface_3 = None
         else:
             self.core_diameter_for_surface_3 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.core_length_for_surface_3 = None
         else:
             self.core_length_for_surface_3 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.core_numbers_for_surface_3 = None
         else:
             self.core_numbers_for_surface_3 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.slab_inlet_node_name_for_surface_3 = None
         else:
             self.slab_inlet_node_name_for_surface_3 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.slab_outlet_node_name_for_surface_3 = None
         else:
             self.slab_outlet_node_name_for_surface_3 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.zone_4_name = None
         else:
             self.zone_4_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_4_name = None
         else:
             self.surface_4_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.core_diameter_for_surface_4 = None
         else:
             self.core_diameter_for_surface_4 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.core_length_for_surface_4 = None
         else:
             self.core_length_for_surface_4 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.core_numbers_for_surface_4 = None
         else:
             self.core_numbers_for_surface_4 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.slab_inlet_node_name_for_surface_4 = None
         else:
             self.slab_inlet_node_name_for_surface_4 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.slab_outlet_node_name_for_surface_4 = None
         else:
             self.slab_outlet_node_name_for_surface_4 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.zone_5_name = None
         else:
             self.zone_5_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_5_name = None
         else:
             self.surface_5_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.core_diameter_for_surface_5 = None
         else:
             self.core_diameter_for_surface_5 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.core_length_for_surface_5 = None
         else:
             self.core_length_for_surface_5 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.core_numbers_for_surface_5 = None
         else:
             self.core_numbers_for_surface_5 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.slab_inlet_node_name_for_surface_5 = None
         else:
             self.slab_inlet_node_name_for_surface_5 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.slab_outlet_node_name_for_surface_5 = None
         else:
             self.slab_outlet_node_name_for_surface_5 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.zone_6_name = None
         else:
             self.zone_6_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_6_name = None
         else:
             self.surface_6_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.core_diameter_for_surface_6 = None
         else:
             self.core_diameter_for_surface_6 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.core_length_for_surface_6 = None
         else:
             self.core_length_for_surface_6 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.core_numbers_for_surface_6 = None
         else:
             self.core_numbers_for_surface_6 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.slab_inlet_node_name_for_surface_6 = None
         else:
             self.slab_inlet_node_name_for_surface_6 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.slab_outlet_node_name_for_surface_6 = None
         else:
             self.slab_outlet_node_name_for_surface_6 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.zone_7_name = None
         else:
             self.zone_7_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_7_name = None
         else:
             self.surface_7_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.core_diameter_for_surface_7 = None
         else:
             self.core_diameter_for_surface_7 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.core_length_for_surface_7 = None
         else:
             self.core_length_for_surface_7 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.core_numbers_for_surface_7 = None
         else:
             self.core_numbers_for_surface_7 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.slab_inlet_node_name_for_surface_7 = None
         else:
             self.slab_inlet_node_name_for_surface_7 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.slab_outlet_node_name_for_surface_7 = None
         else:
             self.slab_outlet_node_name_for_surface_7 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.zone_8_name = None
         else:
             self.zone_8_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_8_name = None
         else:
             self.surface_8_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.core_diameter_for_surface_8 = None
         else:
             self.core_diameter_for_surface_8 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.core_length_for_surface_8 = None
         else:
             self.core_length_for_surface_8 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.core_numbers_for_surface_8 = None
         else:
             self.core_numbers_for_surface_8 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.slab_inlet_node_name_for_surface_8 = None
         else:
             self.slab_inlet_node_name_for_surface_8 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.slab_outlet_node_name_for_surface_8 = None
         else:
             self.slab_outlet_node_name_for_surface_8 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.zone_9_name = None
         else:
             self.zone_9_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_9_name = None
         else:
             self.surface_9_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.core_diameter_for_surface_9 = None
         else:
             self.core_diameter_for_surface_9 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.core_length_for_surface_9 = None
         else:
             self.core_length_for_surface_9 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.core_numbers_for_surface_9 = None
         else:
             self.core_numbers_for_surface_9 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.slab_inlet_node_name_for_surface_9 = None
         else:
             self.slab_inlet_node_name_for_surface_9 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.slab_outlet_node_name_for_surface_9 = None
         else:
             self.slab_outlet_node_name_for_surface_9 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.zone_10_name = None
         else:
             self.zone_10_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_10_name = None
         else:
             self.surface_10_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.core_diameter_for_surface_10 = None
         else:
             self.core_diameter_for_surface_10 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.core_length_for_surface_10 = None
         else:
             self.core_length_for_surface_10 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.core_numbers_for_surface_10 = None
         else:
             self.core_numbers_for_surface_10 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.slab_inlet_node_name_for_surface_10 = None
         else:
             self.slab_inlet_node_name_for_surface_10 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.slab_outlet_node_name_for_surface_10 = None
         else:
             self.slab_outlet_node_name_for_surface_10 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -51046,6 +54559,9 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -51080,6 +54596,9 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `zone_1_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `zone_1_name`')
 
         self._data["Zone 1 Name"] = value
 
@@ -51112,6 +54631,9 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
                                  'for field `surface_1_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_1_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_1_name`')
 
         self._data["Surface 1 Name"] = value
@@ -51250,6 +54772,9 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `slab_inlet_node_name_for_surface_1`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `slab_inlet_node_name_for_surface_1`')
 
         self._data["Slab Inlet Node Name for Surface 1"] = value
 
@@ -51282,6 +54807,9 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
                                  'for field `slab_outlet_node_name_for_surface_1`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `slab_outlet_node_name_for_surface_1`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `slab_outlet_node_name_for_surface_1`')
 
         self._data["Slab Outlet Node Name for Surface 1"] = value
@@ -51316,6 +54844,9 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `zone_2_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `zone_2_name`')
 
         self._data["Zone 2 Name"] = value
 
@@ -51348,6 +54879,9 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
                                  'for field `surface_2_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_2_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_2_name`')
 
         self._data["Surface 2 Name"] = value
@@ -51486,6 +55020,9 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `slab_inlet_node_name_for_surface_2`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `slab_inlet_node_name_for_surface_2`')
 
         self._data["Slab Inlet Node Name for Surface 2"] = value
 
@@ -51518,6 +55055,9 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
                                  'for field `slab_outlet_node_name_for_surface_2`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `slab_outlet_node_name_for_surface_2`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `slab_outlet_node_name_for_surface_2`')
 
         self._data["Slab Outlet Node Name for Surface 2"] = value
@@ -51552,6 +55092,9 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `zone_3_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `zone_3_name`')
 
         self._data["Zone 3 Name"] = value
 
@@ -51584,6 +55127,9 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
                                  'for field `surface_3_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_3_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_3_name`')
 
         self._data["Surface 3 Name"] = value
@@ -51722,6 +55268,9 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `slab_inlet_node_name_for_surface_3`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `slab_inlet_node_name_for_surface_3`')
 
         self._data["Slab Inlet Node Name for Surface 3"] = value
 
@@ -51754,6 +55303,9 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
                                  'for field `slab_outlet_node_name_for_surface_3`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `slab_outlet_node_name_for_surface_3`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `slab_outlet_node_name_for_surface_3`')
 
         self._data["Slab Outlet Node Name for Surface 3"] = value
@@ -51788,6 +55340,9 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `zone_4_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `zone_4_name`')
 
         self._data["Zone 4 Name"] = value
 
@@ -51820,6 +55375,9 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
                                  'for field `surface_4_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_4_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_4_name`')
 
         self._data["Surface 4 Name"] = value
@@ -51958,6 +55516,9 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `slab_inlet_node_name_for_surface_4`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `slab_inlet_node_name_for_surface_4`')
 
         self._data["Slab Inlet Node Name for Surface 4"] = value
 
@@ -51990,6 +55551,9 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
                                  'for field `slab_outlet_node_name_for_surface_4`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `slab_outlet_node_name_for_surface_4`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `slab_outlet_node_name_for_surface_4`')
 
         self._data["Slab Outlet Node Name for Surface 4"] = value
@@ -52024,6 +55588,9 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `zone_5_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `zone_5_name`')
 
         self._data["Zone 5 Name"] = value
 
@@ -52056,6 +55623,9 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
                                  'for field `surface_5_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_5_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_5_name`')
 
         self._data["Surface 5 Name"] = value
@@ -52194,6 +55764,9 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `slab_inlet_node_name_for_surface_5`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `slab_inlet_node_name_for_surface_5`')
 
         self._data["Slab Inlet Node Name for Surface 5"] = value
 
@@ -52226,6 +55799,9 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
                                  'for field `slab_outlet_node_name_for_surface_5`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `slab_outlet_node_name_for_surface_5`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `slab_outlet_node_name_for_surface_5`')
 
         self._data["Slab Outlet Node Name for Surface 5"] = value
@@ -52260,6 +55836,9 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `zone_6_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `zone_6_name`')
 
         self._data["Zone 6 Name"] = value
 
@@ -52292,6 +55871,9 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
                                  'for field `surface_6_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_6_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_6_name`')
 
         self._data["Surface 6 Name"] = value
@@ -52430,6 +56012,9 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `slab_inlet_node_name_for_surface_6`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `slab_inlet_node_name_for_surface_6`')
 
         self._data["Slab Inlet Node Name for Surface 6"] = value
 
@@ -52462,6 +56047,9 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
                                  'for field `slab_outlet_node_name_for_surface_6`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `slab_outlet_node_name_for_surface_6`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `slab_outlet_node_name_for_surface_6`')
 
         self._data["Slab Outlet Node Name for Surface 6"] = value
@@ -52496,6 +56084,9 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `zone_7_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `zone_7_name`')
 
         self._data["Zone 7 Name"] = value
 
@@ -52528,6 +56119,9 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
                                  'for field `surface_7_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_7_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_7_name`')
 
         self._data["Surface 7 Name"] = value
@@ -52666,6 +56260,9 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `slab_inlet_node_name_for_surface_7`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `slab_inlet_node_name_for_surface_7`')
 
         self._data["Slab Inlet Node Name for Surface 7"] = value
 
@@ -52698,6 +56295,9 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
                                  'for field `slab_outlet_node_name_for_surface_7`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `slab_outlet_node_name_for_surface_7`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `slab_outlet_node_name_for_surface_7`')
 
         self._data["Slab Outlet Node Name for Surface 7"] = value
@@ -52732,6 +56332,9 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `zone_8_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `zone_8_name`')
 
         self._data["Zone 8 Name"] = value
 
@@ -52764,6 +56367,9 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
                                  'for field `surface_8_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_8_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_8_name`')
 
         self._data["Surface 8 Name"] = value
@@ -52902,6 +56508,9 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `slab_inlet_node_name_for_surface_8`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `slab_inlet_node_name_for_surface_8`')
 
         self._data["Slab Inlet Node Name for Surface 8"] = value
 
@@ -52934,6 +56543,9 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
                                  'for field `slab_outlet_node_name_for_surface_8`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `slab_outlet_node_name_for_surface_8`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `slab_outlet_node_name_for_surface_8`')
 
         self._data["Slab Outlet Node Name for Surface 8"] = value
@@ -52968,6 +56580,9 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `zone_9_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `zone_9_name`')
 
         self._data["Zone 9 Name"] = value
 
@@ -53000,6 +56615,9 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
                                  'for field `surface_9_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_9_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_9_name`')
 
         self._data["Surface 9 Name"] = value
@@ -53138,6 +56756,9 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `slab_inlet_node_name_for_surface_9`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `slab_inlet_node_name_for_surface_9`')
 
         self._data["Slab Inlet Node Name for Surface 9"] = value
 
@@ -53170,6 +56791,9 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
                                  'for field `slab_outlet_node_name_for_surface_9`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `slab_outlet_node_name_for_surface_9`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `slab_outlet_node_name_for_surface_9`')
 
         self._data["Slab Outlet Node Name for Surface 9"] = value
@@ -53204,6 +56828,9 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `zone_10_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `zone_10_name`')
 
         self._data["Zone 10 Name"] = value
 
@@ -53236,6 +56863,9 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
                                  'for field `surface_10_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_10_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_10_name`')
 
         self._data["Surface 10 Name"] = value
@@ -53374,6 +57004,9 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `slab_inlet_node_name_for_surface_10`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `slab_inlet_node_name_for_surface_10`')
 
         self._data["Slab Inlet Node Name for Surface 10"] = value
 
@@ -53407,6 +57040,9 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `slab_outlet_node_name_for_surface_10`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `slab_outlet_node_name_for_surface_10`')
 
         self._data["Slab Outlet Node Name for Surface 10"] = value
 
@@ -53432,77 +57068,14 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.zone_1_name))
-        out.append(self._to_str(self.surface_1_name))
-        out.append(self._to_str(self.core_diameter_for_surface_1))
-        out.append(self._to_str(self.core_length_for_surface_1))
-        out.append(self._to_str(self.core_numbers_for_surface_1))
-        out.append(self._to_str(self.slab_inlet_node_name_for_surface_1))
-        out.append(self._to_str(self.slab_outlet_node_name_for_surface_1))
-        out.append(self._to_str(self.zone_2_name))
-        out.append(self._to_str(self.surface_2_name))
-        out.append(self._to_str(self.core_diameter_for_surface_2))
-        out.append(self._to_str(self.core_length_for_surface_2))
-        out.append(self._to_str(self.core_numbers_for_surface_2))
-        out.append(self._to_str(self.slab_inlet_node_name_for_surface_2))
-        out.append(self._to_str(self.slab_outlet_node_name_for_surface_2))
-        out.append(self._to_str(self.zone_3_name))
-        out.append(self._to_str(self.surface_3_name))
-        out.append(self._to_str(self.core_diameter_for_surface_3))
-        out.append(self._to_str(self.core_length_for_surface_3))
-        out.append(self._to_str(self.core_numbers_for_surface_3))
-        out.append(self._to_str(self.slab_inlet_node_name_for_surface_3))
-        out.append(self._to_str(self.slab_outlet_node_name_for_surface_3))
-        out.append(self._to_str(self.zone_4_name))
-        out.append(self._to_str(self.surface_4_name))
-        out.append(self._to_str(self.core_diameter_for_surface_4))
-        out.append(self._to_str(self.core_length_for_surface_4))
-        out.append(self._to_str(self.core_numbers_for_surface_4))
-        out.append(self._to_str(self.slab_inlet_node_name_for_surface_4))
-        out.append(self._to_str(self.slab_outlet_node_name_for_surface_4))
-        out.append(self._to_str(self.zone_5_name))
-        out.append(self._to_str(self.surface_5_name))
-        out.append(self._to_str(self.core_diameter_for_surface_5))
-        out.append(self._to_str(self.core_length_for_surface_5))
-        out.append(self._to_str(self.core_numbers_for_surface_5))
-        out.append(self._to_str(self.slab_inlet_node_name_for_surface_5))
-        out.append(self._to_str(self.slab_outlet_node_name_for_surface_5))
-        out.append(self._to_str(self.zone_6_name))
-        out.append(self._to_str(self.surface_6_name))
-        out.append(self._to_str(self.core_diameter_for_surface_6))
-        out.append(self._to_str(self.core_length_for_surface_6))
-        out.append(self._to_str(self.core_numbers_for_surface_6))
-        out.append(self._to_str(self.slab_inlet_node_name_for_surface_6))
-        out.append(self._to_str(self.slab_outlet_node_name_for_surface_6))
-        out.append(self._to_str(self.zone_7_name))
-        out.append(self._to_str(self.surface_7_name))
-        out.append(self._to_str(self.core_diameter_for_surface_7))
-        out.append(self._to_str(self.core_length_for_surface_7))
-        out.append(self._to_str(self.core_numbers_for_surface_7))
-        out.append(self._to_str(self.slab_inlet_node_name_for_surface_7))
-        out.append(self._to_str(self.slab_outlet_node_name_for_surface_7))
-        out.append(self._to_str(self.zone_8_name))
-        out.append(self._to_str(self.surface_8_name))
-        out.append(self._to_str(self.core_diameter_for_surface_8))
-        out.append(self._to_str(self.core_length_for_surface_8))
-        out.append(self._to_str(self.core_numbers_for_surface_8))
-        out.append(self._to_str(self.slab_inlet_node_name_for_surface_8))
-        out.append(self._to_str(self.slab_outlet_node_name_for_surface_8))
-        out.append(self._to_str(self.zone_9_name))
-        out.append(self._to_str(self.surface_9_name))
-        out.append(self._to_str(self.core_diameter_for_surface_9))
-        out.append(self._to_str(self.core_length_for_surface_9))
-        out.append(self._to_str(self.core_numbers_for_surface_9))
-        out.append(self._to_str(self.slab_inlet_node_name_for_surface_9))
-        out.append(self._to_str(self.slab_outlet_node_name_for_surface_9))
-        out.append(self._to_str(self.zone_10_name))
-        out.append(self._to_str(self.surface_10_name))
-        out.append(self._to_str(self.core_diameter_for_surface_10))
-        out.append(self._to_str(self.core_length_for_surface_10))
-        out.append(self._to_str(self.core_numbers_for_surface_10))
-        out.append(self._to_str(self.slab_inlet_node_name_for_surface_10))
-        out.append(self._to_str(self.slab_outlet_node_name_for_surface_10))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])

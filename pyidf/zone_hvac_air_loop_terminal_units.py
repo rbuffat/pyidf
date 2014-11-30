@@ -18,34 +18,44 @@ class AirTerminalSingleDuctUncontrolled(object):
         self._data["Availability Schedule Name"] = None
         self._data["Zone Supply Air Node Name"] = None
         self._data["Maximum Air Flow Rate"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.availability_schedule_name = None
         else:
             self.availability_schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.zone_supply_air_node_name = None
         else:
             self.zone_supply_air_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.maximum_air_flow_rate = None
         else:
             self.maximum_air_flow_rate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -76,6 +86,9 @@ class AirTerminalSingleDuctUncontrolled(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -112,6 +125,9 @@ class AirTerminalSingleDuctUncontrolled(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `availability_schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `availability_schedule_name`')
 
         self._data["Availability Schedule Name"] = value
 
@@ -144,6 +160,9 @@ class AirTerminalSingleDuctUncontrolled(object):
                                  'for field `zone_supply_air_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `zone_supply_air_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `zone_supply_air_node_name`')
 
         self._data["Zone Supply Air Node Name"] = value
@@ -205,13 +224,17 @@ class AirTerminalSingleDuctUncontrolled(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.availability_schedule_name))
-        out.append(self._to_str(self.zone_supply_air_node_name))
-        out.append(self._to_str(self.maximum_air_flow_rate))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class AirTerminalSingleDuctConstantVolumeReheat(object):
     """ Corresponds to IDD object `AirTerminal:SingleDuct:ConstantVolume:Reheat`
@@ -239,74 +262,100 @@ class AirTerminalSingleDuctConstantVolumeReheat(object):
         self._data["Minimum Hot Water or Steam Flow Rate"] = None
         self._data["Convergence Tolerance"] = None
         self._data["Maximum Reheat Air Temperature"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.availability_schedule_name = None
         else:
             self.availability_schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.air_outlet_node_name = None
         else:
             self.air_outlet_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.air_inlet_node_name = None
         else:
             self.air_inlet_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.maximum_air_flow_rate = None
         else:
             self.maximum_air_flow_rate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.hot_water_or_steam_inlet_node_name = None
         else:
             self.hot_water_or_steam_inlet_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.reheat_coil_object_type = None
         else:
             self.reheat_coil_object_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.reheat_coil_name = None
         else:
             self.reheat_coil_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.maximum_hot_water_or_steam_flow_rate = None
         else:
             self.maximum_hot_water_or_steam_flow_rate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.minimum_hot_water_or_steam_flow_rate = None
         else:
             self.minimum_hot_water_or_steam_flow_rate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.convergence_tolerance = None
         else:
             self.convergence_tolerance = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.maximum_reheat_air_temperature = None
         else:
             self.maximum_reheat_air_temperature = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -337,6 +386,9 @@ class AirTerminalSingleDuctConstantVolumeReheat(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -373,6 +425,9 @@ class AirTerminalSingleDuctConstantVolumeReheat(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `availability_schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `availability_schedule_name`')
 
         self._data["Availability Schedule Name"] = value
 
@@ -406,6 +461,9 @@ class AirTerminalSingleDuctConstantVolumeReheat(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `air_outlet_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `air_outlet_node_name`')
 
         self._data["Air Outlet Node Name"] = value
 
@@ -438,6 +496,9 @@ class AirTerminalSingleDuctConstantVolumeReheat(object):
                                  'for field `air_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `air_inlet_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `air_inlet_node_name`')
 
         self._data["Air Inlet Node Name"] = value
@@ -507,6 +568,9 @@ class AirTerminalSingleDuctConstantVolumeReheat(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `hot_water_or_steam_inlet_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `hot_water_or_steam_inlet_node_name`')
 
         self._data["Hot Water or Steam Inlet Node Name"] = value
 
@@ -545,14 +609,28 @@ class AirTerminalSingleDuctConstantVolumeReheat(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `reheat_coil_object_type`')
-            vals = set()
-            vals.add("Coil:Heating:Water")
-            vals.add("Coil:Heating:Electric")
-            vals.add("Coil:Heating:Gas")
-            vals.add("Coil:Heating:Steam")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `reheat_coil_object_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `reheat_coil_object_type`')
+            vals = {}
+            vals["coil:heating:water"] = "Coil:Heating:Water"
+            vals["coil:heating:electric"] = "Coil:Heating:Electric"
+            vals["coil:heating:gas"] = "Coil:Heating:Gas"
+            vals["coil:heating:steam"] = "Coil:Heating:Steam"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `reheat_coil_object_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Reheat Coil Object Type"] = value
 
@@ -585,6 +663,9 @@ class AirTerminalSingleDuctConstantVolumeReheat(object):
                                  'for field `reheat_coil_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `reheat_coil_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `reheat_coil_name`')
 
         self._data["Reheat Coil Name"] = value
@@ -758,21 +839,17 @@ class AirTerminalSingleDuctConstantVolumeReheat(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.availability_schedule_name))
-        out.append(self._to_str(self.air_outlet_node_name))
-        out.append(self._to_str(self.air_inlet_node_name))
-        out.append(self._to_str(self.maximum_air_flow_rate))
-        out.append(self._to_str(self.hot_water_or_steam_inlet_node_name))
-        out.append(self._to_str(self.reheat_coil_object_type))
-        out.append(self._to_str(self.reheat_coil_name))
-        out.append(self._to_str(self.maximum_hot_water_or_steam_flow_rate))
-        out.append(self._to_str(self.minimum_hot_water_or_steam_flow_rate))
-        out.append(self._to_str(self.convergence_tolerance))
-        out.append(self._to_str(self.maximum_reheat_air_temperature))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class AirTerminalSingleDuctVavNoReheat(object):
     """ Corresponds to IDD object `AirTerminal:SingleDuct:VAV:NoReheat`
@@ -797,64 +874,86 @@ class AirTerminalSingleDuctVavNoReheat(object):
         self._data["Fixed Minimum Air Flow Rate"] = None
         self._data["Minimum Air Flow Fraction Schedule Name"] = None
         self._data["Design Specification Outdoor Air Object Name"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.availability_schedule_name = None
         else:
             self.availability_schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.air_outlet_node_name = None
         else:
             self.air_outlet_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.air_inlet_node_name = None
         else:
             self.air_inlet_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.maximum_air_flow_rate = None
         else:
             self.maximum_air_flow_rate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.zone_minimum_air_flow_input_method = None
         else:
             self.zone_minimum_air_flow_input_method = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.constant_minimum_air_flow_fraction = None
         else:
             self.constant_minimum_air_flow_fraction = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fixed_minimum_air_flow_rate = None
         else:
             self.fixed_minimum_air_flow_rate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.minimum_air_flow_fraction_schedule_name = None
         else:
             self.minimum_air_flow_fraction_schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.design_specification_outdoor_air_object_name = None
         else:
             self.design_specification_outdoor_air_object_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -885,6 +984,9 @@ class AirTerminalSingleDuctVavNoReheat(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -921,6 +1023,9 @@ class AirTerminalSingleDuctVavNoReheat(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `availability_schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `availability_schedule_name`')
 
         self._data["Availability Schedule Name"] = value
 
@@ -954,6 +1059,9 @@ class AirTerminalSingleDuctVavNoReheat(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `air_outlet_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `air_outlet_node_name`')
 
         self._data["Air Outlet Node Name"] = value
 
@@ -986,6 +1094,9 @@ class AirTerminalSingleDuctVavNoReheat(object):
                                  'for field `air_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `air_inlet_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `air_inlet_node_name`')
 
         self._data["Air Inlet Node Name"] = value
@@ -1062,13 +1173,27 @@ class AirTerminalSingleDuctVavNoReheat(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `zone_minimum_air_flow_input_method`')
-            vals = set()
-            vals.add("Constant")
-            vals.add("FixedFlowRate")
-            vals.add("Scheduled")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `zone_minimum_air_flow_input_method`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `zone_minimum_air_flow_input_method`')
+            vals = {}
+            vals["constant"] = "Constant"
+            vals["fixedflowrate"] = "FixedFlowRate"
+            vals["scheduled"] = "Scheduled"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `zone_minimum_air_flow_input_method`'.format(value))
+            value = vals[value_lower]
 
         self._data["Zone Minimum Air Flow Input Method"] = value
 
@@ -1174,6 +1299,9 @@ class AirTerminalSingleDuctVavNoReheat(object):
                                  'for field `minimum_air_flow_fraction_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `minimum_air_flow_fraction_schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `minimum_air_flow_fraction_schedule_name`')
 
         self._data["Minimum Air Flow Fraction Schedule Name"] = value
@@ -1214,6 +1342,9 @@ class AirTerminalSingleDuctVavNoReheat(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `design_specification_outdoor_air_object_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `design_specification_outdoor_air_object_name`')
 
         self._data["Design Specification Outdoor Air Object Name"] = value
 
@@ -1239,19 +1370,17 @@ class AirTerminalSingleDuctVavNoReheat(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.availability_schedule_name))
-        out.append(self._to_str(self.air_outlet_node_name))
-        out.append(self._to_str(self.air_inlet_node_name))
-        out.append(self._to_str(self.maximum_air_flow_rate))
-        out.append(self._to_str(self.zone_minimum_air_flow_input_method))
-        out.append(self._to_str(self.constant_minimum_air_flow_fraction))
-        out.append(self._to_str(self.fixed_minimum_air_flow_rate))
-        out.append(self._to_str(self.minimum_air_flow_fraction_schedule_name))
-        out.append(self._to_str(self.design_specification_outdoor_air_object_name))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class AirTerminalSingleDuctVavReheat(object):
     """ Corresponds to IDD object `AirTerminal:SingleDuct:VAV:Reheat`
@@ -1287,114 +1416,156 @@ class AirTerminalSingleDuctVavReheat(object):
         self._data["Maximum Flow Fraction During Reheat"] = None
         self._data["Maximum Reheat Air Temperature"] = None
         self._data["Design Specification Outdoor Air Object Name"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.availability_schedule_name = None
         else:
             self.availability_schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.damper_air_outlet_node_name = None
         else:
             self.damper_air_outlet_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.air_inlet_node_name = None
         else:
             self.air_inlet_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.maximum_air_flow_rate = None
         else:
             self.maximum_air_flow_rate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.zone_minimum_air_flow_input_method = None
         else:
             self.zone_minimum_air_flow_input_method = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.constant_minimum_air_flow_fraction = None
         else:
             self.constant_minimum_air_flow_fraction = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fixed_minimum_air_flow_rate = None
         else:
             self.fixed_minimum_air_flow_rate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.minimum_air_flow_fraction_schedule_name = None
         else:
             self.minimum_air_flow_fraction_schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.reheat_coil_object_type = None
         else:
             self.reheat_coil_object_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.reheat_coil_name = None
         else:
             self.reheat_coil_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.maximum_hot_water_or_steam_flow_rate = None
         else:
             self.maximum_hot_water_or_steam_flow_rate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.minimum_hot_water_or_steam_flow_rate = None
         else:
             self.minimum_hot_water_or_steam_flow_rate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.air_outlet_node_name = None
         else:
             self.air_outlet_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.convergence_tolerance = None
         else:
             self.convergence_tolerance = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.damper_heating_action = None
         else:
             self.damper_heating_action = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.maximum_flow_per_zone_floor_area_during_reheat = None
         else:
             self.maximum_flow_per_zone_floor_area_during_reheat = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.maximum_flow_fraction_during_reheat = None
         else:
             self.maximum_flow_fraction_during_reheat = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.maximum_reheat_air_temperature = None
         else:
             self.maximum_reheat_air_temperature = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.design_specification_outdoor_air_object_name = None
         else:
             self.design_specification_outdoor_air_object_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -1425,6 +1596,9 @@ class AirTerminalSingleDuctVavReheat(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -1461,6 +1635,9 @@ class AirTerminalSingleDuctVavReheat(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `availability_schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `availability_schedule_name`')
 
         self._data["Availability Schedule Name"] = value
 
@@ -1496,6 +1673,9 @@ class AirTerminalSingleDuctVavReheat(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `damper_air_outlet_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `damper_air_outlet_node_name`')
 
         self._data["Damper Air Outlet Node Name"] = value
 
@@ -1529,6 +1709,9 @@ class AirTerminalSingleDuctVavReheat(object):
                                  'for field `air_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `air_inlet_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `air_inlet_node_name`')
 
         self._data["Air Inlet Node Name"] = value
@@ -1605,13 +1788,27 @@ class AirTerminalSingleDuctVavReheat(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `zone_minimum_air_flow_input_method`')
-            vals = set()
-            vals.add("Constant")
-            vals.add("FixedFlowRate")
-            vals.add("Scheduled")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `zone_minimum_air_flow_input_method`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `zone_minimum_air_flow_input_method`')
+            vals = {}
+            vals["constant"] = "Constant"
+            vals["fixedflowrate"] = "FixedFlowRate"
+            vals["scheduled"] = "Scheduled"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `zone_minimum_air_flow_input_method`'.format(value))
+            value = vals[value_lower]
 
         self._data["Zone Minimum Air Flow Input Method"] = value
 
@@ -1718,6 +1915,9 @@ class AirTerminalSingleDuctVavReheat(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `minimum_air_flow_fraction_schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `minimum_air_flow_fraction_schedule_name`')
 
         self._data["Minimum Air Flow Fraction Schedule Name"] = value
 
@@ -1756,14 +1956,28 @@ class AirTerminalSingleDuctVavReheat(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `reheat_coil_object_type`')
-            vals = set()
-            vals.add("Coil:Heating:Water")
-            vals.add("Coil:Heating:Electric")
-            vals.add("Coil:Heating:Gas")
-            vals.add("Coil:Heating:Steam")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `reheat_coil_object_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `reheat_coil_object_type`')
+            vals = {}
+            vals["coil:heating:water"] = "Coil:Heating:Water"
+            vals["coil:heating:electric"] = "Coil:Heating:Electric"
+            vals["coil:heating:gas"] = "Coil:Heating:Gas"
+            vals["coil:heating:steam"] = "Coil:Heating:Steam"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `reheat_coil_object_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Reheat Coil Object Type"] = value
 
@@ -1796,6 +2010,9 @@ class AirTerminalSingleDuctVavReheat(object):
                                  'for field `reheat_coil_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `reheat_coil_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `reheat_coil_name`')
 
         self._data["Reheat Coil Name"] = value
@@ -1907,6 +2124,9 @@ class AirTerminalSingleDuctVavReheat(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `air_outlet_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `air_outlet_node_name`')
 
         self._data["Air Outlet Node Name"] = value
 
@@ -1979,12 +2199,26 @@ class AirTerminalSingleDuctVavReheat(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `damper_heating_action`')
-            vals = set()
-            vals.add("Normal")
-            vals.add("Reverse")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `damper_heating_action`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `damper_heating_action`')
+            vals = {}
+            vals["normal"] = "Normal"
+            vals["reverse"] = "Reverse"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `damper_heating_action`'.format(value))
+            value = vals[value_lower]
 
         self._data["Damper Heating Action"] = value
 
@@ -2136,6 +2370,9 @@ class AirTerminalSingleDuctVavReheat(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `design_specification_outdoor_air_object_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `design_specification_outdoor_air_object_name`')
 
         self._data["Design Specification Outdoor Air Object Name"] = value
 
@@ -2161,29 +2398,17 @@ class AirTerminalSingleDuctVavReheat(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.availability_schedule_name))
-        out.append(self._to_str(self.damper_air_outlet_node_name))
-        out.append(self._to_str(self.air_inlet_node_name))
-        out.append(self._to_str(self.maximum_air_flow_rate))
-        out.append(self._to_str(self.zone_minimum_air_flow_input_method))
-        out.append(self._to_str(self.constant_minimum_air_flow_fraction))
-        out.append(self._to_str(self.fixed_minimum_air_flow_rate))
-        out.append(self._to_str(self.minimum_air_flow_fraction_schedule_name))
-        out.append(self._to_str(self.reheat_coil_object_type))
-        out.append(self._to_str(self.reheat_coil_name))
-        out.append(self._to_str(self.maximum_hot_water_or_steam_flow_rate))
-        out.append(self._to_str(self.minimum_hot_water_or_steam_flow_rate))
-        out.append(self._to_str(self.air_outlet_node_name))
-        out.append(self._to_str(self.convergence_tolerance))
-        out.append(self._to_str(self.damper_heating_action))
-        out.append(self._to_str(self.maximum_flow_per_zone_floor_area_during_reheat))
-        out.append(self._to_str(self.maximum_flow_fraction_during_reheat))
-        out.append(self._to_str(self.maximum_reheat_air_temperature))
-        out.append(self._to_str(self.design_specification_outdoor_air_object_name))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class AirTerminalSingleDuctVavReheatVariableSpeedFan(object):
     """ Corresponds to IDD object `AirTerminal:SingleDuct:VAV:Reheat:VariableSpeedFan`
@@ -2218,94 +2443,128 @@ class AirTerminalSingleDuctVavReheatVariableSpeedFan(object):
         self._data["Maximum Hot Water or Steam Flow Rate"] = None
         self._data["Minimum Hot Water or Steam Flow Rate"] = None
         self._data["Heating Convergence Tolerance"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.availability_schedule_name = None
         else:
             self.availability_schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.maximum_cooling_air_flow_rate = None
         else:
             self.maximum_cooling_air_flow_rate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.maximum_heating_air_flow_rate = None
         else:
             self.maximum_heating_air_flow_rate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.zone_minimum_air_flow_fraction = None
         else:
             self.zone_minimum_air_flow_fraction = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.air_inlet_node_name = None
         else:
             self.air_inlet_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.air_outlet_node_name = None
         else:
             self.air_outlet_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.heating_coil_air_inlet_node_name = None
         else:
             self.heating_coil_air_inlet_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.hot_water_or_steam_inlet_node_name = None
         else:
             self.hot_water_or_steam_inlet_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fan_object_type = None
         else:
             self.fan_object_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fan_name = None
         else:
             self.fan_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.heating_coil_object_type = None
         else:
             self.heating_coil_object_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.heating_coil_name = None
         else:
             self.heating_coil_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.maximum_hot_water_or_steam_flow_rate = None
         else:
             self.maximum_hot_water_or_steam_flow_rate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.minimum_hot_water_or_steam_flow_rate = None
         else:
             self.minimum_hot_water_or_steam_flow_rate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.heating_convergence_tolerance = None
         else:
             self.heating_convergence_tolerance = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -2336,6 +2595,9 @@ class AirTerminalSingleDuctVavReheatVariableSpeedFan(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -2371,6 +2633,9 @@ class AirTerminalSingleDuctVavReheatVariableSpeedFan(object):
                                  'for field `availability_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `availability_schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `availability_schedule_name`')
 
         self._data["Availability Schedule Name"] = value
@@ -2514,6 +2779,9 @@ class AirTerminalSingleDuctVavReheatVariableSpeedFan(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `air_inlet_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `air_inlet_node_name`')
 
         self._data["Air Inlet Node Name"] = value
 
@@ -2546,6 +2814,9 @@ class AirTerminalSingleDuctVavReheatVariableSpeedFan(object):
                                  'for field `air_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `air_outlet_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `air_outlet_node_name`')
 
         self._data["Air Outlet Node Name"] = value
@@ -2580,6 +2851,9 @@ class AirTerminalSingleDuctVavReheatVariableSpeedFan(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `heating_coil_air_inlet_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `heating_coil_air_inlet_node_name`')
 
         self._data["Heating Coil Air Inlet Node Name"] = value
 
@@ -2612,6 +2886,9 @@ class AirTerminalSingleDuctVavReheatVariableSpeedFan(object):
                                  'for field `hot_water_or_steam_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `hot_water_or_steam_inlet_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `hot_water_or_steam_inlet_node_name`')
 
         self._data["Hot Water or Steam Inlet Node Name"] = value
@@ -2648,11 +2925,25 @@ class AirTerminalSingleDuctVavReheatVariableSpeedFan(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `fan_object_type`')
-            vals = set()
-            vals.add("Fan:VariableVolume")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `fan_object_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `fan_object_type`')
+            vals = {}
+            vals["fan:variablevolume"] = "Fan:VariableVolume"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `fan_object_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Fan Object Type"] = value
 
@@ -2685,6 +2976,9 @@ class AirTerminalSingleDuctVavReheatVariableSpeedFan(object):
                                  'for field `fan_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `fan_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `fan_name`')
 
         self._data["Fan Name"] = value
@@ -2724,14 +3018,28 @@ class AirTerminalSingleDuctVavReheatVariableSpeedFan(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `heating_coil_object_type`')
-            vals = set()
-            vals.add("Coil:Heating:Water")
-            vals.add("Coil:Heating:Electric")
-            vals.add("Coil:Heating:Gas")
-            vals.add("Coil:Heating:Steam")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `heating_coil_object_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `heating_coil_object_type`')
+            vals = {}
+            vals["coil:heating:water"] = "Coil:Heating:Water"
+            vals["coil:heating:electric"] = "Coil:Heating:Electric"
+            vals["coil:heating:gas"] = "Coil:Heating:Gas"
+            vals["coil:heating:steam"] = "Coil:Heating:Steam"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `heating_coil_object_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Heating Coil Object Type"] = value
 
@@ -2764,6 +3072,9 @@ class AirTerminalSingleDuctVavReheatVariableSpeedFan(object):
                                  'for field `heating_coil_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `heating_coil_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `heating_coil_name`')
 
         self._data["Heating Coil Name"] = value
@@ -2896,25 +3207,17 @@ class AirTerminalSingleDuctVavReheatVariableSpeedFan(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.availability_schedule_name))
-        out.append(self._to_str(self.maximum_cooling_air_flow_rate))
-        out.append(self._to_str(self.maximum_heating_air_flow_rate))
-        out.append(self._to_str(self.zone_minimum_air_flow_fraction))
-        out.append(self._to_str(self.air_inlet_node_name))
-        out.append(self._to_str(self.air_outlet_node_name))
-        out.append(self._to_str(self.heating_coil_air_inlet_node_name))
-        out.append(self._to_str(self.hot_water_or_steam_inlet_node_name))
-        out.append(self._to_str(self.fan_object_type))
-        out.append(self._to_str(self.fan_name))
-        out.append(self._to_str(self.heating_coil_object_type))
-        out.append(self._to_str(self.heating_coil_name))
-        out.append(self._to_str(self.maximum_hot_water_or_steam_flow_rate))
-        out.append(self._to_str(self.minimum_hot_water_or_steam_flow_rate))
-        out.append(self._to_str(self.heating_convergence_tolerance))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class AirTerminalSingleDuctVavHeatAndCoolNoReheat(object):
     """ Corresponds to IDD object `AirTerminal:SingleDuct:VAV:HeatAndCool:NoReheat`
@@ -2936,44 +3239,58 @@ class AirTerminalSingleDuctVavHeatAndCoolNoReheat(object):
         self._data["Air Inlet Node Name"] = None
         self._data["Maximum Air Flow Rate"] = None
         self._data["Zone Minimum Air Flow Fraction"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.availability_schedule_name = None
         else:
             self.availability_schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.air_outlet_node_name = None
         else:
             self.air_outlet_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.air_inlet_node_name = None
         else:
             self.air_inlet_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.maximum_air_flow_rate = None
         else:
             self.maximum_air_flow_rate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.zone_minimum_air_flow_fraction = None
         else:
             self.zone_minimum_air_flow_fraction = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -3004,6 +3321,9 @@ class AirTerminalSingleDuctVavHeatAndCoolNoReheat(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -3040,6 +3360,9 @@ class AirTerminalSingleDuctVavHeatAndCoolNoReheat(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `availability_schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `availability_schedule_name`')
 
         self._data["Availability Schedule Name"] = value
 
@@ -3075,6 +3398,9 @@ class AirTerminalSingleDuctVavHeatAndCoolNoReheat(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `air_outlet_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `air_outlet_node_name`')
 
         self._data["Air Outlet Node Name"] = value
 
@@ -3107,6 +3433,9 @@ class AirTerminalSingleDuctVavHeatAndCoolNoReheat(object):
                                  'for field `air_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `air_inlet_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `air_inlet_node_name`')
 
         self._data["Air Inlet Node Name"] = value
@@ -3207,15 +3536,17 @@ class AirTerminalSingleDuctVavHeatAndCoolNoReheat(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.availability_schedule_name))
-        out.append(self._to_str(self.air_outlet_node_name))
-        out.append(self._to_str(self.air_inlet_node_name))
-        out.append(self._to_str(self.maximum_air_flow_rate))
-        out.append(self._to_str(self.zone_minimum_air_flow_fraction))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class AirTerminalSingleDuctVavHeatAndCoolReheat(object):
     """ Corresponds to IDD object `AirTerminal:SingleDuct:VAV:HeatAndCool:Reheat`
@@ -3245,84 +3576,114 @@ class AirTerminalSingleDuctVavHeatAndCoolReheat(object):
         self._data["Air Outlet Node Name"] = None
         self._data["Convergence Tolerance"] = None
         self._data["Maximum Reheat Air Temperature"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.availability_schedule_name = None
         else:
             self.availability_schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.damper_air_outlet_node_name = None
         else:
             self.damper_air_outlet_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.air_inlet_node_name = None
         else:
             self.air_inlet_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.maximum_air_flow_rate = None
         else:
             self.maximum_air_flow_rate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.zone_minimum_air_flow_fraction = None
         else:
             self.zone_minimum_air_flow_fraction = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.hot_water_or_steam_inlet_node_name = None
         else:
             self.hot_water_or_steam_inlet_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.reheat_coil_object_type = None
         else:
             self.reheat_coil_object_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.reheat_coil_name = None
         else:
             self.reheat_coil_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.maximum_hot_water_or_steam_flow_rate = None
         else:
             self.maximum_hot_water_or_steam_flow_rate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.minimum_hot_water_or_steam_flow_rate = None
         else:
             self.minimum_hot_water_or_steam_flow_rate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.air_outlet_node_name = None
         else:
             self.air_outlet_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.convergence_tolerance = None
         else:
             self.convergence_tolerance = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.maximum_reheat_air_temperature = None
         else:
             self.maximum_reheat_air_temperature = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -3353,6 +3714,9 @@ class AirTerminalSingleDuctVavHeatAndCoolReheat(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -3389,6 +3753,9 @@ class AirTerminalSingleDuctVavHeatAndCoolReheat(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `availability_schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `availability_schedule_name`')
 
         self._data["Availability Schedule Name"] = value
 
@@ -3424,6 +3791,9 @@ class AirTerminalSingleDuctVavHeatAndCoolReheat(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `damper_air_outlet_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `damper_air_outlet_node_name`')
 
         self._data["Damper Air Outlet Node Name"] = value
 
@@ -3457,6 +3827,9 @@ class AirTerminalSingleDuctVavHeatAndCoolReheat(object):
                                  'for field `air_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `air_inlet_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `air_inlet_node_name`')
 
         self._data["Air Inlet Node Name"] = value
@@ -3565,6 +3938,9 @@ class AirTerminalSingleDuctVavHeatAndCoolReheat(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `hot_water_or_steam_inlet_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `hot_water_or_steam_inlet_node_name`')
 
         self._data["Hot Water or Steam Inlet Node Name"] = value
 
@@ -3603,14 +3979,28 @@ class AirTerminalSingleDuctVavHeatAndCoolReheat(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `reheat_coil_object_type`')
-            vals = set()
-            vals.add("Coil:Heating:Water")
-            vals.add("Coil:Heating:Electric")
-            vals.add("Coil:Heating:Gas")
-            vals.add("Coil:Heating:Steam")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `reheat_coil_object_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `reheat_coil_object_type`')
+            vals = {}
+            vals["coil:heating:water"] = "Coil:Heating:Water"
+            vals["coil:heating:electric"] = "Coil:Heating:Electric"
+            vals["coil:heating:gas"] = "Coil:Heating:Gas"
+            vals["coil:heating:steam"] = "Coil:Heating:Steam"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `reheat_coil_object_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Reheat Coil Object Type"] = value
 
@@ -3643,6 +4033,9 @@ class AirTerminalSingleDuctVavHeatAndCoolReheat(object):
                                  'for field `reheat_coil_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `reheat_coil_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `reheat_coil_name`')
 
         self._data["Reheat Coil Name"] = value
@@ -3754,6 +4147,9 @@ class AirTerminalSingleDuctVavHeatAndCoolReheat(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `air_outlet_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `air_outlet_node_name`')
 
         self._data["Air Outlet Node Name"] = value
 
@@ -3851,23 +4247,17 @@ class AirTerminalSingleDuctVavHeatAndCoolReheat(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.availability_schedule_name))
-        out.append(self._to_str(self.damper_air_outlet_node_name))
-        out.append(self._to_str(self.air_inlet_node_name))
-        out.append(self._to_str(self.maximum_air_flow_rate))
-        out.append(self._to_str(self.zone_minimum_air_flow_fraction))
-        out.append(self._to_str(self.hot_water_or_steam_inlet_node_name))
-        out.append(self._to_str(self.reheat_coil_object_type))
-        out.append(self._to_str(self.reheat_coil_name))
-        out.append(self._to_str(self.maximum_hot_water_or_steam_flow_rate))
-        out.append(self._to_str(self.minimum_hot_water_or_steam_flow_rate))
-        out.append(self._to_str(self.air_outlet_node_name))
-        out.append(self._to_str(self.convergence_tolerance))
-        out.append(self._to_str(self.maximum_reheat_air_temperature))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class AirTerminalSingleDuctSeriesPiuReheat(object):
     """ Corresponds to IDD object `AirTerminal:SingleDuct:SeriesPIU:Reheat`
@@ -3900,99 +4290,135 @@ class AirTerminalSingleDuctSeriesPiuReheat(object):
         self._data["Minimum Hot Water or Steam Flow Rate"] = None
         self._data["Hot Water or Steam Inlet Node Name"] = None
         self._data["Convergence Tolerance"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.availability_schedule_name = None
         else:
             self.availability_schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.maximum_air_flow_rate = None
         else:
             self.maximum_air_flow_rate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.maximum_primary_air_flow_rate = None
         else:
             self.maximum_primary_air_flow_rate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.minimum_primary_air_flow_fraction = None
         else:
             self.minimum_primary_air_flow_fraction = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.supply_air_inlet_node_name = None
         else:
             self.supply_air_inlet_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.secondary_air_inlet_node_name = None
         else:
             self.secondary_air_inlet_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.outlet_node_name = None
         else:
             self.outlet_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.reheat_coil_air_inlet_node_name = None
         else:
             self.reheat_coil_air_inlet_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.zone_mixer_name = None
         else:
             self.zone_mixer_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fan_name = None
         else:
             self.fan_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.reheat_coil_object_type = None
         else:
             self.reheat_coil_object_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.reheat_coil_name = None
         else:
             self.reheat_coil_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.maximum_hot_water_or_steam_flow_rate = None
         else:
             self.maximum_hot_water_or_steam_flow_rate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.minimum_hot_water_or_steam_flow_rate = None
         else:
             self.minimum_hot_water_or_steam_flow_rate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.hot_water_or_steam_inlet_node_name = None
         else:
             self.hot_water_or_steam_inlet_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.convergence_tolerance = None
         else:
             self.convergence_tolerance = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -4023,6 +4449,9 @@ class AirTerminalSingleDuctSeriesPiuReheat(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -4058,6 +4487,9 @@ class AirTerminalSingleDuctSeriesPiuReheat(object):
                                  'for field `availability_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `availability_schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `availability_schedule_name`')
 
         self._data["Availability Schedule Name"] = value
@@ -4200,6 +4632,9 @@ class AirTerminalSingleDuctSeriesPiuReheat(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `supply_air_inlet_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `supply_air_inlet_node_name`')
 
         self._data["Supply Air Inlet Node Name"] = value
 
@@ -4232,6 +4667,9 @@ class AirTerminalSingleDuctSeriesPiuReheat(object):
                                  'for field `secondary_air_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `secondary_air_inlet_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `secondary_air_inlet_node_name`')
 
         self._data["Secondary Air Inlet Node Name"] = value
@@ -4266,6 +4704,9 @@ class AirTerminalSingleDuctSeriesPiuReheat(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `outlet_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `outlet_node_name`')
 
         self._data["Outlet Node Name"] = value
 
@@ -4298,6 +4739,9 @@ class AirTerminalSingleDuctSeriesPiuReheat(object):
                                  'for field `reheat_coil_air_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `reheat_coil_air_inlet_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `reheat_coil_air_inlet_node_name`')
 
         self._data["Reheat Coil Air Inlet Node Name"] = value
@@ -4332,6 +4776,9 @@ class AirTerminalSingleDuctSeriesPiuReheat(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `zone_mixer_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `zone_mixer_name`')
 
         self._data["Zone Mixer Name"] = value
 
@@ -4365,6 +4812,9 @@ class AirTerminalSingleDuctSeriesPiuReheat(object):
                                  'for field `fan_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `fan_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `fan_name`')
 
         self._data["Fan Name"] = value
@@ -4404,14 +4854,28 @@ class AirTerminalSingleDuctSeriesPiuReheat(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `reheat_coil_object_type`')
-            vals = set()
-            vals.add("Coil:Heating:Water")
-            vals.add("Coil:Heating:Electric")
-            vals.add("Coil:Heating:Gas")
-            vals.add("Coil:Heating:Steam")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `reheat_coil_object_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `reheat_coil_object_type`')
+            vals = {}
+            vals["coil:heating:water"] = "Coil:Heating:Water"
+            vals["coil:heating:electric"] = "Coil:Heating:Electric"
+            vals["coil:heating:gas"] = "Coil:Heating:Gas"
+            vals["coil:heating:steam"] = "Coil:Heating:Steam"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `reheat_coil_object_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Reheat Coil Object Type"] = value
 
@@ -4444,6 +4908,9 @@ class AirTerminalSingleDuctSeriesPiuReheat(object):
                                  'for field `reheat_coil_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `reheat_coil_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `reheat_coil_name`')
 
         self._data["Reheat Coil Name"] = value
@@ -4549,6 +5016,9 @@ class AirTerminalSingleDuctSeriesPiuReheat(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `hot_water_or_steam_inlet_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `hot_water_or_steam_inlet_node_name`')
 
         self._data["Hot Water or Steam Inlet Node Name"] = value
 
@@ -4609,26 +5079,17 @@ class AirTerminalSingleDuctSeriesPiuReheat(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.availability_schedule_name))
-        out.append(self._to_str(self.maximum_air_flow_rate))
-        out.append(self._to_str(self.maximum_primary_air_flow_rate))
-        out.append(self._to_str(self.minimum_primary_air_flow_fraction))
-        out.append(self._to_str(self.supply_air_inlet_node_name))
-        out.append(self._to_str(self.secondary_air_inlet_node_name))
-        out.append(self._to_str(self.outlet_node_name))
-        out.append(self._to_str(self.reheat_coil_air_inlet_node_name))
-        out.append(self._to_str(self.zone_mixer_name))
-        out.append(self._to_str(self.fan_name))
-        out.append(self._to_str(self.reheat_coil_object_type))
-        out.append(self._to_str(self.reheat_coil_name))
-        out.append(self._to_str(self.maximum_hot_water_or_steam_flow_rate))
-        out.append(self._to_str(self.minimum_hot_water_or_steam_flow_rate))
-        out.append(self._to_str(self.hot_water_or_steam_inlet_node_name))
-        out.append(self._to_str(self.convergence_tolerance))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class AirTerminalSingleDuctParallelPiuReheat(object):
     """ Corresponds to IDD object `AirTerminal:SingleDuct:ParallelPIU:Reheat`
@@ -4662,104 +5123,142 @@ class AirTerminalSingleDuctParallelPiuReheat(object):
         self._data["Minimum Hot Water or Steam Flow Rate"] = None
         self._data["Hot Water or Steam Inlet Node Name"] = None
         self._data["Convergence Tolerance"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.availability_schedule_name = None
         else:
             self.availability_schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.maximum_primary_air_flow_rate = None
         else:
             self.maximum_primary_air_flow_rate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.maximum_secondary_air_flow_rate = None
         else:
             self.maximum_secondary_air_flow_rate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.minimum_primary_air_flow_fraction = None
         else:
             self.minimum_primary_air_flow_fraction = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fan_on_flow_fraction = None
         else:
             self.fan_on_flow_fraction = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.supply_air_inlet_node_name = None
         else:
             self.supply_air_inlet_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.secondary_air_inlet_node_name = None
         else:
             self.secondary_air_inlet_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.outlet_node_name = None
         else:
             self.outlet_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.reheat_coil_air_inlet_node_name = None
         else:
             self.reheat_coil_air_inlet_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.zone_mixer_name = None
         else:
             self.zone_mixer_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fan_name = None
         else:
             self.fan_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.reheat_coil_object_type = None
         else:
             self.reheat_coil_object_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.reheat_coil_name = None
         else:
             self.reheat_coil_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.maximum_hot_water_or_steam_flow_rate = None
         else:
             self.maximum_hot_water_or_steam_flow_rate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.minimum_hot_water_or_steam_flow_rate = None
         else:
             self.minimum_hot_water_or_steam_flow_rate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.hot_water_or_steam_inlet_node_name = None
         else:
             self.hot_water_or_steam_inlet_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.convergence_tolerance = None
         else:
             self.convergence_tolerance = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -4790,6 +5289,9 @@ class AirTerminalSingleDuctParallelPiuReheat(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -4825,6 +5327,9 @@ class AirTerminalSingleDuctParallelPiuReheat(object):
                                  'for field `availability_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `availability_schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `availability_schedule_name`')
 
         self._data["Availability Schedule Name"] = value
@@ -5006,6 +5511,9 @@ class AirTerminalSingleDuctParallelPiuReheat(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `supply_air_inlet_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `supply_air_inlet_node_name`')
 
         self._data["Supply Air Inlet Node Name"] = value
 
@@ -5039,6 +5547,9 @@ class AirTerminalSingleDuctParallelPiuReheat(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `secondary_air_inlet_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `secondary_air_inlet_node_name`')
 
         self._data["Secondary Air Inlet Node Name"] = value
 
@@ -5071,6 +5582,9 @@ class AirTerminalSingleDuctParallelPiuReheat(object):
                                  'for field `outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `outlet_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `outlet_node_name`')
 
         self._data["Outlet Node Name"] = value
@@ -5106,6 +5620,9 @@ class AirTerminalSingleDuctParallelPiuReheat(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `reheat_coil_air_inlet_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `reheat_coil_air_inlet_node_name`')
 
         self._data["Reheat Coil Air Inlet Node Name"] = value
 
@@ -5138,6 +5655,9 @@ class AirTerminalSingleDuctParallelPiuReheat(object):
                                  'for field `zone_mixer_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `zone_mixer_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `zone_mixer_name`')
 
         self._data["Zone Mixer Name"] = value
@@ -5172,6 +5692,9 @@ class AirTerminalSingleDuctParallelPiuReheat(object):
                                  'for field `fan_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `fan_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `fan_name`')
 
         self._data["Fan Name"] = value
@@ -5211,14 +5734,28 @@ class AirTerminalSingleDuctParallelPiuReheat(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `reheat_coil_object_type`')
-            vals = set()
-            vals.add("Coil:Heating:Water")
-            vals.add("Coil:Heating:Electric")
-            vals.add("Coil:Heating:Gas")
-            vals.add("Coil:Heating:Steam")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `reheat_coil_object_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `reheat_coil_object_type`')
+            vals = {}
+            vals["coil:heating:water"] = "Coil:Heating:Water"
+            vals["coil:heating:electric"] = "Coil:Heating:Electric"
+            vals["coil:heating:gas"] = "Coil:Heating:Gas"
+            vals["coil:heating:steam"] = "Coil:Heating:Steam"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `reheat_coil_object_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Reheat Coil Object Type"] = value
 
@@ -5251,6 +5788,9 @@ class AirTerminalSingleDuctParallelPiuReheat(object):
                                  'for field `reheat_coil_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `reheat_coil_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `reheat_coil_name`')
 
         self._data["Reheat Coil Name"] = value
@@ -5356,6 +5896,9 @@ class AirTerminalSingleDuctParallelPiuReheat(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `hot_water_or_steam_inlet_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `hot_water_or_steam_inlet_node_name`')
 
         self._data["Hot Water or Steam Inlet Node Name"] = value
 
@@ -5416,27 +5959,17 @@ class AirTerminalSingleDuctParallelPiuReheat(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.availability_schedule_name))
-        out.append(self._to_str(self.maximum_primary_air_flow_rate))
-        out.append(self._to_str(self.maximum_secondary_air_flow_rate))
-        out.append(self._to_str(self.minimum_primary_air_flow_fraction))
-        out.append(self._to_str(self.fan_on_flow_fraction))
-        out.append(self._to_str(self.supply_air_inlet_node_name))
-        out.append(self._to_str(self.secondary_air_inlet_node_name))
-        out.append(self._to_str(self.outlet_node_name))
-        out.append(self._to_str(self.reheat_coil_air_inlet_node_name))
-        out.append(self._to_str(self.zone_mixer_name))
-        out.append(self._to_str(self.fan_name))
-        out.append(self._to_str(self.reheat_coil_object_type))
-        out.append(self._to_str(self.reheat_coil_name))
-        out.append(self._to_str(self.maximum_hot_water_or_steam_flow_rate))
-        out.append(self._to_str(self.minimum_hot_water_or_steam_flow_rate))
-        out.append(self._to_str(self.hot_water_or_steam_inlet_node_name))
-        out.append(self._to_str(self.convergence_tolerance))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class AirTerminalSingleDuctConstantVolumeFourPipeInduction(object):
     """ Corresponds to IDD object `AirTerminal:SingleDuct:ConstantVolume:FourPipeInduction`
@@ -5472,114 +6005,156 @@ class AirTerminalSingleDuctConstantVolumeFourPipeInduction(object):
         self._data["Minimum Cold Water Flow Rate"] = None
         self._data["Cooling Convergence Tolerance"] = None
         self._data["Zone Mixer Name"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.availability_schedule_name = None
         else:
             self.availability_schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.maximum_total_air_flow_rate = None
         else:
             self.maximum_total_air_flow_rate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.induction_ratio = None
         else:
             self.induction_ratio = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.supply_air_inlet_node_name = None
         else:
             self.supply_air_inlet_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.induced_air_inlet_node_name = None
         else:
             self.induced_air_inlet_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.air_outlet_node_name = None
         else:
             self.air_outlet_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.hot_water_inlet_node_name = None
         else:
             self.hot_water_inlet_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.cold_water_inlet_node_name = None
         else:
             self.cold_water_inlet_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.heating_coil_object_type = None
         else:
             self.heating_coil_object_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.heating_coil_name = None
         else:
             self.heating_coil_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.maximum_hot_water_flow_rate = None
         else:
             self.maximum_hot_water_flow_rate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.minimum_hot_water_flow_rate = None
         else:
             self.minimum_hot_water_flow_rate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.heating_convergence_tolerance = None
         else:
             self.heating_convergence_tolerance = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.cooling_coil_object_type = None
         else:
             self.cooling_coil_object_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.cooling_coil_name = None
         else:
             self.cooling_coil_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.maximum_cold_water_flow_rate = None
         else:
             self.maximum_cold_water_flow_rate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.minimum_cold_water_flow_rate = None
         else:
             self.minimum_cold_water_flow_rate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.cooling_convergence_tolerance = None
         else:
             self.cooling_convergence_tolerance = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.zone_mixer_name = None
         else:
             self.zone_mixer_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -5610,6 +6185,9 @@ class AirTerminalSingleDuctConstantVolumeFourPipeInduction(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -5645,6 +6223,9 @@ class AirTerminalSingleDuctConstantVolumeFourPipeInduction(object):
                                  'for field `availability_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `availability_schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `availability_schedule_name`')
 
         self._data["Availability Schedule Name"] = value
@@ -5750,6 +6331,9 @@ class AirTerminalSingleDuctConstantVolumeFourPipeInduction(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `supply_air_inlet_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `supply_air_inlet_node_name`')
 
         self._data["Supply Air Inlet Node Name"] = value
 
@@ -5783,6 +6367,9 @@ class AirTerminalSingleDuctConstantVolumeFourPipeInduction(object):
                                  'for field `induced_air_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `induced_air_inlet_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `induced_air_inlet_node_name`')
 
         self._data["Induced Air Inlet Node Name"] = value
@@ -5818,6 +6405,9 @@ class AirTerminalSingleDuctConstantVolumeFourPipeInduction(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `air_outlet_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `air_outlet_node_name`')
 
         self._data["Air Outlet Node Name"] = value
 
@@ -5851,6 +6441,9 @@ class AirTerminalSingleDuctConstantVolumeFourPipeInduction(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `hot_water_inlet_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `hot_water_inlet_node_name`')
 
         self._data["Hot Water Inlet Node Name"] = value
 
@@ -5883,6 +6476,9 @@ class AirTerminalSingleDuctConstantVolumeFourPipeInduction(object):
                                  'for field `cold_water_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `cold_water_inlet_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `cold_water_inlet_node_name`')
 
         self._data["Cold Water Inlet Node Name"] = value
@@ -5919,11 +6515,25 @@ class AirTerminalSingleDuctConstantVolumeFourPipeInduction(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `heating_coil_object_type`')
-            vals = set()
-            vals.add("Coil:Heating:Water")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `heating_coil_object_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `heating_coil_object_type`')
+            vals = {}
+            vals["coil:heating:water"] = "Coil:Heating:Water"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `heating_coil_object_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Heating Coil Object Type"] = value
 
@@ -5956,6 +6566,9 @@ class AirTerminalSingleDuctConstantVolumeFourPipeInduction(object):
                                  'for field `heating_coil_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `heating_coil_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `heating_coil_name`')
 
         self._data["Heating Coil Name"] = value
@@ -6099,12 +6712,26 @@ class AirTerminalSingleDuctConstantVolumeFourPipeInduction(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `cooling_coil_object_type`')
-            vals = set()
-            vals.add("Coil:Cooling:Water")
-            vals.add("Coil:Cooling:Water:DetailedGeometry")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `cooling_coil_object_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `cooling_coil_object_type`')
+            vals = {}
+            vals["coil:cooling:water"] = "Coil:Cooling:Water"
+            vals["coil:cooling:water:detailedgeometry"] = "Coil:Cooling:Water:DetailedGeometry"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `cooling_coil_object_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Cooling Coil Object Type"] = value
 
@@ -6137,6 +6764,9 @@ class AirTerminalSingleDuctConstantVolumeFourPipeInduction(object):
                                  'for field `cooling_coil_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `cooling_coil_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `cooling_coil_name`')
 
         self._data["Cooling Coil Name"] = value
@@ -6275,6 +6905,9 @@ class AirTerminalSingleDuctConstantVolumeFourPipeInduction(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `zone_mixer_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `zone_mixer_name`')
 
         self._data["Zone Mixer Name"] = value
 
@@ -6300,29 +6933,17 @@ class AirTerminalSingleDuctConstantVolumeFourPipeInduction(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.availability_schedule_name))
-        out.append(self._to_str(self.maximum_total_air_flow_rate))
-        out.append(self._to_str(self.induction_ratio))
-        out.append(self._to_str(self.supply_air_inlet_node_name))
-        out.append(self._to_str(self.induced_air_inlet_node_name))
-        out.append(self._to_str(self.air_outlet_node_name))
-        out.append(self._to_str(self.hot_water_inlet_node_name))
-        out.append(self._to_str(self.cold_water_inlet_node_name))
-        out.append(self._to_str(self.heating_coil_object_type))
-        out.append(self._to_str(self.heating_coil_name))
-        out.append(self._to_str(self.maximum_hot_water_flow_rate))
-        out.append(self._to_str(self.minimum_hot_water_flow_rate))
-        out.append(self._to_str(self.heating_convergence_tolerance))
-        out.append(self._to_str(self.cooling_coil_object_type))
-        out.append(self._to_str(self.cooling_coil_name))
-        out.append(self._to_str(self.maximum_cold_water_flow_rate))
-        out.append(self._to_str(self.minimum_cold_water_flow_rate))
-        out.append(self._to_str(self.cooling_convergence_tolerance))
-        out.append(self._to_str(self.zone_mixer_name))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class AirTerminalSingleDuctConstantVolumeCooledBeam(object):
     """ Corresponds to IDD object `AirTerminal:SingleDuct:ConstantVolume:CooledBeam`
@@ -6361,129 +6982,177 @@ class AirTerminalSingleDuctConstantVolumeCooledBeam(object):
         self._data["Model Parameter n"] = None
         self._data["Coefficient of Induction Kin"] = None
         self._data["Leaving Pipe Inside Diameter"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.availability_schedule_name = None
         else:
             self.availability_schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.cooled_beam_type = None
         else:
             self.cooled_beam_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.supply_air_inlet_node_name = None
         else:
             self.supply_air_inlet_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.supply_air_outlet_node_name = None
         else:
             self.supply_air_outlet_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.chilled_water_inlet_node_name = None
         else:
             self.chilled_water_inlet_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.chilled_water_outlet_node_name = None
         else:
             self.chilled_water_outlet_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.supply_air_volumetric_flow_rate = None
         else:
             self.supply_air_volumetric_flow_rate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.maximum_total_chilled_water_volumetric_flow_rate = None
         else:
             self.maximum_total_chilled_water_volumetric_flow_rate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.number_of_beams = None
         else:
             self.number_of_beams = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.beam_length = None
         else:
             self.beam_length = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.design_inlet_water_temperature = None
         else:
             self.design_inlet_water_temperature = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.design_outlet_water_temperature = None
         else:
             self.design_outlet_water_temperature = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.coil_surface_area_per_coil_length = None
         else:
             self.coil_surface_area_per_coil_length = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.model_parameter_a = None
         else:
             self.model_parameter_a = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.model_parameter_n1 = None
         else:
             self.model_parameter_n1 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.model_parameter_n2 = None
         else:
             self.model_parameter_n2 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.model_parameter_n3 = None
         else:
             self.model_parameter_n3 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.model_parameter_a0 = None
         else:
             self.model_parameter_a0 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.model_parameter_k1 = None
         else:
             self.model_parameter_k1 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.model_parameter_n = None
         else:
             self.model_parameter_n = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.coefficient_of_induction_kin = None
         else:
             self.coefficient_of_induction_kin = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.leaving_pipe_inside_diameter = None
         else:
             self.leaving_pipe_inside_diameter = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -6514,6 +7183,9 @@ class AirTerminalSingleDuctConstantVolumeCooledBeam(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -6549,6 +7221,9 @@ class AirTerminalSingleDuctConstantVolumeCooledBeam(object):
                                  'for field `availability_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `availability_schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `availability_schedule_name`')
 
         self._data["Availability Schedule Name"] = value
@@ -6586,12 +7261,26 @@ class AirTerminalSingleDuctConstantVolumeCooledBeam(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `cooled_beam_type`')
-            vals = set()
-            vals.add("Active")
-            vals.add("Passive")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `cooled_beam_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `cooled_beam_type`')
+            vals = {}
+            vals["active"] = "Active"
+            vals["passive"] = "Passive"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `cooled_beam_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Cooled Beam Type"] = value
 
@@ -6624,6 +7313,9 @@ class AirTerminalSingleDuctConstantVolumeCooledBeam(object):
                                  'for field `supply_air_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `supply_air_inlet_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `supply_air_inlet_node_name`')
 
         self._data["Supply Air Inlet Node Name"] = value
@@ -6658,6 +7350,9 @@ class AirTerminalSingleDuctConstantVolumeCooledBeam(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `supply_air_outlet_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `supply_air_outlet_node_name`')
 
         self._data["Supply Air Outlet Node Name"] = value
 
@@ -6691,6 +7386,9 @@ class AirTerminalSingleDuctConstantVolumeCooledBeam(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `chilled_water_inlet_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `chilled_water_inlet_node_name`')
 
         self._data["Chilled Water Inlet Node Name"] = value
 
@@ -6723,6 +7421,9 @@ class AirTerminalSingleDuctConstantVolumeCooledBeam(object):
                                  'for field `chilled_water_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `chilled_water_outlet_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `chilled_water_outlet_node_name`')
 
         self._data["Chilled Water Outlet Node Name"] = value
@@ -7319,32 +8020,17 @@ class AirTerminalSingleDuctConstantVolumeCooledBeam(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.availability_schedule_name))
-        out.append(self._to_str(self.cooled_beam_type))
-        out.append(self._to_str(self.supply_air_inlet_node_name))
-        out.append(self._to_str(self.supply_air_outlet_node_name))
-        out.append(self._to_str(self.chilled_water_inlet_node_name))
-        out.append(self._to_str(self.chilled_water_outlet_node_name))
-        out.append(self._to_str(self.supply_air_volumetric_flow_rate))
-        out.append(self._to_str(self.maximum_total_chilled_water_volumetric_flow_rate))
-        out.append(self._to_str(self.number_of_beams))
-        out.append(self._to_str(self.beam_length))
-        out.append(self._to_str(self.design_inlet_water_temperature))
-        out.append(self._to_str(self.design_outlet_water_temperature))
-        out.append(self._to_str(self.coil_surface_area_per_coil_length))
-        out.append(self._to_str(self.model_parameter_a))
-        out.append(self._to_str(self.model_parameter_n1))
-        out.append(self._to_str(self.model_parameter_n2))
-        out.append(self._to_str(self.model_parameter_n3))
-        out.append(self._to_str(self.model_parameter_a0))
-        out.append(self._to_str(self.model_parameter_k1))
-        out.append(self._to_str(self.model_parameter_n))
-        out.append(self._to_str(self.coefficient_of_induction_kin))
-        out.append(self._to_str(self.leaving_pipe_inside_diameter))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class AirTerminalSingleDuctInletSideMixer(object):
     """ Corresponds to IDD object `AirTerminal:SingleDuct:InletSideMixer`
@@ -7365,44 +8051,58 @@ class AirTerminalSingleDuctInletSideMixer(object):
         self._data["Terminal Unit Outlet Node Name"] = None
         self._data["Terminal Unit Primary Air Inlet Node Name"] = None
         self._data["Terminal Unit Secondary Air Inlet Node Name"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.zonehvac_terminal_unit_object_type = None
         else:
             self.zonehvac_terminal_unit_object_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.zonehvac_terminal_unit_name = None
         else:
             self.zonehvac_terminal_unit_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.terminal_unit_outlet_node_name = None
         else:
             self.terminal_unit_outlet_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.terminal_unit_primary_air_inlet_node_name = None
         else:
             self.terminal_unit_primary_air_inlet_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.terminal_unit_secondary_air_inlet_node_name = None
         else:
             self.terminal_unit_secondary_air_inlet_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -7433,6 +8133,9 @@ class AirTerminalSingleDuctInletSideMixer(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -7467,6 +8170,9 @@ class AirTerminalSingleDuctInletSideMixer(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `zonehvac_terminal_unit_object_type`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `zonehvac_terminal_unit_object_type`')
 
         self._data["ZoneHVAC Terminal Unit Object Type"] = value
 
@@ -7499,6 +8205,9 @@ class AirTerminalSingleDuctInletSideMixer(object):
                                  'for field `zonehvac_terminal_unit_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `zonehvac_terminal_unit_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `zonehvac_terminal_unit_name`')
 
         self._data["ZoneHVAC Terminal Unit Name"] = value
@@ -7533,6 +8242,9 @@ class AirTerminalSingleDuctInletSideMixer(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `terminal_unit_outlet_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `terminal_unit_outlet_node_name`')
 
         self._data["Terminal Unit Outlet Node Name"] = value
 
@@ -7565,6 +8277,9 @@ class AirTerminalSingleDuctInletSideMixer(object):
                                  'for field `terminal_unit_primary_air_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `terminal_unit_primary_air_inlet_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `terminal_unit_primary_air_inlet_node_name`')
 
         self._data["Terminal Unit Primary Air Inlet Node Name"] = value
@@ -7599,6 +8314,9 @@ class AirTerminalSingleDuctInletSideMixer(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `terminal_unit_secondary_air_inlet_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `terminal_unit_secondary_air_inlet_node_name`')
 
         self._data["Terminal Unit Secondary Air Inlet Node Name"] = value
 
@@ -7624,15 +8342,17 @@ class AirTerminalSingleDuctInletSideMixer(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.zonehvac_terminal_unit_object_type))
-        out.append(self._to_str(self.zonehvac_terminal_unit_name))
-        out.append(self._to_str(self.terminal_unit_outlet_node_name))
-        out.append(self._to_str(self.terminal_unit_primary_air_inlet_node_name))
-        out.append(self._to_str(self.terminal_unit_secondary_air_inlet_node_name))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class AirTerminalSingleDuctSupplySideMixer(object):
     """ Corresponds to IDD object `AirTerminal:SingleDuct:SupplySideMixer`
@@ -7653,44 +8373,58 @@ class AirTerminalSingleDuctSupplySideMixer(object):
         self._data["Terminal Unit Outlet Node Name"] = None
         self._data["Terminal Unit Primary Air Inlet Node Name"] = None
         self._data["Terminal Unit Secondary Air Inlet Node Name"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.zonehvac_terminal_unit_object_type = None
         else:
             self.zonehvac_terminal_unit_object_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.zonehvac_terminal_unit_name = None
         else:
             self.zonehvac_terminal_unit_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.terminal_unit_outlet_node_name = None
         else:
             self.terminal_unit_outlet_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.terminal_unit_primary_air_inlet_node_name = None
         else:
             self.terminal_unit_primary_air_inlet_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.terminal_unit_secondary_air_inlet_node_name = None
         else:
             self.terminal_unit_secondary_air_inlet_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -7721,6 +8455,9 @@ class AirTerminalSingleDuctSupplySideMixer(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -7755,6 +8492,9 @@ class AirTerminalSingleDuctSupplySideMixer(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `zonehvac_terminal_unit_object_type`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `zonehvac_terminal_unit_object_type`')
 
         self._data["ZoneHVAC Terminal Unit Object Type"] = value
 
@@ -7787,6 +8527,9 @@ class AirTerminalSingleDuctSupplySideMixer(object):
                                  'for field `zonehvac_terminal_unit_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `zonehvac_terminal_unit_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `zonehvac_terminal_unit_name`')
 
         self._data["ZoneHVAC Terminal Unit Name"] = value
@@ -7821,6 +8564,9 @@ class AirTerminalSingleDuctSupplySideMixer(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `terminal_unit_outlet_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `terminal_unit_outlet_node_name`')
 
         self._data["Terminal Unit Outlet Node Name"] = value
 
@@ -7853,6 +8599,9 @@ class AirTerminalSingleDuctSupplySideMixer(object):
                                  'for field `terminal_unit_primary_air_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `terminal_unit_primary_air_inlet_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `terminal_unit_primary_air_inlet_node_name`')
 
         self._data["Terminal Unit Primary Air Inlet Node Name"] = value
@@ -7887,6 +8636,9 @@ class AirTerminalSingleDuctSupplySideMixer(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `terminal_unit_secondary_air_inlet_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `terminal_unit_secondary_air_inlet_node_name`')
 
         self._data["Terminal Unit Secondary Air Inlet Node Name"] = value
 
@@ -7912,15 +8664,17 @@ class AirTerminalSingleDuctSupplySideMixer(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.zonehvac_terminal_unit_object_type))
-        out.append(self._to_str(self.zonehvac_terminal_unit_name))
-        out.append(self._to_str(self.terminal_unit_outlet_node_name))
-        out.append(self._to_str(self.terminal_unit_primary_air_inlet_node_name))
-        out.append(self._to_str(self.terminal_unit_secondary_air_inlet_node_name))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class AirTerminalDualDuctConstantVolume(object):
     """ Corresponds to IDD object `AirTerminal:DualDuct:ConstantVolume`
@@ -7941,44 +8695,58 @@ class AirTerminalDualDuctConstantVolume(object):
         self._data["Hot Air Inlet Node Name"] = None
         self._data["Cold Air Inlet Node Name"] = None
         self._data["Maximum Air Flow Rate"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.availability_schedule_name = None
         else:
             self.availability_schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.air_outlet_node_name = None
         else:
             self.air_outlet_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.hot_air_inlet_node_name = None
         else:
             self.hot_air_inlet_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.cold_air_inlet_node_name = None
         else:
             self.cold_air_inlet_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.maximum_air_flow_rate = None
         else:
             self.maximum_air_flow_rate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -8009,6 +8777,9 @@ class AirTerminalDualDuctConstantVolume(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -8045,6 +8816,9 @@ class AirTerminalDualDuctConstantVolume(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `availability_schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `availability_schedule_name`')
 
         self._data["Availability Schedule Name"] = value
 
@@ -8080,6 +8854,9 @@ class AirTerminalDualDuctConstantVolume(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `air_outlet_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `air_outlet_node_name`')
 
         self._data["Air Outlet Node Name"] = value
 
@@ -8113,6 +8890,9 @@ class AirTerminalDualDuctConstantVolume(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `hot_air_inlet_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `hot_air_inlet_node_name`')
 
         self._data["Hot Air Inlet Node Name"] = value
 
@@ -8145,6 +8925,9 @@ class AirTerminalDualDuctConstantVolume(object):
                                  'for field `cold_air_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `cold_air_inlet_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `cold_air_inlet_node_name`')
 
         self._data["Cold Air Inlet Node Name"] = value
@@ -8206,15 +8989,17 @@ class AirTerminalDualDuctConstantVolume(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.availability_schedule_name))
-        out.append(self._to_str(self.air_outlet_node_name))
-        out.append(self._to_str(self.hot_air_inlet_node_name))
-        out.append(self._to_str(self.cold_air_inlet_node_name))
-        out.append(self._to_str(self.maximum_air_flow_rate))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class AirTerminalDualDuctVav(object):
     """ Corresponds to IDD object `AirTerminal:DualDuct:VAV`
@@ -8237,54 +9022,72 @@ class AirTerminalDualDuctVav(object):
         self._data["Maximum Damper Air Flow Rate"] = None
         self._data["Zone Minimum Air Flow Fraction"] = None
         self._data["Design Specification Outdoor Air Object Name"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.availability_schedule_name = None
         else:
             self.availability_schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.air_outlet_node_name = None
         else:
             self.air_outlet_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.hot_air_inlet_node_name = None
         else:
             self.hot_air_inlet_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.cold_air_inlet_node_name = None
         else:
             self.cold_air_inlet_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.maximum_damper_air_flow_rate = None
         else:
             self.maximum_damper_air_flow_rate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.zone_minimum_air_flow_fraction = None
         else:
             self.zone_minimum_air_flow_fraction = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.design_specification_outdoor_air_object_name = None
         else:
             self.design_specification_outdoor_air_object_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -8315,6 +9118,9 @@ class AirTerminalDualDuctVav(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -8351,6 +9157,9 @@ class AirTerminalDualDuctVav(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `availability_schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `availability_schedule_name`')
 
         self._data["Availability Schedule Name"] = value
 
@@ -8386,6 +9195,9 @@ class AirTerminalDualDuctVav(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `air_outlet_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `air_outlet_node_name`')
 
         self._data["Air Outlet Node Name"] = value
 
@@ -8419,6 +9231,9 @@ class AirTerminalDualDuctVav(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `hot_air_inlet_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `hot_air_inlet_node_name`')
 
         self._data["Hot Air Inlet Node Name"] = value
 
@@ -8451,6 +9266,9 @@ class AirTerminalDualDuctVav(object):
                                  'for field `cold_air_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `cold_air_inlet_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `cold_air_inlet_node_name`')
 
         self._data["Cold Air Inlet Node Name"] = value
@@ -8566,6 +9384,9 @@ class AirTerminalDualDuctVav(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `design_specification_outdoor_air_object_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `design_specification_outdoor_air_object_name`')
 
         self._data["Design Specification Outdoor Air Object Name"] = value
 
@@ -8591,17 +9412,17 @@ class AirTerminalDualDuctVav(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.availability_schedule_name))
-        out.append(self._to_str(self.air_outlet_node_name))
-        out.append(self._to_str(self.hot_air_inlet_node_name))
-        out.append(self._to_str(self.cold_air_inlet_node_name))
-        out.append(self._to_str(self.maximum_damper_air_flow_rate))
-        out.append(self._to_str(self.zone_minimum_air_flow_fraction))
-        out.append(self._to_str(self.design_specification_outdoor_air_object_name))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class AirTerminalDualDuctVavOutdoorAir(object):
     """ Corresponds to IDD object `AirTerminal:DualDuct:VAV:OutdoorAir`
@@ -8626,54 +9447,72 @@ class AirTerminalDualDuctVavOutdoorAir(object):
         self._data["Maximum Terminal Air Flow Rate"] = None
         self._data["Design Specification Outdoor Air Object Name"] = None
         self._data["Per Person Ventilation Rate Mode"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.availability_schedule_name = None
         else:
             self.availability_schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.air_outlet_node_name = None
         else:
             self.air_outlet_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.outdoor_air_inlet_node_name = None
         else:
             self.outdoor_air_inlet_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.recirculated_air_inlet_node_name = None
         else:
             self.recirculated_air_inlet_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.maximum_terminal_air_flow_rate = None
         else:
             self.maximum_terminal_air_flow_rate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.design_specification_outdoor_air_object_name = None
         else:
             self.design_specification_outdoor_air_object_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.per_person_ventilation_rate_mode = None
         else:
             self.per_person_ventilation_rate_mode = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -8704,6 +9543,9 @@ class AirTerminalDualDuctVavOutdoorAir(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -8740,6 +9582,9 @@ class AirTerminalDualDuctVavOutdoorAir(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `availability_schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `availability_schedule_name`')
 
         self._data["Availability Schedule Name"] = value
 
@@ -8775,6 +9620,9 @@ class AirTerminalDualDuctVavOutdoorAir(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `air_outlet_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `air_outlet_node_name`')
 
         self._data["Air Outlet Node Name"] = value
 
@@ -8808,6 +9656,9 @@ class AirTerminalDualDuctVavOutdoorAir(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `outdoor_air_inlet_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `outdoor_air_inlet_node_name`')
 
         self._data["Outdoor Air Inlet Node Name"] = value
 
@@ -8840,6 +9691,9 @@ class AirTerminalDualDuctVavOutdoorAir(object):
                                  'for field `recirculated_air_inlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `recirculated_air_inlet_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `recirculated_air_inlet_node_name`')
 
         self._data["Recirculated Air Inlet Node Name"] = value
@@ -8915,6 +9769,9 @@ class AirTerminalDualDuctVavOutdoorAir(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `design_specification_outdoor_air_object_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `design_specification_outdoor_air_object_name`')
 
         self._data["Design Specification Outdoor Air Object Name"] = value
 
@@ -8953,12 +9810,26 @@ class AirTerminalDualDuctVavOutdoorAir(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `per_person_ventilation_rate_mode`')
-            vals = set()
-            vals.add("CurrentOccupancy")
-            vals.add("DesignOccupancy")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `per_person_ventilation_rate_mode`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `per_person_ventilation_rate_mode`')
+            vals = {}
+            vals["currentoccupancy"] = "CurrentOccupancy"
+            vals["designoccupancy"] = "DesignOccupancy"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `per_person_ventilation_rate_mode`'.format(value))
+            value = vals[value_lower]
 
         self._data["Per Person Ventilation Rate Mode"] = value
 
@@ -8984,17 +9855,17 @@ class AirTerminalDualDuctVavOutdoorAir(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.availability_schedule_name))
-        out.append(self._to_str(self.air_outlet_node_name))
-        out.append(self._to_str(self.outdoor_air_inlet_node_name))
-        out.append(self._to_str(self.recirculated_air_inlet_node_name))
-        out.append(self._to_str(self.maximum_terminal_air_flow_rate))
-        out.append(self._to_str(self.design_specification_outdoor_air_object_name))
-        out.append(self._to_str(self.per_person_ventilation_rate_mode))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class ZoneHvacAirDistributionUnit(object):
     """ Corresponds to IDD object `ZoneHVAC:AirDistributionUnit`
@@ -9016,44 +9887,58 @@ class ZoneHvacAirDistributionUnit(object):
         self._data["Air Terminal Name"] = None
         self._data["Nominal Upstream Leakage Fraction"] = None
         self._data["Constant Downstream Leakage Fraction"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.air_distribution_unit_outlet_node_name = None
         else:
             self.air_distribution_unit_outlet_node_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.air_terminal_object_type = None
         else:
             self.air_terminal_object_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.air_terminal_name = None
         else:
             self.air_terminal_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.nominal_upstream_leakage_fraction = None
         else:
             self.nominal_upstream_leakage_fraction = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.constant_downstream_leakage_fraction = None
         else:
             self.constant_downstream_leakage_fraction = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -9084,6 +9969,9 @@ class ZoneHvacAirDistributionUnit(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -9117,6 +10005,9 @@ class ZoneHvacAirDistributionUnit(object):
                                  'for field `air_distribution_unit_outlet_node_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `air_distribution_unit_outlet_node_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `air_distribution_unit_outlet_node_name`')
 
         self._data["Air Distribution Unit Outlet Node Name"] = value
@@ -9166,24 +10057,38 @@ class ZoneHvacAirDistributionUnit(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `air_terminal_object_type`')
-            vals = set()
-            vals.add("AirTerminal:DualDuct:ConstantVolume")
-            vals.add("AirTerminal:DualDuct:VAV")
-            vals.add("AirTerminal:SingleDuct:ConstantVolume:Reheat")
-            vals.add("AirTerminal:SingleDuct:VAV:Reheat")
-            vals.add("AirTerminal:SingleDuct:VAV:NoReheat")
-            vals.add("AirTerminal:SingleDuct:SeriesPIU:Reheat")
-            vals.add("AirTerminal:SingleDuct:ParallelPIU:Reheat")
-            vals.add("AirTerminal:SingleDuct:ConstantVolume:FourPipeInduction")
-            vals.add("AirTerminal:SingleDuct:VAV:Reheat:VariableSpeedFan")
-            vals.add("AirTerminal:SingleDuct:VAV:HeatAndCool:Reheat")
-            vals.add("AirTerminal:SingleDuct:VAV:HeatAndCool:NoReheat")
-            vals.add("AirTerminal:SingleDuct:ConstantVolume:CooledBeam")
-            vals.add("AirTerminal:DualDuct:VAV:OutdoorAir")
-            vals.add("AirTerminal:SingleDuct:UserDefined")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `air_terminal_object_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `air_terminal_object_type`')
+            vals = {}
+            vals["airterminal:dualduct:constantvolume"] = "AirTerminal:DualDuct:ConstantVolume"
+            vals["airterminal:dualduct:vav"] = "AirTerminal:DualDuct:VAV"
+            vals["airterminal:singleduct:constantvolume:reheat"] = "AirTerminal:SingleDuct:ConstantVolume:Reheat"
+            vals["airterminal:singleduct:vav:reheat"] = "AirTerminal:SingleDuct:VAV:Reheat"
+            vals["airterminal:singleduct:vav:noreheat"] = "AirTerminal:SingleDuct:VAV:NoReheat"
+            vals["airterminal:singleduct:seriespiu:reheat"] = "AirTerminal:SingleDuct:SeriesPIU:Reheat"
+            vals["airterminal:singleduct:parallelpiu:reheat"] = "AirTerminal:SingleDuct:ParallelPIU:Reheat"
+            vals["airterminal:singleduct:constantvolume:fourpipeinduction"] = "AirTerminal:SingleDuct:ConstantVolume:FourPipeInduction"
+            vals["airterminal:singleduct:vav:reheat:variablespeedfan"] = "AirTerminal:SingleDuct:VAV:Reheat:VariableSpeedFan"
+            vals["airterminal:singleduct:vav:heatandcool:reheat"] = "AirTerminal:SingleDuct:VAV:HeatAndCool:Reheat"
+            vals["airterminal:singleduct:vav:heatandcool:noreheat"] = "AirTerminal:SingleDuct:VAV:HeatAndCool:NoReheat"
+            vals["airterminal:singleduct:constantvolume:cooledbeam"] = "AirTerminal:SingleDuct:ConstantVolume:CooledBeam"
+            vals["airterminal:dualduct:vav:outdoorair"] = "AirTerminal:DualDuct:VAV:OutdoorAir"
+            vals["airterminal:singleduct:userdefined"] = "AirTerminal:SingleDuct:UserDefined"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `air_terminal_object_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Air Terminal Object Type"] = value
 
@@ -9216,6 +10121,9 @@ class ZoneHvacAirDistributionUnit(object):
                                  'for field `air_terminal_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `air_terminal_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `air_terminal_name`')
 
         self._data["Air Terminal Name"] = value
@@ -9322,12 +10230,14 @@ class ZoneHvacAirDistributionUnit(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.air_distribution_unit_outlet_node_name))
-        out.append(self._to_str(self.air_terminal_object_type))
-        out.append(self._to_str(self.air_terminal_name))
-        out.append(self._to_str(self.nominal_upstream_leakage_fraction))
-        out.append(self._to_str(self.constant_downstream_leakage_fraction))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])

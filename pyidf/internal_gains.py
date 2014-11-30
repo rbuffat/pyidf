@@ -39,134 +39,184 @@ class People(object):
         self._data["Thermal Comfort Model 3 Type"] = None
         self._data["Thermal Comfort Model 4 Type"] = None
         self._data["Thermal Comfort Model 5 Type"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.zone_or_zonelist_name = None
         else:
             self.zone_or_zonelist_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.number_of_people_schedule_name = None
         else:
             self.number_of_people_schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.number_of_people_calculation_method = None
         else:
             self.number_of_people_calculation_method = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.number_of_people = None
         else:
             self.number_of_people = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.people_per_zone_floor_area = None
         else:
             self.people_per_zone_floor_area = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.zone_floor_area_per_person = None
         else:
             self.zone_floor_area_per_person = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_radiant = None
         else:
             self.fraction_radiant = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.sensible_heat_fraction = None
         else:
             self.sensible_heat_fraction = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.activity_level_schedule_name = None
         else:
             self.activity_level_schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.carbon_dioxide_generation_rate = None
         else:
             self.carbon_dioxide_generation_rate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.enable_ashrae_55_comfort_warnings = None
         else:
             self.enable_ashrae_55_comfort_warnings = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.mean_radiant_temperature_calculation_type = None
         else:
             self.mean_radiant_temperature_calculation_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_name_or_angle_factor_list_name = None
         else:
             self.surface_name_or_angle_factor_list_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.work_efficiency_schedule_name = None
         else:
             self.work_efficiency_schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.clothing_insulation_calculation_method = None
         else:
             self.clothing_insulation_calculation_method = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.clothing_insulation_calculation_method_schedule_name = None
         else:
             self.clothing_insulation_calculation_method_schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.clothing_insulation_schedule_name = None
         else:
             self.clothing_insulation_schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.air_velocity_schedule_name = None
         else:
             self.air_velocity_schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.thermal_comfort_model_1_type = None
         else:
             self.thermal_comfort_model_1_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.thermal_comfort_model_2_type = None
         else:
             self.thermal_comfort_model_2_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.thermal_comfort_model_3_type = None
         else:
             self.thermal_comfort_model_3_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.thermal_comfort_model_4_type = None
         else:
             self.thermal_comfort_model_4_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.thermal_comfort_model_5_type = None
         else:
             self.thermal_comfort_model_5_type = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -197,6 +247,9 @@ class People(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -231,6 +284,9 @@ class People(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `zone_or_zonelist_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `zone_or_zonelist_name`')
 
         self._data["Zone or ZoneList Name"] = value
 
@@ -264,6 +320,9 @@ class People(object):
                                  'for field `number_of_people_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `number_of_people_schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `number_of_people_schedule_name`')
 
         self._data["Number of People Schedule Name"] = value
@@ -308,13 +367,27 @@ class People(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `number_of_people_calculation_method`')
-            vals = set()
-            vals.add("People")
-            vals.add("People/Area")
-            vals.add("Area/Person")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `number_of_people_calculation_method`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `number_of_people_calculation_method`')
+            vals = {}
+            vals["people"] = "People"
+            vals["people/area"] = "People/Area"
+            vals["area/person"] = "Area/Person"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `number_of_people_calculation_method`'.format(value))
+            value = vals[value_lower]
 
         self._data["Number of People Calculation Method"] = value
 
@@ -531,6 +604,9 @@ class People(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `activity_level_schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `activity_level_schedule_name`')
 
         self._data["Activity Level Schedule Name"] = value
 
@@ -611,12 +687,26 @@ class People(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `enable_ashrae_55_comfort_warnings`')
-            vals = set()
-            vals.add("Yes")
-            vals.add("No")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `enable_ashrae_55_comfort_warnings`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `enable_ashrae_55_comfort_warnings`')
+            vals = {}
+            vals["yes"] = "Yes"
+            vals["no"] = "No"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `enable_ashrae_55_comfort_warnings`'.format(value))
+            value = vals[value_lower]
 
         self._data["Enable ASHRAE 55 Comfort Warnings"] = value
 
@@ -656,13 +746,27 @@ class People(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `mean_radiant_temperature_calculation_type`')
-            vals = set()
-            vals.add("ZoneAveraged")
-            vals.add("SurfaceWeighted")
-            vals.add("AngleFactor")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `mean_radiant_temperature_calculation_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `mean_radiant_temperature_calculation_type`')
+            vals = {}
+            vals["zoneaveraged"] = "ZoneAveraged"
+            vals["surfaceweighted"] = "SurfaceWeighted"
+            vals["anglefactor"] = "AngleFactor"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `mean_radiant_temperature_calculation_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Mean Radiant Temperature Calculation Type"] = value
 
@@ -696,6 +800,9 @@ class People(object):
                                  'for field `surface_name_or_angle_factor_list_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_name_or_angle_factor_list_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_name_or_angle_factor_list_name`')
 
         self._data["Surface Name/Angle Factor List Name"] = value
@@ -731,6 +838,9 @@ class People(object):
                                  'for field `work_efficiency_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `work_efficiency_schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `work_efficiency_schedule_name`')
 
         self._data["Work Efficiency Schedule Name"] = value
@@ -770,13 +880,27 @@ class People(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `clothing_insulation_calculation_method`')
-            vals = set()
-            vals.add("ClothingInsulationSchedule")
-            vals.add("DynamicClothingModelASHRAE55")
-            vals.add("CalculationMethodSchedule")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `clothing_insulation_calculation_method`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `clothing_insulation_calculation_method`')
+            vals = {}
+            vals["clothinginsulationschedule"] = "ClothingInsulationSchedule"
+            vals["dynamicclothingmodelashrae55"] = "DynamicClothingModelASHRAE55"
+            vals["calculationmethodschedule"] = "CalculationMethodSchedule"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `clothing_insulation_calculation_method`'.format(value))
+            value = vals[value_lower]
 
         self._data["Clothing Insulation Calculation Method"] = value
 
@@ -810,6 +934,9 @@ class People(object):
                                  'for field `clothing_insulation_calculation_method_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `clothing_insulation_calculation_method_schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `clothing_insulation_calculation_method_schedule_name`')
 
         self._data["Clothing Insulation Calculation Method Schedule Name"] = value
@@ -846,6 +973,9 @@ class People(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `clothing_insulation_schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `clothing_insulation_schedule_name`')
 
         self._data["Clothing Insulation Schedule Name"] = value
 
@@ -880,6 +1010,9 @@ class People(object):
                                  'for field `air_velocity_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `air_velocity_schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `air_velocity_schedule_name`')
 
         self._data["Air Velocity Schedule Name"] = value
@@ -921,15 +1054,29 @@ class People(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `thermal_comfort_model_1_type`')
-            vals = set()
-            vals.add("Fanger")
-            vals.add("Pierce")
-            vals.add("KSU")
-            vals.add("AdaptiveASH55")
-            vals.add("AdaptiveCEN15251")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `thermal_comfort_model_1_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `thermal_comfort_model_1_type`')
+            vals = {}
+            vals["fanger"] = "Fanger"
+            vals["pierce"] = "Pierce"
+            vals["ksu"] = "KSU"
+            vals["adaptiveash55"] = "AdaptiveASH55"
+            vals["adaptivecen15251"] = "AdaptiveCEN15251"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `thermal_comfort_model_1_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Thermal Comfort Model 1 Type"] = value
 
@@ -970,15 +1117,29 @@ class People(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `thermal_comfort_model_2_type`')
-            vals = set()
-            vals.add("Fanger")
-            vals.add("Pierce")
-            vals.add("KSU")
-            vals.add("AdaptiveASH55")
-            vals.add("AdaptiveCEN15251")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `thermal_comfort_model_2_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `thermal_comfort_model_2_type`')
+            vals = {}
+            vals["fanger"] = "Fanger"
+            vals["pierce"] = "Pierce"
+            vals["ksu"] = "KSU"
+            vals["adaptiveash55"] = "AdaptiveASH55"
+            vals["adaptivecen15251"] = "AdaptiveCEN15251"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `thermal_comfort_model_2_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Thermal Comfort Model 2 Type"] = value
 
@@ -1019,15 +1180,29 @@ class People(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `thermal_comfort_model_3_type`')
-            vals = set()
-            vals.add("Fanger")
-            vals.add("Pierce")
-            vals.add("KSU")
-            vals.add("AdaptiveASH55")
-            vals.add("AdaptiveCEN15251")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `thermal_comfort_model_3_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `thermal_comfort_model_3_type`')
+            vals = {}
+            vals["fanger"] = "Fanger"
+            vals["pierce"] = "Pierce"
+            vals["ksu"] = "KSU"
+            vals["adaptiveash55"] = "AdaptiveASH55"
+            vals["adaptivecen15251"] = "AdaptiveCEN15251"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `thermal_comfort_model_3_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Thermal Comfort Model 3 Type"] = value
 
@@ -1068,15 +1243,29 @@ class People(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `thermal_comfort_model_4_type`')
-            vals = set()
-            vals.add("Fanger")
-            vals.add("Pierce")
-            vals.add("KSU")
-            vals.add("AdaptiveASH55")
-            vals.add("AdaptiveCEN15251")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `thermal_comfort_model_4_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `thermal_comfort_model_4_type`')
+            vals = {}
+            vals["fanger"] = "Fanger"
+            vals["pierce"] = "Pierce"
+            vals["ksu"] = "KSU"
+            vals["adaptiveash55"] = "AdaptiveASH55"
+            vals["adaptivecen15251"] = "AdaptiveCEN15251"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `thermal_comfort_model_4_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Thermal Comfort Model 4 Type"] = value
 
@@ -1117,15 +1306,29 @@ class People(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `thermal_comfort_model_5_type`')
-            vals = set()
-            vals.add("Fanger")
-            vals.add("Pierce")
-            vals.add("KSU")
-            vals.add("AdaptiveASH55")
-            vals.add("AdaptiveCEN15251")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `thermal_comfort_model_5_type`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `thermal_comfort_model_5_type`')
+            vals = {}
+            vals["fanger"] = "Fanger"
+            vals["pierce"] = "Pierce"
+            vals["ksu"] = "KSU"
+            vals["adaptiveash55"] = "AdaptiveASH55"
+            vals["adaptivecen15251"] = "AdaptiveCEN15251"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `thermal_comfort_model_5_type`'.format(value))
+            value = vals[value_lower]
 
         self._data["Thermal Comfort Model 5 Type"] = value
 
@@ -1151,33 +1354,17 @@ class People(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.zone_or_zonelist_name))
-        out.append(self._to_str(self.number_of_people_schedule_name))
-        out.append(self._to_str(self.number_of_people_calculation_method))
-        out.append(self._to_str(self.number_of_people))
-        out.append(self._to_str(self.people_per_zone_floor_area))
-        out.append(self._to_str(self.zone_floor_area_per_person))
-        out.append(self._to_str(self.fraction_radiant))
-        out.append(self._to_str(self.sensible_heat_fraction))
-        out.append(self._to_str(self.activity_level_schedule_name))
-        out.append(self._to_str(self.carbon_dioxide_generation_rate))
-        out.append(self._to_str(self.enable_ashrae_55_comfort_warnings))
-        out.append(self._to_str(self.mean_radiant_temperature_calculation_type))
-        out.append(self._to_str(self.surface_name_or_angle_factor_list_name))
-        out.append(self._to_str(self.work_efficiency_schedule_name))
-        out.append(self._to_str(self.clothing_insulation_calculation_method))
-        out.append(self._to_str(self.clothing_insulation_calculation_method_schedule_name))
-        out.append(self._to_str(self.clothing_insulation_schedule_name))
-        out.append(self._to_str(self.air_velocity_schedule_name))
-        out.append(self._to_str(self.thermal_comfort_model_1_type))
-        out.append(self._to_str(self.thermal_comfort_model_2_type))
-        out.append(self._to_str(self.thermal_comfort_model_3_type))
-        out.append(self._to_str(self.thermal_comfort_model_4_type))
-        out.append(self._to_str(self.thermal_comfort_model_5_type))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class ComfortViewFactorAngles(object):
     """ Corresponds to IDD object `ComfortViewFactorAngles`
@@ -1234,224 +1421,310 @@ class ComfortViewFactorAngles(object):
         self._data["Angle Factor 19"] = None
         self._data["Surface 20 Name"] = None
         self._data["Angle Factor 20"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.zone_name = None
         else:
             self.zone_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_1_name = None
         else:
             self.surface_1_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.angle_factor_1 = None
         else:
             self.angle_factor_1 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_2_name = None
         else:
             self.surface_2_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.angle_factor_2 = None
         else:
             self.angle_factor_2 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_3_name = None
         else:
             self.surface_3_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.angle_factor_3 = None
         else:
             self.angle_factor_3 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_4_name = None
         else:
             self.surface_4_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.angle_factor_4 = None
         else:
             self.angle_factor_4 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_5_name = None
         else:
             self.surface_5_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.angle_factor_5 = None
         else:
             self.angle_factor_5 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_6_name = None
         else:
             self.surface_6_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.angle_factor_6 = None
         else:
             self.angle_factor_6 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_7_name = None
         else:
             self.surface_7_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.angle_factor_7 = None
         else:
             self.angle_factor_7 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_8_name = None
         else:
             self.surface_8_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.angle_factor_8 = None
         else:
             self.angle_factor_8 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_9_name = None
         else:
             self.surface_9_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.angle_factor_9 = None
         else:
             self.angle_factor_9 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_10_name = None
         else:
             self.surface_10_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.angle_factor_10 = None
         else:
             self.angle_factor_10 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_11_name = None
         else:
             self.surface_11_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.angle_factor_11 = None
         else:
             self.angle_factor_11 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_12_name = None
         else:
             self.surface_12_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.angle_factor_12 = None
         else:
             self.angle_factor_12 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_13_name = None
         else:
             self.surface_13_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.angle_factor_13 = None
         else:
             self.angle_factor_13 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_14_name = None
         else:
             self.surface_14_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.angle_factor_14 = None
         else:
             self.angle_factor_14 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_15_name = None
         else:
             self.surface_15_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.angle_factor_15 = None
         else:
             self.angle_factor_15 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_16_name = None
         else:
             self.surface_16_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.angle_factor_16 = None
         else:
             self.angle_factor_16 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_17_name = None
         else:
             self.surface_17_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.angle_factor_17 = None
         else:
             self.angle_factor_17 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_18_name = None
         else:
             self.surface_18_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.angle_factor_18 = None
         else:
             self.angle_factor_18 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_19_name = None
         else:
             self.surface_19_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.angle_factor_19 = None
         else:
             self.angle_factor_19 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_20_name = None
         else:
             self.surface_20_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.angle_factor_20 = None
         else:
             self.angle_factor_20 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -1482,6 +1755,9 @@ class ComfortViewFactorAngles(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -1516,6 +1792,9 @@ class ComfortViewFactorAngles(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `zone_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `zone_name`')
 
         self._data["Zone Name"] = value
 
@@ -1548,6 +1827,9 @@ class ComfortViewFactorAngles(object):
                                  'for field `surface_1_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_1_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_1_name`')
 
         self._data["Surface 1 Name"] = value
@@ -1620,6 +1902,9 @@ class ComfortViewFactorAngles(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_2_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_2_name`')
 
         self._data["Surface 2 Name"] = value
 
@@ -1690,6 +1975,9 @@ class ComfortViewFactorAngles(object):
                                  'for field `surface_3_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_3_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_3_name`')
 
         self._data["Surface 3 Name"] = value
@@ -1762,6 +2050,9 @@ class ComfortViewFactorAngles(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_4_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_4_name`')
 
         self._data["Surface 4 Name"] = value
 
@@ -1832,6 +2123,9 @@ class ComfortViewFactorAngles(object):
                                  'for field `surface_5_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_5_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_5_name`')
 
         self._data["Surface 5 Name"] = value
@@ -1904,6 +2198,9 @@ class ComfortViewFactorAngles(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_6_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_6_name`')
 
         self._data["Surface 6 Name"] = value
 
@@ -1974,6 +2271,9 @@ class ComfortViewFactorAngles(object):
                                  'for field `surface_7_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_7_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_7_name`')
 
         self._data["Surface 7 Name"] = value
@@ -2046,6 +2346,9 @@ class ComfortViewFactorAngles(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_8_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_8_name`')
 
         self._data["Surface 8 Name"] = value
 
@@ -2116,6 +2419,9 @@ class ComfortViewFactorAngles(object):
                                  'for field `surface_9_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_9_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_9_name`')
 
         self._data["Surface 9 Name"] = value
@@ -2188,6 +2494,9 @@ class ComfortViewFactorAngles(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_10_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_10_name`')
 
         self._data["Surface 10 Name"] = value
 
@@ -2258,6 +2567,9 @@ class ComfortViewFactorAngles(object):
                                  'for field `surface_11_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_11_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_11_name`')
 
         self._data["Surface 11 Name"] = value
@@ -2330,6 +2642,9 @@ class ComfortViewFactorAngles(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_12_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_12_name`')
 
         self._data["Surface 12 Name"] = value
 
@@ -2400,6 +2715,9 @@ class ComfortViewFactorAngles(object):
                                  'for field `surface_13_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_13_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_13_name`')
 
         self._data["Surface 13 Name"] = value
@@ -2472,6 +2790,9 @@ class ComfortViewFactorAngles(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_14_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_14_name`')
 
         self._data["Surface 14 Name"] = value
 
@@ -2542,6 +2863,9 @@ class ComfortViewFactorAngles(object):
                                  'for field `surface_15_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_15_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_15_name`')
 
         self._data["Surface 15 Name"] = value
@@ -2614,6 +2938,9 @@ class ComfortViewFactorAngles(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_16_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_16_name`')
 
         self._data["Surface 16 Name"] = value
 
@@ -2684,6 +3011,9 @@ class ComfortViewFactorAngles(object):
                                  'for field `surface_17_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_17_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_17_name`')
 
         self._data["Surface 17 Name"] = value
@@ -2756,6 +3086,9 @@ class ComfortViewFactorAngles(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_18_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_18_name`')
 
         self._data["Surface 18 Name"] = value
 
@@ -2826,6 +3159,9 @@ class ComfortViewFactorAngles(object):
                                  'for field `surface_19_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_19_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_19_name`')
 
         self._data["Surface 19 Name"] = value
@@ -2898,6 +3234,9 @@ class ComfortViewFactorAngles(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `surface_20_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `surface_20_name`')
 
         self._data["Surface 20 Name"] = value
 
@@ -2961,51 +3300,17 @@ class ComfortViewFactorAngles(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.zone_name))
-        out.append(self._to_str(self.surface_1_name))
-        out.append(self._to_str(self.angle_factor_1))
-        out.append(self._to_str(self.surface_2_name))
-        out.append(self._to_str(self.angle_factor_2))
-        out.append(self._to_str(self.surface_3_name))
-        out.append(self._to_str(self.angle_factor_3))
-        out.append(self._to_str(self.surface_4_name))
-        out.append(self._to_str(self.angle_factor_4))
-        out.append(self._to_str(self.surface_5_name))
-        out.append(self._to_str(self.angle_factor_5))
-        out.append(self._to_str(self.surface_6_name))
-        out.append(self._to_str(self.angle_factor_6))
-        out.append(self._to_str(self.surface_7_name))
-        out.append(self._to_str(self.angle_factor_7))
-        out.append(self._to_str(self.surface_8_name))
-        out.append(self._to_str(self.angle_factor_8))
-        out.append(self._to_str(self.surface_9_name))
-        out.append(self._to_str(self.angle_factor_9))
-        out.append(self._to_str(self.surface_10_name))
-        out.append(self._to_str(self.angle_factor_10))
-        out.append(self._to_str(self.surface_11_name))
-        out.append(self._to_str(self.angle_factor_11))
-        out.append(self._to_str(self.surface_12_name))
-        out.append(self._to_str(self.angle_factor_12))
-        out.append(self._to_str(self.surface_13_name))
-        out.append(self._to_str(self.angle_factor_13))
-        out.append(self._to_str(self.surface_14_name))
-        out.append(self._to_str(self.angle_factor_14))
-        out.append(self._to_str(self.surface_15_name))
-        out.append(self._to_str(self.angle_factor_15))
-        out.append(self._to_str(self.surface_16_name))
-        out.append(self._to_str(self.angle_factor_16))
-        out.append(self._to_str(self.surface_17_name))
-        out.append(self._to_str(self.angle_factor_17))
-        out.append(self._to_str(self.surface_18_name))
-        out.append(self._to_str(self.angle_factor_18))
-        out.append(self._to_str(self.surface_19_name))
-        out.append(self._to_str(self.angle_factor_19))
-        out.append(self._to_str(self.surface_20_name))
-        out.append(self._to_str(self.angle_factor_20))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class Lights(object):
     """ Corresponds to IDD object `Lights`
@@ -3037,89 +3342,121 @@ class Lights(object):
         self._data["Return Air Fraction Calculated from Plenum Temperature"] = None
         self._data["Return Air Fraction Function of Plenum Temperature Coefficient 1"] = None
         self._data["Return Air Fraction Function of Plenum Temperature Coefficient 2"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.zone_or_zonelist_name = None
         else:
             self.zone_or_zonelist_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.schedule_name = None
         else:
             self.schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.design_level_calculation_method = None
         else:
             self.design_level_calculation_method = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.lighting_level = None
         else:
             self.lighting_level = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.watts_per_zone_floor_area = None
         else:
             self.watts_per_zone_floor_area = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.watts_per_person = None
         else:
             self.watts_per_person = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.return_air_fraction = None
         else:
             self.return_air_fraction = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_radiant = None
         else:
             self.fraction_radiant = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_visible = None
         else:
             self.fraction_visible = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_replaceable = None
         else:
             self.fraction_replaceable = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.enduse_subcategory = None
         else:
             self.enduse_subcategory = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.return_air_fraction_calculated_from_plenum_temperature = None
         else:
             self.return_air_fraction_calculated_from_plenum_temperature = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.return_air_fraction_function_of_plenum_temperature_coefficient_1 = None
         else:
             self.return_air_fraction_function_of_plenum_temperature_coefficient_1 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.return_air_fraction_function_of_plenum_temperature_coefficient_2 = None
         else:
             self.return_air_fraction_function_of_plenum_temperature_coefficient_2 = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -3150,6 +3487,9 @@ class Lights(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -3184,6 +3524,9 @@ class Lights(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `zone_or_zonelist_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `zone_or_zonelist_name`')
 
         self._data["Zone or ZoneList Name"] = value
 
@@ -3217,6 +3560,9 @@ class Lights(object):
                                  'for field `schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `schedule_name`')
 
         self._data["Schedule Name"] = value
@@ -3261,13 +3607,27 @@ class Lights(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `design_level_calculation_method`')
-            vals = set()
-            vals.add("LightingLevel")
-            vals.add("Watts/Area")
-            vals.add("Watts/Person")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `design_level_calculation_method`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `design_level_calculation_method`')
+            vals = {}
+            vals["lightinglevel"] = "LightingLevel"
+            vals["watts/area"] = "Watts/Area"
+            vals["watts/person"] = "Watts/Person"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `design_level_calculation_method`'.format(value))
+            value = vals[value_lower]
 
         self._data["Design Level Calculation Method"] = value
 
@@ -3570,6 +3930,9 @@ class Lights(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `enduse_subcategory`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `enduse_subcategory`')
 
         self._data["End-Use Subcategory"] = value
 
@@ -3607,12 +3970,26 @@ class Lights(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `return_air_fraction_calculated_from_plenum_temperature`')
-            vals = set()
-            vals.add("Yes")
-            vals.add("No")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `return_air_fraction_calculated_from_plenum_temperature`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `return_air_fraction_calculated_from_plenum_temperature`')
+            vals = {}
+            vals["yes"] = "Yes"
+            vals["no"] = "No"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `return_air_fraction_calculated_from_plenum_temperature`'.format(value))
+            value = vals[value_lower]
 
         self._data["Return Air Fraction Calculated from Plenum Temperature"] = value
 
@@ -3713,24 +4090,17 @@ class Lights(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.zone_or_zonelist_name))
-        out.append(self._to_str(self.schedule_name))
-        out.append(self._to_str(self.design_level_calculation_method))
-        out.append(self._to_str(self.lighting_level))
-        out.append(self._to_str(self.watts_per_zone_floor_area))
-        out.append(self._to_str(self.watts_per_person))
-        out.append(self._to_str(self.return_air_fraction))
-        out.append(self._to_str(self.fraction_radiant))
-        out.append(self._to_str(self.fraction_visible))
-        out.append(self._to_str(self.fraction_replaceable))
-        out.append(self._to_str(self.enduse_subcategory))
-        out.append(self._to_str(self.return_air_fraction_calculated_from_plenum_temperature))
-        out.append(self._to_str(self.return_air_fraction_function_of_plenum_temperature_coefficient_1))
-        out.append(self._to_str(self.return_air_fraction_function_of_plenum_temperature_coefficient_2))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class ElectricEquipment(object):
     """ Corresponds to IDD object `ElectricEquipment`
@@ -3758,69 +4128,93 @@ class ElectricEquipment(object):
         self._data["Fraction Radiant"] = None
         self._data["Fraction Lost"] = None
         self._data["End-Use Subcategory"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.zone_or_zonelist_name = None
         else:
             self.zone_or_zonelist_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.schedule_name = None
         else:
             self.schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.design_level_calculation_method = None
         else:
             self.design_level_calculation_method = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.design_level = None
         else:
             self.design_level = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.watts_per_zone_floor_area = None
         else:
             self.watts_per_zone_floor_area = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.watts_per_person = None
         else:
             self.watts_per_person = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_latent = None
         else:
             self.fraction_latent = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_radiant = None
         else:
             self.fraction_radiant = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_lost = None
         else:
             self.fraction_lost = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.enduse_subcategory = None
         else:
             self.enduse_subcategory = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -3851,6 +4245,9 @@ class ElectricEquipment(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -3885,6 +4282,9 @@ class ElectricEquipment(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `zone_or_zonelist_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `zone_or_zonelist_name`')
 
         self._data["Zone or ZoneList Name"] = value
 
@@ -3918,6 +4318,9 @@ class ElectricEquipment(object):
                                  'for field `schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `schedule_name`')
 
         self._data["Schedule Name"] = value
@@ -3962,13 +4365,27 @@ class ElectricEquipment(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `design_level_calculation_method`')
-            vals = set()
-            vals.add("EquipmentLevel")
-            vals.add("Watts/Area")
-            vals.add("Watts/Person")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `design_level_calculation_method`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `design_level_calculation_method`')
+            vals = {}
+            vals["equipmentlevel"] = "EquipmentLevel"
+            vals["watts/area"] = "Watts/Area"
+            vals["watts/person"] = "Watts/Person"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `design_level_calculation_method`'.format(value))
+            value = vals[value_lower]
 
         self._data["Design Level Calculation Method"] = value
 
@@ -4228,6 +4645,9 @@ class ElectricEquipment(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `enduse_subcategory`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `enduse_subcategory`')
 
         self._data["End-Use Subcategory"] = value
 
@@ -4253,20 +4673,17 @@ class ElectricEquipment(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.zone_or_zonelist_name))
-        out.append(self._to_str(self.schedule_name))
-        out.append(self._to_str(self.design_level_calculation_method))
-        out.append(self._to_str(self.design_level))
-        out.append(self._to_str(self.watts_per_zone_floor_area))
-        out.append(self._to_str(self.watts_per_person))
-        out.append(self._to_str(self.fraction_latent))
-        out.append(self._to_str(self.fraction_radiant))
-        out.append(self._to_str(self.fraction_lost))
-        out.append(self._to_str(self.enduse_subcategory))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class GasEquipment(object):
     """ Corresponds to IDD object `GasEquipment`
@@ -4294,74 +4711,100 @@ class GasEquipment(object):
         self._data["Fraction Lost"] = None
         self._data["Carbon Dioxide Generation Rate"] = None
         self._data["End-Use Subcategory"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.zone_or_zonelist_name = None
         else:
             self.zone_or_zonelist_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.schedule_name = None
         else:
             self.schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.design_level_calculation_method = None
         else:
             self.design_level_calculation_method = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.design_level = None
         else:
             self.design_level = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.power_per_zone_floor_area = None
         else:
             self.power_per_zone_floor_area = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.power_per_person = None
         else:
             self.power_per_person = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_latent = None
         else:
             self.fraction_latent = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_radiant = None
         else:
             self.fraction_radiant = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_lost = None
         else:
             self.fraction_lost = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.carbon_dioxide_generation_rate = None
         else:
             self.carbon_dioxide_generation_rate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.enduse_subcategory = None
         else:
             self.enduse_subcategory = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -4392,6 +4835,9 @@ class GasEquipment(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -4426,6 +4872,9 @@ class GasEquipment(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `zone_or_zonelist_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `zone_or_zonelist_name`')
 
         self._data["Zone or ZoneList Name"] = value
 
@@ -4459,6 +4908,9 @@ class GasEquipment(object):
                                  'for field `schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `schedule_name`')
 
         self._data["Schedule Name"] = value
@@ -4505,15 +4957,29 @@ class GasEquipment(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `design_level_calculation_method`')
-            vals = set()
-            vals.add("EquipmentLevel")
-            vals.add("Watts/Area")
-            vals.add("Watts/Person")
-            vals.add("Power/Area")
-            vals.add("Power/Person")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `design_level_calculation_method`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `design_level_calculation_method`')
+            vals = {}
+            vals["equipmentlevel"] = "EquipmentLevel"
+            vals["watts/area"] = "Watts/Area"
+            vals["watts/person"] = "Watts/Person"
+            vals["power/area"] = "Power/Area"
+            vals["power/person"] = "Power/Person"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `design_level_calculation_method`'.format(value))
+            value = vals[value_lower]
 
         self._data["Design Level Calculation Method"] = value
 
@@ -4819,6 +5285,9 @@ class GasEquipment(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `enduse_subcategory`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `enduse_subcategory`')
 
         self._data["End-Use Subcategory"] = value
 
@@ -4844,21 +5313,17 @@ class GasEquipment(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.zone_or_zonelist_name))
-        out.append(self._to_str(self.schedule_name))
-        out.append(self._to_str(self.design_level_calculation_method))
-        out.append(self._to_str(self.design_level))
-        out.append(self._to_str(self.power_per_zone_floor_area))
-        out.append(self._to_str(self.power_per_person))
-        out.append(self._to_str(self.fraction_latent))
-        out.append(self._to_str(self.fraction_radiant))
-        out.append(self._to_str(self.fraction_lost))
-        out.append(self._to_str(self.carbon_dioxide_generation_rate))
-        out.append(self._to_str(self.enduse_subcategory))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class HotWaterEquipment(object):
     """ Corresponds to IDD object `HotWaterEquipment`
@@ -4885,69 +5350,93 @@ class HotWaterEquipment(object):
         self._data["Fraction Radiant"] = None
         self._data["Fraction Lost"] = None
         self._data["End-Use Subcategory"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.zone_or_zonelist_name = None
         else:
             self.zone_or_zonelist_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.schedule_name = None
         else:
             self.schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.design_level_calculation_method = None
         else:
             self.design_level_calculation_method = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.design_level = None
         else:
             self.design_level = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.power_per_zone_floor_area = None
         else:
             self.power_per_zone_floor_area = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.power_per_person = None
         else:
             self.power_per_person = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_latent = None
         else:
             self.fraction_latent = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_radiant = None
         else:
             self.fraction_radiant = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_lost = None
         else:
             self.fraction_lost = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.enduse_subcategory = None
         else:
             self.enduse_subcategory = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -4978,6 +5467,9 @@ class HotWaterEquipment(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -5012,6 +5504,9 @@ class HotWaterEquipment(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `zone_or_zonelist_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `zone_or_zonelist_name`')
 
         self._data["Zone or ZoneList Name"] = value
 
@@ -5045,6 +5540,9 @@ class HotWaterEquipment(object):
                                  'for field `schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `schedule_name`')
 
         self._data["Schedule Name"] = value
@@ -5091,15 +5589,29 @@ class HotWaterEquipment(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `design_level_calculation_method`')
-            vals = set()
-            vals.add("EquipmentLevel")
-            vals.add("Watts/Area")
-            vals.add("Watts/Person")
-            vals.add("Power/Area")
-            vals.add("Power/Person")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `design_level_calculation_method`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `design_level_calculation_method`')
+            vals = {}
+            vals["equipmentlevel"] = "EquipmentLevel"
+            vals["watts/area"] = "Watts/Area"
+            vals["watts/person"] = "Watts/Person"
+            vals["power/area"] = "Power/Area"
+            vals["power/person"] = "Power/Person"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `design_level_calculation_method`'.format(value))
+            value = vals[value_lower]
 
         self._data["Design Level Calculation Method"] = value
 
@@ -5359,6 +5871,9 @@ class HotWaterEquipment(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `enduse_subcategory`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `enduse_subcategory`')
 
         self._data["End-Use Subcategory"] = value
 
@@ -5384,20 +5899,17 @@ class HotWaterEquipment(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.zone_or_zonelist_name))
-        out.append(self._to_str(self.schedule_name))
-        out.append(self._to_str(self.design_level_calculation_method))
-        out.append(self._to_str(self.design_level))
-        out.append(self._to_str(self.power_per_zone_floor_area))
-        out.append(self._to_str(self.power_per_person))
-        out.append(self._to_str(self.fraction_latent))
-        out.append(self._to_str(self.fraction_radiant))
-        out.append(self._to_str(self.fraction_lost))
-        out.append(self._to_str(self.enduse_subcategory))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class SteamEquipment(object):
     """ Corresponds to IDD object `SteamEquipment`
@@ -5423,69 +5935,93 @@ class SteamEquipment(object):
         self._data["Fraction Radiant"] = None
         self._data["Fraction Lost"] = None
         self._data["End-Use Subcategory"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.zone_or_zonelist_name = None
         else:
             self.zone_or_zonelist_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.schedule_name = None
         else:
             self.schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.design_level_calculation_method = None
         else:
             self.design_level_calculation_method = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.design_level = None
         else:
             self.design_level = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.power_per_zone_floor_area = None
         else:
             self.power_per_zone_floor_area = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.power_per_person = None
         else:
             self.power_per_person = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_latent = None
         else:
             self.fraction_latent = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_radiant = None
         else:
             self.fraction_radiant = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_lost = None
         else:
             self.fraction_lost = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.enduse_subcategory = None
         else:
             self.enduse_subcategory = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -5516,6 +6052,9 @@ class SteamEquipment(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -5550,6 +6089,9 @@ class SteamEquipment(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `zone_or_zonelist_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `zone_or_zonelist_name`')
 
         self._data["Zone or ZoneList Name"] = value
 
@@ -5583,6 +6125,9 @@ class SteamEquipment(object):
                                  'for field `schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `schedule_name`')
 
         self._data["Schedule Name"] = value
@@ -5629,15 +6174,29 @@ class SteamEquipment(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `design_level_calculation_method`')
-            vals = set()
-            vals.add("EquipmentLevel")
-            vals.add("Watts/Area")
-            vals.add("Watts/Person")
-            vals.add("Power/Area")
-            vals.add("Power/Person")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `design_level_calculation_method`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `design_level_calculation_method`')
+            vals = {}
+            vals["equipmentlevel"] = "EquipmentLevel"
+            vals["watts/area"] = "Watts/Area"
+            vals["watts/person"] = "Watts/Person"
+            vals["power/area"] = "Power/Area"
+            vals["power/person"] = "Power/Person"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `design_level_calculation_method`'.format(value))
+            value = vals[value_lower]
 
         self._data["Design Level Calculation Method"] = value
 
@@ -5897,6 +6456,9 @@ class SteamEquipment(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `enduse_subcategory`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `enduse_subcategory`')
 
         self._data["End-Use Subcategory"] = value
 
@@ -5922,20 +6484,17 @@ class SteamEquipment(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.zone_or_zonelist_name))
-        out.append(self._to_str(self.schedule_name))
-        out.append(self._to_str(self.design_level_calculation_method))
-        out.append(self._to_str(self.design_level))
-        out.append(self._to_str(self.power_per_zone_floor_area))
-        out.append(self._to_str(self.power_per_person))
-        out.append(self._to_str(self.fraction_latent))
-        out.append(self._to_str(self.fraction_radiant))
-        out.append(self._to_str(self.fraction_lost))
-        out.append(self._to_str(self.enduse_subcategory))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class OtherEquipment(object):
     """ Corresponds to IDD object `OtherEquipment`
@@ -5960,64 +6519,86 @@ class OtherEquipment(object):
         self._data["Fraction Latent"] = None
         self._data["Fraction Radiant"] = None
         self._data["Fraction Lost"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.zone_or_zonelist_name = None
         else:
             self.zone_or_zonelist_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.schedule_name = None
         else:
             self.schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.design_level_calculation_method = None
         else:
             self.design_level_calculation_method = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.design_level = None
         else:
             self.design_level = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.power_per_zone_floor_area = None
         else:
             self.power_per_zone_floor_area = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.power_per_person = None
         else:
             self.power_per_person = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_latent = None
         else:
             self.fraction_latent = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_radiant = None
         else:
             self.fraction_radiant = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_lost = None
         else:
             self.fraction_lost = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -6048,6 +6629,9 @@ class OtherEquipment(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -6082,6 +6666,9 @@ class OtherEquipment(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `zone_or_zonelist_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `zone_or_zonelist_name`')
 
         self._data["Zone or ZoneList Name"] = value
 
@@ -6115,6 +6702,9 @@ class OtherEquipment(object):
                                  'for field `schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `schedule_name`')
 
         self._data["Schedule Name"] = value
@@ -6162,15 +6752,29 @@ class OtherEquipment(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `design_level_calculation_method`')
-            vals = set()
-            vals.add("EquipmentLevel")
-            vals.add("Watts/Area")
-            vals.add("Watts/Person")
-            vals.add("Power/Area")
-            vals.add("Power/Person")
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `design_level_calculation_method`'.format(value))
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `design_level_calculation_method`')
+            vals = {}
+            vals["equipmentlevel"] = "EquipmentLevel"
+            vals["watts/area"] = "Watts/Area"
+            vals["watts/person"] = "Watts/Person"
+            vals["power/area"] = "Power/Area"
+            vals["power/person"] = "Power/Person"
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `design_level_calculation_method`'.format(value))
+            value = vals[value_lower]
 
         self._data["Design Level Calculation Method"] = value
 
@@ -6409,19 +7013,17 @@ class OtherEquipment(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.zone_or_zonelist_name))
-        out.append(self._to_str(self.schedule_name))
-        out.append(self._to_str(self.design_level_calculation_method))
-        out.append(self._to_str(self.design_level))
-        out.append(self._to_str(self.power_per_zone_floor_area))
-        out.append(self._to_str(self.power_per_person))
-        out.append(self._to_str(self.fraction_latent))
-        out.append(self._to_str(self.fraction_radiant))
-        out.append(self._to_str(self.fraction_lost))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class ZoneBaseboardOutdoorTemperatureControlled(object):
     """ Corresponds to IDD object `ZoneBaseboard:OutdoorTemperatureControlled`
@@ -6445,59 +7047,79 @@ class ZoneBaseboardOutdoorTemperatureControlled(object):
         self._data["High Temperature"] = None
         self._data["Fraction Radiant"] = None
         self._data["End-Use Subcategory"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.zone_name = None
         else:
             self.zone_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.schedule_name = None
         else:
             self.schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.capacity_at_low_temperature = None
         else:
             self.capacity_at_low_temperature = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.low_temperature = None
         else:
             self.low_temperature = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.capacity_at_high_temperature = None
         else:
             self.capacity_at_high_temperature = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.high_temperature = None
         else:
             self.high_temperature = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.fraction_radiant = None
         else:
             self.fraction_radiant = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.enduse_subcategory = None
         else:
             self.enduse_subcategory = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -6528,6 +7150,9 @@ class ZoneBaseboardOutdoorTemperatureControlled(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -6562,6 +7187,9 @@ class ZoneBaseboardOutdoorTemperatureControlled(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `zone_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `zone_name`')
 
         self._data["Zone Name"] = value
 
@@ -6595,6 +7223,9 @@ class ZoneBaseboardOutdoorTemperatureControlled(object):
                                  'for field `schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `schedule_name`')
 
         self._data["Schedule Name"] = value
@@ -6801,6 +7432,9 @@ class ZoneBaseboardOutdoorTemperatureControlled(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `enduse_subcategory`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `enduse_subcategory`')
 
         self._data["End-Use Subcategory"] = value
 
@@ -6826,18 +7460,17 @@ class ZoneBaseboardOutdoorTemperatureControlled(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.zone_name))
-        out.append(self._to_str(self.schedule_name))
-        out.append(self._to_str(self.capacity_at_low_temperature))
-        out.append(self._to_str(self.low_temperature))
-        out.append(self._to_str(self.capacity_at_high_temperature))
-        out.append(self._to_str(self.high_temperature))
-        out.append(self._to_str(self.fraction_radiant))
-        out.append(self._to_str(self.enduse_subcategory))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class ZoneContaminantSourceAndSinkCarbonDioxide(object):
     """ Corresponds to IDD object `ZoneContaminantSourceAndSink:CarbonDioxide`
@@ -6856,34 +7489,44 @@ class ZoneContaminantSourceAndSinkCarbonDioxide(object):
         self._data["Zone Name"] = None
         self._data["Design Generation Rate"] = None
         self._data["Schedule Name"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.zone_name = None
         else:
             self.zone_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.design_generation_rate = None
         else:
             self.design_generation_rate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.schedule_name = None
         else:
             self.schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -6914,6 +7557,9 @@ class ZoneContaminantSourceAndSinkCarbonDioxide(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -6947,6 +7593,9 @@ class ZoneContaminantSourceAndSinkCarbonDioxide(object):
                                  'for field `zone_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `zone_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `zone_name`')
 
         self._data["Zone Name"] = value
@@ -7013,6 +7662,9 @@ class ZoneContaminantSourceAndSinkCarbonDioxide(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `schedule_name`')
 
         self._data["Schedule Name"] = value
 
@@ -7038,13 +7690,17 @@ class ZoneContaminantSourceAndSinkCarbonDioxide(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.zone_name))
-        out.append(self._to_str(self.design_generation_rate))
-        out.append(self._to_str(self.schedule_name))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class ZoneContaminantSourceAndSinkGenericConstant(object):
     """ Corresponds to IDD object `ZoneContaminantSourceAndSink:Generic:Constant`
@@ -7065,44 +7721,58 @@ class ZoneContaminantSourceAndSinkGenericConstant(object):
         self._data["Generation Schedule Name"] = None
         self._data["Design Removal Coefficient"] = None
         self._data["Removal Schedule Name"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.zone_name = None
         else:
             self.zone_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.design_generation_rate = None
         else:
             self.design_generation_rate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.generation_schedule_name = None
         else:
             self.generation_schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.design_removal_coefficient = None
         else:
             self.design_removal_coefficient = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.removal_schedule_name = None
         else:
             self.removal_schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -7133,6 +7803,9 @@ class ZoneContaminantSourceAndSinkGenericConstant(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -7166,6 +7839,9 @@ class ZoneContaminantSourceAndSinkGenericConstant(object):
                                  'for field `zone_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `zone_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `zone_name`')
 
         self._data["Zone Name"] = value
@@ -7235,6 +7911,9 @@ class ZoneContaminantSourceAndSinkGenericConstant(object):
                                  'for field `generation_schedule_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `generation_schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `generation_schedule_name`')
 
         self._data["Generation Schedule Name"] = value
@@ -7306,6 +7985,9 @@ class ZoneContaminantSourceAndSinkGenericConstant(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `removal_schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `removal_schedule_name`')
 
         self._data["Removal Schedule Name"] = value
 
@@ -7331,15 +8013,17 @@ class ZoneContaminantSourceAndSinkGenericConstant(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.zone_name))
-        out.append(self._to_str(self.design_generation_rate))
-        out.append(self._to_str(self.generation_schedule_name))
-        out.append(self._to_str(self.design_removal_coefficient))
-        out.append(self._to_str(self.removal_schedule_name))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class SurfaceContaminantSourceAndSinkGenericPressureDriven(object):
     """ Corresponds to IDD object `SurfaceContaminantSourceAndSink:Generic:PressureDriven`
@@ -7359,39 +8043,51 @@ class SurfaceContaminantSourceAndSinkGenericPressureDriven(object):
         self._data["Design Generation Rate Coefficient"] = None
         self._data["Generation Schedule Name"] = None
         self._data["Generation Exponent"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_name = None
         else:
             self.surface_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.design_generation_rate_coefficient = None
         else:
             self.design_generation_rate_coefficient = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.generation_schedule_name = None
         else:
             self.generation_schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.generation_exponent = None
         else:
             self.generation_exponent = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -7422,6 +8118,9 @@ class SurfaceContaminantSourceAndSinkGenericPressureDriven(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -7455,6 +8154,9 @@ class SurfaceContaminantSourceAndSinkGenericPressureDriven(object):
                                  'for field `surface_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_name`')
 
         self._data["Surface Name"] = value
@@ -7526,6 +8228,9 @@ class SurfaceContaminantSourceAndSinkGenericPressureDriven(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `generation_schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `generation_schedule_name`')
 
         self._data["Generation Schedule Name"] = value
 
@@ -7590,14 +8295,17 @@ class SurfaceContaminantSourceAndSinkGenericPressureDriven(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.surface_name))
-        out.append(self._to_str(self.design_generation_rate_coefficient))
-        out.append(self._to_str(self.generation_schedule_name))
-        out.append(self._to_str(self.generation_exponent))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class ZoneContaminantSourceAndSinkGenericCutoffModel(object):
     """ Corresponds to IDD object `ZoneContaminantSourceAndSink:Generic:CutoffModel`
@@ -7617,39 +8325,51 @@ class ZoneContaminantSourceAndSinkGenericCutoffModel(object):
         self._data["Design Generation Rate Coefficient"] = None
         self._data["Schedule Name"] = None
         self._data["Cutoff Generic Contaminant at which Emission Ceases"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.zone_name = None
         else:
             self.zone_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.design_generation_rate_coefficient = None
         else:
             self.design_generation_rate_coefficient = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.schedule_name = None
         else:
             self.schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.cutoff_generic_contaminant_at_which_emission_ceases = None
         else:
             self.cutoff_generic_contaminant_at_which_emission_ceases = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -7680,6 +8400,9 @@ class ZoneContaminantSourceAndSinkGenericCutoffModel(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -7713,6 +8436,9 @@ class ZoneContaminantSourceAndSinkGenericCutoffModel(object):
                                  'for field `zone_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `zone_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `zone_name`')
 
         self._data["Zone Name"] = value
@@ -7784,6 +8510,9 @@ class ZoneContaminantSourceAndSinkGenericCutoffModel(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `schedule_name`')
 
         self._data["Schedule Name"] = value
 
@@ -7846,14 +8575,17 @@ class ZoneContaminantSourceAndSinkGenericCutoffModel(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.zone_name))
-        out.append(self._to_str(self.design_generation_rate_coefficient))
-        out.append(self._to_str(self.schedule_name))
-        out.append(self._to_str(self.cutoff_generic_contaminant_at_which_emission_ceases))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class ZoneContaminantSourceAndSinkGenericDecaySource(object):
     """ Corresponds to IDD object `ZoneContaminantSourceAndSink:Generic:DecaySource`
@@ -7873,39 +8605,51 @@ class ZoneContaminantSourceAndSinkGenericDecaySource(object):
         self._data["Initial Emission Rate"] = None
         self._data["Schedule Name"] = None
         self._data["Delay Time Constant"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.zone_name = None
         else:
             self.zone_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.initial_emission_rate = None
         else:
             self.initial_emission_rate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.schedule_name = None
         else:
             self.schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.delay_time_constant = None
         else:
             self.delay_time_constant = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -7936,6 +8680,9 @@ class ZoneContaminantSourceAndSinkGenericDecaySource(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -7969,6 +8716,9 @@ class ZoneContaminantSourceAndSinkGenericDecaySource(object):
                                  'for field `zone_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `zone_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `zone_name`')
 
         self._data["Zone Name"] = value
@@ -8041,6 +8791,9 @@ class ZoneContaminantSourceAndSinkGenericDecaySource(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `schedule_name`')
 
         self._data["Schedule Name"] = value
 
@@ -8101,14 +8854,17 @@ class ZoneContaminantSourceAndSinkGenericDecaySource(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.zone_name))
-        out.append(self._to_str(self.initial_emission_rate))
-        out.append(self._to_str(self.schedule_name))
-        out.append(self._to_str(self.delay_time_constant))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class SurfaceContaminantSourceAndSinkGenericBoundaryLayerDiffusion(object):
     """ Corresponds to IDD object `SurfaceContaminantSourceAndSink:Generic:BoundaryLayerDiffusion`
@@ -8128,39 +8884,51 @@ class SurfaceContaminantSourceAndSinkGenericBoundaryLayerDiffusion(object):
         self._data["Mass Transfer Coefficient"] = None
         self._data["Schedule Name"] = None
         self._data["Henry adsorption constant or partition coefficient"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_name = None
         else:
             self.surface_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.mass_transfer_coefficient = None
         else:
             self.mass_transfer_coefficient = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.schedule_name = None
         else:
             self.schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.henry_adsorption_constant_or_partition_coefficient = None
         else:
             self.henry_adsorption_constant_or_partition_coefficient = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -8191,6 +8959,9 @@ class SurfaceContaminantSourceAndSinkGenericBoundaryLayerDiffusion(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -8224,6 +8995,9 @@ class SurfaceContaminantSourceAndSinkGenericBoundaryLayerDiffusion(object):
                                  'for field `surface_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_name`')
 
         self._data["Surface Name"] = value
@@ -8296,6 +9070,9 @@ class SurfaceContaminantSourceAndSinkGenericBoundaryLayerDiffusion(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `schedule_name`')
 
         self._data["Schedule Name"] = value
 
@@ -8356,14 +9133,17 @@ class SurfaceContaminantSourceAndSinkGenericBoundaryLayerDiffusion(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.surface_name))
-        out.append(self._to_str(self.mass_transfer_coefficient))
-        out.append(self._to_str(self.schedule_name))
-        out.append(self._to_str(self.henry_adsorption_constant_or_partition_coefficient))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class SurfaceContaminantSourceAndSinkGenericDepositionVelocitySink(object):
     """ Corresponds to IDD object `SurfaceContaminantSourceAndSink:Generic:DepositionVelocitySink`
@@ -8382,34 +9162,44 @@ class SurfaceContaminantSourceAndSinkGenericDepositionVelocitySink(object):
         self._data["Surface Name"] = None
         self._data["Deposition Velocity"] = None
         self._data["Schedule Name"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.surface_name = None
         else:
             self.surface_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.deposition_velocity = None
         else:
             self.deposition_velocity = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.schedule_name = None
         else:
             self.schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -8440,6 +9230,9 @@ class SurfaceContaminantSourceAndSinkGenericDepositionVelocitySink(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -8473,6 +9266,9 @@ class SurfaceContaminantSourceAndSinkGenericDepositionVelocitySink(object):
                                  'for field `surface_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `surface_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `surface_name`')
 
         self._data["Surface Name"] = value
@@ -8545,6 +9341,9 @@ class SurfaceContaminantSourceAndSinkGenericDepositionVelocitySink(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `schedule_name`')
 
         self._data["Schedule Name"] = value
 
@@ -8570,13 +9369,17 @@ class SurfaceContaminantSourceAndSinkGenericDepositionVelocitySink(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.surface_name))
-        out.append(self._to_str(self.deposition_velocity))
-        out.append(self._to_str(self.schedule_name))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
 
 class ZoneContaminantSourceAndSinkGenericDepositionRateSink(object):
     """ Corresponds to IDD object `ZoneContaminantSourceAndSink:Generic:DepositionRateSink`
@@ -8595,34 +9398,44 @@ class ZoneContaminantSourceAndSinkGenericDepositionRateSink(object):
         self._data["Zone Name"] = None
         self._data["Deposition Rate"] = None
         self._data["Schedule Name"] = None
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         if len(vals[i]) == 0:
             self.name = None
         else:
             self.name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.zone_name = None
         else:
             self.zone_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.deposition_rate = None
         else:
             self.deposition_rate = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         if len(vals[i]) == 0:
             self.schedule_name = None
         else:
             self.schedule_name = vals[i]
         i += 1
+        if i >= len(vals):
+            return
 
     @property
     def name(self):
@@ -8653,6 +9466,9 @@ class ZoneContaminantSourceAndSinkGenericDepositionRateSink(object):
                                  'for field `name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `name`')
 
         self._data["Name"] = value
@@ -8686,6 +9502,9 @@ class ZoneContaminantSourceAndSinkGenericDepositionRateSink(object):
                                  'for field `zone_name`'.format(value))
             if ',' in value:
                 raise ValueError('value should not contain a comma '
+                                 'for field `zone_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
                                  'for field `zone_name`')
 
         self._data["Zone Name"] = value
@@ -8758,6 +9577,9 @@ class ZoneContaminantSourceAndSinkGenericDepositionRateSink(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `schedule_name`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `schedule_name`')
 
         self._data["Schedule Name"] = value
 
@@ -8783,10 +9605,14 @@ class ZoneContaminantSourceAndSinkGenericDepositionRateSink(object):
         else:
             return str(value)
 
-    def __str__(self):
+    def export(self):
+        """ Export values of data object as list of strings"""
         out = []
-        out.append(self._to_str(self.name))
-        out.append(self._to_str(self.zone_name))
-        out.append(self._to_str(self.deposition_rate))
-        out.append(self._to_str(self.schedule_name))
-        return ",".join(out)
+        for key, value in self._data.iteritems():
+            out.append(self._to_str(value))
+        return out
+
+    def __str__(self):
+        out = [self.internal_name]
+        out += self.export()
+        return ",".join(out[:20])
