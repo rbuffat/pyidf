@@ -10,7 +10,7 @@ class {{ obj.class_name }}(object):
     field_count = {{ obj.fields|count }}
 
     def __init__(self):
-        """ Init data dictionary object for EPW IDD  `{{ obj.internal_name }}`
+        """ Init data dictionary object for IDD  `{{ obj.internal_name }}`
         """
         self._data = OrderedDict()
     {%- for field in obj.fields %}
@@ -44,7 +44,7 @@ class {{ obj.class_name }}(object):
         return self._data["{{ field.internal_name }}"]
 
     @{{field.field_name}}.setter
-    def {{field.field_name}}(self, value={%if field.attributes.default and not (field.attributes.type=="alpha" or field.attributes.type=="choice") %}{{field.attributes.default}} {% elif field.attributes.default and (field.attributes.type=="alpha" or field.attributes.type=="choice") %}"{{field.attributes.default}}"{%elif not field.attributes.default and field.attributes.missing  %}{{field.attributes.missing}}{% else %}None{% endif %}):
+    def {{field.field_name}}(self, value={%if field.attributes.default and not field.attributes.pytype == "str" %}{{field.attributes.default}} {% elif field.attributes.default and (field.attributes.pytype == "str") %}"{{field.attributes.default}}"{% else %}None{% endif %}):
         """  Corresponds to IDD Field `{{field.field_name}}`
 
         {%- for comment in field.attributes.note %}
@@ -122,7 +122,11 @@ class {{ obj.class_name }}(object):
             {%- if field.attributes.type == "choice" %}
             vals = set()
             {%- for k in field.attributes.key %}
+            {%- if field.attributes.pytype == "str" %}
             vals.add("{{k}}")
+            {%- else %}
+            vals.add({{k}})
+            {%- endif %}
             {%- endfor %}
             if value not in vals:
                 raise ValueError('value {} is not an accepted value for '
