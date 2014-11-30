@@ -30,10 +30,10 @@ def generate_idf(objs):
     for obj in objs:
         source_files.add(obj.file_name)
         if "required-object" in obj.attributes:
-            required_objects.add('"{}"'.format(obj.internal_name))
-            
+            required_objects.add('"{}"'.format(obj.internal_name.lower()))
+
         if "unique-object" in obj.attributes:
-            unique_objects.add('"{}"'.format(obj.internal_name))
+            unique_objects.add('"{}"'.format(obj.internal_name.lower()))
 
     template = env.get_template('idf.py')
     context = {}

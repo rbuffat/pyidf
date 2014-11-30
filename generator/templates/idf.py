@@ -26,7 +26,7 @@ class IDF(object):
         """ Inits IDF with no data dictionary set."""
         self._data = OrderedDict()
         {%- for obj in objs %}
-        self._data["{{obj.internal_name}}"] = []
+        self._data["{% filter lower %}{{obj.internal_name}}{% endfilter %}"] = []
         {%- endfor %}
    
    
@@ -68,7 +68,7 @@ class IDF(object):
                 ValueError: if `internal_name` cannot be matched to a data dictionary object
         """
         {%- for obj in objs %}
-        if internal_name == "{{ obj.internal_name }}":
+        if internal_name.lower() == "{% filter lower %}{{ obj.internal_name }}"{% endfilter %}:
             return {{ obj.class_name }}()
         {%- endfor %}
         raise ValueError("No DataDictionary known for {}".format(internal_name))
@@ -80,13 +80,63 @@ class IDF(object):
                path (str): path to read data from
         """
         with open(path, "r") as f:
+            current_object = None
+            current_vals = []
+
             for line in f:
+
                 line = line.strip()
-                match_obj_name = re.search(r"^([A-Z][A-Z/ \d]+),", line)
-                if match_obj_name is not None:
-                    internal_name = match_obj_name.group(1)
-                    if internal_name in self._data:
-                        self._data[internal_name] = self._create_datadict(internal_name)
-                        data_line = line[len(internal_name) + 1:]
-                        vals = data_line.strip().split(',')
-                        self._data[internal_name].read(vals)
+                if re.search(r"^\s*!", line) is not None:
+                    continue
+                if len(line) == 0:
+                    continue
+
+                line_comments = line.split("!")
+                line_match = re.search(r"\s*([\S ]*[,;])\s*", line_comments[0])
+                if line_match is None:
+                    print "Not matched: ", line
+                    continue
+                else:
+                    line = line_match.group(1)
+
+                splits = line.split(";")
+                
+                for i, split in enumerate(splits):
+
+                    split = split.strip()
+                    if len(split) > 0 and split[-1] == ',':
+                        split = split[:-1]
+
+                    splitvals = split.split(",")
+                    
+                    if i > 1 and len(split) == 0:
+                        continue
+
+                    for j, val in enumerate(splitvals):
+                        
+                        val = val.strip()
+                        
+                        if j == len(splitvals) and len(val) == 0:
+                            continue
+
+                        if val == '' and current_object is None:
+                            continue
+    
+                        if current_object is None:
+                            current_object = val.lower()
+                        else:
+                            current_vals.append(val)
+    
+                    if len(splits) > 1 and current_object is not None:
+    
+                        if current_object not in self._data:
+                            print "{} is not a valid data dictionary name".format(current_object)
+#                             raise ValueError("{} is not a valid data dictionary name".format(current_object))
+                        else:
+                            data_object = self._create_datadict(current_object)
+                            data_object.read(current_vals)
+                            self._data[current_object].append(data_object)
+                        
+                        current_object = None
+                        current_vals = []
+                        

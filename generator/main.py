@@ -40,6 +40,6 @@ if __name__ == '__main__':
                                                   '--aggressive',
                                                   '']))
 #     source_file = format_code(source_file)
-#  
+#
     with open("../pyidf/idf.py", 'w') as f:
         f.write(source_file)

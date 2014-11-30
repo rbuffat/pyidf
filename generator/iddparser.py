@@ -7,9 +7,10 @@ from _collections import defaultdict
 import logging
 import re
 import unicodedata
-
 from helper import DataObject, DataField
 from helper import normalize_field_name
+
+
 class IDDParser():
 
     object_attributes = []
@@ -177,7 +178,7 @@ class IDDParser():
                         logging.warn("duplicated field name: {}->{}".format(field.dataobject.internal_name,
                                                                             field.internal_name))
                         new_name = "{} v{}".format(field.internal_name,
-                                                   str(len(fields[field.internal_name])))
+                                                   str(len(fields[field.internal_name]) + 1))
                         field.set_internal_name(new_name)
 
                     fields[field.internal_name].append(field)

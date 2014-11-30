@@ -8,7 +8,7 @@ Python library to read, modify and create EnergyPlus idf files
 ##Todos:
 
 
-* read / write support
+* write support
 * unit tests
 * field comments not implemented:
   * begin-extensible

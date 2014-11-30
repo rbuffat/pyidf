@@ -18,13 +18,15 @@ class {{ obj.class_name }}(object):
     {%- for field in obj.fields %}
         self._data["{{ field.internal_name }}"] = None
     {%- endfor %}
+        self.accept_substring = False
 
-    def read(self, vals):
+    def read(self, vals, accept_substring=True):
         """ Read values
 
         Args:
             vals (list): list of strings representing values
         """
+        self.accept_substring = accept_substring
         i = 0
         {%- for field in obj.fields %}
         if len(vals[i]) == 0:
@@ -32,6 +34,8 @@ class {{ obj.class_name }}(object):
         else:
             self.{{field.field_name}} = vals[i]
         i += 1
+        if i >= len(vals):
+            return
         {%- endfor %}
 
     {%- for field in obj.fields %}
@@ -103,6 +107,9 @@ class {{ obj.class_name }}(object):
             if ',' in value:
                 raise ValueError('value should not contain a comma '
                                  'for field `{{field.field_name}}`')
+            if '!' in value:
+                raise ValueError('value should not contain a ! '
+                                 'for field `{{field.field_name}}`')
             {%- endif %}
             {%- if field.attributes.minimum %}
             if value < {{ field.attributes.minimum }}:
@@ -125,17 +132,28 @@ class {{ obj.class_name }}(object):
                                  'for field `{{field.field_name}}`')
             {%- endif %}
             {%- if field.attributes.type == "choice" %}
-            vals = set()
+            vals = {}
             {%- for k in field.attributes.key %}
             {%- if field.attributes.pytype == "str" %}
-            vals.add("{{k}}")
+            vals[{% filter lower %}"{{k}}"{% endfilter %}] = "{{k}}"
             {%- else %}
             vals.add({{k}})
             {%- endif %}
             {%- endfor %}
-            if value not in vals:
-                raise ValueError('value {} is not an accepted value for '
-                                 'field `{{field.field_name}}`'.format(value))
+            value_lower = value.lower()
+            if value_lower not in vals:
+                found = False
+                if self.accept_substring:
+                    for key in vals:
+                        if key in value_lower:
+                            value_lower = key
+                            found = True
+                            break
+
+                if not found:
+                    raise ValueError('value {} is not an accepted value for '
+                                     'field `{{field.field_name}}`'.format(value))
+            value = vals[value_lower]
             {%- endif %}
 
         self._data["{{ field.internal_name }}"] = value
