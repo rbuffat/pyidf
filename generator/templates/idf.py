@@ -19,7 +19,7 @@ class IDF(object):
     """ Represens an EnergyPlus IDF input file
     """
     
-    required_objects = []
+    required_objects = [{{required_objects}}]
 
     def __init__(self):
         """ Inits IDF with no data dictionary set."""

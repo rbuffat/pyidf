@@ -71,7 +71,9 @@ class IDDParser():
         if match_attribute_name is not None:
             attribute_name = match_attribute_name.group(1).strip()
 
-            no_value_attributes = ["required-field"]
+            no_value_attributes = ["required-field",
+                                   "unique-object",
+                                   "required-object"]
 
             if attribute_name in no_value_attributes:
                 return attribute_name, True
