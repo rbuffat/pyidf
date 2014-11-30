@@ -7,9 +7,11 @@ class ControllerWaterCoil(object):
         leaving air setpoint(s). Used with Coil:Heating:Water, Coil:Cooling:Water,
         Coil:Cooling:Water:DetailedGeometry, and
         CoilSystem:Cooling:Water:HeatexchangerAssisted.
+    
     """
     internal_name = "Controller:WaterCoil"
     field_count = 9
+    required_fields = ["Name", "Control Variable", "Actuator Variable", "Sensor Node Name", "Actuator Node Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Controller:WaterCoil`
@@ -326,7 +328,7 @@ class ControllerWaterCoil(object):
 
         Args:
             value (float): value for IDD Field `controller_convergence_tolerance`
-                Unit: deltaC
+                Units: deltaC
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -357,7 +359,7 @@ class ControllerWaterCoil(object):
 
         Args:
             value (float): value for IDD Field `maximum_actuated_flow`
-                Unit: m3/s
+                Units: m3/s
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -388,7 +390,7 @@ class ControllerWaterCoil(object):
 
         Args:
             value (float): value for IDD Field `minimum_actuated_flow`
-                Unit: m3/s
+                Units: m3/s
                 Default value: 1e-07
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -404,6 +406,16 @@ class ControllerWaterCoil(object):
                                  'for field `minimum_actuated_flow`'.format(value))
 
         self._data["Minimum Actuated Flow"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):
@@ -434,9 +446,11 @@ class ControllerOutdoorAir(object):
     """ Corresponds to IDD object `Controller:OutdoorAir`
         Controller to set the outdoor air flow rate for an air loop. Control options include
         fixed, proportional, scheduled, economizer, and demand-controlled ventilation.
+    
     """
     internal_name = "Controller:OutdoorAir"
     field_count = 26
+    required_fields = ["Name", "Relief Air Outlet Node Name", "Return Air Node Name", "Mixed Air Node Name", "Actuator Node Name", "Minimum Outdoor Air Flow Rate", "Maximum Outdoor Air Flow Rate"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Controller:OutdoorAir`
@@ -788,7 +802,7 @@ class ControllerOutdoorAir(object):
 
         Args:
             value (float): value for IDD Field `minimum_outdoor_air_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -819,7 +833,7 @@ class ControllerOutdoorAir(object):
 
         Args:
             value (float): value for IDD Field `maximum_outdoor_air_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -951,7 +965,7 @@ class ControllerOutdoorAir(object):
 
         Args:
             value (float): value for IDD Field `economizer_maximum_limit_drybulb_temperature`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -985,7 +999,7 @@ class ControllerOutdoorAir(object):
 
         Args:
             value (float): value for IDD Field `economizer_maximum_limit_enthalpy`
-                Unit: J/kg
+                Units: J/kg
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1019,7 +1033,7 @@ class ControllerOutdoorAir(object):
 
         Args:
             value (float): value for IDD Field `economizer_maximum_limit_dewpoint_temperature`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1091,7 +1105,7 @@ class ControllerOutdoorAir(object):
 
         Args:
             value (float): value for IDD Field `economizer_minimum_limit_drybulb_temperature`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1580,6 +1594,16 @@ class ControllerOutdoorAir(object):
 
         self._data["Heat Recovery Bypass Control Type"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -1631,9 +1655,11 @@ class ControllerMechanicalVentilation(object):
         attached to that specific air loop.
         Duplicate groups of Zone name, Design Specification Outdoor Air Object Name,
         and Design Specification Zone Air Distribution Object Name to increase allowable number of entries
+    
     """
     internal_name = "Controller:MechanicalVentilation"
     field_count = 155
+    required_fields = ["Name", "Zone 1 Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Controller:MechanicalVentilation`
@@ -2753,7 +2779,7 @@ class ControllerMechanicalVentilation(object):
 
         Args:
             value (float): value for IDD Field `zone_maximum_outdoor_air_fraction`
-                Unit: dimensionless
+                Units: dimensionless
                 Default value: 1.0
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -7774,6 +7800,16 @@ class ControllerMechanicalVentilation(object):
 
         self._data["Design Specification Zone Air Distribution Object Name 50"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -7948,9 +7984,11 @@ class ControllerMechanicalVentilation(object):
 class AirLoopHvacControllerList(object):
     """ Corresponds to IDD object `AirLoopHVAC:ControllerList`
         List controllers in order of control sequence
+    
     """
     internal_name = "AirLoopHVAC:ControllerList"
     field_count = 17
+    required_fields = ["Name", "Controller 1 Object Type", "Controller 1 Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `AirLoopHVAC:ControllerList`
@@ -8699,6 +8737,16 @@ class AirLoopHvacControllerList(object):
                                  'for field `controller_8_name`')
 
         self._data["Controller 8 Name"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):

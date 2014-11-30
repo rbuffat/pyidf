@@ -4,9 +4,11 @@ class ZoneHvacForcedAirUserDefined(object):
     """ Corresponds to IDD object `ZoneHVAC:ForcedAir:UserDefined`
         Defines a generic zone air unit for custom modeling
         using Energy Management System or External Interface
+    
     """
     internal_name = "ZoneHVAC:ForcedAir:UserDefined"
     field_count = 17
+    required_fields = ["Name", "Primary Air Inlet Node Name", "Primary Air Outlet Node Name", "Number of Plant Loop Connections"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ZoneHVAC:ForcedAir:UserDefined`
@@ -697,6 +699,16 @@ class ZoneHvacForcedAirUserDefined(object):
 
         self._data["Ambient Zone Name"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -734,9 +746,11 @@ class AirTerminalSingleDuctUserDefined(object):
     """ Corresponds to IDD object `AirTerminal:SingleDuct:UserDefined`
         Defines a generic single duct air terminal unit for custom modeling
         using Energy Management System or External Interface
+    
     """
     internal_name = "AirTerminal:SingleDuct:UserDefined"
     field_count = 15
+    required_fields = ["Name", "Primary Air Inlet Node Name", "Primary Air Outlet Node Name", "Number of Plant Loop Connections", "Plant Connection 1 Inlet Node Name", "Plant Connection 1 Outlet Node Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `AirTerminal:SingleDuct:UserDefined`
@@ -1349,6 +1363,16 @@ class AirTerminalSingleDuctUserDefined(object):
 
         self._data["Ambient Zone Name"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -1384,9 +1408,11 @@ class CoilUserDefined(object):
     """ Corresponds to IDD object `Coil:UserDefined`
         Defines a generic air system component for custom modeling
         using Energy Management System or External Interface
+    
     """
     internal_name = "Coil:UserDefined"
     field_count = 14
+    required_fields = ["Name", "Model Setup and Sizing Program Calling Manager Name", "Number of Air Connections", "Air Connection 1 Inlet Node Name", "Air Connection 1 Outlet Node Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Coil:UserDefined`
@@ -1969,6 +1995,16 @@ class CoilUserDefined(object):
 
         self._data["Ambient Zone Name"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -2003,9 +2039,11 @@ class PlantComponentUserDefined(object):
     """ Corresponds to IDD object `PlantComponent:UserDefined`
         Defines a generic plant component for custom modeling
         using Energy Management System or External Interface
+    
     """
     internal_name = "PlantComponent:UserDefined"
     field_count = 32
+    required_fields = ["Name", "Number of Plant Loop Connections", "Plant Connection 1 Inlet Node Name", "Plant Connection 1 Outlet Node Name", "Plant Connection 1 Loading Mode", "Plant Connection 1 Loop Flow Request Mode"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `PlantComponent:UserDefined`
@@ -3339,6 +3377,16 @@ class PlantComponentUserDefined(object):
 
         self._data["Ambient Zone Name"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -3391,9 +3439,11 @@ class PlantEquipmentOperationUserDefined(object):
     """ Corresponds to IDD object `PlantEquipmentOperation:UserDefined`
         Defines a generic plant operation scheme for custom supervisory control
         using Energy Management System or External Interface to dispatch loads
+    
     """
     internal_name = "PlantEquipmentOperation:UserDefined"
     field_count = 23
+    required_fields = ["Name", "Main Model Program Calling Manager Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `PlantEquipmentOperation:UserDefined`
@@ -4305,6 +4355,16 @@ class PlantEquipmentOperationUserDefined(object):
                                  'for field `equipment_10_name`')
 
         self._data["Equipment 10 Name"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):

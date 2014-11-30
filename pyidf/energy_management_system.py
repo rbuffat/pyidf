@@ -6,9 +6,11 @@ class EnergyManagementSystemSensor(object):
         a list of output variables and meters that can be reported are available after a run on
         the report (.rdd) or meter dictionary file (.mdd) if the Output:VariableDictionary
         has been requested.
+    
     """
     internal_name = "EnergyManagementSystem:Sensor"
     field_count = 3
+    required_fields = ["Name", "Output:Variable or Output:Meter Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `EnergyManagementSystem:Sensor`
@@ -142,6 +144,16 @@ class EnergyManagementSystemSensor(object):
 
         self._data["Output:Variable or Output:Meter Name"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -164,9 +176,11 @@ class EnergyManagementSystemSensor(object):
 class EnergyManagementSystemActuator(object):
     """ Corresponds to IDD object `EnergyManagementSystem:Actuator`
         Hardware portion of EMS used to set up actuators in the model
+    
     """
     internal_name = "EnergyManagementSystem:Actuator"
     field_count = 4
+    required_fields = ["Name", "Actuated Component Unique Name", "Actuated Component Type", "Actuated Component Control Type"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `EnergyManagementSystem:Actuator`
@@ -339,6 +353,16 @@ class EnergyManagementSystemActuator(object):
 
         self._data["Actuated Component Control Type"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -364,9 +388,11 @@ class EnergyManagementSystemProgramCallingManager(object):
         Input EMS program. a program needs a name
         a description of when it should be called
         and then lines of program code for EMS Runtime language
+    
     """
     internal_name = "EnergyManagementSystem:ProgramCallingManager"
     field_count = 27
+    required_fields = ["Name", "Program Name 1"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `EnergyManagementSystem:ProgramCallingManager`
@@ -1495,6 +1521,16 @@ class EnergyManagementSystemProgramCallingManager(object):
 
         self._data["Program Name 25"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -1541,9 +1577,11 @@ class EnergyManagementSystemProgramCallingManager(object):
 class EnergyManagementSystemOutputVariable(object):
     """ Corresponds to IDD object `EnergyManagementSystem:OutputVariable`
         This object sets up an EnergyPlus output variable from an Erl variable
+    
     """
     internal_name = "EnergyManagementSystem:OutputVariable"
     field_count = 6
+    required_fields = ["Name", "EMS Variable Name", "Type of Data in Variable", "Update Frequency"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `EnergyManagementSystem:OutputVariable`
@@ -1814,6 +1852,16 @@ class EnergyManagementSystemOutputVariable(object):
 
         self._data["Units"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -1839,9 +1887,11 @@ class EnergyManagementSystemOutputVariable(object):
 class EnergyManagementSystemMeteredOutputVariable(object):
     """ Corresponds to IDD object `EnergyManagementSystem:MeteredOutputVariable`
         This object sets up an EnergyPlus output variable from an Erl variable
+    
     """
     internal_name = "EnergyManagementSystem:MeteredOutputVariable"
     field_count = 9
+    required_fields = ["Name", "EMS Variable Name", "Update Frequency", "Resource Type", "Group Type", "End-Use Category"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `EnergyManagementSystem:MeteredOutputVariable`
@@ -2319,6 +2369,16 @@ class EnergyManagementSystemMeteredOutputVariable(object):
 
         self._data["Units"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -2348,9 +2408,11 @@ class EnergyManagementSystemTrendVariable(object):
     """ Corresponds to IDD object `EnergyManagementSystem:TrendVariable`
         This object sets up an EMS trend variable from an Erl variable
         A trend variable logs values across timesteps
+    
     """
     internal_name = "EnergyManagementSystem:TrendVariable"
     field_count = 3
+    required_fields = ["Name", "EMS Variable Name", "Number of Timesteps to be Logged"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `EnergyManagementSystem:TrendVariable`
@@ -2485,6 +2547,16 @@ class EnergyManagementSystemTrendVariable(object):
 
         self._data["Number of Timesteps to be Logged"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -2507,9 +2579,11 @@ class EnergyManagementSystemTrendVariable(object):
 class EnergyManagementSystemInternalVariable(object):
     """ Corresponds to IDD object `EnergyManagementSystem:InternalVariable`
         Declares EMS variable as an internal data variable
+    
     """
     internal_name = "EnergyManagementSystem:InternalVariable"
     field_count = 3
+    required_fields = ["Name", "Internal Data Type"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `EnergyManagementSystem:InternalVariable`
@@ -2643,6 +2717,16 @@ class EnergyManagementSystemInternalVariable(object):
 
         self._data["Internal Data Type"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -2665,9 +2749,11 @@ class EnergyManagementSystemInternalVariable(object):
 class EnergyManagementSystemCurveOrTableIndexVariable(object):
     """ Corresponds to IDD object `EnergyManagementSystem:CurveOrTableIndexVariable`
         Declares EMS variable that identifies a curve or table
+    
     """
     internal_name = "EnergyManagementSystem:CurveOrTableIndexVariable"
     field_count = 2
+    required_fields = ["Name", "Curve or Table Object Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `EnergyManagementSystem:CurveOrTableIndexVariable`
@@ -2762,6 +2848,16 @@ class EnergyManagementSystemCurveOrTableIndexVariable(object):
 
         self._data["Curve or Table Object Name"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -2783,9 +2879,11 @@ class EnergyManagementSystemCurveOrTableIndexVariable(object):
 class EnergyManagementSystemConstructionIndexVariable(object):
     """ Corresponds to IDD object `EnergyManagementSystem:ConstructionIndexVariable`
         Declares EMS variable that identifies a construction
+    
     """
     internal_name = "EnergyManagementSystem:ConstructionIndexVariable"
     field_count = 2
+    required_fields = ["Name", "Construction Object Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `EnergyManagementSystem:ConstructionIndexVariable`
@@ -2879,6 +2977,16 @@ class EnergyManagementSystemConstructionIndexVariable(object):
                                  'for field `construction_object_name`')
 
         self._data["Construction Object Name"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):

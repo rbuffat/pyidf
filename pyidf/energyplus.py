@@ -2,9 +2,11 @@ from collections import OrderedDict
 
 class LeadInput(object):
     """ Corresponds to IDD object `Lead Input`
+    
     """
     internal_name = "Lead Input"
     field_count = 0
+    required_fields = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Lead Input`
@@ -18,6 +20,16 @@ class LeadInput(object):
             vals (list): list of strings representing values
         """
         i = 0
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):
@@ -37,9 +49,11 @@ class LeadInput(object):
 
 class SimulationData(object):
     """ Corresponds to IDD object `Simulation Data`
+    
     """
     internal_name = "Simulation Data"
     field_count = 0
+    required_fields = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Simulation Data`
@@ -53,6 +67,16 @@ class SimulationData(object):
             vals (list): list of strings representing values
         """
         i = 0
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):

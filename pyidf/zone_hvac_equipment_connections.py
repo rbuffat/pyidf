@@ -14,9 +14,11 @@ class ZoneHvacEquipmentList(object):
         should be assigned Heating Sequence = 1 and Cooling Sequence = 1.  Any other equipment should
         be assigned sequence 2 or higher so that it will see the net load after the DOAS air is added
         to the zone.
+    
     """
     internal_name = "ZoneHVAC:EquipmentList"
     field_count = 73
+    required_fields = ["Name", "Zone Equipment 1 Object Type", "Zone Equipment 1 Name", "Zone Equipment 1 Cooling Sequence", "Zone Equipment 1 Heating or No-Load Sequence"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ZoneHVAC:EquipmentList`
@@ -4048,6 +4050,16 @@ class ZoneHvacEquipmentList(object):
 
         self._data["Zone Equipment 18 Heating or No-Load Sequence"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -4142,9 +4154,11 @@ class ZoneHvacEquipmentConnections(object):
         Specifies the HVAC equipment connections for a zone. Node names are specified for the
         zone air node, air inlet nodes, air exhaust nodes, and the air return node. A zone
         equipment list is referenced which lists all HVAC equipment connected to the zone.
+    
     """
     internal_name = "ZoneHVAC:EquipmentConnections"
     field_count = 6
+    required_fields = ["Zone Name", "Zone Conditioning Equipment List Name", "Zone Air Node Name", "Zone Return Air Node Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ZoneHVAC:EquipmentConnections`
@@ -4394,6 +4408,16 @@ class ZoneHvacEquipmentConnections(object):
 
         self._data["Zone Return Air Node Name"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -4421,9 +4445,11 @@ class FanConstantVolume(object):
         Constant volume fan that is intended to operate continuously based on a time schedule.
         This fan will not cycle on and off based on cooling/heating load or other control
         signals.
+    
     """
     internal_name = "Fan:ConstantVolume"
     field_count = 10
+    required_fields = ["Name", "Pressure Rise", "Air Inlet Node Name", "Air Outlet Node Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Fan:ConstantVolume`
@@ -4620,7 +4646,8 @@ class FanConstantVolume(object):
 
         Args:
             value (float): value for IDD Field `pressure_rise`
-                Unit: Pa
+                Units: Pa
+                IP-Units: inH2O
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4651,7 +4678,7 @@ class FanConstantVolume(object):
 
         Args:
             value (float): value for IDD Field `maximum_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -4850,6 +4877,16 @@ class FanConstantVolume(object):
 
         self._data["End-Use Subcategory"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -4880,9 +4917,11 @@ class FanVariableVolume(object):
     """ Corresponds to IDD object `Fan:VariableVolume`
         Variable air volume fan where the electric power input varies according to a
         performance curve as a function of flow fraction.
+    
     """
     internal_name = "Fan:VariableVolume"
     field_count = 18
+    required_fields = ["Name", "Pressure Rise", "Air Inlet Node Name", "Air Outlet Node Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Fan:VariableVolume`
@@ -5127,7 +5166,8 @@ class FanVariableVolume(object):
 
         Args:
             value (float): value for IDD Field `pressure_rise`
-                Unit: Pa
+                Units: Pa
+                IP-Units: inH2O
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5158,7 +5198,7 @@ class FanVariableVolume(object):
 
         Args:
             value (float): value for IDD Field `maximum_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -5275,7 +5315,7 @@ class FanVariableVolume(object):
 
         Args:
             value (float): value for IDD Field `fan_power_minimum_air_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -5627,6 +5667,16 @@ class FanVariableVolume(object):
 
         self._data["End-Use Subcategory"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -5666,9 +5716,11 @@ class FanOnOff(object):
         Constant volume fan that is intended to cycle on and off based on cooling/heating load
         or other control signals. This fan can also operate continuously like
         Fan:ConstantVolume.
+    
     """
     internal_name = "Fan:OnOff"
     field_count = 12
+    required_fields = ["Name", "Pressure Rise", "Air Inlet Node Name", "Air Outlet Node Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Fan:OnOff`
@@ -5877,7 +5929,8 @@ class FanOnOff(object):
 
         Args:
             value (float): value for IDD Field `pressure_rise`
-                Unit: Pa
+                Units: Pa
+                IP-Units: inH2O
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5908,7 +5961,7 @@ class FanOnOff(object):
 
         Args:
             value (float): value for IDD Field `maximum_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -6175,6 +6228,16 @@ class FanOnOff(object):
 
         self._data["End-Use Subcategory"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -6206,9 +6269,11 @@ class FanOnOff(object):
 class FanZoneExhaust(object):
     """ Corresponds to IDD object `Fan:ZoneExhaust`
         Models a fan that exhausts air from a zone.
+    
     """
     internal_name = "Fan:ZoneExhaust"
     field_count = 12
+    required_fields = ["Name", "Pressure Rise", "Air Inlet Node Name", "Air Outlet Node Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Fan:ZoneExhaust`
@@ -6417,7 +6482,8 @@ class FanZoneExhaust(object):
 
         Args:
             value (float): value for IDD Field `pressure_rise`
-                Unit: Pa
+                Units: Pa
+                IP-Units: inH2O
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6448,7 +6514,7 @@ class FanZoneExhaust(object):
 
         Args:
             value (float): value for IDD Field `maximum_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -6715,6 +6781,16 @@ class FanZoneExhaust(object):
 
         self._data["Balanced Exhaust Fraction Schedule Name"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -6751,9 +6827,11 @@ class FanPerformanceNightVentilation(object):
         Fan:ComponentModel. If the fan model senses that a fixed flow rate has been set, it
         will use these alternate performance parameters. It is assumed that the fan will
         run at a fixed speed in the alternate mode.
+    
     """
     internal_name = "FanPerformance:NightVentilation"
     field_count = 6
+    required_fields = ["Fan Name", "Fan Total Efficiency", "Pressure Rise", "Motor Efficiency"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `FanPerformance:NightVentilation`
@@ -6890,7 +6968,8 @@ class FanPerformanceNightVentilation(object):
 
         Args:
             value (float): value for IDD Field `pressure_rise`
-                Unit: Pa
+                Units: Pa
+                IP-Units: inH2O
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6921,7 +7000,7 @@ class FanPerformanceNightVentilation(object):
 
         Args:
             value (float): value for IDD Field `maximum_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -7020,6 +7099,16 @@ class FanPerformanceNightVentilation(object):
 
         self._data["Motor in Airstream Fraction"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -7047,9 +7136,11 @@ class FanComponentModel(object):
         A detailed fan type for constant-air-volume (CAV) and variable-air-volume (VAV)
         systems. It includes inputs that describe the air-distribution system as well as the
         fan, drive belt (if used), motor, and variable-frequency-drive (if used).
+    
     """
     internal_name = "Fan:ComponentModel"
     field_count = 37
+    required_fields = ["Name", "Air Inlet Node Name", "Air Outlet Node Name", "Fan Wheel Diameter", "Fan Outlet Area", "Maximum Fan Static Efficiency", "Euler Number at Maximum Fan Static Efficiency", "Maximum Dimensionless Fan Airflow", "Belt Maximum Torque", "Motor Maximum Speed", "Maximum Motor Output Power", "Maximum VFD Output Power", "Fan Pressure Rise Curve Name", "Duct Static Pressure Reset Curve Name", "Normalized Fan Static Efficiency Curve Name-Non-Stall Region", "Normalized Fan Static Efficiency Curve Name-Stall Region", "Normalized Dimensionless Airflow Curve Name-Non-Stall Region", "Normalized Dimensionless Airflow Curve Name-Stall Region"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Fan:ComponentModel`
@@ -7435,7 +7526,7 @@ class FanComponentModel(object):
 
         Args:
             value (float): value for IDD Field `maximum_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -7470,7 +7561,7 @@ class FanComponentModel(object):
 
         Args:
             value (float): value for IDD Field `minimum_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -7542,7 +7633,7 @@ class FanComponentModel(object):
 
         Args:
             value (float): value for IDD Field `fan_wheel_diameter`
-                Unit: m
+                Units: m
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -7578,7 +7669,7 @@ class FanComponentModel(object):
 
         Args:
             value (float): value for IDD Field `fan_outlet_area`
-                Unit: m2
+                Units: m2
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -7762,7 +7853,7 @@ class FanComponentModel(object):
 
         Args:
             value (float): value for IDD Field `belt_maximum_torque`
-                Unit: N-m
+                Units: N-m
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -7874,7 +7965,7 @@ class FanComponentModel(object):
 
         Args:
             value (float): value for IDD Field `motor_maximum_speed`
-                Unit: rev/min
+                Units: rev/min
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -7910,7 +8001,7 @@ class FanComponentModel(object):
 
         Args:
             value (float): value for IDD Field `maximum_motor_output_power`
-                Unit: W
+                Units: W
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -8068,7 +8159,7 @@ class FanComponentModel(object):
 
         Args:
             value (float): value for IDD Field `maximum_vfd_output_power`
-                Unit: W
+                Units: W
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -8633,6 +8724,16 @@ class FanComponentModel(object):
 
         self._data["End-Use Subcategory"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -8690,9 +8791,11 @@ class CoilCoolingWater(object):
     """ Corresponds to IDD object `Coil:Cooling:Water`
         Chilled water cooling coil, NTU-effectiveness model, with inputs for design entering
         and leaving conditionss.
+    
     """
     internal_name = "Coil:Cooling:Water"
     field_count = 16
+    required_fields = ["Name", "Water Inlet Node Name", "Water Outlet Node Name", "Air Inlet Node Name", "Air Outlet Node Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Coil:Cooling:Water`
@@ -8886,7 +8989,8 @@ class CoilCoolingWater(object):
 
         Args:
             value (float): value for IDD Field `design_water_flow_rate`
-                Unit: m3/s
+                Units: m3/s
+                IP-Units: gal/min
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -8921,7 +9025,7 @@ class CoilCoolingWater(object):
 
         Args:
             value (float): value for IDD Field `design_air_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -8956,7 +9060,7 @@ class CoilCoolingWater(object):
 
         Args:
             value (float): value for IDD Field `design_inlet_water_temperature`
-                Unit: C
+                Units: C
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -8991,7 +9095,7 @@ class CoilCoolingWater(object):
 
         Args:
             value (float): value for IDD Field `design_inlet_air_temperature`
-                Unit: C
+                Units: C
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -9026,7 +9130,7 @@ class CoilCoolingWater(object):
 
         Args:
             value (float): value for IDD Field `design_outlet_air_temperature`
-                Unit: C
+                Units: C
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -9061,7 +9165,7 @@ class CoilCoolingWater(object):
 
         Args:
             value (float): value for IDD Field `design_inlet_air_humidity_ratio`
-                Unit: kgWater/kgDryAir
+                Units: kgWater/kgDryAir
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -9096,7 +9200,7 @@ class CoilCoolingWater(object):
 
         Args:
             value (float): value for IDD Field `design_outlet_air_humidity_ratio`
-                Unit: kgWater/kgDryAir
+                Units: kgWater/kgDryAir
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -9367,6 +9471,16 @@ class CoilCoolingWater(object):
 
         self._data["Condensate Collection Water Storage Tank Name"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -9403,9 +9517,11 @@ class CoilCoolingWaterDetailedGeometry(object):
     """ Corresponds to IDD object `Coil:Cooling:Water:DetailedGeometry`
         Chilled water cooling coil, detailed flat fin coil model for continuous plate fins,
         with inputs for detailed coil geometry specificatons.
+    
     """
     internal_name = "Coil:Cooling:Water:DetailedGeometry"
     field_count = 23
+    required_fields = ["Name", "Water Inlet Node Name", "Water Outlet Node Name", "Air Inlet Node Name", "Air Outlet Node Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Coil:Cooling:Water:DetailedGeometry`
@@ -9641,7 +9757,8 @@ class CoilCoolingWaterDetailedGeometry(object):
 
         Args:
             value (float): value for IDD Field `maximum_water_flow_rate`
-                Unit: m3/s
+                Units: m3/s
+                IP-Units: gal/min
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -9673,7 +9790,7 @@ class CoilCoolingWaterDetailedGeometry(object):
 
         Args:
             value (float): value for IDD Field `tube_outside_surface_area`
-                Unit: m2
+                Units: m2
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -9705,7 +9822,7 @@ class CoilCoolingWaterDetailedGeometry(object):
 
         Args:
             value (float): value for IDD Field `total_tube_inside_area`
-                Unit: m2
+                Units: m2
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -9740,7 +9857,7 @@ class CoilCoolingWaterDetailedGeometry(object):
 
         Args:
             value (float): value for IDD Field `fin_surface_area`
-                Unit: m2
+                Units: m2
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -9771,7 +9888,7 @@ class CoilCoolingWaterDetailedGeometry(object):
 
         Args:
             value (float): value for IDD Field `minimum_airflow_area`
-                Unit: m2
+                Units: m2
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -9806,7 +9923,8 @@ class CoilCoolingWaterDetailedGeometry(object):
 
         Args:
             value (float): value for IDD Field `coil_depth`
-                Unit: m
+                Units: m
+                IP-Units: in
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -9842,7 +9960,8 @@ class CoilCoolingWaterDetailedGeometry(object):
 
         Args:
             value (float): value for IDD Field `fin_diameter`
-                Unit: m
+                Units: m
+                IP-Units: in
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -9877,7 +9996,8 @@ class CoilCoolingWaterDetailedGeometry(object):
 
         Args:
             value (float): value for IDD Field `fin_thickness`
-                Unit: m
+                Units: m
+                IP-Units: in
                 Default value: 0.0015
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -9914,7 +10034,8 @@ class CoilCoolingWaterDetailedGeometry(object):
 
         Args:
             value (float): value for IDD Field `tube_inside_diameter`
-                Unit: m
+                Units: m
+                IP-Units: in
                 Default value: 0.01445
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -9951,7 +10072,8 @@ class CoilCoolingWaterDetailedGeometry(object):
 
         Args:
             value (float): value for IDD Field `tube_outside_diameter`
-                Unit: m
+                Units: m
+                IP-Units: in
                 Default value: 0.0159
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -9987,7 +10109,7 @@ class CoilCoolingWaterDetailedGeometry(object):
 
         Args:
             value (float): value for IDD Field `tube_thermal_conductivity`
-                Unit: W/m-K
+                Units: W/m-K
                 Default value: 386.0
                 value >= 1.0
                 if `value` is None it will not be checked against the
@@ -10023,7 +10145,7 @@ class CoilCoolingWaterDetailedGeometry(object):
 
         Args:
             value (float): value for IDD Field `fin_thermal_conductivity`
-                Unit: W/m-K
+                Units: W/m-K
                 Default value: 204.0
                 value >= 1.0
                 if `value` is None it will not be checked against the
@@ -10060,7 +10182,8 @@ class CoilCoolingWaterDetailedGeometry(object):
 
         Args:
             value (float): value for IDD Field `fin_spacing`
-                Unit: m
+                Units: m
+                IP-Units: in
                 Default value: 0.0018
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -10096,7 +10219,8 @@ class CoilCoolingWaterDetailedGeometry(object):
 
         Args:
             value (float): value for IDD Field `tube_depth_spacing`
-                Unit: m
+                Units: m
+                IP-Units: in
                 Default value: 0.026
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -10351,6 +10475,16 @@ class CoilCoolingWaterDetailedGeometry(object):
 
         self._data["Condensate Collection Water Storage Tank Name"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -10395,9 +10529,11 @@ class CoilCoolingDxSingleSpeed(object):
         Direct expansion (DX) cooling coil and condensing unit (includes electric compressor
         and condenser fan), single-speed. Optional inputs for moisture evaporation from wet
         coil when compressor cycles off with continuous fan operation.
+    
     """
     internal_name = "Coil:Cooling:DX:SingleSpeed"
     field_count = 32
+    required_fields = ["Name", "Gross Rated Total Cooling Capacity", "Gross Rated Sensible Heat Ratio", "Rated Air Flow Rate", "Air Inlet Node Name", "Air Outlet Node Name", "Total Cooling Capacity Function of Temperature Curve Name", "Total Cooling Capacity Function of Flow Fraction Curve Name", "Energy Input Ratio Function of Temperature Curve Name", "Energy Input Ratio Function of Flow Fraction Curve Name", "Part Load Fraction Correlation Curve Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Coil:Cooling:DX:SingleSpeed`
@@ -10691,7 +10827,7 @@ class CoilCoolingDxSingleSpeed(object):
 
         Args:
             value (float): value for IDD Field `gross_rated_total_cooling_capacity`
-                Unit: W
+                Units: W
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -10768,7 +10904,7 @@ class CoilCoolingDxSingleSpeed(object):
 
         Args:
             value (float): value for IDD Field `gross_rated_cooling_cop`
-                Unit: W/W
+                Units: W/W
                 Default value: 3.0
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -10806,7 +10942,7 @@ class CoilCoolingDxSingleSpeed(object):
 
         Args:
             value (float): value for IDD Field `rated_air_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -10847,7 +10983,7 @@ class CoilCoolingDxSingleSpeed(object):
 
         Args:
             value (float): value for IDD Field `rated_evaporator_fan_power_per_volume_flow_rate`
-                Unit: W/(m3/s)
+                Units: W/(m3/s)
                 Default value: 773.3
                 value >= 0.0
                 value <= 1250.0
@@ -11143,7 +11279,7 @@ class CoilCoolingDxSingleSpeed(object):
 
         Args:
             value (float): value for IDD Field `nominal_time_for_condensate_removal_to_begin`
-                Unit: s
+                Units: s
                 Default value: 0.0
                 value >= 0.0
                 value <= 3000.0
@@ -11187,7 +11323,7 @@ class CoilCoolingDxSingleSpeed(object):
 
         Args:
             value (float): value for IDD Field `ratio_of_initial_moisture_evaporation_rate_and_steady_state_latent_capacity`
-                Unit: dimensionless
+                Units: dimensionless
                 Default value: 0.0
                 value >= 0.0
                 value <= 5.0
@@ -11229,7 +11365,7 @@ class CoilCoolingDxSingleSpeed(object):
 
         Args:
             value (float): value for IDD Field `maximum_cycling_rate`
-                Unit: cycles/hr
+                Units: cycles/hr
                 Default value: 0.0
                 value >= 0.0
                 value <= 5.0
@@ -11271,7 +11407,7 @@ class CoilCoolingDxSingleSpeed(object):
 
         Args:
             value (float): value for IDD Field `latent_capacity_time_constant`
-                Unit: s
+                Units: s
                 Default value: 0.0
                 value >= 0.0
                 value <= 500.0
@@ -11389,7 +11525,7 @@ class CoilCoolingDxSingleSpeed(object):
 
         Args:
             value (float): value for IDD Field `evaporative_condenser_effectiveness`
-                Unit: dimensionless
+                Units: dimensionless
                 Default value: 0.9
                 value >= 0.0
                 value <= 1.0
@@ -11430,7 +11566,7 @@ class CoilCoolingDxSingleSpeed(object):
 
         Args:
             value (float): value for IDD Field `evaporative_condenser_air_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -11466,7 +11602,7 @@ class CoilCoolingDxSingleSpeed(object):
 
         Args:
             value (float): value for IDD Field `evaporative_condenser_pump_rated_power_consumption`
-                Unit: W
+                Units: W
                 Default value: 0.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -11502,7 +11638,8 @@ class CoilCoolingDxSingleSpeed(object):
 
         Args:
             value (float): value for IDD Field `crankcase_heater_capacity`
-                Unit: W
+                Units: W
+                IP-Units: W
                 Default value: 0.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -11538,7 +11675,7 @@ class CoilCoolingDxSingleSpeed(object):
 
         Args:
             value (float): value for IDD Field `maximum_outdoor_drybulb_temperature_for_crankcase_heater_operation`
-                Unit: C
+                Units: C
                 Default value: 10.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -11645,7 +11782,7 @@ class CoilCoolingDxSingleSpeed(object):
 
         Args:
             value (float): value for IDD Field `basin_heater_capacity`
-                Unit: W/K
+                Units: W/K
                 Default value: 0.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -11683,7 +11820,7 @@ class CoilCoolingDxSingleSpeed(object):
 
         Args:
             value (float): value for IDD Field `basin_heater_setpoint_temperature`
-                Unit: C
+                Units: C
                 Default value: 2.0
                 value >= 2.0
                 if `value` is None it will not be checked against the
@@ -11817,6 +11954,16 @@ class CoilCoolingDxSingleSpeed(object):
 
         self._data["Sensible Heat Ratio Function of Flow Fraction Curve Name"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -11871,9 +12018,11 @@ class CoilCoolingDxTwoSpeed(object):
         and condenser fan), two-speed (or variable-speed). Requires two sets of performance
         data and will interpolate between speeds. Modelled as a single coil (multi-speed
         compressor or multiple compressors with row split or intertwined coil).
+    
     """
     internal_name = "Coil:Cooling:DX:TwoSpeed"
     field_count = 37
+    required_fields = ["Name", "High Speed Gross Rated Total Cooling Capacity", "High Speed Rated Sensible Heat Ratio", "High Speed Rated Air Flow Rate", "Air Inlet Node Name", "Air Outlet Node Name", "Total Cooling Capacity Function of Temperature Curve Name", "Total Cooling Capacity Function of Flow Fraction Curve Name", "Energy Input Ratio Function of Temperature Curve Name", "Energy Input Ratio Function of Flow Fraction Curve Name", "Part Load Fraction Correlation Curve Name", "Low Speed Gross Rated Total Cooling Capacity", "Low Speed Gross Rated Sensible Heat Ratio", "Low Speed Rated Air Flow Rate", "Low Speed Total Cooling Capacity Function of Temperature Curve Name", "Low Speed Energy Input Ratio Function of Temperature Curve Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Coil:Cooling:DX:TwoSpeed`
@@ -12197,7 +12346,7 @@ class CoilCoolingDxTwoSpeed(object):
 
         Args:
             value (float): value for IDD Field `high_speed_gross_rated_total_cooling_capacity`
-                Unit: W
+                Units: W
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -12274,7 +12423,7 @@ class CoilCoolingDxTwoSpeed(object):
 
         Args:
             value (float): value for IDD Field `high_speed_gross_rated_cooling_cop`
-                Unit: W/W
+                Units: W/W
                 Default value: 3.0
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -12313,7 +12462,7 @@ class CoilCoolingDxTwoSpeed(object):
 
         Args:
             value (float): value for IDD Field `high_speed_rated_air_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -12353,7 +12502,7 @@ class CoilCoolingDxTwoSpeed(object):
 
         Args:
             value (float): value for IDD Field `unit_internal_static_air_pressure`
-                Unit: Pa
+                Units: Pa
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -12643,7 +12792,7 @@ class CoilCoolingDxTwoSpeed(object):
 
         Args:
             value (float): value for IDD Field `low_speed_gross_rated_total_cooling_capacity`
-                Unit: W
+                Units: W
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -12720,7 +12869,7 @@ class CoilCoolingDxTwoSpeed(object):
 
         Args:
             value (float): value for IDD Field `low_speed_gross_rated_cooling_cop`
-                Unit: W/W
+                Units: W/W
                 Default value: 3.0
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -12759,7 +12908,7 @@ class CoilCoolingDxTwoSpeed(object):
 
         Args:
             value (float): value for IDD Field `low_speed_rated_air_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -12946,7 +13095,7 @@ class CoilCoolingDxTwoSpeed(object):
 
         Args:
             value (float): value for IDD Field `high_speed_evaporative_condenser_effectiveness`
-                Unit: dimensionless
+                Units: dimensionless
                 Default value: 0.9
                 value >= 0.0
                 value <= 1.0
@@ -12987,7 +13136,7 @@ class CoilCoolingDxTwoSpeed(object):
 
         Args:
             value (float): value for IDD Field `high_speed_evaporative_condenser_air_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -13023,7 +13172,7 @@ class CoilCoolingDxTwoSpeed(object):
 
         Args:
             value (float): value for IDD Field `high_speed_evaporative_condenser_pump_rated_power_consumption`
-                Unit: W
+                Units: W
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -13058,7 +13207,7 @@ class CoilCoolingDxTwoSpeed(object):
 
         Args:
             value (float): value for IDD Field `low_speed_evaporative_condenser_effectiveness`
-                Unit: dimensionless
+                Units: dimensionless
                 Default value: 0.9
                 value >= 0.0
                 value <= 1.0
@@ -13099,7 +13248,7 @@ class CoilCoolingDxTwoSpeed(object):
 
         Args:
             value (float): value for IDD Field `low_speed_evaporative_condenser_air_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -13135,7 +13284,7 @@ class CoilCoolingDxTwoSpeed(object):
 
         Args:
             value (float): value for IDD Field `low_speed_evaporative_condenser_pump_rated_power_consumption`
-                Unit: W
+                Units: W
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -13241,7 +13390,7 @@ class CoilCoolingDxTwoSpeed(object):
 
         Args:
             value (float): value for IDD Field `basin_heater_capacity`
-                Unit: W/K
+                Units: W/K
                 Default value: 0.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -13279,7 +13428,7 @@ class CoilCoolingDxTwoSpeed(object):
 
         Args:
             value (float): value for IDD Field `basin_heater_setpoint_temperature`
-                Unit: C
+                Units: C
                 Default value: 2.0
                 value >= 2.0
                 if `value` is None it will not be checked against the
@@ -13488,6 +13637,16 @@ class CoilCoolingDxTwoSpeed(object):
 
         self._data["Low Speed Sensible Heat Ratio Function of Flow Fraction Curve Name"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -13549,9 +13708,11 @@ class CoilCoolingDxMultiSpeed(object):
         fan operation. Requires two to four sets of performance data and will interpolate
         between speeds. Modeled as a single coil (multi-speed compressor or multiple
         compressors with row split or intertwined coil).
+    
     """
     internal_name = "Coil:Cooling:DX:MultiSpeed"
     field_count = 93
+    required_fields = ["Name", "Air Inlet Node Name", "Air Outlet Node Name", "Number of Speeds", "Speed 1 Gross Rated Total Cooling Capacity", "Speed 1 Gross Rated Sensible Heat Ratio", "Speed 1 Rated Air Flow Rate", "Speed 1 Total Cooling Capacity Function of Temperature Curve Name", "Speed 1 Total Cooling Capacity Function of Flow Fraction Curve Name", "Speed 1 Energy Input Ratio Function of Temperature Curve Name", "Speed 1 Energy Input Ratio Function of Flow Fraction Curve Name", "Speed 1 Part Load Fraction Correlation Curve Name", "Speed 1 Rated Waste Heat Fraction of Power Input", "Speed 2 Gross Rated Total Cooling Capacity", "Speed 2 Gross Rated Sensible Heat Ratio", "Speed 2 Rated Air Flow Rate", "Speed 2 Total Cooling Capacity Function of Temperature Curve Name", "Speed 2 Total Cooling Capacity Function of Flow Fraction Curve Name", "Speed 2 Energy Input Ratio Function of Temperature Curve Name", "Speed 2 Energy Input Ratio Function of Flow Fraction Curve Name", "Speed 2 Part Load Fraction Correlation Curve Name", "Speed 2 Rated Waste Heat Fraction of Power Input"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Coil:Cooling:DX:MultiSpeed`
@@ -14503,7 +14664,8 @@ class CoilCoolingDxMultiSpeed(object):
 
         Args:
             value (float): value for IDD Field `crankcase_heater_capacity`
-                Unit: W
+                Units: W
+                IP-Units: W
                 Default value: 0.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -14539,7 +14701,7 @@ class CoilCoolingDxMultiSpeed(object):
 
         Args:
             value (float): value for IDD Field `maximum_outdoor_drybulb_temperature_for_crankcase_heater_operation`
-                Unit: C
+                Units: C
                 Default value: 10.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -14580,7 +14742,7 @@ class CoilCoolingDxMultiSpeed(object):
 
         Args:
             value (float): value for IDD Field `basin_heater_capacity`
-                Unit: W/K
+                Units: W/K
                 Default value: 0.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -14618,7 +14780,7 @@ class CoilCoolingDxMultiSpeed(object):
 
         Args:
             value (float): value for IDD Field `basin_heater_setpoint_temperature`
-                Unit: C
+                Units: C
                 Default value: 2.0
                 value >= 2.0
                 if `value` is None it will not be checked against the
@@ -14794,7 +14956,7 @@ class CoilCoolingDxMultiSpeed(object):
 
         Args:
             value (float): value for IDD Field `speed_1_gross_rated_total_cooling_capacity`
-                Unit: W
+                Units: W
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -14871,7 +15033,7 @@ class CoilCoolingDxMultiSpeed(object):
 
         Args:
             value (float): value for IDD Field `speed_1_gross_rated_cooling_cop`
-                Unit: W/W
+                Units: W/W
                 Default value: 3.0
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -14910,7 +15072,7 @@ class CoilCoolingDxMultiSpeed(object):
 
         Args:
             value (float): value for IDD Field `speed_1_rated_air_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -14950,7 +15112,7 @@ class CoilCoolingDxMultiSpeed(object):
 
         Args:
             value (float): value for IDD Field `rated_evaporator_fan_power_per_volume_flow_rate`
-                Unit: W/(m3/s)
+                Units: W/(m3/s)
                 Default value: 773.3
                 value >= 0.0
                 value <= 1250.0
@@ -15180,7 +15342,7 @@ class CoilCoolingDxMultiSpeed(object):
 
         Args:
             value (float): value for IDD Field `speed_1_nominal_time_for_condensate_removal_to_begin`
-                Unit: s
+                Units: s
                 Default value: 0.0
                 value >= 0.0
                 value <= 3000.0
@@ -15224,7 +15386,7 @@ class CoilCoolingDxMultiSpeed(object):
 
         Args:
             value (float): value for IDD Field `speed_1_ratio_of_initial_moisture_evaporation_rate_and_steady_state_latent_capacity`
-                Unit: dimensionless
+                Units: dimensionless
                 Default value: 0.0
                 value >= 0.0
                 value <= 5.0
@@ -15267,7 +15429,7 @@ class CoilCoolingDxMultiSpeed(object):
 
         Args:
             value (float): value for IDD Field `speed_1_maximum_cycling_rate`
-                Unit: cycles/hr
+                Units: cycles/hr
                 Default value: 0.0
                 value >= 0.0
                 value <= 5.0
@@ -15310,7 +15472,7 @@ class CoilCoolingDxMultiSpeed(object):
 
         Args:
             value (float): value for IDD Field `speed_1_latent_capacity_time_constant`
-                Unit: s
+                Units: s
                 Default value: 0.0
                 value >= 0.0
                 value <= 500.0
@@ -15351,7 +15513,7 @@ class CoilCoolingDxMultiSpeed(object):
 
         Args:
             value (float): value for IDD Field `speed_1_rated_waste_heat_fraction_of_power_input`
-                Unit: dimensionless
+                Units: dimensionless
                 value > 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
@@ -15427,7 +15589,7 @@ class CoilCoolingDxMultiSpeed(object):
 
         Args:
             value (float): value for IDD Field `speed_1_evaporative_condenser_effectiveness`
-                Unit: dimensionless
+                Units: dimensionless
                 Default value: 0.9
                 value >= 0.0
                 value <= 1.0
@@ -15468,7 +15630,7 @@ class CoilCoolingDxMultiSpeed(object):
 
         Args:
             value (float): value for IDD Field `speed_1_evaporative_condenser_air_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -15504,7 +15666,7 @@ class CoilCoolingDxMultiSpeed(object):
 
         Args:
             value (float): value for IDD Field `speed_1_rated_evaporative_condenser_pump_power_consumption`
-                Unit: W
+                Units: W
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -15543,7 +15705,7 @@ class CoilCoolingDxMultiSpeed(object):
 
         Args:
             value (float): value for IDD Field `speed_2_gross_rated_total_cooling_capacity`
-                Unit: W
+                Units: W
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -15620,7 +15782,7 @@ class CoilCoolingDxMultiSpeed(object):
 
         Args:
             value (float): value for IDD Field `speed_2_gross_rated_cooling_cop`
-                Unit: W/W
+                Units: W/W
                 Default value: 3.0
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -15659,7 +15821,7 @@ class CoilCoolingDxMultiSpeed(object):
 
         Args:
             value (float): value for IDD Field `speed_2_rated_air_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -15699,7 +15861,7 @@ class CoilCoolingDxMultiSpeed(object):
 
         Args:
             value (float): value for IDD Field `rated_evaporator_fan_power_per_volume_flow_rate_v2`
-                Unit: W/(m3/s)
+                Units: W/(m3/s)
                 Default value: 773.3
                 value >= 0.0
                 value <= 1250.0
@@ -15929,7 +16091,7 @@ class CoilCoolingDxMultiSpeed(object):
 
         Args:
             value (float): value for IDD Field `speed_2_nominal_time_for_condensate_removal_to_begin`
-                Unit: s
+                Units: s
                 Default value: 0.0
                 value >= 0.0
                 value <= 3000.0
@@ -15973,7 +16135,7 @@ class CoilCoolingDxMultiSpeed(object):
 
         Args:
             value (float): value for IDD Field `speed_2_ratio_of_initial_moisture_evaporation_rate_and_steady_state_latent_capacity`
-                Unit: dimensionless
+                Units: dimensionless
                 Default value: 0.0
                 value >= 0.0
                 value <= 5.0
@@ -16016,7 +16178,7 @@ class CoilCoolingDxMultiSpeed(object):
 
         Args:
             value (float): value for IDD Field `speed_2_maximum_cycling_rate`
-                Unit: cycles/hr
+                Units: cycles/hr
                 Default value: 0.0
                 value >= 0.0
                 value <= 5.0
@@ -16059,7 +16221,7 @@ class CoilCoolingDxMultiSpeed(object):
 
         Args:
             value (float): value for IDD Field `speed_2_latent_capacity_time_constant`
-                Unit: s
+                Units: s
                 Default value: 0.0
                 value >= 0.0
                 value <= 500.0
@@ -16100,7 +16262,7 @@ class CoilCoolingDxMultiSpeed(object):
 
         Args:
             value (float): value for IDD Field `speed_2_rated_waste_heat_fraction_of_power_input`
-                Unit: dimensionless
+                Units: dimensionless
                 value > 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
@@ -16176,7 +16338,7 @@ class CoilCoolingDxMultiSpeed(object):
 
         Args:
             value (float): value for IDD Field `speed_2_evaporative_condenser_effectiveness`
-                Unit: dimensionless
+                Units: dimensionless
                 Default value: 0.9
                 value >= 0.0
                 value <= 1.0
@@ -16217,7 +16379,7 @@ class CoilCoolingDxMultiSpeed(object):
 
         Args:
             value (float): value for IDD Field `speed_2_evaporative_condenser_air_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -16253,7 +16415,7 @@ class CoilCoolingDxMultiSpeed(object):
 
         Args:
             value (float): value for IDD Field `speed_2_rated_evaporative_condenser_pump_power_consumption`
-                Unit: W
+                Units: W
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -16292,7 +16454,7 @@ class CoilCoolingDxMultiSpeed(object):
 
         Args:
             value (float): value for IDD Field `speed_3_gross_rated_total_cooling_capacity`
-                Unit: W
+                Units: W
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -16369,7 +16531,7 @@ class CoilCoolingDxMultiSpeed(object):
 
         Args:
             value (float): value for IDD Field `speed_3_gross_rated_cooling_cop`
-                Unit: W/W
+                Units: W/W
                 Default value: 3.0
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -16408,7 +16570,7 @@ class CoilCoolingDxMultiSpeed(object):
 
         Args:
             value (float): value for IDD Field `speed_3_rated_air_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -16448,7 +16610,7 @@ class CoilCoolingDxMultiSpeed(object):
 
         Args:
             value (float): value for IDD Field `rated_evaporator_fan_power_per_volume_flow_rate_v3`
-                Unit: W/(m3/s)
+                Units: W/(m3/s)
                 Default value: 773.3
                 value >= 0.0
                 value <= 1250.0
@@ -16678,7 +16840,7 @@ class CoilCoolingDxMultiSpeed(object):
 
         Args:
             value (float): value for IDD Field `speed_3_nominal_time_for_condensate_removal_to_begin`
-                Unit: s
+                Units: s
                 Default value: 0.0
                 value >= 0.0
                 value <= 3000.0
@@ -16722,7 +16884,7 @@ class CoilCoolingDxMultiSpeed(object):
 
         Args:
             value (float): value for IDD Field `speed_3_ratio_of_initial_moisture_evaporation_rate_and_steady_state_latent_capacity`
-                Unit: dimensionless
+                Units: dimensionless
                 Default value: 0.0
                 value >= 0.0
                 value <= 5.0
@@ -16765,7 +16927,7 @@ class CoilCoolingDxMultiSpeed(object):
 
         Args:
             value (float): value for IDD Field `speed_3_maximum_cycling_rate`
-                Unit: cycles/hr
+                Units: cycles/hr
                 Default value: 0.0
                 value >= 0.0
                 value <= 5.0
@@ -16808,7 +16970,7 @@ class CoilCoolingDxMultiSpeed(object):
 
         Args:
             value (float): value for IDD Field `speed_3_latent_capacity_time_constant`
-                Unit: s
+                Units: s
                 Default value: 0.0
                 value >= 0.0
                 value <= 500.0
@@ -16849,7 +17011,7 @@ class CoilCoolingDxMultiSpeed(object):
 
         Args:
             value (float): value for IDD Field `speed_3_rated_waste_heat_fraction_of_power_input`
-                Unit: dimensionless
+                Units: dimensionless
                 value > 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
@@ -16925,7 +17087,7 @@ class CoilCoolingDxMultiSpeed(object):
 
         Args:
             value (float): value for IDD Field `speed_3_evaporative_condenser_effectiveness`
-                Unit: dimensionless
+                Units: dimensionless
                 Default value: 0.9
                 value >= 0.0
                 value <= 1.0
@@ -16966,7 +17128,7 @@ class CoilCoolingDxMultiSpeed(object):
 
         Args:
             value (float): value for IDD Field `speed_3_evaporative_condenser_air_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -17002,7 +17164,7 @@ class CoilCoolingDxMultiSpeed(object):
 
         Args:
             value (float): value for IDD Field `speed_3_rated_evaporative_condenser_pump_power_consumption`
-                Unit: W
+                Units: W
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -17041,7 +17203,7 @@ class CoilCoolingDxMultiSpeed(object):
 
         Args:
             value (float): value for IDD Field `speed_4_gross_rated_total_cooling_capacity`
-                Unit: W
+                Units: W
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -17118,7 +17280,7 @@ class CoilCoolingDxMultiSpeed(object):
 
         Args:
             value (float): value for IDD Field `speed_4_gross_rated_cooling_cop`
-                Unit: W/W
+                Units: W/W
                 Default value: 3.0
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -17157,7 +17319,7 @@ class CoilCoolingDxMultiSpeed(object):
 
         Args:
             value (float): value for IDD Field `speed_4_rated_air_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -17197,7 +17359,7 @@ class CoilCoolingDxMultiSpeed(object):
 
         Args:
             value (float): value for IDD Field `rated_evaporator_fan_power_per_volume_flow_rate_v4`
-                Unit: W/(m3/s)
+                Units: W/(m3/s)
                 Default value: 773.3
                 value >= 0.0
                 value <= 1250.0
@@ -17427,7 +17589,7 @@ class CoilCoolingDxMultiSpeed(object):
 
         Args:
             value (float): value for IDD Field `speed_4_nominal_time_for_condensate_removal_to_begin`
-                Unit: s
+                Units: s
                 Default value: 0.0
                 value >= 0.0
                 value <= 3000.0
@@ -17471,7 +17633,7 @@ class CoilCoolingDxMultiSpeed(object):
 
         Args:
             value (float): value for IDD Field `speed_4_ratio_of_initial_moisture_evaporation_rate_and_steady_state_latent_capacity`
-                Unit: dimensionless
+                Units: dimensionless
                 Default value: 0.0
                 value >= 0.0
                 value <= 5.0
@@ -17514,7 +17676,7 @@ class CoilCoolingDxMultiSpeed(object):
 
         Args:
             value (float): value for IDD Field `speed_4_maximum_cycling_rate`
-                Unit: cycles/hr
+                Units: cycles/hr
                 Default value: 0.0
                 value >= 0.0
                 value <= 5.0
@@ -17557,7 +17719,7 @@ class CoilCoolingDxMultiSpeed(object):
 
         Args:
             value (float): value for IDD Field `speed_4_latent_capacity_time_constant`
-                Unit: s
+                Units: s
                 Default value: 0.0
                 value >= 0.0
                 value <= 500.0
@@ -17598,7 +17760,7 @@ class CoilCoolingDxMultiSpeed(object):
 
         Args:
             value (float): value for IDD Field `speed_4_rated_waste_heat_fraction_of_power_input`
-                Unit: dimensionless
+                Units: dimensionless
                 value > 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
@@ -17674,7 +17836,7 @@ class CoilCoolingDxMultiSpeed(object):
 
         Args:
             value (float): value for IDD Field `speed_4_evaporative_condenser_effectiveness`
-                Unit: dimensionless
+                Units: dimensionless
                 Default value: 0.9
                 value >= 0.0
                 value <= 1.0
@@ -17715,7 +17877,7 @@ class CoilCoolingDxMultiSpeed(object):
 
         Args:
             value (float): value for IDD Field `speed_4_evaporative_condenser_air_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -17751,7 +17913,7 @@ class CoilCoolingDxMultiSpeed(object):
 
         Args:
             value (float): value for IDD Field `speed_4_rated_evaporative_condenser_pump_power_consumption`
-                Unit: W
+                Units: W
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -17770,6 +17932,16 @@ class CoilCoolingDxMultiSpeed(object):
                                  'for field `speed_4_rated_evaporative_condenser_pump_power_consumption`')
 
         self._data["Speed 4 Rated Evaporative Condenser Pump Power Consumption"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):
@@ -17887,9 +18059,11 @@ class CoilCoolingDxVariableSpeed(object):
         wet coil when compressor cycles off with continuous fan operation. Requires two to
         ten sets of performance data and will interpolate between speeds. Modeled as a
         single coil with variable-speed compressor.
+    
     """
     internal_name = "Coil:Cooling:DX:VariableSpeed"
     field_count = 120
+    required_fields = ["Name", "Indoor Air Inlet Node Name", "Indoor Air Outlet Node Name", "Number of Speeds", "Nominal Speed Level", "Gross Rated Total Cooling Capacity At Selected Nominal Speed Level", "Rated Air Flow Rate At Selected Nominal Speed Level", "Nominal Time for Condensate to Begin Leaving the Coil", "Initial Moisture Evaporation Rate Divided by Steady-State AC Latent Capacity", "Energy Part Load Fraction Curve Name", "Speed 1 Reference Unit Gross Rated Total Cooling Capacity", "Speed 1 Reference Unit Gross Rated Sensible Heat Ratio", "Speed 1 Reference Unit Gross Rated Cooling COP", "Speed 1 Reference Unit Rated Air Flow Rate", "Speed 1 Total Cooling Capacity Function of Temperature Curve Name", "Speed 1 Total Cooling Capacity Function of Air Flow Fraction Curve Name", "Speed 1 Energy Input Ratio Function of Temperature Curve Name", "Speed 1 Energy Input Ratio Function of Air Flow Fraction Curve Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Coil:Cooling:DX:VariableSpeed`
@@ -18738,7 +18912,7 @@ class CoilCoolingDxVariableSpeed(object):
 
         Args:
             value (int): value for IDD Field `number_of_speeds`
-                Unit: dimensionless
+                Units: dimensionless
                 Default value: 2
                 value >= 1
                 value <= 10
@@ -18779,7 +18953,7 @@ class CoilCoolingDxVariableSpeed(object):
 
         Args:
             value (int): value for IDD Field `nominal_speed_level`
-                Unit: dimensionless
+                Units: dimensionless
                 Default value: 2
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -18812,7 +18986,7 @@ class CoilCoolingDxVariableSpeed(object):
 
         Args:
             value (float): value for IDD Field `gross_rated_total_cooling_capacity_at_selected_nominal_speed_level`
-                Unit: w
+                Units: w
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -18843,7 +19017,7 @@ class CoilCoolingDxVariableSpeed(object):
 
         Args:
             value (float): value for IDD Field `rated_air_flow_rate_at_selected_nominal_speed_level`
-                Unit: m3/s
+                Units: m3/s
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -18874,7 +19048,7 @@ class CoilCoolingDxVariableSpeed(object):
 
         Args:
             value (float): value for IDD Field `nominal_time_for_condensate_to_begin_leaving_the_coil`
-                Unit: s
+                Units: s
                 Default value: 0.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -18910,7 +19084,7 @@ class CoilCoolingDxVariableSpeed(object):
 
         Args:
             value (float): value for IDD Field `initial_moisture_evaporation_rate_divided_by_steadystate_ac_latent_capacity`
-                Unit: dimensionless
+                Units: dimensionless
                 Default value: 0.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -19062,7 +19236,7 @@ class CoilCoolingDxVariableSpeed(object):
 
         Args:
             value (float): value for IDD Field `evaporative_condenser_pump_rated_power_consumption`
-                Unit: W
+                Units: W
                 Default value: 0.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -19098,7 +19272,8 @@ class CoilCoolingDxVariableSpeed(object):
 
         Args:
             value (float): value for IDD Field `crankcase_heater_capacity`
-                Unit: W
+                Units: W
+                IP-Units: W
                 Default value: 0.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -19134,7 +19309,7 @@ class CoilCoolingDxVariableSpeed(object):
 
         Args:
             value (float): value for IDD Field `maximum_outdoor_drybulb_temperature_for_crankcase_heater_operation`
-                Unit: C
+                Units: C
                 Default value: 10.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -19241,7 +19416,7 @@ class CoilCoolingDxVariableSpeed(object):
 
         Args:
             value (float): value for IDD Field `basin_heater_capacity`
-                Unit: W/K
+                Units: W/K
                 Default value: 0.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -19279,7 +19454,7 @@ class CoilCoolingDxVariableSpeed(object):
 
         Args:
             value (float): value for IDD Field `basin_heater_setpoint_temperature`
-                Unit: C
+                Units: C
                 Default value: 2.0
                 value >= 2.0
                 if `value` is None it will not be checked against the
@@ -19354,7 +19529,7 @@ class CoilCoolingDxVariableSpeed(object):
 
         Args:
             value (float): value for IDD Field `speed_1_reference_unit_gross_rated_total_cooling_capacity`
-                Unit: w
+                Units: w
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -19389,7 +19564,7 @@ class CoilCoolingDxVariableSpeed(object):
 
         Args:
             value (float): value for IDD Field `speed_1_reference_unit_gross_rated_sensible_heat_ratio`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -19424,7 +19599,7 @@ class CoilCoolingDxVariableSpeed(object):
 
         Args:
             value (float): value for IDD Field `speed_1_reference_unit_gross_rated_cooling_cop`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -19459,7 +19634,7 @@ class CoilCoolingDxVariableSpeed(object):
 
         Args:
             value (float): value for IDD Field `speed_1_reference_unit_rated_air_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -19495,7 +19670,7 @@ class CoilCoolingDxVariableSpeed(object):
 
         Args:
             value (float): value for IDD Field `speed_1_reference_unit_rated_condenser_air_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -19531,7 +19706,7 @@ class CoilCoolingDxVariableSpeed(object):
 
         Args:
             value (float): value for IDD Field `speed_1_reference_unit_rated_pad_effectiveness_of_evap_precooling`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
@@ -19719,7 +19894,7 @@ class CoilCoolingDxVariableSpeed(object):
 
         Args:
             value (float): value for IDD Field `speed_2_reference_unit_gross_rated_total_cooling_capacity`
-                Unit: w
+                Units: w
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -19754,7 +19929,7 @@ class CoilCoolingDxVariableSpeed(object):
 
         Args:
             value (float): value for IDD Field `speed_2_reference_unit_gross_rated_sensible_heat_ratio`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -19789,7 +19964,7 @@ class CoilCoolingDxVariableSpeed(object):
 
         Args:
             value (float): value for IDD Field `speed_2_reference_unit_gross_rated_cooling_cop`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -19824,7 +19999,7 @@ class CoilCoolingDxVariableSpeed(object):
 
         Args:
             value (float): value for IDD Field `speed_2_reference_unit_rated_air_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -19859,7 +20034,7 @@ class CoilCoolingDxVariableSpeed(object):
 
         Args:
             value (float): value for IDD Field `speed_2_reference_unit_rated_condenser_air_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -19894,7 +20069,7 @@ class CoilCoolingDxVariableSpeed(object):
 
         Args:
             value (float): value for IDD Field `speed_2_reference_unit_rated_pad_effectiveness_of_evap_precooling`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
@@ -20082,7 +20257,7 @@ class CoilCoolingDxVariableSpeed(object):
 
         Args:
             value (float): value for IDD Field `speed_3_reference_unit_gross_rated_total_cooling_capacity`
-                Unit: w
+                Units: w
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -20117,7 +20292,7 @@ class CoilCoolingDxVariableSpeed(object):
 
         Args:
             value (float): value for IDD Field `speed_3_reference_unit_gross_rated_sensible_heat_ratio`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -20152,7 +20327,7 @@ class CoilCoolingDxVariableSpeed(object):
 
         Args:
             value (float): value for IDD Field `speed_3_reference_unit_gross_rated_cooling_cop`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -20187,7 +20362,7 @@ class CoilCoolingDxVariableSpeed(object):
 
         Args:
             value (float): value for IDD Field `speed_3_reference_unit_rated_air_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -20222,7 +20397,7 @@ class CoilCoolingDxVariableSpeed(object):
 
         Args:
             value (float): value for IDD Field `speed_3_reference_unit_rated_condenser_air_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -20257,7 +20432,7 @@ class CoilCoolingDxVariableSpeed(object):
 
         Args:
             value (float): value for IDD Field `speed_3_reference_unit_rated_pad_effectiveness_of_evap_precooling`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
@@ -20445,7 +20620,7 @@ class CoilCoolingDxVariableSpeed(object):
 
         Args:
             value (float): value for IDD Field `speed_4_reference_unit_gross_rated_total_cooling_capacity`
-                Unit: w
+                Units: w
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -20480,7 +20655,7 @@ class CoilCoolingDxVariableSpeed(object):
 
         Args:
             value (float): value for IDD Field `speed_4_reference_unit_gross_rated_sensible_heat_ratio`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -20515,7 +20690,7 @@ class CoilCoolingDxVariableSpeed(object):
 
         Args:
             value (float): value for IDD Field `speed_4_reference_unit_gross_rated_cooling_cop`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -20550,7 +20725,7 @@ class CoilCoolingDxVariableSpeed(object):
 
         Args:
             value (float): value for IDD Field `speed_4_reference_unit_rated_air_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -20585,7 +20760,7 @@ class CoilCoolingDxVariableSpeed(object):
 
         Args:
             value (float): value for IDD Field `speed_4_reference_unit_rated_condenser_air_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -20620,7 +20795,7 @@ class CoilCoolingDxVariableSpeed(object):
 
         Args:
             value (float): value for IDD Field `speed_4_reference_unit_rated_pad_effectiveness_of_evap_precooling`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
@@ -20808,7 +20983,7 @@ class CoilCoolingDxVariableSpeed(object):
 
         Args:
             value (float): value for IDD Field `speed_5_reference_unit_gross_rated_total_cooling_capacity`
-                Unit: w
+                Units: w
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -20843,7 +21018,7 @@ class CoilCoolingDxVariableSpeed(object):
 
         Args:
             value (float): value for IDD Field `speed_5_reference_unit_gross_rated_sensible_heat_ratio`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -20878,7 +21053,7 @@ class CoilCoolingDxVariableSpeed(object):
 
         Args:
             value (float): value for IDD Field `speed_5_reference_unit_gross_rated_cooling_cop`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -20913,7 +21088,7 @@ class CoilCoolingDxVariableSpeed(object):
 
         Args:
             value (float): value for IDD Field `speed_5_reference_unit_rated_air_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -20948,7 +21123,7 @@ class CoilCoolingDxVariableSpeed(object):
 
         Args:
             value (float): value for IDD Field `speed_5_reference_unit_rated_condenser_air_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -20983,7 +21158,7 @@ class CoilCoolingDxVariableSpeed(object):
 
         Args:
             value (float): value for IDD Field `speed_5_reference_unit_rated_pad_effectiveness_of_evap_precooling`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
@@ -21171,7 +21346,7 @@ class CoilCoolingDxVariableSpeed(object):
 
         Args:
             value (float): value for IDD Field `speed_6_reference_unit_gross_rated_total_cooling_capacity`
-                Unit: w
+                Units: w
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -21206,7 +21381,7 @@ class CoilCoolingDxVariableSpeed(object):
 
         Args:
             value (float): value for IDD Field `speed_6_reference_unit_gross_rated_sensible_heat_ratio`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -21241,7 +21416,7 @@ class CoilCoolingDxVariableSpeed(object):
 
         Args:
             value (float): value for IDD Field `speed_6_reference_unit_gross_rated_cooling_cop`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -21276,7 +21451,7 @@ class CoilCoolingDxVariableSpeed(object):
 
         Args:
             value (float): value for IDD Field `speed_6_reference_unit_rated_air_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -21311,7 +21486,7 @@ class CoilCoolingDxVariableSpeed(object):
 
         Args:
             value (float): value for IDD Field `speed_6_reference_unit_condenser_air_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -21346,7 +21521,7 @@ class CoilCoolingDxVariableSpeed(object):
 
         Args:
             value (float): value for IDD Field `speed_6_reference_unit_rated_pad_effectiveness_of_evap_precooling`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
@@ -21534,7 +21709,7 @@ class CoilCoolingDxVariableSpeed(object):
 
         Args:
             value (float): value for IDD Field `speed_7_reference_unit_gross_rated_total_cooling_capacity`
-                Unit: w
+                Units: w
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -21569,7 +21744,7 @@ class CoilCoolingDxVariableSpeed(object):
 
         Args:
             value (float): value for IDD Field `speed_7_reference_unit_gross_rated_sensible_heat_ratio`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -21604,7 +21779,7 @@ class CoilCoolingDxVariableSpeed(object):
 
         Args:
             value (float): value for IDD Field `speed_7_reference_unit_gross_rated_cooling_cop`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -21639,7 +21814,7 @@ class CoilCoolingDxVariableSpeed(object):
 
         Args:
             value (float): value for IDD Field `speed_7_reference_unit_rated_air_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -21674,7 +21849,7 @@ class CoilCoolingDxVariableSpeed(object):
 
         Args:
             value (float): value for IDD Field `speed_7_reference_unit_condenser_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -21709,7 +21884,7 @@ class CoilCoolingDxVariableSpeed(object):
 
         Args:
             value (float): value for IDD Field `speed_7_reference_unit_rated_pad_effectiveness_of_evap_precooling`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
@@ -21897,7 +22072,7 @@ class CoilCoolingDxVariableSpeed(object):
 
         Args:
             value (float): value for IDD Field `speed_8_reference_unit_gross_rated_total_cooling_capacity`
-                Unit: w
+                Units: w
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -21932,7 +22107,7 @@ class CoilCoolingDxVariableSpeed(object):
 
         Args:
             value (float): value for IDD Field `speed_8_reference_unit_gross_rated_sensible_heat_ratio`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -21967,7 +22142,7 @@ class CoilCoolingDxVariableSpeed(object):
 
         Args:
             value (float): value for IDD Field `speed_8_reference_unit_gross_rated_cooling_cop`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -22002,7 +22177,7 @@ class CoilCoolingDxVariableSpeed(object):
 
         Args:
             value (float): value for IDD Field `speed_8_reference_unit_rated_air_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -22037,7 +22212,7 @@ class CoilCoolingDxVariableSpeed(object):
 
         Args:
             value (float): value for IDD Field `speed_8_reference_unit_condenser_air_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -22072,7 +22247,7 @@ class CoilCoolingDxVariableSpeed(object):
 
         Args:
             value (float): value for IDD Field `speed_8_reference_unit_rated_pad_effectiveness_of_evap_precooling`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
@@ -22260,7 +22435,7 @@ class CoilCoolingDxVariableSpeed(object):
 
         Args:
             value (float): value for IDD Field `speed_9_reference_unit_gross_rated_total_cooling_capacity`
-                Unit: w
+                Units: w
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -22295,7 +22470,7 @@ class CoilCoolingDxVariableSpeed(object):
 
         Args:
             value (float): value for IDD Field `speed_9_reference_unit_gross_rated_sensible_heat_ratio`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -22330,7 +22505,7 @@ class CoilCoolingDxVariableSpeed(object):
 
         Args:
             value (float): value for IDD Field `speed_9_reference_unit_gross_rated_cooling_cop`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -22365,7 +22540,7 @@ class CoilCoolingDxVariableSpeed(object):
 
         Args:
             value (float): value for IDD Field `speed_9_reference_unit_rated_air_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -22401,7 +22576,7 @@ class CoilCoolingDxVariableSpeed(object):
 
         Args:
             value (float): value for IDD Field `speed_9_reference_unit_condenser_air_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -22437,7 +22612,7 @@ class CoilCoolingDxVariableSpeed(object):
 
         Args:
             value (float): value for IDD Field `speed_9_reference_unit_rated_pad_effectiveness_of_evap_precooling`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
@@ -22625,7 +22800,7 @@ class CoilCoolingDxVariableSpeed(object):
 
         Args:
             value (float): value for IDD Field `speed_10_reference_unit_gross_rated_total_cooling_capacity`
-                Unit: w
+                Units: w
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -22660,7 +22835,7 @@ class CoilCoolingDxVariableSpeed(object):
 
         Args:
             value (float): value for IDD Field `speed_10_reference_unit_gross_rated_sensible_heat_ratio`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -22695,7 +22870,7 @@ class CoilCoolingDxVariableSpeed(object):
 
         Args:
             value (float): value for IDD Field `speed_10_reference_unit_gross_rated_cooling_cop`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -22730,7 +22905,7 @@ class CoilCoolingDxVariableSpeed(object):
 
         Args:
             value (float): value for IDD Field `speed_10_reference_unit_rated_air_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -22766,7 +22941,7 @@ class CoilCoolingDxVariableSpeed(object):
 
         Args:
             value (float): value for IDD Field `speed_10_reference_unit_condenser_air_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -22802,7 +22977,7 @@ class CoilCoolingDxVariableSpeed(object):
 
         Args:
             value (float): value for IDD Field `speed_10_reference_unit_rated_pad_effectiveness_of_evap_precooling`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
@@ -22975,6 +23150,16 @@ class CoilCoolingDxVariableSpeed(object):
 
         self._data["Speed 10 Energy Input Ratio Function of Air Flow Fraction Curve Name"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -23118,9 +23303,11 @@ class CoilCoolingDxTwoStageWithHumidityControlMode(object):
         reheat). Optional inputs for moisture evaporation from wet coil when compressor
         cycles off with continuous fan operation. Requires two to four sets of performance
         data, see CoilPerformance:DX:Cooling. Stages are modeled as a face-split coil.
+    
     """
     internal_name = "Coil:Cooling:DX:TwoStageWithHumidityControlMode"
     field_count = 21
+    required_fields = ["Name", "Air Inlet Node Name", "Air Outlet Node Name", "Normal Mode Stage 1 Coil Performance Object Type", "Normal Mode Stage 1 Coil Performance Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Coil:Cooling:DX:TwoStageWithHumidityControlMode`
@@ -23410,7 +23597,8 @@ class CoilCoolingDxTwoStageWithHumidityControlMode(object):
 
         Args:
             value (float): value for IDD Field `crankcase_heater_capacity`
-                Unit: W
+                Units: W
+                IP-Units: W
                 Default value: 0.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -23446,7 +23634,7 @@ class CoilCoolingDxTwoStageWithHumidityControlMode(object):
 
         Args:
             value (float): value for IDD Field `maximum_outdoor_drybulb_temperature_for_crankcase_heater_operation`
-                Unit: C
+                Units: C
                 Default value: 10.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -23923,7 +24111,7 @@ class CoilCoolingDxTwoStageWithHumidityControlMode(object):
 
         Args:
             value (float): value for IDD Field `basin_heater_capacity`
-                Unit: W/K
+                Units: W/K
                 Default value: 0.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -23961,7 +24149,7 @@ class CoilCoolingDxTwoStageWithHumidityControlMode(object):
 
         Args:
             value (float): value for IDD Field `basin_heater_setpoint_temperature`
-                Unit: C
+                Units: C
                 Default value: 2.0
                 value >= 2.0
                 if `value` is None it will not be checked against the
@@ -24020,6 +24208,16 @@ class CoilCoolingDxTwoStageWithHumidityControlMode(object):
 
         self._data["Basin Heater Operating Schedule Name"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -24066,9 +24264,11 @@ class CoilPerformanceDxCooling(object):
         for all performance objects associated with a given coil. If bypass is specified,
         the Rated Air Flow Rate includes both the bypassed flow and the flow through the
         active part of the coil.
+    
     """
     internal_name = "CoilPerformance:DX:Cooling"
     field_count = 22
+    required_fields = ["Name", "Gross Rated Total Cooling Capacity", "Gross Rated Sensible Heat Ratio", "Rated Air Flow Rate", "Total Cooling Capacity Function of Temperature Curve Name", "Total Cooling Capacity Function of Flow Fraction Curve Name", "Energy Input Ratio Function of Temperature Curve Name", "Energy Input Ratio Function of Flow Fraction Curve Name", "Part Load Fraction Correlation Curve Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `CoilPerformance:DX:Cooling`
@@ -24267,7 +24467,7 @@ class CoilPerformanceDxCooling(object):
 
         Args:
             value (float): value for IDD Field `gross_rated_total_cooling_capacity`
-                Unit: W
+                Units: W
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -24344,7 +24544,7 @@ class CoilPerformanceDxCooling(object):
 
         Args:
             value (float): value for IDD Field `gross_rated_cooling_cop`
-                Unit: W/W
+                Units: W/W
                 Default value: 3.0
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -24381,7 +24581,7 @@ class CoilPerformanceDxCooling(object):
 
         Args:
             value (float): value for IDD Field `rated_air_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -24650,7 +24850,7 @@ class CoilPerformanceDxCooling(object):
 
         Args:
             value (float): value for IDD Field `nominal_time_for_condensate_removal_to_begin`
-                Unit: s
+                Units: s
                 Default value: 0.0
                 value >= 0.0
                 value <= 3000.0
@@ -24694,7 +24894,7 @@ class CoilPerformanceDxCooling(object):
 
         Args:
             value (float): value for IDD Field `ratio_of_initial_moisture_evaporation_rate_and_steady_state_latent_capacity`
-                Unit: dimensionless
+                Units: dimensionless
                 Default value: 0.0
                 value >= 0.0
                 value <= 5.0
@@ -24736,7 +24936,7 @@ class CoilPerformanceDxCooling(object):
 
         Args:
             value (float): value for IDD Field `maximum_cycling_rate`
-                Unit: cycles/hr
+                Units: cycles/hr
                 Default value: 0.0
                 value >= 0.0
                 value <= 5.0
@@ -24778,7 +24978,7 @@ class CoilPerformanceDxCooling(object):
 
         Args:
             value (float): value for IDD Field `latent_capacity_time_constant`
-                Unit: s
+                Units: s
                 Default value: 0.0
                 value >= 0.0
                 value <= 500.0
@@ -24896,7 +25096,7 @@ class CoilPerformanceDxCooling(object):
 
         Args:
             value (float): value for IDD Field `evaporative_condenser_effectiveness`
-                Unit: dimensionless
+                Units: dimensionless
                 Default value: 0.9
                 value >= 0.0
                 value <= 1.0
@@ -24937,7 +25137,7 @@ class CoilPerformanceDxCooling(object):
 
         Args:
             value (float): value for IDD Field `evaporative_condenser_air_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -24973,7 +25173,7 @@ class CoilPerformanceDxCooling(object):
 
         Args:
             value (float): value for IDD Field `evaporative_condenser_pump_rated_power_consumption`
-                Unit: W
+                Units: W
                 Default value: 0.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -25069,6 +25269,16 @@ class CoilPerformanceDxCooling(object):
 
         self._data["Sensible Heat Ratio Function of Flow Fraction Curve Name"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -25112,9 +25322,11 @@ class CoilCoolingDxVariableRefrigerantFlow(object):
         Variable refrigerant flow (VRF) direct expansion (DX) cooling coil. Used with
         ZoneHVAC:TerminalUnit:VariableRefrigerantFlow. Condensing unit is modeled separately,
         see AirConditioner:VariableRefrigerantFlow.
+    
     """
     internal_name = "Coil:Cooling:DX:VariableRefrigerantFlow"
     field_count = 10
+    required_fields = ["Name", "Gross Rated Total Cooling Capacity", "Gross Rated Sensible Heat Ratio", "Rated Air Flow Rate", "Cooling Capacity Ratio Modifier Function of Temperature Curve Name", "Cooling Capacity Modifier Curve Function of Flow Fraction Name", "Coil Air Inlet Node", "Coil Air Outlet Node"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Coil:Cooling:DX:VariableRefrigerantFlow`
@@ -25274,7 +25486,7 @@ class CoilCoolingDxVariableRefrigerantFlow(object):
 
         Args:
             value (float): value for IDD Field `gross_rated_total_cooling_capacity`
-                Unit: W
+                Units: W
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -25346,7 +25558,7 @@ class CoilCoolingDxVariableRefrigerantFlow(object):
 
         Args:
             value (float): value for IDD Field `rated_air_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -25537,6 +25749,16 @@ class CoilCoolingDxVariableRefrigerantFlow(object):
 
         self._data["Name of Water Storage Tank for Condensate Collection"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -25568,9 +25790,11 @@ class CoilHeatingDxVariableRefrigerantFlow(object):
         Variable refrigerant flow (VRF) direct expansion (DX) heating coil (air-to-air heat
         pump). Used with ZoneHVAC:TerminalUnit:VariableRefrigerantFlow. Condensing unit is
         modeled separately, see AirConditioner:VariableRefrigerantFlow.
+    
     """
     internal_name = "Coil:Heating:DX:VariableRefrigerantFlow"
     field_count = 8
+    required_fields = ["Name", "Gross Rated Heating Capacity", "Rated Air Flow Rate", "Coil Air Inlet Node", "Coil Air Outlet Node", "Heating Capacity Ratio Modifier Function of Temperature Curve Name", "Heating Capacity Modifier Function of Flow Fraction Curve Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Coil:Heating:DX:VariableRefrigerantFlow`
@@ -25720,7 +25944,7 @@ class CoilHeatingDxVariableRefrigerantFlow(object):
 
         Args:
             value (float): value for IDD Field `gross_rated_heating_capacity`
-                Unit: W
+                Units: W
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -25757,7 +25981,7 @@ class CoilHeatingDxVariableRefrigerantFlow(object):
 
         Args:
             value (float): value for IDD Field `rated_air_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -25915,6 +26139,16 @@ class CoilHeatingDxVariableRefrigerantFlow(object):
 
         self._data["Heating Capacity Modifier Function of Flow Fraction Curve Name"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -25944,9 +26178,11 @@ class CoilHeatingWater(object):
         Hot water heating coil, NTU-effectiveness model, assumes a cross-flow heat exchanger.
         Two options for capacity inputs: UA and water flow rate or capacity and design
         temperatures.
+    
     """
     internal_name = "Coil:Heating:Water"
     field_count = 15
+    required_fields = ["Name", "Water Inlet Node Name", "Water Outlet Node Name", "Air Inlet Node Name", "Air Outlet Node Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Coil:Heating:Water`
@@ -26135,7 +26371,7 @@ class CoilHeatingWater(object):
 
         Args:
             value (float): value for IDD Field `ufactor_times_area_value`
-                Unit: W/K
+                Units: W/K
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -26166,7 +26402,8 @@ class CoilHeatingWater(object):
 
         Args:
             value (float): value for IDD Field `maximum_water_flow_rate`
-                Unit: m3/s
+                Units: m3/s
+                IP-Units: gal/min
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -26363,7 +26600,7 @@ class CoilHeatingWater(object):
 
         Args:
             value (float): value for IDD Field `rated_capacity`
-                Unit: W
+                Units: W
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -26398,7 +26635,7 @@ class CoilHeatingWater(object):
 
         Args:
             value (float): value for IDD Field `rated_inlet_water_temperature`
-                Unit: C
+                Units: C
                 Default value: 82.2
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -26430,7 +26667,7 @@ class CoilHeatingWater(object):
 
         Args:
             value (float): value for IDD Field `rated_inlet_air_temperature`
-                Unit: C
+                Units: C
                 Default value: 16.6
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -26462,7 +26699,7 @@ class CoilHeatingWater(object):
 
         Args:
             value (float): value for IDD Field `rated_outlet_water_temperature`
-                Unit: C
+                Units: C
                 Default value: 71.1
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -26494,7 +26731,7 @@ class CoilHeatingWater(object):
 
         Args:
             value (float): value for IDD Field `rated_outlet_air_temperature`
-                Unit: C
+                Units: C
                 Default value: 32.2
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -26546,6 +26783,16 @@ class CoilHeatingWater(object):
 
         self._data["Rated Ratio for Air and Water Convection"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -26581,9 +26828,11 @@ class CoilHeatingSteam(object):
     """ Corresponds to IDD object `Coil:Heating:Steam`
         Steam heating coil. Condenses and sub-cools steam at loop pressure and discharges
         condensate through steam traps to low pressure condensate line.
+    
     """
     internal_name = "Coil:Heating:Steam"
     field_count = 11
+    required_fields = ["Name", "Water Inlet Node Name", "Water Outlet Node Name", "Air Inlet Node Name", "Air Outlet Node Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Coil:Heating:Steam`
@@ -26747,7 +26996,7 @@ class CoilHeatingSteam(object):
 
         Args:
             value (float): value for IDD Field `maximum_steam_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -26782,7 +27031,7 @@ class CoilHeatingSteam(object):
 
         Args:
             value (float): value for IDD Field `degree_of_subcooling`
-                Unit: C
+                Units: C
                 value >= 1.0
                 value <= 5.0
                 if `value` is None it will not be checked against the
@@ -26821,7 +27070,7 @@ class CoilHeatingSteam(object):
 
         Args:
             value (float): value for IDD Field `degree_of_loop_subcooling`
-                Unit: C
+                Units: C
                 Default value: 20.0
                 value >= 10.0
                 if `value` is None it will not be checked against the
@@ -27053,6 +27302,16 @@ class CoilHeatingSteam(object):
 
         self._data["Temperature Setpoint Node Name"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -27088,9 +27347,11 @@ class CoilHeatingElectric(object):
         another component such as an air terminal unit, zone HVAC equipment, or unitary
         system, then the coil is controlled by the parent component and the setpoint node name
         is not entered.
+    
     """
     internal_name = "Coil:Heating:Electric"
     field_count = 7
+    required_fields = ["Name", "Air Inlet Node Name", "Air Outlet Node Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Coil:Heating:Electric`
@@ -27269,7 +27530,7 @@ class CoilHeatingElectric(object):
 
         Args:
             value (float): value for IDD Field `nominal_capacity`
-                Unit: W
+                Units: W
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -27385,6 +27646,16 @@ class CoilHeatingElectric(object):
 
         self._data["Temperature Setpoint Node Name"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -27416,9 +27687,11 @@ class CoilHeatingElectricMultiStage(object):
         within another component such as an air terminal unit, zone HVAC equipment, or unitary
         system, then the coil is controlled by the parent component and the setpoint node name
         is not entered.
+    
     """
     internal_name = "Coil:Heating:Electric:MultiStage"
     field_count = 14
+    required_fields = ["Name", "Air Inlet Node Name", "Air Outlet Node Name", "Number of Stages", "Stage 1 Efficiency", "Stage 1 Nominal Capacity"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Coil:Heating:Electric:MultiStage`
@@ -27741,7 +28014,7 @@ class CoilHeatingElectricMultiStage(object):
 
         Args:
             value (float): value for IDD Field `stage_1_efficiency`
-                Unit: W/W
+                Units: W/W
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -27776,7 +28049,7 @@ class CoilHeatingElectricMultiStage(object):
 
         Args:
             value (float): value for IDD Field `stage_1_nominal_capacity`
-                Unit: W
+                Units: W
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -27811,7 +28084,7 @@ class CoilHeatingElectricMultiStage(object):
 
         Args:
             value (float): value for IDD Field `stage_2_efficiency`
-                Unit: W/W
+                Units: W/W
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -27846,7 +28119,7 @@ class CoilHeatingElectricMultiStage(object):
 
         Args:
             value (float): value for IDD Field `stage_2_nominal_capacity`
-                Unit: W
+                Units: W
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -27881,7 +28154,7 @@ class CoilHeatingElectricMultiStage(object):
 
         Args:
             value (float): value for IDD Field `stage_3_efficiency`
-                Unit: W/W
+                Units: W/W
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -27916,7 +28189,7 @@ class CoilHeatingElectricMultiStage(object):
 
         Args:
             value (float): value for IDD Field `stage_3_nominal_capacity`
-                Unit: W
+                Units: W
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -27951,7 +28224,7 @@ class CoilHeatingElectricMultiStage(object):
 
         Args:
             value (float): value for IDD Field `stage_4_efficiency`
-                Unit: W/W
+                Units: W/W
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -27986,7 +28259,7 @@ class CoilHeatingElectricMultiStage(object):
 
         Args:
             value (float): value for IDD Field `stage_4_nominal_capacity`
-                Unit: W
+                Units: W
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -28005,6 +28278,16 @@ class CoilHeatingElectricMultiStage(object):
                                  'for field `stage_4_nominal_capacity`')
 
         self._data["Stage 4 Nominal Capacity"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):
@@ -28044,9 +28327,11 @@ class CoilHeatingGas(object):
         another component such as an air terminal unit, zone HVAC equipment, or unitary
         system, then the coil is controlled by the parent component and the setpoint node name
         is not entered.
+    
     """
     internal_name = "Coil:Heating:Gas"
     field_count = 10
+    required_fields = ["Name", "Air Inlet Node Name", "Air Outlet Node Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Coil:Heating:Gas`
@@ -28243,7 +28528,7 @@ class CoilHeatingGas(object):
 
         Args:
             value (float): value for IDD Field `nominal_capacity`
-                Unit: W
+                Units: W
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -28377,7 +28662,8 @@ class CoilHeatingGas(object):
 
         Args:
             value (float): value for IDD Field `parasitic_electric_load`
-                Unit: W
+                Units: W
+                IP-Units: W
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -28450,7 +28736,7 @@ class CoilHeatingGas(object):
 
         Args:
             value (float): value for IDD Field `parasitic_gas_load`
-                Unit: W
+                Units: W
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -28465,6 +28751,16 @@ class CoilHeatingGas(object):
                                  'for field `parasitic_gas_load`'.format(value))
 
         self._data["Parasitic Gas Load"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):
@@ -28500,9 +28796,11 @@ class CoilHeatingGasMultiStage(object):
         within another component such as an air terminal unit, zone HVAC equipment, or unitary
         system, then the coil is controlled by the parent component and the setpoint node name
         is not entered.
+    
     """
     internal_name = "Coil:Heating:Gas:MultiStage"
     field_count = 20
+    required_fields = ["Name", "Air Inlet Node Name", "Air Outlet Node Name", "Number of Stages", "Stage 1 Gas Burner Efficiency", "Stage 1 Nominal Capacity"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Coil:Heating:Gas:MultiStage`
@@ -28866,7 +29164,7 @@ class CoilHeatingGasMultiStage(object):
 
         Args:
             value (float): value for IDD Field `parasitic_gas_load`
-                Unit: W
+                Units: W
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -28937,7 +29235,7 @@ class CoilHeatingGasMultiStage(object):
 
         Args:
             value (float): value for IDD Field `stage_1_gas_burner_efficiency`
-                Unit: W/W
+                Units: W/W
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -28972,7 +29270,7 @@ class CoilHeatingGasMultiStage(object):
 
         Args:
             value (float): value for IDD Field `stage_1_nominal_capacity`
-                Unit: W
+                Units: W
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -29010,7 +29308,8 @@ class CoilHeatingGasMultiStage(object):
 
         Args:
             value (float): value for IDD Field `stage_1_parasitic_electric_load`
-                Unit: W
+                Units: W
+                IP-Units: W
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -29041,7 +29340,7 @@ class CoilHeatingGasMultiStage(object):
 
         Args:
             value (float): value for IDD Field `stage_2_gas_burner_efficiency`
-                Unit: W/W
+                Units: W/W
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -29076,7 +29375,7 @@ class CoilHeatingGasMultiStage(object):
 
         Args:
             value (float): value for IDD Field `stage_2_nominal_capacity`
-                Unit: W
+                Units: W
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -29114,7 +29413,8 @@ class CoilHeatingGasMultiStage(object):
 
         Args:
             value (float): value for IDD Field `stage_2_parasitic_electric_load`
-                Unit: W
+                Units: W
+                IP-Units: W
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -29145,7 +29445,7 @@ class CoilHeatingGasMultiStage(object):
 
         Args:
             value (float): value for IDD Field `stage_3_gas_burner_efficiency`
-                Unit: W/W
+                Units: W/W
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -29180,7 +29480,7 @@ class CoilHeatingGasMultiStage(object):
 
         Args:
             value (float): value for IDD Field `stage_3_nominal_capacity`
-                Unit: W
+                Units: W
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -29218,7 +29518,8 @@ class CoilHeatingGasMultiStage(object):
 
         Args:
             value (float): value for IDD Field `stage_3_parasitic_electric_load`
-                Unit: W
+                Units: W
+                IP-Units: W
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -29249,7 +29550,7 @@ class CoilHeatingGasMultiStage(object):
 
         Args:
             value (float): value for IDD Field `stage_4_gas_burner_efficiency`
-                Unit: W/W
+                Units: W/W
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -29284,7 +29585,7 @@ class CoilHeatingGasMultiStage(object):
 
         Args:
             value (float): value for IDD Field `stage_4_nominal_capacity`
-                Unit: W
+                Units: W
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -29322,7 +29623,8 @@ class CoilHeatingGasMultiStage(object):
 
         Args:
             value (float): value for IDD Field `stage_4_parasitic_electric_load`
-                Unit: W
+                Units: W
+                IP-Units: W
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -29337,6 +29639,16 @@ class CoilHeatingGasMultiStage(object):
                                  'for field `stage_4_parasitic_electric_load`'.format(value))
 
         self._data["Stage 4 Parasitic Electric Load"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):
@@ -29383,9 +29695,11 @@ class CoilHeatingDesuperheater(object):
         and the Temperature Setpoint Node Name must be specified. If the coil is contained
         within another component such as a unitary system, then the coil is controlled by the
         parent component and the setpoint node name is not entered.
+    
     """
     internal_name = "Coil:Heating:Desuperheater"
     field_count = 9
+    required_fields = ["Name", "Air Inlet Node Name", "Air Outlet Node Name", "Heating Source Object Type", "Heating Source Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Coil:Heating:Desuperheater`
@@ -29759,7 +30073,8 @@ class CoilHeatingDesuperheater(object):
 
         Args:
             value (float): value for IDD Field `parasitic_electric_load`
-                Unit: W
+                Units: W
+                IP-Units: W
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -29778,6 +30093,16 @@ class CoilHeatingDesuperheater(object):
                                  'for field `parasitic_electric_load`')
 
         self._data["Parasitic Electric Load"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):
@@ -29808,9 +30133,11 @@ class CoilHeatingDxSingleSpeed(object):
     """ Corresponds to IDD object `Coil:Heating:DX:SingleSpeed`
         Direct expansion (DX) heating coil (air-to-air heat pump) and compressor unit
         (includes electric compressor and outdoor fan), single-speed, with defrost controls.
+    
     """
     internal_name = "Coil:Heating:DX:SingleSpeed"
     field_count = 25
+    required_fields = ["Name", "Gross Rated Heating Capacity", "Gross Rated Heating COP", "Rated Air Flow Rate", "Air Inlet Node Name", "Air Outlet Node Name", "Heating Capacity Function of Temperature Curve Name", "Heating Capacity Function of Flow Fraction Curve Name", "Energy Input Ratio Function of Temperature Curve Name", "Energy Input Ratio Function of Flow Fraction Curve Name", "Part Load Fraction Correlation Curve Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Coil:Heating:DX:SingleSpeed`
@@ -30062,7 +30389,7 @@ class CoilHeatingDxSingleSpeed(object):
 
         Args:
             value (float): value for IDD Field `gross_rated_heating_capacity`
-                Unit: W
+                Units: W
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -30100,7 +30427,7 @@ class CoilHeatingDxSingleSpeed(object):
 
         Args:
             value (float): value for IDD Field `gross_rated_heating_cop`
-                Unit: W/W
+                Units: W/W
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -30137,7 +30464,7 @@ class CoilHeatingDxSingleSpeed(object):
 
         Args:
             value (float): value for IDD Field `rated_air_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -30176,7 +30503,7 @@ class CoilHeatingDxSingleSpeed(object):
 
         Args:
             value (float): value for IDD Field `rated_supply_fan_power_per_volume_flow_rate`
-                Unit: W/(m3/s)
+                Units: W/(m3/s)
                 Default value: 773.3
                 value >= 0.0
                 value <= 1250.0
@@ -30513,7 +30840,7 @@ class CoilHeatingDxSingleSpeed(object):
 
         Args:
             value (float): value for IDD Field `minimum_outdoor_drybulb_temperature_for_compressor_operation`
-                Unit: C
+                Units: C
                 Default value: -8.0
                 value >= -20.0
                 if `value` is None it will not be checked against the
@@ -30556,7 +30883,7 @@ class CoilHeatingDxSingleSpeed(object):
 
         Args:
             value (float): value for IDD Field `outdoor_drybulb_temperature_to_turn_on_compressor`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -30587,7 +30914,7 @@ class CoilHeatingDxSingleSpeed(object):
 
         Args:
             value (float): value for IDD Field `maximum_outdoor_drybulb_temperature_for_defrost_operation`
-                Unit: C
+                Units: C
                 Default value: 5.0
                 value >= 0.0
                 value <= 7.22
@@ -30627,7 +30954,8 @@ class CoilHeatingDxSingleSpeed(object):
 
         Args:
             value (float): value for IDD Field `crankcase_heater_capacity`
-                Unit: W
+                Units: W
+                IP-Units: W
                 Default value: 0.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -30663,7 +30991,7 @@ class CoilHeatingDxSingleSpeed(object):
 
         Args:
             value (float): value for IDD Field `maximum_outdoor_drybulb_temperature_for_crankcase_heater_operation`
-                Unit: C
+                Units: C
                 Default value: 10.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -30823,7 +31151,8 @@ class CoilHeatingDxSingleSpeed(object):
 
         Args:
             value (float): value for IDD Field `resistive_defrost_heater_capacity`
-                Unit: W
+                Units: W
+                IP-Units: W
                 Default value: 0.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -30919,6 +31248,16 @@ class CoilHeatingDxSingleSpeed(object):
 
         self._data["Evaporator Air Inlet Node Name"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -30966,9 +31305,11 @@ class CoilHeatingDxMultiSpeed(object):
         (includes electric or engine-driven compressor and outdoor fan), multi-speed
         (or variable-speed), with defrost controls. Requires two to four sets
         of performance data and will interpolate between speeds.
+    
     """
     internal_name = "Coil:Heating:DX:MultiSpeed"
     field_count = 62
+    required_fields = ["Name", "Air Inlet Node Name", "Air Outlet Node Name", "Number of Speeds", "Speed 1 Gross Rated Heating Capacity", "Speed 1 Gross Rated Heating COP", "Speed 1 Rated Air Flow Rate", "Speed 1 Heating Capacity Function of Temperature Curve Name", "Speed 1 Heating Capacity Function of Flow Fraction Curve Name", "Speed 1 Energy Input Ratio Function of Temperature Curve Name", "Speed 1 Energy Input Ratio Function of Flow Fraction Curve Name", "Speed 1 Part Load Fraction Correlation Curve Name", "Speed 1 Rated Waste Heat Fraction of Power Input", "Speed 1 Waste Heat Function of Temperature Curve Name", "Speed 2 Gross Rated Heating Capacity", "Speed 2 Gross Rated Heating COP", "Speed 2 Rated Air Flow Rate", "Speed 2 Heating Capacity Function of Temperature Curve Name", "Speed 2 Heating Capacity Function of Flow Fraction Curve Name", "Speed 2 Energy Input Ratio Function of Temperature Curve Name", "Speed 2 Energy Input Ratio Function of Flow Fraction Curve Name", "Speed 2 Part Load Fraction Correlation Curve Name", "Speed 2 Rated Waste Heat Fraction of Power Input", "Speed 2 Waste Heat Function of Temperature Curve Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Coil:Heating:DX:MultiSpeed`
@@ -31504,7 +31845,7 @@ class CoilHeatingDxMultiSpeed(object):
 
         Args:
             value (float): value for IDD Field `minimum_outdoor_drybulb_temperature_for_compressor_operation`
-                Unit: C
+                Units: C
                 Default value: -8.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -31543,7 +31884,7 @@ class CoilHeatingDxMultiSpeed(object):
 
         Args:
             value (float): value for IDD Field `outdoor_drybulb_temperature_to_turn_on_compressor`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -31574,7 +31915,8 @@ class CoilHeatingDxMultiSpeed(object):
 
         Args:
             value (float): value for IDD Field `crankcase_heater_capacity`
-                Unit: W
+                Units: W
+                IP-Units: W
                 Default value: 0.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -31610,7 +31952,7 @@ class CoilHeatingDxMultiSpeed(object):
 
         Args:
             value (float): value for IDD Field `maximum_outdoor_drybulb_temperature_for_crankcase_heater_operation`
-                Unit: C
+                Units: C
                 Default value: 10.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -31684,7 +32026,7 @@ class CoilHeatingDxMultiSpeed(object):
 
         Args:
             value (float): value for IDD Field `maximum_outdoor_drybulb_temperature_for_defrost_operation`
-                Unit: C
+                Units: C
                 Default value: 5.0
                 value >= 0.0
                 value <= 7.22
@@ -31848,7 +32190,8 @@ class CoilHeatingDxMultiSpeed(object):
 
         Args:
             value (float): value for IDD Field `resistive_defrost_heater_capacity`
-                Unit: W
+                Units: W
+                IP-Units: W
                 Default value: 0.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -32069,7 +32412,7 @@ class CoilHeatingDxMultiSpeed(object):
 
         Args:
             value (float): value for IDD Field `speed_1_gross_rated_heating_capacity`
-                Unit: W
+                Units: W
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -32106,7 +32449,7 @@ class CoilHeatingDxMultiSpeed(object):
 
         Args:
             value (float): value for IDD Field `speed_1_gross_rated_heating_cop`
-                Unit: W/W
+                Units: W/W
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -32144,7 +32487,7 @@ class CoilHeatingDxMultiSpeed(object):
 
         Args:
             value (float): value for IDD Field `speed_1_rated_air_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -32183,7 +32526,7 @@ class CoilHeatingDxMultiSpeed(object):
 
         Args:
             value (float): value for IDD Field `speed_1_rated_supply_air_fan_power_per_volume_flow_rate`
-                Unit: W/(m3/s)
+                Units: W/(m3/s)
                 Default value: 773.3
                 value >= 0.0
                 value <= 1250.0
@@ -32417,7 +32760,7 @@ class CoilHeatingDxMultiSpeed(object):
 
         Args:
             value (float): value for IDD Field `speed_1_rated_waste_heat_fraction_of_power_input`
-                Unit: dimensionless
+                Units: dimensionless
                 value > 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
@@ -32498,7 +32841,7 @@ class CoilHeatingDxMultiSpeed(object):
 
         Args:
             value (float): value for IDD Field `speed_2_gross_rated_heating_capacity`
-                Unit: W
+                Units: W
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -32535,7 +32878,7 @@ class CoilHeatingDxMultiSpeed(object):
 
         Args:
             value (float): value for IDD Field `speed_2_gross_rated_heating_cop`
-                Unit: W/W
+                Units: W/W
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -32573,7 +32916,7 @@ class CoilHeatingDxMultiSpeed(object):
 
         Args:
             value (float): value for IDD Field `speed_2_rated_air_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -32612,7 +32955,7 @@ class CoilHeatingDxMultiSpeed(object):
 
         Args:
             value (float): value for IDD Field `speed_2_rated_supply_air_fan_power_per_volume_flow_rate`
-                Unit: W/(m3/s)
+                Units: W/(m3/s)
                 Default value: 773.3
                 value >= 0.0
                 value <= 1250.0
@@ -32846,7 +33189,7 @@ class CoilHeatingDxMultiSpeed(object):
 
         Args:
             value (float): value for IDD Field `speed_2_rated_waste_heat_fraction_of_power_input`
-                Unit: dimensionless
+                Units: dimensionless
                 value > 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
@@ -32927,7 +33270,7 @@ class CoilHeatingDxMultiSpeed(object):
 
         Args:
             value (float): value for IDD Field `speed_3_gross_rated_heating_capacity`
-                Unit: W
+                Units: W
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -32964,7 +33307,7 @@ class CoilHeatingDxMultiSpeed(object):
 
         Args:
             value (float): value for IDD Field `speed_3_gross_rated_heating_cop`
-                Unit: W/W
+                Units: W/W
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -33002,7 +33345,7 @@ class CoilHeatingDxMultiSpeed(object):
 
         Args:
             value (float): value for IDD Field `speed_3_rated_air_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -33041,7 +33384,7 @@ class CoilHeatingDxMultiSpeed(object):
 
         Args:
             value (float): value for IDD Field `speed_3_rated_supply_air_fan_power_per_volume_flow_rate`
-                Unit: W/(m3/s)
+                Units: W/(m3/s)
                 Default value: 773.3
                 value >= 0.0
                 value <= 1250.0
@@ -33275,7 +33618,7 @@ class CoilHeatingDxMultiSpeed(object):
 
         Args:
             value (float): value for IDD Field `speed_3_rated_waste_heat_fraction_of_power_input`
-                Unit: dimensionless
+                Units: dimensionless
                 value > 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
@@ -33356,7 +33699,7 @@ class CoilHeatingDxMultiSpeed(object):
 
         Args:
             value (float): value for IDD Field `speed_4_gross_rated_heating_capacity`
-                Unit: W
+                Units: W
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -33393,7 +33736,7 @@ class CoilHeatingDxMultiSpeed(object):
 
         Args:
             value (float): value for IDD Field `speed_4_gross_rated_heating_cop`
-                Unit: W/W
+                Units: W/W
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -33431,7 +33774,7 @@ class CoilHeatingDxMultiSpeed(object):
 
         Args:
             value (float): value for IDD Field `speed_4_rated_air_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -33470,7 +33813,7 @@ class CoilHeatingDxMultiSpeed(object):
 
         Args:
             value (float): value for IDD Field `speed_4_rated_supply_air_fan_power_per_volume_flow_rate`
-                Unit: W/(m3/s)
+                Units: W/(m3/s)
                 Default value: 773.3
                 value >= 0.0
                 value <= 1250.0
@@ -33704,7 +34047,7 @@ class CoilHeatingDxMultiSpeed(object):
 
         Args:
             value (float): value for IDD Field `speed_4_rated_waste_heat_fraction_of_power_input`
-                Unit: dimensionless
+                Units: dimensionless
                 value > 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
@@ -33764,6 +34107,16 @@ class CoilHeatingDxMultiSpeed(object):
                                  'for field `speed_4_waste_heat_function_of_temperature_curve_name`')
 
         self._data["Speed 4 Waste Heat Function of Temperature Curve Name"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):
@@ -33849,9 +34202,11 @@ class CoilHeatingDxVariableSpeed(object):
         (includes electric compressor and outdoor fan), variable-speed, with defrost
         controls. Requires two to ten sets of performance data and will interpolate between
         speeds.
+    
     """
     internal_name = "Coil:Heating:DX:VariableSpeed"
     field_count = 88
+    required_fields = ["Name", "Indoor Air Inlet Node Name", "Indoor Air Outlet Node Name", "Number of Speeds", "Nominal Speed Level", "Rated Heating Capacity At Selected Nominal Speed Level", "Rated Air Flow Rate At Selected Nominal Speed Level", "Energy Part Load Fraction Curve Name", "Speed 1 Reference Unit Gross Rated Heating Capacity", "Speed 1 Reference Unit Gross Rated Heating COP", "Speed 1 Reference Unit Rated Air Flow Rate", "Speed 1 Heating Capacity Function of Temperature Curve Name", "Speed 1 Total  Heating Capacity Function of Air Flow Fraction Curve Name", "Speed 1 Energy Input Ratio Function of Temperature Curve Name", "Speed 1 Energy Input Ratio Function of Air Flow Fraction Curve Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Coil:Heating:DX:VariableSpeed`
@@ -34508,7 +34863,7 @@ class CoilHeatingDxVariableSpeed(object):
 
         Args:
             value (int): value for IDD Field `number_of_speeds`
-                Unit: dimensionless
+                Units: dimensionless
                 Default value: 2
                 value >= 1
                 value <= 10
@@ -34549,7 +34904,7 @@ class CoilHeatingDxVariableSpeed(object):
 
         Args:
             value (int): value for IDD Field `nominal_speed_level`
-                Unit: dimensionless
+                Units: dimensionless
                 Default value: 2
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -34581,7 +34936,7 @@ class CoilHeatingDxVariableSpeed(object):
 
         Args:
             value (float): value for IDD Field `rated_heating_capacity_at_selected_nominal_speed_level`
-                Unit: w
+                Units: w
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -34612,7 +34967,7 @@ class CoilHeatingDxVariableSpeed(object):
 
         Args:
             value (float): value for IDD Field `rated_air_flow_rate_at_selected_nominal_speed_level`
-                Unit: m3/s
+                Units: m3/s
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -34718,7 +35073,7 @@ class CoilHeatingDxVariableSpeed(object):
 
         Args:
             value (float): value for IDD Field `minimum_outdoor_drybulb_temperature_for_compressor_operation`
-                Unit: C
+                Units: C
                 Default value: -8.0
                 value >= -50.0
                 if `value` is None it will not be checked against the
@@ -34761,7 +35116,7 @@ class CoilHeatingDxVariableSpeed(object):
 
         Args:
             value (float): value for IDD Field `outdoor_drybulb_temperature_to_turn_on_compressor`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -34792,7 +35147,7 @@ class CoilHeatingDxVariableSpeed(object):
 
         Args:
             value (float): value for IDD Field `maximum_outdoor_drybulb_temperature_for_defrost_operation`
-                Unit: C
+                Units: C
                 Default value: 5.0
                 value >= 0.0
                 value <= 7.22
@@ -34832,7 +35187,8 @@ class CoilHeatingDxVariableSpeed(object):
 
         Args:
             value (float): value for IDD Field `crankcase_heater_capacity`
-                Unit: W
+                Units: W
+                IP-Units: W
                 Default value: 0.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -34868,7 +35224,7 @@ class CoilHeatingDxVariableSpeed(object):
 
         Args:
             value (float): value for IDD Field `maximum_outdoor_drybulb_temperature_for_crankcase_heater_operation`
-                Unit: C
+                Units: C
                 Default value: 10.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -35028,7 +35384,8 @@ class CoilHeatingDxVariableSpeed(object):
 
         Args:
             value (float): value for IDD Field `resistive_defrost_heater_capacity`
-                Unit: W
+                Units: W
+                IP-Units: W
                 Default value: 0.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -35065,7 +35422,7 @@ class CoilHeatingDxVariableSpeed(object):
 
         Args:
             value (float): value for IDD Field `speed_1_reference_unit_gross_rated_heating_capacity`
-                Unit: w
+                Units: w
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -35100,7 +35457,7 @@ class CoilHeatingDxVariableSpeed(object):
 
         Args:
             value (float): value for IDD Field `speed_1_reference_unit_gross_rated_heating_cop`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -35135,7 +35492,7 @@ class CoilHeatingDxVariableSpeed(object):
 
         Args:
             value (float): value for IDD Field `speed_1_reference_unit_rated_air_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -35319,7 +35676,7 @@ class CoilHeatingDxVariableSpeed(object):
 
         Args:
             value (float): value for IDD Field `speed_2_reference_unit_gross_rated_heating_capacity`
-                Unit: w
+                Units: w
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -35354,7 +35711,7 @@ class CoilHeatingDxVariableSpeed(object):
 
         Args:
             value (float): value for IDD Field `speed_2_reference_unit_gross_rated_heating_cop`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -35389,7 +35746,7 @@ class CoilHeatingDxVariableSpeed(object):
 
         Args:
             value (float): value for IDD Field `speed_2_reference_unit_rated_air_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -35573,7 +35930,7 @@ class CoilHeatingDxVariableSpeed(object):
 
         Args:
             value (float): value for IDD Field `speed_3_reference_unit_gross_rated_heating_capacity`
-                Unit: w
+                Units: w
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -35608,7 +35965,7 @@ class CoilHeatingDxVariableSpeed(object):
 
         Args:
             value (float): value for IDD Field `speed_3_reference_unit_gross_rated_heating_cop`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -35643,7 +36000,7 @@ class CoilHeatingDxVariableSpeed(object):
 
         Args:
             value (float): value for IDD Field `speed_3_reference_unit_rated_air_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -35827,7 +36184,7 @@ class CoilHeatingDxVariableSpeed(object):
 
         Args:
             value (float): value for IDD Field `speed_4_reference_unit_gross_rated_heating_capacity`
-                Unit: w
+                Units: w
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -35862,7 +36219,7 @@ class CoilHeatingDxVariableSpeed(object):
 
         Args:
             value (float): value for IDD Field `speed_4_reference_unit_gross_rated_heating_cop`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -35897,7 +36254,7 @@ class CoilHeatingDxVariableSpeed(object):
 
         Args:
             value (float): value for IDD Field `speed_4_reference_unit_rated_air_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -36081,7 +36438,7 @@ class CoilHeatingDxVariableSpeed(object):
 
         Args:
             value (float): value for IDD Field `speed_5_reference_unit_gross_rated_heating_capacity`
-                Unit: w
+                Units: w
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -36116,7 +36473,7 @@ class CoilHeatingDxVariableSpeed(object):
 
         Args:
             value (float): value for IDD Field `speed_5_reference_unit_gross_rated_heating_cop`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -36151,7 +36508,7 @@ class CoilHeatingDxVariableSpeed(object):
 
         Args:
             value (float): value for IDD Field `speed_5_reference_unit_rated_air_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -36335,7 +36692,7 @@ class CoilHeatingDxVariableSpeed(object):
 
         Args:
             value (float): value for IDD Field `speed_6_reference_unit_gross_rated_heating_capacity`
-                Unit: w
+                Units: w
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -36370,7 +36727,7 @@ class CoilHeatingDxVariableSpeed(object):
 
         Args:
             value (float): value for IDD Field `speed_6_reference_unit_gross_rated_heating_cop`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -36405,7 +36762,7 @@ class CoilHeatingDxVariableSpeed(object):
 
         Args:
             value (float): value for IDD Field `speed_6_reference_unit_rated_air_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -36589,7 +36946,7 @@ class CoilHeatingDxVariableSpeed(object):
 
         Args:
             value (float): value for IDD Field `speed_7_reference_unit_gross_rated_heating_capacity`
-                Unit: w
+                Units: w
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -36624,7 +36981,7 @@ class CoilHeatingDxVariableSpeed(object):
 
         Args:
             value (float): value for IDD Field `speed_7_reference_unit_gross_rated_heating_cop`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -36659,7 +37016,7 @@ class CoilHeatingDxVariableSpeed(object):
 
         Args:
             value (float): value for IDD Field `speed_7_reference_unit_rated_air_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -36843,7 +37200,7 @@ class CoilHeatingDxVariableSpeed(object):
 
         Args:
             value (float): value for IDD Field `speed_8_reference_unit_gross_rated_heating_capacity`
-                Unit: w
+                Units: w
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -36878,7 +37235,7 @@ class CoilHeatingDxVariableSpeed(object):
 
         Args:
             value (float): value for IDD Field `speed_8_reference_unit_gross_rated_heating_cop`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -36913,7 +37270,7 @@ class CoilHeatingDxVariableSpeed(object):
 
         Args:
             value (float): value for IDD Field `speed_8_reference_unit_rated_air_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -37097,7 +37454,7 @@ class CoilHeatingDxVariableSpeed(object):
 
         Args:
             value (float): value for IDD Field `speed_9_reference_unit_gross_rated_heating_capacity`
-                Unit: w
+                Units: w
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -37132,7 +37489,7 @@ class CoilHeatingDxVariableSpeed(object):
 
         Args:
             value (float): value for IDD Field `speed_9_reference_unit_gross_rated_heating_cop`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -37167,7 +37524,7 @@ class CoilHeatingDxVariableSpeed(object):
 
         Args:
             value (float): value for IDD Field `speed_9_reference_unit_rated_air_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -37351,7 +37708,7 @@ class CoilHeatingDxVariableSpeed(object):
 
         Args:
             value (float): value for IDD Field `speed_10_reference_unit_gross_rated_heating_capacity`
-                Unit: w
+                Units: w
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -37386,7 +37743,7 @@ class CoilHeatingDxVariableSpeed(object):
 
         Args:
             value (float): value for IDD Field `speed_10_reference_unit_gross_rated_heating_cop`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -37421,7 +37778,7 @@ class CoilHeatingDxVariableSpeed(object):
 
         Args:
             value (float): value for IDD Field `speed_10_reference_unit_rated_air_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -37589,6 +37946,16 @@ class CoilHeatingDxVariableSpeed(object):
 
         self._data["Speed 10 Energy Input Ratio Function of Air Flow Fraction Curve Name"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -37700,9 +38067,11 @@ class CoilCoolingWaterToAirHeatPumpParameterEstimation(object):
         evaporation from wet coil when compressor cycles off with continuous fan operation.
         Parameter estimation model is a deterministic model that requires a consistent set of
         parameters to describe the operating conditions of the heat pump components.
+    
     """
     internal_name = "Coil:Cooling:WaterToAirHeatPump:ParameterEstimation"
     field_count = 27
+    required_fields = ["Name", "Compressor Type", "Refrigerant Type", "Design Source Side Flow Rate", "Nominal Cooling Coil Capacity", "High Pressure Cutoff", "Low Pressure Cutoff", "Water Inlet Node Name", "Water Outlet Node Name", "Air Inlet Node Name", "Air Outlet Node Name", "Load Side Total Heat Transfer Coefficient", "Load Side Outside Surface Heat Transfer Coefficient", "Superheat Temperature at the Evaporator Outlet", "Compressor Power Losses", "Compressor Efficiency"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Coil:Cooling:WaterToAirHeatPump:ParameterEstimation`
@@ -38008,7 +38377,7 @@ class CoilCoolingWaterToAirHeatPumpParameterEstimation(object):
 
         Args:
             value (float): value for IDD Field `design_source_side_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -38043,7 +38412,7 @@ class CoilCoolingWaterToAirHeatPumpParameterEstimation(object):
 
         Args:
             value (float): value for IDD Field `nominal_cooling_coil_capacity`
-                Unit: W
+                Units: W
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -38083,7 +38452,7 @@ class CoilCoolingWaterToAirHeatPumpParameterEstimation(object):
 
         Args:
             value (float): value for IDD Field `nominal_time_for_condensate_removal_to_begin`
-                Unit: s
+                Units: s
                 Default value: 0.0
                 value >= 0.0
                 value <= 3000.0
@@ -38127,7 +38496,7 @@ class CoilCoolingWaterToAirHeatPumpParameterEstimation(object):
 
         Args:
             value (float): value for IDD Field `ratio_of_initial_moisture_evaporation_rate_and_steady_state_latent_capacity`
-                Unit: dimensionless
+                Units: dimensionless
                 Default value: 0.0
                 value >= 0.0
                 value <= 5.0
@@ -38167,7 +38536,7 @@ class CoilCoolingWaterToAirHeatPumpParameterEstimation(object):
 
         Args:
             value (float): value for IDD Field `high_pressure_cutoff`
-                Unit: Pa
+                Units: Pa
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -38202,7 +38571,7 @@ class CoilCoolingWaterToAirHeatPumpParameterEstimation(object):
 
         Args:
             value (float): value for IDD Field `low_pressure_cutoff`
-                Unit: Pa
+                Units: Pa
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -38370,7 +38739,7 @@ class CoilCoolingWaterToAirHeatPumpParameterEstimation(object):
 
         Args:
             value (float): value for IDD Field `load_side_total_heat_transfer_coefficient`
-                Unit: W/K
+                Units: W/K
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -38406,7 +38775,7 @@ class CoilCoolingWaterToAirHeatPumpParameterEstimation(object):
 
         Args:
             value (float): value for IDD Field `load_side_outside_surface_heat_transfer_coefficient`
-                Unit: W/K
+                Units: W/K
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -38442,7 +38811,7 @@ class CoilCoolingWaterToAirHeatPumpParameterEstimation(object):
 
         Args:
             value (float): value for IDD Field `superheat_temperature_at_the_evaporator_outlet`
-                Unit: C
+                Units: C
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -38479,7 +38848,7 @@ class CoilCoolingWaterToAirHeatPumpParameterEstimation(object):
 
         Args:
             value (float): value for IDD Field `compressor_power_losses`
-                Unit: W
+                Units: W
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -38552,7 +38921,7 @@ class CoilCoolingWaterToAirHeatPumpParameterEstimation(object):
 
         Args:
             value (float): value for IDD Field `compressor_piston_displacement`
-                Unit: m3/s
+                Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -38590,7 +38959,7 @@ class CoilCoolingWaterToAirHeatPumpParameterEstimation(object):
 
         Args:
             value (float): value for IDD Field `compressor_suction_or_discharge_pressure_drop`
-                Unit: Pa
+                Units: Pa
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -38628,7 +38997,7 @@ class CoilCoolingWaterToAirHeatPumpParameterEstimation(object):
 
         Args:
             value (float): value for IDD Field `compressor_clearance_factor`
-                Unit: dimensionless
+                Units: dimensionless
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -38666,7 +39035,7 @@ class CoilCoolingWaterToAirHeatPumpParameterEstimation(object):
 
         Args:
             value (float): value for IDD Field `refrigerant_volume_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -38704,7 +39073,7 @@ class CoilCoolingWaterToAirHeatPumpParameterEstimation(object):
 
         Args:
             value (float): value for IDD Field `volume_ratio`
-                Unit: dimensionless
+                Units: dimensionless
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -38779,7 +39148,7 @@ class CoilCoolingWaterToAirHeatPumpParameterEstimation(object):
 
         Args:
             value (float): value for IDD Field `source_side_heat_transfer_coefficient`
-                Unit: W/K
+                Units: W/K
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -38817,7 +39186,7 @@ class CoilCoolingWaterToAirHeatPumpParameterEstimation(object):
 
         Args:
             value (float): value for IDD Field `source_side_heat_transfer_resistance1`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -38855,7 +39224,7 @@ class CoilCoolingWaterToAirHeatPumpParameterEstimation(object):
 
         Args:
             value (float): value for IDD Field `source_side_heat_transfer_resistance2`
-                Unit: W/K
+                Units: W/K
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -38874,6 +39243,16 @@ class CoilCoolingWaterToAirHeatPumpParameterEstimation(object):
                                  'for field `source_side_heat_transfer_resistance2`')
 
         self._data["Source Side Heat Transfer Resistance2"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):
@@ -38924,9 +39303,11 @@ class CoilHeatingWaterToAirHeatPumpParameterEstimation(object):
         compressor), single-speed, parameter estimation model. Parameter estimation model is
         a deterministic model that requires a consistent set of parameters to describe
         the operating conditions of the heat pump components.
+    
     """
     internal_name = "Coil:Heating:WaterToAirHeatPump:ParameterEstimation"
     field_count = 24
+    required_fields = ["Name", "Compressor Type", "Refrigerant Type", "Design Source Side Flow Rate", "Gross Rated Heating Capacity", "High Pressure Cutoff", "Low Pressure Cutoff", "Water Inlet Node Name", "Water Outlet Node Name", "Air Inlet Node Name", "Air Outlet Node Name", "Load Side Total Heat Transfer Coefficient", "Superheat Temperature at the Evaporator Outlet", "Compressor Power Losses", "Compressor Efficiency"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Coil:Heating:WaterToAirHeatPump:ParameterEstimation`
@@ -39214,7 +39595,7 @@ class CoilHeatingWaterToAirHeatPumpParameterEstimation(object):
 
         Args:
             value (float): value for IDD Field `design_source_side_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -39250,7 +39631,7 @@ class CoilHeatingWaterToAirHeatPumpParameterEstimation(object):
 
         Args:
             value (float): value for IDD Field `gross_rated_heating_capacity`
-                Unit: W
+                Units: W
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -39319,7 +39700,7 @@ class CoilHeatingWaterToAirHeatPumpParameterEstimation(object):
 
         Args:
             value (float): value for IDD Field `low_pressure_cutoff`
-                Unit: Pa
+                Units: Pa
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -39487,7 +39868,7 @@ class CoilHeatingWaterToAirHeatPumpParameterEstimation(object):
 
         Args:
             value (float): value for IDD Field `load_side_total_heat_transfer_coefficient`
-                Unit: W/K
+                Units: W/K
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -39523,7 +39904,7 @@ class CoilHeatingWaterToAirHeatPumpParameterEstimation(object):
 
         Args:
             value (float): value for IDD Field `superheat_temperature_at_the_evaporator_outlet`
-                Unit: C
+                Units: C
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -39560,7 +39941,7 @@ class CoilHeatingWaterToAirHeatPumpParameterEstimation(object):
 
         Args:
             value (float): value for IDD Field `compressor_power_losses`
-                Unit: W
+                Units: W
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -39633,7 +40014,7 @@ class CoilHeatingWaterToAirHeatPumpParameterEstimation(object):
 
         Args:
             value (float): value for IDD Field `compressor_piston_displacement`
-                Unit: m3/s
+                Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -39671,7 +40052,7 @@ class CoilHeatingWaterToAirHeatPumpParameterEstimation(object):
 
         Args:
             value (float): value for IDD Field `compressor_suction_or_discharge_pressure_drop`
-                Unit: Pa
+                Units: Pa
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -39709,7 +40090,7 @@ class CoilHeatingWaterToAirHeatPumpParameterEstimation(object):
 
         Args:
             value (float): value for IDD Field `compressor_clearance_factor`
-                Unit: dimensionless
+                Units: dimensionless
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -39747,7 +40128,7 @@ class CoilHeatingWaterToAirHeatPumpParameterEstimation(object):
 
         Args:
             value (float): value for IDD Field `refrigerant_volume_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -39785,7 +40166,7 @@ class CoilHeatingWaterToAirHeatPumpParameterEstimation(object):
 
         Args:
             value (float): value for IDD Field `volume_ratio`
-                Unit: dimensionless
+                Units: dimensionless
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -39823,7 +40204,7 @@ class CoilHeatingWaterToAirHeatPumpParameterEstimation(object):
 
         Args:
             value (float): value for IDD Field `leak_rate_coefficient`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -39861,7 +40242,7 @@ class CoilHeatingWaterToAirHeatPumpParameterEstimation(object):
 
         Args:
             value (float): value for IDD Field `source_side_heat_transfer_coefficient`
-                Unit: W/K
+                Units: W/K
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -39899,7 +40280,7 @@ class CoilHeatingWaterToAirHeatPumpParameterEstimation(object):
 
         Args:
             value (float): value for IDD Field `source_side_heat_transfer_resistance1`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -39937,7 +40318,7 @@ class CoilHeatingWaterToAirHeatPumpParameterEstimation(object):
 
         Args:
             value (float): value for IDD Field `source_side_heat_transfer_resistance2`
-                Unit: W/K
+                Units: W/K
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -39956,6 +40337,16 @@ class CoilHeatingWaterToAirHeatPumpParameterEstimation(object):
                                  'for field `source_side_heat_transfer_resistance2`')
 
         self._data["Source Side Heat Transfer Resistance2"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):
@@ -40003,9 +40394,11 @@ class CoilCoolingWaterToAirHeatPumpEquationFit(object):
         compressor), single-speed, equation-fit model. Optional inputs for moisture
         evaporation from wet coil when compressor cycles off with continuous fan operation.
         Equation-fit model uses normalized curves to describe the heat pump performance.
+    
     """
     internal_name = "Coil:Cooling:WaterToAirHeatPump:EquationFit"
     field_count = 28
+    required_fields = ["Name", "Water Inlet Node Name", "Water Outlet Node Name", "Air Inlet Node Name", "Air Outlet Node Name", "Rated Air Flow Rate", "Rated Water Flow Rate", "Gross Rated Total Cooling Capacity", "Gross Rated Sensible Cooling Capacity", "Gross Rated Cooling COP", "Total Cooling Capacity Coefficient 1", "Total Cooling Capacity Coefficient 2", "Total Cooling Capacity Coefficient 3", "Total Cooling Capacity Coefficient 4", "Total Cooling Capacity Coefficient 5", "Sensible Cooling Capacity Coefficient 1", "Sensible Cooling Capacity Coefficient 2", "Sensible Cooling Capacity Coefficient 3", "Sensible Cooling Capacity Coefficient 4", "Sensible Cooling Capacity Coefficient 5", "Sensible Cooling Capacity Coefficient 6", "Cooling Power Consumption Coefficient 1", "Cooling Power Consumption Coefficient 2", "Cooling Power Consumption Coefficient 3", "Cooling Power Consumption Coefficient 4", "Cooling Power Consumption Coefficient 5"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Coil:Cooling:WaterToAirHeatPump:EquationFit`
@@ -40368,7 +40761,7 @@ class CoilCoolingWaterToAirHeatPumpEquationFit(object):
 
         Args:
             value (float): value for IDD Field `rated_air_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -40403,7 +40796,7 @@ class CoilCoolingWaterToAirHeatPumpEquationFit(object):
 
         Args:
             value (float): value for IDD Field `rated_water_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -40439,7 +40832,7 @@ class CoilCoolingWaterToAirHeatPumpEquationFit(object):
 
         Args:
             value (float): value for IDD Field `gross_rated_total_cooling_capacity`
-                Unit: W
+                Units: W
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -40474,7 +40867,7 @@ class CoilCoolingWaterToAirHeatPumpEquationFit(object):
 
         Args:
             value (float): value for IDD Field `gross_rated_sensible_cooling_capacity`
-                Unit: W
+                Units: W
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -41028,7 +41421,7 @@ class CoilCoolingWaterToAirHeatPumpEquationFit(object):
 
         Args:
             value (float): value for IDD Field `nominal_time_for_condensate_removal_to_begin`
-                Unit: s
+                Units: s
                 Default value: 0.0
                 value >= 0.0
                 value <= 3000.0
@@ -41072,7 +41465,7 @@ class CoilCoolingWaterToAirHeatPumpEquationFit(object):
 
         Args:
             value (float): value for IDD Field `ratio_of_initial_moisture_evaporation_rate_and_steady_state_latent_capacity`
-                Unit: dimensionless
+                Units: dimensionless
                 Default value: 0.0
                 value >= 0.0
                 value <= 5.0
@@ -41096,6 +41489,16 @@ class CoilCoolingWaterToAirHeatPumpEquationFit(object):
                                  'for field `ratio_of_initial_moisture_evaporation_rate_and_steady_state_latent_capacity`')
 
         self._data["Ratio of Initial Moisture Evaporation Rate and Steady State Latent Capacity"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):
@@ -41149,9 +41552,11 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
         Equation-fit model uses normalized curves to describe the heat pump performance.
         Requires two to ten sets of performance data and will interpolate between speeds.
         Modeled as a single coil with variable-speed compressor.
+    
     """
     internal_name = "Coil:Cooling:WaterToAirHeatPump:VariableSpeedEquationFit"
     field_count = 144
+    required_fields = ["Name", "Water-to-Refrigerant HX Water Inlet Node Name", "Water-to-Refrigerant HX Water Outlet Node Name", "Indoor Air Inlet Node Name", "Indoor Air Outlet Node Name", "Number of Speeds", "Nominal Speed Level", "Gross Rated Total Cooling Capacity At Selected Nominal Speed Level", "Rated Air Flow Rate At Selected Nominal Speed Level", "Rated Water Flow Rate At Selected Nominal Speed Level", "Nominal Time for Condensate to Begin Leaving the Coil", "Initial Moisture Evaporation Rate Divided by Steady-State AC Latent Capacity", "Flag for Using Hot Gas Reheat, 0 or 1", "Energy Part Load Fraction Curve Name", "Speed 1 Reference Unit Gross Rated Total Cooling Capacity", "Speed 1 Reference Unit Gross Rated Sensible Heat Ratio", "Speed 1 Reference Unit Gross Rated Cooling COP", "Speed 1 Reference Unit Rated Air Flow Rate", "Speed 1 Reference Unit Rated Water Flow Rate", "Speed 1 Total Cooling Capacity Function of Temperature Curve Name", "Speed 1 Total Cooling Capacity Function of Air Flow Fraction Curve Name", "Speed 1 Total Cooling Capacity Function of Water Flow Fraction Curve Name", "Speed 1 Energy Input Ratio Function of Temperature Curve Name", "Speed 1 Energy Input Ratio Function of Air Flow Fraction Curve Name", "Speed 1 Energy Input Ratio Function of Water Flow Fraction Curve Name", "Speed 1 Reference Unit Waste Heat Fraction of Input Power At Rated Conditions", "Speed 1 Waste Heat Function of Temperature Curve Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Coil:Cooling:WaterToAirHeatPump:VariableSpeedEquationFit`
@@ -42210,7 +42615,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
 
         Args:
             value (int): value for IDD Field `number_of_speeds`
-                Unit: dimensionless
+                Units: dimensionless
                 Default value: 2
                 value >= 1
                 value <= 10
@@ -42251,7 +42656,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
 
         Args:
             value (int): value for IDD Field `nominal_speed_level`
-                Unit: dimensionless
+                Units: dimensionless
                 Default value: 2
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -42284,7 +42689,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
 
         Args:
             value (float): value for IDD Field `gross_rated_total_cooling_capacity_at_selected_nominal_speed_level`
-                Unit: w
+                Units: w
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -42315,7 +42720,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
 
         Args:
             value (float): value for IDD Field `rated_air_flow_rate_at_selected_nominal_speed_level`
-                Unit: m3/s
+                Units: m3/s
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -42346,7 +42751,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
 
         Args:
             value (float): value for IDD Field `rated_water_flow_rate_at_selected_nominal_speed_level`
-                Unit: m3/s
+                Units: m3/s
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -42377,7 +42782,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
 
         Args:
             value (float): value for IDD Field `nominal_time_for_condensate_to_begin_leaving_the_coil`
-                Unit: s
+                Units: s
                 Default value: 0.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -42413,7 +42818,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
 
         Args:
             value (float): value for IDD Field `initial_moisture_evaporation_rate_divided_by_steadystate_ac_latent_capacity`
-                Unit: dimensionless
+                Units: dimensionless
                 Default value: 0.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -42450,7 +42855,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
 
         Args:
             value (float): value for IDD Field `flag_for_using_hot_gas_reheat_0_or_1`
-                Unit: dimensionless
+                Units: dimensionless
                 Default value: 0.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -42524,7 +42929,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
 
         Args:
             value (float): value for IDD Field `speed_1_reference_unit_gross_rated_total_cooling_capacity`
-                Unit: w
+                Units: w
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -42559,7 +42964,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
 
         Args:
             value (float): value for IDD Field `speed_1_reference_unit_gross_rated_sensible_heat_ratio`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -42594,7 +42999,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
 
         Args:
             value (float): value for IDD Field `speed_1_reference_unit_gross_rated_cooling_cop`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -42629,7 +43034,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
 
         Args:
             value (float): value for IDD Field `speed_1_reference_unit_rated_air_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -42664,7 +43069,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
 
         Args:
             value (float): value for IDD Field `speed_1_reference_unit_rated_water_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -42921,7 +43326,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
 
         Args:
             value (float): value for IDD Field `speed_1_reference_unit_waste_heat_fraction_of_input_power_at_rated_conditions`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -42994,7 +43399,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
 
         Args:
             value (float): value for IDD Field `speed_2_reference_unit_gross_rated_total_cooling_capacity`
-                Unit: w
+                Units: w
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -43029,7 +43434,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
 
         Args:
             value (float): value for IDD Field `speed_2_reference_unit_gross_rated_sensible_heat_ratio`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -43064,7 +43469,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
 
         Args:
             value (float): value for IDD Field `speed_2_reference_unit_gross_rated_cooling_cop`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -43099,7 +43504,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
 
         Args:
             value (float): value for IDD Field `speed_2_reference_unit_rated_air_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -43134,7 +43539,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
 
         Args:
             value (float): value for IDD Field `speed_2_reference_unit_rated_water_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -43391,7 +43796,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
 
         Args:
             value (float): value for IDD Field `speed_2_reference_unit_waste_heat_fraction_of_input_power_at_rated_conditions`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -43464,7 +43869,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
 
         Args:
             value (float): value for IDD Field `speed_3_reference_unit_gross_rated_total_cooling_capacity`
-                Unit: w
+                Units: w
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -43499,7 +43904,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
 
         Args:
             value (float): value for IDD Field `speed_3_reference_unit_gross_rated_sensible_heat_ratio`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -43534,7 +43939,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
 
         Args:
             value (float): value for IDD Field `speed_3_reference_unit_gross_rated_cooling_cop`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -43569,7 +43974,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
 
         Args:
             value (float): value for IDD Field `speed_3_reference_unit_rated_air_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -43604,7 +44009,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
 
         Args:
             value (float): value for IDD Field `speed_3_reference_unit_rated_water_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -43867,7 +44272,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
 
         Args:
             value (float): value for IDD Field `speed_3_reference_unit_waste_heat_fraction_of_input_power_at_rated_conditions`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -43941,7 +44346,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
 
         Args:
             value (float): value for IDD Field `speed_4_reference_unit_gross_rated_total_cooling_capacity`
-                Unit: w
+                Units: w
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -43976,7 +44381,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
 
         Args:
             value (float): value for IDD Field `speed_4_reference_unit_gross_rated_sensible_heat_ratio`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -44011,7 +44416,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
 
         Args:
             value (float): value for IDD Field `speed_4_reference_unit_gross_rated_cooling_cop`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -44046,7 +44451,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
 
         Args:
             value (float): value for IDD Field `speed_4_reference_unit_rated_air_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -44081,7 +44486,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
 
         Args:
             value (float): value for IDD Field `speed_4_reference_unit_rated_water_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -44344,7 +44749,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
 
         Args:
             value (float): value for IDD Field `speed_4_reference_unit_waste_heat_fraction_of_input_power_at_rated_conditions`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -44418,7 +44823,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
 
         Args:
             value (float): value for IDD Field `speed_5_reference_unit_gross_rated_total_cooling_capacity`
-                Unit: w
+                Units: w
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -44453,7 +44858,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
 
         Args:
             value (float): value for IDD Field `speed_5_reference_unit_gross_rated_sensible_heat_ratio`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -44488,7 +44893,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
 
         Args:
             value (float): value for IDD Field `speed_5_reference_unit_gross_rated_cooling_cop`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -44523,7 +44928,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
 
         Args:
             value (float): value for IDD Field `speed_5_reference_unit_rated_air_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -44558,7 +44963,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
 
         Args:
             value (float): value for IDD Field `speed_5_reference_unit_rated_water_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -44821,7 +45226,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
 
         Args:
             value (float): value for IDD Field `speed_5_reference_unit_waste_heat_fraction_of_input_power_at_rated_conditions`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -44895,7 +45300,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
 
         Args:
             value (float): value for IDD Field `speed_6_reference_unit_gross_rated_total_cooling_capacity`
-                Unit: w
+                Units: w
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -44930,7 +45335,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
 
         Args:
             value (float): value for IDD Field `speed_6_reference_unit_gross_rated_sensible_heat_ratio`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -44965,7 +45370,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
 
         Args:
             value (float): value for IDD Field `speed_6_reference_unit_gross_rated_cooling_cop`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -45000,7 +45405,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
 
         Args:
             value (float): value for IDD Field `speed_6_reference_unit_rated_air_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -45035,7 +45440,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
 
         Args:
             value (float): value for IDD Field `speed_6_reference_unit_rated_water_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -45298,7 +45703,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
 
         Args:
             value (float): value for IDD Field `speed_6_reference_unit_waste_heat_fraction_of_input_power_at_rated_conditions`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -45372,7 +45777,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
 
         Args:
             value (float): value for IDD Field `speed_7_reference_unit_gross_rated_total_cooling_capacity`
-                Unit: w
+                Units: w
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -45407,7 +45812,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
 
         Args:
             value (float): value for IDD Field `speed_7_reference_unit_gross_rated_sensible_heat_ratio`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -45442,7 +45847,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
 
         Args:
             value (float): value for IDD Field `speed_7_reference_unit_gross_rated_cooling_cop`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -45477,7 +45882,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
 
         Args:
             value (float): value for IDD Field `speed_7_reference_unit_rated_air_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -45512,7 +45917,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
 
         Args:
             value (float): value for IDD Field `speed_7_reference_unit_rated_water_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -45775,7 +46180,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
 
         Args:
             value (float): value for IDD Field `speed_7_reference_unit_waste_heat_fraction_of_input_power_at_rated_conditions`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -45849,7 +46254,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
 
         Args:
             value (float): value for IDD Field `speed_8_reference_unit_gross_rated_total_cooling_capacity`
-                Unit: w
+                Units: w
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -45884,7 +46289,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
 
         Args:
             value (float): value for IDD Field `speed_8_reference_unit_gross_rated_sensible_heat_ratio`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -45919,7 +46324,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
 
         Args:
             value (float): value for IDD Field `speed_8_reference_unit_gross_rated_cooling_cop`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -45954,7 +46359,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
 
         Args:
             value (float): value for IDD Field `speed_8_reference_unit_rated_air_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -45989,7 +46394,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
 
         Args:
             value (float): value for IDD Field `speed_8_reference_unit_rated_water_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -46252,7 +46657,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
 
         Args:
             value (float): value for IDD Field `speed_8_reference_unit_waste_heat_fraction_of_input_power_at_rated_conditions`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -46326,7 +46731,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
 
         Args:
             value (float): value for IDD Field `speed_9_reference_unit_gross_rated_total_cooling_capacity`
-                Unit: w
+                Units: w
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -46361,7 +46766,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
 
         Args:
             value (float): value for IDD Field `speed_9_reference_unit_gross_rated_sensible_heat_ratio`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -46396,7 +46801,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
 
         Args:
             value (float): value for IDD Field `speed_9_reference_unit_gross_rated_cooling_cop`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -46431,7 +46836,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
 
         Args:
             value (float): value for IDD Field `speed_9_reference_unit_rated_air_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -46466,7 +46871,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
 
         Args:
             value (float): value for IDD Field `speed_9_reference_unit_rated_water_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -46729,7 +47134,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
 
         Args:
             value (float): value for IDD Field `speed_9_reference_unit_waste_heat_fraction_of_input_power_at_rated_conditions`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -46803,7 +47208,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
 
         Args:
             value (float): value for IDD Field `speed_10_reference_unit_gross_rated_total_cooling_capacity`
-                Unit: w
+                Units: w
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -46838,7 +47243,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
 
         Args:
             value (float): value for IDD Field `speed_10_reference_unit_gross_rated_sensible_heat_ratio`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -46873,7 +47278,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
 
         Args:
             value (float): value for IDD Field `speed_10_reference_unit_gross_rated_cooling_cop`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -46908,7 +47313,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
 
         Args:
             value (float): value for IDD Field `speed_10_reference_unit_rated_air_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -46943,7 +47348,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
 
         Args:
             value (float): value for IDD Field `speed_10_reference_unit_rated_water_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -47206,7 +47611,7 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
 
         Args:
             value (float): value for IDD Field `speed_10_reference_unit_waste_heat_fraction_of_input_power_at_rated_conditions`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -47263,6 +47668,16 @@ class CoilCoolingWaterToAirHeatPumpVariableSpeedEquationFit(object):
                                  'for field `speed_10_waste_heat_function_of_temperature_curve_name`')
 
         self._data["Speed 10 Waste Heat Function of Temperature Curve Name"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):
@@ -47429,9 +47844,11 @@ class CoilHeatingWaterToAirHeatPumpEquationFit(object):
         Direct expansion (DX) heating coil for water-to-air heat pump (includes electric
         compressor), single-speed, equation-fit model. Equation-fit model uses normalized
         curves to describe the heat pump performance.
+    
     """
     internal_name = "Coil:Heating:WaterToAirHeatPump:EquationFit"
     field_count = 19
+    required_fields = ["Name", "Water Inlet Node Name", "Water Outlet Node Name", "Air Inlet Node Name", "Air Outlet Node Name", "Rated Air Flow Rate", "Rated Water Flow Rate", "Gross Rated Heating Capacity", "Gross Rated Heating COP", "Heating Capacity Coefficient 1", "Heating Capacity Coefficient 2", "Heating Capacity Coefficient 3", "Heating Capacity Coefficient 4", "Heating Capacity Coefficient 5", "Heating Power Consumption Coefficient 1", "Heating Power Consumption Coefficient 2", "Heating Power Consumption Coefficient 3", "Heating Power Consumption Coefficient 4", "Heating Power Consumption Coefficient 5"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Coil:Heating:WaterToAirHeatPump:EquationFit`
@@ -47740,7 +48157,7 @@ class CoilHeatingWaterToAirHeatPumpEquationFit(object):
 
         Args:
             value (float): value for IDD Field `rated_air_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -47775,7 +48192,7 @@ class CoilHeatingWaterToAirHeatPumpEquationFit(object):
 
         Args:
             value (float): value for IDD Field `rated_water_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -47811,7 +48228,7 @@ class CoilHeatingWaterToAirHeatPumpEquationFit(object):
 
         Args:
             value (float): value for IDD Field `gross_rated_heating_capacity`
-                Unit: W
+                Units: W
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -48165,6 +48582,16 @@ class CoilHeatingWaterToAirHeatPumpEquationFit(object):
 
         self._data["Heating Power Consumption Coefficient 5"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -48206,9 +48633,11 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(object):
         compressor), variable-speed, equation-fit model. Equation-fit model uses normalized
         curves to describe the heat pump performance. Requires two to ten sets of performance
         data and will interpolate between speeds.
+    
     """
     internal_name = "Coil:Heating:WaterToAirHeatPump:VariableSpeedEquationFit"
     field_count = 131
+    required_fields = ["Name", "Water-to-Refrigerant HX Water Inlet Node Name", "Water-to-Refrigerant HX Water Outlet Node Name", "Indoor Air Inlet Node Name", "Indoor Air Outlet Node Name", "Number of Speeds", "Nominal Speed Level", "Rated Heating Capacity At Selected Nominal Speed Level", "Rated Air Flow Rate At Selected Nominal Speed Level", "Rated Water Flow Rate At Selected Nominal Speed Level", "Energy Part Load Fraction Curve Name", "Speed 1 Reference Unit Gross Rated Heating Capacity", "Speed 1 Reference Unit Gross Rated Heating COP", "Speed 1 Reference Unit Rated Air Flow", "Speed 1 Reference Unit Rated Water Flow Rate", "Speed 1 Heating Capacity Function of Temperature Curve Name", "Speed 1 Total  Heating Capacity Function of Air Flow Fraction Curve Name", "Speed 1 Heating Capacity Function of Water Flow Fraction Curve Name", "Speed 1 Energy Input Ratio Function of Temperature Curve Name", "Speed 1 Energy Input Ratio Function of Air Flow Fraction Curve Name", "Speed 1 Energy Input Ratio Function of Water Flow Fraction Curve Name", "Speed 1 Reference Unit Waste Heat Fraction of Input Power At Rated Conditions", "Speed 1 Waste Heat Function of Temperature Curve Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Coil:Heating:WaterToAirHeatPump:VariableSpeedEquationFit`
@@ -49189,7 +49618,7 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(object):
 
         Args:
             value (int): value for IDD Field `number_of_speeds`
-                Unit: dimensionless
+                Units: dimensionless
                 Default value: 2
                 value >= 1
                 value <= 10
@@ -49230,7 +49659,7 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(object):
 
         Args:
             value (int): value for IDD Field `nominal_speed_level`
-                Unit: dimensionless
+                Units: dimensionless
                 Default value: 2
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -49262,7 +49691,7 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(object):
 
         Args:
             value (float): value for IDD Field `rated_heating_capacity_at_selected_nominal_speed_level`
-                Unit: w
+                Units: w
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -49293,7 +49722,7 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(object):
 
         Args:
             value (float): value for IDD Field `rated_air_flow_rate_at_selected_nominal_speed_level`
-                Unit: m3/s
+                Units: m3/s
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -49324,7 +49753,7 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(object):
 
         Args:
             value (float): value for IDD Field `rated_water_flow_rate_at_selected_nominal_speed_level`
-                Unit: m3/s
+                Units: m3/s
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -49393,7 +49822,7 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(object):
 
         Args:
             value (float): value for IDD Field `speed_1_reference_unit_gross_rated_heating_capacity`
-                Unit: w
+                Units: w
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -49428,7 +49857,7 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(object):
 
         Args:
             value (float): value for IDD Field `speed_1_reference_unit_gross_rated_heating_cop`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -49463,7 +49892,7 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(object):
 
         Args:
             value (float): value for IDD Field `speed_1_reference_unit_rated_air_flow`
-                Unit: m3/s
+                Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -49498,7 +49927,7 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(object):
 
         Args:
             value (float): value for IDD Field `speed_1_reference_unit_rated_water_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -49755,7 +50184,7 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(object):
 
         Args:
             value (float): value for IDD Field `speed_1_reference_unit_waste_heat_fraction_of_input_power_at_rated_conditions`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -49828,7 +50257,7 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(object):
 
         Args:
             value (float): value for IDD Field `speed_2_reference_unit_gross_rated_heating_capacity`
-                Unit: w
+                Units: w
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -49863,7 +50292,7 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(object):
 
         Args:
             value (float): value for IDD Field `speed_2_reference_unit_gross_rated_heating_cop`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -49898,7 +50327,7 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(object):
 
         Args:
             value (float): value for IDD Field `speed_2_reference_unit_rated_air_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -49933,7 +50362,7 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(object):
 
         Args:
             value (float): value for IDD Field `speed_2_reference_unit_rated_water_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -50191,7 +50620,7 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(object):
 
         Args:
             value (float): value for IDD Field `speed_2_reference_unit_waste_heat_fraction_of_input_power_at_rated_conditions`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -50264,7 +50693,7 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(object):
 
         Args:
             value (float): value for IDD Field `speed_3_reference_unit_gross_rated_heating_capacity`
-                Unit: w
+                Units: w
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -50299,7 +50728,7 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(object):
 
         Args:
             value (float): value for IDD Field `speed_3_reference_unit_gross_rated_heating_cop`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -50334,7 +50763,7 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(object):
 
         Args:
             value (float): value for IDD Field `speed_3_reference_unit_rated_air_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -50369,7 +50798,7 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(object):
 
         Args:
             value (float): value for IDD Field `speed_3_reference_unit_rated_water_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -50632,7 +51061,7 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(object):
 
         Args:
             value (float): value for IDD Field `speed_3_reference_unit_waste_heat_fraction_of_input_power_at_rated_conditions`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -50706,7 +51135,7 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(object):
 
         Args:
             value (float): value for IDD Field `speed_4_reference_unit_gross_rated_heating_capacity`
-                Unit: w
+                Units: w
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -50741,7 +51170,7 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(object):
 
         Args:
             value (float): value for IDD Field `speed_4_reference_unit_gross_rated_heating_cop`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -50776,7 +51205,7 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(object):
 
         Args:
             value (float): value for IDD Field `speed_4_reference_unit_rated_air_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -50811,7 +51240,7 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(object):
 
         Args:
             value (float): value for IDD Field `speed_4_reference_unit_rated_water_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -51074,7 +51503,7 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(object):
 
         Args:
             value (float): value for IDD Field `speed_4_reference_unit_waste_heat_fraction_of_input_power_at_rated_conditions`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -51148,7 +51577,7 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(object):
 
         Args:
             value (float): value for IDD Field `speed_5_reference_unit_gross_rated_heating_capacity`
-                Unit: w
+                Units: w
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -51183,7 +51612,7 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(object):
 
         Args:
             value (float): value for IDD Field `speed_5_reference_unit_gross_rated_heating_cop`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -51218,7 +51647,7 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(object):
 
         Args:
             value (float): value for IDD Field `speed_5_reference_unit_rated_air_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -51253,7 +51682,7 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(object):
 
         Args:
             value (float): value for IDD Field `speed_5_reference_unit_rated_water_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -51516,7 +51945,7 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(object):
 
         Args:
             value (float): value for IDD Field `speed_5_reference_unit_waste_heat_fraction_of_input_power_at_rated_conditions`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -51590,7 +52019,7 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(object):
 
         Args:
             value (float): value for IDD Field `speed_6_reference_unit_gross_rated_heating_capacity`
-                Unit: w
+                Units: w
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -51625,7 +52054,7 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(object):
 
         Args:
             value (float): value for IDD Field `speed_6_reference_unit_gross_rated_heating_cop`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -51660,7 +52089,7 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(object):
 
         Args:
             value (float): value for IDD Field `speed_6_reference_unit_rated_air_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -51695,7 +52124,7 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(object):
 
         Args:
             value (float): value for IDD Field `speed_6_reference_unit_rated_water_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -51958,7 +52387,7 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(object):
 
         Args:
             value (float): value for IDD Field `speed_6_reference_unit_waste_heat_fraction_of_input_power_at_rated_conditions`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -52032,7 +52461,7 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(object):
 
         Args:
             value (float): value for IDD Field `speed_7_reference_unit_gross_rated_heating_capacity`
-                Unit: w
+                Units: w
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -52067,7 +52496,7 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(object):
 
         Args:
             value (float): value for IDD Field `speed_7_reference_unit_gross_rated_heating_cop`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -52102,7 +52531,7 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(object):
 
         Args:
             value (float): value for IDD Field `speed_7_reference_unit_rated_air_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -52137,7 +52566,7 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(object):
 
         Args:
             value (float): value for IDD Field `speed_7_reference_unit_rated_water_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -52400,7 +52829,7 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(object):
 
         Args:
             value (float): value for IDD Field `speed_7_reference_unit_waste_heat_fraction_of_input_power_at_rated_conditions`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -52474,7 +52903,7 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(object):
 
         Args:
             value (float): value for IDD Field `speed_8_reference_unit_gross_rated_heating_capacity`
-                Unit: w
+                Units: w
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -52509,7 +52938,7 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(object):
 
         Args:
             value (float): value for IDD Field `speed_8_reference_unit_gross_rated_heating_cop`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -52544,7 +52973,7 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(object):
 
         Args:
             value (float): value for IDD Field `speed_8_reference_unit_rated_air_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -52579,7 +53008,7 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(object):
 
         Args:
             value (float): value for IDD Field `speed_8_reference_unit_rated_water_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -52842,7 +53271,7 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(object):
 
         Args:
             value (float): value for IDD Field `speed_8_reference_unit_waste_heat_fraction_of_input_power_at_rated_conditions`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -52916,7 +53345,7 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(object):
 
         Args:
             value (float): value for IDD Field `speed_9_reference_unit_gross_rated_heating_capacity`
-                Unit: w
+                Units: w
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -52951,7 +53380,7 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(object):
 
         Args:
             value (float): value for IDD Field `speed_9_reference_unit_gross_rated_heating_cop`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -52986,7 +53415,7 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(object):
 
         Args:
             value (float): value for IDD Field `speed_9_reference_unit_rated_air_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -53021,7 +53450,7 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(object):
 
         Args:
             value (float): value for IDD Field `speed_9_reference_unit_rated_water_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -53284,7 +53713,7 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(object):
 
         Args:
             value (float): value for IDD Field `speed_9_reference_unit_waste_heat_fraction_of_input_power_at_rated_conditions`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -53358,7 +53787,7 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(object):
 
         Args:
             value (float): value for IDD Field `speed_10_reference_unit_gross_rated_heating_capacity`
-                Unit: w
+                Units: w
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -53393,7 +53822,7 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(object):
 
         Args:
             value (float): value for IDD Field `speed_10_reference_unit_gross_rated_heating_cop`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -53428,7 +53857,7 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(object):
 
         Args:
             value (float): value for IDD Field `speed_10_reference_unit_rated_air_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -53463,7 +53892,7 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(object):
 
         Args:
             value (float): value for IDD Field `speed_10_reference_unit_rated_water_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -53726,7 +54155,7 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(object):
 
         Args:
             value (float): value for IDD Field `speed_10_reference_unit_waste_heat_fraction_of_input_power_at_rated_conditions`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -53783,6 +54212,16 @@ class CoilHeatingWaterToAirHeatPumpVariableSpeedEquationFit(object):
                                  'for field `speed_10_waste_heat_function_of_temperature_curve_name`')
 
         self._data["Speed 10 Waste Heat Function of Temperature Curve Name"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):
@@ -53936,9 +54375,11 @@ class CoilWaterHeatingAirToWaterHeatPump(object):
         Heat pump water heater (HPWH) heating coil, air-to-water direct-expansion (DX)
         system which includes a water heating coil, evaporator air coil, evaporator
         fan, electric compressor, and water pump. Part of a WaterHeater:HeatPump system.
+    
     """
     internal_name = "Coil:WaterHeating:AirToWaterHeatPump"
     field_count = 28
+    required_fields = ["Name", "Rated Heating Capacity", "Evaporator Air Inlet Node Name", "Evaporator Air Outlet Node Name", "Condenser Water Inlet Node Name", "Condenser Water Outlet Node Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Coil:WaterHeating:AirToWaterHeatPump`
@@ -54173,7 +54614,7 @@ class CoilWaterHeatingAirToWaterHeatPump(object):
 
         Args:
             value (float): value for IDD Field `rated_heating_capacity`
-                Unit: W
+                Units: W
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -54211,7 +54652,7 @@ class CoilWaterHeatingAirToWaterHeatPump(object):
 
         Args:
             value (float): value for IDD Field `rated_cop`
-                Unit: W/W
+                Units: W/W
                 Default value: 3.2
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -54293,7 +54734,7 @@ class CoilWaterHeatingAirToWaterHeatPump(object):
 
         Args:
             value (float): value for IDD Field `rated_evaporator_inlet_air_drybulb_temperature`
-                Unit: C
+                Units: C
                 Default value: 19.7
                 value > 5.0
                 if `value` is None it will not be checked against the
@@ -54331,7 +54772,7 @@ class CoilWaterHeatingAirToWaterHeatPump(object):
 
         Args:
             value (float): value for IDD Field `rated_evaporator_inlet_air_wetbulb_temperature`
-                Unit: C
+                Units: C
                 Default value: 13.5
                 value > 5.0
                 if `value` is None it will not be checked against the
@@ -54369,7 +54810,7 @@ class CoilWaterHeatingAirToWaterHeatPump(object):
 
         Args:
             value (float): value for IDD Field `rated_condenser_inlet_water_temperature`
-                Unit: C
+                Units: C
                 Default value: 57.5
                 value > 25.0
                 if `value` is None it will not be checked against the
@@ -54408,7 +54849,7 @@ class CoilWaterHeatingAirToWaterHeatPump(object):
 
         Args:
             value (float): value for IDD Field `rated_evaporator_air_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -54449,7 +54890,7 @@ class CoilWaterHeatingAirToWaterHeatPump(object):
 
         Args:
             value (float): value for IDD Field `rated_condenser_water_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -54621,7 +55062,7 @@ class CoilWaterHeatingAirToWaterHeatPump(object):
 
         Args:
             value (float): value for IDD Field `condenser_water_pump_power`
-                Unit: W
+                Units: W
                 Default value: 0.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -54842,7 +55283,7 @@ class CoilWaterHeatingAirToWaterHeatPump(object):
 
         Args:
             value (float): value for IDD Field `crankcase_heater_capacity`
-                Unit: W
+                Units: W
                 Default value: 0.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -54882,7 +55323,7 @@ class CoilWaterHeatingAirToWaterHeatPump(object):
 
         Args:
             value (float): value for IDD Field `maximum_ambient_temperature_for_crankcase_heater_operation`
-                Unit: C
+                Units: C
                 Default value: 10.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -55231,6 +55672,16 @@ class CoilWaterHeatingAirToWaterHeatPump(object):
 
         self._data["Part Load Fraction Correlation Curve Name"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -55281,9 +55732,11 @@ class CoilWaterHeatingDesuperheater(object):
         from the superheated refrigerant gas leaving a compressor and does not impact the
         performance of the compressor. This coil must be used with a water heater tank, see
         Water Heater:Mixed.
+    
     """
     internal_name = "Coil:WaterHeating:Desuperheater"
     field_count = 20
+    required_fields = ["Name", "Setpoint Temperature Schedule Name", "Rated Inlet Water Temperature", "Rated Outdoor Air Temperature", "Maximum Inlet Water Temperature for Heat Reclaim", "Water Inlet Node Name", "Water Outlet Node Name", "Tank Object Type", "Tank Name", "Heating Source Object Type", "Heating Source Name", "Water Flow Rate"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Coil:WaterHeating:Desuperheater`
@@ -55545,7 +55998,7 @@ class CoilWaterHeatingDesuperheater(object):
 
         Args:
             value (float): value for IDD Field `dead_band_temperature_difference`
-                Unit: deltaC
+                Units: deltaC
                 Default value: 5.0
                 value > 0.0
                 value <= 20.0
@@ -55621,7 +56074,7 @@ class CoilWaterHeatingDesuperheater(object):
 
         Args:
             value (float): value for IDD Field `rated_inlet_water_temperature`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -55654,7 +56107,7 @@ class CoilWaterHeatingDesuperheater(object):
 
         Args:
             value (float): value for IDD Field `rated_outdoor_air_temperature`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -55687,7 +56140,7 @@ class CoilWaterHeatingDesuperheater(object):
 
         Args:
             value (float): value for IDD Field `maximum_inlet_water_temperature_for_heat_reclaim`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -55995,7 +56448,7 @@ class CoilWaterHeatingDesuperheater(object):
 
         Args:
             value (float): value for IDD Field `water_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -56031,7 +56484,7 @@ class CoilWaterHeatingDesuperheater(object):
 
         Args:
             value (float): value for IDD Field `water_pump_power`
-                Unit: W
+                Units: W
                 Default value: 0.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -56110,7 +56563,8 @@ class CoilWaterHeatingDesuperheater(object):
 
         Args:
             value (float): value for IDD Field `oncycle_parasitic_electric_load`
-                Unit: W
+                Units: W
+                IP-Units: W
                 Default value: 0.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -56149,7 +56603,8 @@ class CoilWaterHeatingDesuperheater(object):
 
         Args:
             value (float): value for IDD Field `offcycle_parasitic_electric_load`
-                Unit: W
+                Units: W
+                IP-Units: W
                 Default value: 0.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -56169,6 +56624,16 @@ class CoilWaterHeatingDesuperheater(object):
                                  'for field `offcycle_parasitic_electric_load`')
 
         self._data["Off-Cycle Parasitic Electric Load"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):
@@ -56211,9 +56676,11 @@ class CoilSystemCoolingDx(object):
         Virtual container component that consists of a DX cooling coil and its associated
         controls. This control object supports several different types of DX cooling coils
         and may be placed directly in an air loop branch or outdoor air equipment list.
+    
     """
     internal_name = "CoilSystem:Cooling:DX"
     field_count = 12
+    required_fields = ["Name", "DX Cooling Coil System Inlet Node Name", "DX Cooling Coil System Outlet Node Name", "DX Cooling Coil System Sensor Node Name", "Cooling Coil Object Type", "Cooling Coil Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `CoilSystem:Cooling:DX`
@@ -56772,7 +57239,7 @@ class CoilSystemCoolingDx(object):
 
         Args:
             value (float): value for IDD Field `outdoor_air_dx_cooling_coil_leaving_minimum_air_temperature`
-                Unit: C
+                Units: C
                 Default value: 2.0
                 value >= 0.0
                 value <= 7.2
@@ -56796,6 +57263,16 @@ class CoilSystemCoolingDx(object):
                                  'for field `outdoor_air_dx_cooling_coil_leaving_minimum_air_temperature`')
 
         self._data["Outdoor Air DX Cooling Coil Leaving Minimum Air Temperature"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):
@@ -56830,9 +57307,11 @@ class CoilSystemHeatingDx(object):
         Virtual container component that consists of a DX heating coil (heat pump) and its
         associated controls. This control object supports two different types of DX heating
         coils and may be placed directly in an air loop branch or outdoor air equipment list.
+    
     """
     internal_name = "CoilSystem:Heating:DX"
     field_count = 4
+    required_fields = ["Name", "Heating Coil Object Type", "Heating Coil Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `CoilSystem:Heating:DX`
@@ -57014,6 +57493,16 @@ class CoilSystemHeatingDx(object):
 
         self._data["Heating Coil Name"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -57041,9 +57530,11 @@ class CoilSystemCoolingWaterHeatExchangerAssisted(object):
         and reuses this energy to reheat the supply air leaving the cooling coil. This heat
         exchange process improves the latent removal performance of the cooling coil (lower
         sensible heat ratio).
+    
     """
     internal_name = "CoilSystem:Cooling:Water:HeatExchangerAssisted"
     field_count = 5
+    required_fields = ["Name", "Heat Exchanger Object Type", "Heat Exchanger Name", "Cooling Coil Object Type", "Cooling Coil Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `CoilSystem:Cooling:Water:HeatExchangerAssisted`
@@ -57271,6 +57762,16 @@ class CoilSystemCoolingWaterHeatExchangerAssisted(object):
 
         self._data["Cooling Coil Name"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -57299,9 +57800,11 @@ class CoilSystemCoolingDxHeatExchangerAssisted(object):
         cooling coil and reuses this energy to reheat the supply air leaving the cooling
         coil. This heat exchange process improves the latent removal performance of the
         cooling coil (lower sensible heat ratio).
+    
     """
     internal_name = "CoilSystem:Cooling:DX:HeatExchangerAssisted"
     field_count = 5
+    required_fields = ["Name", "Heat Exchanger Object Type", "Heat Exchanger Name", "Cooling Coil Object Type", "Cooling Coil Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `CoilSystem:Cooling:DX:HeatExchangerAssisted`
@@ -57529,6 +58032,16 @@ class CoilSystemCoolingDxHeatExchangerAssisted(object):
 
         self._data["Cooling Coil Name"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -57555,9 +58068,11 @@ class CoilCoolingDxSingleSpeedThermalStorage(object):
         Direct expansion (DX) cooling coil and condensing unit (includes electric compressor
         and condenser fan), single-speed with packaged integrated thermal storage for cooling.
         
+    
     """
     internal_name = "Coil:Cooling:DX:SingleSpeed:ThermalStorage"
     field_count = 106
+    required_fields = ["Name", "Operating Mode Control Method", "Storage Type", "Storage Tank Ambient Temperature Node Name", "Storage Tank to Ambient U-value Times Area Heat Transfer Coefficient", "Rated Evaporator Air Flow Rate", "Evaporator Air Inlet Node Name", "Evaporator Air Outlet Node Name", "Cooling Only Mode Available", "Cooling And Charge Mode Available", "Cooling And Discharge Mode Available", "Charge Only Mode Available", "Discharge Only Mode Available", "Condenser Air Inlet Node Name", "Condenser Air Outlet Node Name", "Condenser Design Air Flow Rate"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Coil:Cooling:DX:SingleSpeed:ThermalStorage`
@@ -58448,7 +58963,7 @@ class CoilCoolingDxSingleSpeedThermalStorage(object):
 
         Args:
             value (float): value for IDD Field `fluid_storage_volume`
-                Unit: m3
+                Units: m3
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -58484,7 +58999,7 @@ class CoilCoolingDxSingleSpeedThermalStorage(object):
 
         Args:
             value (float): value for IDD Field `ice_storage_capacity`
-                Unit: GJ
+                Units: GJ
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -58522,7 +59037,7 @@ class CoilCoolingDxSingleSpeedThermalStorage(object):
 
         Args:
             value (float): value for IDD Field `storage_capacity_sizing_factor`
-                Unit: hr
+                Units: hr
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -58586,7 +59101,7 @@ class CoilCoolingDxSingleSpeedThermalStorage(object):
 
         Args:
             value (float): value for IDD Field `storage_tank_to_ambient_uvalue_times_area_heat_transfer_coefficient`
-                Unit: W/K
+                Units: W/K
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -58622,7 +59137,7 @@ class CoilCoolingDxSingleSpeedThermalStorage(object):
 
         Args:
             value (float): value for IDD Field `fluid_storage_tank_rating_temperature`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -58654,7 +59169,7 @@ class CoilCoolingDxSingleSpeedThermalStorage(object):
 
         Args:
             value (float): value for IDD Field `rated_evaporator_air_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -58801,7 +59316,7 @@ class CoilCoolingDxSingleSpeedThermalStorage(object):
 
         Args:
             value (float): value for IDD Field `cooling_only_mode_rated_total_evaporator_cooling_capacity`
-                Unit: W
+                Units: W
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -58881,7 +59396,7 @@ class CoilCoolingDxSingleSpeedThermalStorage(object):
 
         Args:
             value (float): value for IDD Field `cooling_only_mode_rated_cop`
-                Unit: W/W
+                Units: W/W
                 Default value: 3.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -59246,7 +59761,7 @@ class CoilCoolingDxSingleSpeedThermalStorage(object):
 
         Args:
             value (float): value for IDD Field `cooling_and_charge_mode_rated_total_evaporator_cooling_capacity`
-                Unit: W
+                Units: W
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -59319,7 +59834,7 @@ class CoilCoolingDxSingleSpeedThermalStorage(object):
 
         Args:
             value (float): value for IDD Field `cooling_and_charge_mode_rated_storage_charging_capacity`
-                Unit: W
+                Units: W
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -59432,7 +59947,7 @@ class CoilCoolingDxSingleSpeedThermalStorage(object):
 
         Args:
             value (float): value for IDD Field `cooling_and_charge_mode_cooling_rated_cop`
-                Unit: W/W
+                Units: W/W
                 Default value: 3.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -59471,7 +59986,7 @@ class CoilCoolingDxSingleSpeedThermalStorage(object):
 
         Args:
             value (float): value for IDD Field `cooling_and_charge_mode_charging_rated_cop`
-                Unit: W/W
+                Units: W/W
                 Default value: 3.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -60046,7 +60561,7 @@ class CoilCoolingDxSingleSpeedThermalStorage(object):
 
         Args:
             value (float): value for IDD Field `cooling_and_discharge_mode_rated_total_evaporator_cooling_capacity`
-                Unit: W
+                Units: W
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -60119,7 +60634,7 @@ class CoilCoolingDxSingleSpeedThermalStorage(object):
 
         Args:
             value (float): value for IDD Field `cooling_and_discharge_mode_rated_storage_discharging_capacity`
-                Unit: W
+                Units: W
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -60232,7 +60747,7 @@ class CoilCoolingDxSingleSpeedThermalStorage(object):
 
         Args:
             value (float): value for IDD Field `cooling_and_discharge_mode_cooling_rated_cop`
-                Unit: W/W
+                Units: W/W
                 Default value: 3.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -60271,7 +60786,7 @@ class CoilCoolingDxSingleSpeedThermalStorage(object):
 
         Args:
             value (float): value for IDD Field `cooling_and_discharge_mode_discharging_rated_cop`
-                Unit: W/W
+                Units: W/W
                 Default value: 3.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -60887,7 +61402,7 @@ class CoilCoolingDxSingleSpeedThermalStorage(object):
 
         Args:
             value (float): value for IDD Field `charge_only_mode_rated_storage_charging_capacity`
-                Unit: W
+                Units: W
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -60958,7 +61473,7 @@ class CoilCoolingDxSingleSpeedThermalStorage(object):
 
         Args:
             value (float): value for IDD Field `charge_only_mode_charging_rated_cop`
-                Unit: W/W
+                Units: W/W
                 Default value: 3.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -61116,7 +61631,7 @@ class CoilCoolingDxSingleSpeedThermalStorage(object):
 
         Args:
             value (float): value for IDD Field `discharge_only_mode_rated_storage_discharging_capacity`
-                Unit: W
+                Units: W
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -61228,7 +61743,7 @@ class CoilCoolingDxSingleSpeedThermalStorage(object):
 
         Args:
             value (float): value for IDD Field `discharge_only_mode_rated_cop`
-                Unit: W/W
+                Units: W/W
                 Default value: 3.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -61550,7 +62065,7 @@ class CoilCoolingDxSingleSpeedThermalStorage(object):
 
         Args:
             value (float): value for IDD Field `ancillary_electric_power`
-                Unit: W
+                Units: W
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -61585,7 +62100,7 @@ class CoilCoolingDxSingleSpeedThermalStorage(object):
 
         Args:
             value (float): value for IDD Field `cold_weather_operation_minimum_outdoor_air_temperature`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -61616,7 +62131,7 @@ class CoilCoolingDxSingleSpeedThermalStorage(object):
 
         Args:
             value (float): value for IDD Field `cold_weather_operation_ancillary_power`
-                Unit: W
+                Units: W
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -61720,7 +62235,7 @@ class CoilCoolingDxSingleSpeedThermalStorage(object):
 
         Args:
             value (float): value for IDD Field `condenser_design_air_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -61832,7 +62347,7 @@ class CoilCoolingDxSingleSpeedThermalStorage(object):
 
         Args:
             value (float): value for IDD Field `evaporative_condenser_effectiveness`
-                Unit: dimensionless
+                Units: dimensionless
                 Default value: 0.7
                 value > 0.0
                 value <= 1.0
@@ -61873,7 +62388,7 @@ class CoilCoolingDxSingleSpeedThermalStorage(object):
 
         Args:
             value (float): value for IDD Field `evaporative_condenser_pump_rated_power_consumption`
-                Unit: W
+                Units: W
                 Default value: 0.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -61915,7 +62430,7 @@ class CoilCoolingDxSingleSpeedThermalStorage(object):
 
         Args:
             value (float): value for IDD Field `basin_heater_capacity`
-                Unit: W/K
+                Units: W/K
                 Default value: 0.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -61953,7 +62468,7 @@ class CoilCoolingDxSingleSpeedThermalStorage(object):
 
         Args:
             value (float): value for IDD Field `basin_heater_setpoint_temperature`
-                Unit: C
+                Units: C
                 Default value: 2.0
                 value >= 2.0
                 if `value` is None it will not be checked against the
@@ -62159,7 +62674,7 @@ class CoilCoolingDxSingleSpeedThermalStorage(object):
 
         Args:
             value (float): value for IDD Field `storage_tank_plant_connection_design_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -62235,7 +62750,7 @@ class CoilCoolingDxSingleSpeedThermalStorage(object):
 
         Args:
             value (float): value for IDD Field `storage_tank_minimum_operating_limit_fluid_temperature`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -62268,7 +62783,7 @@ class CoilCoolingDxSingleSpeedThermalStorage(object):
 
         Args:
             value (float): value for IDD Field `storage_tank_maximum_operating_limit_fluid_temperature`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -62283,6 +62798,16 @@ class CoilCoolingDxSingleSpeedThermalStorage(object):
                                  'for field `storage_tank_maximum_operating_limit_fluid_temperature`'.format(value))
 
         self._data["Storage Tank Maximum Operating Limit Fluid Temperature"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):
@@ -62409,9 +62934,11 @@ class CoilCoolingDxSingleSpeedThermalStorage(object):
 class HumidifierSteamElectric(object):
     """ Corresponds to IDD object `Humidifier:Steam:Electric`
         Electrically heated steam humidifier with fan.
+    
     """
     internal_name = "Humidifier:Steam:Electric"
     field_count = 9
+    required_fields = ["Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Humidifier:Steam:Electric`
@@ -62564,7 +63091,8 @@ class HumidifierSteamElectric(object):
 
         Args:
             value (float): value for IDD Field `rated_capacity`
-                Unit: m3/s
+                Units: m3/s
+                IP-Units: gal/min
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -62602,7 +63130,8 @@ class HumidifierSteamElectric(object):
 
         Args:
             value (float): value for IDD Field `rated_power`
-                Unit: W
+                Units: W
+                IP-Units: W
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -62637,7 +63166,8 @@ class HumidifierSteamElectric(object):
 
         Args:
             value (float): value for IDD Field `rated_fan_power`
-                Unit: W
+                Units: W
+                IP-Units: W
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -62672,7 +63202,8 @@ class HumidifierSteamElectric(object):
 
         Args:
             value (float): value for IDD Field `standby_power`
-                Unit: W
+                Units: W
+                IP-Units: W
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -62791,6 +63322,16 @@ class HumidifierSteamElectric(object):
 
         self._data["Water Storage Tank Name"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -62828,9 +63369,11 @@ class DehumidifierDesiccantNoFans(object):
         to the inlet and outlet nodes of the dehumidifier. The solid
         desiccant dehumidifier is typically used in an AirLoopHVAC:OutdoorAirSystem,
         but can also be specified in any AirLoopHVAC.
+    
     """
     internal_name = "Dehumidifier:Desiccant:NoFans"
     field_count = 25
+    required_fields = ["Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Dehumidifier:Desiccant:NoFans`
@@ -63268,7 +63811,7 @@ class DehumidifierDesiccantNoFans(object):
 
         Args:
             value (float): value for IDD Field `leaving_maximum_humidity_ratio_setpoint`
-                Unit: kgWater/kgDryAir
+                Units: kgWater/kgDryAir
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -63300,7 +63843,7 @@ class DehumidifierDesiccantNoFans(object):
 
         Args:
             value (float): value for IDD Field `nominal_process_air_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -63337,7 +63880,7 @@ class DehumidifierDesiccantNoFans(object):
 
         Args:
             value (float): value for IDD Field `nominal_process_air_velocity`
-                Unit: m/s
+                Units: m/s
                 value > 0.0
                 value <= 6.0
                 if `value` is None it will not be checked against the
@@ -63377,7 +63920,8 @@ class DehumidifierDesiccantNoFans(object):
 
         Args:
             value (float): value for IDD Field `rotor_power`
-                Unit: W
+                Units: W
+                IP-Units: W
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -63939,7 +64483,7 @@ class DehumidifierDesiccantNoFans(object):
 
         Args:
             value (float): value for IDD Field `nominal_regeneration_temperature`
-                Unit: C
+                Units: C
                 value >= 40.0
                 value <= 250.0
                 if `value` is None it will not be checked against the
@@ -63962,6 +64506,16 @@ class DehumidifierDesiccantNoFans(object):
                                  'for field `nominal_regeneration_temperature`')
 
         self._data["Nominal Regeneration Temperature"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):
@@ -64013,9 +64567,11 @@ class DehumidifierDesiccantSystem(object):
         transfers both sensible and latent energy between the process and
         regeneration air streams. The desiccant dehumidifier is typically used
         in an AirLoopHVAC:OutdoorAirSystem, but can also be specified in any AirLoopHVAC.
+    
     """
     internal_name = "Dehumidifier:Desiccant:System"
     field_count = 18
+    required_fields = ["Name", "Desiccant Heat Exchanger Object Type", "Desiccant Heat Exchanger Name", "Sensor Node Name", "Regeneration Air Fan Object Type", "Regeneration Air Fan Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Dehumidifier:Desiccant:System`
@@ -64525,7 +65081,7 @@ class DehumidifierDesiccantSystem(object):
 
         Args:
             value (float): value for IDD Field `regeneration_inlet_air_setpoint_temperature`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -64719,7 +65275,7 @@ class DehumidifierDesiccantSystem(object):
 
         Args:
             value (float): value for IDD Field `exhaust_fan_maximum_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -64750,7 +65306,7 @@ class DehumidifierDesiccantSystem(object):
 
         Args:
             value (float): value for IDD Field `exhaust_fan_maximum_power`
-                Unit: W
+                Units: W
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -64801,6 +65357,16 @@ class DehumidifierDesiccantSystem(object):
 
         self._data["Exhaust Fan Power Curve Name"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -64839,9 +65405,11 @@ class HeatExchangerAirToAirFlatPlate(object):
     """ Corresponds to IDD object `HeatExchanger:AirToAir:FlatPlate`
         Flat plate air-to-air heat exchanger, typically used for exhaust or relief air heat
         recovery.
+    
     """
     internal_name = "HeatExchanger:AirToAir:FlatPlate"
     field_count = 15
+    required_fields = ["Name", "Nominal Supply Air Flow Rate", "Nominal Supply Air Inlet Temperature", "Nominal Supply Air Outlet Temperature", "Nominal Secondary Air Flow Rate", "Nominal Secondary Air Inlet Temperature", "Supply Air Inlet Node Name", "Supply Air Outlet Node Name", "Secondary Air Inlet Node Name", "Secondary Air Outlet Node Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `HeatExchanger:AirToAir:FlatPlate`
@@ -65153,7 +65721,7 @@ class HeatExchangerAirToAirFlatPlate(object):
 
         Args:
             value (float): value for IDD Field `nominal_supply_air_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -65188,7 +65756,7 @@ class HeatExchangerAirToAirFlatPlate(object):
 
         Args:
             value (float): value for IDD Field `nominal_supply_air_inlet_temperature`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -65219,7 +65787,7 @@ class HeatExchangerAirToAirFlatPlate(object):
 
         Args:
             value (float): value for IDD Field `nominal_supply_air_outlet_temperature`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -65250,7 +65818,7 @@ class HeatExchangerAirToAirFlatPlate(object):
 
         Args:
             value (float): value for IDD Field `nominal_secondary_air_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -65285,7 +65853,7 @@ class HeatExchangerAirToAirFlatPlate(object):
 
         Args:
             value (float): value for IDD Field `nominal_secondary_air_inlet_temperature`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -65316,7 +65884,8 @@ class HeatExchangerAirToAirFlatPlate(object):
 
         Args:
             value (float): value for IDD Field `nominal_electric_power`
-                Unit: W
+                Units: W
+                IP-Units: W
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -65464,6 +66033,16 @@ class HeatExchangerAirToAirFlatPlate(object):
 
         self._data["Secondary Air Outlet Node Name"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -65500,9 +66079,11 @@ class HeatExchangerAirToAirSensibleAndLatent(object):
         This object models an air-to-air heat exchanger using effectiveness relationships.
         The heat exchanger can transfer sensible energy, latent energy, or both between the
         supply (primary) and exhaust (secondary) air streams.
+    
     """
     internal_name = "HeatExchanger:AirToAir:SensibleAndLatent"
     field_count = 23
+    required_fields = ["Name", "Nominal Supply Air Flow Rate", "Supply Air Inlet Node Name", "Supply Air Outlet Node Name", "Exhaust Air Inlet Node Name", "Exhaust Air Outlet Node Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `HeatExchanger:AirToAir:SensibleAndLatent`
@@ -65738,7 +66319,7 @@ class HeatExchangerAirToAirSensibleAndLatent(object):
 
         Args:
             value (float): value for IDD Field `nominal_supply_air_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -65773,7 +66354,7 @@ class HeatExchangerAirToAirSensibleAndLatent(object):
 
         Args:
             value (float): value for IDD Field `sensible_effectiveness_at_100_heating_air_flow`
-                Unit: dimensionless
+                Units: dimensionless
                 Default value: 0.0
                 value >= 0.0
                 value <= 1.0
@@ -65813,7 +66394,7 @@ class HeatExchangerAirToAirSensibleAndLatent(object):
 
         Args:
             value (float): value for IDD Field `latent_effectiveness_at_100_heating_air_flow`
-                Unit: dimensionless
+                Units: dimensionless
                 Default value: 0.0
                 value >= 0.0
                 value <= 1.0
@@ -65853,7 +66434,7 @@ class HeatExchangerAirToAirSensibleAndLatent(object):
 
         Args:
             value (float): value for IDD Field `sensible_effectiveness_at_75_heating_air_flow`
-                Unit: dimensionless
+                Units: dimensionless
                 Default value: 0.0
                 value >= 0.0
                 value <= 1.0
@@ -65893,7 +66474,7 @@ class HeatExchangerAirToAirSensibleAndLatent(object):
 
         Args:
             value (float): value for IDD Field `latent_effectiveness_at_75_heating_air_flow`
-                Unit: dimensionless
+                Units: dimensionless
                 Default value: 0.0
                 value >= 0.0
                 value <= 1.0
@@ -65933,7 +66514,7 @@ class HeatExchangerAirToAirSensibleAndLatent(object):
 
         Args:
             value (float): value for IDD Field `sensible_effectiveness_at_100_cooling_air_flow`
-                Unit: dimensionless
+                Units: dimensionless
                 Default value: 0.0
                 value >= 0.0
                 value <= 1.0
@@ -65973,7 +66554,7 @@ class HeatExchangerAirToAirSensibleAndLatent(object):
 
         Args:
             value (float): value for IDD Field `latent_effectiveness_at_100_cooling_air_flow`
-                Unit: dimensionless
+                Units: dimensionless
                 Default value: 0.0
                 value >= 0.0
                 value <= 1.0
@@ -66013,7 +66594,7 @@ class HeatExchangerAirToAirSensibleAndLatent(object):
 
         Args:
             value (float): value for IDD Field `sensible_effectiveness_at_75_cooling_air_flow`
-                Unit: dimensionless
+                Units: dimensionless
                 Default value: 0.0
                 value >= 0.0
                 value <= 1.0
@@ -66053,7 +66634,7 @@ class HeatExchangerAirToAirSensibleAndLatent(object):
 
         Args:
             value (float): value for IDD Field `latent_effectiveness_at_75_cooling_air_flow`
-                Unit: dimensionless
+                Units: dimensionless
                 Default value: 0.0
                 value >= 0.0
                 value <= 1.0
@@ -66225,7 +66806,8 @@ class HeatExchangerAirToAirSensibleAndLatent(object):
 
         Args:
             value (float): value for IDD Field `nominal_electric_power`
-                Unit: W
+                Units: W
+                IP-Units: W
                 Default value: 0.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -66397,7 +66979,7 @@ class HeatExchangerAirToAirSensibleAndLatent(object):
 
         Args:
             value (float): value for IDD Field `threshold_temperature`
-                Unit: C
+                Units: C
                 Default value: 1.7
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -66431,7 +67013,7 @@ class HeatExchangerAirToAirSensibleAndLatent(object):
 
         Args:
             value (float): value for IDD Field `initial_defrost_time_fraction`
-                Unit: dimensionless
+                Units: dimensionless
                 Default value: 0.083
                 value >= 0.0
                 value <= 1.0
@@ -66473,7 +67055,7 @@ class HeatExchangerAirToAirSensibleAndLatent(object):
 
         Args:
             value (float): value for IDD Field `rate_of_defrost_time_fraction_increase`
-                Unit: 1/K
+                Units: 1/K
                 Default value: 0.012
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -66539,6 +67121,16 @@ class HeatExchangerAirToAirSensibleAndLatent(object):
 
         self._data["Economizer Lockout"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -66585,9 +67177,11 @@ class HeatExchangerDesiccantBalancedFlow(object):
         process and regeneration air streams. The air flow rate and face velocity
         are assumed to be the same on both the process and regeneration sides of the
         heat exchanger.
+    
     """
     internal_name = "HeatExchanger:Desiccant:BalancedFlow"
     field_count = 9
+    required_fields = ["Name", "Regeneration Air Inlet Node Name", "Regeneration Air Outlet Node Name", "Process Air Inlet Node Name", "Process Air Outlet Node Name", "Heat Exchanger Performance Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `HeatExchanger:Desiccant:BalancedFlow`
@@ -66975,6 +67569,16 @@ class HeatExchangerDesiccantBalancedFlow(object):
 
         self._data["Economizer Lockout"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -67014,9 +67618,11 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(object):
         PWI = Humidity ratio of the process inlet air (kgWater/kgDryAir)
         PTI = Dry-bulb temperature of the process inlet air (C)
         RFV = Regeneration Face Velocity (m/s)
+    
     """
     internal_name = "HeatExchanger:Desiccant:BalancedFlow:PerformanceDataType1"
     field_count = 52
+    required_fields = ["Name", "Nominal Air Face Velocity", "Temperature Equation Coefficient 1", "Temperature Equation Coefficient 2", "Temperature Equation Coefficient 3", "Temperature Equation Coefficient 4", "Temperature Equation Coefficient 5", "Temperature Equation Coefficient 6", "Temperature Equation Coefficient 7", "Temperature Equation Coefficient 8", "Minimum Regeneration Inlet Air Humidity Ratio for Temperature Equation", "Maximum Regeneration Inlet Air Humidity Ratio for Temperature Equation", "Minimum Regeneration Inlet Air Temperature for Temperature Equation", "Maximum Regeneration Inlet Air Temperature for Temperature Equation", "Minimum Process Inlet Air Humidity Ratio for Temperature Equation", "Maximum Process Inlet Air Humidity Ratio for Temperature Equation", "Minimum Process Inlet Air Temperature for Temperature Equation", "Maximum Process Inlet Air Temperature for Temperature Equation", "Minimum Regeneration Air Velocity for Temperature Equation", "Maximum Regeneration Air Velocity for Temperature Equation", "Minimum Regeneration Outlet Air Temperature for Temperature Equation", "Maximum Regeneration Outlet Air Temperature for Temperature Equation", "Minimum Regeneration Inlet Air Relative Humidity for Temperature Equation", "Maximum Regeneration Inlet Air Relative Humidity for Temperature Equation", "Minimum Process Inlet Air Relative Humidity for Temperature Equation", "Maximum Process Inlet Air Relative Humidity for Temperature Equation", "Humidity Ratio Equation Coefficient 1", "Humidity Ratio Equation Coefficient 2", "Humidity Ratio Equation Coefficient 3", "Humidity Ratio Equation Coefficient 4", "Humidity Ratio Equation Coefficient 5", "Humidity Ratio Equation Coefficient 6", "Humidity Ratio Equation Coefficient 7", "Humidity Ratio Equation Coefficient 8", "Minimum Regeneration Inlet Air Humidity Ratio for Humidity Ratio Equation", "Maximum Regeneration Inlet Air Humidity Ratio for Humidity Ratio Equation", "Minimum Regeneration Inlet Air Temperature for Humidity Ratio Equation", "Maximum Regeneration Inlet Air Temperature for Humidity Ratio Equation", "Minimum Process Inlet Air Humidity Ratio for Humidity Ratio Equation", "Maximum Process Inlet Air Humidity Ratio for Humidity Ratio Equation", "Minimum Process Inlet Air Temperature for Humidity Ratio Equation", "Maximum Process Inlet Air Temperature for Humidity Ratio Equation", "Minimum Regeneration Air Velocity for Humidity Ratio Equation", "Maximum Regeneration Air Velocity for Humidity Ratio Equation", "Minimum Regeneration Outlet Air Humidity Ratio for Humidity Ratio Equation", "Maximum Regeneration Outlet Air Humidity Ratio for Humidity Ratio Equation", "Minimum Regeneration Inlet Air Relative Humidity for Humidity Ratio Equation", "Maximum Regeneration Inlet Air Relative Humidity for Humidity Ratio Equation", "Minimum Process Inlet Air Relative Humidity for Humidity Ratio Equation", "Maximum Process Inlet Air Relative Humidity for Humidity Ratio Equation"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `HeatExchanger:Desiccant:BalancedFlow:PerformanceDataType1`
@@ -67393,7 +67999,7 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(object):
 
         Args:
             value (float): value for IDD Field `nominal_air_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -67428,7 +68034,7 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(object):
 
         Args:
             value (float): value for IDD Field `nominal_air_face_velocity`
-                Unit: m/s
+                Units: m/s
                 value > 0.0
                 value <= 6.0
                 if `value` is None it will not be checked against the
@@ -67468,7 +68074,8 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(object):
 
         Args:
             value (float): value for IDD Field `nominal_electric_power`
-                Unit: W
+                Units: W
+                IP-Units: W
                 Default value: 0.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -67744,7 +68351,7 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(object):
 
         Args:
             value (float): value for IDD Field `minimum_regeneration_inlet_air_humidity_ratio_for_temperature_equation`
-                Unit: kgWater/kgDryAir
+                Units: kgWater/kgDryAir
                 value >= 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
@@ -67783,7 +68390,7 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(object):
 
         Args:
             value (float): value for IDD Field `maximum_regeneration_inlet_air_humidity_ratio_for_temperature_equation`
-                Unit: kgWater/kgDryAir
+                Units: kgWater/kgDryAir
                 value >= 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
@@ -67822,7 +68429,7 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(object):
 
         Args:
             value (float): value for IDD Field `minimum_regeneration_inlet_air_temperature_for_temperature_equation`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -67853,7 +68460,7 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(object):
 
         Args:
             value (float): value for IDD Field `maximum_regeneration_inlet_air_temperature_for_temperature_equation`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -67884,7 +68491,7 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(object):
 
         Args:
             value (float): value for IDD Field `minimum_process_inlet_air_humidity_ratio_for_temperature_equation`
-                Unit: kgWater/kgDryAir
+                Units: kgWater/kgDryAir
                 value >= 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
@@ -67923,7 +68530,7 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(object):
 
         Args:
             value (float): value for IDD Field `maximum_process_inlet_air_humidity_ratio_for_temperature_equation`
-                Unit: kgWater/kgDryAir
+                Units: kgWater/kgDryAir
                 value >= 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
@@ -67962,7 +68569,7 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(object):
 
         Args:
             value (float): value for IDD Field `minimum_process_inlet_air_temperature_for_temperature_equation`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -67993,7 +68600,7 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(object):
 
         Args:
             value (float): value for IDD Field `maximum_process_inlet_air_temperature_for_temperature_equation`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -68024,7 +68631,7 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(object):
 
         Args:
             value (float): value for IDD Field `minimum_regeneration_air_velocity_for_temperature_equation`
-                Unit: m/s
+                Units: m/s
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -68059,7 +68666,7 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(object):
 
         Args:
             value (float): value for IDD Field `maximum_regeneration_air_velocity_for_temperature_equation`
-                Unit: m/s
+                Units: m/s
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -68094,7 +68701,7 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(object):
 
         Args:
             value (float): value for IDD Field `minimum_regeneration_outlet_air_temperature_for_temperature_equation`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -68125,7 +68732,7 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(object):
 
         Args:
             value (float): value for IDD Field `maximum_regeneration_outlet_air_temperature_for_temperature_equation`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -68156,7 +68763,7 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(object):
 
         Args:
             value (float): value for IDD Field `minimum_regeneration_inlet_air_relative_humidity_for_temperature_equation`
-                Unit: percent
+                Units: percent
                 value >= 0.0
                 value <= 100.0
                 if `value` is None it will not be checked against the
@@ -68195,7 +68802,7 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(object):
 
         Args:
             value (float): value for IDD Field `maximum_regeneration_inlet_air_relative_humidity_for_temperature_equation`
-                Unit: percent
+                Units: percent
                 value >= 0.0
                 value <= 100.0
                 if `value` is None it will not be checked against the
@@ -68234,7 +68841,7 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(object):
 
         Args:
             value (float): value for IDD Field `minimum_process_inlet_air_relative_humidity_for_temperature_equation`
-                Unit: percent
+                Units: percent
                 value >= 0.0
                 value <= 100.0
                 if `value` is None it will not be checked against the
@@ -68273,7 +68880,7 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(object):
 
         Args:
             value (float): value for IDD Field `maximum_process_inlet_air_relative_humidity_for_temperature_equation`
-                Unit: percent
+                Units: percent
                 value >= 0.0
                 value <= 100.0
                 if `value` is None it will not be checked against the
@@ -68552,7 +69159,7 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(object):
 
         Args:
             value (float): value for IDD Field `minimum_regeneration_inlet_air_humidity_ratio_for_humidity_ratio_equation`
-                Unit: kgWater/kgDryAir
+                Units: kgWater/kgDryAir
                 value >= 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
@@ -68591,7 +69198,7 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(object):
 
         Args:
             value (float): value for IDD Field `maximum_regeneration_inlet_air_humidity_ratio_for_humidity_ratio_equation`
-                Unit: kgWater/kgDryAir
+                Units: kgWater/kgDryAir
                 value >= 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
@@ -68630,7 +69237,7 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(object):
 
         Args:
             value (float): value for IDD Field `minimum_regeneration_inlet_air_temperature_for_humidity_ratio_equation`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -68661,7 +69268,7 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(object):
 
         Args:
             value (float): value for IDD Field `maximum_regeneration_inlet_air_temperature_for_humidity_ratio_equation`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -68692,7 +69299,7 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(object):
 
         Args:
             value (float): value for IDD Field `minimum_process_inlet_air_humidity_ratio_for_humidity_ratio_equation`
-                Unit: kgWater/kgDryAir
+                Units: kgWater/kgDryAir
                 value >= 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
@@ -68731,7 +69338,7 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(object):
 
         Args:
             value (float): value for IDD Field `maximum_process_inlet_air_humidity_ratio_for_humidity_ratio_equation`
-                Unit: kgWater/kgDryAir
+                Units: kgWater/kgDryAir
                 value >= 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
@@ -68770,7 +69377,7 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(object):
 
         Args:
             value (float): value for IDD Field `minimum_process_inlet_air_temperature_for_humidity_ratio_equation`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -68801,7 +69408,7 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(object):
 
         Args:
             value (float): value for IDD Field `maximum_process_inlet_air_temperature_for_humidity_ratio_equation`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -68832,7 +69439,7 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(object):
 
         Args:
             value (float): value for IDD Field `minimum_regeneration_air_velocity_for_humidity_ratio_equation`
-                Unit: m/s
+                Units: m/s
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -68867,7 +69474,7 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(object):
 
         Args:
             value (float): value for IDD Field `maximum_regeneration_air_velocity_for_humidity_ratio_equation`
-                Unit: m/s
+                Units: m/s
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -68902,7 +69509,7 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(object):
 
         Args:
             value (float): value for IDD Field `minimum_regeneration_outlet_air_humidity_ratio_for_humidity_ratio_equation`
-                Unit: kgWater/kgDryAir
+                Units: kgWater/kgDryAir
                 value >= 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
@@ -68941,7 +69548,7 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(object):
 
         Args:
             value (float): value for IDD Field `maximum_regeneration_outlet_air_humidity_ratio_for_humidity_ratio_equation`
-                Unit: kgWater/kgDryAir
+                Units: kgWater/kgDryAir
                 value >= 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
@@ -68980,7 +69587,7 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(object):
 
         Args:
             value (float): value for IDD Field `minimum_regeneration_inlet_air_relative_humidity_for_humidity_ratio_equation`
-                Unit: percent
+                Units: percent
                 value >= 0.0
                 value <= 100.0
                 if `value` is None it will not be checked against the
@@ -69019,7 +69626,7 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(object):
 
         Args:
             value (float): value for IDD Field `maximum_regeneration_inlet_air_relative_humidity_for_humidity_ratio_equation`
-                Unit: percent
+                Units: percent
                 value >= 0.0
                 value <= 100.0
                 if `value` is None it will not be checked against the
@@ -69058,7 +69665,7 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(object):
 
         Args:
             value (float): value for IDD Field `minimum_process_inlet_air_relative_humidity_for_humidity_ratio_equation`
-                Unit: percent
+                Units: percent
                 value >= 0.0
                 value <= 100.0
                 if `value` is None it will not be checked against the
@@ -69097,7 +69704,7 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(object):
 
         Args:
             value (float): value for IDD Field `maximum_process_inlet_air_relative_humidity_for_humidity_ratio_equation`
-                Unit: percent
+                Units: percent
                 value >= 0.0
                 value <= 100.0
                 if `value` is None it will not be checked against the
@@ -69120,6 +69727,16 @@ class HeatExchangerDesiccantBalancedFlowPerformanceDataType1(object):
                                  'for field `maximum_process_inlet_air_relative_humidity_for_humidity_ratio_equation`')
 
         self._data["Maximum Process Inlet Air Relative Humidity for Humidity Ratio Equation"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):

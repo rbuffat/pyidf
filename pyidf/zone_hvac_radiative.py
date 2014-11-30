@@ -4,9 +4,11 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
     """ Corresponds to IDD object `ZoneHVAC:Baseboard:RadiantConvective:Water`
         The number of surfaces can be expanded beyond 100, if necessary, by adding more
         groups to the end of the list
+    
     """
     internal_name = "ZoneHVAC:Baseboard:RadiantConvective:Water"
     field_count = 214
+    required_fields = ["Name", "Inlet Node Name", "Outlet Node Name", "Heating Design Capacity Method", "Maximum Water Flow Rate", "Fraction Radiant"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ZoneHVAC:Baseboard:RadiantConvective:Water`
@@ -1456,7 +1458,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
 
         Args:
             value (float): value for IDD Field `rated_average_water_temperature`
-                Unit: C
+                Units: C
                 Default value: 87.78
                 value >= 20.0
                 value <= 150.0
@@ -1500,7 +1502,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
 
         Args:
             value (float): value for IDD Field `rated_water_mass_flow_rate`
-                Unit: Kg/s
+                Units: Kg/s
                 Default value: 0.063
                 value > 0.0
                 value <= 10.0
@@ -1596,7 +1598,8 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
 
         Args:
             value (float): value for IDD Field `heating_design_capacity`
-                Unit: W
+                Units: W
+                IP-Units: W
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -1633,7 +1636,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
 
         Args:
             value (float): value for IDD Field `heating_design_capacity_per_floor_area`
-                Unit: W/m2
+                Units: W/m2
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -1705,7 +1708,7 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
 
         Args:
             value (float): value for IDD Field `maximum_water_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8933,6 +8936,16 @@ class ZoneHvacBaseboardRadiantConvectiveWater(object):
 
         self._data["Fraction of Radiant Energy to Surface 100"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -9167,9 +9180,11 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
     """ Corresponds to IDD object `ZoneHVAC:Baseboard:RadiantConvective:Steam`
         The number of surfaces can be expanded beyond 100, if necessary, by adding more
         groups to the end of the list
+    
     """
     internal_name = "ZoneHVAC:Baseboard:RadiantConvective:Steam"
     field_count = 213
+    required_fields = ["Name", "Inlet Node Name", "Outlet Node Name", "Heating Design Capacity Method", "Maximum Steam Flow Rate", "Fraction Radiant"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ZoneHVAC:Baseboard:RadiantConvective:Steam`
@@ -10664,7 +10679,8 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
 
         Args:
             value (float): value for IDD Field `heating_design_capacity`
-                Unit: W
+                Units: W
+                IP-Units: W
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -10701,7 +10717,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
 
         Args:
             value (float): value for IDD Field `heating_design_capacity_per_floor_area`
-                Unit: W/m2
+                Units: W/m2
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -10773,7 +10789,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
 
         Args:
             value (float): value for IDD Field `degree_of_subcooling`
-                Unit: deltaC
+                Units: deltaC
                 Default value: 5.0
                 value >= 1.0
                 if `value` is None it will not be checked against the
@@ -10809,7 +10825,7 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
 
         Args:
             value (float): value for IDD Field `maximum_steam_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -18041,6 +18057,16 @@ class ZoneHvacBaseboardRadiantConvectiveSteam(object):
 
         self._data["Fraction of Radiant Energy to Surface 100"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -18274,9 +18300,11 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
     """ Corresponds to IDD object `ZoneHVAC:Baseboard:RadiantConvective:Electric`
         The number of surfaces can be expanded beyond 100, if necessary, by adding more
         groups to the end of the list
+    
     """
     internal_name = "ZoneHVAC:Baseboard:RadiantConvective:Electric"
     field_count = 209
+    required_fields = ["Name", "Heating Design Capacity Method", "Efficiency", "Fraction Radiant"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ZoneHVAC:Baseboard:RadiantConvective:Electric`
@@ -19681,7 +19709,8 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
 
         Args:
             value (float): value for IDD Field `heating_design_capacity`
-                Unit: W
+                Units: W
+                IP-Units: W
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -19718,7 +19747,7 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
 
         Args:
             value (float): value for IDD Field `heating_design_capacity_per_floor_area`
-                Unit: W/m2
+                Units: W/m2
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -26991,6 +27020,16 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
 
         self._data["Fraction of Radiant Energy to Surface 100"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -27219,9 +27258,11 @@ class ZoneHvacBaseboardRadiantConvectiveElectric(object):
 class ZoneHvacBaseboardConvectiveWater(object):
     """ Corresponds to IDD object `ZoneHVAC:Baseboard:Convective:Water`
         Hot water baseboard heater, convection-only. Natural convection hydronic heating unit.
+    
     """
     internal_name = "ZoneHVAC:Baseboard:Convective:Water"
     field_count = 11
+    required_fields = ["Name", "Inlet Node Name", "Outlet Node Name", "Heating Design Capacity Method", "U-Factor Times Area Value", "Maximum Water Flow Rate"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ZoneHVAC:Baseboard:Convective:Water`
@@ -27504,7 +27545,8 @@ class ZoneHvacBaseboardConvectiveWater(object):
 
         Args:
             value (float): value for IDD Field `heating_design_capacity`
-                Unit: W
+                Units: W
+                IP-Units: W
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -27541,7 +27583,7 @@ class ZoneHvacBaseboardConvectiveWater(object):
 
         Args:
             value (float): value for IDD Field `heating_design_capacity_per_floor_area`
-                Unit: W/m2
+                Units: W/m2
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -27613,7 +27655,7 @@ class ZoneHvacBaseboardConvectiveWater(object):
 
         Args:
             value (float): value for IDD Field `ufactor_times_area_value`
-                Unit: W/K
+                Units: W/K
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -27644,7 +27686,8 @@ class ZoneHvacBaseboardConvectiveWater(object):
 
         Args:
             value (float): value for IDD Field `maximum_water_flow_rate`
-                Unit: m3/s
+                Units: m3/s
+                IP-Units: gal/min
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -27695,6 +27738,16 @@ class ZoneHvacBaseboardConvectiveWater(object):
 
         self._data["Convergence Tolerance"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -27725,9 +27778,11 @@ class ZoneHvacBaseboardConvectiveWater(object):
 class ZoneHvacBaseboardConvectiveElectric(object):
     """ Corresponds to IDD object `ZoneHVAC:Baseboard:Convective:Electric`
         Electric baseboard heater, convection-only. Natural convection electric heating unit.
+    
     """
     internal_name = "ZoneHVAC:Baseboard:Convective:Electric"
     field_count = 7
+    required_fields = ["Name", "Heating Design Capacity Method", "Efficiency"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ZoneHVAC:Baseboard:Convective:Electric`
@@ -27920,7 +27975,8 @@ class ZoneHvacBaseboardConvectiveElectric(object):
 
         Args:
             value (float): value for IDD Field `heating_design_capacity`
-                Unit: W
+                Units: W
+                IP-Units: W
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -27957,7 +28013,7 @@ class ZoneHvacBaseboardConvectiveElectric(object):
 
         Args:
             value (float): value for IDD Field `heating_design_capacity_per_floor_area`
-                Unit: W/m2
+                Units: W/m2
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -28053,6 +28109,16 @@ class ZoneHvacBaseboardConvectiveElectric(object):
 
         self._data["Efficiency"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -28081,9 +28147,11 @@ class ZoneHvacLowTemperatureRadiantVariableFlow(object):
         Low temperature hydronic radiant heating and/or cooling system embedded in a building
         surface (wall, ceiling, or floor). Controlled by varying the hot or chilled water
         flow to the unit.
+    
     """
     internal_name = "ZoneHVAC:LowTemperatureRadiant:VariableFlow"
     field_count = 29
+    required_fields = ["Name", "Heating Design Capacity Method"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ZoneHVAC:LowTemperatureRadiant:VariableFlow`
@@ -28425,7 +28493,8 @@ class ZoneHvacLowTemperatureRadiantVariableFlow(object):
 
         Args:
             value (float): value for IDD Field `hydronic_tubing_inside_diameter`
-                Unit: m
+                Units: m
+                IP-Units: in
                 Default value: 0.013
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -28462,7 +28531,7 @@ class ZoneHvacLowTemperatureRadiantVariableFlow(object):
 
         Args:
             value (float): value for IDD Field `hydronic_tubing_length`
-                Unit: m
+                Units: m
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -28600,7 +28669,8 @@ class ZoneHvacLowTemperatureRadiantVariableFlow(object):
 
         Args:
             value (float): value for IDD Field `heating_design_capacity`
-                Unit: W
+                Units: W
+                IP-Units: W
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -28637,7 +28707,7 @@ class ZoneHvacLowTemperatureRadiantVariableFlow(object):
 
         Args:
             value (float): value for IDD Field `heating_design_capacity_per_floor_area`
-                Unit: W/m2
+                Units: W/m2
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -28709,7 +28779,8 @@ class ZoneHvacLowTemperatureRadiantVariableFlow(object):
 
         Args:
             value (float): value for IDD Field `maximum_hot_water_flow`
-                Unit: m3/s
+                Units: m3/s
+                IP-Units: gal/min
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -28810,7 +28881,7 @@ class ZoneHvacLowTemperatureRadiantVariableFlow(object):
 
         Args:
             value (float): value for IDD Field `heating_control_throttling_range`
-                Unit: deltaC
+                Units: deltaC
                 Default value: 0.5
                 value >= 0.5
                 if `value` is None it will not be checked against the
@@ -28935,7 +29006,7 @@ class ZoneHvacLowTemperatureRadiantVariableFlow(object):
 
         Args:
             value (float): value for IDD Field `cooling_design_capacity`
-                Unit: W
+                Units: W
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -28972,7 +29043,7 @@ class ZoneHvacLowTemperatureRadiantVariableFlow(object):
 
         Args:
             value (float): value for IDD Field `cooling_design_capacity_per_floor_area`
-                Unit: W/m2
+                Units: W/m2
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -29043,7 +29114,8 @@ class ZoneHvacLowTemperatureRadiantVariableFlow(object):
 
         Args:
             value (float): value for IDD Field `maximum_cold_water_flow`
-                Unit: m3/s
+                Units: m3/s
+                IP-Units: gal/min
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -29144,7 +29216,7 @@ class ZoneHvacLowTemperatureRadiantVariableFlow(object):
 
         Args:
             value (float): value for IDD Field `cooling_control_throttling_range`
-                Unit: deltaC
+                Units: deltaC
                 Default value: 0.5
                 value >= 0.5
                 if `value` is None it will not be checked against the
@@ -29258,7 +29330,7 @@ class ZoneHvacLowTemperatureRadiantVariableFlow(object):
 
         Args:
             value (float): value for IDD Field `condensation_control_dewpoint_offset`
-                Unit: C
+                Units: C
                 Default value: 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -29333,7 +29405,7 @@ class ZoneHvacLowTemperatureRadiantVariableFlow(object):
 
         Args:
             value (float): value for IDD Field `circuit_length`
-                Unit: m
+                Units: m
                 Default value: 106.7
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -29349,6 +29421,16 @@ class ZoneHvacLowTemperatureRadiantVariableFlow(object):
                                  'for field `circuit_length`'.format(value))
 
         self._data["Circuit Length"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):
@@ -29400,9 +29482,11 @@ class ZoneHvacLowTemperatureRadiantConstantFlow(object):
         Low temperature hydronic radiant heating and/or cooling system embedded in a building
         surface (wall, ceiling, or floor). Controlled by varying the hot or chilled water
         temperature circulating through the unit.
+    
     """
     internal_name = "ZoneHVAC:LowTemperatureRadiant:ConstantFlow"
     field_count = 29
+    required_fields = ["Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ZoneHVAC:LowTemperatureRadiant:ConstantFlow`
@@ -29744,7 +29828,7 @@ class ZoneHvacLowTemperatureRadiantConstantFlow(object):
 
         Args:
             value (float): value for IDD Field `hydronic_tubing_inside_diameter`
-                Unit: m
+                Units: m
                 Default value: 0.013
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -29781,7 +29865,7 @@ class ZoneHvacLowTemperatureRadiantConstantFlow(object):
 
         Args:
             value (float): value for IDD Field `hydronic_tubing_length`
-                Unit: m
+                Units: m
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -29866,7 +29950,7 @@ class ZoneHvacLowTemperatureRadiantConstantFlow(object):
 
         Args:
             value (float): value for IDD Field `rated_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -29936,7 +30020,7 @@ class ZoneHvacLowTemperatureRadiantConstantFlow(object):
 
         Args:
             value (float): value for IDD Field `rated_pump_head`
-                Unit: Pa
+                Units: Pa
                 Default value: 179352.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -29968,7 +30052,7 @@ class ZoneHvacLowTemperatureRadiantConstantFlow(object):
 
         Args:
             value (float): value for IDD Field `rated_power_consumption`
-                Unit: W
+                Units: W
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -30531,7 +30615,7 @@ class ZoneHvacLowTemperatureRadiantConstantFlow(object):
 
         Args:
             value (float): value for IDD Field `condensation_control_dewpoint_offset`
-                Unit: C
+                Units: C
                 Default value: 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -30606,7 +30690,7 @@ class ZoneHvacLowTemperatureRadiantConstantFlow(object):
 
         Args:
             value (float): value for IDD Field `circuit_length`
-                Unit: m
+                Units: m
                 Default value: 106.7
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -30622,6 +30706,16 @@ class ZoneHvacLowTemperatureRadiantConstantFlow(object):
                                  'for field `circuit_length`'.format(value))
 
         self._data["Circuit Length"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):
@@ -30671,9 +30765,11 @@ class ZoneHvacLowTemperatureRadiantConstantFlow(object):
 class ZoneHvacLowTemperatureRadiantElectric(object):
     """ Corresponds to IDD object `ZoneHVAC:LowTemperatureRadiant:Electric`
         Electric resistance low temperature radiant system
+    
     """
     internal_name = "ZoneHVAC:LowTemperatureRadiant:Electric"
     field_count = 11
+    required_fields = ["Name", "Heating Design Capacity Method"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ZoneHVAC:LowTemperatureRadiant:Electric`
@@ -30960,7 +31056,8 @@ class ZoneHvacLowTemperatureRadiantElectric(object):
 
         Args:
             value (float): value for IDD Field `heating_design_capacity`
-                Unit: W
+                Units: W
+                IP-Units: W
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -30997,7 +31094,7 @@ class ZoneHvacLowTemperatureRadiantElectric(object):
 
         Args:
             value (float): value for IDD Field `heating_design_capacity_per_floor_area`
-                Unit: W/m2
+                Units: W/m2
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -31119,7 +31216,7 @@ class ZoneHvacLowTemperatureRadiantElectric(object):
 
         Args:
             value (float): value for IDD Field `heating_throttling_range`
-                Unit: deltaC
+                Units: deltaC
                 Default value: 0.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -31173,6 +31270,16 @@ class ZoneHvacLowTemperatureRadiantElectric(object):
 
         self._data["Heating Setpoint Temperature Schedule Name"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -31206,9 +31313,11 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
         Note that the following flow fractions must sum up to 1.0
         The number of surfaces can be expanded beyond 100, if necessary, by adding more
         groups to the end of the list
+    
     """
     internal_name = "ZoneHVAC:LowTemperatureRadiant:SurfaceGroup"
     field_count = 201
+    required_fields = ["Name", "Surface 1 Name", "Flow Fraction for Surface 1"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ZoneHVAC:LowTemperatureRadiant:SurfaceGroup`
@@ -39162,6 +39271,16 @@ class ZoneHvacLowTemperatureRadiantSurfaceGroup(object):
 
         self._data["Flow Fraction for Surface 100"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -39383,9 +39502,11 @@ class ZoneHvacHighTemperatureRadiant(object):
     """ Corresponds to IDD object `ZoneHVAC:HighTemperatureRadiant`
         The number of surfaces can be expanded beyond 100, if necessary, by adding more
         groups to the end of the list
+    
     """
     internal_name = "ZoneHVAC:HighTemperatureRadiant"
     field_count = 216
+    required_fields = ["Name", "Zone Name", "Heating Design Capacity Method", "Fuel Type", "Combustion Efficiency", "Fraction of Input Converted to Radiant Energy", "Fraction of Input Converted to Latent Energy", "Fraction of Input that Is Lost", "Heating Throttling Range"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ZoneHVAC:HighTemperatureRadiant`
@@ -40866,7 +40987,7 @@ class ZoneHvacHighTemperatureRadiant(object):
 
         Args:
             value (float): value for IDD Field `heating_design_capacity`
-                Unit: W
+                Units: W
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -40903,7 +41024,7 @@ class ZoneHvacHighTemperatureRadiant(object):
 
         Args:
             value (float): value for IDD Field `heating_design_capacity_per_floor_area`
-                Unit: W/m2
+                Units: W/m2
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -41229,7 +41350,7 @@ class ZoneHvacHighTemperatureRadiant(object):
 
         Args:
             value (float): value for IDD Field `heating_throttling_range`
-                Unit: deltaC
+                Units: deltaC
                 Default value: 2.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -48425,6 +48546,16 @@ class ZoneHvacHighTemperatureRadiant(object):
 
         self._data["Fraction of Radiant Energy to Surface 100"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -48661,9 +48792,11 @@ class ZoneHvacVentilatedSlab(object):
     """ Corresponds to IDD object `ZoneHVAC:VentilatedSlab`
         Ventilated slab system where outdoor air flows through hollow cores in a building
         surface (wall, ceiling, or floor).
+    
     """
     internal_name = "ZoneHVAC:VentilatedSlab"
     field_count = 40
+    required_fields = ["Name", "Zone Name", "Maximum Air Flow Rate", "Outdoor Air Control Type", "Minimum Outdoor Air Flow Rate", "Minimum Outdoor Air Schedule Name", "Maximum Outdoor Air Flow Rate", "Maximum Outdoor Air Fraction or Temperature Schedule Name", "System Configuration Type", "Temperature Control Type", "Heating High Air Temperature Schedule Name", "Heating Low Air Temperature Schedule Name", "Heating High Control Temperature Schedule Name", "Heating Low Control Temperature Schedule Name", "Cooling High Air Temperature Schedule Name", "Cooling Low Air Temperature Schedule Name", "Cooling High Control Temperature Schedule Name", "Cooling Low Control Temperature Schedule Name", "Return Air Node Name", "Slab In Node Name", "Outdoor Air Node Name", "Relief Air Node Name", "Outdoor Air Mixer Outlet Node Name", "Fan Outlet Node Name", "Fan Name", "Coil Option Type"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ZoneHVAC:VentilatedSlab`
@@ -49069,7 +49202,7 @@ class ZoneHvacVentilatedSlab(object):
 
         Args:
             value (float): value for IDD Field `maximum_air_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -49148,7 +49281,7 @@ class ZoneHvacVentilatedSlab(object):
 
         Args:
             value (float): value for IDD Field `minimum_outdoor_air_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -49217,7 +49350,7 @@ class ZoneHvacVentilatedSlab(object):
 
         Args:
             value (float): value for IDD Field `maximum_outdoor_air_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -49331,7 +49464,8 @@ class ZoneHvacVentilatedSlab(object):
 
         Args:
             value (float): value for IDD Field `hollow_core_inside_diameter`
-                Unit: m
+                Units: m
+                IP-Units: in
                 Default value: 0.05
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -49368,7 +49502,7 @@ class ZoneHvacVentilatedSlab(object):
 
         Args:
             value (float): value for IDD Field `hollow_core_length`
-                Unit: m
+                Units: m
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -50366,6 +50500,16 @@ class ZoneHvacVentilatedSlab(object):
 
         self._data["Design Specification ZoneHVAC Sizing Object Name"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -50428,9 +50572,11 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
         surfaces. Note that the flow fractions must sum up to 1.0.
         The number of surfaces can be expanded beyond 10, if necessary, by adding more
         groups to the end of the list
+    
     """
     internal_name = "ZoneHVAC:VentilatedSlab:SlabGroup"
     field_count = 71
+    required_fields = ["Name", "Zone 1 Name", "Surface 1 Name", "Core Diameter for Surface 1", "Core Length for Surface 1", "Core Numbers for Surface 1", "Slab Inlet Node Name for Surface 1", "Slab Outlet Node Name for Surface 1"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ZoneHVAC:VentilatedSlab:SlabGroup`
@@ -50985,7 +51131,7 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
 
         Args:
             value (float): value for IDD Field `core_diameter_for_surface_1`
-                Unit: m
+                Units: m
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -51020,7 +51166,7 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
 
         Args:
             value (float): value for IDD Field `core_length_for_surface_1`
-                Unit: m
+                Units: m
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -51221,7 +51367,7 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
 
         Args:
             value (float): value for IDD Field `core_diameter_for_surface_2`
-                Unit: m
+                Units: m
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -51256,7 +51402,7 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
 
         Args:
             value (float): value for IDD Field `core_length_for_surface_2`
-                Unit: m
+                Units: m
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -51457,7 +51603,7 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
 
         Args:
             value (float): value for IDD Field `core_diameter_for_surface_3`
-                Unit: m
+                Units: m
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -51492,7 +51638,7 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
 
         Args:
             value (float): value for IDD Field `core_length_for_surface_3`
-                Unit: m
+                Units: m
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -51693,7 +51839,7 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
 
         Args:
             value (float): value for IDD Field `core_diameter_for_surface_4`
-                Unit: m
+                Units: m
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -51728,7 +51874,7 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
 
         Args:
             value (float): value for IDD Field `core_length_for_surface_4`
-                Unit: m
+                Units: m
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -51929,7 +52075,7 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
 
         Args:
             value (float): value for IDD Field `core_diameter_for_surface_5`
-                Unit: m
+                Units: m
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -51964,7 +52110,7 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
 
         Args:
             value (float): value for IDD Field `core_length_for_surface_5`
-                Unit: m
+                Units: m
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -52165,7 +52311,7 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
 
         Args:
             value (float): value for IDD Field `core_diameter_for_surface_6`
-                Unit: m
+                Units: m
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -52200,7 +52346,7 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
 
         Args:
             value (float): value for IDD Field `core_length_for_surface_6`
-                Unit: m
+                Units: m
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -52401,7 +52547,7 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
 
         Args:
             value (float): value for IDD Field `core_diameter_for_surface_7`
-                Unit: m
+                Units: m
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -52436,7 +52582,7 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
 
         Args:
             value (float): value for IDD Field `core_length_for_surface_7`
-                Unit: m
+                Units: m
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -52637,7 +52783,7 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
 
         Args:
             value (float): value for IDD Field `core_diameter_for_surface_8`
-                Unit: m
+                Units: m
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -52672,7 +52818,7 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
 
         Args:
             value (float): value for IDD Field `core_length_for_surface_8`
-                Unit: m
+                Units: m
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -52873,7 +53019,7 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
 
         Args:
             value (float): value for IDD Field `core_diameter_for_surface_9`
-                Unit: m
+                Units: m
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -52908,7 +53054,7 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
 
         Args:
             value (float): value for IDD Field `core_length_for_surface_9`
-                Unit: m
+                Units: m
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -53109,7 +53255,7 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
 
         Args:
             value (float): value for IDD Field `core_diameter_for_surface_10`
-                Unit: m
+                Units: m
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -53144,7 +53290,7 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
 
         Args:
             value (float): value for IDD Field `core_length_for_surface_10`
-                Unit: m
+                Units: m
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -53263,6 +53409,16 @@ class ZoneHvacVentilatedSlabSlabGroup(object):
                                  'for field `slab_outlet_node_name_for_surface_10`')
 
         self._data["Slab Outlet Node Name for Surface 10"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):

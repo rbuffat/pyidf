@@ -5,9 +5,11 @@ class TemperingValve(object):
         Temperature-controlled diversion valve used to divert flow around one or more plant
         components such as a hot water heater. It can only be used on one of two branches
         between a Splitter and a Mixer.
+    
     """
     internal_name = "TemperingValve"
     field_count = 6
+    required_fields = ["Name", "Inlet Node Name", "Outlet Node Name", "Stream 2 Source Node Name", "Temperature Setpoint Node Name", "Pump Outlet Node Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `TemperingValve`
@@ -260,6 +262,16 @@ class TemperingValve(object):
 
         self._data["Pump Outlet Node Name"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -288,9 +300,11 @@ class LoadProfilePlant(object):
         specified using schedules. Positive values are heating loads, and negative values are
         cooling loads. The actual load met is dependent on the performance of the supply
         loop components.
+    
     """
     internal_name = "LoadProfile:Plant"
     field_count = 6
+    required_fields = ["Name", "Inlet Node Name", "Outlet Node Name", "Load Schedule Name", "Peak Flow Rate", "Flow Rate Fraction Schedule Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `LoadProfile:Plant`
@@ -489,7 +503,7 @@ class LoadProfilePlant(object):
 
         Args:
             value (float): value for IDD Field `peak_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -538,6 +552,16 @@ class LoadProfilePlant(object):
 
         self._data["Flow Rate Fraction Schedule Name"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -567,9 +591,11 @@ class SolarCollectorPerformanceFlatPlate(object):
         Standards 93 and 96 which are used Solar Rating and Certification Corporation (SRCC)
         Directory of SRCC Certified Solar Collector Ratings. See EnergyPlus DataSets file
         SolarCollectors.idf.
+    
     """
     internal_name = "SolarCollectorPerformance:FlatPlate"
     field_count = 10
+    required_fields = ["Name", "Gross Area", "Test Fluid", "Test Flow Rate", "Test Correlation Type", "Coefficient 1 of Efficiency Equation", "Coefficient 2 of Efficiency Equation"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `SolarCollectorPerformance:FlatPlate`
@@ -692,7 +718,7 @@ class SolarCollectorPerformanceFlatPlate(object):
 
         Args:
             value (float): value for IDD Field `gross_area`
-                Unit: m2
+                Units: m2
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -768,7 +794,7 @@ class SolarCollectorPerformanceFlatPlate(object):
 
         Args:
             value (float): value for IDD Field `test_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -848,7 +874,7 @@ class SolarCollectorPerformanceFlatPlate(object):
 
         Args:
             value (float): value for IDD Field `coefficient_1_of_efficiency_equation`
-                Unit: dimensionless
+                Units: dimensionless
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -880,7 +906,7 @@ class SolarCollectorPerformanceFlatPlate(object):
 
         Args:
             value (float): value for IDD Field `coefficient_2_of_efficiency_equation`
-                Unit: W/m2-K
+                Units: W/m2-K
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -912,7 +938,7 @@ class SolarCollectorPerformanceFlatPlate(object):
 
         Args:
             value (float): value for IDD Field `coefficient_3_of_efficiency_equation`
-                Unit: W/m2-K2
+                Units: W/m2-K2
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -990,6 +1016,16 @@ class SolarCollectorPerformanceFlatPlate(object):
 
         self._data["Coefficient 3 of Incident Angle Modifier"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -1023,9 +1059,11 @@ class SolarCollectorFlatPlateWater(object):
         SolarCollectorPerformance:FlatPlate object. Collector tilt, azimuth, and gross area
         are taken from the referenced building surface or shading surface. The collector
         surface participates normally in all shading calculations.
+    
     """
     internal_name = "SolarCollector:FlatPlate:Water"
     field_count = 6
+    required_fields = ["Name", "SolarCollectorPerformance Name", "Surface Name", "Inlet Node Name", "Outlet Node Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `SolarCollector:FlatPlate:Water`
@@ -1256,7 +1294,7 @@ class SolarCollectorFlatPlateWater(object):
 
         Args:
             value (float): value for IDD Field `maximum_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -1275,6 +1313,16 @@ class SolarCollectorFlatPlateWater(object):
                                  'for field `maximum_flow_rate`')
 
         self._data["Maximum Flow Rate"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):
@@ -1301,9 +1349,11 @@ class SolarCollectorFlatPlateWater(object):
 class SolarCollectorPerformancePhotovoltaicThermalSimple(object):
     """ Corresponds to IDD object `SolarCollectorPerformance:PhotovoltaicThermal:Simple`
         Thermal performance parameters for a hybrid photovoltaic-thermal (PVT) solar collector.
+    
     """
     internal_name = "SolarCollectorPerformance:PhotovoltaicThermal:Simple"
     field_count = 6
+    required_fields = ["Fraction of Surface Area with Active Thermal Collector"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `SolarCollectorPerformance:PhotovoltaicThermal:Simple`
@@ -1402,7 +1452,7 @@ class SolarCollectorPerformancePhotovoltaicThermalSimple(object):
 
         Args:
             value (float): value for IDD Field `fraction_of_surface_area_with_active_thermal_collector`
-                Unit: dimensionless
+                Units: dimensionless
                 value > 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
@@ -1579,6 +1629,16 @@ class SolarCollectorPerformancePhotovoltaicThermalSimple(object):
 
         self._data["Front Surface Emittance"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -1608,9 +1668,11 @@ class SolarCollectorIntegralCollectorStorage(object):
         Collector tilt, azimuth, and gross area are taken from the referenced building surface
         or shading surface. The collector surface participates normally in all shading
         calculations.
+    
     """
     internal_name = "SolarCollector:IntegralCollectorStorage"
     field_count = 8
+    required_fields = ["Name", "IntegralCollectorStorageParameters Name", "Surface Name", "Bottom Surface Boundary Conditions Type", "Inlet Node Name", "Outlet Node Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `SolarCollector:IntegralCollectorStorage`
@@ -1927,7 +1989,7 @@ class SolarCollectorIntegralCollectorStorage(object):
 
         Args:
             value (float): value for IDD Field `maximum_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -1946,6 +2008,16 @@ class SolarCollectorIntegralCollectorStorage(object):
                                  'for field `maximum_flow_rate`')
 
         self._data["Maximum Flow Rate"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):
@@ -1975,9 +2047,11 @@ class SolarCollectorPerformanceIntegralCollectorStorage(object):
     """ Corresponds to IDD object `SolarCollectorPerformance:IntegralCollectorStorage`
         Thermal and optical performance parameters for a single glazed solar collector with
         integral storage unit.
+    
     """
     internal_name = "SolarCollectorPerformance:IntegralCollectorStorage"
     field_count = 19
+    required_fields = ["Name", "ICS Collector Type", "Bottom Heat Loss Conductance", "Side Heat Loss Conductance", "Aspect Ratio", "Collector Side Height", "Thermal Mass of Absorber Plate", "Number of Covers", "Cover Spacing", "Refractive Index of Outer Cover", "Extinction Coefficient Times Thickness of Outer Cover", "Emissivity of Outer Cover", "Refractive Index of Inner Cover", "Extinction Coefficient Times Thickness of the inner Cover", "Emmissivity of Inner Cover", "Absorptance of Absorber Plate", "Emissivity of Absorber Plate"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `SolarCollectorPerformance:IntegralCollectorStorage`
@@ -2193,7 +2267,7 @@ class SolarCollectorPerformanceIntegralCollectorStorage(object):
 
         Args:
             value (float): value for IDD Field `gross_area`
-                Unit: m2
+                Units: m2
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -2228,7 +2302,7 @@ class SolarCollectorPerformanceIntegralCollectorStorage(object):
 
         Args:
             value (float): value for IDD Field `collector_water_volume`
-                Unit: m3
+                Units: m3
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -2264,7 +2338,7 @@ class SolarCollectorPerformanceIntegralCollectorStorage(object):
 
         Args:
             value (float): value for IDD Field `bottom_heat_loss_conductance`
-                Unit: W/m2-K
+                Units: W/m2-K
                 Default value: 0.4
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -2301,7 +2375,7 @@ class SolarCollectorPerformanceIntegralCollectorStorage(object):
 
         Args:
             value (float): value for IDD Field `side_heat_loss_conductance`
-                Unit: W/m2-K
+                Units: W/m2-K
                 Default value: 0.6
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -2340,7 +2414,7 @@ class SolarCollectorPerformanceIntegralCollectorStorage(object):
 
         Args:
             value (float): value for IDD Field `aspect_ratio`
-                Unit: m
+                Units: m
                 Default value: 0.8
                 value > 0.5
                 value < 1.0
@@ -2382,7 +2456,7 @@ class SolarCollectorPerformanceIntegralCollectorStorage(object):
 
         Args:
             value (float): value for IDD Field `collector_side_height`
-                Unit: m
+                Units: m
                 Default value: 0.2
                 value > 0.0
                 value < 0.3
@@ -2424,7 +2498,7 @@ class SolarCollectorPerformanceIntegralCollectorStorage(object):
 
         Args:
             value (float): value for IDD Field `thermal_mass_of_absorber_plate`
-                Unit: J/m2-K
+                Units: J/m2-K
                 Default value: 0.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -2504,7 +2578,7 @@ class SolarCollectorPerformanceIntegralCollectorStorage(object):
 
         Args:
             value (float): value for IDD Field `cover_spacing`
-                Unit: m
+                Units: m
                 Default value: 0.05
                 value > 0.0
                 value <= 0.2
@@ -2547,7 +2621,7 @@ class SolarCollectorPerformanceIntegralCollectorStorage(object):
 
         Args:
             value (float): value for IDD Field `refractive_index_of_outer_cover`
-                Unit: dimensionless
+                Units: dimensionless
                 Default value: 1.526
                 value >= 1.0
                 value <= 2.0
@@ -2590,7 +2664,7 @@ class SolarCollectorPerformanceIntegralCollectorStorage(object):
 
         Args:
             value (float): value for IDD Field `extinction_coefficient_times_thickness_of_outer_cover`
-                Unit: dimensionless
+                Units: dimensionless
                 Default value: 0.045
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -2628,7 +2702,7 @@ class SolarCollectorPerformanceIntegralCollectorStorage(object):
 
         Args:
             value (float): value for IDD Field `emissivity_of_outer_cover`
-                Unit: dimensionless
+                Units: dimensionless
                 Default value: 0.88
                 value > 0.0
                 value < 1.0
@@ -2670,7 +2744,7 @@ class SolarCollectorPerformanceIntegralCollectorStorage(object):
 
         Args:
             value (float): value for IDD Field `refractive_index_of_inner_cover`
-                Unit: dimensionless
+                Units: dimensionless
                 Default value: 1.37
                 value >= 1.0
                 value <= 2.0
@@ -2713,7 +2787,7 @@ class SolarCollectorPerformanceIntegralCollectorStorage(object):
 
         Args:
             value (float): value for IDD Field `extinction_coefficient_times_thickness_of_the_inner_cover`
-                Unit: dimensionless
+                Units: dimensionless
                 Default value: 0.008
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -2750,7 +2824,7 @@ class SolarCollectorPerformanceIntegralCollectorStorage(object):
 
         Args:
             value (float): value for IDD Field `emmissivity_of_inner_cover`
-                Unit: dimensionless
+                Units: dimensionless
                 Default value: 0.88
                 value > 0.0
                 value < 1.0
@@ -2792,7 +2866,7 @@ class SolarCollectorPerformanceIntegralCollectorStorage(object):
 
         Args:
             value (float): value for IDD Field `absorptance_of_absorber_plate`
-                Unit: dimensionless
+                Units: dimensionless
                 Default value: 0.96
                 value > 0.0
                 value < 1.0
@@ -2833,7 +2907,7 @@ class SolarCollectorPerformanceIntegralCollectorStorage(object):
 
         Args:
             value (float): value for IDD Field `emissivity_of_absorber_plate`
-                Unit: dimensionless
+                Units: dimensionless
                 Default value: 0.3
                 value > 0.0
                 value < 1.0
@@ -2857,6 +2931,16 @@ class SolarCollectorPerformanceIntegralCollectorStorage(object):
                                  'for field `emissivity_of_absorber_plate`')
 
         self._data["Emissivity of Absorber Plate"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):
@@ -2900,9 +2984,11 @@ class SolarCollectorUnglazedTranspired(object):
         recover heat conducted out through the underlying surfae. This object represents a
         single collector attached to one or more building or shading surfaces and to one or
         more outdoor air systems.
+    
     """
     internal_name = "SolarCollector:UnglazedTranspired"
     field_count = 32
+    required_fields = ["Name", "Boundary Conditions Model Name", "Diameter of Perforations in Collector", "Distance Between Perforations in Collector", "Thermal Emissivity of Collector Surface", "Solar Absorbtivity of Collector Surface", "Effective Overall Height of Collector", "Effective Gap Thickness of Plenum Behind Collector", "Effective Cross Section Area of Plenum Behind Collector", "Roughness of Collector", "Surface 1 Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `SolarCollector:UnglazedTranspired`
@@ -3397,7 +3483,7 @@ class SolarCollectorUnglazedTranspired(object):
 
         Args:
             value (float): value for IDD Field `diameter_of_perforations_in_collector`
-                Unit: m
+                Units: m
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -3432,7 +3518,7 @@ class SolarCollectorUnglazedTranspired(object):
 
         Args:
             value (float): value for IDD Field `distance_between_perforations_in_collector`
-                Unit: m
+                Units: m
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -3467,7 +3553,7 @@ class SolarCollectorUnglazedTranspired(object):
 
         Args:
             value (float): value for IDD Field `thermal_emissivity_of_collector_surface`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
@@ -3506,7 +3592,7 @@ class SolarCollectorUnglazedTranspired(object):
 
         Args:
             value (float): value for IDD Field `solar_absorbtivity_of_collector_surface`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
@@ -3580,7 +3666,7 @@ class SolarCollectorUnglazedTranspired(object):
 
         Args:
             value (float): value for IDD Field `effective_gap_thickness_of_plenum_behind_collector`
-                Unit: m
+                Units: m
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -3616,7 +3702,7 @@ class SolarCollectorUnglazedTranspired(object):
 
         Args:
             value (float): value for IDD Field `effective_cross_section_area_of_plenum_behind_collector`
-                Unit: m2
+                Units: m2
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -3738,7 +3824,7 @@ class SolarCollectorUnglazedTranspired(object):
 
         Args:
             value (float): value for IDD Field `ratio_of_actual_collector_surface_area_to_projected_surface_area`
-                Unit: dimensionless
+                Units: dimensionless
                 Default value: 1.0
                 value >= 1.0
                 value <= 2.0
@@ -3830,7 +3916,7 @@ class SolarCollectorUnglazedTranspired(object):
 
         Args:
             value (float): value for IDD Field `collector_thickness`
-                Unit: m
+                Units: m
                 value >= 0.0005
                 value <= 0.007
                 if `value` is None it will not be checked against the
@@ -3870,7 +3956,7 @@ class SolarCollectorUnglazedTranspired(object):
 
         Args:
             value (float): value for IDD Field `effectiveness_for_perforations_with_respect_to_wind`
-                Unit: dimensionless
+                Units: dimensionless
                 Default value: 0.25
                 value > 0.0
                 value <= 1.5
@@ -3911,7 +3997,7 @@ class SolarCollectorUnglazedTranspired(object):
 
         Args:
             value (float): value for IDD Field `discharge_coefficient_for_openings_with_respect_to_buoyancy_driven_flow`
-                Unit: dimensionless
+                Units: dimensionless
                 Default value: 0.65
                 value > 0.0
                 value <= 1.5
@@ -4266,6 +4352,16 @@ class SolarCollectorUnglazedTranspired(object):
 
         self._data["Surface 10 Name"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -4318,9 +4414,11 @@ class SolarCollectorUnglazedTranspiredMultisystem(object):
     """ Corresponds to IDD object `SolarCollector:UnglazedTranspired:Multisystem`
         quad-tuples of inlet, outlet, control, and zone nodes
         for multiple different outdoor air systems attached to same collector
+    
     """
     internal_name = "SolarCollector:UnglazedTranspired:Multisystem"
     field_count = 21
+    required_fields = ["Solar Collector Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `SolarCollector:UnglazedTranspired:Multisystem`
@@ -5155,6 +5253,16 @@ class SolarCollectorUnglazedTranspiredMultisystem(object):
 
         self._data["Outdoor Air System 5 Zone Node"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -5199,9 +5307,11 @@ class BoilerHotWater(object):
         curves are generated by fitting catalog data to polynomial equations.
         A constant efficiency boiler may be modeled by leaving the normalized
         boiler efficiency curve name input blank.
+    
     """
     internal_name = "Boiler:HotWater"
     field_count = 17
+    required_fields = ["Name", "Fuel Type", "Nominal Thermal Efficiency", "Boiler Water Inlet Node Name", "Boiler Water Outlet Node Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Boiler:HotWater`
@@ -5424,7 +5534,7 @@ class BoilerHotWater(object):
 
         Args:
             value (float): value for IDD Field `nominal_capacity`
-                Unit: W
+                Units: W
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -5585,7 +5695,7 @@ class BoilerHotWater(object):
 
         Args:
             value (float): value for IDD Field `design_water_outlet_temperature`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5616,7 +5726,8 @@ class BoilerHotWater(object):
 
         Args:
             value (float): value for IDD Field `design_water_flow_rate`
-                Unit: m3/s
+                Units: m3/s
+                IP-Units: gal/min
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -5822,7 +5933,7 @@ class BoilerHotWater(object):
 
         Args:
             value (float): value for IDD Field `water_outlet_upper_temperature_limit`
-                Unit: C
+                Units: C
                 Default value: 99.9
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -5904,7 +6015,7 @@ class BoilerHotWater(object):
 
         Args:
             value (float): value for IDD Field `parasitic_electric_load`
-                Unit: W
+                Units: W
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -5960,6 +6071,16 @@ class BoilerHotWater(object):
 
         self._data["Sizing Factor"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -6000,9 +6121,11 @@ class BoilerSteam(object):
         curves are generated by fitting catalog data to third order
         polynomial equations.  A constant efficiency boiler is modeled by setting
         the fuel use coefficients as follows: N9=1, N10=0, N11=0
+    
     """
     internal_name = "Boiler:Steam"
     field_count = 15
+    required_fields = ["Name", "Fuel Type"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Boiler:Steam`
@@ -6213,7 +6336,7 @@ class BoilerSteam(object):
 
         Args:
             value (float): value for IDD Field `maximum_operating_pressure`
-                Unit: Kpa
+                Units: Kpa
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6282,7 +6405,7 @@ class BoilerSteam(object):
 
         Args:
             value (float): value for IDD Field `design_outlet_steam_temperature`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6313,7 +6436,7 @@ class BoilerSteam(object):
 
         Args:
             value (float): value for IDD Field `nominal_capacity`
-                Unit: W
+                Units: W
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6623,6 +6746,16 @@ class BoilerSteam(object):
 
         self._data["Sizing Factor"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -6659,9 +6792,11 @@ class ChillerElectricEir(object):
         This chiller model is the empirical model from the DOE-2 building Energy
         simulation program. Chiller performance at off-reference conditions is modeled
         using three polynomial equations. Three curves objects are required.
+    
     """
     internal_name = "Chiller:Electric:EIR"
     field_count = 33
+    required_fields = ["Name", "Reference Capacity", "Reference COP", "Cooling Capacity Function of Temperature Curve Name", "Electric Input to Cooling Output Ratio Function of Temperature Curve Name", "Electric Input to Cooling Output Ratio Function of Part Load Ratio Curve Name", "Chilled Water Inlet Node Name", "Chilled Water Outlet Node Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Chiller:Electric:EIR`
@@ -6922,7 +7057,7 @@ class ChillerElectricEir(object):
 
         Args:
             value (float): value for IDD Field `reference_capacity`
-                Unit: W
+                Units: W
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -6959,7 +7094,7 @@ class ChillerElectricEir(object):
 
         Args:
             value (float): value for IDD Field `reference_cop`
-                Unit: W/W
+                Units: W/W
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -6994,7 +7129,7 @@ class ChillerElectricEir(object):
 
         Args:
             value (float): value for IDD Field `reference_leaving_chilled_water_temperature`
-                Unit: C
+                Units: C
                 Default value: 6.67
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -7026,7 +7161,7 @@ class ChillerElectricEir(object):
 
         Args:
             value (float): value for IDD Field `reference_entering_condenser_fluid_temperature`
-                Unit: C
+                Units: C
                 Default value: 29.4
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -7058,7 +7193,8 @@ class ChillerElectricEir(object):
 
         Args:
             value (float): value for IDD Field `reference_chilled_water_flow_rate`
-                Unit: m3/s
+                Units: m3/s
+                IP-Units: gal/min
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -7095,7 +7231,8 @@ class ChillerElectricEir(object):
 
         Args:
             value (float): value for IDD Field `reference_condenser_fluid_flow_rate`
-                Unit: m3/s
+                Units: m3/s
+                IP-Units: gal/min
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -7575,7 +7712,7 @@ class ChillerElectricEir(object):
 
         Args:
             value (float): value for IDD Field `condenser_fan_power_ratio`
-                Unit: W/W
+                Units: W/W
                 Default value: 0.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -7654,7 +7791,7 @@ class ChillerElectricEir(object):
 
         Args:
             value (float): value for IDD Field `leaving_chilled_water_lower_temperature_limit`
-                Unit: C
+                Units: C
                 Default value: 2.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -7737,7 +7874,8 @@ class ChillerElectricEir(object):
 
         Args:
             value (float): value for IDD Field `design_heat_recovery_water_flow_rate`
-                Unit: m3/s
+                Units: m3/s
+                IP-Units: gal/min
                 Default value: 0.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -7880,7 +8018,7 @@ class ChillerElectricEir(object):
 
         Args:
             value (float): value for IDD Field `basin_heater_capacity`
-                Unit: W/K
+                Units: W/K
                 Default value: 0.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -7918,7 +8056,7 @@ class ChillerElectricEir(object):
 
         Args:
             value (float): value for IDD Field `basin_heater_setpoint_temperature`
-                Unit: C
+                Units: C
                 Default value: 2.0
                 value >= 2.0
                 if `value` is None it will not be checked against the
@@ -8086,6 +8224,16 @@ class ChillerElectricEir(object):
 
         self._data["Heat Recovery Leaving Temperature Setpoint Node Name"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -8141,9 +8289,11 @@ class ChillerElectricReformulatedEir(object):
         where the performance is a function of condenser leaving fluid Temperature instead of
         condenser entering fluid Temperature. Chiller performance at off-reference conditions is
         modeled using three polynomial equations. Three curve objects are required.
+    
     """
     internal_name = "Chiller:Electric:ReformulatedEIR"
     field_count = 28
+    required_fields = ["Name", "Reference Capacity", "Reference COP", "Cooling Capacity Function of Temperature Curve Name", "Electric Input to Cooling Output Ratio Function of Temperature Curve Name", "Electric Input to Cooling Output Ratio Function of Part Load Ratio Curve Name", "Chilled Water Inlet Node Name", "Chilled Water Outlet Node Name", "Condenser Inlet Node Name", "Condenser Outlet Node Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Chiller:Electric:ReformulatedEIR`
@@ -8374,7 +8524,7 @@ class ChillerElectricReformulatedEir(object):
 
         Args:
             value (float): value for IDD Field `reference_capacity`
-                Unit: W
+                Units: W
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -8411,7 +8561,7 @@ class ChillerElectricReformulatedEir(object):
 
         Args:
             value (float): value for IDD Field `reference_cop`
-                Unit: W/W
+                Units: W/W
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -8446,7 +8596,7 @@ class ChillerElectricReformulatedEir(object):
 
         Args:
             value (float): value for IDD Field `reference_leaving_chilled_water_temperature`
-                Unit: C
+                Units: C
                 Default value: 6.67
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -8478,7 +8628,7 @@ class ChillerElectricReformulatedEir(object):
 
         Args:
             value (float): value for IDD Field `reference_leaving_condenser_water_temperature`
-                Unit: C
+                Units: C
                 Default value: 35.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -8510,7 +8660,8 @@ class ChillerElectricReformulatedEir(object):
 
         Args:
             value (float): value for IDD Field `reference_chilled_water_flow_rate`
-                Unit: m3/s
+                Units: m3/s
+                IP-Units: gal/min
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -8545,7 +8696,8 @@ class ChillerElectricReformulatedEir(object):
 
         Args:
             value (float): value for IDD Field `reference_condenser_water_flow_rate`
-                Unit: m3/s
+                Units: m3/s
+                IP-Units: gal/min
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -9022,7 +9174,7 @@ class ChillerElectricReformulatedEir(object):
 
         Args:
             value (float): value for IDD Field `leaving_chilled_water_lower_temperature_limit`
-                Unit: C
+                Units: C
                 Default value: 2.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -9105,7 +9257,8 @@ class ChillerElectricReformulatedEir(object):
 
         Args:
             value (float): value for IDD Field `design_heat_recovery_water_flow_rate`
-                Unit: m3/s
+                Units: m3/s
+                IP-Units: gal/min
                 Default value: 0.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -9337,6 +9490,16 @@ class ChillerElectricReformulatedEir(object):
 
         self._data["Heat Recovery Leaving Temperature Setpoint Node Name"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -9387,9 +9550,11 @@ class ChillerElectric(object):
         and System Thermodynamics (BLAST) program.  Chiller performance
         curves are generated by fitting catalog data to third order
         polynomial equations.  Three sets of coefficients are required.
+    
     """
     internal_name = "Chiller:Electric"
     field_count = 37
+    required_fields = ["Name", "Nominal Capacity", "Nominal COP", "Chilled Water Inlet Node Name", "Chilled Water Outlet Node Name", "Temperature Rise Coefficient"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Chiller:Electric`
@@ -9719,7 +9884,7 @@ class ChillerElectric(object):
 
         Args:
             value (float): value for IDD Field `nominal_capacity`
-                Unit: W
+                Units: W
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -9754,7 +9919,7 @@ class ChillerElectric(object):
 
         Args:
             value (float): value for IDD Field `nominal_cop`
-                Unit: W/W
+                Units: W/W
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -10023,7 +10188,7 @@ class ChillerElectric(object):
 
         Args:
             value (float): value for IDD Field `design_condenser_inlet_temperature`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -10088,7 +10253,7 @@ class ChillerElectric(object):
 
         Args:
             value (float): value for IDD Field `design_chilled_water_outlet_temperature`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -10120,7 +10285,8 @@ class ChillerElectric(object):
 
         Args:
             value (float): value for IDD Field `design_chilled_water_flow_rate`
-                Unit: m3/s
+                Units: m3/s
+                IP-Units: gal/min
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -10157,7 +10323,8 @@ class ChillerElectric(object):
 
         Args:
             value (float): value for IDD Field `design_condenser_fluid_flow_rate`
-                Unit: m3/s
+                Units: m3/s
+                IP-Units: gal/min
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -10462,7 +10629,7 @@ class ChillerElectric(object):
 
         Args:
             value (float): value for IDD Field `chilled_water_outlet_temperature_lower_limit`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -10544,7 +10711,8 @@ class ChillerElectric(object):
 
         Args:
             value (float): value for IDD Field `design_heat_recovery_water_flow_rate`
-                Unit: m3/s
+                Units: m3/s
+                IP-Units: gal/min
                 Default value: 0.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -10687,7 +10855,7 @@ class ChillerElectric(object):
 
         Args:
             value (float): value for IDD Field `basin_heater_capacity`
-                Unit: W/K
+                Units: W/K
                 Default value: 0.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -10725,7 +10893,7 @@ class ChillerElectric(object):
 
         Args:
             value (float): value for IDD Field `basin_heater_setpoint_temperature`
-                Unit: C
+                Units: C
                 Default value: 2.0
                 value >= 2.0
                 if `value` is None it will not be checked against the
@@ -10893,6 +11061,16 @@ class ChillerElectric(object):
 
         self._data["Heat Recovery Leaving Temperature Setpoint Node Name"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -10954,9 +11132,11 @@ class ChillerAbsorptionIndirect(object):
         polynomial equations. The chiller capacity is a function of condenser,
         chilled water, and generator temperatures. The heat input is a function
         of part-load ratio, condenser temperature, and chilled water temperature.
+    
     """
     internal_name = "Chiller:Absorption:Indirect"
     field_count = 31
+    required_fields = ["Name", "Nominal Capacity", "Nominal Pumping Power", "Chilled Water Inlet Node Name", "Chilled Water Outlet Node Name", "Condenser Inlet Node Name", "Condenser Outlet Node Name", "Generator Heat Input Function of Part Load Ratio Curve Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Chiller:Absorption:Indirect`
@@ -11205,7 +11385,7 @@ class ChillerAbsorptionIndirect(object):
 
         Args:
             value (float): value for IDD Field `nominal_capacity`
-                Unit: W
+                Units: W
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -11240,7 +11420,8 @@ class ChillerAbsorptionIndirect(object):
 
         Args:
             value (float): value for IDD Field `nominal_pumping_power`
-                Unit: W
+                Units: W
+                IP-Units: W
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -11510,7 +11691,7 @@ class ChillerAbsorptionIndirect(object):
 
         Args:
             value (float): value for IDD Field `design_condenser_inlet_temperature`
-                Unit: C
+                Units: C
                 Default value: 30.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -11544,7 +11725,7 @@ class ChillerAbsorptionIndirect(object):
 
         Args:
             value (float): value for IDD Field `condenser_inlet_temperature_lower_limit`
-                Unit: C
+                Units: C
                 Default value: 15.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -11577,7 +11758,7 @@ class ChillerAbsorptionIndirect(object):
 
         Args:
             value (float): value for IDD Field `chilled_water_outlet_temperature_lower_limit`
-                Unit: C
+                Units: C
                 Default value: 5.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -11610,7 +11791,8 @@ class ChillerAbsorptionIndirect(object):
 
         Args:
             value (float): value for IDD Field `design_chilled_water_flow_rate`
-                Unit: m3/s
+                Units: m3/s
+                IP-Units: gal/min
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -11645,7 +11827,8 @@ class ChillerAbsorptionIndirect(object):
 
         Args:
             value (float): value for IDD Field `design_condenser_water_flow_rate`
-                Unit: m3/s
+                Units: m3/s
+                IP-Units: gal/min
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -12094,7 +12277,7 @@ class ChillerAbsorptionIndirect(object):
 
         Args:
             value (float): value for IDD Field `design_generator_fluid_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -12127,7 +12310,7 @@ class ChillerAbsorptionIndirect(object):
 
         Args:
             value (float): value for IDD Field `temperature_lower_limit_generator_inlet`
-                Unit: C
+                Units: C
                 Default value: 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -12161,7 +12344,7 @@ class ChillerAbsorptionIndirect(object):
 
         Args:
             value (float): value for IDD Field `degree_of_subcooling_in_steam_generator`
-                Unit: C
+                Units: C
                 Default value: 1.0
                 value >= 0.0
                 value <= 20.0
@@ -12203,7 +12386,7 @@ class ChillerAbsorptionIndirect(object):
 
         Args:
             value (float): value for IDD Field `degree_of_subcooling_in_steam_condensate_loop`
-                Unit: C
+                Units: C
                 Default value: 0.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -12260,6 +12443,16 @@ class ChillerAbsorptionIndirect(object):
 
         self._data["Sizing Factor"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -12313,9 +12506,11 @@ class ChillerAbsorption(object):
         Building Loads and System Thermodynamics (BLAST) program.  Chiller
         performance curves are generated by fitting catalog data to third order
         polynomial equations.  Two sets of coefficients are required.
+    
     """
     internal_name = "Chiller:Absorption"
     field_count = 27
+    required_fields = ["Name", "Nominal Capacity", "Nominal Pumping Power", "Chilled Water Inlet Node Name", "Chilled Water Outlet Node Name", "Condenser Inlet Node Name", "Condenser Outlet Node Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Chiller:Absorption`
@@ -12540,7 +12735,7 @@ class ChillerAbsorption(object):
 
         Args:
             value (float): value for IDD Field `nominal_capacity`
-                Unit: W
+                Units: W
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -12575,7 +12770,8 @@ class ChillerAbsorption(object):
 
         Args:
             value (float): value for IDD Field `nominal_pumping_power`
-                Unit: W
+                Units: W
+                IP-Units: W
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -12844,7 +13040,7 @@ class ChillerAbsorption(object):
 
         Args:
             value (float): value for IDD Field `design_condenser_inlet_temperature`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -12876,7 +13072,8 @@ class ChillerAbsorption(object):
 
         Args:
             value (float): value for IDD Field `design_chilled_water_flow_rate`
-                Unit: m3/s
+                Units: m3/s
+                IP-Units: gal/min
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -12913,7 +13110,8 @@ class ChillerAbsorption(object):
 
         Args:
             value (float): value for IDD Field `design_condenser_water_flow_rate`
-                Unit: m3/s
+                Units: m3/s
+                IP-Units: gal/min
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -13130,7 +13328,7 @@ class ChillerAbsorption(object):
 
         Args:
             value (float): value for IDD Field `chilled_water_outlet_temperature_lower_limit`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -13324,7 +13522,7 @@ class ChillerAbsorption(object):
 
         Args:
             value (float): value for IDD Field `design_generator_fluid_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -13361,7 +13559,7 @@ class ChillerAbsorption(object):
 
         Args:
             value (float): value for IDD Field `degree_of_subcooling_in_steam_generator`
-                Unit: C
+                Units: C
                 Default value: 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -13414,6 +13612,16 @@ class ChillerAbsorption(object):
 
         self._data["Sizing Factor"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -13461,9 +13669,11 @@ class ChillerConstantCop(object):
     """ Corresponds to IDD object `Chiller:ConstantCOP`
         This constant COP chiller model provides a means of quickly specifying a
         Chiller where performance data is not available.
+    
     """
     internal_name = "Chiller:ConstantCOP"
     field_count = 15
+    required_fields = ["Name", "Nominal Capacity", "Nominal COP", "Chilled Water Inlet Node Name", "Chilled Water Outlet Node Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Chiller:ConstantCOP`
@@ -13616,7 +13826,7 @@ class ChillerConstantCop(object):
 
         Args:
             value (float): value for IDD Field `nominal_capacity`
-                Unit: W
+                Units: W
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -13651,7 +13861,7 @@ class ChillerConstantCop(object):
 
         Args:
             value (float): value for IDD Field `nominal_cop`
-                Unit: W/W
+                Units: W/W
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -13687,7 +13897,8 @@ class ChillerConstantCop(object):
 
         Args:
             value (float): value for IDD Field `design_chilled_water_flow_rate`
-                Unit: m3/s
+                Units: m3/s
+                IP-Units: gal/min
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -13723,7 +13934,8 @@ class ChillerConstantCop(object):
 
         Args:
             value (float): value for IDD Field `design_condenser_water_flow_rate`
-                Unit: m3/s
+                Units: m3/s
+                IP-Units: gal/min
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -14026,7 +14238,7 @@ class ChillerConstantCop(object):
 
         Args:
             value (float): value for IDD Field `basin_heater_capacity`
-                Unit: W/K
+                Units: W/K
                 Default value: 0.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -14064,7 +14276,7 @@ class ChillerConstantCop(object):
 
         Args:
             value (float): value for IDD Field `basin_heater_setpoint_temperature`
-                Unit: C
+                Units: C
                 Default value: 2.0
                 value >= 2.0
                 if `value` is None it will not be checked against the
@@ -14123,6 +14335,16 @@ class ChillerConstantCop(object):
 
         self._data["Basin Heater Operating Schedule Name"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -14160,9 +14382,11 @@ class ChillerEngineDriven(object):
         and System Thermodynamics (BLAST) program.  Chiller performance
         curves are generated by fitting catalog data to third order
         polynomial equations.  Three sets of coefficients are required.
+    
     """
     internal_name = "Chiller:EngineDriven"
     field_count = 46
+    required_fields = ["Name", "Condenser Type", "Nominal Capacity", "Nominal COP", "Chilled Water Inlet Node Name", "Chilled Water Outlet Node Name", "Temperature Rise Coefficient", "Fuel Type"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Chiller:EngineDriven`
@@ -14546,7 +14770,7 @@ class ChillerEngineDriven(object):
 
         Args:
             value (float): value for IDD Field `nominal_capacity`
-                Unit: W
+                Units: W
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -14582,7 +14806,7 @@ class ChillerEngineDriven(object):
 
         Args:
             value (float): value for IDD Field `nominal_cop`
-                Unit: W/W
+                Units: W/W
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -14851,7 +15075,7 @@ class ChillerEngineDriven(object):
 
         Args:
             value (float): value for IDD Field `design_condenser_inlet_temperature`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -14916,7 +15140,7 @@ class ChillerEngineDriven(object):
 
         Args:
             value (float): value for IDD Field `design_chilled_water_outlet_temperature`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -14948,7 +15172,8 @@ class ChillerEngineDriven(object):
 
         Args:
             value (float): value for IDD Field `design_chilled_water_flow_rate`
-                Unit: m3/s
+                Units: m3/s
+                IP-Units: gal/min
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -14984,7 +15209,8 @@ class ChillerEngineDriven(object):
 
         Args:
             value (float): value for IDD Field `design_condenser_water_flow_rate`
-                Unit: m3/s
+                Units: m3/s
+                IP-Units: gal/min
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -15290,7 +15516,7 @@ class ChillerEngineDriven(object):
 
         Args:
             value (float): value for IDD Field `chilled_water_outlet_temperature_lower_limit`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -15573,7 +15799,7 @@ class ChillerEngineDriven(object):
 
         Args:
             value (float): value for IDD Field `maximum_exhaust_flow_per_unit_of_power_output`
-                Unit: (kg/s)/W
+                Units: (kg/s)/W
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -15608,7 +15834,7 @@ class ChillerEngineDriven(object):
 
         Args:
             value (float): value for IDD Field `design_minimum_exhaust_temperature`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -15693,7 +15919,7 @@ class ChillerEngineDriven(object):
 
         Args:
             value (float): value for IDD Field `fuel_higher_heating_value`
-                Unit: kJ/kg
+                Units: kJ/kg
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -15725,7 +15951,8 @@ class ChillerEngineDriven(object):
 
         Args:
             value (float): value for IDD Field `design_heat_recovery_water_flow_rate`
-                Unit: m3/s
+                Units: m3/s
+                IP-Units: gal/min
                 Default value: 0.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -15877,7 +16104,7 @@ class ChillerEngineDriven(object):
 
         Args:
             value (float): value for IDD Field `maximum_temperature_for_heat_recovery_at_heat_recovery_outlet_node`
-                Unit: C
+                Units: C
                 Default value: 60.0
                 value >= 0.0
                 value <= 100.0
@@ -15958,7 +16185,7 @@ class ChillerEngineDriven(object):
 
         Args:
             value (float): value for IDD Field `basin_heater_capacity`
-                Unit: W/K
+                Units: W/K
                 Default value: 0.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -15996,7 +16223,7 @@ class ChillerEngineDriven(object):
 
         Args:
             value (float): value for IDD Field `basin_heater_setpoint_temperature`
-                Unit: C
+                Units: C
                 Default value: 2.0
                 value >= 2.0
                 if `value` is None it will not be checked against the
@@ -16054,6 +16281,16 @@ class ChillerEngineDriven(object):
                                  'for field `basin_heater_operating_schedule_name`')
 
         self._data["Basin Heater Operating Schedule Name"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):
@@ -16123,9 +16360,11 @@ class ChillerCombustionTurbine(object):
         and System Thermodynamics (BLAST) program.  Chiller performance
         curves are generated by fitting catalog data to third order
         polynomial equations.  Three sets of coefficients are required.
+    
     """
     internal_name = "Chiller:CombustionTurbine"
     field_count = 60
+    required_fields = ["Name", "Nominal Capacity", "Nominal COP", "Chilled Water Inlet Node Name", "Chilled Water Outlet Node Name", "Temperature Rise Coefficient", "Fuel Type"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Chiller:CombustionTurbine`
@@ -16593,7 +16832,7 @@ class ChillerCombustionTurbine(object):
 
         Args:
             value (float): value for IDD Field `nominal_capacity`
-                Unit: W
+                Units: W
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -16628,7 +16867,7 @@ class ChillerCombustionTurbine(object):
 
         Args:
             value (float): value for IDD Field `nominal_cop`
-                Unit: W/W
+                Units: W/W
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -16897,7 +17136,7 @@ class ChillerCombustionTurbine(object):
 
         Args:
             value (float): value for IDD Field `design_condenser_inlet_temperature`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -16962,7 +17201,7 @@ class ChillerCombustionTurbine(object):
 
         Args:
             value (float): value for IDD Field `design_chilled_water_outlet_temperature`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -16994,7 +17233,8 @@ class ChillerCombustionTurbine(object):
 
         Args:
             value (float): value for IDD Field `design_chilled_water_flow_rate`
-                Unit: m3/s
+                Units: m3/s
+                IP-Units: gal/min
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -17030,7 +17270,8 @@ class ChillerCombustionTurbine(object):
 
         Args:
             value (float): value for IDD Field `design_condenser_water_flow_rate`
-                Unit: m3/s
+                Units: m3/s
+                IP-Units: gal/min
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -17336,7 +17577,7 @@ class ChillerCombustionTurbine(object):
 
         Args:
             value (float): value for IDD Field `chilled_water_outlet_temperature_lower_limit`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -17972,7 +18213,7 @@ class ChillerCombustionTurbine(object):
 
         Args:
             value (float): value for IDD Field `gas_turbine_engine_capacity`
-                Unit: W
+                Units: W
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -18007,7 +18248,7 @@ class ChillerCombustionTurbine(object):
 
         Args:
             value (float): value for IDD Field `maximum_exhaust_flow_per_unit_of_power_output`
-                Unit: (kg/s)/W
+                Units: (kg/s)/W
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -18038,7 +18279,7 @@ class ChillerCombustionTurbine(object):
 
         Args:
             value (float): value for IDD Field `design_steam_saturation_temperature`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -18069,7 +18310,7 @@ class ChillerCombustionTurbine(object):
 
         Args:
             value (float): value for IDD Field `fuel_higher_heating_value`
-                Unit: kJ/kg
+                Units: kJ/kg
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -18101,7 +18342,8 @@ class ChillerCombustionTurbine(object):
 
         Args:
             value (float): value for IDD Field `design_heat_recovery_water_flow_rate`
-                Unit: m3/s
+                Units: m3/s
+                IP-Units: gal/min
                 Default value: 0.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -18308,7 +18550,7 @@ class ChillerCombustionTurbine(object):
 
         Args:
             value (float): value for IDD Field `heat_recovery_maximum_temperature`
-                Unit: C
+                Units: C
                 Default value: 80.0
                 value >= 0.0
                 value <= 100.0
@@ -18389,7 +18631,7 @@ class ChillerCombustionTurbine(object):
 
         Args:
             value (float): value for IDD Field `basin_heater_capacity`
-                Unit: W/K
+                Units: W/K
                 Default value: 0.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -18427,7 +18669,7 @@ class ChillerCombustionTurbine(object):
 
         Args:
             value (float): value for IDD Field `basin_heater_setpoint_temperature`
-                Unit: C
+                Units: C
                 Default value: 2.0
                 value >= 2.0
                 if `value` is None it will not be checked against the
@@ -18485,6 +18727,16 @@ class ChillerCombustionTurbine(object):
                                  'for field `basin_heater_operating_schedule_name`')
 
         self._data["Basin Heater Operating Schedule Name"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):
@@ -18565,9 +18817,11 @@ class ChillerCombustionTurbine(object):
 class ChillerHeaterAbsorptionDirectFired(object):
     """ Corresponds to IDD object `ChillerHeater:Absorption:DirectFired`
         Direct fired gas absorption chiller-heater using performance curves similar to DOE-2
+    
     """
     internal_name = "ChillerHeater:Absorption:DirectFired"
     field_count = 35
+    required_fields = ["Name", "Nominal Cooling Capacity", "Chilled Water Inlet Node Name", "Chilled Water Outlet Node Name", "Condenser Inlet Node Name", "Condenser Outlet Node Name", "Hot Water Inlet Node Name", "Hot Water Outlet Node Name", "Design Condenser Water Flow Rate", "Fuel Type"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ChillerHeater:Absorption:DirectFired`
@@ -18840,7 +19094,7 @@ class ChillerHeaterAbsorptionDirectFired(object):
 
         Args:
             value (float): value for IDD Field `nominal_cooling_capacity`
-                Unit: W
+                Units: W
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -19375,7 +19629,7 @@ class ChillerHeaterAbsorptionDirectFired(object):
 
         Args:
             value (float): value for IDD Field `design_entering_condenser_water_temperature`
-                Unit: C
+                Units: C
                 Default value: 29.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -19410,7 +19664,7 @@ class ChillerHeaterAbsorptionDirectFired(object):
 
         Args:
             value (float): value for IDD Field `design_leaving_chilled_water_temperature`
-                Unit: C
+                Units: C
                 Default value: 7.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -19443,7 +19697,8 @@ class ChillerHeaterAbsorptionDirectFired(object):
 
         Args:
             value (float): value for IDD Field `design_chilled_water_flow_rate`
-                Unit: m3/s
+                Units: m3/s
+                IP-Units: gal/min
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -19476,7 +19731,8 @@ class ChillerHeaterAbsorptionDirectFired(object):
 
         Args:
             value (float): value for IDD Field `design_condenser_water_flow_rate`
-                Unit: m3/s
+                Units: m3/s
+                IP-Units: gal/min
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -19508,7 +19764,8 @@ class ChillerHeaterAbsorptionDirectFired(object):
 
         Args:
             value (float): value for IDD Field `design_hot_water_flow_rate`
-                Unit: m3/s
+                Units: m3/s
+                IP-Units: gal/min
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -19902,7 +20159,7 @@ class ChillerHeaterAbsorptionDirectFired(object):
 
         Args:
             value (float): value for IDD Field `chilled_water_temperature_lower_limit`
-                Unit: C
+                Units: C
                 Default value: 2.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -19935,7 +20192,7 @@ class ChillerHeaterAbsorptionDirectFired(object):
 
         Args:
             value (float): value for IDD Field `fuel_higher_heating_value`
-                Unit: kJ/kg
+                Units: kJ/kg
                 Default value: 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -20076,6 +20333,16 @@ class ChillerHeaterAbsorptionDirectFired(object):
 
         self._data["Sizing Factor"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -20130,9 +20397,11 @@ class ChillerHeaterAbsorptionDirectFired(object):
 class ChillerHeaterAbsorptionDoubleEffect(object):
     """ Corresponds to IDD object `ChillerHeater:Absorption:DoubleEffect`
         Exhaust fired absorption chiller-heater using performance curves similar to DOE-2
+    
     """
     internal_name = "ChillerHeater:Absorption:DoubleEffect"
     field_count = 34
+    required_fields = ["Name", "Nominal Cooling Capacity", "Chilled Water Inlet Node Name", "Chilled Water Outlet Node Name", "Condenser Inlet Node Name", "Condenser Outlet Node Name", "Hot Water Inlet Node Name", "Hot Water Outlet Node Name", "Design Condenser Water Flow Rate", "Exhaust Source Object Type"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ChillerHeater:Absorption:DoubleEffect`
@@ -20399,7 +20668,7 @@ class ChillerHeaterAbsorptionDoubleEffect(object):
 
         Args:
             value (float): value for IDD Field `nominal_cooling_capacity`
-                Unit: W
+                Units: W
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -20934,7 +21203,7 @@ class ChillerHeaterAbsorptionDoubleEffect(object):
 
         Args:
             value (float): value for IDD Field `design_entering_condenser_water_temperature`
-                Unit: C
+                Units: C
                 Default value: 29.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -20969,7 +21238,7 @@ class ChillerHeaterAbsorptionDoubleEffect(object):
 
         Args:
             value (float): value for IDD Field `design_leaving_chilled_water_temperature`
-                Unit: C
+                Units: C
                 Default value: 7.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -21002,7 +21271,8 @@ class ChillerHeaterAbsorptionDoubleEffect(object):
 
         Args:
             value (float): value for IDD Field `design_chilled_water_flow_rate`
-                Unit: m3/s
+                Units: m3/s
+                IP-Units: gal/min
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -21035,7 +21305,8 @@ class ChillerHeaterAbsorptionDoubleEffect(object):
 
         Args:
             value (float): value for IDD Field `design_condenser_water_flow_rate`
-                Unit: m3/s
+                Units: m3/s
+                IP-Units: gal/min
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -21067,7 +21338,8 @@ class ChillerHeaterAbsorptionDoubleEffect(object):
 
         Args:
             value (float): value for IDD Field `design_hot_water_flow_rate`
-                Unit: m3/s
+                Units: m3/s
+                IP-Units: gal/min
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -21461,7 +21733,7 @@ class ChillerHeaterAbsorptionDoubleEffect(object):
 
         Args:
             value (float): value for IDD Field `chilled_water_temperature_lower_limit`
-                Unit: C
+                Units: C
                 Default value: 2.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -21587,6 +21859,16 @@ class ChillerHeaterAbsorptionDoubleEffect(object):
 
         self._data["Sizing Factor"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -21640,9 +21922,11 @@ class ChillerHeaterAbsorptionDoubleEffect(object):
 class HeatPumpWaterToWaterEquationFitHeating(object):
     """ Corresponds to IDD object `HeatPump:WaterToWater:EquationFit:Heating`
         simple water-water hp curve-fit model
+    
     """
     internal_name = "HeatPump:WaterToWater:EquationFit:Heating"
     field_count = 19
+    required_fields = ["Name", "Source Side Inlet Node Name", "Source Side Outlet Node Name", "Load Side Inlet Node Name", "Load Side Outlet Node Name", "Rated Load Side Flow Rate", "Rated Source Side Flow Rate", "Rated Heating Capacity", "Rated Heating Power Consumption", "Heating Capacity Coefficient 1", "Heating Capacity Coefficient 2", "Heating Capacity Coefficient 3", "Heating Capacity Coefficient 4", "Heating Capacity Coefficient 5", "Heating Compressor Power Coefficient 1", "Heating Compressor Power Coefficient 2", "Heating Compressor Power Coefficient 3", "Heating Compressor Power Coefficient 4", "Heating Compressor Power Coefficient 5"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `HeatPump:WaterToWater:EquationFit:Heating`
@@ -21951,7 +22235,7 @@ class HeatPumpWaterToWaterEquationFitHeating(object):
 
         Args:
             value (float): value for IDD Field `rated_load_side_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -21986,7 +22270,7 @@ class HeatPumpWaterToWaterEquationFitHeating(object):
 
         Args:
             value (float): value for IDD Field `rated_source_side_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -22021,7 +22305,7 @@ class HeatPumpWaterToWaterEquationFitHeating(object):
 
         Args:
             value (float): value for IDD Field `rated_heating_capacity`
-                Unit: W
+                Units: W
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -22056,7 +22340,7 @@ class HeatPumpWaterToWaterEquationFitHeating(object):
 
         Args:
             value (float): value for IDD Field `rated_heating_power_consumption`
-                Unit: W
+                Units: W
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -22376,6 +22660,16 @@ class HeatPumpWaterToWaterEquationFitHeating(object):
 
         self._data["Heating Compressor Power Coefficient 5"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -22414,9 +22708,11 @@ class HeatPumpWaterToWaterEquationFitHeating(object):
 class HeatPumpWaterToWaterEquationFitCooling(object):
     """ Corresponds to IDD object `HeatPump:WaterToWater:EquationFit:Cooling`
         simple water-water heatpump curve-fit model
+    
     """
     internal_name = "HeatPump:WaterToWater:EquationFit:Cooling"
     field_count = 19
+    required_fields = ["Name", "Source Side Inlet Node Name", "Source Side Outlet Node Name", "Load Side Inlet Node Name", "Load Side Outlet Node Name", "Rated Load Side Flow Rate", "Rated Source Side Flow Rate", "Rated Cooling Capacity", "Rated Cooling Power Consumption", "Cooling Capacity Coefficient 1", "Cooling Capacity Coefficient 2", "Cooling Capacity Coefficient 3", "Cooling Capacity Coefficient 4", "Cooling Capacity Coefficient 5", "Cooling Compressor Power Coefficient 1", "Cooling Compressor Power Coefficient 2", "Cooling Compressor Power Coefficient 3", "Cooling Compressor Power Coefficient 4", "Cooling Compressor Power Coefficient 5"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `HeatPump:WaterToWater:EquationFit:Cooling`
@@ -22725,7 +23021,7 @@ class HeatPumpWaterToWaterEquationFitCooling(object):
 
         Args:
             value (float): value for IDD Field `rated_load_side_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -22760,7 +23056,7 @@ class HeatPumpWaterToWaterEquationFitCooling(object):
 
         Args:
             value (float): value for IDD Field `rated_source_side_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -22795,7 +23091,7 @@ class HeatPumpWaterToWaterEquationFitCooling(object):
 
         Args:
             value (float): value for IDD Field `rated_cooling_capacity`
-                Unit: W
+                Units: W
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -22830,7 +23126,7 @@ class HeatPumpWaterToWaterEquationFitCooling(object):
 
         Args:
             value (float): value for IDD Field `rated_cooling_power_consumption`
-                Unit: W
+                Units: W
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -23150,6 +23446,16 @@ class HeatPumpWaterToWaterEquationFitCooling(object):
 
         self._data["Cooling Compressor Power Coefficient 5"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -23188,9 +23494,11 @@ class HeatPumpWaterToWaterEquationFitCooling(object):
 class HeatPumpWaterToWaterParameterEstimationCooling(object):
     """ Corresponds to IDD object `HeatPump:WaterToWater:ParameterEstimation:Cooling`
         OSU parameter estimation model
+    
     """
     internal_name = "HeatPump:WaterToWater:ParameterEstimation:Cooling"
     field_count = 22
+    required_fields = ["Name", "Source Side Inlet Node Name", "Source Side Outlet Node Name", "Load Side Inlet Node Name", "Load Side Outlet Node Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `HeatPump:WaterToWater:ParameterEstimation:Cooling`
@@ -23517,7 +23825,7 @@ class HeatPumpWaterToWaterParameterEstimationCooling(object):
 
         Args:
             value (float): value for IDD Field `nominal_cop`
-                Unit: W/W
+                Units: W/W
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -23552,7 +23860,7 @@ class HeatPumpWaterToWaterParameterEstimationCooling(object):
 
         Args:
             value (float): value for IDD Field `nominal_capacity`
-                Unit: W
+                Units: W
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -23689,7 +23997,8 @@ class HeatPumpWaterToWaterParameterEstimationCooling(object):
 
         Args:
             value (float): value for IDD Field `load_side_flow_rate`
-                Unit: m3/s
+                Units: m3/s
+                IP-Units: gal/min
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -23724,7 +24033,8 @@ class HeatPumpWaterToWaterParameterEstimationCooling(object):
 
         Args:
             value (float): value for IDD Field `source_side_flow_rate`
-                Unit: m3/s
+                Units: m3/s
+                IP-Units: gal/min
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -23759,7 +24069,7 @@ class HeatPumpWaterToWaterParameterEstimationCooling(object):
 
         Args:
             value (float): value for IDD Field `load_side_heat_transfer_coefficient`
-                Unit: W/K
+                Units: W/K
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -23794,7 +24104,7 @@ class HeatPumpWaterToWaterParameterEstimationCooling(object):
 
         Args:
             value (float): value for IDD Field `source_side_heat_transfer_coefficient`
-                Unit: W/K
+                Units: W/K
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -23829,7 +24139,7 @@ class HeatPumpWaterToWaterParameterEstimationCooling(object):
 
         Args:
             value (float): value for IDD Field `piston_displacement`
-                Unit: m3/s
+                Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -23898,7 +24208,7 @@ class HeatPumpWaterToWaterParameterEstimationCooling(object):
 
         Args:
             value (float): value for IDD Field `compressor_suction_and_discharge_pressure_drop`
-                Unit: Pa
+                Units: Pa
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -23933,7 +24243,7 @@ class HeatPumpWaterToWaterParameterEstimationCooling(object):
 
         Args:
             value (float): value for IDD Field `superheating`
-                Unit: C
+                Units: C
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -23968,7 +24278,7 @@ class HeatPumpWaterToWaterParameterEstimationCooling(object):
 
         Args:
             value (float): value for IDD Field `constant_part_of_electromechanical_power_losses`
-                Unit: W
+                Units: W
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -24039,7 +24349,7 @@ class HeatPumpWaterToWaterParameterEstimationCooling(object):
 
         Args:
             value (float): value for IDD Field `high_pressure_cut_off`
-                Unit: Pa
+                Units: Pa
                 Default value: 500000000.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -24075,7 +24385,7 @@ class HeatPumpWaterToWaterParameterEstimationCooling(object):
 
         Args:
             value (float): value for IDD Field `low_pressure_cut_off`
-                Unit: Pa
+                Units: Pa
                 Default value: 0.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -24095,6 +24405,16 @@ class HeatPumpWaterToWaterParameterEstimationCooling(object):
                                  'for field `low_pressure_cut_off`')
 
         self._data["Low Pressure Cut Off"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):
@@ -24137,9 +24457,11 @@ class HeatPumpWaterToWaterParameterEstimationCooling(object):
 class HeatPumpWaterToWaterParameterEstimationHeating(object):
     """ Corresponds to IDD object `HeatPump:WaterToWater:ParameterEstimation:Heating`
         OSU parameter estimation model
+    
     """
     internal_name = "HeatPump:WaterToWater:ParameterEstimation:Heating"
     field_count = 22
+    required_fields = ["Name", "Source Side Inlet Node Name", "Source Side Outlet Node Name", "Load Side Inlet Node Name", "Load Side Outlet Node Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `HeatPump:WaterToWater:ParameterEstimation:Heating`
@@ -24466,7 +24788,7 @@ class HeatPumpWaterToWaterParameterEstimationHeating(object):
 
         Args:
             value (float): value for IDD Field `nominal_cop`
-                Unit: W/W
+                Units: W/W
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -24501,7 +24823,7 @@ class HeatPumpWaterToWaterParameterEstimationHeating(object):
 
         Args:
             value (float): value for IDD Field `nominal_capacity`
-                Unit: W
+                Units: W
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -24638,7 +24960,8 @@ class HeatPumpWaterToWaterParameterEstimationHeating(object):
 
         Args:
             value (float): value for IDD Field `load_side_flow_rate`
-                Unit: m3/s
+                Units: m3/s
+                IP-Units: gal/min
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -24673,7 +24996,8 @@ class HeatPumpWaterToWaterParameterEstimationHeating(object):
 
         Args:
             value (float): value for IDD Field `source_side_flow_rate`
-                Unit: m3/s
+                Units: m3/s
+                IP-Units: gal/min
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -24708,7 +25032,7 @@ class HeatPumpWaterToWaterParameterEstimationHeating(object):
 
         Args:
             value (float): value for IDD Field `load_side_heat_transfer_coefficient`
-                Unit: W/K
+                Units: W/K
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -24743,7 +25067,7 @@ class HeatPumpWaterToWaterParameterEstimationHeating(object):
 
         Args:
             value (float): value for IDD Field `source_side_heat_transfer_coefficient`
-                Unit: W/K
+                Units: W/K
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -24778,7 +25102,7 @@ class HeatPumpWaterToWaterParameterEstimationHeating(object):
 
         Args:
             value (float): value for IDD Field `piston_displacement`
-                Unit: m3/s
+                Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -24847,7 +25171,7 @@ class HeatPumpWaterToWaterParameterEstimationHeating(object):
 
         Args:
             value (float): value for IDD Field `compressor_suction_and_discharge_pressure_drop`
-                Unit: Pa
+                Units: Pa
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -24882,7 +25206,7 @@ class HeatPumpWaterToWaterParameterEstimationHeating(object):
 
         Args:
             value (float): value for IDD Field `superheating`
-                Unit: C
+                Units: C
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -24917,7 +25241,7 @@ class HeatPumpWaterToWaterParameterEstimationHeating(object):
 
         Args:
             value (float): value for IDD Field `constant_part_of_electromechanical_power_losses`
-                Unit: W
+                Units: W
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -24988,7 +25312,7 @@ class HeatPumpWaterToWaterParameterEstimationHeating(object):
 
         Args:
             value (float): value for IDD Field `high_pressure_cut_off`
-                Unit: Pa
+                Units: Pa
                 Default value: 500000000.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -25024,7 +25348,7 @@ class HeatPumpWaterToWaterParameterEstimationHeating(object):
 
         Args:
             value (float): value for IDD Field `low_pressure_cut_off`
-                Unit: Pa
+                Units: Pa
                 Default value: 0.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -25044,6 +25368,16 @@ class HeatPumpWaterToWaterParameterEstimationHeating(object):
                                  'for field `low_pressure_cut_off`')
 
         self._data["Low Pressure Cut Off"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):
@@ -25086,9 +25420,11 @@ class HeatPumpWaterToWaterParameterEstimationHeating(object):
 class DistrictCooling(object):
     """ Corresponds to IDD object `DistrictCooling`
         Centralized source of chilled water, such as a district cooling system.
+    
     """
     internal_name = "DistrictCooling"
     field_count = 5
+    required_fields = ["Name", "Chilled Water Inlet Node Name", "Chilled Water Outlet Node Name", "Nominal Capacity"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `DistrictCooling`
@@ -25247,7 +25583,7 @@ class DistrictCooling(object):
 
         Args:
             value (float): value for IDD Field `nominal_capacity`
-                Unit: W
+                Units: W
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -25301,6 +25637,16 @@ class DistrictCooling(object):
 
         self._data["Capacity Fraction Schedule Name"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -25325,9 +25671,11 @@ class DistrictCooling(object):
 class DistrictHeating(object):
     """ Corresponds to IDD object `DistrictHeating`
         Centralized source of hot water, such as a district heating system.
+    
     """
     internal_name = "DistrictHeating"
     field_count = 5
+    required_fields = ["Name", "Hot Water Inlet Node Name", "Hot Water Outlet Node Name", "Nominal Capacity"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `DistrictHeating`
@@ -25486,7 +25834,7 @@ class DistrictHeating(object):
 
         Args:
             value (float): value for IDD Field `nominal_capacity`
-                Unit: W
+                Units: W
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -25540,6 +25888,16 @@ class DistrictHeating(object):
 
         self._data["Capacity Fraction Schedule Name"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -25567,9 +25925,11 @@ class PlantComponentTemperatureSource(object):
         The object introduces fluid into the plant loop at the specified temperature and
         at the same flow rate as the fluid enters the component
         Fluid entering the component vanishes equivalent to the relief air in an air system
+    
     """
     internal_name = "PlantComponent:TemperatureSource"
     field_count = 7
+    required_fields = ["Name", "Inlet Node", "Outlet Node", "Design Volume Flow Rate"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `PlantComponent:TemperatureSource`
@@ -25744,7 +26104,8 @@ class PlantComponentTemperatureSource(object):
 
         Args:
             value (float): value for IDD Field `design_volume_flow_rate`
-                Unit: m3/s
+                Units: m3/s
+                IP-Units: gal/min
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -25822,7 +26183,7 @@ class PlantComponentTemperatureSource(object):
 
         Args:
             value (float): value for IDD Field `source_temperature`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -25854,7 +26215,7 @@ class PlantComponentTemperatureSource(object):
 
         Args:
             value (str): value for IDD Field `source_temperature_schedule_name`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -25872,6 +26233,16 @@ class PlantComponentTemperatureSource(object):
                                  'for field `source_temperature_schedule_name`')
 
         self._data["Source Temperature Schedule Name"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):
@@ -25902,9 +26273,11 @@ class CentralHeatPumpSystem(object):
         Its function is to encapsulate the extra controls needed to turn individual modules on/off
         and whether they are to operate in cooling-only, heating-only or simultaneous cooling/heating
         mode and whether to connect the source water to the evaporator or condenser side.
+    
     """
     internal_name = "CentralHeatPumpSystem"
     field_count = 90
+    required_fields = ["Name", "Cooling Loop Inlet Node Name", "Cooling Loop Outlet Node Name", "Source Loop Inlet Node Name", "Source Loop Outlet Node Name", "Heating Loop Inlet Node Name", "Heating Loop Outlet Node Name", "Chiller Heater Modules Performance Component Object Type 1", "Chiller Heater Modules Performance Component Name 1", "Chiller Heater Modules Control Schedule Name 1", "Number of Chiller Heater Modules 1"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `CentralHeatPumpSystem`
@@ -26747,7 +27120,7 @@ class CentralHeatPumpSystem(object):
 
         Args:
             value (float): value for IDD Field `ancillary_power`
-                Unit: W
+                Units: W
                 Default value: 0.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -29622,6 +29995,16 @@ class CentralHeatPumpSystem(object):
 
         self._data["Number of Chiller Heater Modules 20"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -29734,9 +30117,11 @@ class ChillerHeaterPerformanceElectricEir(object):
         function of condenser entering or leaving fluid temperature and the heating mode performance
         is typically a function of condenser leaving fluid temperature. Performance at off-reference
         conditions is modeled using three polynomial equations per mode. Six curve objects are required.
+    
     """
     internal_name = "ChillerHeaterPerformance:Electric:EIR"
     field_count = 29
+    required_fields = ["Name", "Reference Cooling Mode Evaporator Capacity", "Reference Cooling Mode COP", "Cooling Mode Cooling Capacity Function of Temperature Curve Name", "Cooling Mode Electric Input to Cooling Output Ratio Function of Temperature Curve Name", "Cooling Mode Electric Input to Cooling Output Ratio Function of Part Load Ratio Curve Name", "Heating Mode Cooling Capacity Function of Temperature Curve Name", "Heating Mode Electric Input to Cooling Output Ratio Function of Temperature Curve Name", "Heating Mode Electric Input to Cooling Output Ratio Function of Part Load Ratio Curve Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ChillerHeaterPerformance:Electric:EIR`
@@ -29973,7 +30358,7 @@ class ChillerHeaterPerformanceElectricEir(object):
 
         Args:
             value (float): value for IDD Field `reference_cooling_mode_evaporator_capacity`
-                Unit: W
+                Units: W
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -30009,7 +30394,7 @@ class ChillerHeaterPerformanceElectricEir(object):
 
         Args:
             value (float): value for IDD Field `reference_cooling_mode_cop`
-                Unit: W/W
+                Units: W/W
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -30044,7 +30429,7 @@ class ChillerHeaterPerformanceElectricEir(object):
 
         Args:
             value (float): value for IDD Field `reference_cooling_mode_leaving_chilled_water_temperature`
-                Unit: C
+                Units: C
                 Default value: 6.67
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -30076,7 +30461,7 @@ class ChillerHeaterPerformanceElectricEir(object):
 
         Args:
             value (float): value for IDD Field `reference_cooling_mode_entering_condenser_fluid_temperature`
-                Unit: C
+                Units: C
                 Default value: 29.44
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -30108,7 +30493,7 @@ class ChillerHeaterPerformanceElectricEir(object):
 
         Args:
             value (float): value for IDD Field `reference_cooling_mode_leaving_condenser_water_temperature`
-                Unit: C
+                Units: C
                 Default value: 35.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -30211,7 +30596,7 @@ class ChillerHeaterPerformanceElectricEir(object):
 
         Args:
             value (float): value for IDD Field `reference_heating_mode_leaving_chilled_water_temperature`
-                Unit: C
+                Units: C
                 Default value: 6.67
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -30244,7 +30629,7 @@ class ChillerHeaterPerformanceElectricEir(object):
 
         Args:
             value (float): value for IDD Field `reference_heating_mode_leaving_condenser_water_temperature`
-                Unit: C
+                Units: C
                 Default value: 49.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -30276,7 +30661,7 @@ class ChillerHeaterPerformanceElectricEir(object):
 
         Args:
             value (float): value for IDD Field `reference_heating_mode_entering_condenser_fluid_temperature`
-                Unit: C
+                Units: C
                 Default value: 29.44
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -30309,7 +30694,7 @@ class ChillerHeaterPerformanceElectricEir(object):
 
         Args:
             value (float): value for IDD Field `heating_mode_entering_chilled_water_temperature_low_limit`
-                Unit: C
+                Units: C
                 Default value: 12.22
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -30385,7 +30770,8 @@ class ChillerHeaterPerformanceElectricEir(object):
 
         Args:
             value (float): value for IDD Field `design_chilled_water_flow_rate`
-                Unit: m3/s
+                Units: m3/s
+                IP-Units: gal/min
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -30420,7 +30806,8 @@ class ChillerHeaterPerformanceElectricEir(object):
 
         Args:
             value (float): value for IDD Field `design_condenser_water_flow_rate`
-                Unit: m3/s
+                Units: m3/s
+                IP-Units: gal/min
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -30455,7 +30842,8 @@ class ChillerHeaterPerformanceElectricEir(object):
 
         Args:
             value (float): value for IDD Field `design_hot_water_flow_rate`
-                Unit: m3/s
+                Units: m3/s
+                IP-Units: gal/min
                 Default value: 0.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -31031,6 +31419,16 @@ class ChillerHeaterPerformanceElectricEir(object):
 
         self._data["Sizing Factor"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -31079,9 +31477,11 @@ class ChillerHeaterPerformanceElectricEir(object):
 class PlantLoop(object):
     """ Corresponds to IDD object `PlantLoop`
         Defines a central plant loop.
+    
     """
     internal_name = "PlantLoop"
     field_count = 23
+    required_fields = ["Name", "Fluid Type", "Plant Equipment Operation Scheme Name", "Loop Temperature Setpoint Node Name", "Maximum Loop Temperature", "Minimum Loop Temperature", "Maximum Loop Flow Rate", "Plant Side Inlet Node Name", "Plant Side Outlet Node Name", "Plant Side Branch List Name", "Demand Side Inlet Node Name", "Demand Side Outlet Node Name", "Demand Side Branch List Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `PlantLoop`
@@ -31427,7 +31827,7 @@ class PlantLoop(object):
 
         Args:
             value (float): value for IDD Field `maximum_loop_temperature`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -31458,7 +31858,7 @@ class PlantLoop(object):
 
         Args:
             value (float): value for IDD Field `minimum_loop_temperature`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -31489,7 +31889,8 @@ class PlantLoop(object):
 
         Args:
             value (float): value for IDD Field `maximum_loop_flow_rate`
-                Unit: m3/s
+                Units: m3/s
+                IP-Units: gal/min
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -31524,7 +31925,8 @@ class PlantLoop(object):
 
         Args:
             value (float): value for IDD Field `minimum_loop_flow_rate`
-                Unit: m3/s
+                Units: m3/s
+                IP-Units: gal/min
                 Default value: 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -31556,7 +31958,8 @@ class PlantLoop(object):
 
         Args:
             value (float): value for IDD Field `plant_loop_volume`
-                Unit: m3
+                Units: m3
+                IP-Units: gal
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -32063,6 +32466,16 @@ class PlantLoop(object):
 
         self._data["Pressure Simulation Type"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -32107,9 +32520,11 @@ class CondenserLoop(object):
         Defines a central plant condenser loop. CondenserLoop and PlantLoop are nearly
         identical except some components and operation schemes are applicable to only one
         loop type or the other.
+    
     """
     internal_name = "CondenserLoop"
     field_count = 20
+    required_fields = ["Name", "Fluid Type", "Condenser Equipment Operation Scheme Name", "Condenser Loop Temperature Setpoint Node Name", "Maximum Loop Temperature", "Minimum Loop Temperature", "Maximum Loop Flow Rate", "Condenser Side Inlet Node Name", "Condenser Side Outlet Node Name", "Condenser Side Branch List Name", "Condenser Side Connector List Name", "Demand Side Inlet Node Name", "Demand Side Outlet Node Name", "Condenser Demand Side Branch List Name", "Condenser Demand Side Connector List Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `CondenserLoop`
@@ -32435,7 +32850,7 @@ class CondenserLoop(object):
 
         Args:
             value (float): value for IDD Field `maximum_loop_temperature`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -32466,7 +32881,7 @@ class CondenserLoop(object):
 
         Args:
             value (float): value for IDD Field `minimum_loop_temperature`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -32497,7 +32912,8 @@ class CondenserLoop(object):
 
         Args:
             value (float): value for IDD Field `maximum_loop_flow_rate`
-                Unit: m3/s
+                Units: m3/s
+                IP-Units: gal/min
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -32532,7 +32948,8 @@ class CondenserLoop(object):
 
         Args:
             value (float): value for IDD Field `minimum_loop_flow_rate`
-                Unit: m3/s
+                Units: m3/s
+                IP-Units: gal/min
                 Default value: 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -32564,7 +32981,8 @@ class CondenserLoop(object):
 
         Args:
             value (float): value for IDD Field `condenser_loop_volume`
-                Unit: m3
+                Units: m3
+                IP-Units: gal
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -32942,6 +33360,16 @@ class CondenserLoop(object):
 
         self._data["Pressure Simulation Type"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -32985,9 +33413,11 @@ class PlantEquipmentList(object):
         If no equipment object types and equipment names are specified, then the corresponding
         PlantEquipmentOperation:* object will assume all available plant equipment for the loop
         should be OFF (not operate) within the specified lower/upper limit.
+    
     """
     internal_name = "PlantEquipmentList"
     field_count = 21
+    required_fields = ["Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `PlantEquipmentList`
@@ -33821,6 +34251,16 @@ class PlantEquipmentList(object):
 
         self._data["Equipment 10 Name"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -33865,9 +34305,11 @@ class CondenserEquipmentList(object):
         If no equipment object types and equipment names are specified, then the corresponding
         PlantEquipmentOperation:* object will assume all available condenser equipment for the loop
         should be OFF (not operate) within the specified lower/upper limit.
+    
     """
     internal_name = "CondenserEquipmentList"
     field_count = 21
+    required_fields = ["Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `CondenserEquipmentList`
@@ -34701,6 +35143,16 @@ class CondenserEquipmentList(object):
 
         self._data["Equipment 10 Name"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -34743,9 +35195,11 @@ class PlantEquipmentOperationUncontrolled(object):
         Plant equipment operation scheme for uncontrolled operation. Specifies a group of
         equipment that runs if the loop is active, unless turned off by the loop flow resolver
         to maintain continuity in the fluid loop.
+    
     """
     internal_name = "PlantEquipmentOperation:Uncontrolled"
     field_count = 2
+    required_fields = ["Name", "Equipment List Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `PlantEquipmentOperation:Uncontrolled`
@@ -34838,6 +35292,16 @@ class PlantEquipmentOperationUncontrolled(object):
 
         self._data["Equipment List Name"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -34861,9 +35325,11 @@ class PlantEquipmentOperationCoolingLoad(object):
         Plant equipment operation scheme for cooling load range operation. Specifies one or
         more groups of equipment which are available to operate for successive cooling load
         ranges.
+    
     """
     internal_name = "PlantEquipmentOperation:CoolingLoad"
     field_count = 31
+    required_fields = ["Name", "Load Range 1 Lower Limit", "Load Range 1 Upper Limit"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `PlantEquipmentOperation:CoolingLoad`
@@ -35112,7 +35578,7 @@ class PlantEquipmentOperationCoolingLoad(object):
 
         Args:
             value (float): value for IDD Field `load_range_1_lower_limit`
-                Unit: W
+                Units: W
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -35147,7 +35613,7 @@ class PlantEquipmentOperationCoolingLoad(object):
 
         Args:
             value (float): value for IDD Field `load_range_1_upper_limit`
-                Unit: W
+                Units: W
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -35215,7 +35681,7 @@ class PlantEquipmentOperationCoolingLoad(object):
 
         Args:
             value (float): value for IDD Field `load_range_2_lower_limit`
-                Unit: W
+                Units: W
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -35250,7 +35716,7 @@ class PlantEquipmentOperationCoolingLoad(object):
 
         Args:
             value (float): value for IDD Field `load_range_2_upper_limit`
-                Unit: W
+                Units: W
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -35314,7 +35780,7 @@ class PlantEquipmentOperationCoolingLoad(object):
 
         Args:
             value (float): value for IDD Field `load_range_3_lower_limit`
-                Unit: W
+                Units: W
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -35349,7 +35815,7 @@ class PlantEquipmentOperationCoolingLoad(object):
 
         Args:
             value (float): value for IDD Field `load_range_3_upper_limit`
-                Unit: W
+                Units: W
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -35417,7 +35883,7 @@ class PlantEquipmentOperationCoolingLoad(object):
 
         Args:
             value (float): value for IDD Field `load_range_4_lower_limit`
-                Unit: W
+                Units: W
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -35452,7 +35918,7 @@ class PlantEquipmentOperationCoolingLoad(object):
 
         Args:
             value (float): value for IDD Field `load_range_4_upper_limit`
-                Unit: W
+                Units: W
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -35520,7 +35986,7 @@ class PlantEquipmentOperationCoolingLoad(object):
 
         Args:
             value (float): value for IDD Field `load_range_5_lower_limit`
-                Unit: W
+                Units: W
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -35555,7 +36021,7 @@ class PlantEquipmentOperationCoolingLoad(object):
 
         Args:
             value (float): value for IDD Field `load_range_5_upper_limit`
-                Unit: W
+                Units: W
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -35623,7 +36089,7 @@ class PlantEquipmentOperationCoolingLoad(object):
 
         Args:
             value (float): value for IDD Field `load_range_6_lower_limit`
-                Unit: W
+                Units: W
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -35658,7 +36124,7 @@ class PlantEquipmentOperationCoolingLoad(object):
 
         Args:
             value (float): value for IDD Field `load_range_6_upper_limit`
-                Unit: W
+                Units: W
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -35726,7 +36192,7 @@ class PlantEquipmentOperationCoolingLoad(object):
 
         Args:
             value (float): value for IDD Field `load_range_7_lower_limit`
-                Unit: W
+                Units: W
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -35761,7 +36227,7 @@ class PlantEquipmentOperationCoolingLoad(object):
 
         Args:
             value (float): value for IDD Field `load_range_7_upper_limit`
-                Unit: W
+                Units: W
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -35829,7 +36295,7 @@ class PlantEquipmentOperationCoolingLoad(object):
 
         Args:
             value (float): value for IDD Field `load_range_8_lower_limit`
-                Unit: W
+                Units: W
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -35864,7 +36330,7 @@ class PlantEquipmentOperationCoolingLoad(object):
 
         Args:
             value (float): value for IDD Field `load_range_8_upper_limit`
-                Unit: W
+                Units: W
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -35932,7 +36398,7 @@ class PlantEquipmentOperationCoolingLoad(object):
 
         Args:
             value (float): value for IDD Field `load_range_9_lower_limit`
-                Unit: W
+                Units: W
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -35967,7 +36433,7 @@ class PlantEquipmentOperationCoolingLoad(object):
 
         Args:
             value (float): value for IDD Field `load_range_9_upper_limit`
-                Unit: W
+                Units: W
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -36035,7 +36501,7 @@ class PlantEquipmentOperationCoolingLoad(object):
 
         Args:
             value (float): value for IDD Field `load_range_10_lower_limit`
-                Unit: W
+                Units: W
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -36070,7 +36536,7 @@ class PlantEquipmentOperationCoolingLoad(object):
 
         Args:
             value (float): value for IDD Field `load_range_10_upper_limit`
-                Unit: W
+                Units: W
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -36122,6 +36588,16 @@ class PlantEquipmentOperationCoolingLoad(object):
                                  'for field `range_10_equipment_list_name`')
 
         self._data["Range 10 Equipment List Name"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):
@@ -36175,9 +36651,11 @@ class PlantEquipmentOperationHeatingLoad(object):
         Plant equipment operation scheme for heating load range operation. Specifies one or
         more groups of equipment which are available to operate for successive heating load
         ranges.
+    
     """
     internal_name = "PlantEquipmentOperation:HeatingLoad"
     field_count = 31
+    required_fields = ["Name", "Load Range 1 Lower Limit", "Load Range 1 Upper Limit", "Range 1 Equipment List Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `PlantEquipmentOperation:HeatingLoad`
@@ -36426,7 +36904,7 @@ class PlantEquipmentOperationHeatingLoad(object):
 
         Args:
             value (float): value for IDD Field `load_range_1_lower_limit`
-                Unit: W
+                Units: W
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -36461,7 +36939,7 @@ class PlantEquipmentOperationHeatingLoad(object):
 
         Args:
             value (float): value for IDD Field `load_range_1_upper_limit`
-                Unit: W
+                Units: W
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -36529,7 +37007,7 @@ class PlantEquipmentOperationHeatingLoad(object):
 
         Args:
             value (float): value for IDD Field `load_range_2_lower_limit`
-                Unit: W
+                Units: W
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -36564,7 +37042,7 @@ class PlantEquipmentOperationHeatingLoad(object):
 
         Args:
             value (float): value for IDD Field `load_range_2_upper_limit`
-                Unit: W
+                Units: W
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -36632,7 +37110,7 @@ class PlantEquipmentOperationHeatingLoad(object):
 
         Args:
             value (float): value for IDD Field `load_range_3_lower_limit`
-                Unit: W
+                Units: W
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -36667,7 +37145,7 @@ class PlantEquipmentOperationHeatingLoad(object):
 
         Args:
             value (float): value for IDD Field `load_range_3_upper_limit`
-                Unit: W
+                Units: W
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -36735,7 +37213,7 @@ class PlantEquipmentOperationHeatingLoad(object):
 
         Args:
             value (float): value for IDD Field `load_range_4_lower_limit`
-                Unit: W
+                Units: W
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -36770,7 +37248,7 @@ class PlantEquipmentOperationHeatingLoad(object):
 
         Args:
             value (float): value for IDD Field `load_range_4_upper_limit`
-                Unit: W
+                Units: W
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -36838,7 +37316,7 @@ class PlantEquipmentOperationHeatingLoad(object):
 
         Args:
             value (float): value for IDD Field `load_range_5_lower_limit`
-                Unit: W
+                Units: W
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -36873,7 +37351,7 @@ class PlantEquipmentOperationHeatingLoad(object):
 
         Args:
             value (float): value for IDD Field `load_range_5_upper_limit`
-                Unit: W
+                Units: W
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -36941,7 +37419,7 @@ class PlantEquipmentOperationHeatingLoad(object):
 
         Args:
             value (float): value for IDD Field `load_range_6_lower_limit`
-                Unit: W
+                Units: W
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -36976,7 +37454,7 @@ class PlantEquipmentOperationHeatingLoad(object):
 
         Args:
             value (float): value for IDD Field `load_range_6_upper_limit`
-                Unit: W
+                Units: W
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -37044,7 +37522,7 @@ class PlantEquipmentOperationHeatingLoad(object):
 
         Args:
             value (float): value for IDD Field `load_range_7_lower_limit`
-                Unit: W
+                Units: W
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -37079,7 +37557,7 @@ class PlantEquipmentOperationHeatingLoad(object):
 
         Args:
             value (float): value for IDD Field `load_range_7_upper_limit`
-                Unit: W
+                Units: W
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -37147,7 +37625,7 @@ class PlantEquipmentOperationHeatingLoad(object):
 
         Args:
             value (float): value for IDD Field `load_range_8_lower_limit`
-                Unit: W
+                Units: W
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -37182,7 +37660,7 @@ class PlantEquipmentOperationHeatingLoad(object):
 
         Args:
             value (float): value for IDD Field `load_range_8_upper_limit`
-                Unit: W
+                Units: W
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -37250,7 +37728,7 @@ class PlantEquipmentOperationHeatingLoad(object):
 
         Args:
             value (float): value for IDD Field `load_range_9_lower_limit`
-                Unit: W
+                Units: W
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -37285,7 +37763,7 @@ class PlantEquipmentOperationHeatingLoad(object):
 
         Args:
             value (float): value for IDD Field `load_range_9_upper_limit`
-                Unit: W
+                Units: W
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -37353,7 +37831,7 @@ class PlantEquipmentOperationHeatingLoad(object):
 
         Args:
             value (float): value for IDD Field `load_range_10_lower_limit`
-                Unit: W
+                Units: W
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -37388,7 +37866,7 @@ class PlantEquipmentOperationHeatingLoad(object):
 
         Args:
             value (float): value for IDD Field `load_range_10_upper_limit`
-                Unit: W
+                Units: W
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -37440,6 +37918,16 @@ class PlantEquipmentOperationHeatingLoad(object):
                                  'for field `range_10_equipment_list_name`')
 
         self._data["Range 10 Equipment List Name"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):
@@ -37493,9 +37981,11 @@ class PlantEquipmentOperationOutdoorDryBulb(object):
         Plant equipment operation scheme for outdoor dry-bulb temperature range operation.
         Specifies one or more groups of equipment which are available to operate for
         successive outdoor dry-bulb temperature ranges.
+    
     """
     internal_name = "PlantEquipmentOperation:OutdoorDryBulb"
     field_count = 31
+    required_fields = ["Name", "Dry-Bulb Temperature Range 1 Lower Limit", "Dry-Bulb Temperature Range 1 Upper Limit", "Range 1 Equipment List Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `PlantEquipmentOperation:OutdoorDryBulb`
@@ -37744,7 +38234,7 @@ class PlantEquipmentOperationOutdoorDryBulb(object):
 
         Args:
             value (float): value for IDD Field `drybulb_temperature_range_1_lower_limit`
-                Unit: C
+                Units: C
                 value >= -70.0
                 value <= 70.0
                 if `value` is None it will not be checked against the
@@ -37783,7 +38273,7 @@ class PlantEquipmentOperationOutdoorDryBulb(object):
 
         Args:
             value (float): value for IDD Field `drybulb_temperature_range_1_upper_limit`
-                Unit: C
+                Units: C
                 value >= -70.0
                 value <= 70.0
                 if `value` is None it will not be checked against the
@@ -37855,7 +38345,7 @@ class PlantEquipmentOperationOutdoorDryBulb(object):
 
         Args:
             value (float): value for IDD Field `drybulb_temperature_range_2_lower_limit`
-                Unit: C
+                Units: C
                 value >= -70.0
                 value <= 70.0
                 if `value` is None it will not be checked against the
@@ -37894,7 +38384,7 @@ class PlantEquipmentOperationOutdoorDryBulb(object):
 
         Args:
             value (float): value for IDD Field `drybulb_temperature_range_2_upper_limit`
-                Unit: C
+                Units: C
                 value >= -70.0
                 value <= 70.0
                 if `value` is None it will not be checked against the
@@ -37966,7 +38456,7 @@ class PlantEquipmentOperationOutdoorDryBulb(object):
 
         Args:
             value (float): value for IDD Field `drybulb_temperature_range_3_lower_limit`
-                Unit: C
+                Units: C
                 value >= -70.0
                 value <= 70.0
                 if `value` is None it will not be checked against the
@@ -38005,7 +38495,7 @@ class PlantEquipmentOperationOutdoorDryBulb(object):
 
         Args:
             value (float): value for IDD Field `drybulb_temperature_range_3_upper_limit`
-                Unit: C
+                Units: C
                 value >= -70.0
                 value <= 70.0
                 if `value` is None it will not be checked against the
@@ -38077,7 +38567,7 @@ class PlantEquipmentOperationOutdoorDryBulb(object):
 
         Args:
             value (float): value for IDD Field `drybulb_temperature_range_4_lower_limit`
-                Unit: C
+                Units: C
                 value >= -70.0
                 value <= 70.0
                 if `value` is None it will not be checked against the
@@ -38116,7 +38606,7 @@ class PlantEquipmentOperationOutdoorDryBulb(object):
 
         Args:
             value (float): value for IDD Field `drybulb_temperature_range_4_upper_limit`
-                Unit: C
+                Units: C
                 value >= -70.0
                 value <= 70.0
                 if `value` is None it will not be checked against the
@@ -38188,7 +38678,7 @@ class PlantEquipmentOperationOutdoorDryBulb(object):
 
         Args:
             value (float): value for IDD Field `drybulb_temperature_range_5_lower_limit`
-                Unit: C
+                Units: C
                 value >= -70.0
                 value <= 70.0
                 if `value` is None it will not be checked against the
@@ -38227,7 +38717,7 @@ class PlantEquipmentOperationOutdoorDryBulb(object):
 
         Args:
             value (float): value for IDD Field `drybulb_temperature_range_5_upper_limit`
-                Unit: C
+                Units: C
                 value >= -70.0
                 value <= 70.0
                 if `value` is None it will not be checked against the
@@ -38299,7 +38789,7 @@ class PlantEquipmentOperationOutdoorDryBulb(object):
 
         Args:
             value (float): value for IDD Field `drybulb_temperature_range_6_lower_limit`
-                Unit: C
+                Units: C
                 value >= -70.0
                 value <= 70.0
                 if `value` is None it will not be checked against the
@@ -38338,7 +38828,7 @@ class PlantEquipmentOperationOutdoorDryBulb(object):
 
         Args:
             value (float): value for IDD Field `drybulb_temperature_range_6_upper_limit`
-                Unit: C
+                Units: C
                 value >= -70.0
                 value <= 70.0
                 if `value` is None it will not be checked against the
@@ -38410,7 +38900,7 @@ class PlantEquipmentOperationOutdoorDryBulb(object):
 
         Args:
             value (float): value for IDD Field `drybulb_temperature_range_7_lower_limit`
-                Unit: C
+                Units: C
                 value >= -70.0
                 value <= 70.0
                 if `value` is None it will not be checked against the
@@ -38449,7 +38939,7 @@ class PlantEquipmentOperationOutdoorDryBulb(object):
 
         Args:
             value (float): value for IDD Field `drybulb_temperature_range_7_upper_limit`
-                Unit: C
+                Units: C
                 value >= -70.0
                 value <= 70.0
                 if `value` is None it will not be checked against the
@@ -38521,7 +39011,7 @@ class PlantEquipmentOperationOutdoorDryBulb(object):
 
         Args:
             value (float): value for IDD Field `drybulb_temperature_range_8_lower_limit`
-                Unit: C
+                Units: C
                 value >= -70.0
                 value <= 70.0
                 if `value` is None it will not be checked against the
@@ -38560,7 +39050,7 @@ class PlantEquipmentOperationOutdoorDryBulb(object):
 
         Args:
             value (float): value for IDD Field `drybulb_temperature_range_8_upper_limit`
-                Unit: C
+                Units: C
                 value >= -70.0
                 value <= 70.0
                 if `value` is None it will not be checked against the
@@ -38632,7 +39122,7 @@ class PlantEquipmentOperationOutdoorDryBulb(object):
 
         Args:
             value (float): value for IDD Field `drybulb_temperature_range_9_lower_limit`
-                Unit: C
+                Units: C
                 value >= -70.0
                 value <= 70.0
                 if `value` is None it will not be checked against the
@@ -38671,7 +39161,7 @@ class PlantEquipmentOperationOutdoorDryBulb(object):
 
         Args:
             value (float): value for IDD Field `drybulb_temperature_range_9_upper_limit`
-                Unit: C
+                Units: C
                 value >= -70.0
                 value <= 70.0
                 if `value` is None it will not be checked against the
@@ -38743,7 +39233,7 @@ class PlantEquipmentOperationOutdoorDryBulb(object):
 
         Args:
             value (float): value for IDD Field `drybulb_temperature_range_10_lower_limit`
-                Unit: C
+                Units: C
                 value >= -70.0
                 value <= 70.0
                 if `value` is None it will not be checked against the
@@ -38782,7 +39272,7 @@ class PlantEquipmentOperationOutdoorDryBulb(object):
 
         Args:
             value (float): value for IDD Field `drybulb_temperature_range_10_upper_limit`
-                Unit: C
+                Units: C
                 value >= -70.0
                 value <= 70.0
                 if `value` is None it will not be checked against the
@@ -38839,6 +39329,16 @@ class PlantEquipmentOperationOutdoorDryBulb(object):
 
         self._data["Range 10 Equipment List Name"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -38891,9 +39391,11 @@ class PlantEquipmentOperationOutdoorWetBulb(object):
         Plant equipment operation scheme for outdoor wet-bulb temperature range operation.
         Specifies one or more groups of equipment which are available to operate for
         successive outdoor wet-bulb temperature ranges.
+    
     """
     internal_name = "PlantEquipmentOperation:OutdoorWetBulb"
     field_count = 31
+    required_fields = ["Name", "Wet-Bulb Temperature Range 1 Lower Limit", "Wet-Bulb Temperature Range 1 Upper Limit", "Range 1 Equipment List Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `PlantEquipmentOperation:OutdoorWetBulb`
@@ -39142,7 +39644,7 @@ class PlantEquipmentOperationOutdoorWetBulb(object):
 
         Args:
             value (float): value for IDD Field `wetbulb_temperature_range_1_lower_limit`
-                Unit: C
+                Units: C
                 value >= -70.0
                 value <= 70.0
                 if `value` is None it will not be checked against the
@@ -39181,7 +39683,7 @@ class PlantEquipmentOperationOutdoorWetBulb(object):
 
         Args:
             value (float): value for IDD Field `wetbulb_temperature_range_1_upper_limit`
-                Unit: C
+                Units: C
                 value >= -70.0
                 value <= 70.0
                 if `value` is None it will not be checked against the
@@ -39253,7 +39755,7 @@ class PlantEquipmentOperationOutdoorWetBulb(object):
 
         Args:
             value (float): value for IDD Field `wetbulb_temperature_range_2_lower_limit`
-                Unit: C
+                Units: C
                 value >= -70.0
                 value <= 70.0
                 if `value` is None it will not be checked against the
@@ -39292,7 +39794,7 @@ class PlantEquipmentOperationOutdoorWetBulb(object):
 
         Args:
             value (float): value for IDD Field `wetbulb_temperature_range_2_upper_limit`
-                Unit: C
+                Units: C
                 value >= -70.0
                 value <= 70.0
                 if `value` is None it will not be checked against the
@@ -39364,7 +39866,7 @@ class PlantEquipmentOperationOutdoorWetBulb(object):
 
         Args:
             value (float): value for IDD Field `wetbulb_temperature_range_3_lower_limit`
-                Unit: C
+                Units: C
                 value >= -70.0
                 value <= 70.0
                 if `value` is None it will not be checked against the
@@ -39403,7 +39905,7 @@ class PlantEquipmentOperationOutdoorWetBulb(object):
 
         Args:
             value (float): value for IDD Field `wetbulb_temperature_range_3_upper_limit`
-                Unit: C
+                Units: C
                 value >= -70.0
                 value <= 70.0
                 if `value` is None it will not be checked against the
@@ -39475,7 +39977,7 @@ class PlantEquipmentOperationOutdoorWetBulb(object):
 
         Args:
             value (float): value for IDD Field `wetbulb_temperature_range_4_lower_limit`
-                Unit: C
+                Units: C
                 value >= -70.0
                 value <= 70.0
                 if `value` is None it will not be checked against the
@@ -39514,7 +40016,7 @@ class PlantEquipmentOperationOutdoorWetBulb(object):
 
         Args:
             value (float): value for IDD Field `wetbulb_temperature_range_4_upper_limit`
-                Unit: C
+                Units: C
                 value >= -70.0
                 value <= 70.0
                 if `value` is None it will not be checked against the
@@ -39586,7 +40088,7 @@ class PlantEquipmentOperationOutdoorWetBulb(object):
 
         Args:
             value (float): value for IDD Field `wetbulb_temperature_range_5_lower_limit`
-                Unit: C
+                Units: C
                 value >= -70.0
                 value <= 70.0
                 if `value` is None it will not be checked against the
@@ -39625,7 +40127,7 @@ class PlantEquipmentOperationOutdoorWetBulb(object):
 
         Args:
             value (float): value for IDD Field `wetbulb_temperature_range_5_upper_limit`
-                Unit: C
+                Units: C
                 value >= -70.0
                 value <= 70.0
                 if `value` is None it will not be checked against the
@@ -39697,7 +40199,7 @@ class PlantEquipmentOperationOutdoorWetBulb(object):
 
         Args:
             value (float): value for IDD Field `wetbulb_temperature_range_6_lower_limit`
-                Unit: C
+                Units: C
                 value >= -70.0
                 value <= 70.0
                 if `value` is None it will not be checked against the
@@ -39736,7 +40238,7 @@ class PlantEquipmentOperationOutdoorWetBulb(object):
 
         Args:
             value (float): value for IDD Field `wetbulb_temperature_range_6_upper_limit`
-                Unit: C
+                Units: C
                 value >= -70.0
                 value <= 70.0
                 if `value` is None it will not be checked against the
@@ -39808,7 +40310,7 @@ class PlantEquipmentOperationOutdoorWetBulb(object):
 
         Args:
             value (float): value for IDD Field `wetbulb_temperature_range_7_lower_limit`
-                Unit: C
+                Units: C
                 value >= -70.0
                 value <= 70.0
                 if `value` is None it will not be checked against the
@@ -39847,7 +40349,7 @@ class PlantEquipmentOperationOutdoorWetBulb(object):
 
         Args:
             value (float): value for IDD Field `wetbulb_temperature_range_7_upper_limit`
-                Unit: C
+                Units: C
                 value >= -70.0
                 value <= 70.0
                 if `value` is None it will not be checked against the
@@ -39919,7 +40421,7 @@ class PlantEquipmentOperationOutdoorWetBulb(object):
 
         Args:
             value (float): value for IDD Field `wetbulb_temperature_range_8_lower_limit`
-                Unit: C
+                Units: C
                 value >= -70.0
                 value <= 70.0
                 if `value` is None it will not be checked against the
@@ -39958,7 +40460,7 @@ class PlantEquipmentOperationOutdoorWetBulb(object):
 
         Args:
             value (float): value for IDD Field `wetbulb_temperature_range_8_upper_limit`
-                Unit: C
+                Units: C
                 value >= -70.0
                 value <= 70.0
                 if `value` is None it will not be checked against the
@@ -40030,7 +40532,7 @@ class PlantEquipmentOperationOutdoorWetBulb(object):
 
         Args:
             value (float): value for IDD Field `wetbulb_temperature_range_9_lower_limit`
-                Unit: C
+                Units: C
                 value >= -70.0
                 value <= 70.0
                 if `value` is None it will not be checked against the
@@ -40069,7 +40571,7 @@ class PlantEquipmentOperationOutdoorWetBulb(object):
 
         Args:
             value (float): value for IDD Field `wetbulb_temperature_range_9_upper_limit`
-                Unit: C
+                Units: C
                 value >= -70.0
                 value <= 70.0
                 if `value` is None it will not be checked against the
@@ -40141,7 +40643,7 @@ class PlantEquipmentOperationOutdoorWetBulb(object):
 
         Args:
             value (float): value for IDD Field `wetbulb_temperature_range_10_lower_limit`
-                Unit: C
+                Units: C
                 value >= -70.0
                 value <= 70.0
                 if `value` is None it will not be checked against the
@@ -40180,7 +40682,7 @@ class PlantEquipmentOperationOutdoorWetBulb(object):
 
         Args:
             value (float): value for IDD Field `wetbulb_temperature_range_10_upper_limit`
-                Unit: C
+                Units: C
                 value >= -70.0
                 value <= 70.0
                 if `value` is None it will not be checked against the
@@ -40237,6 +40739,16 @@ class PlantEquipmentOperationOutdoorWetBulb(object):
 
         self._data["Range 10 Equipment List Name"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -40289,9 +40801,11 @@ class PlantEquipmentOperationOutdoorRelativeHumidity(object):
         Plant equipment operation scheme for outdoor relative humidity range operation.
         Specifies one or more groups of equipment which are available to operate for
         successive outdoor relative humidity ranges.
+    
     """
     internal_name = "PlantEquipmentOperation:OutdoorRelativeHumidity"
     field_count = 31
+    required_fields = ["Name", "Relative Humidity Range 1 Lower Limit", "Relative Humidity Range 1 Upper Limit", "Range 1 Equipment List Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `PlantEquipmentOperation:OutdoorRelativeHumidity`
@@ -40540,7 +41054,7 @@ class PlantEquipmentOperationOutdoorRelativeHumidity(object):
 
         Args:
             value (float): value for IDD Field `relative_humidity_range_1_lower_limit`
-                Unit: percent
+                Units: percent
                 value >= 0.0
                 value <= 100.0
                 if `value` is None it will not be checked against the
@@ -40579,7 +41093,7 @@ class PlantEquipmentOperationOutdoorRelativeHumidity(object):
 
         Args:
             value (float): value for IDD Field `relative_humidity_range_1_upper_limit`
-                Unit: percent
+                Units: percent
                 value >= 0.0
                 value <= 100.0
                 if `value` is None it will not be checked against the
@@ -40651,7 +41165,7 @@ class PlantEquipmentOperationOutdoorRelativeHumidity(object):
 
         Args:
             value (float): value for IDD Field `relative_humidity_range_2_lower_limit`
-                Unit: percent
+                Units: percent
                 value >= 0.0
                 value <= 100.0
                 if `value` is None it will not be checked against the
@@ -40690,7 +41204,7 @@ class PlantEquipmentOperationOutdoorRelativeHumidity(object):
 
         Args:
             value (float): value for IDD Field `relative_humidity_range_2_upper_limit`
-                Unit: percent
+                Units: percent
                 value >= 0.0
                 value <= 100.0
                 if `value` is None it will not be checked against the
@@ -40762,7 +41276,7 @@ class PlantEquipmentOperationOutdoorRelativeHumidity(object):
 
         Args:
             value (float): value for IDD Field `relative_humidity_range_3_lower_limit`
-                Unit: percent
+                Units: percent
                 value >= 0.0
                 value <= 100.0
                 if `value` is None it will not be checked against the
@@ -40801,7 +41315,7 @@ class PlantEquipmentOperationOutdoorRelativeHumidity(object):
 
         Args:
             value (float): value for IDD Field `relative_humidity_range_3_upper_limit`
-                Unit: percent
+                Units: percent
                 value >= 0.0
                 value <= 100.0
                 if `value` is None it will not be checked against the
@@ -40873,7 +41387,7 @@ class PlantEquipmentOperationOutdoorRelativeHumidity(object):
 
         Args:
             value (float): value for IDD Field `relative_humidity_range_4_lower_limit`
-                Unit: percent
+                Units: percent
                 value >= 0.0
                 value <= 100.0
                 if `value` is None it will not be checked against the
@@ -40912,7 +41426,7 @@ class PlantEquipmentOperationOutdoorRelativeHumidity(object):
 
         Args:
             value (float): value for IDD Field `relative_humidity_range_4_upper_limit`
-                Unit: percent
+                Units: percent
                 value >= 0.0
                 value <= 100.0
                 if `value` is None it will not be checked against the
@@ -40984,7 +41498,7 @@ class PlantEquipmentOperationOutdoorRelativeHumidity(object):
 
         Args:
             value (float): value for IDD Field `relative_humidity_range_5_lower_limit`
-                Unit: percent
+                Units: percent
                 value >= 0.0
                 value <= 100.0
                 if `value` is None it will not be checked against the
@@ -41023,7 +41537,7 @@ class PlantEquipmentOperationOutdoorRelativeHumidity(object):
 
         Args:
             value (float): value for IDD Field `relative_humidity_range_5_upper_limit`
-                Unit: percent
+                Units: percent
                 value >= 0.0
                 value <= 100.0
                 if `value` is None it will not be checked against the
@@ -41095,7 +41609,7 @@ class PlantEquipmentOperationOutdoorRelativeHumidity(object):
 
         Args:
             value (float): value for IDD Field `relative_humidity_range_6_lower_limit`
-                Unit: percent
+                Units: percent
                 value >= 0.0
                 value <= 100.0
                 if `value` is None it will not be checked against the
@@ -41134,7 +41648,7 @@ class PlantEquipmentOperationOutdoorRelativeHumidity(object):
 
         Args:
             value (float): value for IDD Field `relative_humidity_range_6_upper_limit`
-                Unit: percent
+                Units: percent
                 value >= 0.0
                 value <= 100.0
                 if `value` is None it will not be checked against the
@@ -41206,7 +41720,7 @@ class PlantEquipmentOperationOutdoorRelativeHumidity(object):
 
         Args:
             value (float): value for IDD Field `relative_humidity_range_7_lower_limit`
-                Unit: percent
+                Units: percent
                 value >= 0.0
                 value <= 100.0
                 if `value` is None it will not be checked against the
@@ -41245,7 +41759,7 @@ class PlantEquipmentOperationOutdoorRelativeHumidity(object):
 
         Args:
             value (float): value for IDD Field `relative_humidity_range_7_upper_limit`
-                Unit: percent
+                Units: percent
                 value >= 0.0
                 value <= 100.0
                 if `value` is None it will not be checked against the
@@ -41317,7 +41831,7 @@ class PlantEquipmentOperationOutdoorRelativeHumidity(object):
 
         Args:
             value (float): value for IDD Field `relative_humidity_range_8_lower_limit`
-                Unit: percent
+                Units: percent
                 value >= 0.0
                 value <= 100.0
                 if `value` is None it will not be checked against the
@@ -41356,7 +41870,7 @@ class PlantEquipmentOperationOutdoorRelativeHumidity(object):
 
         Args:
             value (float): value for IDD Field `relative_humidity_range_8_upper_limit`
-                Unit: percent
+                Units: percent
                 value >= 0.0
                 value <= 100.0
                 if `value` is None it will not be checked against the
@@ -41428,7 +41942,7 @@ class PlantEquipmentOperationOutdoorRelativeHumidity(object):
 
         Args:
             value (float): value for IDD Field `relative_humidity_range_9_lower_limit`
-                Unit: percent
+                Units: percent
                 value >= 0.0
                 value <= 100.0
                 if `value` is None it will not be checked against the
@@ -41467,7 +41981,7 @@ class PlantEquipmentOperationOutdoorRelativeHumidity(object):
 
         Args:
             value (float): value for IDD Field `relative_humidity_range_9_upper_limit`
-                Unit: percent
+                Units: percent
                 value >= 0.0
                 value <= 100.0
                 if `value` is None it will not be checked against the
@@ -41539,7 +42053,7 @@ class PlantEquipmentOperationOutdoorRelativeHumidity(object):
 
         Args:
             value (float): value for IDD Field `relative_humidity_range_10_lower_limit`
-                Unit: percent
+                Units: percent
                 value >= 0.0
                 value <= 100.0
                 if `value` is None it will not be checked against the
@@ -41578,7 +42092,7 @@ class PlantEquipmentOperationOutdoorRelativeHumidity(object):
 
         Args:
             value (float): value for IDD Field `relative_humidity_range_10_upper_limit`
-                Unit: percent
+                Units: percent
                 value >= 0.0
                 value <= 100.0
                 if `value` is None it will not be checked against the
@@ -41635,6 +42149,16 @@ class PlantEquipmentOperationOutdoorRelativeHumidity(object):
 
         self._data["Range 10 Equipment List Name"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -41687,9 +42211,11 @@ class PlantEquipmentOperationOutdoorDewpoint(object):
         Plant equipment operation scheme for outdoor dewpoint temperature range operation.
         Specifies one or more groups of equipment which are available to operate for
         successive outdoor dewpoint temperature ranges.
+    
     """
     internal_name = "PlantEquipmentOperation:OutdoorDewpoint"
     field_count = 31
+    required_fields = ["Name", "Dewpoint Temperature Range 1 Lower Limit", "Dewpoint Temperature Range 1 Upper Limit", "Range 1 Equipment List Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `PlantEquipmentOperation:OutdoorDewpoint`
@@ -41938,7 +42464,7 @@ class PlantEquipmentOperationOutdoorDewpoint(object):
 
         Args:
             value (float): value for IDD Field `dewpoint_temperature_range_1_lower_limit`
-                Unit: C
+                Units: C
                 value >= -70.0
                 value <= 70.0
                 if `value` is None it will not be checked against the
@@ -41977,7 +42503,7 @@ class PlantEquipmentOperationOutdoorDewpoint(object):
 
         Args:
             value (float): value for IDD Field `dewpoint_temperature_range_1_upper_limit`
-                Unit: C
+                Units: C
                 value >= -70.0
                 value <= 70.0
                 if `value` is None it will not be checked against the
@@ -42049,7 +42575,7 @@ class PlantEquipmentOperationOutdoorDewpoint(object):
 
         Args:
             value (float): value for IDD Field `dewpoint_temperature_range_2_lower_limit`
-                Unit: C
+                Units: C
                 value >= -70.0
                 value <= 70.0
                 if `value` is None it will not be checked against the
@@ -42088,7 +42614,7 @@ class PlantEquipmentOperationOutdoorDewpoint(object):
 
         Args:
             value (float): value for IDD Field `dewpoint_temperature_range_2_upper_limit`
-                Unit: C
+                Units: C
                 value >= -70.0
                 value <= 70.0
                 if `value` is None it will not be checked against the
@@ -42160,7 +42686,7 @@ class PlantEquipmentOperationOutdoorDewpoint(object):
 
         Args:
             value (float): value for IDD Field `dewpoint_temperature_range_3_lower_limit`
-                Unit: C
+                Units: C
                 value >= -70.0
                 value <= 70.0
                 if `value` is None it will not be checked against the
@@ -42199,7 +42725,7 @@ class PlantEquipmentOperationOutdoorDewpoint(object):
 
         Args:
             value (float): value for IDD Field `dewpoint_temperature_range_3_upper_limit`
-                Unit: C
+                Units: C
                 value >= -70.0
                 value <= 70.0
                 if `value` is None it will not be checked against the
@@ -42271,7 +42797,7 @@ class PlantEquipmentOperationOutdoorDewpoint(object):
 
         Args:
             value (float): value for IDD Field `dewpoint_temperature_range_4_lower_limit`
-                Unit: C
+                Units: C
                 value >= -70.0
                 value <= 70.0
                 if `value` is None it will not be checked against the
@@ -42310,7 +42836,7 @@ class PlantEquipmentOperationOutdoorDewpoint(object):
 
         Args:
             value (float): value for IDD Field `dewpoint_temperature_range_4_upper_limit`
-                Unit: C
+                Units: C
                 value >= -70.0
                 value <= 70.0
                 if `value` is None it will not be checked against the
@@ -42382,7 +42908,7 @@ class PlantEquipmentOperationOutdoorDewpoint(object):
 
         Args:
             value (float): value for IDD Field `dewpoint_temperature_range_5_lower_limit`
-                Unit: C
+                Units: C
                 value >= -70.0
                 value <= 70.0
                 if `value` is None it will not be checked against the
@@ -42421,7 +42947,7 @@ class PlantEquipmentOperationOutdoorDewpoint(object):
 
         Args:
             value (float): value for IDD Field `dewpoint_temperature_range_5_upper_limit`
-                Unit: C
+                Units: C
                 value >= -70.0
                 value <= 70.0
                 if `value` is None it will not be checked against the
@@ -42493,7 +43019,7 @@ class PlantEquipmentOperationOutdoorDewpoint(object):
 
         Args:
             value (float): value for IDD Field `dewpoint_temperature_range_6_lower_limit`
-                Unit: C
+                Units: C
                 value >= -70.0
                 value <= 70.0
                 if `value` is None it will not be checked against the
@@ -42532,7 +43058,7 @@ class PlantEquipmentOperationOutdoorDewpoint(object):
 
         Args:
             value (float): value for IDD Field `dewpoint_temperature_range_6_upper_limit`
-                Unit: C
+                Units: C
                 value >= -70.0
                 value <= 70.0
                 if `value` is None it will not be checked against the
@@ -42604,7 +43130,7 @@ class PlantEquipmentOperationOutdoorDewpoint(object):
 
         Args:
             value (float): value for IDD Field `dewpoint_temperature_range_7_lower_limit`
-                Unit: C
+                Units: C
                 value >= -70.0
                 value <= 70.0
                 if `value` is None it will not be checked against the
@@ -42643,7 +43169,7 @@ class PlantEquipmentOperationOutdoorDewpoint(object):
 
         Args:
             value (float): value for IDD Field `dewpoint_temperature_range_7_upper_limit`
-                Unit: C
+                Units: C
                 value >= -70.0
                 value <= 70.0
                 if `value` is None it will not be checked against the
@@ -42715,7 +43241,7 @@ class PlantEquipmentOperationOutdoorDewpoint(object):
 
         Args:
             value (float): value for IDD Field `dewpoint_temperature_range_8_lower_limit`
-                Unit: C
+                Units: C
                 value >= -70.0
                 value <= 70.0
                 if `value` is None it will not be checked against the
@@ -42754,7 +43280,7 @@ class PlantEquipmentOperationOutdoorDewpoint(object):
 
         Args:
             value (float): value for IDD Field `dewpoint_temperature_range_8_upper_limit`
-                Unit: C
+                Units: C
                 value >= -70.0
                 value <= 70.0
                 if `value` is None it will not be checked against the
@@ -42826,7 +43352,7 @@ class PlantEquipmentOperationOutdoorDewpoint(object):
 
         Args:
             value (float): value for IDD Field `dewpoint_temperature_range_9_lower_limit`
-                Unit: C
+                Units: C
                 value >= -70.0
                 value <= 70.0
                 if `value` is None it will not be checked against the
@@ -42865,7 +43391,7 @@ class PlantEquipmentOperationOutdoorDewpoint(object):
 
         Args:
             value (float): value for IDD Field `dewpoint_temperature_range_9_upper_limit`
-                Unit: C
+                Units: C
                 value >= -70.0
                 value <= 70.0
                 if `value` is None it will not be checked against the
@@ -42937,7 +43463,7 @@ class PlantEquipmentOperationOutdoorDewpoint(object):
 
         Args:
             value (float): value for IDD Field `dewpoint_temperature_range_10_lower_limit`
-                Unit: C
+                Units: C
                 value >= -70.0
                 value <= 70.0
                 if `value` is None it will not be checked against the
@@ -42976,7 +43502,7 @@ class PlantEquipmentOperationOutdoorDewpoint(object):
 
         Args:
             value (float): value for IDD Field `dewpoint_temperature_range_10_upper_limit`
-                Unit: C
+                Units: C
                 value >= -70.0
                 value <= 70.0
                 if `value` is None it will not be checked against the
@@ -43033,6 +43559,16 @@ class PlantEquipmentOperationOutdoorDewpoint(object):
 
         self._data["Range 10 Equipment List Name"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -43085,9 +43621,11 @@ class PlantEquipmentOperationComponentSetpoint(object):
         Plant equipment operation scheme for component setpoint operation. Specifies one or
         pieces of equipment which are controlled to meet the temperature setpoint at the
         component outlet node.
+    
     """
     internal_name = "PlantEquipmentOperation:ComponentSetpoint"
     field_count = 61
+    required_fields = ["Name", "Equipment 1 Object Type", "Equipment 1 Name", "Demand Calculation 1 Node Name", "Setpoint 1 Node Name", "Component 1 Flow Rate", "Operation 1 Type"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `PlantEquipmentOperation:ComponentSetpoint`
@@ -43648,7 +44186,7 @@ class PlantEquipmentOperationComponentSetpoint(object):
 
         Args:
             value (float): value for IDD Field `component_1_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -43855,7 +44393,7 @@ class PlantEquipmentOperationComponentSetpoint(object):
 
         Args:
             value (float): value for IDD Field `component_2_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -44062,7 +44600,7 @@ class PlantEquipmentOperationComponentSetpoint(object):
 
         Args:
             value (float): value for IDD Field `component_3_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -44269,7 +44807,7 @@ class PlantEquipmentOperationComponentSetpoint(object):
 
         Args:
             value (float): value for IDD Field `component_4_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -44476,7 +45014,7 @@ class PlantEquipmentOperationComponentSetpoint(object):
 
         Args:
             value (float): value for IDD Field `component_5_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -44683,7 +45221,7 @@ class PlantEquipmentOperationComponentSetpoint(object):
 
         Args:
             value (float): value for IDD Field `component_6_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -44890,7 +45428,7 @@ class PlantEquipmentOperationComponentSetpoint(object):
 
         Args:
             value (float): value for IDD Field `component_7_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -45097,7 +45635,7 @@ class PlantEquipmentOperationComponentSetpoint(object):
 
         Args:
             value (float): value for IDD Field `component_8_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -45304,7 +45842,7 @@ class PlantEquipmentOperationComponentSetpoint(object):
 
         Args:
             value (float): value for IDD Field `component_9_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -45511,7 +46049,7 @@ class PlantEquipmentOperationComponentSetpoint(object):
 
         Args:
             value (float): value for IDD Field `component_10_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -45570,6 +46108,16 @@ class PlantEquipmentOperationComponentSetpoint(object):
                                  'field `operation_10_type`'.format(value))
 
         self._data["Operation 10 Type"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):
@@ -45654,9 +46202,11 @@ class PlantEquipmentOperationOutdoorDryBulbDifference(object):
         operation. Specifies one or more groups of equipment which are available to operate
         for successive ranges based the difference between a reference node temperature and
         the outdoor dry-bulb temperature.
+    
     """
     internal_name = "PlantEquipmentOperation:OutdoorDryBulbDifference"
     field_count = 32
+    required_fields = ["Name", "Reference Temperature Node Name", "Dry-Bulb Temperature Difference Range 1 Lower Limit", "Dry-Bulb Temperature Difference Range 1 Upper Limit", "Range 1 Equipment List Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `PlantEquipmentOperation:OutdoorDryBulbDifference`
@@ -45944,7 +46494,7 @@ class PlantEquipmentOperationOutdoorDryBulbDifference(object):
 
         Args:
             value (float): value for IDD Field `drybulb_temperature_difference_range_1_lower_limit`
-                Unit: deltaC
+                Units: deltaC
                 value >= -50.0
                 value <= 100.0
                 if `value` is None it will not be checked against the
@@ -45983,7 +46533,7 @@ class PlantEquipmentOperationOutdoorDryBulbDifference(object):
 
         Args:
             value (float): value for IDD Field `drybulb_temperature_difference_range_1_upper_limit`
-                Unit: deltaC
+                Units: deltaC
                 value >= -50.0
                 value <= 100.0
                 if `value` is None it will not be checked against the
@@ -46055,7 +46605,7 @@ class PlantEquipmentOperationOutdoorDryBulbDifference(object):
 
         Args:
             value (float): value for IDD Field `drybulb_temperature_difference_range_2_lower_limit`
-                Unit: deltaC
+                Units: deltaC
                 value >= -50.0
                 value <= 100.0
                 if `value` is None it will not be checked against the
@@ -46094,7 +46644,7 @@ class PlantEquipmentOperationOutdoorDryBulbDifference(object):
 
         Args:
             value (float): value for IDD Field `drybulb_temperature_difference_range_2_upper_limit`
-                Unit: deltaC
+                Units: deltaC
                 value >= -50.0
                 value <= 100.0
                 if `value` is None it will not be checked against the
@@ -46166,7 +46716,7 @@ class PlantEquipmentOperationOutdoorDryBulbDifference(object):
 
         Args:
             value (float): value for IDD Field `drybulb_temperature_difference_range_3_lower_limit`
-                Unit: deltaC
+                Units: deltaC
                 value >= -50.0
                 value <= 100.0
                 if `value` is None it will not be checked against the
@@ -46205,7 +46755,7 @@ class PlantEquipmentOperationOutdoorDryBulbDifference(object):
 
         Args:
             value (float): value for IDD Field `drybulb_temperature_difference_range_3_upper_limit`
-                Unit: deltaC
+                Units: deltaC
                 value >= -50.0
                 value <= 100.0
                 if `value` is None it will not be checked against the
@@ -46277,7 +46827,7 @@ class PlantEquipmentOperationOutdoorDryBulbDifference(object):
 
         Args:
             value (float): value for IDD Field `drybulb_temperature_difference_range_4_lower_limit`
-                Unit: deltaC
+                Units: deltaC
                 value >= -50.0
                 value <= 100.0
                 if `value` is None it will not be checked against the
@@ -46316,7 +46866,7 @@ class PlantEquipmentOperationOutdoorDryBulbDifference(object):
 
         Args:
             value (float): value for IDD Field `drybulb_temperature_difference_range_4_upper_limit`
-                Unit: deltaC
+                Units: deltaC
                 value >= -50.0
                 value <= 100.0
                 if `value` is None it will not be checked against the
@@ -46388,7 +46938,7 @@ class PlantEquipmentOperationOutdoorDryBulbDifference(object):
 
         Args:
             value (float): value for IDD Field `drybulb_temperature_difference_range_5_lower_limit`
-                Unit: deltaC
+                Units: deltaC
                 value >= -50.0
                 value <= 100.0
                 if `value` is None it will not be checked against the
@@ -46427,7 +46977,7 @@ class PlantEquipmentOperationOutdoorDryBulbDifference(object):
 
         Args:
             value (float): value for IDD Field `drybulb_temperature_difference_range_5_upper_limit`
-                Unit: deltaC
+                Units: deltaC
                 value >= -50.0
                 value <= 100.0
                 if `value` is None it will not be checked against the
@@ -46499,7 +47049,7 @@ class PlantEquipmentOperationOutdoorDryBulbDifference(object):
 
         Args:
             value (float): value for IDD Field `drybulb_temperature_difference_range_6_lower_limit`
-                Unit: deltaC
+                Units: deltaC
                 value >= -50.0
                 value <= 100.0
                 if `value` is None it will not be checked against the
@@ -46538,7 +47088,7 @@ class PlantEquipmentOperationOutdoorDryBulbDifference(object):
 
         Args:
             value (float): value for IDD Field `drybulb_temperature_difference_range_6_upper_limit`
-                Unit: deltaC
+                Units: deltaC
                 value >= -50.0
                 value <= 100.0
                 if `value` is None it will not be checked against the
@@ -46610,7 +47160,7 @@ class PlantEquipmentOperationOutdoorDryBulbDifference(object):
 
         Args:
             value (float): value for IDD Field `drybulb_temperature_difference_range_7_lower_limit`
-                Unit: deltaC
+                Units: deltaC
                 value >= -50.0
                 value <= 100.0
                 if `value` is None it will not be checked against the
@@ -46649,7 +47199,7 @@ class PlantEquipmentOperationOutdoorDryBulbDifference(object):
 
         Args:
             value (float): value for IDD Field `drybulb_temperature_difference_range_7_upper_limit`
-                Unit: deltaC
+                Units: deltaC
                 value >= -50.0
                 value <= 100.0
                 if `value` is None it will not be checked against the
@@ -46721,7 +47271,7 @@ class PlantEquipmentOperationOutdoorDryBulbDifference(object):
 
         Args:
             value (float): value for IDD Field `drybulb_temperature_difference_range_8_lower_limit`
-                Unit: deltaC
+                Units: deltaC
                 value >= -50.0
                 value <= 100.0
                 if `value` is None it will not be checked against the
@@ -46760,7 +47310,7 @@ class PlantEquipmentOperationOutdoorDryBulbDifference(object):
 
         Args:
             value (float): value for IDD Field `drybulb_temperature_difference_range_8_upper_limit`
-                Unit: deltaC
+                Units: deltaC
                 value >= -50.0
                 value <= 100.0
                 if `value` is None it will not be checked against the
@@ -46832,7 +47382,7 @@ class PlantEquipmentOperationOutdoorDryBulbDifference(object):
 
         Args:
             value (float): value for IDD Field `drybulb_temperature_difference_range_9_lower_limit`
-                Unit: deltaC
+                Units: deltaC
                 value >= -50.0
                 value <= 100.0
                 if `value` is None it will not be checked against the
@@ -46871,7 +47421,7 @@ class PlantEquipmentOperationOutdoorDryBulbDifference(object):
 
         Args:
             value (float): value for IDD Field `drybulb_temperature_difference_range_9_upper_limit`
-                Unit: deltaC
+                Units: deltaC
                 value >= -50.0
                 value <= 100.0
                 if `value` is None it will not be checked against the
@@ -46943,7 +47493,7 @@ class PlantEquipmentOperationOutdoorDryBulbDifference(object):
 
         Args:
             value (float): value for IDD Field `drybulb_temperature_difference_range_10_lower_limit`
-                Unit: deltaC
+                Units: deltaC
                 value >= -50.0
                 value <= 100.0
                 if `value` is None it will not be checked against the
@@ -46982,7 +47532,7 @@ class PlantEquipmentOperationOutdoorDryBulbDifference(object):
 
         Args:
             value (float): value for IDD Field `drybulb_temperature_difference_range_10_upper_limit`
-                Unit: deltaC
+                Units: deltaC
                 value >= -50.0
                 value <= 100.0
                 if `value` is None it will not be checked against the
@@ -47039,6 +47589,16 @@ class PlantEquipmentOperationOutdoorDryBulbDifference(object):
 
         self._data["Range 10 Equipment List Name"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -47093,9 +47653,11 @@ class PlantEquipmentOperationOutdoorWetBulbDifference(object):
         operation. Specifies one or more groups of equipment which are available to operate
         for successive ranges based the difference between a reference node temperature and
         the outdoor wet-bulb temperature.
+    
     """
     internal_name = "PlantEquipmentOperation:OutdoorWetBulbDifference"
     field_count = 32
+    required_fields = ["Name", "Reference Temperature Node Name", "Wet-Bulb Temperature Difference Range 1 Lower Limit", "Wet-Bulb Temperature Difference Range 1 Upper Limit", "Range 1 Equipment List Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `PlantEquipmentOperation:OutdoorWetBulbDifference`
@@ -47383,7 +47945,7 @@ class PlantEquipmentOperationOutdoorWetBulbDifference(object):
 
         Args:
             value (float): value for IDD Field `wetbulb_temperature_difference_range_1_lower_limit`
-                Unit: deltaC
+                Units: deltaC
                 value >= -50.0
                 value <= 100.0
                 if `value` is None it will not be checked against the
@@ -47422,7 +47984,7 @@ class PlantEquipmentOperationOutdoorWetBulbDifference(object):
 
         Args:
             value (float): value for IDD Field `wetbulb_temperature_difference_range_1_upper_limit`
-                Unit: deltaC
+                Units: deltaC
                 value >= -50.0
                 value <= 100.0
                 if `value` is None it will not be checked against the
@@ -47494,7 +48056,7 @@ class PlantEquipmentOperationOutdoorWetBulbDifference(object):
 
         Args:
             value (float): value for IDD Field `wetbulb_temperature_difference_range_2_lower_limit`
-                Unit: deltaC
+                Units: deltaC
                 value >= -50.0
                 value <= 100.0
                 if `value` is None it will not be checked against the
@@ -47533,7 +48095,7 @@ class PlantEquipmentOperationOutdoorWetBulbDifference(object):
 
         Args:
             value (float): value for IDD Field `wetbulb_temperature_difference_range_2_upper_limit`
-                Unit: deltaC
+                Units: deltaC
                 value >= -50.0
                 value <= 100.0
                 if `value` is None it will not be checked against the
@@ -47605,7 +48167,7 @@ class PlantEquipmentOperationOutdoorWetBulbDifference(object):
 
         Args:
             value (float): value for IDD Field `wetbulb_temperature_difference_range_3_lower_limit`
-                Unit: deltaC
+                Units: deltaC
                 value >= -50.0
                 value <= 100.0
                 if `value` is None it will not be checked against the
@@ -47644,7 +48206,7 @@ class PlantEquipmentOperationOutdoorWetBulbDifference(object):
 
         Args:
             value (float): value for IDD Field `wetbulb_temperature_difference_range_3_upper_limit`
-                Unit: deltaC
+                Units: deltaC
                 value >= -50.0
                 value <= 100.0
                 if `value` is None it will not be checked against the
@@ -47716,7 +48278,7 @@ class PlantEquipmentOperationOutdoorWetBulbDifference(object):
 
         Args:
             value (float): value for IDD Field `wetbulb_temperature_difference_range_4_lower_limit`
-                Unit: deltaC
+                Units: deltaC
                 value >= -50.0
                 value <= 100.0
                 if `value` is None it will not be checked against the
@@ -47755,7 +48317,7 @@ class PlantEquipmentOperationOutdoorWetBulbDifference(object):
 
         Args:
             value (float): value for IDD Field `wetbulb_temperature_difference_range_4_upper_limit`
-                Unit: deltaC
+                Units: deltaC
                 value >= -50.0
                 value <= 100.0
                 if `value` is None it will not be checked against the
@@ -47827,7 +48389,7 @@ class PlantEquipmentOperationOutdoorWetBulbDifference(object):
 
         Args:
             value (float): value for IDD Field `wetbulb_temperature_difference_range_5_lower_limit`
-                Unit: deltaC
+                Units: deltaC
                 value >= -50.0
                 value <= 100.0
                 if `value` is None it will not be checked against the
@@ -47866,7 +48428,7 @@ class PlantEquipmentOperationOutdoorWetBulbDifference(object):
 
         Args:
             value (float): value for IDD Field `wetbulb_temperature_difference_range_5_upper_limit`
-                Unit: deltaC
+                Units: deltaC
                 value >= -50.0
                 value <= 100.0
                 if `value` is None it will not be checked against the
@@ -47938,7 +48500,7 @@ class PlantEquipmentOperationOutdoorWetBulbDifference(object):
 
         Args:
             value (float): value for IDD Field `wetbulb_temperature_difference_range_6_lower_limit`
-                Unit: deltaC
+                Units: deltaC
                 value >= -50.0
                 value <= 100.0
                 if `value` is None it will not be checked against the
@@ -47977,7 +48539,7 @@ class PlantEquipmentOperationOutdoorWetBulbDifference(object):
 
         Args:
             value (float): value for IDD Field `wetbulb_temperature_difference_range_6_upper_limit`
-                Unit: deltaC
+                Units: deltaC
                 value >= -50.0
                 value <= 100.0
                 if `value` is None it will not be checked against the
@@ -48049,7 +48611,7 @@ class PlantEquipmentOperationOutdoorWetBulbDifference(object):
 
         Args:
             value (float): value for IDD Field `wetbulb_temperature_difference_range_7_lower_limit`
-                Unit: deltaC
+                Units: deltaC
                 value >= -50.0
                 value <= 100.0
                 if `value` is None it will not be checked against the
@@ -48088,7 +48650,7 @@ class PlantEquipmentOperationOutdoorWetBulbDifference(object):
 
         Args:
             value (float): value for IDD Field `wetbulb_temperature_difference_range_7_upper_limit`
-                Unit: deltaC
+                Units: deltaC
                 value >= -50.0
                 value <= 100.0
                 if `value` is None it will not be checked against the
@@ -48160,7 +48722,7 @@ class PlantEquipmentOperationOutdoorWetBulbDifference(object):
 
         Args:
             value (float): value for IDD Field `wetbulb_temperature_difference_range_8_lower_limit`
-                Unit: deltaC
+                Units: deltaC
                 value >= -50.0
                 value <= 100.0
                 if `value` is None it will not be checked against the
@@ -48199,7 +48761,7 @@ class PlantEquipmentOperationOutdoorWetBulbDifference(object):
 
         Args:
             value (float): value for IDD Field `wetbulb_temperature_difference_range_8_upper_limit`
-                Unit: deltaC
+                Units: deltaC
                 value >= -50.0
                 value <= 100.0
                 if `value` is None it will not be checked against the
@@ -48271,7 +48833,7 @@ class PlantEquipmentOperationOutdoorWetBulbDifference(object):
 
         Args:
             value (float): value for IDD Field `wetbulb_temperature_difference_range_9_lower_limit`
-                Unit: deltaC
+                Units: deltaC
                 value >= -50.0
                 value <= 100.0
                 if `value` is None it will not be checked against the
@@ -48310,7 +48872,7 @@ class PlantEquipmentOperationOutdoorWetBulbDifference(object):
 
         Args:
             value (float): value for IDD Field `wetbulb_temperature_difference_range_9_upper_limit`
-                Unit: deltaC
+                Units: deltaC
                 value >= -50.0
                 value <= 100.0
                 if `value` is None it will not be checked against the
@@ -48382,7 +48944,7 @@ class PlantEquipmentOperationOutdoorWetBulbDifference(object):
 
         Args:
             value (float): value for IDD Field `wetbulb_temperature_difference_range_10_lower_limit`
-                Unit: deltaC
+                Units: deltaC
                 value >= -50.0
                 value <= 100.0
                 if `value` is None it will not be checked against the
@@ -48421,7 +48983,7 @@ class PlantEquipmentOperationOutdoorWetBulbDifference(object):
 
         Args:
             value (float): value for IDD Field `wetbulb_temperature_difference_range_10_upper_limit`
-                Unit: deltaC
+                Units: deltaC
                 value >= -50.0
                 value <= 100.0
                 if `value` is None it will not be checked against the
@@ -48478,6 +49040,16 @@ class PlantEquipmentOperationOutdoorWetBulbDifference(object):
 
         self._data["Range 10 Equipment List Name"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -48532,9 +49104,11 @@ class PlantEquipmentOperationOutdoorDewpointDifference(object):
         operation. Specifies one or more groups of equipment which are available to operate
         for successive ranges based the difference between a reference node temperature and
         the outdoor dewpoint temperature.
+    
     """
     internal_name = "PlantEquipmentOperation:OutdoorDewpointDifference"
     field_count = 32
+    required_fields = ["Name", "Reference Temperature Node Name", "Dewpoint Temperature Difference Range 1 Lower Limit", "Dewpoint Temperature Difference Range 1 Upper Limit", "Range 1 Equipment List Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `PlantEquipmentOperation:OutdoorDewpointDifference`
@@ -48822,7 +49396,7 @@ class PlantEquipmentOperationOutdoorDewpointDifference(object):
 
         Args:
             value (float): value for IDD Field `dewpoint_temperature_difference_range_1_lower_limit`
-                Unit: deltaC
+                Units: deltaC
                 value >= -50.0
                 value <= 100.0
                 if `value` is None it will not be checked against the
@@ -48861,7 +49435,7 @@ class PlantEquipmentOperationOutdoorDewpointDifference(object):
 
         Args:
             value (float): value for IDD Field `dewpoint_temperature_difference_range_1_upper_limit`
-                Unit: deltaC
+                Units: deltaC
                 value >= -50.0
                 value <= 100.0
                 if `value` is None it will not be checked against the
@@ -48933,7 +49507,7 @@ class PlantEquipmentOperationOutdoorDewpointDifference(object):
 
         Args:
             value (float): value for IDD Field `dewpoint_temperature_difference_range_2_lower_limit`
-                Unit: deltaC
+                Units: deltaC
                 value >= -50.0
                 value <= 100.0
                 if `value` is None it will not be checked against the
@@ -48972,7 +49546,7 @@ class PlantEquipmentOperationOutdoorDewpointDifference(object):
 
         Args:
             value (float): value for IDD Field `dewpoint_temperature_difference_range_2_upper_limit`
-                Unit: deltaC
+                Units: deltaC
                 value >= -50.0
                 value <= 100.0
                 if `value` is None it will not be checked against the
@@ -49044,7 +49618,7 @@ class PlantEquipmentOperationOutdoorDewpointDifference(object):
 
         Args:
             value (float): value for IDD Field `dewpoint_temperature_difference_range_3_lower_limit`
-                Unit: deltaC
+                Units: deltaC
                 value >= -50.0
                 value <= 100.0
                 if `value` is None it will not be checked against the
@@ -49083,7 +49657,7 @@ class PlantEquipmentOperationOutdoorDewpointDifference(object):
 
         Args:
             value (float): value for IDD Field `dewpoint_temperature_difference_range_3_upper_limit`
-                Unit: deltaC
+                Units: deltaC
                 value >= -50.0
                 value <= 100.0
                 if `value` is None it will not be checked against the
@@ -49155,7 +49729,7 @@ class PlantEquipmentOperationOutdoorDewpointDifference(object):
 
         Args:
             value (float): value for IDD Field `dewpoint_temperature_difference_range_4_lower_limit`
-                Unit: deltaC
+                Units: deltaC
                 value >= -50.0
                 value <= 100.0
                 if `value` is None it will not be checked against the
@@ -49194,7 +49768,7 @@ class PlantEquipmentOperationOutdoorDewpointDifference(object):
 
         Args:
             value (float): value for IDD Field `dewpoint_temperature_difference_range_4_upper_limit`
-                Unit: deltaC
+                Units: deltaC
                 value >= -50.0
                 value <= 100.0
                 if `value` is None it will not be checked against the
@@ -49266,7 +49840,7 @@ class PlantEquipmentOperationOutdoorDewpointDifference(object):
 
         Args:
             value (float): value for IDD Field `dewpoint_temperature_difference_range_5_lower_limit`
-                Unit: deltaC
+                Units: deltaC
                 value >= -50.0
                 value <= 100.0
                 if `value` is None it will not be checked against the
@@ -49305,7 +49879,7 @@ class PlantEquipmentOperationOutdoorDewpointDifference(object):
 
         Args:
             value (float): value for IDD Field `dewpoint_temperature_difference_range_5_upper_limit`
-                Unit: deltaC
+                Units: deltaC
                 value >= -50.0
                 value <= 100.0
                 if `value` is None it will not be checked against the
@@ -49377,7 +49951,7 @@ class PlantEquipmentOperationOutdoorDewpointDifference(object):
 
         Args:
             value (float): value for IDD Field `dewpoint_temperature_difference_range_6_lower_limit`
-                Unit: deltaC
+                Units: deltaC
                 value >= -50.0
                 value <= 100.0
                 if `value` is None it will not be checked against the
@@ -49416,7 +49990,7 @@ class PlantEquipmentOperationOutdoorDewpointDifference(object):
 
         Args:
             value (float): value for IDD Field `dewpoint_temperature_difference_range_6_upper_limit`
-                Unit: deltaC
+                Units: deltaC
                 value >= -50.0
                 value <= 100.0
                 if `value` is None it will not be checked against the
@@ -49488,7 +50062,7 @@ class PlantEquipmentOperationOutdoorDewpointDifference(object):
 
         Args:
             value (float): value for IDD Field `dewpoint_temperature_difference_range_7_lower_limit`
-                Unit: deltaC
+                Units: deltaC
                 value >= -50.0
                 value <= 100.0
                 if `value` is None it will not be checked against the
@@ -49527,7 +50101,7 @@ class PlantEquipmentOperationOutdoorDewpointDifference(object):
 
         Args:
             value (float): value for IDD Field `dewpoint_temperature_difference_range_7_upper_limit`
-                Unit: deltaC
+                Units: deltaC
                 value >= -50.0
                 value <= 100.0
                 if `value` is None it will not be checked against the
@@ -49599,7 +50173,7 @@ class PlantEquipmentOperationOutdoorDewpointDifference(object):
 
         Args:
             value (float): value for IDD Field `dewpoint_temperature_difference_range_8_lower_limit`
-                Unit: deltaC
+                Units: deltaC
                 value >= -50.0
                 value <= 100.0
                 if `value` is None it will not be checked against the
@@ -49638,7 +50212,7 @@ class PlantEquipmentOperationOutdoorDewpointDifference(object):
 
         Args:
             value (float): value for IDD Field `dewpoint_temperature_difference_range_8_upper_limit`
-                Unit: deltaC
+                Units: deltaC
                 value >= -50.0
                 value <= 100.0
                 if `value` is None it will not be checked against the
@@ -49710,7 +50284,7 @@ class PlantEquipmentOperationOutdoorDewpointDifference(object):
 
         Args:
             value (float): value for IDD Field `dewpoint_temperature_difference_range_9_lower_limit`
-                Unit: deltaC
+                Units: deltaC
                 value >= -50.0
                 value <= 100.0
                 if `value` is None it will not be checked against the
@@ -49749,7 +50323,7 @@ class PlantEquipmentOperationOutdoorDewpointDifference(object):
 
         Args:
             value (float): value for IDD Field `dewpoint_temperature_difference_range_9_upper_limit`
-                Unit: deltaC
+                Units: deltaC
                 value >= -50.0
                 value <= 100.0
                 if `value` is None it will not be checked against the
@@ -49821,7 +50395,7 @@ class PlantEquipmentOperationOutdoorDewpointDifference(object):
 
         Args:
             value (float): value for IDD Field `dewpoint_temperature_difference_range_10_lower_limit`
-                Unit: deltaC
+                Units: deltaC
                 value >= -50.0
                 value <= 100.0
                 if `value` is None it will not be checked against the
@@ -49860,7 +50434,7 @@ class PlantEquipmentOperationOutdoorDewpointDifference(object):
 
         Args:
             value (float): value for IDD Field `dewpoint_temperature_difference_range_10_upper_limit`
-                Unit: deltaC
+                Units: deltaC
                 value >= -50.0
                 value <= 100.0
                 if `value` is None it will not be checked against the
@@ -49916,6 +50490,16 @@ class PlantEquipmentOperationOutdoorDewpointDifference(object):
                                  'for field `range_10_equipment_list_name`')
 
         self._data["Range 10 Equipment List Name"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):
@@ -49973,9 +50557,11 @@ class PlantEquipmentOperationSchemes(object):
         on.  That is, if control scheme 1 is not "on" and control scheme 2
         is -- then control scheme 2 is selected.
         Only plant equipment should be listed on a Control Scheme for this item.
+    
     """
     internal_name = "PlantEquipmentOperationSchemes"
     field_count = 25
+    required_fields = ["Name", "Control Scheme 1 Object Type", "Control Scheme 1 Name", "Control Scheme 1 Schedule Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `PlantEquipmentOperationSchemes`
@@ -51085,6 +51671,16 @@ class PlantEquipmentOperationSchemes(object):
 
         self._data["Control Scheme 8 Schedule Name"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -51134,9 +51730,11 @@ class CondenserEquipmentOperationSchemes(object):
         on.  That is, if control scheme 1 is not "on" and control scheme 2
         is -- then control scheme 2 is selected.
         Only condenser equipment should be listed on a Control Scheme for this item.
+    
     """
     internal_name = "CondenserEquipmentOperationSchemes"
     field_count = 25
+    required_fields = ["Name", "Control Scheme 1 Object Type", "Control Scheme 1 Name", "Control Scheme 1 Schedule Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `CondenserEquipmentOperationSchemes`
@@ -52341,6 +52939,16 @@ class CondenserEquipmentOperationSchemes(object):
                                  'for field `control_scheme_8_schedule_name`')
 
         self._data["Control Scheme 8 Schedule Name"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):

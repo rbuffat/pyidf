@@ -6,9 +6,11 @@ class ZoneInfiltrationDesignFlowRate(object):
         Infiltration=Idesign * FSchedule * (A + B*|(Tzone-Todb)| + C*WindSpd + D * WindSpd**2)
         If you use a ZoneList in the Zone or ZoneList name field then this definition applies
         to all the zones in the ZoneList.
+    
     """
     internal_name = "ZoneInfiltration:DesignFlowRate"
     field_count = 12
+    required_fields = ["Name", "Zone or ZoneList Name", "Schedule Name", "Design Flow Rate Calculation Method", "Constant Term Coefficient", "Temperature Term Coefficient", "Velocity Term Coefficient", "Velocity Squared Term Coefficient"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ZoneInfiltration:DesignFlowRate`
@@ -266,7 +268,8 @@ class ZoneInfiltrationDesignFlowRate(object):
 
         Args:
             value (float): value for IDD Field `design_flow_rate`
-                Unit: m3/s
+                Units: m3/s
+                IP-Units: ft3/min
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -301,7 +304,7 @@ class ZoneInfiltrationDesignFlowRate(object):
 
         Args:
             value (float): value for IDD Field `flow_per_zone_floor_area`
-                Unit: m3/s-m2
+                Units: m3/s-m2
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -338,7 +341,7 @@ class ZoneInfiltrationDesignFlowRate(object):
 
         Args:
             value (float): value for IDD Field `flow_per_exterior_surface_area`
-                Unit: m3/s-m2
+                Units: m3/s-m2
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -373,7 +376,7 @@ class ZoneInfiltrationDesignFlowRate(object):
 
         Args:
             value (float): value for IDD Field `air_changes_per_hour`
-                Unit: 1/hr
+                Units: 1/hr
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -521,6 +524,16 @@ class ZoneInfiltrationDesignFlowRate(object):
 
         self._data["Velocity Squared Term Coefficient"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -554,9 +567,11 @@ class ZoneInfiltrationEffectiveLeakageArea(object):
         Infiltration is specified as effective leakage area at 4 Pa, schedule fraction, stack and wind coefficients, and
         is a function of temperature difference and wind speed:
         Infiltration=FSchedule * (AL /1000) SQRT(Cs*|(Tzone-Todb)| +  Cw*WindSpd**2 )
+    
     """
     internal_name = "ZoneInfiltration:EffectiveLeakageArea"
     field_count = 6
+    required_fields = ["Name", "Zone Name", "Schedule Name", "Effective Air Leakage Area", "Stack Coefficient", "Wind Coefficient"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ZoneInfiltration:EffectiveLeakageArea`
@@ -723,7 +738,7 @@ class ZoneInfiltrationEffectiveLeakageArea(object):
 
         Args:
             value (float): value for IDD Field `effective_air_leakage_area`
-                Unit: cm2
+                Units: cm2
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -813,6 +828,16 @@ class ZoneInfiltrationEffectiveLeakageArea(object):
 
         self._data["Wind Coefficient"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -840,9 +865,11 @@ class ZoneInfiltrationFlowCoefficient(object):
         Infiltration is specified as flow coefficient, schedule fraction, stack and wind coefficients, and
         is a function of temperature difference and wind speed:
         Infiltration=FSchedule * SQRT( (c * Cs*|(Tzone-Todb)|**n)**2 + (c* Cw*(s * WindSpd)**2n)**2 )
+    
     """
     internal_name = "ZoneInfiltration:FlowCoefficient"
     field_count = 8
+    required_fields = ["Name", "Zone Name", "Schedule Name", "Flow Coefficient", "Stack Coefficient", "Pressure Exponent", "Wind Coefficient", "Shelter Factor"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ZoneInfiltration:FlowCoefficient`
@@ -1180,6 +1207,16 @@ class ZoneInfiltrationFlowCoefficient(object):
 
         self._data["Shelter Factor"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -1210,9 +1247,11 @@ class ZoneVentilationDesignFlowRate(object):
         Ventilation=Vdesign * Fschedule * (A + B*|(Tzone-Todb)| + C*WindSpd + D * WindSpd**2)
         If you use a ZoneList in the Zone or ZoneList name field then this definition applies
         to all the zones in the ZoneList.
+    
     """
     internal_name = "ZoneVentilation:DesignFlowRate"
     field_count = 26
+    required_fields = ["Name", "Zone or ZoneList Name", "Schedule Name", "Design Flow Rate Calculation Method", "Ventilation Type", "Fan Pressure Rise", "Fan Total Efficiency", "Constant Term Coefficient", "Temperature Term Coefficient", "Velocity Term Coefficient", "Velocity Squared Term Coefficient"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ZoneVentilation:DesignFlowRate`
@@ -1551,7 +1590,7 @@ class ZoneVentilationDesignFlowRate(object):
 
         Args:
             value (float): value for IDD Field `design_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -1586,7 +1625,7 @@ class ZoneVentilationDesignFlowRate(object):
 
         Args:
             value (float): value for IDD Field `flow_rate_per_zone_floor_area`
-                Unit: m3/s-m2
+                Units: m3/s-m2
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -1621,7 +1660,7 @@ class ZoneVentilationDesignFlowRate(object):
 
         Args:
             value (float): value for IDD Field `flow_rate_per_person`
-                Unit: m3/s-person
+                Units: m3/s-person
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -1656,7 +1695,7 @@ class ZoneVentilationDesignFlowRate(object):
 
         Args:
             value (float): value for IDD Field `air_changes_per_hour`
-                Unit: 1/hr
+                Units: 1/hr
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -1739,7 +1778,7 @@ class ZoneVentilationDesignFlowRate(object):
 
         Args:
             value (float): value for IDD Field `fan_pressure_rise`
-                Unit: Pa
+                Units: Pa
                 Default value: 0.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -1939,7 +1978,7 @@ class ZoneVentilationDesignFlowRate(object):
 
         Args:
             value (float): value for IDD Field `minimum_indoor_temperature`
-                Unit: C
+                Units: C
                 Default value: -100.0
                 value >= -100.0
                 value <= 100.0
@@ -2015,7 +2054,7 @@ class ZoneVentilationDesignFlowRate(object):
 
         Args:
             value (float): value for IDD Field `maximum_indoor_temperature`
-                Unit: C
+                Units: C
                 Default value: 100.0
                 value >= -100.0
                 value <= 100.0
@@ -2095,7 +2134,7 @@ class ZoneVentilationDesignFlowRate(object):
 
         Args:
             value (float): value for IDD Field `delta_temperature`
-                Unit: deltaC
+                Units: deltaC
                 Default value: -100.0
                 value >= -100.0
                 if `value` is None it will not be checked against the
@@ -2167,7 +2206,7 @@ class ZoneVentilationDesignFlowRate(object):
 
         Args:
             value (float): value for IDD Field `minimum_outdoor_temperature`
-                Unit: C
+                Units: C
                 Default value: -100.0
                 value >= -100.0
                 value <= 100.0
@@ -2243,7 +2282,7 @@ class ZoneVentilationDesignFlowRate(object):
 
         Args:
             value (float): value for IDD Field `maximum_outdoor_temperature`
-                Unit: C
+                Units: C
                 Default value: 100.0
                 value >= -100.0
                 value <= 100.0
@@ -2319,7 +2358,7 @@ class ZoneVentilationDesignFlowRate(object):
 
         Args:
             value (float): value for IDD Field `maximum_wind_speed`
-                Unit: m/s
+                Units: m/s
                 Default value: 40.0
                 value >= 0.0
                 value <= 40.0
@@ -2343,6 +2382,16 @@ class ZoneVentilationDesignFlowRate(object):
                                  'for field `maximum_wind_speed`')
 
         self._data["Maximum Wind Speed"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):
@@ -2392,9 +2441,11 @@ class ZoneVentilationWindandStackOpenArea(object):
         Ventilation Wind = Cw * Opening Area * Schedule * WindSpd
         Ventilation Stack = Cd * Opening Area * Schedule * SQRT(2*g*DH*(|(Tzone-Todb)|/Tzone))
         Total Ventilation = SQRT((Ventilation Wind)^2 + (Ventilation Stack)^2)
+    
     """
     internal_name = "ZoneVentilation:WindandStackOpenArea"
     field_count = 19
+    required_fields = ["Name", "Zone Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ZoneVentilation:WindandStackOpenArea`
@@ -2605,7 +2656,7 @@ class ZoneVentilationWindandStackOpenArea(object):
 
         Args:
             value (float): value for IDD Field `opening_area`
-                Unit: m2
+                Units: m2
                 Default value: 0.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -2682,7 +2733,7 @@ class ZoneVentilationWindandStackOpenArea(object):
 
         Args:
             value (float): value for IDD Field `opening_effectiveness`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
@@ -2723,7 +2774,7 @@ class ZoneVentilationWindandStackOpenArea(object):
 
         Args:
             value (float): value for IDD Field `effective_angle`
-                Unit: deg
+                Units: deg
                 Default value: 0.0
                 value >= 0.0
                 value < 360.0
@@ -2766,7 +2817,7 @@ class ZoneVentilationWindandStackOpenArea(object):
 
         Args:
             value (float): value for IDD Field `height_difference`
-                Unit: m
+                Units: m
                 Default value: 0.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -2846,7 +2897,7 @@ class ZoneVentilationWindandStackOpenArea(object):
 
         Args:
             value (float): value for IDD Field `minimum_indoor_temperature`
-                Unit: C
+                Units: C
                 Default value: -100.0
                 value >= -100.0
                 value <= 100.0
@@ -2922,7 +2973,7 @@ class ZoneVentilationWindandStackOpenArea(object):
 
         Args:
             value (float): value for IDD Field `maximum_indoor_temperature`
-                Unit: C
+                Units: C
                 Default value: 100.0
                 value >= -100.0
                 value <= 100.0
@@ -2999,7 +3050,7 @@ class ZoneVentilationWindandStackOpenArea(object):
 
         Args:
             value (float): value for IDD Field `delta_temperature`
-                Unit: deltaC
+                Units: deltaC
                 Default value: -100.0
                 value >= -100.0
                 if `value` is None it will not be checked against the
@@ -3071,7 +3122,7 @@ class ZoneVentilationWindandStackOpenArea(object):
 
         Args:
             value (float): value for IDD Field `minimum_outdoor_temperature`
-                Unit: C
+                Units: C
                 Default value: -100.0
                 value >= -100.0
                 value <= 100.0
@@ -3147,7 +3198,7 @@ class ZoneVentilationWindandStackOpenArea(object):
 
         Args:
             value (float): value for IDD Field `maximum_outdoor_temperature`
-                Unit: C
+                Units: C
                 Default value: 100.0
                 value >= -100.0
                 value <= 100.0
@@ -3223,7 +3274,7 @@ class ZoneVentilationWindandStackOpenArea(object):
 
         Args:
             value (float): value for IDD Field `maximum_wind_speed`
-                Unit: m/s
+                Units: m/s
                 Default value: 40.0
                 value >= 0.0
                 value <= 40.0
@@ -3247,6 +3298,16 @@ class ZoneVentilationWindandStackOpenArea(object):
                                  'for field `maximum_wind_speed`')
 
         self._data["Maximum Wind Speed"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):
@@ -3290,9 +3351,11 @@ class ZoneAirBalanceOutdoorAir(object):
         This object will combine outdoor flows from all ZoneInfiltration and
         ZoneVentilation objects in the same zone. Balanced flows will be summed, while
         unbalanced flows will be added in quadrature.
+    
     """
     internal_name = "ZoneAirBalance:OutdoorAir"
     field_count = 5
+    required_fields = ["Name", "Zone Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ZoneAirBalance:OutdoorAir`
@@ -3463,7 +3526,7 @@ class ZoneAirBalanceOutdoorAir(object):
 
         Args:
             value (float): value for IDD Field `induced_outdoor_air_due_to_unbalanced_duct_leakage`
-                Unit: m3/s
+                Units: m3/s
                 Default value: 0.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -3519,6 +3582,16 @@ class ZoneAirBalanceOutdoorAir(object):
 
         self._data["Induced Outdoor Air Schedule Name"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -3547,9 +3620,11 @@ class ZoneMixing(object):
         any effect on the "source" zone. Mixing statements can be complementary and include
         multiple zones, but the balancing of flows between zones is left to the user's
         discretion.
+    
     """
     internal_name = "ZoneMixing"
     field_count = 17
+    required_fields = ["Name", "Zone Name", "Schedule Name", "Design Flow Rate Calculation Method", "Source Zone Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ZoneMixing`
@@ -3834,7 +3909,7 @@ class ZoneMixing(object):
 
         Args:
             value (float): value for IDD Field `design_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -3869,7 +3944,7 @@ class ZoneMixing(object):
 
         Args:
             value (float): value for IDD Field `flow_rate_per_zone_floor_area`
-                Unit: m3/s-m2
+                Units: m3/s-m2
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -3904,7 +3979,7 @@ class ZoneMixing(object):
 
         Args:
             value (float): value for IDD Field `flow_rate_per_person`
-                Unit: m3/s-person
+                Units: m3/s-person
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -3939,7 +4014,7 @@ class ZoneMixing(object):
 
         Args:
             value (float): value for IDD Field `air_changes_per_hour`
-                Unit: 1/hr
+                Units: 1/hr
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -4009,7 +4084,7 @@ class ZoneMixing(object):
 
         Args:
             value (float): value for IDD Field `delta_temperature`
-                Unit: deltaC
+                Units: deltaC
                 Default value: 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -4271,6 +4346,16 @@ class ZoneMixing(object):
 
         self._data["Maximum Outdoor Temperature Schedule Name"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -4308,9 +4393,11 @@ class ZoneCrossMixing(object):
     """ Corresponds to IDD object `ZoneCrossMixing`
         ZoneCrossMixing exchanges an equal amount of air between two zones. Note that this
         statement affects the energy balance of both zones.
+    
     """
     internal_name = "ZoneCrossMixing"
     field_count = 17
+    required_fields = ["Name", "Zone Name", "Schedule Name", "Design Flow Rate Calculation Method", "Source Zone Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ZoneCrossMixing`
@@ -4595,7 +4682,7 @@ class ZoneCrossMixing(object):
 
         Args:
             value (float): value for IDD Field `design_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -4630,7 +4717,7 @@ class ZoneCrossMixing(object):
 
         Args:
             value (float): value for IDD Field `flow_rate_per_zone_floor_area`
-                Unit: m3/s-m2
+                Units: m3/s-m2
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -4665,7 +4752,7 @@ class ZoneCrossMixing(object):
 
         Args:
             value (float): value for IDD Field `flow_rate_per_person`
-                Unit: m3/s-person
+                Units: m3/s-person
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -4700,7 +4787,7 @@ class ZoneCrossMixing(object):
 
         Args:
             value (float): value for IDD Field `air_changes_per_hour`
-                Unit: 1/hr
+                Units: 1/hr
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -4771,7 +4858,7 @@ class ZoneCrossMixing(object):
 
         Args:
             value (float): value for IDD Field `delta_temperature`
-                Unit: deltaC
+                Units: deltaC
                 Default value: 0.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -5037,6 +5124,16 @@ class ZoneCrossMixing(object):
 
         self._data["Maximum Outdoor Temperature Schedule Name"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -5078,9 +5175,11 @@ class ZoneRefrigerationDoorMixing(object):
         This would typically be used between two zones in a refrigerated warehouse that are
         controlled at different temperatures.  It could also be used to model a door to a walk-in
         refrigerated space if that space were modeled as a zone instead of using the object Refrigeration:WalkIn.
+    
     """
     internal_name = "ZoneRefrigerationDoorMixing"
     field_count = 7
+    required_fields = ["Name", "Zone 1 Name", "Zone 2 Name", "Schedule Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ZoneRefrigerationDoorMixing`
@@ -5290,7 +5389,7 @@ class ZoneRefrigerationDoorMixing(object):
 
         Args:
             value (float): value for IDD Field `door_height`
-                Unit: m
+                Units: m
                 Default value: 3.0
                 value >= 0.0
                 value <= 50.0
@@ -5330,7 +5429,7 @@ class ZoneRefrigerationDoorMixing(object):
 
         Args:
             value (float): value for IDD Field `door_area`
-                Unit: m2
+                Units: m2
                 Default value: 9.0
                 value >= 0.0
                 value <= 400.0
@@ -5404,6 +5503,16 @@ class ZoneRefrigerationDoorMixing(object):
 
         self._data["Door Protection Type"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -5431,9 +5540,11 @@ class ZoneEarthtube(object):
     """ Corresponds to IDD object `ZoneEarthtube`
         Earth Tube is specified as a design level which is modified by a Schedule fraction, temperature difference and wind speed:
         Earthtube=Edesign * Fschedule * (A + B*|(Tzone-Todb)| + C*WindSpd + D * WindSpd**2)
+    
     """
     internal_name = "ZoneEarthtube"
     field_count = 22
+    required_fields = ["Zone Name", "Schedule Name", "Design Flow Rate", "Minimum Zone Temperature when Cooling", "Maximum Zone Temperature when Heating", "Delta Temperature", "Earthtube Type", "Fan Pressure Rise", "Fan Total Efficiency", "Pipe Radius", "Pipe Thickness", "Pipe Length", "Pipe Thermal Conductivity", "Pipe Depth Under Ground Surface", "Soil Condition", "Average Soil Surface Temperature", "Amplitude of Soil Surface Temperature", "Phase Constant of Soil Surface Temperature", "Constant Term Flow Coefficient", "Temperature Term Flow Coefficient", "Velocity Term Flow Coefficient", "Velocity Squared Term Flow Coefficient"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ZoneEarthtube`
@@ -5662,7 +5773,7 @@ class ZoneEarthtube(object):
 
         Args:
             value (float): value for IDD Field `design_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -5698,7 +5809,7 @@ class ZoneEarthtube(object):
 
         Args:
             value (float): value for IDD Field `minimum_zone_temperature_when_cooling`
-                Unit: C
+                Units: C
                 value >= -100.0
                 value <= 100.0
                 if `value` is None it will not be checked against the
@@ -5738,7 +5849,7 @@ class ZoneEarthtube(object):
 
         Args:
             value (float): value for IDD Field `maximum_zone_temperature_when_heating`
-                Unit: C
+                Units: C
                 value >= -100.0
                 value <= 100.0
                 if `value` is None it will not be checked against the
@@ -5778,7 +5889,7 @@ class ZoneEarthtube(object):
 
         Args:
             value (float): value for IDD Field `delta_temperature`
-                Unit: deltaC
+                Units: deltaC
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -5859,7 +5970,7 @@ class ZoneEarthtube(object):
 
         Args:
             value (float): value for IDD Field `fan_pressure_rise`
-                Unit: Pa
+                Units: Pa
                 Default value: 0.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -5930,7 +6041,7 @@ class ZoneEarthtube(object):
 
         Args:
             value (float): value for IDD Field `pipe_radius`
-                Unit: m
+                Units: m
                 Default value: 1.0
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -5966,7 +6077,7 @@ class ZoneEarthtube(object):
 
         Args:
             value (float): value for IDD Field `pipe_thickness`
-                Unit: m
+                Units: m
                 Default value: 0.2
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -6002,7 +6113,7 @@ class ZoneEarthtube(object):
 
         Args:
             value (float): value for IDD Field `pipe_length`
-                Unit: m
+                Units: m
                 Default value: 15.0
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -6038,7 +6149,7 @@ class ZoneEarthtube(object):
 
         Args:
             value (float): value for IDD Field `pipe_thermal_conductivity`
-                Unit: W/m-K
+                Units: W/m-K
                 Default value: 200.0
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -6074,7 +6185,7 @@ class ZoneEarthtube(object):
 
         Args:
             value (float): value for IDD Field `pipe_depth_under_ground_surface`
-                Unit: m
+                Units: m
                 Default value: 3.0
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -6157,7 +6268,7 @@ class ZoneEarthtube(object):
 
         Args:
             value (float): value for IDD Field `average_soil_surface_temperature`
-                Unit: C
+                Units: C
                 Default value: 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -6189,7 +6300,7 @@ class ZoneEarthtube(object):
 
         Args:
             value (float): value for IDD Field `amplitude_of_soil_surface_temperature`
-                Unit: C
+                Units: C
                 Default value: 0.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -6225,7 +6336,7 @@ class ZoneEarthtube(object):
 
         Args:
             value (float): value for IDD Field `phase_constant_of_soil_surface_temperature`
-                Unit: days
+                Units: days
                 Default value: 0.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -6374,6 +6485,16 @@ class ZoneEarthtube(object):
 
         self._data["Velocity Squared Term Flow Coefficient"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -6418,9 +6539,11 @@ class ZoneCoolTowerShower(object):
         models passive downdraught evaporative cooling (PDEC) that is designed to capture the
         wind at the top of a tower and cool the outdoor air using water evaporation before
         delivering it to a space.
+    
     """
     internal_name = "ZoneCoolTower:Shower"
     field_count = 14
+    required_fields = ["Name", "Zone Name", "Pump Flow Rate Schedule Name", "Maximum Water Flow Rate", "Effective Tower Height", "Airflow Outlet Area", "Maximum Air Flow Rate", "Minimum Indoor Temperature", "Rated Power Consumption"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ZoneCoolTower:Shower`
@@ -6747,7 +6870,7 @@ class ZoneCoolTowerShower(object):
 
         Args:
             value (float): value for IDD Field `maximum_water_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6779,7 +6902,7 @@ class ZoneCoolTowerShower(object):
 
         Args:
             value (float): value for IDD Field `effective_tower_height`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6812,7 +6935,7 @@ class ZoneCoolTowerShower(object):
 
         Args:
             value (float): value for IDD Field `airflow_outlet_area`
-                Unit: m2
+                Units: m2
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6843,7 +6966,7 @@ class ZoneCoolTowerShower(object):
 
         Args:
             value (float): value for IDD Field `maximum_air_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -6879,7 +7002,7 @@ class ZoneCoolTowerShower(object):
 
         Args:
             value (float): value for IDD Field `minimum_indoor_temperature`
-                Unit: C
+                Units: C
                 value >= -100.0
                 value <= 100.0
                 if `value` is None it will not be checked against the
@@ -6994,7 +7117,7 @@ class ZoneCoolTowerShower(object):
 
         Args:
             value (float): value for IDD Field `rated_power_consumption`
-                Unit: W
+                Units: W
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7009,6 +7132,16 @@ class ZoneCoolTowerShower(object):
                                  'for field `rated_power_consumption`'.format(value))
 
         self._data["Rated Power Consumption"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):
@@ -7045,9 +7178,11 @@ class ZoneThermalChimney(object):
         A thermal chimney is a vertical shaft utilizing solar radiation to enhance natural
         ventilation. It consists of an absorber wall, air gap and glass cover with high solar
         transmissivity.
+    
     """
     internal_name = "ZoneThermalChimney"
     field_count = 86
+    required_fields = ["Name", "Zone Name", "Width of the Absorber Wall", "Cross Sectional Area of Air Channel Outlet", "Discharge Coefficient", "Zone 1 Name", "Distance from Top of Thermal Chimney to Inlet 1", "Relative Ratios of Air Flow Rates Passing through Zone 1", "Cross Sectional Areas of Air Channel Inlet 1"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ZoneThermalChimney`
@@ -7695,7 +7830,7 @@ class ZoneThermalChimney(object):
 
         Args:
             value (float): value for IDD Field `width_of_the_absorber_wall`
-                Unit: m
+                Units: m
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -7730,7 +7865,7 @@ class ZoneThermalChimney(object):
 
         Args:
             value (float): value for IDD Field `cross_sectional_area_of_air_channel_outlet`
-                Unit: m2
+                Units: m2
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -7837,7 +7972,7 @@ class ZoneThermalChimney(object):
 
         Args:
             value (float): value for IDD Field `distance_from_top_of_thermal_chimney_to_inlet_1`
-                Unit: m
+                Units: m
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -7911,7 +8046,7 @@ class ZoneThermalChimney(object):
 
         Args:
             value (float): value for IDD Field `cross_sectional_areas_of_air_channel_inlet_1`
-                Unit: m2
+                Units: m2
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -7979,7 +8114,7 @@ class ZoneThermalChimney(object):
 
         Args:
             value (float): value for IDD Field `distance_from_top_of_thermal_chimney_to_inlet_2`
-                Unit: m
+                Units: m
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -8052,7 +8187,7 @@ class ZoneThermalChimney(object):
 
         Args:
             value (float): value for IDD Field `cross_sectional_areas_of_air_channel_inlet_2`
-                Unit: m2
+                Units: m2
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -8120,7 +8255,7 @@ class ZoneThermalChimney(object):
 
         Args:
             value (float): value for IDD Field `distance_from_top_of_thermal_chimney_to_inlet_3`
-                Unit: m
+                Units: m
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -8193,7 +8328,7 @@ class ZoneThermalChimney(object):
 
         Args:
             value (float): value for IDD Field `cross_sectional_areas_of_air_channel_inlet_3`
-                Unit: m2
+                Units: m2
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -8261,7 +8396,7 @@ class ZoneThermalChimney(object):
 
         Args:
             value (float): value for IDD Field `distance_from_top_of_thermal_chimney_to_inlet_4`
-                Unit: m
+                Units: m
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -8334,7 +8469,7 @@ class ZoneThermalChimney(object):
 
         Args:
             value (float): value for IDD Field `cross_sectional_areas_of_air_channel_inlet_4`
-                Unit: m2
+                Units: m2
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -8402,7 +8537,7 @@ class ZoneThermalChimney(object):
 
         Args:
             value (float): value for IDD Field `distance_from_top_of_thermal_chimney_to_inlet_5`
-                Unit: m
+                Units: m
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -8475,7 +8610,7 @@ class ZoneThermalChimney(object):
 
         Args:
             value (float): value for IDD Field `cross_sectional_areas_of_air_channel_inlet_5`
-                Unit: m2
+                Units: m2
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -8543,7 +8678,7 @@ class ZoneThermalChimney(object):
 
         Args:
             value (float): value for IDD Field `distance_from_top_of_thermal_chimney_to_inlet_6`
-                Unit: m
+                Units: m
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -8616,7 +8751,7 @@ class ZoneThermalChimney(object):
 
         Args:
             value (float): value for IDD Field `cross_sectional_areas_of_air_channel_inlet_6`
-                Unit: m2
+                Units: m2
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -8684,7 +8819,7 @@ class ZoneThermalChimney(object):
 
         Args:
             value (float): value for IDD Field `distance_from_top_of_thermal_chimney_to_inlet_7`
-                Unit: m
+                Units: m
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -8757,7 +8892,7 @@ class ZoneThermalChimney(object):
 
         Args:
             value (float): value for IDD Field `cross_sectional_areas_of_air_channel_inlet_7`
-                Unit: m2
+                Units: m2
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -8825,7 +8960,7 @@ class ZoneThermalChimney(object):
 
         Args:
             value (float): value for IDD Field `distance_from_top_of_thermal_chimney_to_inlet_8`
-                Unit: m
+                Units: m
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -8898,7 +9033,7 @@ class ZoneThermalChimney(object):
 
         Args:
             value (float): value for IDD Field `cross_sectional_areas_of_air_channel_inlet_8`
-                Unit: m2
+                Units: m2
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -8966,7 +9101,7 @@ class ZoneThermalChimney(object):
 
         Args:
             value (float): value for IDD Field `distance_from_top_of_thermal_chimney_to_inlet_9`
-                Unit: m
+                Units: m
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -9039,7 +9174,7 @@ class ZoneThermalChimney(object):
 
         Args:
             value (float): value for IDD Field `cross_sectional_areas_of_air_channel_inlet_9`
-                Unit: m2
+                Units: m2
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -9107,7 +9242,7 @@ class ZoneThermalChimney(object):
 
         Args:
             value (float): value for IDD Field `distance_from_top_of_thermal_chimney_to_inlet_10`
-                Unit: m
+                Units: m
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -9180,7 +9315,7 @@ class ZoneThermalChimney(object):
 
         Args:
             value (float): value for IDD Field `cross_sectional_areas_of_air_channel_inlet_10`
-                Unit: m2
+                Units: m2
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -9248,7 +9383,7 @@ class ZoneThermalChimney(object):
 
         Args:
             value (float): value for IDD Field `distance_from_top_of_thermal_chimney_to_inlet_11`
-                Unit: m
+                Units: m
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -9321,7 +9456,7 @@ class ZoneThermalChimney(object):
 
         Args:
             value (float): value for IDD Field `cross_sectional_areas_of_air_channel_inlet_11`
-                Unit: m2
+                Units: m2
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -9389,7 +9524,7 @@ class ZoneThermalChimney(object):
 
         Args:
             value (float): value for IDD Field `distance_from_top_of_thermal_chimney_to_inlet_12`
-                Unit: m
+                Units: m
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -9462,7 +9597,7 @@ class ZoneThermalChimney(object):
 
         Args:
             value (float): value for IDD Field `cross_sectional_areas_of_air_channel_inlet_12`
-                Unit: m2
+                Units: m2
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -9530,7 +9665,7 @@ class ZoneThermalChimney(object):
 
         Args:
             value (float): value for IDD Field `distance_from_top_of_thermal_chimney_to_inlet_13`
-                Unit: m
+                Units: m
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -9603,7 +9738,7 @@ class ZoneThermalChimney(object):
 
         Args:
             value (float): value for IDD Field `cross_sectional_areas_of_air_channel_inlet_13`
-                Unit: m2
+                Units: m2
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -9671,7 +9806,7 @@ class ZoneThermalChimney(object):
 
         Args:
             value (float): value for IDD Field `distance_from_top_of_thermal_chimney_to_inlet_14`
-                Unit: m
+                Units: m
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -9744,7 +9879,7 @@ class ZoneThermalChimney(object):
 
         Args:
             value (float): value for IDD Field `cross_sectional_areas_of_air_channel_inlet_14`
-                Unit: m2
+                Units: m2
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -9812,7 +9947,7 @@ class ZoneThermalChimney(object):
 
         Args:
             value (float): value for IDD Field `distance_from_top_of_thermal_chimney_to_inlet_15`
-                Unit: m
+                Units: m
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -9885,7 +10020,7 @@ class ZoneThermalChimney(object):
 
         Args:
             value (float): value for IDD Field `cross_sectional_areas_of_air_channel_inlet_15`
-                Unit: m2
+                Units: m2
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -9953,7 +10088,7 @@ class ZoneThermalChimney(object):
 
         Args:
             value (float): value for IDD Field `distance_from_top_of_thermal_chimney_to_inlet_16`
-                Unit: m
+                Units: m
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -10026,7 +10161,7 @@ class ZoneThermalChimney(object):
 
         Args:
             value (float): value for IDD Field `cross_sectional_areas_of_air_channel_inlet_16`
-                Unit: m2
+                Units: m2
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -10094,7 +10229,7 @@ class ZoneThermalChimney(object):
 
         Args:
             value (float): value for IDD Field `distance_from_top_of_thermal_chimney_to_inlet_17`
-                Unit: m
+                Units: m
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -10167,7 +10302,7 @@ class ZoneThermalChimney(object):
 
         Args:
             value (float): value for IDD Field `cross_sectional_areas_of_air_channel_inlet_17`
-                Unit: m2
+                Units: m2
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -10235,7 +10370,7 @@ class ZoneThermalChimney(object):
 
         Args:
             value (float): value for IDD Field `distance_from_top_of_thermal_chimney_to_inlet_18`
-                Unit: m
+                Units: m
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -10308,7 +10443,7 @@ class ZoneThermalChimney(object):
 
         Args:
             value (float): value for IDD Field `cross_sectional_areas_of_air_channel_inlet_18`
-                Unit: m2
+                Units: m2
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -10376,7 +10511,7 @@ class ZoneThermalChimney(object):
 
         Args:
             value (float): value for IDD Field `distance_from_top_of_thermal_chimney_to_inlet_19`
-                Unit: m
+                Units: m
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -10449,7 +10584,7 @@ class ZoneThermalChimney(object):
 
         Args:
             value (float): value for IDD Field `cross_sectional_areas_of_air_channel_inlet_19`
-                Unit: m2
+                Units: m2
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -10517,7 +10652,7 @@ class ZoneThermalChimney(object):
 
         Args:
             value (float): value for IDD Field `distance_from_top_of_thermal_chimney_to_inlet_20`
-                Unit: m
+                Units: m
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -10590,7 +10725,7 @@ class ZoneThermalChimney(object):
 
         Args:
             value (float): value for IDD Field `cross_sectional_areas_of_air_channel_inlet_20`
-                Unit: m2
+                Units: m2
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -10609,6 +10744,16 @@ class ZoneThermalChimney(object):
                                  'for field `cross_sectional_areas_of_air_channel_inlet_20`')
 
         self._data["Cross Sectional Areas of Air Channel Inlet 20"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):

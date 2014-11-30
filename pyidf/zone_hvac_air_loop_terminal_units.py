@@ -4,9 +4,11 @@ class AirTerminalSingleDuctUncontrolled(object):
     """ Corresponds to IDD object `AirTerminal:SingleDuct:Uncontrolled`
         Central air system terminal unit, single duct, constant volume, no controls other than
         on/off schedule.
+    
     """
     internal_name = "AirTerminal:SingleDuct:Uncontrolled"
     field_count = 4
+    required_fields = ["Name", "Zone Supply Air Node Name", "Maximum Air Flow Rate"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `AirTerminal:SingleDuct:Uncontrolled`
@@ -161,7 +163,7 @@ class AirTerminalSingleDuctUncontrolled(object):
 
         Args:
             value (float): value for IDD Field `maximum_air_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -180,6 +182,16 @@ class AirTerminalSingleDuctUncontrolled(object):
                                  'for field `maximum_air_flow_rate`')
 
         self._data["Maximum Air Flow Rate"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):
@@ -205,9 +217,11 @@ class AirTerminalSingleDuctConstantVolumeReheat(object):
     """ Corresponds to IDD object `AirTerminal:SingleDuct:ConstantVolume:Reheat`
         Central air system terminal unit, single duct, constant volume, with reheat coil (hot
         water, electric, gas, or steam).
+    
     """
     internal_name = "AirTerminal:SingleDuct:ConstantVolume:Reheat"
     field_count = 12
+    required_fields = ["Name", "Air Outlet Node Name", "Air Inlet Node Name", "Maximum Air Flow Rate", "Reheat Coil Object Type", "Reheat Coil Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `AirTerminal:SingleDuct:ConstantVolume:Reheat`
@@ -443,7 +457,7 @@ class AirTerminalSingleDuctConstantVolumeReheat(object):
 
         Args:
             value (float): value for IDD Field `maximum_air_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -591,7 +605,8 @@ class AirTerminalSingleDuctConstantVolumeReheat(object):
 
         Args:
             value (float): value for IDD Field `maximum_hot_water_or_steam_flow_rate`
-                Unit: m3/s
+                Units: m3/s
+                IP-Units: gal/min
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -627,7 +642,8 @@ class AirTerminalSingleDuctConstantVolumeReheat(object):
 
         Args:
             value (float): value for IDD Field `minimum_hot_water_or_steam_flow_rate`
-                Unit: m3/s
+                Units: m3/s
+                IP-Units: gal/min
                 Default value: 0.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -700,7 +716,7 @@ class AirTerminalSingleDuctConstantVolumeReheat(object):
 
         Args:
             value (float): value for IDD Field `maximum_reheat_air_temperature`
-                Unit: C
+                Units: C
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -719,6 +735,16 @@ class AirTerminalSingleDuctConstantVolumeReheat(object):
                                  'for field `maximum_reheat_air_temperature`')
 
         self._data["Maximum Reheat Air Temperature"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):
@@ -751,9 +777,11 @@ class AirTerminalSingleDuctConstantVolumeReheat(object):
 class AirTerminalSingleDuctVavNoReheat(object):
     """ Corresponds to IDD object `AirTerminal:SingleDuct:VAV:NoReheat`
         Central air system terminal unit, single duct, variable volume, with no reheat coil.
+    
     """
     internal_name = "AirTerminal:SingleDuct:VAV:NoReheat"
     field_count = 10
+    required_fields = ["Name", "Air Outlet Node Name", "Air Inlet Node Name", "Maximum Air Flow Rate", "Zone Minimum Air Flow Input Method"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `AirTerminal:SingleDuct:VAV:NoReheat`
@@ -977,7 +1005,7 @@ class AirTerminalSingleDuctVavNoReheat(object):
 
         Args:
             value (float): value for IDD Field `maximum_air_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -1097,7 +1125,7 @@ class AirTerminalSingleDuctVavNoReheat(object):
 
         Args:
             value (float): value for IDD Field `fixed_minimum_air_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1189,6 +1217,16 @@ class AirTerminalSingleDuctVavNoReheat(object):
 
         self._data["Design Specification Outdoor Air Object Name"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -1219,9 +1257,11 @@ class AirTerminalSingleDuctVavReheat(object):
     """ Corresponds to IDD object `AirTerminal:SingleDuct:VAV:Reheat`
         Central air system terminal unit, single duct, variable volume, with reheat coil (hot
         water, electric, gas, or steam).
+    
     """
     internal_name = "AirTerminal:SingleDuct:VAV:Reheat"
     field_count = 20
+    required_fields = ["Name", "Damper Air Outlet Node Name", "Air Inlet Node Name", "Maximum Air Flow Rate", "Zone Minimum Air Flow Input Method", "Reheat Coil Object Type", "Reheat Coil Name", "Air Outlet Node Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `AirTerminal:SingleDuct:VAV:Reheat`
@@ -1508,7 +1548,7 @@ class AirTerminalSingleDuctVavReheat(object):
 
         Args:
             value (float): value for IDD Field `maximum_air_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -1628,7 +1668,7 @@ class AirTerminalSingleDuctVavReheat(object):
 
         Args:
             value (float): value for IDD Field `fixed_minimum_air_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1776,7 +1816,8 @@ class AirTerminalSingleDuctVavReheat(object):
 
         Args:
             value (float): value for IDD Field `maximum_hot_water_or_steam_flow_rate`
-                Unit: m3/s
+                Units: m3/s
+                IP-Units: gal/min
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -1812,7 +1853,8 @@ class AirTerminalSingleDuctVavReheat(object):
 
         Args:
             value (float): value for IDD Field `minimum_hot_water_or_steam_flow_rate`
-                Unit: m3/s
+                Units: m3/s
+                IP-Units: gal/min
                 Default value: 0.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -1967,7 +2009,7 @@ class AirTerminalSingleDuctVavReheat(object):
 
         Args:
             value (float): value for IDD Field `maximum_flow_per_zone_floor_area_during_reheat`
-                Unit: m3/s-m2
+                Units: m3/s-m2
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2038,7 +2080,7 @@ class AirTerminalSingleDuctVavReheat(object):
 
         Args:
             value (float): value for IDD Field `maximum_reheat_air_temperature`
-                Unit: C
+                Units: C
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -2097,6 +2139,16 @@ class AirTerminalSingleDuctVavReheat(object):
 
         self._data["Design Specification Outdoor Air Object Name"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -2140,9 +2192,11 @@ class AirTerminalSingleDuctVavReheatVariableSpeedFan(object):
         employed in underfloor air distribution (UFAD) systems where the air is supplied at
         low static pressure through an underfloor plenum. The fan is used to control the flow
         of conditioned air that enters the space.
+    
     """
     internal_name = "AirTerminal:SingleDuct:VAV:Reheat:VariableSpeedFan"
     field_count = 16
+    required_fields = ["Name", "Maximum Cooling Air Flow Rate", "Maximum Heating Air Flow Rate", "Zone Minimum Air Flow Fraction", "Fan Object Type", "Fan Name", "Heating Coil Object Type", "Heating Coil Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `AirTerminal:SingleDuct:VAV:Reheat:VariableSpeedFan`
@@ -2336,7 +2390,7 @@ class AirTerminalSingleDuctVavReheatVariableSpeedFan(object):
 
         Args:
             value (float): value for IDD Field `maximum_cooling_air_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -2371,7 +2425,7 @@ class AirTerminalSingleDuctVavReheatVariableSpeedFan(object):
 
         Args:
             value (float): value for IDD Field `maximum_heating_air_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -2730,7 +2784,8 @@ class AirTerminalSingleDuctVavReheatVariableSpeedFan(object):
 
         Args:
             value (float): value for IDD Field `maximum_hot_water_or_steam_flow_rate`
-                Unit: m3/s
+                Units: m3/s
+                IP-Units: gal/min
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2762,7 +2817,8 @@ class AirTerminalSingleDuctVavReheatVariableSpeedFan(object):
 
         Args:
             value (float): value for IDD Field `minimum_hot_water_or_steam_flow_rate`
-                Unit: m3/s
+                Units: m3/s
+                IP-Units: gal/min
                 Default value: 0.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -2818,6 +2874,16 @@ class AirTerminalSingleDuctVavReheatVariableSpeedFan(object):
 
         self._data["Heating Convergence Tolerance"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -2854,9 +2920,11 @@ class AirTerminalSingleDuctVavHeatAndCoolNoReheat(object):
     """ Corresponds to IDD object `AirTerminal:SingleDuct:VAV:HeatAndCool:NoReheat`
         Central air system terminal unit, single duct, variable volume for both cooling and
         heating, with no reheat coil.
+    
     """
     internal_name = "AirTerminal:SingleDuct:VAV:HeatAndCool:NoReheat"
     field_count = 6
+    required_fields = ["Name", "Air Outlet Node Name", "Air Inlet Node Name", "Maximum Air Flow Rate", "Zone Minimum Air Flow Fraction"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `AirTerminal:SingleDuct:VAV:HeatAndCool:NoReheat`
@@ -3058,7 +3126,7 @@ class AirTerminalSingleDuctVavHeatAndCoolNoReheat(object):
 
         Args:
             value (float): value for IDD Field `maximum_air_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -3117,6 +3185,16 @@ class AirTerminalSingleDuctVavHeatAndCoolNoReheat(object):
 
         self._data["Zone Minimum Air Flow Fraction"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -3143,9 +3221,11 @@ class AirTerminalSingleDuctVavHeatAndCoolReheat(object):
     """ Corresponds to IDD object `AirTerminal:SingleDuct:VAV:HeatAndCool:Reheat`
         Central air system terminal unit, single duct, variable volume for both cooling and
         heating, with reheat coil (hot water, electric, gas, or steam).
+    
     """
     internal_name = "AirTerminal:SingleDuct:VAV:HeatAndCool:Reheat"
     field_count = 14
+    required_fields = ["Name", "Damper Air Outlet Node Name", "Air Inlet Node Name", "Maximum Air Flow Rate", "Zone Minimum Air Flow Fraction", "Reheat Coil Object Type", "Reheat Coil Name", "Air Outlet Node Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `AirTerminal:SingleDuct:VAV:HeatAndCool:Reheat`
@@ -3396,7 +3476,7 @@ class AirTerminalSingleDuctVavHeatAndCoolReheat(object):
 
         Args:
             value (float): value for IDD Field `maximum_air_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -3583,7 +3663,8 @@ class AirTerminalSingleDuctVavHeatAndCoolReheat(object):
 
         Args:
             value (float): value for IDD Field `maximum_hot_water_or_steam_flow_rate`
-                Unit: m3/s
+                Units: m3/s
+                IP-Units: gal/min
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -3619,7 +3700,8 @@ class AirTerminalSingleDuctVavHeatAndCoolReheat(object):
 
         Args:
             value (float): value for IDD Field `minimum_hot_water_or_steam_flow_rate`
-                Unit: m3/s
+                Units: m3/s
+                IP-Units: gal/min
                 Default value: 0.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -3727,7 +3809,7 @@ class AirTerminalSingleDuctVavHeatAndCoolReheat(object):
 
         Args:
             value (float): value for IDD Field `maximum_reheat_air_temperature`
-                Unit: C
+                Units: C
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -3746,6 +3828,16 @@ class AirTerminalSingleDuctVavHeatAndCoolReheat(object):
                                  'for field `maximum_reheat_air_temperature`')
 
         self._data["Maximum Reheat Air Temperature"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):
@@ -3781,9 +3873,11 @@ class AirTerminalSingleDuctSeriesPiuReheat(object):
     """ Corresponds to IDD object `AirTerminal:SingleDuct:SeriesPIU:Reheat`
         Central air system terminal unit, single duct, variable volume, series powered
         induction unit (PIU), with reheat coil (hot water, electric, gas, or steam).
+    
     """
     internal_name = "AirTerminal:SingleDuct:SeriesPIU:Reheat"
     field_count = 17
+    required_fields = ["Name", "Maximum Air Flow Rate", "Maximum Primary Air Flow Rate", "Minimum Primary Air Flow Fraction", "Reheat Coil Object Type", "Reheat Coil Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `AirTerminal:SingleDuct:SeriesPIU:Reheat`
@@ -3983,7 +4077,7 @@ class AirTerminalSingleDuctSeriesPiuReheat(object):
 
         Args:
             value (float): value for IDD Field `maximum_air_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -4018,7 +4112,7 @@ class AirTerminalSingleDuctSeriesPiuReheat(object):
 
         Args:
             value (float): value for IDD Field `maximum_primary_air_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -4370,7 +4464,8 @@ class AirTerminalSingleDuctSeriesPiuReheat(object):
 
         Args:
             value (float): value for IDD Field `maximum_hot_water_or_steam_flow_rate`
-                Unit: m3/s
+                Units: m3/s
+                IP-Units: gal/min
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4402,7 +4497,8 @@ class AirTerminalSingleDuctSeriesPiuReheat(object):
 
         Args:
             value (float): value for IDD Field `minimum_hot_water_or_steam_flow_rate`
-                Unit: m3/s
+                Units: m3/s
+                IP-Units: gal/min
                 Default value: 0.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -4491,6 +4587,16 @@ class AirTerminalSingleDuctSeriesPiuReheat(object):
 
         self._data["Convergence Tolerance"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -4528,9 +4634,11 @@ class AirTerminalSingleDuctParallelPiuReheat(object):
     """ Corresponds to IDD object `AirTerminal:SingleDuct:ParallelPIU:Reheat`
         Central air system terminal unit, single duct, variable volume, parallel powered
         induction unit (PIU), with reheat coil (hot water, electric, gas, or steam).
+    
     """
     internal_name = "AirTerminal:SingleDuct:ParallelPIU:Reheat"
     field_count = 18
+    required_fields = ["Name", "Maximum Primary Air Flow Rate", "Maximum Secondary Air Flow Rate", "Minimum Primary Air Flow Fraction", "Fan On Flow Fraction", "Reheat Coil Object Type", "Reheat Coil Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `AirTerminal:SingleDuct:ParallelPIU:Reheat`
@@ -4736,7 +4844,7 @@ class AirTerminalSingleDuctParallelPiuReheat(object):
 
         Args:
             value (float): value for IDD Field `maximum_primary_air_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -4771,7 +4879,7 @@ class AirTerminalSingleDuctParallelPiuReheat(object):
 
         Args:
             value (float): value for IDD Field `maximum_secondary_air_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -5163,7 +5271,8 @@ class AirTerminalSingleDuctParallelPiuReheat(object):
 
         Args:
             value (float): value for IDD Field `maximum_hot_water_or_steam_flow_rate`
-                Unit: m3/s
+                Units: m3/s
+                IP-Units: gal/min
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5195,7 +5304,8 @@ class AirTerminalSingleDuctParallelPiuReheat(object):
 
         Args:
             value (float): value for IDD Field `minimum_hot_water_or_steam_flow_rate`
-                Unit: m3/s
+                Units: m3/s
+                IP-Units: gal/min
                 Default value: 0.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -5284,6 +5394,16 @@ class AirTerminalSingleDuctParallelPiuReheat(object):
 
         self._data["Convergence Tolerance"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -5322,9 +5442,11 @@ class AirTerminalSingleDuctConstantVolumeFourPipeInduction(object):
     """ Corresponds to IDD object `AirTerminal:SingleDuct:ConstantVolume:FourPipeInduction`
         Central air system terminal unit, single duct, variable volume, induction unit with
         hot water reheat coil and chilled water recool coil.
+    
     """
     internal_name = "AirTerminal:SingleDuct:ConstantVolume:FourPipeInduction"
     field_count = 20
+    required_fields = ["Name", "Maximum Total Air Flow Rate", "Induction Ratio", "Supply Air Inlet Node Name", "Induced Air Inlet Node Name", "Air Outlet Node Name", "Heating Coil Object Type", "Heating Coil Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `AirTerminal:SingleDuct:ConstantVolume:FourPipeInduction`
@@ -5542,7 +5664,7 @@ class AirTerminalSingleDuctConstantVolumeFourPipeInduction(object):
 
         Args:
             value (float): value for IDD Field `maximum_total_air_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -5854,7 +5976,8 @@ class AirTerminalSingleDuctConstantVolumeFourPipeInduction(object):
 
         Args:
             value (float): value for IDD Field `maximum_hot_water_flow_rate`
-                Unit: m3/s
+                Units: m3/s
+                IP-Units: gal/min
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5886,7 +6009,8 @@ class AirTerminalSingleDuctConstantVolumeFourPipeInduction(object):
 
         Args:
             value (float): value for IDD Field `minimum_hot_water_flow_rate`
-                Unit: m3/s
+                Units: m3/s
+                IP-Units: gal/min
                 Default value: 0.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -6032,7 +6156,8 @@ class AirTerminalSingleDuctConstantVolumeFourPipeInduction(object):
 
         Args:
             value (float): value for IDD Field `maximum_cold_water_flow_rate`
-                Unit: m3/s
+                Units: m3/s
+                IP-Units: gal/min
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6063,7 +6188,8 @@ class AirTerminalSingleDuctConstantVolumeFourPipeInduction(object):
 
         Args:
             value (float): value for IDD Field `minimum_cold_water_flow_rate`
-                Unit: m3/s
+                Units: m3/s
+                IP-Units: gal/min
                 Default value: 0.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -6152,6 +6278,16 @@ class AirTerminalSingleDuctConstantVolumeFourPipeInduction(object):
 
         self._data["Zone Mixer Name"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -6192,9 +6328,11 @@ class AirTerminalSingleDuctConstantVolumeCooledBeam(object):
     """ Corresponds to IDD object `AirTerminal:SingleDuct:ConstantVolume:CooledBeam`
         Central air system terminal unit, single duct, constant volume, with cooled beam
         (active or passive).
+    
     """
     internal_name = "AirTerminal:SingleDuct:ConstantVolume:CooledBeam"
     field_count = 23
+    required_fields = ["Name", "Cooled Beam Type", "Supply Air Inlet Node Name", "Supply Air Outlet Node Name", "Chilled Water Inlet Node Name", "Chilled Water Outlet Node Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `AirTerminal:SingleDuct:ConstantVolume:CooledBeam`
@@ -6604,7 +6742,7 @@ class AirTerminalSingleDuctConstantVolumeCooledBeam(object):
 
         Args:
             value (float): value for IDD Field `supply_air_volumetric_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -6639,7 +6777,7 @@ class AirTerminalSingleDuctConstantVolumeCooledBeam(object):
 
         Args:
             value (float): value for IDD Field `maximum_total_chilled_water_volumetric_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -6710,7 +6848,7 @@ class AirTerminalSingleDuctConstantVolumeCooledBeam(object):
 
         Args:
             value (float): value for IDD Field `beam_length`
-                Unit: m
+                Units: m
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -6745,7 +6883,7 @@ class AirTerminalSingleDuctConstantVolumeCooledBeam(object):
 
         Args:
             value (float): value for IDD Field `design_inlet_water_temperature`
-                Unit: C
+                Units: C
                 Default value: 15.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -6781,7 +6919,7 @@ class AirTerminalSingleDuctConstantVolumeCooledBeam(object):
 
         Args:
             value (float): value for IDD Field `design_outlet_water_temperature`
-                Unit: C
+                Units: C
                 Default value: 17.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -6817,7 +6955,7 @@ class AirTerminalSingleDuctConstantVolumeCooledBeam(object):
 
         Args:
             value (float): value for IDD Field `coil_surface_area_per_coil_length`
-                Unit: m2/m
+                Units: m2/m
                 Default value: 5.422
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -6994,7 +7132,7 @@ class AirTerminalSingleDuctConstantVolumeCooledBeam(object):
 
         Args:
             value (float): value for IDD Field `model_parameter_a0`
-                Unit: m2/m
+                Units: m2/m
                 Default value: 0.171
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -7138,7 +7276,7 @@ class AirTerminalSingleDuctConstantVolumeCooledBeam(object):
 
         Args:
             value (float): value for IDD Field `leaving_pipe_inside_diameter`
-                Unit: m
+                Units: m
                 Default value: 0.0145
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -7158,6 +7296,16 @@ class AirTerminalSingleDuctConstantVolumeCooledBeam(object):
                                  'for field `leaving_pipe_inside_diameter`')
 
         self._data["Leaving Pipe Inside Diameter"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):
@@ -7201,9 +7349,11 @@ class AirTerminalSingleDuctConstantVolumeCooledBeam(object):
 class AirTerminalSingleDuctInletSideMixer(object):
     """ Corresponds to IDD object `AirTerminal:SingleDuct:InletSideMixer`
         Mix 2 inlet air streams into one outlet stream.
+    
     """
     internal_name = "AirTerminal:SingleDuct:InletSideMixer"
     field_count = 6
+    required_fields = ["Name", "ZoneHVAC Terminal Unit Object Type", "ZoneHVAC Terminal Unit Name", "Terminal Unit Outlet Node Name", "Terminal Unit Primary Air Inlet Node Name", "Terminal Unit Secondary Air Inlet Node Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `AirTerminal:SingleDuct:InletSideMixer`
@@ -7452,6 +7602,16 @@ class AirTerminalSingleDuctInletSideMixer(object):
 
         self._data["Terminal Unit Secondary Air Inlet Node Name"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -7477,9 +7637,11 @@ class AirTerminalSingleDuctInletSideMixer(object):
 class AirTerminalSingleDuctSupplySideMixer(object):
     """ Corresponds to IDD object `AirTerminal:SingleDuct:SupplySideMixer`
         Mix 2 inlet air streams into one outlet stream.
+    
     """
     internal_name = "AirTerminal:SingleDuct:SupplySideMixer"
     field_count = 6
+    required_fields = ["Name", "ZoneHVAC Terminal Unit Object Type", "ZoneHVAC Terminal Unit Name", "Terminal Unit Outlet Node Name", "Terminal Unit Primary Air Inlet Node Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `AirTerminal:SingleDuct:SupplySideMixer`
@@ -7728,6 +7890,16 @@ class AirTerminalSingleDuctSupplySideMixer(object):
 
         self._data["Terminal Unit Secondary Air Inlet Node Name"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -7753,9 +7925,11 @@ class AirTerminalSingleDuctSupplySideMixer(object):
 class AirTerminalDualDuctConstantVolume(object):
     """ Corresponds to IDD object `AirTerminal:DualDuct:ConstantVolume`
         Central air system terminal unit, dual duct, constant volume.
+    
     """
     internal_name = "AirTerminal:DualDuct:ConstantVolume"
     field_count = 6
+    required_fields = ["Name", "Air Outlet Node Name", "Hot Air Inlet Node Name", "Cold Air Inlet Node Name", "Maximum Air Flow Rate"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `AirTerminal:DualDuct:ConstantVolume`
@@ -7990,7 +8164,7 @@ class AirTerminalDualDuctConstantVolume(object):
 
         Args:
             value (float): value for IDD Field `maximum_air_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -8009,6 +8183,16 @@ class AirTerminalDualDuctConstantVolume(object):
                                  'for field `maximum_air_flow_rate`')
 
         self._data["Maximum Air Flow Rate"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):
@@ -8035,9 +8219,11 @@ class AirTerminalDualDuctConstantVolume(object):
 class AirTerminalDualDuctVav(object):
     """ Corresponds to IDD object `AirTerminal:DualDuct:VAV`
         Central air system terminal unit, dual duct, variable volume.
+    
     """
     internal_name = "AirTerminal:DualDuct:VAV"
     field_count = 8
+    required_fields = ["Name", "Air Outlet Node Name", "Hot Air Inlet Node Name", "Cold Air Inlet Node Name", "Maximum Damper Air Flow Rate", "Zone Minimum Air Flow Fraction"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `AirTerminal:DualDuct:VAV`
@@ -8284,7 +8470,7 @@ class AirTerminalDualDuctVav(object):
 
         Args:
             value (float): value for IDD Field `maximum_damper_air_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -8383,6 +8569,16 @@ class AirTerminalDualDuctVav(object):
 
         self._data["Design Specification Outdoor Air Object Name"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -8412,9 +8608,11 @@ class AirTerminalDualDuctVavOutdoorAir(object):
         Central air system terminal unit, dual duct, variable volume with special controls.
         One VAV duct is controlled to supply ventilation air and the other VAV duct is
         controlled to meet the zone cooling load.
+    
     """
     internal_name = "AirTerminal:DualDuct:VAV:OutdoorAir"
     field_count = 8
+    required_fields = ["Name", "Air Outlet Node Name", "Outdoor Air Inlet Node Name", "Maximum Terminal Air Flow Rate", "Design Specification Outdoor Air Object Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `AirTerminal:DualDuct:VAV:OutdoorAir`
@@ -8662,7 +8860,7 @@ class AirTerminalDualDuctVavOutdoorAir(object):
 
         Args:
             value (float): value for IDD Field `maximum_terminal_air_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -8764,6 +8962,16 @@ class AirTerminalDualDuctVavOutdoorAir(object):
 
         self._data["Per Person Ventilation Rate Mode"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -8792,9 +9000,11 @@ class ZoneHvacAirDistributionUnit(object):
     """ Corresponds to IDD object `ZoneHVAC:AirDistributionUnit`
         Central air system air distribution unit, serves as a wrapper for a specific type of
         air terminal unit. This object is referenced in a ZoneHVAC:EquipmentList.
+    
     """
     internal_name = "ZoneHVAC:AirDistributionUnit"
     field_count = 6
+    required_fields = ["Name", "Air Distribution Unit Outlet Node Name", "Air Terminal Object Type", "Air Terminal Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ZoneHVAC:AirDistributionUnit`
@@ -9089,6 +9299,16 @@ class ZoneHvacAirDistributionUnit(object):
                                  'for field `constant_downstream_leakage_fraction`')
 
         self._data["Constant Downstream Leakage Fraction"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):

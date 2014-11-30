@@ -4,9 +4,11 @@ class SetpointManagerScheduled(object):
     """ Corresponds to IDD object `SetpointManager:Scheduled`
         The simplest Setpoint Manager simply uses a schedule to determine one
         or more setpoints. Values of the nodes are not used as input.
+    
     """
     internal_name = "SetpointManager:Scheduled"
     field_count = 4
+    required_fields = ["Name", "Control Variable", "Schedule Name", "Setpoint Node or NodeList Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `SetpointManager:Scheduled`
@@ -201,6 +203,16 @@ class SetpointManagerScheduled(object):
 
         self._data["Setpoint Node or NodeList Name"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -225,9 +237,11 @@ class SetpointManagerScheduledDualSetpoint(object):
     """ Corresponds to IDD object `SetpointManager:Scheduled:DualSetpoint`
         This setpoint manager places a high and low schedule value
         on one or more nodes.
+    
     """
     internal_name = "SetpointManager:Scheduled:DualSetpoint"
     field_count = 5
+    required_fields = ["Name", "High Setpoint Schedule Name", "Low Setpoint Schedule Name", "Setpoint Node or NodeList Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `SetpointManager:Scheduled:DualSetpoint`
@@ -446,6 +460,16 @@ class SetpointManagerScheduledDualSetpoint(object):
 
         self._data["Setpoint Node or NodeList Name"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -471,9 +495,11 @@ class SetpointManagerOutdoorAirReset(object):
     """ Corresponds to IDD object `SetpointManager:OutdoorAirReset`
         The Outdoor Air Reset Setpoint Manager sets the supply air
         temperature according to the outdoor air temperature using a reset rule.
+    
     """
     internal_name = "SetpointManager:OutdoorAirReset"
     field_count = 12
+    required_fields = ["Name", "Setpoint at Outdoor Low Temperature", "Outdoor Low Temperature", "Setpoint at Outdoor High Temperature", "Outdoor High Temperature", "Setpoint Node or NodeList Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `SetpointManager:OutdoorAirReset`
@@ -649,7 +675,7 @@ class SetpointManagerOutdoorAirReset(object):
 
         Args:
             value (float): value for IDD Field `setpoint_at_outdoor_low_temperature`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -680,7 +706,7 @@ class SetpointManagerOutdoorAirReset(object):
 
         Args:
             value (float): value for IDD Field `outdoor_low_temperature`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -711,7 +737,7 @@ class SetpointManagerOutdoorAirReset(object):
 
         Args:
             value (float): value for IDD Field `setpoint_at_outdoor_high_temperature`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -742,7 +768,7 @@ class SetpointManagerOutdoorAirReset(object):
 
         Args:
             value (float): value for IDD Field `outdoor_high_temperature`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -844,7 +870,7 @@ class SetpointManagerOutdoorAirReset(object):
 
         Args:
             value (float): value for IDD Field `setpoint_at_outdoor_low_temperature_2`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -876,7 +902,7 @@ class SetpointManagerOutdoorAirReset(object):
 
         Args:
             value (float): value for IDD Field `outdoor_low_temperature_2`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -908,7 +934,7 @@ class SetpointManagerOutdoorAirReset(object):
 
         Args:
             value (float): value for IDD Field `setpoint_at_outdoor_high_temperature_2`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -940,7 +966,7 @@ class SetpointManagerOutdoorAirReset(object):
 
         Args:
             value (float): value for IDD Field `outdoor_high_temperature_2`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -955,6 +981,16 @@ class SetpointManagerOutdoorAirReset(object):
                                  'for field `outdoor_high_temperature_2`'.format(value))
 
         self._data["Outdoor High Temperature 2"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):
@@ -990,9 +1026,11 @@ class SetpointManagerSingleZoneReheat(object):
         zone node temperature and calculates a setpoint temperature for the supply air that
         will satisfy the zone load (heating or cooling) for the control zone. This setpoint
         manager is not limited to reheat applications.
+    
     """
     internal_name = "SetpointManager:SingleZone:Reheat"
     field_count = 8
+    required_fields = ["Name", "Control Zone Name", "Zone Node Name", "Zone Inlet Node Name", "Setpoint Node or NodeList Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `SetpointManager:SingleZone:Reheat`
@@ -1144,7 +1182,7 @@ class SetpointManagerSingleZoneReheat(object):
 
         Args:
             value (float): value for IDD Field `minimum_supply_air_temperature`
-                Unit: C
+                Units: C
                 Default value: -99.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -1176,7 +1214,7 @@ class SetpointManagerSingleZoneReheat(object):
 
         Args:
             value (float): value for IDD Field `maximum_supply_air_temperature`
-                Unit: C
+                Units: C
                 Default value: 99.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -1326,6 +1364,16 @@ class SetpointManagerSingleZoneReheat(object):
 
         self._data["Setpoint Node or NodeList Name"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -1356,9 +1404,11 @@ class SetpointManagerSingleZoneHeating(object):
         setpoint, zone inlet node flow rate, and zone node temperature, and calculates a
         setpoint temperature for the supply air that will satisfy the zone heating load for
         the control zone.
+    
     """
     internal_name = "SetpointManager:SingleZone:Heating"
     field_count = 8
+    required_fields = ["Name", "Control Zone Name", "Zone Node Name", "Zone Inlet Node Name", "Setpoint Node or NodeList Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `SetpointManager:SingleZone:Heating`
@@ -1510,7 +1560,7 @@ class SetpointManagerSingleZoneHeating(object):
 
         Args:
             value (float): value for IDD Field `minimum_supply_air_temperature`
-                Unit: C
+                Units: C
                 Default value: -99.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -1542,7 +1592,7 @@ class SetpointManagerSingleZoneHeating(object):
 
         Args:
             value (float): value for IDD Field `maximum_supply_air_temperature`
-                Unit: C
+                Units: C
                 Default value: 99.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -1692,6 +1742,16 @@ class SetpointManagerSingleZoneHeating(object):
 
         self._data["Setpoint Node or NodeList Name"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -1722,9 +1782,11 @@ class SetpointManagerSingleZoneCooling(object):
         setpoint, zone inlet node flow rate, and zone node temperature, and calculates a
         setpoint temperature for the supply air that will satisfy the zone cooling load for
         the control zone.
+    
     """
     internal_name = "SetpointManager:SingleZone:Cooling"
     field_count = 8
+    required_fields = ["Name", "Control Zone Name", "Zone Node Name", "Zone Inlet Node Name", "Setpoint Node or NodeList Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `SetpointManager:SingleZone:Cooling`
@@ -1876,7 +1938,7 @@ class SetpointManagerSingleZoneCooling(object):
 
         Args:
             value (float): value for IDD Field `minimum_supply_air_temperature`
-                Unit: C
+                Units: C
                 Default value: -99.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -1908,7 +1970,7 @@ class SetpointManagerSingleZoneCooling(object):
 
         Args:
             value (float): value for IDD Field `maximum_supply_air_temperature`
-                Unit: C
+                Units: C
                 Default value: 99.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -2058,6 +2120,16 @@ class SetpointManagerSingleZoneCooling(object):
 
         self._data["Setpoint Node or NodeList Name"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -2088,9 +2160,11 @@ class SetpointManagerSingleZoneHumidityMinimum(object):
         control of a single zone minimum humidity level.
         This setpoint manager can be used in conjunction with
         object ZoneControl:Humidistat to detect humidity levels.
+    
     """
     internal_name = "SetpointManager:SingleZone:Humidity:Minimum"
     field_count = 5
+    required_fields = ["Name", "Setpoint Node or NodeList Name", "Control Zone Air Node Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `SetpointManager:SingleZone:Humidity:Minimum`
@@ -2302,6 +2376,16 @@ class SetpointManagerSingleZoneHumidityMinimum(object):
 
         self._data["Control Zone Air Node Name"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -2329,9 +2413,11 @@ class SetpointManagerSingleZoneHumidityMaximum(object):
         control of a single zone maximum humidity level.
         This setpoint manager can be used in conjunction with
         object ZoneControl:Humidistat to detect humidity levels.
+    
     """
     internal_name = "SetpointManager:SingleZone:Humidity:Maximum"
     field_count = 5
+    required_fields = ["Name", "Setpoint Node or NodeList Name", "Control Zone Air Node Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `SetpointManager:SingleZone:Humidity:Maximum`
@@ -2543,6 +2629,16 @@ class SetpointManagerSingleZoneHumidityMaximum(object):
 
         self._data["Control Zone Air Node Name"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -2569,9 +2665,11 @@ class SetpointManagerMixedAir(object):
         The Mixed Air Setpoint Manager is meant to be used in conjunction
         with a Controller:OutdoorAir object. This setpoint manager is used
         to establish a temperature setpoint at the mixed air node.
+    
     """
     internal_name = "SetpointManager:MixedAir"
     field_count = 6
+    required_fields = ["Name", "Reference Setpoint Node Name", "Fan Inlet Node Name", "Fan Outlet Node Name", "Setpoint Node or NodeList Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `SetpointManager:MixedAir`
@@ -2829,6 +2927,16 @@ class SetpointManagerMixedAir(object):
 
         self._data["Setpoint Node or NodeList Name"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -2857,9 +2965,11 @@ class SetpointManagerOutdoorAirPretreat(object):
         conditions at the outdoor air stream node which will
         produce the reference setpoint condition at the
         mixed air node when mixed with the return air stream
+    
     """
     internal_name = "SetpointManager:OutdoorAirPretreat"
     field_count = 11
+    required_fields = ["Name", "Mixed Air Stream Node Name", "Outdoor Air Stream Node Name", "Return Air Stream Node Name", "Setpoint Node or NodeList Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `SetpointManager:OutdoorAirPretreat`
@@ -3035,7 +3145,7 @@ class SetpointManagerOutdoorAirPretreat(object):
 
         Args:
             value (float): value for IDD Field `minimum_setpoint_temperature`
-                Unit: C
+                Units: C
                 Default value: -99.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -3068,7 +3178,7 @@ class SetpointManagerOutdoorAirPretreat(object):
 
         Args:
             value (float): value for IDD Field `maximum_setpoint_temperature`
-                Unit: C
+                Units: C
                 Default value: 99.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -3102,7 +3212,7 @@ class SetpointManagerOutdoorAirPretreat(object):
 
         Args:
             value (float): value for IDD Field `minimum_setpoint_humidity_ratio`
-                Unit: kgWater/kgDryAir
+                Units: kgWater/kgDryAir
                 Default value: 1e-05
                 value <= 1.0
                 if `value` is None it will not be checked against the
@@ -3140,7 +3250,7 @@ class SetpointManagerOutdoorAirPretreat(object):
 
         Args:
             value (float): value for IDD Field `maximum_setpoint_humidity_ratio`
-                Unit: kgWater/kgDryAir
+                Units: kgWater/kgDryAir
                 Default value: 1.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
@@ -3335,6 +3445,16 @@ class SetpointManagerOutdoorAirPretreat(object):
 
         self._data["Setpoint Node or NodeList Name"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -3367,9 +3487,11 @@ class SetpointManagerWarmest(object):
         This SetpointManager resets the cooling supply air temperature
         of a central forced air HVAC system according to the
         cooling demand of the warmest zone.
+    
     """
     internal_name = "SetpointManager:Warmest"
     field_count = 7
+    required_fields = ["Name", "HVAC Air Loop Name", "Setpoint Node or NodeList Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `SetpointManager:Warmest`
@@ -3549,7 +3671,7 @@ class SetpointManagerWarmest(object):
 
         Args:
             value (float): value for IDD Field `minimum_setpoint_temperature`
-                Unit: C
+                Units: C
                 Default value: 12.0
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -3585,7 +3707,7 @@ class SetpointManagerWarmest(object):
 
         Args:
             value (float): value for IDD Field `maximum_setpoint_temperature`
-                Unit: C
+                Units: C
                 Default value: 18.0
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -3681,6 +3803,16 @@ class SetpointManagerWarmest(object):
 
         self._data["Setpoint Node or NodeList Name"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -3710,9 +3842,11 @@ class SetpointManagerColdest(object):
         the setpoint temperature of the air in the heating supply duct.
         Usually it is used in conjunction with a SetpointManager:Warmest
         resetting the temperature of the air in the cooling supply duct.
+    
     """
     internal_name = "SetpointManager:Coldest"
     field_count = 7
+    required_fields = ["Name", "HVAC Air Loop Name", "Setpoint Node or NodeList Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `SetpointManager:Coldest`
@@ -3892,7 +4026,7 @@ class SetpointManagerColdest(object):
 
         Args:
             value (float): value for IDD Field `minimum_setpoint_temperature`
-                Unit: C
+                Units: C
                 Default value: 20.0
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -3928,7 +4062,7 @@ class SetpointManagerColdest(object):
 
         Args:
             value (float): value for IDD Field `maximum_setpoint_temperature`
-                Unit: C
+                Units: C
                 Default value: 50.0
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -4024,6 +4158,16 @@ class SetpointManagerColdest(object):
 
         self._data["Setpoint Node or NodeList Name"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -4052,9 +4196,11 @@ class SetpointManagerReturnAirBypassFlow(object):
         This setpoint manager determines the required
         mass flow rate through a return air bypass duct
         to meet the specified temperature setpoint
+    
     """
     internal_name = "SetpointManager:ReturnAirBypassFlow"
     field_count = 4
+    required_fields = ["Name", "HVAC Air Loop Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `SetpointManager:ReturnAirBypassFlow`
@@ -4234,6 +4380,16 @@ class SetpointManagerReturnAirBypassFlow(object):
 
         self._data["Temperature Setpoint Schedule Name"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -4258,9 +4414,11 @@ class SetpointManagerWarmestTemperatureFlow(object):
     """ Corresponds to IDD object `SetpointManager:WarmestTemperatureFlow`
         This setpoint manager sets both the supply air temperature
         and the supply air flow rate.
+    
     """
     internal_name = "SetpointManager:WarmestTemperatureFlow"
     field_count = 8
+    required_fields = ["Name", "HVAC Air Loop Name", "Setpoint Node or NodeList Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `SetpointManager:WarmestTemperatureFlow`
@@ -4445,7 +4603,7 @@ class SetpointManagerWarmestTemperatureFlow(object):
 
         Args:
             value (float): value for IDD Field `minimum_setpoint_temperature`
-                Unit: C
+                Units: C
                 Default value: 12.0
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -4481,7 +4639,7 @@ class SetpointManagerWarmestTemperatureFlow(object):
 
         Args:
             value (float): value for IDD Field `maximum_setpoint_temperature`
-                Unit: C
+                Units: C
                 Default value: 18.0
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -4604,7 +4762,7 @@ class SetpointManagerWarmestTemperatureFlow(object):
 
         Args:
             value (float): value for IDD Field `minimum_turndown_ratio`
-                Unit: dimensionless
+                Units: dimensionless
                 Default value: 0.2
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -4624,6 +4782,16 @@ class SetpointManagerWarmestTemperatureFlow(object):
                                  'for field `minimum_turndown_ratio`')
 
         self._data["Minimum Turndown Ratio"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):
@@ -4653,9 +4821,11 @@ class SetpointManagerMultiZoneHeatingAverage(object):
     """ Corresponds to IDD object `SetpointManager:MultiZone:Heating:Average`
         This setpoint manager sets the average supply air temperature based on the heating load
         requirements of all controlled zones in an air loop served by a central air-conditioner.
+    
     """
     internal_name = "SetpointManager:MultiZone:Heating:Average"
     field_count = 5
+    required_fields = ["Name", "HVAC Air Loop Name", "Setpoint Node or NodeList Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `SetpointManager:MultiZone:Heating:Average`
@@ -4782,7 +4952,7 @@ class SetpointManagerMultiZoneHeatingAverage(object):
 
         Args:
             value (float): value for IDD Field `minimum_setpoint_temperature`
-                Unit: C
+                Units: C
                 Default value: 20.0
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -4818,7 +4988,7 @@ class SetpointManagerMultiZoneHeatingAverage(object):
 
         Args:
             value (float): value for IDD Field `maximum_setpoint_temperature`
-                Unit: C
+                Units: C
                 Default value: 50.0
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -4873,6 +5043,16 @@ class SetpointManagerMultiZoneHeatingAverage(object):
 
         self._data["Setpoint Node or NodeList Name"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -4898,9 +5078,11 @@ class SetpointManagerMultiZoneCoolingAverage(object):
     """ Corresponds to IDD object `SetpointManager:MultiZone:Cooling:Average`
         This setpoint manager sets the average supply air temperature based on the cooling load
         requirements of all controlled zones in an air loop served by a central air-conditioner.
+    
     """
     internal_name = "SetpointManager:MultiZone:Cooling:Average"
     field_count = 5
+    required_fields = ["Name", "HVAC Air Loop Name", "Setpoint Node or NodeList Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `SetpointManager:MultiZone:Cooling:Average`
@@ -5027,7 +5209,7 @@ class SetpointManagerMultiZoneCoolingAverage(object):
 
         Args:
             value (float): value for IDD Field `minimum_setpoint_temperature`
-                Unit: C
+                Units: C
                 Default value: 12.0
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -5063,7 +5245,7 @@ class SetpointManagerMultiZoneCoolingAverage(object):
 
         Args:
             value (float): value for IDD Field `maximum_setpoint_temperature`
-                Unit: C
+                Units: C
                 Default value: 18.0
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -5118,6 +5300,16 @@ class SetpointManagerMultiZoneCoolingAverage(object):
 
         self._data["Setpoint Node or NodeList Name"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -5143,9 +5335,11 @@ class SetpointManagerMultiZoneMinimumHumidityAverage(object):
     """ Corresponds to IDD object `SetpointManager:MultiZone:MinimumHumidity:Average`
         This setpoint manager sets the average supply air minimum humidity ratio based on moisture
         load requirements of all controlled zones in an air loop served by a central air-conditioner.
+    
     """
     internal_name = "SetpointManager:MultiZone:MinimumHumidity:Average"
     field_count = 5
+    required_fields = ["Name", "HVAC Air Loop Name", "Setpoint Node or NodeList Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `SetpointManager:MultiZone:MinimumHumidity:Average`
@@ -5272,7 +5466,7 @@ class SetpointManagerMultiZoneMinimumHumidityAverage(object):
 
         Args:
             value (float): value for IDD Field `minimum_setpoint_humidity_ratio`
-                Unit: kgWater/kgDryAir
+                Units: kgWater/kgDryAir
                 Default value: 0.005
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -5308,7 +5502,7 @@ class SetpointManagerMultiZoneMinimumHumidityAverage(object):
 
         Args:
             value (float): value for IDD Field `maximum_setpoint_humidity_ratio`
-                Unit: kgWater/kgDryAir
+                Units: kgWater/kgDryAir
                 Default value: 0.012
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -5363,6 +5557,16 @@ class SetpointManagerMultiZoneMinimumHumidityAverage(object):
 
         self._data["Setpoint Node or NodeList Name"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -5388,9 +5592,11 @@ class SetpointManagerMultiZoneMaximumHumidityAverage(object):
     """ Corresponds to IDD object `SetpointManager:MultiZone:MaximumHumidity:Average`
         This setpoint manager sets the average supply air maximum humidity ratio based on moisture
         load requirements of all controlled zones in an air loop served by a central air-conditioner.
+    
     """
     internal_name = "SetpointManager:MultiZone:MaximumHumidity:Average"
     field_count = 5
+    required_fields = ["Name", "HVAC Air Loop Name", "Setpoint Node or NodeList Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `SetpointManager:MultiZone:MaximumHumidity:Average`
@@ -5517,7 +5723,7 @@ class SetpointManagerMultiZoneMaximumHumidityAverage(object):
 
         Args:
             value (float): value for IDD Field `minimum_setpoint_humidity_ratio`
-                Unit: kgWater/kgDryAir
+                Units: kgWater/kgDryAir
                 Default value: 0.008
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -5553,7 +5759,7 @@ class SetpointManagerMultiZoneMaximumHumidityAverage(object):
 
         Args:
             value (float): value for IDD Field `maximum_setpoint_humidity_ratio`
-                Unit: kgWater/kgDryAir
+                Units: kgWater/kgDryAir
                 Default value: 0.015
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -5608,6 +5814,16 @@ class SetpointManagerMultiZoneMaximumHumidityAverage(object):
 
         self._data["Setpoint Node or NodeList Name"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -5634,9 +5850,11 @@ class SetpointManagerMultiZoneHumidityMinimum(object):
         This setpoint manager sets the minimum supply air humidity ratio based on humidification
         requirements of a controlled zone with critical humidity ratio setpoint (i.e., a zone with
         the highest humidity ratio setpoint) in an air loop served by a central air-conditioner.
+    
     """
     internal_name = "SetpointManager:MultiZone:Humidity:Minimum"
     field_count = 5
+    required_fields = ["Name", "HVAC Air Loop Name", "Setpoint Node or NodeList Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `SetpointManager:MultiZone:Humidity:Minimum`
@@ -5763,7 +5981,7 @@ class SetpointManagerMultiZoneHumidityMinimum(object):
 
         Args:
             value (float): value for IDD Field `minimum_setpoint_humidity_ratio`
-                Unit: kgWater/kgDryAir
+                Units: kgWater/kgDryAir
                 Default value: 0.005
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -5799,7 +6017,7 @@ class SetpointManagerMultiZoneHumidityMinimum(object):
 
         Args:
             value (float): value for IDD Field `maximum_setpoint_humidity_ratio`
-                Unit: kgWater/kgDryAir
+                Units: kgWater/kgDryAir
                 Default value: 0.012
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -5854,6 +6072,16 @@ class SetpointManagerMultiZoneHumidityMinimum(object):
 
         self._data["Setpoint Node or NodeList Name"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -5880,9 +6108,11 @@ class SetpointManagerMultiZoneHumidityMaximum(object):
         This setpoint manager sets the maximum supply air humidity ratio based on dehumidification
         requirements of a controlled zone with critical humidity ratio setpoint (i.e., a zone with
         the lowest humidity ratio setpoint) in an air loop served by a central air-conditioner.
+    
     """
     internal_name = "SetpointManager:MultiZone:Humidity:Maximum"
     field_count = 5
+    required_fields = ["Name", "HVAC Air Loop Name", "Setpoint Node or NodeList Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `SetpointManager:MultiZone:Humidity:Maximum`
@@ -6009,7 +6239,7 @@ class SetpointManagerMultiZoneHumidityMaximum(object):
 
         Args:
             value (float): value for IDD Field `minimum_setpoint_humidity_ratio`
-                Unit: kgWater/kgDryAir
+                Units: kgWater/kgDryAir
                 Default value: 0.008
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -6045,7 +6275,7 @@ class SetpointManagerMultiZoneHumidityMaximum(object):
 
         Args:
             value (float): value for IDD Field `maximum_setpoint_humidity_ratio`
-                Unit: kgWater/kgDryAir
+                Units: kgWater/kgDryAir
                 Default value: 0.015
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -6100,6 +6330,16 @@ class SetpointManagerMultiZoneHumidityMaximum(object):
 
         self._data["Setpoint Node or NodeList Name"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -6126,9 +6366,11 @@ class SetpointManagerFollowOutdoorAirTemperature(object):
         This setpoint manager is used to place a temperature setpoint on a system node
         that is derived from the current outdoor air environmental conditions.
         The outdoor air conditions are obtained from the weather information during the simulation.
+    
     """
     internal_name = "SetpointManager:FollowOutdoorAirTemperature"
     field_count = 7
+    required_fields = ["Name", "Setpoint Node or NodeList Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `SetpointManager:FollowOutdoorAirTemperature`
@@ -6321,7 +6563,7 @@ class SetpointManagerFollowOutdoorAirTemperature(object):
 
         Args:
             value (float): value for IDD Field `offset_temperature_difference`
-                Unit: deltaC
+                Units: deltaC
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6352,7 +6594,7 @@ class SetpointManagerFollowOutdoorAirTemperature(object):
 
         Args:
             value (float): value for IDD Field `maximum_setpoint_temperature`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6383,7 +6625,7 @@ class SetpointManagerFollowOutdoorAirTemperature(object):
 
         Args:
             value (float): value for IDD Field `minimum_setpoint_temperature`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6433,6 +6675,16 @@ class SetpointManagerFollowOutdoorAirTemperature(object):
 
         self._data["Setpoint Node or NodeList Name"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -6465,9 +6717,11 @@ class SetpointManagerFollowSystemNodeTemperature(object):
         If the reference node is also designated to be an outdoor air (intake) node,
         then this setpoint manager can be used to follow outdoor air conditions
         that are adjusted for altitude.
+    
     """
     internal_name = "SetpointManager:FollowSystemNodeTemperature"
     field_count = 8
+    required_fields = ["Name", "Setpoint Node or NodeList Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `SetpointManager:FollowSystemNodeTemperature`
@@ -6699,7 +6953,7 @@ class SetpointManagerFollowSystemNodeTemperature(object):
 
         Args:
             value (float): value for IDD Field `offset_temperature_difference`
-                Unit: deltaC
+                Units: deltaC
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6730,7 +6984,7 @@ class SetpointManagerFollowSystemNodeTemperature(object):
 
         Args:
             value (float): value for IDD Field `maximum_limit_setpoint_temperature`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6761,7 +7015,7 @@ class SetpointManagerFollowSystemNodeTemperature(object):
 
         Args:
             value (float): value for IDD Field `minimum_limit_setpoint_temperature`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6811,6 +7065,16 @@ class SetpointManagerFollowSystemNodeTemperature(object):
 
         self._data["Setpoint Node or NodeList Name"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -6843,9 +7107,11 @@ class SetpointManagerFollowGroundTemperature(object):
         Site:GroundTemperature:* objects and used during the simulation.
         This setpoint manager is primarily intended for condenser or plant loops
         using some type of ground heat exchanger.
+    
     """
     internal_name = "SetpointManager:FollowGroundTemperature"
     field_count = 7
+    required_fields = ["Name", "Setpoint Node or NodeList Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `SetpointManager:FollowGroundTemperature`
@@ -7041,7 +7307,7 @@ class SetpointManagerFollowGroundTemperature(object):
 
         Args:
             value (float): value for IDD Field `offset_temperature_difference`
-                Unit: deltaC
+                Units: deltaC
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7072,7 +7338,7 @@ class SetpointManagerFollowGroundTemperature(object):
 
         Args:
             value (float): value for IDD Field `maximum_setpoint_temperature`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7103,7 +7369,7 @@ class SetpointManagerFollowGroundTemperature(object):
 
         Args:
             value (float): value for IDD Field `minimum_setpoint_temperature`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7153,6 +7419,16 @@ class SetpointManagerFollowGroundTemperature(object):
 
         self._data["Setpoint Node or NodeList Name"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -7180,9 +7456,11 @@ class SetpointManagerCondenserEnteringReset(object):
     """ Corresponds to IDD object `SetpointManager:CondenserEnteringReset`
         This setpoint manager uses one curve to determine the optimum condenser entering water temperature
         for a given timestep and two other curves to place boundary conditions on the setpoint value.
+    
     """
     internal_name = "SetpointManager:CondenserEnteringReset"
     field_count = 10
+    required_fields = ["Name", "Control Variable", "Default Condenser Entering Water Temperature Schedule Name", "Minimum Design Wetbulb Temperature Curve Name", "Minimum Outside Air Wetbulb Temperature Curve Name", "Optimized Cond Entering Water Temperature Curve Name", "Setpoint Node or NodeList Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `SetpointManager:CondenserEnteringReset`
@@ -7484,7 +7762,7 @@ class SetpointManagerCondenserEnteringReset(object):
 
         Args:
             value (float): value for IDD Field `minimum_lift`
-                Unit: deltaC
+                Units: deltaC
                 Default value: 11.1
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -7516,7 +7794,7 @@ class SetpointManagerCondenserEnteringReset(object):
 
         Args:
             value (float): value for IDD Field `maximum_condenser_entering_water_temperature`
-                Unit: C
+                Units: C
                 Default value: 32.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -7548,7 +7826,7 @@ class SetpointManagerCondenserEnteringReset(object):
 
         Args:
             value (float): value for IDD Field `cooling_tower_design_inlet_air_wetbulb_temperature`
-                Unit: C
+                Units: C
                 Default value: 25.56
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -7599,6 +7877,16 @@ class SetpointManagerCondenserEnteringReset(object):
 
         self._data["Setpoint Node or NodeList Name"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -7629,9 +7917,11 @@ class SetpointManagerCondenserEnteringResetIdeal(object):
     """ Corresponds to IDD object `SetpointManager:CondenserEnteringReset:Ideal`
         This setpoint manager determine the ideal optimum condenser entering water temperature
         setpoint for a given timestep.
+    
     """
     internal_name = "SetpointManager:CondenserEnteringReset:Ideal"
     field_count = 5
+    required_fields = ["Name", "Control Variable", "Setpoint Node or NodeList Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `SetpointManager:CondenserEnteringReset:Ideal`
@@ -7765,7 +8055,7 @@ class SetpointManagerCondenserEnteringResetIdeal(object):
 
         Args:
             value (float): value for IDD Field `minimum_lift`
-                Unit: deltaC
+                Units: deltaC
                 Default value: 11.1
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -7797,7 +8087,7 @@ class SetpointManagerCondenserEnteringResetIdeal(object):
 
         Args:
             value (float): value for IDD Field `maximum_condenser_entering_water_temperature`
-                Unit: C
+                Units: C
                 Default value: 32.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -7848,6 +8138,16 @@ class SetpointManagerCondenserEnteringResetIdeal(object):
 
         self._data["Setpoint Node or NodeList Name"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -7874,9 +8174,11 @@ class SetpointManagerSingleZoneOneStageCooling(object):
         This object can be used with CoilSystem:Cooling:DX to model on/off cycling control
         of single stage air systems. Setpoints are modulated to run coil full on or full off
         depending on zone conditions. Intended for use with ZoneControl:Thermostat:StagedDualSetpoint
+    
     """
     internal_name = "SetpointManager:SingleZone:OneStageCooling"
     field_count = 5
+    required_fields = ["Name", "Cooling Stage On Supply Air Setpoint Temperature", "Cooling Stage Off Supply Air Setpoint Temperature", "Control Zone Name", "Setpoint Node or NodeList Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `SetpointManager:SingleZone:OneStageCooling`
@@ -7970,7 +8272,7 @@ class SetpointManagerSingleZoneOneStageCooling(object):
 
         Args:
             value (float): value for IDD Field `cooling_stage_on_supply_air_setpoint_temperature`
-                Unit: C
+                Units: C
                 Default value: -99.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -8003,7 +8305,7 @@ class SetpointManagerSingleZoneOneStageCooling(object):
 
         Args:
             value (float): value for IDD Field `cooling_stage_off_supply_air_setpoint_temperature`
-                Unit: C
+                Units: C
                 Default value: 99.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -8087,6 +8389,16 @@ class SetpointManagerSingleZoneOneStageCooling(object):
 
         self._data["Setpoint Node or NodeList Name"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -8114,9 +8426,11 @@ class SetpointManagerSingleZoneOneStageHeating(object):
         Coil:Heating:Electric to model on/off cycling control of single stage air systems.
         Setpoints are modulated to run coil full on or full off depending on zone conditions.
         Intended for use with ZoneControl:Thermostat:StagedDualSetpoint.
+    
     """
     internal_name = "SetpointManager:SingleZone:OneStageHeating"
     field_count = 5
+    required_fields = ["Name", "Heating Stage On Supply Air Setpoint Temperature", "Heating Stage Off Supply Air Setpoint Temperature", "Control Zone Name", "Setpoint Node or NodeList Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `SetpointManager:SingleZone:OneStageHeating`
@@ -8210,7 +8524,7 @@ class SetpointManagerSingleZoneOneStageHeating(object):
 
         Args:
             value (float): value for IDD Field `heating_stage_on_supply_air_setpoint_temperature`
-                Unit: C
+                Units: C
                 Default value: 99.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -8243,7 +8557,7 @@ class SetpointManagerSingleZoneOneStageHeating(object):
 
         Args:
             value (float): value for IDD Field `heating_stage_off_supply_air_setpoint_temperature`
-                Unit: C
+                Units: C
                 Default value: -99.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -8326,6 +8640,16 @@ class SetpointManagerSingleZoneOneStageHeating(object):
                                  'for field `setpoint_node_or_nodelist_name`')
 
         self._data["Setpoint Node or NodeList Name"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):

@@ -5,9 +5,11 @@ class RoomAirModelType(object):
         Selects the type of room air model to be used in a given zone. If no RoomAirModelType
         object is specified then the default Mixing model (all zone air at the same
         temperature) will be used.
+    
     """
     internal_name = "RoomAirModelType"
     field_count = 4
+    required_fields = ["Name", "Zone Name", "Room-Air Modeling Type"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `RoomAirModelType`
@@ -221,6 +223,16 @@ class RoomAirModelType(object):
 
         self._data["Air Temperature Coupling Strategy"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -245,9 +257,11 @@ class RoomAirTemperaturePatternUserDefined(object):
     """ Corresponds to IDD object `RoomAir:TemperaturePattern:UserDefined`
         Used to explicitly define temperature patterns that are to be applied to the mean air
         temperature within a thermal zone.  Used with RoomAirModelType = UserDefined.
+    
     """
     internal_name = "RoomAir:TemperaturePattern:UserDefined"
     field_count = 4
+    required_fields = ["Name", "Zone Name", "Pattern Control Schedule Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `RoomAir:TemperaturePattern:UserDefined`
@@ -424,6 +438,16 @@ class RoomAirTemperaturePatternUserDefined(object):
 
         self._data["Pattern Control Schedule Name"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -448,9 +472,11 @@ class RoomAirTemperaturePatternConstantGradient(object):
     """ Corresponds to IDD object `RoomAir:TemperaturePattern:ConstantGradient`
         Used to model room air with a fixed temperature gradient in the vertical direction.
         Used in combination with RoomAir:TemperaturePattern:UserDefined.
+    
     """
     internal_name = "RoomAir:TemperaturePattern:ConstantGradient"
     field_count = 6
+    required_fields = ["Name", "Control Integer for Pattern Control Schedule Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `RoomAir:TemperaturePattern:ConstantGradient`
@@ -581,7 +607,7 @@ class RoomAirTemperaturePatternConstantGradient(object):
 
         Args:
             value (float): value for IDD Field `thermostat_offset`
-                Unit: deltaC
+                Units: deltaC
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -613,7 +639,7 @@ class RoomAirTemperaturePatternConstantGradient(object):
 
         Args:
             value (float): value for IDD Field `return_air_offset`
-                Unit: deltaC
+                Units: deltaC
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -645,7 +671,7 @@ class RoomAirTemperaturePatternConstantGradient(object):
 
         Args:
             value (float): value for IDD Field `exhaust_air_offset`
-                Unit: deltaC
+                Units: deltaC
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -677,7 +703,7 @@ class RoomAirTemperaturePatternConstantGradient(object):
 
         Args:
             value (float): value for IDD Field `temperature_gradient`
-                Unit: K/m
+                Units: K/m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -692,6 +718,16 @@ class RoomAirTemperaturePatternConstantGradient(object):
                                  'for field `temperature_gradient`'.format(value))
 
         self._data["Temperature Gradient"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):
@@ -719,9 +755,11 @@ class RoomAirTemperaturePatternTwoGradient(object):
     """ Corresponds to IDD object `RoomAir:TemperaturePattern:TwoGradient`
         Used to model room air with two temperature gradients in the vertical direction.
         Used in combination with RoomAir:TemperaturePattern:UserDefined.
+    
     """
     internal_name = "RoomAir:TemperaturePattern:TwoGradient"
     field_count = 12
+    required_fields = ["Name", "Control Integer for Pattern Control Schedule Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `RoomAir:TemperaturePattern:TwoGradient`
@@ -888,7 +926,7 @@ class RoomAirTemperaturePatternTwoGradient(object):
 
         Args:
             value (float): value for IDD Field `thermostat_height`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -920,7 +958,7 @@ class RoomAirTemperaturePatternTwoGradient(object):
 
         Args:
             value (float): value for IDD Field `return_air_height`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -952,7 +990,7 @@ class RoomAirTemperaturePatternTwoGradient(object):
 
         Args:
             value (float): value for IDD Field `exhaust_air_height`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -984,7 +1022,7 @@ class RoomAirTemperaturePatternTwoGradient(object):
 
         Args:
             value (float): value for IDD Field `temperature_gradient_lower_bound`
-                Unit: K/m
+                Units: K/m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1016,7 +1054,7 @@ class RoomAirTemperaturePatternTwoGradient(object):
 
         Args:
             value (float): value for IDD Field `temperature_gradient_upper_bound`
-                Unit: K/m
+                Units: K/m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1095,7 +1133,7 @@ class RoomAirTemperaturePatternTwoGradient(object):
 
         Args:
             value (float): value for IDD Field `upper_temperature_bound`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1126,7 +1164,7 @@ class RoomAirTemperaturePatternTwoGradient(object):
 
         Args:
             value (float): value for IDD Field `lower_temperature_bound`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1157,7 +1195,7 @@ class RoomAirTemperaturePatternTwoGradient(object):
 
         Args:
             value (float): value for IDD Field `upper_heat_rate_bound`
-                Unit: W
+                Units: W
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1188,7 +1226,7 @@ class RoomAirTemperaturePatternTwoGradient(object):
 
         Args:
             value (float): value for IDD Field `lower_heat_rate_bound`
-                Unit: W
+                Units: W
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1203,6 +1241,16 @@ class RoomAirTemperaturePatternTwoGradient(object):
                                  'for field `lower_heat_rate_bound`'.format(value))
 
         self._data["Lower Heat Rate Bound"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):
@@ -1238,9 +1286,11 @@ class RoomAirTemperaturePatternNondimensionalHeight(object):
         temperature as a function of height. The height, referred to as Zeta, is non-dimensional
         by normalizing with the zone ceiling height.
         Used in combination with RoomAir:TemperaturePattern:UserDefined.
+    
     """
     internal_name = "RoomAir:TemperaturePattern:NondimensionalHeight"
     field_count = 43
+    required_fields = ["Name", "Control Integer for Pattern Control Schedule Name", "Pair 1 Zeta Nondimensional Height", "Pair 1 Delta Adjacent Air Temperature", "Pair 2 Zeta Nondimensional Height", "Pair 2 Delta Adjacent Air Temperature"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `RoomAir:TemperaturePattern:NondimensionalHeight`
@@ -1593,7 +1643,7 @@ class RoomAirTemperaturePatternNondimensionalHeight(object):
 
         Args:
             value (float): value for IDD Field `thermostat_offset`
-                Unit: deltaC
+                Units: deltaC
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1625,7 +1675,7 @@ class RoomAirTemperaturePatternNondimensionalHeight(object):
 
         Args:
             value (float): value for IDD Field `return_air_offset`
-                Unit: deltaC
+                Units: deltaC
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1662,7 +1712,7 @@ class RoomAirTemperaturePatternNondimensionalHeight(object):
 
         Args:
             value (float): value for IDD Field `exhaust_air_offset`
-                Unit: deltaC
+                Units: deltaC
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1723,7 +1773,7 @@ class RoomAirTemperaturePatternNondimensionalHeight(object):
 
         Args:
             value (float): value for IDD Field `pair_1_delta_adjacent_air_temperature`
-                Unit: deltaC
+                Units: deltaC
                 value >= -10.0
                 value <= 20.0
                 if `value` is None it will not be checked against the
@@ -1792,7 +1842,7 @@ class RoomAirTemperaturePatternNondimensionalHeight(object):
 
         Args:
             value (float): value for IDD Field `pair_2_delta_adjacent_air_temperature`
-                Unit: deltaC
+                Units: deltaC
                 value >= -10.0
                 value <= 20.0
                 if `value` is None it will not be checked against the
@@ -1861,7 +1911,7 @@ class RoomAirTemperaturePatternNondimensionalHeight(object):
 
         Args:
             value (float): value for IDD Field `pair_3_delta_adjacent_air_temperature`
-                Unit: deltaC
+                Units: deltaC
                 value >= -10.0
                 value <= 20.0
                 if `value` is None it will not be checked against the
@@ -1930,7 +1980,7 @@ class RoomAirTemperaturePatternNondimensionalHeight(object):
 
         Args:
             value (float): value for IDD Field `pair_4_delta_adjacent_air_temperature`
-                Unit: deltaC
+                Units: deltaC
                 value >= -10.0
                 value <= 20.0
                 if `value` is None it will not be checked against the
@@ -1999,7 +2049,7 @@ class RoomAirTemperaturePatternNondimensionalHeight(object):
 
         Args:
             value (float): value for IDD Field `pair_5_delta_adjacent_air_temperature`
-                Unit: deltaC
+                Units: deltaC
                 value >= -10.0
                 value <= 20.0
                 if `value` is None it will not be checked against the
@@ -2068,7 +2118,7 @@ class RoomAirTemperaturePatternNondimensionalHeight(object):
 
         Args:
             value (float): value for IDD Field `pair_6_delta_adjacent_air_temperature`
-                Unit: deltaC
+                Units: deltaC
                 value >= -10.0
                 value <= 20.0
                 if `value` is None it will not be checked against the
@@ -2137,7 +2187,7 @@ class RoomAirTemperaturePatternNondimensionalHeight(object):
 
         Args:
             value (float): value for IDD Field `pair_7_delta_adjacent_air_temperature`
-                Unit: deltaC
+                Units: deltaC
                 value >= -10.0
                 value <= 20.0
                 if `value` is None it will not be checked against the
@@ -2206,7 +2256,7 @@ class RoomAirTemperaturePatternNondimensionalHeight(object):
 
         Args:
             value (float): value for IDD Field `pair_8_delta_adjacent_air_temperature`
-                Unit: deltaC
+                Units: deltaC
                 value >= -10.0
                 value <= 20.0
                 if `value` is None it will not be checked against the
@@ -2275,7 +2325,7 @@ class RoomAirTemperaturePatternNondimensionalHeight(object):
 
         Args:
             value (float): value for IDD Field `pair_9_delta_adjacent_air_temperature`
-                Unit: deltaC
+                Units: deltaC
                 value >= -10.0
                 value <= 20.0
                 if `value` is None it will not be checked against the
@@ -2344,7 +2394,7 @@ class RoomAirTemperaturePatternNondimensionalHeight(object):
 
         Args:
             value (float): value for IDD Field `pair_10_delta_adjacent_air_temperature`
-                Unit: deltaC
+                Units: deltaC
                 value >= -10.0
                 value <= 20.0
                 if `value` is None it will not be checked against the
@@ -2413,7 +2463,7 @@ class RoomAirTemperaturePatternNondimensionalHeight(object):
 
         Args:
             value (float): value for IDD Field `pair_11_delta_adjacent_air_temperature`
-                Unit: deltaC
+                Units: deltaC
                 value >= -10.0
                 value <= 20.0
                 if `value` is None it will not be checked against the
@@ -2482,7 +2532,7 @@ class RoomAirTemperaturePatternNondimensionalHeight(object):
 
         Args:
             value (float): value for IDD Field `pair_12_delta_adjacent_air_temperature`
-                Unit: deltaC
+                Units: deltaC
                 value >= -10.0
                 value <= 20.0
                 if `value` is None it will not be checked against the
@@ -2551,7 +2601,7 @@ class RoomAirTemperaturePatternNondimensionalHeight(object):
 
         Args:
             value (float): value for IDD Field `pair_13_delta_adjacent_air_temperature`
-                Unit: deltaC
+                Units: deltaC
                 value >= -10.0
                 value <= 20.0
                 if `value` is None it will not be checked against the
@@ -2620,7 +2670,7 @@ class RoomAirTemperaturePatternNondimensionalHeight(object):
 
         Args:
             value (float): value for IDD Field `pair_14_delta_adjacent_air_temperature`
-                Unit: deltaC
+                Units: deltaC
                 value >= -10.0
                 value <= 20.0
                 if `value` is None it will not be checked against the
@@ -2689,7 +2739,7 @@ class RoomAirTemperaturePatternNondimensionalHeight(object):
 
         Args:
             value (float): value for IDD Field `pair_15_delta_adjacent_air_temperature`
-                Unit: deltaC
+                Units: deltaC
                 value >= -10.0
                 value <= 20.0
                 if `value` is None it will not be checked against the
@@ -2758,7 +2808,7 @@ class RoomAirTemperaturePatternNondimensionalHeight(object):
 
         Args:
             value (float): value for IDD Field `pair_16_delta_adjacent_air_temperature`
-                Unit: deltaC
+                Units: deltaC
                 value >= -10.0
                 value <= 20.0
                 if `value` is None it will not be checked against the
@@ -2827,7 +2877,7 @@ class RoomAirTemperaturePatternNondimensionalHeight(object):
 
         Args:
             value (float): value for IDD Field `pair_17_delta_adjacent_air_temperature`
-                Unit: deltaC
+                Units: deltaC
                 value >= -10.0
                 value <= 20.0
                 if `value` is None it will not be checked against the
@@ -2896,7 +2946,7 @@ class RoomAirTemperaturePatternNondimensionalHeight(object):
 
         Args:
             value (float): value for IDD Field `pair_18_delta_adjacent_air_temperature`
-                Unit: deltaC
+                Units: deltaC
                 value >= -10.0
                 value <= 20.0
                 if `value` is None it will not be checked against the
@@ -2965,7 +3015,7 @@ class RoomAirTemperaturePatternNondimensionalHeight(object):
 
         Args:
             value (float): value for IDD Field `pair_19_delta_adjacent_air_temperature`
-                Unit: deltaC
+                Units: deltaC
                 value >= -10.0
                 value <= 20.0
                 if `value` is None it will not be checked against the
@@ -2988,6 +3038,16 @@ class RoomAirTemperaturePatternNondimensionalHeight(object):
                                  'for field `pair_19_delta_adjacent_air_temperature`')
 
         self._data["Pair 19 Delta Adjacent Air Temperature"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):
@@ -3055,9 +3115,11 @@ class RoomAirTemperaturePatternSurfaceMapping(object):
         rather than by height. This allows modeling different adjacent air temperatures on
         the opposite sides of the zone. Used in combination with
         RoomAir:TemperaturePattern:UserDefined.
+    
     """
     internal_name = "RoomAir:TemperaturePattern:SurfaceMapping"
     field_count = 47
+    required_fields = ["Name", "Control Integer for Pattern Control Schedule Name", "Surface Name Pair 1", "Delta Adjacent Air Temperature Pair 1"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `RoomAir:TemperaturePattern:SurfaceMapping`
@@ -3434,7 +3496,7 @@ class RoomAirTemperaturePatternSurfaceMapping(object):
 
         Args:
             value (float): value for IDD Field `thermostat_offset`
-                Unit: deltaC
+                Units: deltaC
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3466,7 +3528,7 @@ class RoomAirTemperaturePatternSurfaceMapping(object):
 
         Args:
             value (float): value for IDD Field `return_air_offset`
-                Unit: deltaC
+                Units: deltaC
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3498,7 +3560,7 @@ class RoomAirTemperaturePatternSurfaceMapping(object):
 
         Args:
             value (float): value for IDD Field `exhaust_air_offset`
-                Unit: deltaC
+                Units: deltaC
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3562,7 +3624,7 @@ class RoomAirTemperaturePatternSurfaceMapping(object):
 
         Args:
             value (float): value for IDD Field `delta_adjacent_air_temperature_pair_1`
-                Unit: deltaC
+                Units: deltaC
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3626,7 +3688,7 @@ class RoomAirTemperaturePatternSurfaceMapping(object):
 
         Args:
             value (float): value for IDD Field `delta_adjacent_air_temperature_pair_2`
-                Unit: deltaC
+                Units: deltaC
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3690,7 +3752,7 @@ class RoomAirTemperaturePatternSurfaceMapping(object):
 
         Args:
             value (float): value for IDD Field `delta_adjacent_air_temperature_pair_3`
-                Unit: deltaC
+                Units: deltaC
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3754,7 +3816,7 @@ class RoomAirTemperaturePatternSurfaceMapping(object):
 
         Args:
             value (float): value for IDD Field `delta_adjacent_air_temperature_pair_4`
-                Unit: deltaC
+                Units: deltaC
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3818,7 +3880,7 @@ class RoomAirTemperaturePatternSurfaceMapping(object):
 
         Args:
             value (float): value for IDD Field `delta_adjacent_air_temperature_pair_5`
-                Unit: deltaC
+                Units: deltaC
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3882,7 +3944,7 @@ class RoomAirTemperaturePatternSurfaceMapping(object):
 
         Args:
             value (float): value for IDD Field `delta_adjacent_air_temperature_pair_6`
-                Unit: deltaC
+                Units: deltaC
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3946,7 +4008,7 @@ class RoomAirTemperaturePatternSurfaceMapping(object):
 
         Args:
             value (float): value for IDD Field `delta_adjacent_air_temperature_pair_7`
-                Unit: deltaC
+                Units: deltaC
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4010,7 +4072,7 @@ class RoomAirTemperaturePatternSurfaceMapping(object):
 
         Args:
             value (float): value for IDD Field `delta_adjacent_air_temperature_pair_8`
-                Unit: deltaC
+                Units: deltaC
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4074,7 +4136,7 @@ class RoomAirTemperaturePatternSurfaceMapping(object):
 
         Args:
             value (float): value for IDD Field `delta_adjacent_air_temperature_pair_9`
-                Unit: deltaC
+                Units: deltaC
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4138,7 +4200,7 @@ class RoomAirTemperaturePatternSurfaceMapping(object):
 
         Args:
             value (float): value for IDD Field `delta_adjacent_air_temperature_pair_10`
-                Unit: deltaC
+                Units: deltaC
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4202,7 +4264,7 @@ class RoomAirTemperaturePatternSurfaceMapping(object):
 
         Args:
             value (float): value for IDD Field `delta_adjacent_air_temperature_pair_11`
-                Unit: deltaC
+                Units: deltaC
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4266,7 +4328,7 @@ class RoomAirTemperaturePatternSurfaceMapping(object):
 
         Args:
             value (float): value for IDD Field `delta_adjacent_air_temperature_pair_12`
-                Unit: deltaC
+                Units: deltaC
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4330,7 +4392,7 @@ class RoomAirTemperaturePatternSurfaceMapping(object):
 
         Args:
             value (float): value for IDD Field `delta_adjacent_air_temperature_pair_13`
-                Unit: deltaC
+                Units: deltaC
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4394,7 +4456,7 @@ class RoomAirTemperaturePatternSurfaceMapping(object):
 
         Args:
             value (float): value for IDD Field `delta_adjacent_air_temperature_pair_14`
-                Unit: deltaC
+                Units: deltaC
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4458,7 +4520,7 @@ class RoomAirTemperaturePatternSurfaceMapping(object):
 
         Args:
             value (float): value for IDD Field `delta_adjacent_air_temperature_pair_15`
-                Unit: deltaC
+                Units: deltaC
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4522,7 +4584,7 @@ class RoomAirTemperaturePatternSurfaceMapping(object):
 
         Args:
             value (float): value for IDD Field `delta_adjacent_air_temperature_pair_16`
-                Unit: deltaC
+                Units: deltaC
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4586,7 +4648,7 @@ class RoomAirTemperaturePatternSurfaceMapping(object):
 
         Args:
             value (float): value for IDD Field `delta_adjacent_air_temperature_pair_17`
-                Unit: deltaC
+                Units: deltaC
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4650,7 +4712,7 @@ class RoomAirTemperaturePatternSurfaceMapping(object):
 
         Args:
             value (float): value for IDD Field `delta_adjacent_air_temperature_pair_18`
-                Unit: deltaC
+                Units: deltaC
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4714,7 +4776,7 @@ class RoomAirTemperaturePatternSurfaceMapping(object):
 
         Args:
             value (float): value for IDD Field `delta_adjacent_air_temperature_pair_19`
-                Unit: deltaC
+                Units: deltaC
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4778,7 +4840,7 @@ class RoomAirTemperaturePatternSurfaceMapping(object):
 
         Args:
             value (float): value for IDD Field `delta_adjacent_air_temperature_pair_20`
-                Unit: deltaC
+                Units: deltaC
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4842,7 +4904,7 @@ class RoomAirTemperaturePatternSurfaceMapping(object):
 
         Args:
             value (float): value for IDD Field `delta_adjacent_air_temperature_pair_21`
-                Unit: deltaC
+                Units: deltaC
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4857,6 +4919,16 @@ class RoomAirTemperaturePatternSurfaceMapping(object):
                                  'for field `delta_adjacent_air_temperature_pair_21`'.format(value))
 
         self._data["Delta Adjacent Air Temperature Pair 21"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):
@@ -4924,9 +4996,11 @@ class RoomAirTemperaturePatternSurfaceMapping(object):
 class RoomAirNode(object):
     """ Corresponds to IDD object `RoomAir:Node`
         Define an air node for some types of nodal room air models
+    
     """
     internal_name = "RoomAir:Node"
     field_count = 25
+    required_fields = ["Node Type", "Zone Name", "Height of Nodal Control Volume Center"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `RoomAir:Node`
@@ -5222,7 +5296,7 @@ class RoomAirNode(object):
 
         Args:
             value (float): value for IDD Field `height_of_nodal_control_volume_center`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5931,6 +6005,16 @@ class RoomAirNode(object):
 
         self._data["Surface 21 Name"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -5975,9 +6059,11 @@ class RoomAirNode(object):
 class RoomAirSettingsOneNodeDisplacementVentilation(object):
     """ Corresponds to IDD object `RoomAirSettings:OneNodeDisplacementVentilation`
         The Mundt model for displacement ventilation
+    
     """
     internal_name = "RoomAirSettings:OneNodeDisplacementVentilation"
     field_count = 3
+    required_fields = ["Zone Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `RoomAirSettings:OneNodeDisplacementVentilation`
@@ -6119,6 +6205,16 @@ class RoomAirSettingsOneNodeDisplacementVentilation(object):
 
         self._data["Fraction of Infiltration Internal Loads Added to Floor Air"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -6141,9 +6237,11 @@ class RoomAirSettingsOneNodeDisplacementVentilation(object):
 class RoomAirSettingsThreeNodeDisplacementVentilation(object):
     """ Corresponds to IDD object `RoomAirSettings:ThreeNodeDisplacementVentilation`
         The UCSD model for Displacement Ventilation
+    
     """
     internal_name = "RoomAirSettings:ThreeNodeDisplacementVentilation"
     field_count = 6
+    required_fields = ["Zone Name", "Gain Distribution Schedule Name", "Number of Plumes per Occupant", "Temperature Difference Threshold for Reporting"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `RoomAirSettings:ThreeNodeDisplacementVentilation`
@@ -6318,7 +6416,7 @@ class RoomAirSettingsThreeNodeDisplacementVentilation(object):
 
         Args:
             value (float): value for IDD Field `thermostat_height`
-                Unit: m
+                Units: m
                 Default value: 1.1
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -6355,7 +6453,7 @@ class RoomAirSettingsThreeNodeDisplacementVentilation(object):
 
         Args:
             value (float): value for IDD Field `comfort_height`
-                Unit: m
+                Units: m
                 Default value: 1.1
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -6397,7 +6495,7 @@ class RoomAirSettingsThreeNodeDisplacementVentilation(object):
 
         Args:
             value (float): value for IDD Field `temperature_difference_threshold_for_reporting`
-                Unit: deltaC
+                Units: deltaC
                 Default value: 0.4
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -6417,6 +6515,16 @@ class RoomAirSettingsThreeNodeDisplacementVentilation(object):
                                  'for field `temperature_difference_threshold_for_reporting`')
 
         self._data["Temperature Difference Threshold for Reporting"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):
@@ -6447,9 +6555,11 @@ class RoomAirSettingsCrossVentilation(object):
         distinguishes two regions in the room, the main jet region and the recirculations,
         and predicts characteristic airflow velocities and average air temperatures.
         Used with RoomAirModelType = CrossVentilation.
+    
     """
     internal_name = "RoomAirSettings:CrossVentilation"
     field_count = 3
+    required_fields = ["Zone Name", "Gain Distribution Schedule Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `RoomAirSettings:CrossVentilation`
@@ -6597,6 +6707,16 @@ class RoomAirSettingsCrossVentilation(object):
 
         self._data["Airflow Region Used for Thermal Comfort Evaluation"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -6624,9 +6744,11 @@ class RoomAirSettingsUnderFloorAirDistributionInterior(object):
         The model should be used with caution in zones which have large heat gains or losses
         through exterior walls or windows or which have considerable direct solar gain.
         Used with RoomAirModelType = UnderFloorAirDistributionInterior.
+    
     """
     internal_name = "RoomAirSettings:UnderFloorAirDistributionInterior"
     field_count = 15
+    required_fields = ["Zone Name", "Temperature Difference Threshold for Reporting", "Floor Diffuser Type"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `RoomAirSettings:UnderFloorAirDistributionInterior`
@@ -6815,7 +6937,7 @@ class RoomAirSettingsUnderFloorAirDistributionInterior(object):
 
         Args:
             value (float): value for IDD Field `power_per_plume`
-                Unit: W
+                Units: W
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -6850,7 +6972,7 @@ class RoomAirSettingsUnderFloorAirDistributionInterior(object):
 
         Args:
             value (float): value for IDD Field `design_effective_area_of_diffuser`
-                Unit: m2
+                Units: m2
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -6885,7 +7007,7 @@ class RoomAirSettingsUnderFloorAirDistributionInterior(object):
 
         Args:
             value (float): value for IDD Field `diffuser_slot_angle_from_vertical`
-                Unit: deg
+                Units: deg
                 value >= 0.0
                 value <= 90.0
                 if `value` is None it will not be checked against the
@@ -6925,7 +7047,7 @@ class RoomAirSettingsUnderFloorAirDistributionInterior(object):
 
         Args:
             value (float): value for IDD Field `thermostat_height`
-                Unit: m
+                Units: m
                 Default value: 1.2
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -6962,7 +7084,7 @@ class RoomAirSettingsUnderFloorAirDistributionInterior(object):
 
         Args:
             value (float): value for IDD Field `comfort_height`
-                Unit: m
+                Units: m
                 Default value: 1.1
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -7003,7 +7125,7 @@ class RoomAirSettingsUnderFloorAirDistributionInterior(object):
 
         Args:
             value (float): value for IDD Field `temperature_difference_threshold_for_reporting`
-                Unit: deltaC
+                Units: deltaC
                 Default value: 0.4
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -7089,7 +7211,7 @@ class RoomAirSettingsUnderFloorAirDistributionInterior(object):
 
         Args:
             value (float): value for IDD Field `transition_height`
-                Unit: m
+                Units: m
                 Default value: 1.7
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -7270,6 +7392,16 @@ class RoomAirSettingsUnderFloorAirDistributionInterior(object):
 
         self._data["Coefficient E"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -7307,9 +7439,11 @@ class RoomAirSettingsUnderFloorAirDistributionExterior(object):
         The dominant sources of heat gain should be from people, equipment, and other
         localized sources located in the occupied part of the room, as well as convective gain
         coming from a warm window. Used with RoomAirModelType = CrossVentilation.
+    
     """
     internal_name = "RoomAirSettings:UnderFloorAirDistributionExterior"
     field_count = 15
+    required_fields = ["Zone Name", "Temperature Difference Threshold for Reporting", "Floor Diffuser Type"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `RoomAirSettings:UnderFloorAirDistributionExterior`
@@ -7497,7 +7631,7 @@ class RoomAirSettingsUnderFloorAirDistributionExterior(object):
 
         Args:
             value (float): value for IDD Field `power_per_plume`
-                Unit: W
+                Units: W
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -7532,7 +7666,7 @@ class RoomAirSettingsUnderFloorAirDistributionExterior(object):
 
         Args:
             value (float): value for IDD Field `design_effective_area_of_diffuser`
-                Unit: m2
+                Units: m2
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -7567,7 +7701,7 @@ class RoomAirSettingsUnderFloorAirDistributionExterior(object):
 
         Args:
             value (float): value for IDD Field `diffuser_slot_angle_from_vertical`
-                Unit: deg
+                Units: deg
                 value >= 0.0
                 value <= 90.0
                 if `value` is None it will not be checked against the
@@ -7607,7 +7741,7 @@ class RoomAirSettingsUnderFloorAirDistributionExterior(object):
 
         Args:
             value (float): value for IDD Field `thermostat_height`
-                Unit: m
+                Units: m
                 Default value: 1.2
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -7644,7 +7778,7 @@ class RoomAirSettingsUnderFloorAirDistributionExterior(object):
 
         Args:
             value (float): value for IDD Field `comfort_height`
-                Unit: m
+                Units: m
                 Default value: 1.1
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -7685,7 +7819,7 @@ class RoomAirSettingsUnderFloorAirDistributionExterior(object):
 
         Args:
             value (float): value for IDD Field `temperature_difference_threshold_for_reporting`
-                Unit: deltaC
+                Units: deltaC
                 Default value: 0.4
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -7771,7 +7905,7 @@ class RoomAirSettingsUnderFloorAirDistributionExterior(object):
 
         Args:
             value (float): value for IDD Field `transition_height`
-                Unit: m
+                Units: m
                 Default value: 1.7
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -7946,6 +8080,16 @@ class RoomAirSettingsUnderFloorAirDistributionExterior(object):
                                  'for field `coefficient_e_in_formula_kc_agammab_c_dgamma_egamma2`'.format(value))
 
         self._data["Coefficient E in formula Kc = A*Gamma**B + C + D*Gamma + E*Gamma**2"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):

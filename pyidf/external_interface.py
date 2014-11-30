@@ -8,9 +8,11 @@ class ExternalInterface(object):
         If this object is not present, then the values of these objects will be fixed at the
         value declared in the "initial value" field of the corresponding object, and a
         warning will be written to the EnergyPlus error file.
+    
     """
     internal_name = "ExternalInterface"
     field_count = 1
+    required_fields = ["Name of External Interface"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ExternalInterface`
@@ -77,6 +79,16 @@ class ExternalInterface(object):
 
         self._data["Name of External Interface"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -98,9 +110,11 @@ class ExternalInterfaceSchedule(object):
     """ Corresponds to IDD object `ExternalInterface:Schedule`
         A ExternalInterface:Schedule contains only one value,
         which is used during the warm-up period and the system sizing.
+    
     """
     internal_name = "ExternalInterface:Schedule"
     field_count = 3
+    required_fields = ["Name", "Initial Value"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ExternalInterface:Schedule`
@@ -230,6 +244,16 @@ class ExternalInterfaceSchedule(object):
 
         self._data["Initial Value"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -256,9 +280,11 @@ class ExternalInterfaceVariable(object):
         external interface. During the warm-up period and the system sizing, its value
         is set to the value specified by the field "initial value." This object can be used
         to move data into Erl subroutines.
+    
     """
     internal_name = "ExternalInterface:Variable"
     field_count = 2
+    required_fields = ["Name", "Initial Value"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ExternalInterface:Variable`
@@ -351,6 +377,16 @@ class ExternalInterfaceVariable(object):
 
         self._data["Initial Value"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -372,9 +408,11 @@ class ExternalInterfaceVariable(object):
 class ExternalInterfaceActuator(object):
     """ Corresponds to IDD object `ExternalInterface:Actuator`
         Hardware portion of EMS used to set up actuators in the model
+    
     """
     internal_name = "ExternalInterface:Actuator"
     field_count = 5
+    required_fields = ["Name", "Actuated Component Unique Name", "Actuated Component Type", "Actuated Component Control Type"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ExternalInterface:Actuator`
@@ -586,6 +624,16 @@ class ExternalInterfaceActuator(object):
 
         self._data["Optional Initial Value"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -610,9 +658,11 @@ class ExternalInterfaceActuator(object):
 class ExternalInterfaceFunctionalMockupUnitImport(object):
     """ Corresponds to IDD object `ExternalInterface:FunctionalMockupUnitImport`
         This object declares an FMU
+    
     """
     internal_name = "ExternalInterface:FunctionalMockupUnitImport"
     field_count = 3
+    required_fields = ["FMU File Name", "FMU Timeout", "FMU LoggingOn"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ExternalInterface:FunctionalMockupUnitImport`
@@ -694,7 +744,7 @@ class ExternalInterfaceFunctionalMockupUnitImport(object):
 
         Args:
             value (float): value for IDD Field `fmu_timeout`
-                Unit: ms
+                Units: ms
                 Default value: 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -742,6 +792,16 @@ class ExternalInterfaceFunctionalMockupUnitImport(object):
 
         self._data["FMU LoggingOn"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -764,9 +824,11 @@ class ExternalInterfaceFunctionalMockupUnitImport(object):
 class ExternalInterfaceFunctionalMockupUnitImportFromVariable(object):
     """ Corresponds to IDD object `ExternalInterface:FunctionalMockupUnitImport:From:Variable`
         This object declares an FMU input variable
+    
     """
     internal_name = "ExternalInterface:FunctionalMockupUnitImport:From:Variable"
     field_count = 5
+    required_fields = ["Output:Variable Index Key Name", "Output:Variable Name", "FMU File Name", "FMU Instance Name", "FMU Variable Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ExternalInterface:FunctionalMockupUnitImport:From:Variable`
@@ -976,6 +1038,16 @@ class ExternalInterfaceFunctionalMockupUnitImportFromVariable(object):
 
         self._data["FMU Variable Name"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -1001,9 +1073,11 @@ class ExternalInterfaceFunctionalMockupUnitImportToSchedule(object):
     """ Corresponds to IDD object `ExternalInterface:FunctionalMockupUnitImport:To:Schedule`
         This objects contains only one value, which is used during the first
         call of EnergyPlus
+    
     """
     internal_name = "ExternalInterface:FunctionalMockupUnitImport:To:Schedule"
     field_count = 6
+    required_fields = ["Name", "FMU File Name", "FMU Instance Name", "FMU Variable Name", "Initial Value"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ExternalInterface:FunctionalMockupUnitImport:To:Schedule`
@@ -1250,6 +1324,16 @@ class ExternalInterfaceFunctionalMockupUnitImportToSchedule(object):
 
         self._data["Initial Value"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -1276,9 +1360,11 @@ class ExternalInterfaceFunctionalMockupUnitImportToActuator(object):
     """ Corresponds to IDD object `ExternalInterface:FunctionalMockupUnitImport:To:Actuator`
         Hardware portion of EMS used to set up actuators in the model
         that are dynamically updated from the FMU.
+    
     """
     internal_name = "ExternalInterface:FunctionalMockupUnitImport:To:Actuator"
     field_count = 8
+    required_fields = ["Name", "Actuated Component Unique Name", "Actuated Component Type", "Actuated Component Control Type", "FMU File Name", "FMU Instance Name", "FMU Variable Name", "Initial Value"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ExternalInterface:FunctionalMockupUnitImport:To:Actuator`
@@ -1605,6 +1691,16 @@ class ExternalInterfaceFunctionalMockupUnitImportToActuator(object):
 
         self._data["Initial Value"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -1633,9 +1729,11 @@ class ExternalInterfaceFunctionalMockupUnitImportToVariable(object):
     """ Corresponds to IDD object `ExternalInterface:FunctionalMockupUnitImport:To:Variable`
         Declares Erl variable as having global scope
         No spaces allowed in names used for Erl variables
+    
     """
     internal_name = "ExternalInterface:FunctionalMockupUnitImport:To:Variable"
     field_count = 5
+    required_fields = ["Name", "FMU File Name", "FMU Instance Name", "FMU Variable Name", "Initial Value"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ExternalInterface:FunctionalMockupUnitImport:To:Variable`
@@ -1845,6 +1943,16 @@ class ExternalInterfaceFunctionalMockupUnitImportToVariable(object):
 
         self._data["Initial Value"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -1869,9 +1977,11 @@ class ExternalInterfaceFunctionalMockupUnitImportToVariable(object):
 class ExternalInterfaceFunctionalMockupUnitExportFromVariable(object):
     """ Corresponds to IDD object `ExternalInterface:FunctionalMockupUnitExport:From:Variable`
         This object declares an FMU input variable
+    
     """
     internal_name = "ExternalInterface:FunctionalMockupUnitExport:From:Variable"
     field_count = 3
+    required_fields = ["Output:Variable Index Key Name", "Output:Variable Name", "FMU Variable Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ExternalInterface:FunctionalMockupUnitExport:From:Variable`
@@ -2003,6 +2113,16 @@ class ExternalInterfaceFunctionalMockupUnitExportFromVariable(object):
 
         self._data["FMU Variable Name"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -2026,9 +2146,11 @@ class ExternalInterfaceFunctionalMockupUnitExportToSchedule(object):
     """ Corresponds to IDD object `ExternalInterface:FunctionalMockupUnitExport:To:Schedule`
         This objects contains only one value, which is used during the first
         call of EnergyPlus
+    
     """
     internal_name = "ExternalInterface:FunctionalMockupUnitExport:To:Schedule"
     field_count = 4
+    required_fields = ["Schedule Name", "FMU Variable Name", "Initial Value"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ExternalInterface:FunctionalMockupUnitExport:To:Schedule`
@@ -2197,6 +2319,16 @@ class ExternalInterfaceFunctionalMockupUnitExportToSchedule(object):
 
         self._data["Initial Value"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -2221,9 +2353,11 @@ class ExternalInterfaceFunctionalMockupUnitExportToActuator(object):
     """ Corresponds to IDD object `ExternalInterface:FunctionalMockupUnitExport:To:Actuator`
         Hardware portion of EMS used to set up actuators in the model
         that are dynamically updated from the FMU.
+    
     """
     internal_name = "ExternalInterface:FunctionalMockupUnitExport:To:Actuator"
     field_count = 6
+    required_fields = ["Name", "Actuated Component Unique Name", "Actuated Component Type", "Actuated Component Control Type", "FMU Variable Name", "Initial Value"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ExternalInterface:FunctionalMockupUnitExport:To:Actuator`
@@ -2472,6 +2606,16 @@ class ExternalInterfaceFunctionalMockupUnitExportToActuator(object):
 
         self._data["Initial Value"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -2498,9 +2642,11 @@ class ExternalInterfaceFunctionalMockupUnitExportToVariable(object):
     """ Corresponds to IDD object `ExternalInterface:FunctionalMockupUnitExport:To:Variable`
         Declares Erl variable as having global scope
         No spaces allowed in names used for Erl variables
+    
     """
     internal_name = "ExternalInterface:FunctionalMockupUnitExport:To:Variable"
     field_count = 3
+    required_fields = ["Name", "FMU Variable Name", "Initial Value"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ExternalInterface:FunctionalMockupUnitExport:To:Variable`
@@ -2631,6 +2777,16 @@ class ExternalInterfaceFunctionalMockupUnitExportToVariable(object):
                                  'for field `initial_value`'.format(value))
 
         self._data["Initial Value"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):

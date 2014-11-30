@@ -3,9 +3,11 @@ from collections import OrderedDict
 class Material(object):
     """ Corresponds to IDD object `Material`
         Regular materials described with full set of thermal properties
+    
     """
     internal_name = "Material"
     field_count = 9
+    required_fields = ["Name", "Roughness", "Thickness", "Conductivity", "Density", "Specific Heat"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Material`
@@ -172,7 +174,8 @@ class Material(object):
 
         Args:
             value (float): value for IDD Field `thickness`
-                Unit: m
+                Units: m
+                IP-Units: in
                 value > 0.0
                 value <= 3.0
                 if `value` is None it will not be checked against the
@@ -211,7 +214,7 @@ class Material(object):
 
         Args:
             value (float): value for IDD Field `conductivity`
-                Unit: W/m-K
+                Units: W/m-K
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -246,7 +249,7 @@ class Material(object):
 
         Args:
             value (float): value for IDD Field `density`
-                Unit: kg/m3
+                Units: kg/m3
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -281,7 +284,7 @@ class Material(object):
 
         Args:
             value (float): value for IDD Field `specific_heat`
-                Unit: J/kg-K
+                Units: J/kg-K
                 value >= 100.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -418,6 +421,16 @@ class Material(object):
 
         self._data["Visible Absorptance"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -446,9 +459,11 @@ class Material(object):
 class MaterialNoMass(object):
     """ Corresponds to IDD object `Material:NoMass`
         Regular materials properties described whose principal description is R (Thermal Resistance)
+    
     """
     internal_name = "Material:NoMass"
     field_count = 6
+    required_fields = ["Name", "Roughness", "Thermal Resistance"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Material:NoMass`
@@ -597,7 +612,7 @@ class MaterialNoMass(object):
 
         Args:
             value (float): value for IDD Field `thermal_resistance`
-                Unit: m2-K/W
+                Units: m2-K/W
                 value >= 0.001
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -734,6 +749,16 @@ class MaterialNoMass(object):
 
         self._data["Visible Absorptance"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -764,9 +789,11 @@ class MaterialInfraredTransparent(object):
         Should be only material in single layer surface construction.
         All thermal properties are set internally. User needs only to supply name.
         Cannot be used with ConductionFiniteDifference solution algorithms
+    
     """
     internal_name = "Material:InfraredTransparent"
     field_count = 1
+    required_fields = ["Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Material:InfraredTransparent`
@@ -820,6 +847,16 @@ class MaterialInfraredTransparent(object):
 
         self._data["Name"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -840,9 +877,11 @@ class MaterialInfraredTransparent(object):
 class MaterialAirGap(object):
     """ Corresponds to IDD object `Material:AirGap`
         Air Space in Opaque Construction
+    
     """
     internal_name = "Material:AirGap"
     field_count = 2
+    required_fields = ["Name", "Thermal Resistance"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Material:AirGap`
@@ -917,7 +956,7 @@ class MaterialAirGap(object):
 
         Args:
             value (float): value for IDD Field `thermal_resistance`
-                Unit: m2-K/W
+                Units: m2-K/W
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -936,6 +975,16 @@ class MaterialAirGap(object):
                                  'for field `thermal_resistance`')
 
         self._data["Thermal Resistance"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):
@@ -963,9 +1012,11 @@ class MaterialRoofVegetation(object):
         only one material must be referenced per simulation though the same EcoRoof material could be
         used in multiple constructions. New moisture redistribution scheme (2010) requires higher
         number of timesteps per hour (minimum 12 recommended).
+    
     """
     internal_name = "Material:RoofVegetation"
     field_count = 19
+    required_fields = ["Name", "Leaf Area Index", "Leaf Reflectivity", "Leaf Emissivity", "Roughness", "Thickness", "Conductivity of Dry Soil", "Density of Dry Soil", "Specific Heat of Dry Soil"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Material:RoofVegetation`
@@ -1143,7 +1194,7 @@ class MaterialRoofVegetation(object):
 
         Args:
             value (float): value for IDD Field `height_of_plants`
-                Unit: m
+                Units: m
                 Default value: 0.2
                 value > 0.005
                 value <= 1.0
@@ -1184,7 +1235,7 @@ class MaterialRoofVegetation(object):
 
         Args:
             value (float): value for IDD Field `leaf_area_index`
-                Unit: dimensionless
+                Units: dimensionless
                 Default value: 1.0
                 value > 0.001
                 value <= 5.0
@@ -1225,7 +1276,7 @@ class MaterialRoofVegetation(object):
 
         Args:
             value (float): value for IDD Field `leaf_reflectivity`
-                Unit: dimensionless
+                Units: dimensionless
                 Default value: 0.22
                 value >= 0.05
                 value <= 0.5
@@ -1305,7 +1356,7 @@ class MaterialRoofVegetation(object):
 
         Args:
             value (float): value for IDD Field `minimum_stomatal_resistance`
-                Unit: s/m
+                Units: s/m
                 Default value: 180.0
                 value >= 50.0
                 value <= 300.0
@@ -1432,7 +1483,8 @@ class MaterialRoofVegetation(object):
 
         Args:
             value (float): value for IDD Field `thickness`
-                Unit: m
+                Units: m
+                IP-Units: in
                 Default value: 0.1
                 value > 0.05
                 value <= 0.7
@@ -1474,7 +1526,7 @@ class MaterialRoofVegetation(object):
 
         Args:
             value (float): value for IDD Field `conductivity_of_dry_soil`
-                Unit: W/m-K
+                Units: W/m-K
                 Default value: 0.35
                 value >= 0.2
                 value <= 1.5
@@ -1516,7 +1568,7 @@ class MaterialRoofVegetation(object):
 
         Args:
             value (float): value for IDD Field `density_of_dry_soil`
-                Unit: kg/m3
+                Units: kg/m3
                 Default value: 1100.0
                 value >= 300.0
                 value <= 2000.0
@@ -1557,7 +1609,7 @@ class MaterialRoofVegetation(object):
 
         Args:
             value (float): value for IDD Field `specific_heat_of_dry_soil`
-                Unit: J/kg-K
+                Units: J/kg-K
                 Default value: 1200.0
                 value > 500.0
                 value <= 2000.0
@@ -1864,6 +1916,16 @@ class MaterialRoofVegetation(object):
 
         self._data["Moisture Diffusion Calculation Method"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -1904,9 +1966,11 @@ class WindowMaterialSimpleGlazingSystem(object):
         Alternate method of describing windows
         This window material object is used to define an entire glazing system
         using simple performance parameters.
+    
     """
     internal_name = "WindowMaterial:SimpleGlazingSystem"
     field_count = 4
+    required_fields = ["Name", "U-Factor", "Solar Heat Gain Coefficient"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `WindowMaterial:SimpleGlazingSystem`
@@ -1995,7 +2059,7 @@ class WindowMaterialSimpleGlazingSystem(object):
 
         Args:
             value (float): value for IDD Field `ufactor`
-                Unit: W/m2-K
+                Units: W/m2-K
                 value > 0.0
                 value <= 7.0
                 if `value` is None it will not be checked against the
@@ -2098,6 +2162,16 @@ class WindowMaterialSimpleGlazingSystem(object):
 
         self._data["Visible Transmittance"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -2122,9 +2196,11 @@ class WindowMaterialGlazing(object):
     """ Corresponds to IDD object `WindowMaterial:Glazing`
         Glass material properties for Windows or Glass Doors
         Transmittance/Reflectance input method.
+    
     """
     internal_name = "WindowMaterial:Glazing"
     field_count = 18
+    required_fields = ["Name", "Optical Data Type", "Thickness"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `WindowMaterial:Glazing`
@@ -2373,7 +2449,8 @@ class WindowMaterialGlazing(object):
 
         Args:
             value (float): value for IDD Field `thickness`
-                Unit: m
+                Units: m
+                IP-Units: in
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -2761,7 +2838,7 @@ class WindowMaterialGlazing(object):
 
         Args:
             value (float): value for IDD Field `conductivity`
-                Unit: W/m-K
+                Units: W/m-K
                 Default value: 0.9
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -2881,7 +2958,7 @@ class WindowMaterialGlazing(object):
 
         Args:
             value (float): value for IDD Field `youngs_modulus`
-                Unit: Pa
+                Units: Pa
                 Default value: 72000000000.0
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -2943,6 +3020,16 @@ class WindowMaterialGlazing(object):
 
         self._data["Poissons ratio"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -2980,9 +3067,11 @@ class WindowMaterialGlazing(object):
 class WindowMaterialGlazingGroupThermochromic(object):
     """ Corresponds to IDD object `WindowMaterial:GlazingGroup:Thermochromic`
         thermochromic glass at different temperatures
+    
     """
     internal_name = "WindowMaterial:GlazingGroup:Thermochromic"
     field_count = 91
+    required_fields = ["Name", "Optical Data Temperature 1", "Window Material Glazing Name 1"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `WindowMaterial:GlazingGroup:Thermochromic`
@@ -3591,7 +3680,8 @@ class WindowMaterialGlazingGroupThermochromic(object):
 
         Args:
             value (float): value for IDD Field `optical_data_temperature_1`
-                Unit: C
+                Units: C
+                IP-Units: F
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3655,7 +3745,8 @@ class WindowMaterialGlazingGroupThermochromic(object):
 
         Args:
             value (float): value for IDD Field `optical_data_temperature_2`
-                Unit: C
+                Units: C
+                IP-Units: F
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3719,7 +3810,8 @@ class WindowMaterialGlazingGroupThermochromic(object):
 
         Args:
             value (float): value for IDD Field `optical_data_temperature_3`
-                Unit: C
+                Units: C
+                IP-Units: F
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3783,7 +3875,8 @@ class WindowMaterialGlazingGroupThermochromic(object):
 
         Args:
             value (float): value for IDD Field `optical_data_temperature_4`
-                Unit: C
+                Units: C
+                IP-Units: F
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3847,7 +3940,8 @@ class WindowMaterialGlazingGroupThermochromic(object):
 
         Args:
             value (float): value for IDD Field `optical_data_temperature_5`
-                Unit: C
+                Units: C
+                IP-Units: F
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3911,7 +4005,8 @@ class WindowMaterialGlazingGroupThermochromic(object):
 
         Args:
             value (float): value for IDD Field `optical_data_temperature_6`
-                Unit: C
+                Units: C
+                IP-Units: F
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3975,7 +4070,8 @@ class WindowMaterialGlazingGroupThermochromic(object):
 
         Args:
             value (float): value for IDD Field `optical_data_temperature_7`
-                Unit: C
+                Units: C
+                IP-Units: F
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4039,7 +4135,8 @@ class WindowMaterialGlazingGroupThermochromic(object):
 
         Args:
             value (float): value for IDD Field `optical_data_temperature_8`
-                Unit: C
+                Units: C
+                IP-Units: F
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4103,7 +4200,8 @@ class WindowMaterialGlazingGroupThermochromic(object):
 
         Args:
             value (float): value for IDD Field `optical_data_temperature_9`
-                Unit: C
+                Units: C
+                IP-Units: F
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4167,7 +4265,8 @@ class WindowMaterialGlazingGroupThermochromic(object):
 
         Args:
             value (float): value for IDD Field `optical_data_temperature_10`
-                Unit: C
+                Units: C
+                IP-Units: F
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4231,7 +4330,8 @@ class WindowMaterialGlazingGroupThermochromic(object):
 
         Args:
             value (float): value for IDD Field `optical_data_temperature_11`
-                Unit: C
+                Units: C
+                IP-Units: F
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4295,7 +4395,8 @@ class WindowMaterialGlazingGroupThermochromic(object):
 
         Args:
             value (float): value for IDD Field `optical_data_temperature_12`
-                Unit: C
+                Units: C
+                IP-Units: F
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4359,7 +4460,8 @@ class WindowMaterialGlazingGroupThermochromic(object):
 
         Args:
             value (float): value for IDD Field `optical_data_temperature_13`
-                Unit: C
+                Units: C
+                IP-Units: F
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4423,7 +4525,8 @@ class WindowMaterialGlazingGroupThermochromic(object):
 
         Args:
             value (float): value for IDD Field `optical_data_temperature_14`
-                Unit: C
+                Units: C
+                IP-Units: F
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4487,7 +4590,8 @@ class WindowMaterialGlazingGroupThermochromic(object):
 
         Args:
             value (float): value for IDD Field `optical_data_temperature_15`
-                Unit: C
+                Units: C
+                IP-Units: F
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4551,7 +4655,8 @@ class WindowMaterialGlazingGroupThermochromic(object):
 
         Args:
             value (float): value for IDD Field `optical_data_temperature_16`
-                Unit: C
+                Units: C
+                IP-Units: F
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4615,7 +4720,8 @@ class WindowMaterialGlazingGroupThermochromic(object):
 
         Args:
             value (float): value for IDD Field `optical_data_temperature_17`
-                Unit: C
+                Units: C
+                IP-Units: F
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4679,7 +4785,8 @@ class WindowMaterialGlazingGroupThermochromic(object):
 
         Args:
             value (float): value for IDD Field `optical_data_temperature_18`
-                Unit: C
+                Units: C
+                IP-Units: F
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4743,7 +4850,8 @@ class WindowMaterialGlazingGroupThermochromic(object):
 
         Args:
             value (float): value for IDD Field `optical_data_temperature_19`
-                Unit: C
+                Units: C
+                IP-Units: F
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4807,7 +4915,8 @@ class WindowMaterialGlazingGroupThermochromic(object):
 
         Args:
             value (float): value for IDD Field `optical_data_temperature_20`
-                Unit: C
+                Units: C
+                IP-Units: F
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4871,7 +4980,8 @@ class WindowMaterialGlazingGroupThermochromic(object):
 
         Args:
             value (float): value for IDD Field `optical_data_temperature_21`
-                Unit: C
+                Units: C
+                IP-Units: F
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4935,7 +5045,8 @@ class WindowMaterialGlazingGroupThermochromic(object):
 
         Args:
             value (float): value for IDD Field `optical_data_temperature_22`
-                Unit: C
+                Units: C
+                IP-Units: F
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4999,7 +5110,8 @@ class WindowMaterialGlazingGroupThermochromic(object):
 
         Args:
             value (float): value for IDD Field `optical_data_temperature_23`
-                Unit: C
+                Units: C
+                IP-Units: F
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5063,7 +5175,8 @@ class WindowMaterialGlazingGroupThermochromic(object):
 
         Args:
             value (float): value for IDD Field `optical_data_temperature_24`
-                Unit: C
+                Units: C
+                IP-Units: F
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5127,7 +5240,8 @@ class WindowMaterialGlazingGroupThermochromic(object):
 
         Args:
             value (float): value for IDD Field `optical_data_temperature_25`
-                Unit: C
+                Units: C
+                IP-Units: F
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5191,7 +5305,8 @@ class WindowMaterialGlazingGroupThermochromic(object):
 
         Args:
             value (float): value for IDD Field `optical_data_temperature_26`
-                Unit: C
+                Units: C
+                IP-Units: F
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5255,7 +5370,8 @@ class WindowMaterialGlazingGroupThermochromic(object):
 
         Args:
             value (float): value for IDD Field `optical_data_temperature_27`
-                Unit: C
+                Units: C
+                IP-Units: F
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5319,7 +5435,8 @@ class WindowMaterialGlazingGroupThermochromic(object):
 
         Args:
             value (float): value for IDD Field `optical_data_temperature_28`
-                Unit: C
+                Units: C
+                IP-Units: F
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5383,7 +5500,8 @@ class WindowMaterialGlazingGroupThermochromic(object):
 
         Args:
             value (float): value for IDD Field `optical_data_temperature_29`
-                Unit: C
+                Units: C
+                IP-Units: F
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5447,7 +5565,8 @@ class WindowMaterialGlazingGroupThermochromic(object):
 
         Args:
             value (float): value for IDD Field `optical_data_temperature_30`
-                Unit: C
+                Units: C
+                IP-Units: F
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5511,7 +5630,8 @@ class WindowMaterialGlazingGroupThermochromic(object):
 
         Args:
             value (float): value for IDD Field `optical_data_temperature_31`
-                Unit: C
+                Units: C
+                IP-Units: F
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5575,7 +5695,8 @@ class WindowMaterialGlazingGroupThermochromic(object):
 
         Args:
             value (float): value for IDD Field `optical_data_temperature_32`
-                Unit: C
+                Units: C
+                IP-Units: F
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5639,7 +5760,8 @@ class WindowMaterialGlazingGroupThermochromic(object):
 
         Args:
             value (float): value for IDD Field `optical_data_temperature_33`
-                Unit: C
+                Units: C
+                IP-Units: F
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5703,7 +5825,8 @@ class WindowMaterialGlazingGroupThermochromic(object):
 
         Args:
             value (float): value for IDD Field `optical_data_temperature_34`
-                Unit: C
+                Units: C
+                IP-Units: F
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5767,7 +5890,8 @@ class WindowMaterialGlazingGroupThermochromic(object):
 
         Args:
             value (float): value for IDD Field `optical_data_temperature_35`
-                Unit: C
+                Units: C
+                IP-Units: F
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5831,7 +5955,8 @@ class WindowMaterialGlazingGroupThermochromic(object):
 
         Args:
             value (float): value for IDD Field `optical_data_temperature_36`
-                Unit: C
+                Units: C
+                IP-Units: F
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5895,7 +6020,8 @@ class WindowMaterialGlazingGroupThermochromic(object):
 
         Args:
             value (float): value for IDD Field `optical_data_temperature_37`
-                Unit: C
+                Units: C
+                IP-Units: F
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5959,7 +6085,8 @@ class WindowMaterialGlazingGroupThermochromic(object):
 
         Args:
             value (float): value for IDD Field `optical_data_temperature_38`
-                Unit: C
+                Units: C
+                IP-Units: F
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6023,7 +6150,8 @@ class WindowMaterialGlazingGroupThermochromic(object):
 
         Args:
             value (float): value for IDD Field `optical_data_temperature_39`
-                Unit: C
+                Units: C
+                IP-Units: F
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6087,7 +6215,8 @@ class WindowMaterialGlazingGroupThermochromic(object):
 
         Args:
             value (float): value for IDD Field `optical_data_temperature_40`
-                Unit: C
+                Units: C
+                IP-Units: F
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6151,7 +6280,8 @@ class WindowMaterialGlazingGroupThermochromic(object):
 
         Args:
             value (float): value for IDD Field `optical_data_temperature_41`
-                Unit: C
+                Units: C
+                IP-Units: F
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6215,7 +6345,8 @@ class WindowMaterialGlazingGroupThermochromic(object):
 
         Args:
             value (float): value for IDD Field `optical_data_temperature_42`
-                Unit: C
+                Units: C
+                IP-Units: F
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6279,7 +6410,8 @@ class WindowMaterialGlazingGroupThermochromic(object):
 
         Args:
             value (float): value for IDD Field `optical_data_temperature_43`
-                Unit: C
+                Units: C
+                IP-Units: F
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6343,7 +6475,8 @@ class WindowMaterialGlazingGroupThermochromic(object):
 
         Args:
             value (float): value for IDD Field `optical_data_temperature_44`
-                Unit: C
+                Units: C
+                IP-Units: F
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6407,7 +6540,8 @@ class WindowMaterialGlazingGroupThermochromic(object):
 
         Args:
             value (float): value for IDD Field `optical_data_temperature_45`
-                Unit: C
+                Units: C
+                IP-Units: F
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6455,6 +6589,16 @@ class WindowMaterialGlazingGroupThermochromic(object):
                                  'for field `window_material_glazing_name_45`')
 
         self._data["Window Material Glazing Name 45"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):
@@ -6568,9 +6712,11 @@ class WindowMaterialGlazingRefractionExtinctionMethod(object):
         Glass material properties for Windows or Glass Doors
         Index of Refraction/Extinction Coefficient input method
         Not to be used for coated glass
+    
     """
     internal_name = "WindowMaterial:Glazing:RefractionExtinctionMethod"
     field_count = 11
+    required_fields = ["Name", "Thickness", "Solar Index of Refraction", "Solar Extinction Coefficient", "Visible Index of Refraction", "Visible Extinction Coefficient"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `WindowMaterial:Glazing:RefractionExtinctionMethod`
@@ -6699,7 +6845,8 @@ class WindowMaterialGlazingRefractionExtinctionMethod(object):
 
         Args:
             value (float): value for IDD Field `thickness`
-                Unit: m
+                Units: m
+                IP-Units: in
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -6768,7 +6915,7 @@ class WindowMaterialGlazingRefractionExtinctionMethod(object):
 
         Args:
             value (float): value for IDD Field `solar_extinction_coefficient`
-                Unit: 1/m
+                Units: 1/m
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -6837,7 +6984,7 @@ class WindowMaterialGlazingRefractionExtinctionMethod(object):
 
         Args:
             value (float): value for IDD Field `visible_extinction_coefficient`
-                Unit: 1/m
+                Units: 1/m
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -6951,7 +7098,7 @@ class WindowMaterialGlazingRefractionExtinctionMethod(object):
 
         Args:
             value (float): value for IDD Field `conductivity`
-                Unit: W/m-K
+                Units: W/m-K
                 Default value: 0.9
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -7054,6 +7201,16 @@ class WindowMaterialGlazingRefractionExtinctionMethod(object):
 
         self._data["Solar Diffusing"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -7084,9 +7241,11 @@ class WindowMaterialGlazingRefractionExtinctionMethod(object):
 class WindowMaterialGas(object):
     """ Corresponds to IDD object `WindowMaterial:Gas`
         Gas material properties that are used in Windows or Glass Doors
+    
     """
     internal_name = "WindowMaterial:Gas"
     field_count = 14
+    required_fields = ["Name", "Gas Type", "Thickness"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `WindowMaterial:Gas`
@@ -7281,7 +7440,8 @@ class WindowMaterialGas(object):
 
         Args:
             value (float): value for IDD Field `thickness`
-                Unit: m
+                Units: m
+                IP-Units: in
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -7317,7 +7477,7 @@ class WindowMaterialGas(object):
 
         Args:
             value (float): value for IDD Field `conductivity_coefficient_a`
-                Unit: W/m-K
+                Units: W/m-K
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7349,7 +7509,7 @@ class WindowMaterialGas(object):
 
         Args:
             value (float): value for IDD Field `conductivity_coefficient_b`
-                Unit: W/m-K2
+                Units: W/m-K2
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7381,7 +7541,7 @@ class WindowMaterialGas(object):
 
         Args:
             value (float): value for IDD Field `conductivity_coefficient_c`
-                Unit: W/m-K3
+                Units: W/m-K3
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7413,7 +7573,7 @@ class WindowMaterialGas(object):
 
         Args:
             value (float): value for IDD Field `viscosity_coefficient_a`
-                Unit: kg/m-s
+                Units: kg/m-s
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -7449,7 +7609,7 @@ class WindowMaterialGas(object):
 
         Args:
             value (float): value for IDD Field `viscosity_coefficient_b`
-                Unit: kg/m-s-K
+                Units: kg/m-s-K
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7481,7 +7641,7 @@ class WindowMaterialGas(object):
 
         Args:
             value (float): value for IDD Field `viscosity_coefficient_c`
-                Unit: kg/m-s-K2
+                Units: kg/m-s-K2
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7513,7 +7673,7 @@ class WindowMaterialGas(object):
 
         Args:
             value (float): value for IDD Field `specific_heat_coefficient_a`
-                Unit: J/kg-K
+                Units: J/kg-K
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -7549,7 +7709,7 @@ class WindowMaterialGas(object):
 
         Args:
             value (float): value for IDD Field `specific_heat_coefficient_b`
-                Unit: J/kg-K2
+                Units: J/kg-K2
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7581,7 +7741,7 @@ class WindowMaterialGas(object):
 
         Args:
             value (float): value for IDD Field `specific_heat_coefficient_c`
-                Unit: J/kg-K3
+                Units: J/kg-K3
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7613,7 +7773,7 @@ class WindowMaterialGas(object):
 
         Args:
             value (float): value for IDD Field `molecular_weight`
-                Unit: g/mol
+                Units: g/mol
                 value >= 20.0
                 value <= 200.0
                 if `value` is None it will not be checked against the
@@ -7668,6 +7828,16 @@ class WindowMaterialGas(object):
 
         self._data["Specific Heat Ratio"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -7701,9 +7871,11 @@ class WindowMaterialGas(object):
 class WindowGapSupportPillar(object):
     """ Corresponds to IDD object `WindowGap:SupportPillar`
         used to define pillar geometry for support pillars
+    
     """
     internal_name = "WindowGap:SupportPillar"
     field_count = 3
+    required_fields = ["Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `WindowGap:SupportPillar`
@@ -7784,7 +7956,7 @@ class WindowGapSupportPillar(object):
 
         Args:
             value (float): value for IDD Field `spacing`
-                Unit: m
+                Units: m
                 Default value: 0.04
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -7820,7 +7992,7 @@ class WindowGapSupportPillar(object):
 
         Args:
             value (float): value for IDD Field `radius`
-                Unit: m
+                Units: m
                 Default value: 0.0004
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -7840,6 +8012,16 @@ class WindowGapSupportPillar(object):
                                  'for field `radius`')
 
         self._data["Radius"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):
@@ -7865,9 +8047,11 @@ class WindowGapDeflectionState(object):
         Used to enter data describing deflection state of the gap. It is referenced from
         WindowMaterial:Gap object only and it is used only when deflection model is set to
         MeasuredDeflection, otherwise it is ignored.
+    
     """
     internal_name = "WindowGap:DeflectionState"
     field_count = 4
+    required_fields = ["Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `WindowGap:DeflectionState`
@@ -7955,7 +8139,7 @@ class WindowGapDeflectionState(object):
 
         Args:
             value (float): value for IDD Field `deflected_thickness`
-                Unit: m
+                Units: m
                 Default value: 0.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -7991,7 +8175,7 @@ class WindowGapDeflectionState(object):
 
         Args:
             value (float): value for IDD Field `initial_temperature`
-                Unit: C
+                Units: C
                 Default value: 25.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -8027,7 +8211,7 @@ class WindowGapDeflectionState(object):
 
         Args:
             value (float): value for IDD Field `initial_pressure`
-                Unit: Pa
+                Units: Pa
                 Default value: 101325.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -8047,6 +8231,16 @@ class WindowGapDeflectionState(object):
                                  'for field `initial_pressure`')
 
         self._data["Initial Pressure"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):
@@ -8071,9 +8265,11 @@ class WindowGapDeflectionState(object):
 class WindowMaterialGasMixture(object):
     """ Corresponds to IDD object `WindowMaterial:GasMixture`
         Gas mixtures that are used in Windows or Glass Doors
+    
     """
     internal_name = "WindowMaterial:GasMixture"
     field_count = 11
+    required_fields = ["Name", "Thickness", "Number of Gases in Mixture", "Gas 1 Type", "Gas 1 Fraction", "Gas 2 Type", "Gas 2 Fraction"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `WindowMaterial:GasMixture`
@@ -8202,7 +8398,7 @@ class WindowMaterialGasMixture(object):
 
         Args:
             value (float): value for IDD Field `thickness`
-                Unit: m
+                Units: m
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -8596,6 +8792,16 @@ class WindowMaterialGasMixture(object):
 
         self._data["Gas 4 Fraction"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -8629,9 +8835,11 @@ class WindowMaterialGap(object):
         Construction:ComplexFenestrationState object is used. It is referenced as a layer in the
         Construction:ComplexFenestrationState object. It cannot be referenced as a layer from the
         Construction object.
+    
     """
     internal_name = "WindowMaterial:Gap"
     field_count = 6
+    required_fields = ["Name", "Thickness", "Gas (or Gas Mixture)"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `WindowMaterial:Gap`
@@ -8730,7 +8938,7 @@ class WindowMaterialGap(object):
 
         Args:
             value (float): value for IDD Field `thickness`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8796,7 +9004,7 @@ class WindowMaterialGap(object):
 
         Args:
             value (float): value for IDD Field `pressure`
-                Unit: Pa
+                Units: Pa
                 Default value: 101325.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -8882,6 +9090,16 @@ class WindowMaterialGap(object):
 
         self._data["Support Pillar"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -8910,9 +9128,11 @@ class WindowMaterialShade(object):
         properties are assumed to be the same on both sides of the shade. Shades are considered
         to be perfect diffusers (all transmitted and reflected radiation is
         hemispherically-diffuse) independent of angle of incidence.
+    
     """
     internal_name = "WindowMaterial:Shade"
     field_count = 15
+    required_fields = ["Name", "Solar Transmittance", "Solar Reflectance", "Visible Transmittance", "Visible Reflectance", "Infrared Hemispherical Emissivity", "Infrared Transmittance", "Thickness", "Conductivity"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `WindowMaterial:Shade`
@@ -9066,7 +9286,7 @@ class WindowMaterialShade(object):
 
         Args:
             value (float): value for IDD Field `solar_transmittance`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 value < 1.0
                 if `value` is None it will not be checked against the
@@ -9107,7 +9327,7 @@ class WindowMaterialShade(object):
 
         Args:
             value (float): value for IDD Field `solar_reflectance`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 value < 1.0
                 if `value` is None it will not be checked against the
@@ -9147,7 +9367,7 @@ class WindowMaterialShade(object):
 
         Args:
             value (float): value for IDD Field `visible_transmittance`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 value < 1.0
                 if `value` is None it will not be checked against the
@@ -9188,7 +9408,7 @@ class WindowMaterialShade(object):
 
         Args:
             value (float): value for IDD Field `visible_reflectance`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 value < 1.0
                 if `value` is None it will not be checked against the
@@ -9227,7 +9447,7 @@ class WindowMaterialShade(object):
 
         Args:
             value (float): value for IDD Field `infrared_hemispherical_emissivity`
-                Unit: dimensionless
+                Units: dimensionless
                 value > 0.0
                 value < 1.0
                 if `value` is None it will not be checked against the
@@ -9266,7 +9486,7 @@ class WindowMaterialShade(object):
 
         Args:
             value (float): value for IDD Field `infrared_transmittance`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 value < 1.0
                 if `value` is None it will not be checked against the
@@ -9305,7 +9525,8 @@ class WindowMaterialShade(object):
 
         Args:
             value (float): value for IDD Field `thickness`
-                Unit: m
+                Units: m
+                IP-Units: in
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -9340,7 +9561,7 @@ class WindowMaterialShade(object):
 
         Args:
             value (float): value for IDD Field `conductivity`
-                Unit: W/m-K
+                Units: W/m-K
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -9375,7 +9596,8 @@ class WindowMaterialShade(object):
 
         Args:
             value (float): value for IDD Field `shade_to_glass_distance`
-                Unit: m
+                Units: m
+                IP-Units: in
                 Default value: 0.05
                 value >= 0.001
                 value <= 1.0
@@ -9571,7 +9793,7 @@ class WindowMaterialShade(object):
 
         Args:
             value (float): value for IDD Field `airflow_permeability`
-                Unit: dimensionless
+                Units: dimensionless
                 Default value: 0.0
                 value >= 0.0
                 value <= 0.8
@@ -9595,6 +9817,16 @@ class WindowMaterialShade(object):
                                  'for field `airflow_permeability`')
 
         self._data["Airflow Permeability"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):
@@ -9630,9 +9862,11 @@ class WindowMaterialShade(object):
 class WindowMaterialComplexShade(object):
     """ Corresponds to IDD object `WindowMaterial:ComplexShade`
         Complex window shading layer thermal properties
+    
     """
     internal_name = "WindowMaterial:ComplexShade"
     field_count = 18
+    required_fields = ["Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `WindowMaterial:ComplexShade`
@@ -9852,7 +10086,7 @@ class WindowMaterialComplexShade(object):
 
         Args:
             value (float): value for IDD Field `thickness`
-                Unit: m
+                Units: m
                 Default value: 0.002
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -9888,7 +10122,7 @@ class WindowMaterialComplexShade(object):
 
         Args:
             value (float): value for IDD Field `conductivity`
-                Unit: W/m-K
+                Units: W/m-K
                 Default value: 1.0
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -10236,7 +10470,7 @@ class WindowMaterialComplexShade(object):
 
         Args:
             value (float): value for IDD Field `slat_width`
-                Unit: m
+                Units: m
                 Default value: 0.016
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -10273,7 +10507,7 @@ class WindowMaterialComplexShade(object):
 
         Args:
             value (float): value for IDD Field `slat_spacing`
-                Unit: m
+                Units: m
                 Default value: 0.012
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -10311,7 +10545,7 @@ class WindowMaterialComplexShade(object):
 
         Args:
             value (float): value for IDD Field `slat_thickness`
-                Unit: m
+                Units: m
                 Default value: 0.0006
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -10347,7 +10581,7 @@ class WindowMaterialComplexShade(object):
 
         Args:
             value (float): value for IDD Field `slat_angle`
-                Unit: deg
+                Units: deg
                 Default value: 90.0
                 value >= -90.0
                 value <= 90.0
@@ -10387,7 +10621,7 @@ class WindowMaterialComplexShade(object):
 
         Args:
             value (float): value for IDD Field `slat_conductivity`
-                Unit: W/m-K
+                Units: W/m-K
                 Default value: 160.0
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -10426,7 +10660,7 @@ class WindowMaterialComplexShade(object):
 
         Args:
             value (float): value for IDD Field `slat_curve`
-                Unit: m
+                Units: m
                 Default value: 0.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -10446,6 +10680,16 @@ class WindowMaterialComplexShade(object):
                                  'for field `slat_curve`')
 
         self._data["Slat Curve"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):
@@ -10484,9 +10728,11 @@ class WindowMaterialComplexShade(object):
 class WindowMaterialBlind(object):
     """ Corresponds to IDD object `WindowMaterial:Blind`
         Window blind thermal properties
+    
     """
     internal_name = "WindowMaterial:Blind"
     field_count = 29
+    required_fields = ["Name", "Slat Width", "Slat Separation", "Front Side Slat Beam Solar Reflectance", "Back Side Slat Beam Solar Reflectance", "Front Side Slat Diffuse Solar Reflectance", "Back Side Slat Diffuse Solar Reflectance", "Slat Beam Visible Transmittance"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `WindowMaterial:Blind`
@@ -10766,7 +11012,8 @@ class WindowMaterialBlind(object):
 
         Args:
             value (float): value for IDD Field `slat_width`
-                Unit: m
+                Units: m
+                IP-Units: in
                 value > 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
@@ -10806,7 +11053,8 @@ class WindowMaterialBlind(object):
 
         Args:
             value (float): value for IDD Field `slat_separation`
-                Unit: m
+                Units: m
+                IP-Units: in
                 value > 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
@@ -10847,7 +11095,8 @@ class WindowMaterialBlind(object):
 
         Args:
             value (float): value for IDD Field `slat_thickness`
-                Unit: m
+                Units: m
+                IP-Units: in
                 Default value: 0.00025
                 value > 0.0
                 value <= 0.1
@@ -10896,7 +11145,7 @@ class WindowMaterialBlind(object):
 
         Args:
             value (float): value for IDD Field `slat_angle`
-                Unit: deg
+                Units: deg
                 Default value: 45.0
                 value >= 0.0
                 value <= 180.0
@@ -10937,7 +11186,7 @@ class WindowMaterialBlind(object):
 
         Args:
             value (float): value for IDD Field `slat_conductivity`
-                Unit: W/m-K
+                Units: W/m-K
                 Default value: 221.0
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -11561,7 +11810,8 @@ class WindowMaterialBlind(object):
 
         Args:
             value (float): value for IDD Field `blind_to_glass_distance`
-                Unit: m
+                Units: m
+                IP-Units: in
                 Default value: 0.05
                 value >= 0.01
                 value <= 1.0
@@ -11761,7 +12011,7 @@ class WindowMaterialBlind(object):
 
         Args:
             value (float): value for IDD Field `minimum_slat_angle`
-                Unit: deg
+                Units: deg
                 Default value: 0.0
                 value >= 0.0
                 value <= 180.0
@@ -11805,7 +12055,7 @@ class WindowMaterialBlind(object):
 
         Args:
             value (float): value for IDD Field `maximum_slat_angle`
-                Unit: deg
+                Units: deg
                 Default value: 180.0
                 value >= 0.0
                 value <= 180.0
@@ -11829,6 +12079,16 @@ class WindowMaterialBlind(object):
                                  'for field `maximum_slat_angle`')
 
         self._data["Maximum Slat Angle"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):
@@ -11878,9 +12138,11 @@ class WindowMaterialBlind(object):
 class WindowMaterialScreen(object):
     """ Corresponds to IDD object `WindowMaterial:Screen`
         Window screen physical properties. Can only be located on the exterior side of a window construction.
+    
     """
     internal_name = "WindowMaterial:Screen"
     field_count = 14
+    required_fields = ["Name", "Diffuse Solar Reflectance", "Diffuse Visible Reflectance", "Screen Material Spacing", "Screen Material Diameter"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `WindowMaterial:Screen`
@@ -12076,7 +12338,7 @@ class WindowMaterialScreen(object):
 
         Args:
             value (float): value for IDD Field `diffuse_solar_reflectance`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 value < 1.0
                 if `value` is None it will not be checked against the
@@ -12118,7 +12380,7 @@ class WindowMaterialScreen(object):
 
         Args:
             value (float): value for IDD Field `diffuse_visible_reflectance`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 value < 1.0
                 if `value` is None it will not be checked against the
@@ -12159,7 +12421,7 @@ class WindowMaterialScreen(object):
 
         Args:
             value (float): value for IDD Field `thermal_hemispherical_emissivity`
-                Unit: dimensionless
+                Units: dimensionless
                 Default value: 0.9
                 value > 0.0
                 value < 1.0
@@ -12201,7 +12463,7 @@ class WindowMaterialScreen(object):
 
         Args:
             value (float): value for IDD Field `conductivity`
-                Unit: W/m-K
+                Units: W/m-K
                 Default value: 221.0
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -12238,7 +12500,8 @@ class WindowMaterialScreen(object):
 
         Args:
             value (float): value for IDD Field `screen_material_spacing`
-                Unit: m
+                Units: m
+                IP-Units: in
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -12274,7 +12537,8 @@ class WindowMaterialScreen(object):
 
         Args:
             value (float): value for IDD Field `screen_material_diameter`
-                Unit: m
+                Units: m
+                IP-Units: in
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -12310,7 +12574,8 @@ class WindowMaterialScreen(object):
 
         Args:
             value (float): value for IDD Field `screen_to_glass_distance`
-                Unit: m
+                Units: m
+                IP-Units: in
                 Default value: 0.025
                 value >= 0.001
                 value <= 1.0
@@ -12352,7 +12617,7 @@ class WindowMaterialScreen(object):
 
         Args:
             value (float): value for IDD Field `top_opening_multiplier`
-                Unit: dimensionless
+                Units: dimensionless
                 Default value: 0.0
                 value >= 0.0
                 value <= 1.0
@@ -12394,7 +12659,7 @@ class WindowMaterialScreen(object):
 
         Args:
             value (float): value for IDD Field `bottom_opening_multiplier`
-                Unit: dimensionless
+                Units: dimensionless
                 Default value: 0.0
                 value >= 0.0
                 value <= 1.0
@@ -12436,7 +12701,7 @@ class WindowMaterialScreen(object):
 
         Args:
             value (float): value for IDD Field `left_side_opening_multiplier`
-                Unit: dimensionless
+                Units: dimensionless
                 Default value: 0.0
                 value >= 0.0
                 value <= 1.0
@@ -12478,7 +12743,7 @@ class WindowMaterialScreen(object):
 
         Args:
             value (float): value for IDD Field `right_side_opening_multiplier`
-                Unit: dimensionless
+                Units: dimensionless
                 Default value: 0.0
                 value >= 0.0
                 value <= 1.0
@@ -12527,7 +12792,7 @@ class WindowMaterialScreen(object):
                       - 2
                       - 3
                       - 5
-                Unit: deg
+                Units: deg
                 Default value: 0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -12555,6 +12820,16 @@ class WindowMaterialScreen(object):
                                  'field `angle_of_resolution_for_screen_transmittance_output_map`'.format(value))
 
         self._data["Angle of Resolution for Screen Transmittance Output Map"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):
@@ -12592,9 +12867,11 @@ class WindowMaterialShadeEquivalentLayer(object):
         Shades are considered to be perfect diffusers (all transmitted and
         reflected radiation is hemispherically-diffuse) independent of angle
         of incidence.  Shade represents roller blinds.
+    
     """
     internal_name = "WindowMaterial:Shade:EquivalentLayer"
     field_count = 12
+    required_fields = ["Name", "Front Side Shade Beam-Diffuse Solar Transmittance", "Back Side Shade Beam-Diffuse Solar Transmittance", "Front Side Shade Beam-Diffuse Solar Reflectance", "Back Side Shade Beam-Diffuse Solar Reflectance"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `WindowMaterial:Shade:EquivalentLayer`
@@ -12732,7 +13009,7 @@ class WindowMaterialShadeEquivalentLayer(object):
 
         Args:
             value (float): value for IDD Field `shade_beambeam_solar_transmittance`
-                Unit: dimensionless
+                Units: dimensionless
                 Default value: 0.0
                 value >= 0.0
                 value <= 0.8
@@ -12774,7 +13051,7 @@ class WindowMaterialShadeEquivalentLayer(object):
 
         Args:
             value (float): value for IDD Field `front_side_shade_beamdiffuse_solar_transmittance`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 value < 1.0
                 if `value` is None it will not be checked against the
@@ -12815,7 +13092,7 @@ class WindowMaterialShadeEquivalentLayer(object):
 
         Args:
             value (float): value for IDD Field `back_side_shade_beamdiffuse_solar_transmittance`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 value < 1.0
                 if `value` is None it will not be checked against the
@@ -12856,7 +13133,7 @@ class WindowMaterialShadeEquivalentLayer(object):
 
         Args:
             value (float): value for IDD Field `front_side_shade_beamdiffuse_solar_reflectance`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 value < 1.0
                 if `value` is None it will not be checked against the
@@ -12897,7 +13174,7 @@ class WindowMaterialShadeEquivalentLayer(object):
 
         Args:
             value (float): value for IDD Field `back_side_shade_beamdiffuse_solar_reflectance`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 value < 1.0
                 if `value` is None it will not be checked against the
@@ -12939,7 +13216,7 @@ class WindowMaterialShadeEquivalentLayer(object):
 
         Args:
             value (float): value for IDD Field `shade_beambeam_visible_transmittance_at_normal_incidence`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 value < 1.0
                 if `value` is None it will not be checked against the
@@ -12981,7 +13258,7 @@ class WindowMaterialShadeEquivalentLayer(object):
 
         Args:
             value (float): value for IDD Field `shade_beamdiffuse_visible_transmittance_at_normal_incidence`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 value < 1.0
                 if `value` is None it will not be checked against the
@@ -13023,7 +13300,7 @@ class WindowMaterialShadeEquivalentLayer(object):
 
         Args:
             value (float): value for IDD Field `shade_beamdiffuse_visible_reflectance_at_normal_incidence`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 value < 1.0
                 if `value` is None it will not be checked against the
@@ -13064,7 +13341,7 @@ class WindowMaterialShadeEquivalentLayer(object):
 
         Args:
             value (float): value for IDD Field `shade_material_infrared_transmittance`
-                Unit: dimensionless
+                Units: dimensionless
                 Default value: 0.05
                 value >= 0.0
                 value < 1.0
@@ -13107,7 +13384,7 @@ class WindowMaterialShadeEquivalentLayer(object):
 
         Args:
             value (float): value for IDD Field `front_side_shade_material_infrared_emissivity`
-                Unit: dimensionless
+                Units: dimensionless
                 Default value: 0.91
                 value > 0.0
                 value < 1.0
@@ -13150,7 +13427,7 @@ class WindowMaterialShadeEquivalentLayer(object):
 
         Args:
             value (float): value for IDD Field `back_side_shade_material_infrared_emissivity`
-                Unit: dimensionless
+                Units: dimensionless
                 Default value: 0.91
                 value > 0.0
                 value < 1.0
@@ -13174,6 +13451,16 @@ class WindowMaterialShadeEquivalentLayer(object):
                                  'for field `back_side_shade_material_infrared_emissivity`')
 
         self._data["Back Side Shade Material Infrared Emissivity"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):
@@ -13209,9 +13496,11 @@ class WindowMaterialDrapeEquivalentLayer(object):
         Shades are considered to be perfect diffusers (all transmitted and reflected
         radiation is hemispherically-diffuse) independent of angle of incidence.
         unpleated drape fabric is treated as thin and flat layer.
+    
     """
     internal_name = "WindowMaterial:Drape:EquivalentLayer"
     field_count = 14
+    required_fields = ["Name", "Front Side Drape Beam-Diffuse Solar Transmittance", "Back Side Drape Beam-Diffuse Solar Transmittance", "Front Side Drape Beam-Diffuse Solar Reflectance", "Back Side Drape Beam-Diffuse Solar Reflectance"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `WindowMaterial:Drape:EquivalentLayer`
@@ -13361,7 +13650,7 @@ class WindowMaterialDrapeEquivalentLayer(object):
 
         Args:
             value (float): value for IDD Field `drape_beambeam_solar_transmittance_at_normal_incidence`
-                Unit: dimensionless
+                Units: dimensionless
                 Default value: 0.0
                 value >= 0.0
                 value <= 0.2
@@ -13404,7 +13693,7 @@ class WindowMaterialDrapeEquivalentLayer(object):
 
         Args:
             value (float): value for IDD Field `front_side_drape_beamdiffuse_solar_transmittance`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 value < 1.0
                 if `value` is None it will not be checked against the
@@ -13446,7 +13735,7 @@ class WindowMaterialDrapeEquivalentLayer(object):
 
         Args:
             value (float): value for IDD Field `back_side_drape_beamdiffuse_solar_transmittance`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 value < 1.0
                 if `value` is None it will not be checked against the
@@ -13487,7 +13776,7 @@ class WindowMaterialDrapeEquivalentLayer(object):
 
         Args:
             value (float): value for IDD Field `front_side_drape_beamdiffuse_solar_reflectance`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 value < 1.0
                 if `value` is None it will not be checked against the
@@ -13528,7 +13817,7 @@ class WindowMaterialDrapeEquivalentLayer(object):
 
         Args:
             value (float): value for IDD Field `back_side_drape_beamdiffuse_solar_reflectance`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 value < 1.0
                 if `value` is None it will not be checked against the
@@ -13569,7 +13858,7 @@ class WindowMaterialDrapeEquivalentLayer(object):
 
         Args:
             value (float): value for IDD Field `drape_beambeam_visible_transmittance`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 value < 1.0
                 if `value` is None it will not be checked against the
@@ -13611,7 +13900,7 @@ class WindowMaterialDrapeEquivalentLayer(object):
 
         Args:
             value (float): value for IDD Field `drape_beamdiffuse_visible_transmittance`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 value < 1.0
                 if `value` is None it will not be checked against the
@@ -13653,7 +13942,7 @@ class WindowMaterialDrapeEquivalentLayer(object):
 
         Args:
             value (float): value for IDD Field `drape_beamdiffuse_visible_reflectance`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 value < 1.0
                 if `value` is None it will not be checked against the
@@ -13694,7 +13983,7 @@ class WindowMaterialDrapeEquivalentLayer(object):
 
         Args:
             value (float): value for IDD Field `drape_material_infrared_transmittance`
-                Unit: dimensionless
+                Units: dimensionless
                 Default value: 0.05
                 value >= 0.0
                 value < 1.0
@@ -13737,7 +14026,7 @@ class WindowMaterialDrapeEquivalentLayer(object):
 
         Args:
             value (float): value for IDD Field `front_side_drape_material_infrared_emissivity`
-                Unit: dimensionless
+                Units: dimensionless
                 Default value: 0.87
                 value > 0.0
                 value < 1.0
@@ -13780,7 +14069,7 @@ class WindowMaterialDrapeEquivalentLayer(object):
 
         Args:
             value (float): value for IDD Field `back_side_drape_material_infrared_emissivity`
-                Unit: dimensionless
+                Units: dimensionless
                 Default value: 0.87
                 value > 0.0
                 value < 1.0
@@ -13822,7 +14111,8 @@ class WindowMaterialDrapeEquivalentLayer(object):
 
         Args:
             value (float): value for IDD Field `width_of_pleated_fabric`
-                Unit: m
+                Units: m
+                IP-Units: in
                 Default value: 0.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -13860,7 +14150,8 @@ class WindowMaterialDrapeEquivalentLayer(object):
 
         Args:
             value (float): value for IDD Field `length_of_pleated_fabric`
-                Unit: m
+                Units: m
+                IP-Units: in
                 Default value: 0.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -13880,6 +14171,16 @@ class WindowMaterialDrapeEquivalentLayer(object):
                                  'for field `length_of_pleated_fabric`')
 
         self._data["Length of Pleated Fabric"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):
@@ -13917,9 +14218,11 @@ class WindowMaterialBlindEquivalentLayer(object):
         The model assumes that slats are thin and flat, applies correction
         imperical correlation to accout for curvature effect. Slats are
         assumed to transmit and reflect diffusely.
+    
     """
     internal_name = "WindowMaterial:Blind:EquivalentLayer"
     field_count = 24
+    required_fields = ["Name", "Slat Width", "Slat Separation", "Front Side Slat Beam-Diffuse Solar Reflectance", "Back Side Slat Beam-Diffuse Solar Reflectance", "Front Side Slat Diffuse-Diffuse Solar Reflectance", "Back Side Slat Diffuse-Diffuse Solar Reflectance"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `WindowMaterial:Blind:EquivalentLayer`
@@ -14169,7 +14472,8 @@ class WindowMaterialBlindEquivalentLayer(object):
 
         Args:
             value (float): value for IDD Field `slat_width`
-                Unit: m
+                Units: m
+                IP-Units: in
                 value > 0.0
                 value <= 0.025
                 if `value` is None it will not be checked against the
@@ -14209,7 +14513,8 @@ class WindowMaterialBlindEquivalentLayer(object):
 
         Args:
             value (float): value for IDD Field `slat_separation`
-                Unit: m
+                Units: m
+                IP-Units: in
                 value > 0.0
                 value <= 0.025
                 if `value` is None it will not be checked against the
@@ -14251,7 +14556,8 @@ class WindowMaterialBlindEquivalentLayer(object):
 
         Args:
             value (float): value for IDD Field `slat_crown`
-                Unit: m
+                Units: m
+                IP-Units: in
                 Default value: 0.0015
                 value >= 0.0
                 value <= 0.00156
@@ -14291,7 +14597,7 @@ class WindowMaterialBlindEquivalentLayer(object):
 
         Args:
             value (float): value for IDD Field `slat_angle`
-                Unit: deg
+                Units: deg
                 Default value: 45.0
                 value >= 0.0
                 value <= 180.0
@@ -14374,7 +14680,7 @@ class WindowMaterialBlindEquivalentLayer(object):
 
         Args:
             value (float): value for IDD Field `back_side_slat_beamdiffuse_solar_transmittance`
-                Unit: dimensionless
+                Units: dimensionless
                 Default value: 0.0
                 value >= 0.0
                 value < 1.0
@@ -14416,7 +14722,7 @@ class WindowMaterialBlindEquivalentLayer(object):
 
         Args:
             value (float): value for IDD Field `front_side_slat_beamdiffuse_solar_reflectance`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 value < 1.0
                 if `value` is None it will not be checked against the
@@ -14457,7 +14763,7 @@ class WindowMaterialBlindEquivalentLayer(object):
 
         Args:
             value (float): value for IDD Field `back_side_slat_beamdiffuse_solar_reflectance`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 value < 1.0
                 if `value` is None it will not be checked against the
@@ -14499,7 +14805,7 @@ class WindowMaterialBlindEquivalentLayer(object):
 
         Args:
             value (float): value for IDD Field `front_side_slat_beamdiffuse_visible_transmittance`
-                Unit: dimensionless
+                Units: dimensionless
                 Default value: 0.0
                 value >= 0.0
                 value < 1.0
@@ -14542,7 +14848,7 @@ class WindowMaterialBlindEquivalentLayer(object):
 
         Args:
             value (float): value for IDD Field `back_side_slat_beamdiffuse_visible_transmittance`
-                Unit: dimensionless
+                Units: dimensionless
                 Default value: 0.0
                 value >= 0.0
                 value < 1.0
@@ -14585,7 +14891,7 @@ class WindowMaterialBlindEquivalentLayer(object):
 
         Args:
             value (float): value for IDD Field `front_side_slat_beamdiffuse_visible_reflectance`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 value < 1.0
                 if `value` is None it will not be checked against the
@@ -14627,7 +14933,7 @@ class WindowMaterialBlindEquivalentLayer(object):
 
         Args:
             value (float): value for IDD Field `back_side_slat_beamdiffuse_visible_reflectance`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 value < 1.0
                 if `value` is None it will not be checked against the
@@ -14668,7 +14974,7 @@ class WindowMaterialBlindEquivalentLayer(object):
 
         Args:
             value (float): value for IDD Field `slat_diffusediffuse_solar_transmittance`
-                Unit: dimensionless
+                Units: dimensionless
                 Default value: 0.0
                 value >= 0.0
                 value < 1.0
@@ -14710,7 +15016,7 @@ class WindowMaterialBlindEquivalentLayer(object):
 
         Args:
             value (float): value for IDD Field `front_side_slat_diffusediffuse_solar_reflectance`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 value < 1.0
                 if `value` is None it will not be checked against the
@@ -14751,7 +15057,7 @@ class WindowMaterialBlindEquivalentLayer(object):
 
         Args:
             value (float): value for IDD Field `back_side_slat_diffusediffuse_solar_reflectance`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 value < 1.0
                 if `value` is None it will not be checked against the
@@ -14832,7 +15138,7 @@ class WindowMaterialBlindEquivalentLayer(object):
 
         Args:
             value (float): value for IDD Field `front_side_slat_diffusediffuse_visible_reflectance`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 value < 1.0
                 if `value` is None it will not be checked against the
@@ -14873,7 +15179,7 @@ class WindowMaterialBlindEquivalentLayer(object):
 
         Args:
             value (float): value for IDD Field `back_side_slat_diffusediffuse_visible_reflectance`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 value < 1.0
                 if `value` is None it will not be checked against the
@@ -14954,7 +15260,7 @@ class WindowMaterialBlindEquivalentLayer(object):
 
         Args:
             value (float): value for IDD Field `front_side_slat_infrared_emissivity`
-                Unit: dimensionless
+                Units: dimensionless
                 Default value: 0.9
                 value >= 0.0
                 value < 1.0
@@ -14995,7 +15301,7 @@ class WindowMaterialBlindEquivalentLayer(object):
 
         Args:
             value (float): value for IDD Field `back_side_slat_infrared_emissivity`
-                Unit: dimensionless
+                Units: dimensionless
                 Default value: 0.9
                 value >= 0.0
                 value < 1.0
@@ -15069,6 +15375,16 @@ class WindowMaterialBlindEquivalentLayer(object):
 
         self._data["Slat Angle Control"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -15113,9 +15429,11 @@ class WindowMaterialScreenEquivalentLayer(object):
     """ Corresponds to IDD object `WindowMaterial:Screen:EquivalentLayer`
         Equivalent layer window screen physical properties. Can only be
         located on the exterior side of a window construction.
+    
     """
     internal_name = "WindowMaterial:Screen:EquivalentLayer"
     field_count = 11
+    required_fields = ["Name", "Screen Beam-Beam Solar Transmittance", "Screen Beam-Diffuse Solar Transmittance", "Screen Beam-Diffuse Solar Reflectance", "Screen Beam-Beam Visible Transmittance", "Screen Beam-Diffuse Visible Transmittance", "Screen Beam-Diffuse Visible Reflectance", "Screen Infrared Transmittance"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `WindowMaterial:Screen:EquivalentLayer`
@@ -15249,7 +15567,7 @@ class WindowMaterialScreenEquivalentLayer(object):
 
         Args:
             value (float): value for IDD Field `screen_beambeam_solar_transmittance`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 value < 1.0
                 if `value` is None it will not be checked against the
@@ -15291,7 +15609,7 @@ class WindowMaterialScreenEquivalentLayer(object):
 
         Args:
             value (float): value for IDD Field `screen_beamdiffuse_solar_transmittance`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 value < 1.0
                 if `value` is None it will not be checked against the
@@ -15333,7 +15651,7 @@ class WindowMaterialScreenEquivalentLayer(object):
 
         Args:
             value (float): value for IDD Field `screen_beamdiffuse_solar_reflectance`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 value < 1.0
                 if `value` is None it will not be checked against the
@@ -15375,7 +15693,7 @@ class WindowMaterialScreenEquivalentLayer(object):
 
         Args:
             value (float): value for IDD Field `screen_beambeam_visible_transmittance`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 value < 1.0
                 if `value` is None it will not be checked against the
@@ -15417,7 +15735,7 @@ class WindowMaterialScreenEquivalentLayer(object):
 
         Args:
             value (float): value for IDD Field `screen_beamdiffuse_visible_transmittance`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 value < 1.0
                 if `value` is None it will not be checked against the
@@ -15459,7 +15777,7 @@ class WindowMaterialScreenEquivalentLayer(object):
 
         Args:
             value (float): value for IDD Field `screen_beamdiffuse_visible_reflectance`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 value < 1.0
                 if `value` is None it will not be checked against the
@@ -15500,7 +15818,7 @@ class WindowMaterialScreenEquivalentLayer(object):
 
         Args:
             value (float): value for IDD Field `screen_infrared_transmittance`
-                Unit: dimensionless
+                Units: dimensionless
                 Default value: 0.02
                 value >= 0.0
                 value < 1.0
@@ -15542,7 +15860,7 @@ class WindowMaterialScreenEquivalentLayer(object):
 
         Args:
             value (float): value for IDD Field `screen_infrared_emissivity`
-                Unit: dimensionless
+                Units: dimensionless
                 Default value: 0.93
                 value > 0.0
                 value < 1.0
@@ -15583,7 +15901,8 @@ class WindowMaterialScreenEquivalentLayer(object):
 
         Args:
             value (float): value for IDD Field `screen_wire_spacing`
-                Unit: m
+                Units: m
+                IP-Units: in
                 Default value: 0.025
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -15620,7 +15939,8 @@ class WindowMaterialScreenEquivalentLayer(object):
 
         Args:
             value (float): value for IDD Field `screen_wire_diameter`
-                Unit: m
+                Units: m
+                IP-Units: in
                 Default value: 0.005
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -15640,6 +15960,16 @@ class WindowMaterialScreenEquivalentLayer(object):
                                  'for field `screen_wire_diameter`')
 
         self._data["Screen Wire Diameter"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):
@@ -15672,9 +16002,11 @@ class WindowMaterialGlazingEquivalentLayer(object):
     """ Corresponds to IDD object `WindowMaterial:Glazing:EquivalentLayer`
         Glass material properties for Windows or Glass Doors
         Transmittance/Reflectance input method.
+    
     """
     internal_name = "WindowMaterial:Glazing:EquivalentLayer"
     field_count = 28
+    required_fields = ["Name", "Optical Data Type", "Front Side Beam-Beam Solar Transmittance", "Back Side Beam-Beam Solar Transmittance", "Front Side Beam-Beam Solar Reflectance", "Back Side Beam-Beam Solar Reflectance"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `WindowMaterial:Glazing:EquivalentLayer`
@@ -15982,7 +16314,7 @@ class WindowMaterialGlazingEquivalentLayer(object):
 
         Args:
             value (float): value for IDD Field `front_side_beambeam_solar_transmittance`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
@@ -16022,7 +16354,7 @@ class WindowMaterialGlazingEquivalentLayer(object):
 
         Args:
             value (float): value for IDD Field `back_side_beambeam_solar_transmittance`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
@@ -16063,7 +16395,7 @@ class WindowMaterialGlazingEquivalentLayer(object):
 
         Args:
             value (float): value for IDD Field `front_side_beambeam_solar_reflectance`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
@@ -16104,7 +16436,7 @@ class WindowMaterialGlazingEquivalentLayer(object):
 
         Args:
             value (float): value for IDD Field `back_side_beambeam_solar_reflectance`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
@@ -16144,7 +16476,7 @@ class WindowMaterialGlazingEquivalentLayer(object):
 
         Args:
             value (float): value for IDD Field `front_side_beambeam_visible_solar_transmittance`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
@@ -16184,7 +16516,7 @@ class WindowMaterialGlazingEquivalentLayer(object):
 
         Args:
             value (float): value for IDD Field `back_side_beambeam_visible_solar_transmittance`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
@@ -16225,7 +16557,7 @@ class WindowMaterialGlazingEquivalentLayer(object):
 
         Args:
             value (float): value for IDD Field `front_side_beambeam_visible_solar_reflectance`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
@@ -16266,7 +16598,7 @@ class WindowMaterialGlazingEquivalentLayer(object):
 
         Args:
             value (float): value for IDD Field `back_side_beambeam_visible_solar_reflectance`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
@@ -16306,7 +16638,7 @@ class WindowMaterialGlazingEquivalentLayer(object):
 
         Args:
             value (float): value for IDD Field `front_side_beamdiffuse_solar_transmittance`
-                Unit: dimensionless
+                Units: dimensionless
                 Default value: 0.0
                 value >= 0.0
                 value <= 1.0
@@ -16347,7 +16679,7 @@ class WindowMaterialGlazingEquivalentLayer(object):
 
         Args:
             value (float): value for IDD Field `back_side_beamdiffuse_solar_transmittance`
-                Unit: dimensionless
+                Units: dimensionless
                 Default value: 0.0
                 value >= 0.0
                 value <= 1.0
@@ -16389,7 +16721,7 @@ class WindowMaterialGlazingEquivalentLayer(object):
 
         Args:
             value (float): value for IDD Field `front_side_beamdiffuse_solar_reflectance`
-                Unit: dimensionless
+                Units: dimensionless
                 Default value: 0.0
                 value >= 0.0
                 value <= 1.0
@@ -16431,7 +16763,7 @@ class WindowMaterialGlazingEquivalentLayer(object):
 
         Args:
             value (float): value for IDD Field `back_side_beamdiffuse_solar_reflectance`
-                Unit: dimensionless
+                Units: dimensionless
                 Default value: 0.0
                 value >= 0.0
                 value <= 1.0
@@ -16472,7 +16804,7 @@ class WindowMaterialGlazingEquivalentLayer(object):
 
         Args:
             value (float): value for IDD Field `front_side_beamdiffuse_visible_solar_transmittance`
-                Unit: dimensionless
+                Units: dimensionless
                 Default value: 0.0
                 value >= 0.0
                 value <= 1.0
@@ -16513,7 +16845,7 @@ class WindowMaterialGlazingEquivalentLayer(object):
 
         Args:
             value (float): value for IDD Field `back_side_beamdiffuse_visible_solar_transmittance`
-                Unit: dimensionless
+                Units: dimensionless
                 Default value: 0.0
                 value >= 0.0
                 value <= 1.0
@@ -16555,7 +16887,7 @@ class WindowMaterialGlazingEquivalentLayer(object):
 
         Args:
             value (float): value for IDD Field `front_side_beamdiffuse_visible_solar_reflectance`
-                Unit: dimensionless
+                Units: dimensionless
                 Default value: 0.0
                 value >= 0.0
                 value <= 1.0
@@ -16597,7 +16929,7 @@ class WindowMaterialGlazingEquivalentLayer(object):
 
         Args:
             value (float): value for IDD Field `back_side_beamdiffuse_visible_solar_reflectance`
-                Unit: dimensionless
+                Units: dimensionless
                 Default value: 0.0
                 value >= 0.0
                 value <= 1.0
@@ -16642,7 +16974,7 @@ class WindowMaterialGlazingEquivalentLayer(object):
 
         Args:
             value (float): value for IDD Field `diffusediffuse_solar_transmittance`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
@@ -16686,7 +17018,7 @@ class WindowMaterialGlazingEquivalentLayer(object):
 
         Args:
             value (float): value for IDD Field `front_side_diffusediffuse_solar_reflectance`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
@@ -16730,7 +17062,7 @@ class WindowMaterialGlazingEquivalentLayer(object):
 
         Args:
             value (float): value for IDD Field `back_side_diffusediffuse_solar_reflectance`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
@@ -16771,7 +17103,7 @@ class WindowMaterialGlazingEquivalentLayer(object):
 
         Args:
             value (float): value for IDD Field `diffusediffuse_visible_solar_transmittance`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
@@ -16812,7 +17144,7 @@ class WindowMaterialGlazingEquivalentLayer(object):
 
         Args:
             value (float): value for IDD Field `front_side_diffusediffuse_visible_solar_reflectance`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
@@ -16853,7 +17185,7 @@ class WindowMaterialGlazingEquivalentLayer(object):
 
         Args:
             value (float): value for IDD Field `back_side_diffusediffuse_visible_solar_reflectance`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
@@ -16894,7 +17226,7 @@ class WindowMaterialGlazingEquivalentLayer(object):
 
         Args:
             value (float): value for IDD Field `infrared_transmittance_applies_to_front_and_back`
-                Unit: dimensionless
+                Units: dimensionless
                 Default value: 0.0
                 value >= 0.0
                 value <= 1.0
@@ -16935,7 +17267,7 @@ class WindowMaterialGlazingEquivalentLayer(object):
 
         Args:
             value (float): value for IDD Field `front_side_infrared_emissivity`
-                Unit: dimensionless
+                Units: dimensionless
                 Default value: 0.84
                 value > 0.0
                 value < 1.0
@@ -16976,7 +17308,7 @@ class WindowMaterialGlazingEquivalentLayer(object):
 
         Args:
             value (float): value for IDD Field `back_side_infrared_emissivity`
-                Unit: dimensionless
+                Units: dimensionless
                 Default value: 0.84
                 value > 0.0
                 value < 1.0
@@ -17000,6 +17332,16 @@ class WindowMaterialGlazingEquivalentLayer(object):
                                  'for field `back_side_infrared_emissivity`')
 
         self._data["Back Side Infrared Emissivity"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):
@@ -17050,9 +17392,11 @@ class ConstructionWindowEquivalentLayer(object):
         Start with outside layer and work your way to the inside Layer
         Up to 11 layers total. Up to six solid layers and up to five gaps.
         Enter the material name for each layer
+    
     """
     internal_name = "Construction:WindowEquivalentLayer"
     field_count = 12
+    required_fields = ["Name", "Outside Layer"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Construction:WindowEquivalentLayer`
@@ -17535,6 +17879,16 @@ class ConstructionWindowEquivalentLayer(object):
 
         self._data["Layer 11"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -17567,9 +17921,11 @@ class WindowMaterialGapEquivalentLayer(object):
     """ Corresponds to IDD object `WindowMaterial:Gap:EquivalentLayer`
         Gas material properties that are used in Windows Equivalent Layer
         References only WindowMaterial:Gas properties
+    
     """
     internal_name = "WindowMaterial:Gap:EquivalentLayer"
     field_count = 15
+    required_fields = ["Name", "Gas Type", "Thickness", "Gap Vent Type"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `WindowMaterial:Gap:EquivalentLayer`
@@ -17770,7 +18126,8 @@ class WindowMaterialGapEquivalentLayer(object):
 
         Args:
             value (float): value for IDD Field `thickness`
-                Unit: m
+                Units: m
+                IP-Units: in
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -17854,7 +18211,7 @@ class WindowMaterialGapEquivalentLayer(object):
 
         Args:
             value (float): value for IDD Field `conductivity_coefficient_a`
-                Unit: W/m-K
+                Units: W/m-K
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -17886,7 +18243,7 @@ class WindowMaterialGapEquivalentLayer(object):
 
         Args:
             value (float): value for IDD Field `conductivity_coefficient_b`
-                Unit: W/m-K2
+                Units: W/m-K2
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -17918,7 +18275,7 @@ class WindowMaterialGapEquivalentLayer(object):
 
         Args:
             value (float): value for IDD Field `conductivity_coefficient_c`
-                Unit: W/m-K3
+                Units: W/m-K3
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -17950,7 +18307,7 @@ class WindowMaterialGapEquivalentLayer(object):
 
         Args:
             value (float): value for IDD Field `viscosity_coefficient_a`
-                Unit: kg/m-s
+                Units: kg/m-s
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -17986,7 +18343,7 @@ class WindowMaterialGapEquivalentLayer(object):
 
         Args:
             value (float): value for IDD Field `viscosity_coefficient_b`
-                Unit: kg/m-s-K
+                Units: kg/m-s-K
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -18018,7 +18375,7 @@ class WindowMaterialGapEquivalentLayer(object):
 
         Args:
             value (float): value for IDD Field `viscosity_coefficient_c`
-                Unit: kg/m-s-K2
+                Units: kg/m-s-K2
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -18050,7 +18407,7 @@ class WindowMaterialGapEquivalentLayer(object):
 
         Args:
             value (float): value for IDD Field `specific_heat_coefficient_a`
-                Unit: J/kg-K
+                Units: J/kg-K
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -18086,7 +18443,7 @@ class WindowMaterialGapEquivalentLayer(object):
 
         Args:
             value (float): value for IDD Field `specific_heat_coefficient_b`
-                Unit: J/kg-K2
+                Units: J/kg-K2
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -18118,7 +18475,7 @@ class WindowMaterialGapEquivalentLayer(object):
 
         Args:
             value (float): value for IDD Field `specific_heat_coefficient_c`
-                Unit: J/kg-K3
+                Units: J/kg-K3
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -18150,7 +18507,7 @@ class WindowMaterialGapEquivalentLayer(object):
 
         Args:
             value (float): value for IDD Field `molecular_weight`
-                Unit: g/mol
+                Units: g/mol
                 value >= 20.0
                 value <= 200.0
                 if `value` is None it will not be checked against the
@@ -18205,6 +18562,16 @@ class WindowMaterialGapEquivalentLayer(object):
 
         self._data["Specific Heat Ratio"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -18241,9 +18608,11 @@ class MaterialPropertyMoisturePenetrationDepthSettings(object):
         Additional properties for moisture using EMPD procedure
         HeatBalanceAlgorithm choice=MoisturePenetrationDepthConductionTransferFunction only
         Has no effect with other HeatBalanceAlgorithm solution algorithms
+    
     """
     internal_name = "MaterialProperty:MoisturePenetrationDepth:Settings"
     field_count = 6
+    required_fields = ["Name", "Moisture Penetration Depth", "Moisture Equation Coefficient a", "Moisture Equation Coefficient b", "Moisture Equation Coefficient c", "Moisture Equation Coefficient d"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `MaterialProperty:MoisturePenetrationDepth:Settings`
@@ -18346,7 +18715,7 @@ class MaterialPropertyMoisturePenetrationDepthSettings(object):
 
         Args:
             value (float): value for IDD Field `moisture_penetration_depth`
-                Unit: m
+                Units: m
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -18381,7 +18750,7 @@ class MaterialPropertyMoisturePenetrationDepthSettings(object):
 
         Args:
             value (float): value for IDD Field `moisture_equation_coefficient_a`
-                Unit: dimensionless
+                Units: dimensionless
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -18412,7 +18781,7 @@ class MaterialPropertyMoisturePenetrationDepthSettings(object):
 
         Args:
             value (float): value for IDD Field `moisture_equation_coefficient_b`
-                Unit: dimensionless
+                Units: dimensionless
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -18443,7 +18812,7 @@ class MaterialPropertyMoisturePenetrationDepthSettings(object):
 
         Args:
             value (float): value for IDD Field `moisture_equation_coefficient_c`
-                Unit: dimensionless
+                Units: dimensionless
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -18474,7 +18843,7 @@ class MaterialPropertyMoisturePenetrationDepthSettings(object):
 
         Args:
             value (float): value for IDD Field `moisture_equation_coefficient_d`
-                Unit: dimensionless
+                Units: dimensionless
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -18489,6 +18858,16 @@ class MaterialPropertyMoisturePenetrationDepthSettings(object):
                                  'for field `moisture_equation_coefficient_d`'.format(value))
 
         self._data["Moisture Equation Coefficient d"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):
@@ -18519,9 +18898,11 @@ class MaterialPropertyPhaseChange(object):
         HeatBalanceAlgorithm = CondFD(ConductionFiniteDifference) solution algorithm only.
         Constructions with this should use the detailed CondFD process.
         Has no effect with other HeatBalanceAlgorithm solution algorithms
+    
     """
     internal_name = "MaterialProperty:PhaseChange"
     field_count = 34
+    required_fields = ["Name", "Temperature 1", "Enthalpy 1", "Temperature 2", "Enthalpy 2", "Temperature 3", "Enthalpy 3"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `MaterialProperty:PhaseChange`
@@ -18793,7 +19174,7 @@ class MaterialPropertyPhaseChange(object):
 
         Args:
             value (float): value for IDD Field `temperature_coefficient_for_thermal_conductivity`
-                Unit: W/m-K2
+                Units: W/m-K2
                 Default value: 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -18826,7 +19207,7 @@ class MaterialPropertyPhaseChange(object):
 
         Args:
             value (float): value for IDD Field `temperature_1`
-                Unit: C
+                Units: C
                 Default value: 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -18859,7 +19240,7 @@ class MaterialPropertyPhaseChange(object):
 
         Args:
             value (float): value for IDD Field `enthalpy_1`
-                Unit: J/kg
+                Units: J/kg
                 Default value: 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -18892,7 +19273,7 @@ class MaterialPropertyPhaseChange(object):
 
         Args:
             value (float): value for IDD Field `temperature_2`
-                Unit: C
+                Units: C
                 Default value: 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -18925,7 +19306,7 @@ class MaterialPropertyPhaseChange(object):
 
         Args:
             value (float): value for IDD Field `enthalpy_2`
-                Unit: J/kg
+                Units: J/kg
                 Default value: 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -18958,7 +19339,7 @@ class MaterialPropertyPhaseChange(object):
 
         Args:
             value (float): value for IDD Field `temperature_3`
-                Unit: C
+                Units: C
                 Default value: 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -18991,7 +19372,7 @@ class MaterialPropertyPhaseChange(object):
 
         Args:
             value (float): value for IDD Field `enthalpy_3`
-                Unit: J/kg
+                Units: J/kg
                 Default value: 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -19024,7 +19405,7 @@ class MaterialPropertyPhaseChange(object):
 
         Args:
             value (float): value for IDD Field `temperature_4`
-                Unit: C
+                Units: C
                 Default value: 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -19057,7 +19438,7 @@ class MaterialPropertyPhaseChange(object):
 
         Args:
             value (float): value for IDD Field `enthalpy_4`
-                Unit: J/kg
+                Units: J/kg
                 Default value: 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -19090,7 +19471,7 @@ class MaterialPropertyPhaseChange(object):
 
         Args:
             value (float): value for IDD Field `temperature_5`
-                Unit: C
+                Units: C
                 Default value: 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -19123,7 +19504,7 @@ class MaterialPropertyPhaseChange(object):
 
         Args:
             value (float): value for IDD Field `enthalpy_5`
-                Unit: J/kg
+                Units: J/kg
                 Default value: 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -19156,7 +19537,7 @@ class MaterialPropertyPhaseChange(object):
 
         Args:
             value (float): value for IDD Field `temperature_6`
-                Unit: C
+                Units: C
                 Default value: 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -19189,7 +19570,7 @@ class MaterialPropertyPhaseChange(object):
 
         Args:
             value (float): value for IDD Field `enthalpy_6`
-                Unit: J/kg
+                Units: J/kg
                 Default value: 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -19222,7 +19603,7 @@ class MaterialPropertyPhaseChange(object):
 
         Args:
             value (float): value for IDD Field `temperature_7`
-                Unit: C
+                Units: C
                 Default value: 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -19255,7 +19636,7 @@ class MaterialPropertyPhaseChange(object):
 
         Args:
             value (float): value for IDD Field `enthalpy_7`
-                Unit: J/kg
+                Units: J/kg
                 Default value: 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -19288,7 +19669,7 @@ class MaterialPropertyPhaseChange(object):
 
         Args:
             value (float): value for IDD Field `temperature_8`
-                Unit: C
+                Units: C
                 Default value: 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -19321,7 +19702,7 @@ class MaterialPropertyPhaseChange(object):
 
         Args:
             value (float): value for IDD Field `enthalpy_8`
-                Unit: J/kg
+                Units: J/kg
                 Default value: 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -19354,7 +19735,7 @@ class MaterialPropertyPhaseChange(object):
 
         Args:
             value (float): value for IDD Field `temperature_9`
-                Unit: C
+                Units: C
                 Default value: 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -19387,7 +19768,7 @@ class MaterialPropertyPhaseChange(object):
 
         Args:
             value (float): value for IDD Field `enthalpy_9`
-                Unit: J/kg
+                Units: J/kg
                 Default value: 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -19420,7 +19801,7 @@ class MaterialPropertyPhaseChange(object):
 
         Args:
             value (float): value for IDD Field `temperature_10`
-                Unit: C
+                Units: C
                 Default value: 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -19453,7 +19834,7 @@ class MaterialPropertyPhaseChange(object):
 
         Args:
             value (float): value for IDD Field `enthalpy_10`
-                Unit: J/kg
+                Units: J/kg
                 Default value: 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -19486,7 +19867,7 @@ class MaterialPropertyPhaseChange(object):
 
         Args:
             value (float): value for IDD Field `temperature_11`
-                Unit: C
+                Units: C
                 Default value: 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -19519,7 +19900,7 @@ class MaterialPropertyPhaseChange(object):
 
         Args:
             value (float): value for IDD Field `enthalpy_11`
-                Unit: J/kg
+                Units: J/kg
                 Default value: 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -19552,7 +19933,7 @@ class MaterialPropertyPhaseChange(object):
 
         Args:
             value (float): value for IDD Field `temperature_12`
-                Unit: C
+                Units: C
                 Default value: 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -19585,7 +19966,7 @@ class MaterialPropertyPhaseChange(object):
 
         Args:
             value (float): value for IDD Field `enthalpy_12`
-                Unit: J/kg
+                Units: J/kg
                 Default value: 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -19618,7 +19999,7 @@ class MaterialPropertyPhaseChange(object):
 
         Args:
             value (float): value for IDD Field `temperature_13`
-                Unit: C
+                Units: C
                 Default value: 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -19651,7 +20032,7 @@ class MaterialPropertyPhaseChange(object):
 
         Args:
             value (float): value for IDD Field `enthalpy_13`
-                Unit: J/kg
+                Units: J/kg
                 Default value: 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -19684,7 +20065,7 @@ class MaterialPropertyPhaseChange(object):
 
         Args:
             value (float): value for IDD Field `temperature_14`
-                Unit: C
+                Units: C
                 Default value: 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -19717,7 +20098,7 @@ class MaterialPropertyPhaseChange(object):
 
         Args:
             value (float): value for IDD Field `enthalpy_14`
-                Unit: J/kg
+                Units: J/kg
                 Default value: 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -19750,7 +20131,7 @@ class MaterialPropertyPhaseChange(object):
 
         Args:
             value (float): value for IDD Field `temperature_15`
-                Unit: C
+                Units: C
                 Default value: 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -19783,7 +20164,7 @@ class MaterialPropertyPhaseChange(object):
 
         Args:
             value (float): value for IDD Field `enthalpy_15`
-                Unit: J/kg
+                Units: J/kg
                 Default value: 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -19816,7 +20197,7 @@ class MaterialPropertyPhaseChange(object):
 
         Args:
             value (float): value for IDD Field `temperature_16`
-                Unit: C
+                Units: C
                 Default value: 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -19849,7 +20230,7 @@ class MaterialPropertyPhaseChange(object):
 
         Args:
             value (float): value for IDD Field `enthalpy_16`
-                Unit: J/kg
+                Units: J/kg
                 Default value: 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -19865,6 +20246,16 @@ class MaterialPropertyPhaseChange(object):
                                  'for field `enthalpy_16`'.format(value))
 
         self._data["Enthalpy 16"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):
@@ -19922,9 +20313,11 @@ class MaterialPropertyVariableThermalConductivity(object):
         using piecewise linear temperature-conductivity function.
         HeatBalanceAlgorithm = CondFD(ConductionFiniteDifference) solution algorithm only.
         Has no effect with other HeatBalanceAlgorithm solution algorithms
+    
     """
     internal_name = "MaterialProperty:VariableThermalConductivity"
     field_count = 21
+    required_fields = ["Name", "Temperature 1", "Thermal Conductivity 1", "Temperature 2", "Thermal Conductivity 2", "Temperature 3", "Thermal Conductivity 3"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `MaterialProperty:VariableThermalConductivity`
@@ -20116,7 +20509,7 @@ class MaterialPropertyVariableThermalConductivity(object):
 
         Args:
             value (float): value for IDD Field `temperature_1`
-                Unit: C
+                Units: C
                 Default value: 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -20149,7 +20542,7 @@ class MaterialPropertyVariableThermalConductivity(object):
 
         Args:
             value (float): value for IDD Field `thermal_conductivity_1`
-                Unit: W/m-K
+                Units: W/m-K
                 Default value: 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -20182,7 +20575,7 @@ class MaterialPropertyVariableThermalConductivity(object):
 
         Args:
             value (float): value for IDD Field `temperature_2`
-                Unit: C
+                Units: C
                 Default value: 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -20215,7 +20608,7 @@ class MaterialPropertyVariableThermalConductivity(object):
 
         Args:
             value (float): value for IDD Field `thermal_conductivity_2`
-                Unit: W/m-K
+                Units: W/m-K
                 Default value: 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -20248,7 +20641,7 @@ class MaterialPropertyVariableThermalConductivity(object):
 
         Args:
             value (float): value for IDD Field `temperature_3`
-                Unit: C
+                Units: C
                 Default value: 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -20281,7 +20674,7 @@ class MaterialPropertyVariableThermalConductivity(object):
 
         Args:
             value (float): value for IDD Field `thermal_conductivity_3`
-                Unit: W/m-K
+                Units: W/m-K
                 Default value: 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -20314,7 +20707,7 @@ class MaterialPropertyVariableThermalConductivity(object):
 
         Args:
             value (float): value for IDD Field `temperature_4`
-                Unit: C
+                Units: C
                 Default value: 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -20347,7 +20740,7 @@ class MaterialPropertyVariableThermalConductivity(object):
 
         Args:
             value (float): value for IDD Field `thermal_conductivity_4`
-                Unit: W/m-K
+                Units: W/m-K
                 Default value: 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -20380,7 +20773,7 @@ class MaterialPropertyVariableThermalConductivity(object):
 
         Args:
             value (float): value for IDD Field `temperature_5`
-                Unit: C
+                Units: C
                 Default value: 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -20413,7 +20806,7 @@ class MaterialPropertyVariableThermalConductivity(object):
 
         Args:
             value (float): value for IDD Field `thermal_conductivity_5`
-                Unit: W/m-K
+                Units: W/m-K
                 Default value: 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -20446,7 +20839,7 @@ class MaterialPropertyVariableThermalConductivity(object):
 
         Args:
             value (float): value for IDD Field `temperature_6`
-                Unit: C
+                Units: C
                 Default value: 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -20479,7 +20872,7 @@ class MaterialPropertyVariableThermalConductivity(object):
 
         Args:
             value (float): value for IDD Field `thermal_conductivity_6`
-                Unit: W/m-K
+                Units: W/m-K
                 Default value: 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -20512,7 +20905,7 @@ class MaterialPropertyVariableThermalConductivity(object):
 
         Args:
             value (float): value for IDD Field `temperature_7`
-                Unit: C
+                Units: C
                 Default value: 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -20545,7 +20938,7 @@ class MaterialPropertyVariableThermalConductivity(object):
 
         Args:
             value (float): value for IDD Field `thermal_conductivity_7`
-                Unit: W/m-K
+                Units: W/m-K
                 Default value: 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -20578,7 +20971,7 @@ class MaterialPropertyVariableThermalConductivity(object):
 
         Args:
             value (float): value for IDD Field `temperature_8`
-                Unit: C
+                Units: C
                 Default value: 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -20611,7 +21004,7 @@ class MaterialPropertyVariableThermalConductivity(object):
 
         Args:
             value (float): value for IDD Field `thermal_conductivity_8`
-                Unit: W/m-K
+                Units: W/m-K
                 Default value: 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -20644,7 +21037,7 @@ class MaterialPropertyVariableThermalConductivity(object):
 
         Args:
             value (float): value for IDD Field `temperature_9`
-                Unit: C
+                Units: C
                 Default value: 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -20677,7 +21070,7 @@ class MaterialPropertyVariableThermalConductivity(object):
 
         Args:
             value (float): value for IDD Field `thermal_conductivity_9`
-                Unit: W/m-K
+                Units: W/m-K
                 Default value: 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -20710,7 +21103,7 @@ class MaterialPropertyVariableThermalConductivity(object):
 
         Args:
             value (float): value for IDD Field `temperature_10`
-                Unit: C
+                Units: C
                 Default value: 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -20743,7 +21136,7 @@ class MaterialPropertyVariableThermalConductivity(object):
 
         Args:
             value (float): value for IDD Field `thermal_conductivity_10`
-                Unit: W/m-K
+                Units: W/m-K
                 Default value: 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -20759,6 +21152,16 @@ class MaterialPropertyVariableThermalConductivity(object):
                                  'for field `thermal_conductivity_10`'.format(value))
 
         self._data["Thermal Conductivity 10"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):
@@ -20802,9 +21205,11 @@ class MaterialPropertyHeatAndMoistureTransferSettings(object):
         HeatBalanceAlgorithm = CombinedHeatAndMoistureFiniteElement solution algorithm only.
         Additional material properties for surfaces.
         Has no effect with other HeatBalanceAlgorithm solution algorithms
+    
     """
     internal_name = "MaterialProperty:HeatAndMoistureTransfer:Settings"
     field_count = 3
+    required_fields = ["Material Name", "Porosity", "Initial Water Content Ratio"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `MaterialProperty:HeatAndMoistureTransfer:Settings`
@@ -20887,7 +21292,7 @@ class MaterialPropertyHeatAndMoistureTransferSettings(object):
 
         Args:
             value (float): value for IDD Field `porosity`
-                Unit: m3/m3
+                Units: m3/m3
                 value >= 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
@@ -20927,7 +21332,7 @@ class MaterialPropertyHeatAndMoistureTransferSettings(object):
 
         Args:
             value (float): value for IDD Field `initial_water_content_ratio`
-                Unit: kg/kg
+                Units: kg/kg
                 Default value: 0.2
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -20947,6 +21352,16 @@ class MaterialPropertyHeatAndMoistureTransferSettings(object):
                                  'for field `initial_water_content_ratio`')
 
         self._data["Initial Water Content Ratio"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):
@@ -20972,9 +21387,11 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
         HeatBalanceAlgorithm = CombinedHeatAndMoistureFiniteElement solution algorithm only.
         Relationship between moisture content and relative humidity fraction.
         Has no effect with other HeatBalanceAlgorithm solution algorithms
+    
     """
     internal_name = "MaterialProperty:HeatAndMoistureTransfer:SorptionIsotherm"
     field_count = 52
+    required_fields = ["Material Name", "Number of Isotherm Coordinates", "Relative Humidity Fraction 1", "Moisture Content 1"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `MaterialProperty:HeatAndMoistureTransfer:SorptionIsotherm`
@@ -21390,7 +21807,7 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
 
         Args:
             value (float): value for IDD Field `relative_humidity_fraction_1`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
@@ -21429,7 +21846,7 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
 
         Args:
             value (float): value for IDD Field `moisture_content_1`
-                Unit: kg/m3
+                Units: kg/m3
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -21465,7 +21882,7 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
 
         Args:
             value (float): value for IDD Field `relative_humidity_fraction_2`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
@@ -21504,7 +21921,7 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
 
         Args:
             value (float): value for IDD Field `moisture_content_2`
-                Unit: kg/m3
+                Units: kg/m3
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -21540,7 +21957,7 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
 
         Args:
             value (float): value for IDD Field `relative_humidity_fraction_3`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
@@ -21579,7 +21996,7 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
 
         Args:
             value (float): value for IDD Field `moisture_content_3`
-                Unit: kg/m3
+                Units: kg/m3
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -21615,7 +22032,7 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
 
         Args:
             value (float): value for IDD Field `relative_humidity_fraction_4`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
@@ -21654,7 +22071,7 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
 
         Args:
             value (float): value for IDD Field `moisture_content_4`
-                Unit: kg/m3
+                Units: kg/m3
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -21690,7 +22107,7 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
 
         Args:
             value (float): value for IDD Field `relative_humidity_fraction_5`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
@@ -21729,7 +22146,7 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
 
         Args:
             value (float): value for IDD Field `moisture_content_5`
-                Unit: kg/m3
+                Units: kg/m3
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -21765,7 +22182,7 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
 
         Args:
             value (float): value for IDD Field `relative_humidity_fraction_6`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
@@ -21804,7 +22221,7 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
 
         Args:
             value (float): value for IDD Field `moisture_content_6`
-                Unit: kg/m3
+                Units: kg/m3
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -21840,7 +22257,7 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
 
         Args:
             value (float): value for IDD Field `relative_humidity_fraction_7`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
@@ -21879,7 +22296,7 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
 
         Args:
             value (float): value for IDD Field `moisture_content_7`
-                Unit: kg/m3
+                Units: kg/m3
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -21915,7 +22332,7 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
 
         Args:
             value (float): value for IDD Field `relative_humidity_fraction_8`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
@@ -21954,7 +22371,7 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
 
         Args:
             value (float): value for IDD Field `moisture_content_8`
-                Unit: kg/m3
+                Units: kg/m3
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -21990,7 +22407,7 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
 
         Args:
             value (float): value for IDD Field `relative_humidity_fraction_9`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
@@ -22029,7 +22446,7 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
 
         Args:
             value (float): value for IDD Field `moisture_content_9`
-                Unit: kg/m3
+                Units: kg/m3
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -22065,7 +22482,7 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
 
         Args:
             value (float): value for IDD Field `relative_humidity_fraction_10`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
@@ -22104,7 +22521,7 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
 
         Args:
             value (float): value for IDD Field `moisture_content_10`
-                Unit: kg/m3
+                Units: kg/m3
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -22140,7 +22557,7 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
 
         Args:
             value (float): value for IDD Field `relative_humidity_fraction_11`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
@@ -22179,7 +22596,7 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
 
         Args:
             value (float): value for IDD Field `moisture_content_11`
-                Unit: kg/m3
+                Units: kg/m3
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -22215,7 +22632,7 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
 
         Args:
             value (float): value for IDD Field `relative_humidity_fraction_12`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
@@ -22254,7 +22671,7 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
 
         Args:
             value (float): value for IDD Field `moisture_content_12`
-                Unit: kg/m3
+                Units: kg/m3
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -22290,7 +22707,7 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
 
         Args:
             value (float): value for IDD Field `relative_humidity_fraction_13`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
@@ -22329,7 +22746,7 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
 
         Args:
             value (float): value for IDD Field `moisture_content_13`
-                Unit: kg/m3
+                Units: kg/m3
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -22365,7 +22782,7 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
 
         Args:
             value (float): value for IDD Field `relative_humidity_fraction_14`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
@@ -22404,7 +22821,7 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
 
         Args:
             value (float): value for IDD Field `moisture_content_14`
-                Unit: kg/m3
+                Units: kg/m3
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -22440,7 +22857,7 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
 
         Args:
             value (float): value for IDD Field `relative_humidity_fraction_15`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
@@ -22479,7 +22896,7 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
 
         Args:
             value (float): value for IDD Field `moisture_content_15`
-                Unit: kg/m3
+                Units: kg/m3
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -22515,7 +22932,7 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
 
         Args:
             value (float): value for IDD Field `relative_humidity_fraction_16`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
@@ -22554,7 +22971,7 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
 
         Args:
             value (float): value for IDD Field `moisture_content_16`
-                Unit: kg/m3
+                Units: kg/m3
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -22590,7 +23007,7 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
 
         Args:
             value (float): value for IDD Field `relative_humidity_fraction_17`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
@@ -22629,7 +23046,7 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
 
         Args:
             value (float): value for IDD Field `moisture_content_17`
-                Unit: kg/m3
+                Units: kg/m3
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -22665,7 +23082,7 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
 
         Args:
             value (float): value for IDD Field `relative_humidity_fraction_18`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
@@ -22704,7 +23121,7 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
 
         Args:
             value (float): value for IDD Field `moisture_content_18`
-                Unit: kg/m3
+                Units: kg/m3
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -22740,7 +23157,7 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
 
         Args:
             value (float): value for IDD Field `relative_humidity_fraction_19`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
@@ -22779,7 +23196,7 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
 
         Args:
             value (float): value for IDD Field `moisture_content_19`
-                Unit: kg/m3
+                Units: kg/m3
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -22815,7 +23232,7 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
 
         Args:
             value (float): value for IDD Field `relative_humidity_fraction_20`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
@@ -22854,7 +23271,7 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
 
         Args:
             value (float): value for IDD Field `moisture_content_20`
-                Unit: kg/m3
+                Units: kg/m3
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -22890,7 +23307,7 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
 
         Args:
             value (float): value for IDD Field `relative_humidity_fraction_21`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
@@ -22929,7 +23346,7 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
 
         Args:
             value (float): value for IDD Field `moisture_content_21`
-                Unit: kg/m3
+                Units: kg/m3
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -22965,7 +23382,7 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
 
         Args:
             value (float): value for IDD Field `relative_humidity_fraction_22`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
@@ -23004,7 +23421,7 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
 
         Args:
             value (float): value for IDD Field `moisture_content_22`
-                Unit: kg/m3
+                Units: kg/m3
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -23040,7 +23457,7 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
 
         Args:
             value (float): value for IDD Field `relative_humidity_fraction_23`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
@@ -23079,7 +23496,7 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
 
         Args:
             value (float): value for IDD Field `moisture_content_23`
-                Unit: kg/m3
+                Units: kg/m3
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -23115,7 +23532,7 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
 
         Args:
             value (float): value for IDD Field `relative_humidity_fraction_24`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
@@ -23154,7 +23571,7 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
 
         Args:
             value (float): value for IDD Field `moisture_content_24`
-                Unit: kg/m3
+                Units: kg/m3
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -23190,7 +23607,7 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
 
         Args:
             value (float): value for IDD Field `relative_humidity_fraction_25`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
@@ -23229,7 +23646,7 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
 
         Args:
             value (float): value for IDD Field `moisture_content_25`
-                Unit: kg/m3
+                Units: kg/m3
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -23248,6 +23665,16 @@ class MaterialPropertyHeatAndMoistureTransferSorptionIsotherm(object):
                                  'for field `moisture_content_25`')
 
         self._data["Moisture Content 25"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):
@@ -23322,9 +23749,11 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
         HeatBalanceAlgorithm = CombinedHeatAndMoistureFiniteElement solution algorithm only.
         Relationship between liquid suction transport coefficient and moisture content
         Has no effect with other HeatBalanceAlgorithm solution algorithms
+    
     """
     internal_name = "MaterialProperty:HeatAndMoistureTransfer:Suction"
     field_count = 52
+    required_fields = ["Material Name", "Number of Suction points", "Moisture Content 1", "Liquid Transport Coefficient 1"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `MaterialProperty:HeatAndMoistureTransfer:Suction`
@@ -23739,7 +24168,7 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
 
         Args:
             value (float): value for IDD Field `moisture_content_1`
-                Unit: kg/m3
+                Units: kg/m3
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -23774,7 +24203,7 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
 
         Args:
             value (float): value for IDD Field `liquid_transport_coefficient_1`
-                Unit: m2/s
+                Units: m2/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -23809,7 +24238,7 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
 
         Args:
             value (float): value for IDD Field `moisture_content_2`
-                Unit: kg/m3
+                Units: kg/m3
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -23844,7 +24273,7 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
 
         Args:
             value (float): value for IDD Field `liquid_transport_coefficient_2`
-                Unit: m2/s
+                Units: m2/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -23879,7 +24308,7 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
 
         Args:
             value (float): value for IDD Field `moisture_content_3`
-                Unit: kg/m3
+                Units: kg/m3
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -23914,7 +24343,7 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
 
         Args:
             value (float): value for IDD Field `liquid_transport_coefficient_3`
-                Unit: m2/s
+                Units: m2/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -23949,7 +24378,7 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
 
         Args:
             value (float): value for IDD Field `moisture_content_4`
-                Unit: kg/m3
+                Units: kg/m3
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -23984,7 +24413,7 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
 
         Args:
             value (float): value for IDD Field `liquid_transport_coefficient_4`
-                Unit: m2/s
+                Units: m2/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -24019,7 +24448,7 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
 
         Args:
             value (float): value for IDD Field `moisture_content_5`
-                Unit: kg/m3
+                Units: kg/m3
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -24054,7 +24483,7 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
 
         Args:
             value (float): value for IDD Field `liquid_transport_coefficient_5`
-                Unit: m2/s
+                Units: m2/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -24089,7 +24518,7 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
 
         Args:
             value (float): value for IDD Field `moisture_content_6`
-                Unit: kg/m3
+                Units: kg/m3
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -24124,7 +24553,7 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
 
         Args:
             value (float): value for IDD Field `liquid_transport_coefficient_6`
-                Unit: m2/s
+                Units: m2/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -24159,7 +24588,7 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
 
         Args:
             value (float): value for IDD Field `moisture_content_7`
-                Unit: kg/m3
+                Units: kg/m3
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -24194,7 +24623,7 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
 
         Args:
             value (float): value for IDD Field `liquid_transport_coefficient_7`
-                Unit: m2/s
+                Units: m2/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -24229,7 +24658,7 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
 
         Args:
             value (float): value for IDD Field `moisture_content_8`
-                Unit: kg/m3
+                Units: kg/m3
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -24264,7 +24693,7 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
 
         Args:
             value (float): value for IDD Field `liquid_transport_coefficient_8`
-                Unit: m2/s
+                Units: m2/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -24299,7 +24728,7 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
 
         Args:
             value (float): value for IDD Field `moisture_content_9`
-                Unit: kg/m3
+                Units: kg/m3
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -24334,7 +24763,7 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
 
         Args:
             value (float): value for IDD Field `liquid_transport_coefficient_9`
-                Unit: m2/s
+                Units: m2/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -24369,7 +24798,7 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
 
         Args:
             value (float): value for IDD Field `moisture_content_10`
-                Unit: kg/m3
+                Units: kg/m3
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -24404,7 +24833,7 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
 
         Args:
             value (float): value for IDD Field `liquid_transport_coefficient_10`
-                Unit: m2/s
+                Units: m2/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -24439,7 +24868,7 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
 
         Args:
             value (float): value for IDD Field `moisture_content_11`
-                Unit: kg/m3
+                Units: kg/m3
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -24474,7 +24903,7 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
 
         Args:
             value (float): value for IDD Field `liquid_transport_coefficient_11`
-                Unit: m2/s
+                Units: m2/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -24509,7 +24938,7 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
 
         Args:
             value (float): value for IDD Field `moisture_content_12`
-                Unit: kg/m3
+                Units: kg/m3
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -24544,7 +24973,7 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
 
         Args:
             value (float): value for IDD Field `liquid_transport_coefficient_12`
-                Unit: m2/s
+                Units: m2/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -24579,7 +25008,7 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
 
         Args:
             value (float): value for IDD Field `moisture_content_13`
-                Unit: kg/m3
+                Units: kg/m3
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -24614,7 +25043,7 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
 
         Args:
             value (float): value for IDD Field `liquid_transport_coefficient_13`
-                Unit: m2/s
+                Units: m2/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -24649,7 +25078,7 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
 
         Args:
             value (float): value for IDD Field `moisture_content_14`
-                Unit: kg/m3
+                Units: kg/m3
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -24684,7 +25113,7 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
 
         Args:
             value (float): value for IDD Field `liquid_transport_coefficient_14`
-                Unit: m2/s
+                Units: m2/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -24719,7 +25148,7 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
 
         Args:
             value (float): value for IDD Field `moisture_content_15`
-                Unit: kg/m3
+                Units: kg/m3
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -24754,7 +25183,7 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
 
         Args:
             value (float): value for IDD Field `liquid_transport_coefficient_15`
-                Unit: m2/s
+                Units: m2/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -24789,7 +25218,7 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
 
         Args:
             value (float): value for IDD Field `moisture_content_16`
-                Unit: kg/m3
+                Units: kg/m3
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -24824,7 +25253,7 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
 
         Args:
             value (float): value for IDD Field `liquid_transport_coefficient_16`
-                Unit: m2/s
+                Units: m2/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -24859,7 +25288,7 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
 
         Args:
             value (float): value for IDD Field `moisture_content_17`
-                Unit: kg/m3
+                Units: kg/m3
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -24894,7 +25323,7 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
 
         Args:
             value (float): value for IDD Field `liquid_transport_coefficient_17`
-                Unit: m2/s
+                Units: m2/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -24929,7 +25358,7 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
 
         Args:
             value (float): value for IDD Field `moisture_content_18`
-                Unit: kg/m3
+                Units: kg/m3
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -24964,7 +25393,7 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
 
         Args:
             value (float): value for IDD Field `liquid_transport_coefficient_18`
-                Unit: m2/s
+                Units: m2/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -24999,7 +25428,7 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
 
         Args:
             value (float): value for IDD Field `moisture_content_19`
-                Unit: kg/m3
+                Units: kg/m3
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -25034,7 +25463,7 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
 
         Args:
             value (float): value for IDD Field `liquid_transport_coefficient_19`
-                Unit: m2/s
+                Units: m2/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -25069,7 +25498,7 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
 
         Args:
             value (float): value for IDD Field `moisture_content_20`
-                Unit: kg/m3
+                Units: kg/m3
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -25104,7 +25533,7 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
 
         Args:
             value (float): value for IDD Field `liquid_transport_coefficient_20`
-                Unit: m2/s
+                Units: m2/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -25139,7 +25568,7 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
 
         Args:
             value (float): value for IDD Field `moisture_content_21`
-                Unit: kg/m3
+                Units: kg/m3
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -25174,7 +25603,7 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
 
         Args:
             value (float): value for IDD Field `liquid_transport_coefficient_21`
-                Unit: m2/s
+                Units: m2/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -25209,7 +25638,7 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
 
         Args:
             value (float): value for IDD Field `moisture_content_22`
-                Unit: kg/m3
+                Units: kg/m3
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -25244,7 +25673,7 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
 
         Args:
             value (float): value for IDD Field `liquid_transport_coefficient_22`
-                Unit: m2/s
+                Units: m2/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -25279,7 +25708,7 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
 
         Args:
             value (float): value for IDD Field `moisture_content_23`
-                Unit: kg/m3
+                Units: kg/m3
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -25314,7 +25743,7 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
 
         Args:
             value (float): value for IDD Field `liquid_transport_coefficient_23`
-                Unit: m2/s
+                Units: m2/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -25349,7 +25778,7 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
 
         Args:
             value (float): value for IDD Field `moisture_content_24`
-                Unit: kg/m3
+                Units: kg/m3
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -25384,7 +25813,7 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
 
         Args:
             value (float): value for IDD Field `liquid_transport_coefficient_24`
-                Unit: m2/s
+                Units: m2/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -25419,7 +25848,7 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
 
         Args:
             value (float): value for IDD Field `moisture_content_25`
-                Unit: kg/m3
+                Units: kg/m3
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -25454,7 +25883,7 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
 
         Args:
             value (float): value for IDD Field `liquid_transport_coefficient_25`
-                Unit: m2/s
+                Units: m2/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -25473,6 +25902,16 @@ class MaterialPropertyHeatAndMoistureTransferSuction(object):
                                  'for field `liquid_transport_coefficient_25`')
 
         self._data["Liquid Transport Coefficient 25"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):
@@ -25547,9 +25986,11 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
         HeatBalanceAlgorithm = CombinedHeatAndMoistureFiniteElement solution algorithm only.
         Relationship between liquid transport coefficient and moisture content
         Has no effect with other HeatBalanceAlgorithm solution algorithms
+    
     """
     internal_name = "MaterialProperty:HeatAndMoistureTransfer:Redistribution"
     field_count = 52
+    required_fields = ["Material Name", "Number of Redistribution points", "Moisture Content 1", "Liquid Transport Coefficient 1"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `MaterialProperty:HeatAndMoistureTransfer:Redistribution`
@@ -25964,7 +26405,7 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
 
         Args:
             value (float): value for IDD Field `moisture_content_1`
-                Unit: kg/m3
+                Units: kg/m3
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -25999,7 +26440,7 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
 
         Args:
             value (float): value for IDD Field `liquid_transport_coefficient_1`
-                Unit: m2/s
+                Units: m2/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -26034,7 +26475,7 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
 
         Args:
             value (float): value for IDD Field `moisture_content_2`
-                Unit: kg/m3
+                Units: kg/m3
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -26069,7 +26510,7 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
 
         Args:
             value (float): value for IDD Field `liquid_transport_coefficient_2`
-                Unit: m2/s
+                Units: m2/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -26104,7 +26545,7 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
 
         Args:
             value (float): value for IDD Field `moisture_content_3`
-                Unit: kg/m3
+                Units: kg/m3
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -26139,7 +26580,7 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
 
         Args:
             value (float): value for IDD Field `liquid_transport_coefficient_3`
-                Unit: m2/s
+                Units: m2/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -26174,7 +26615,7 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
 
         Args:
             value (float): value for IDD Field `moisture_content_4`
-                Unit: kg/m3
+                Units: kg/m3
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -26209,7 +26650,7 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
 
         Args:
             value (float): value for IDD Field `liquid_transport_coefficient_4`
-                Unit: m2/s
+                Units: m2/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -26244,7 +26685,7 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
 
         Args:
             value (float): value for IDD Field `moisture_content_5`
-                Unit: kg/m3
+                Units: kg/m3
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -26279,7 +26720,7 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
 
         Args:
             value (float): value for IDD Field `liquid_transport_coefficient_5`
-                Unit: m2/s
+                Units: m2/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -26314,7 +26755,7 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
 
         Args:
             value (float): value for IDD Field `moisture_content_6`
-                Unit: kg/m3
+                Units: kg/m3
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -26349,7 +26790,7 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
 
         Args:
             value (float): value for IDD Field `liquid_transport_coefficient_6`
-                Unit: m2/s
+                Units: m2/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -26384,7 +26825,7 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
 
         Args:
             value (float): value for IDD Field `moisture_content_7`
-                Unit: kg/m3
+                Units: kg/m3
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -26419,7 +26860,7 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
 
         Args:
             value (float): value for IDD Field `liquid_transport_coefficient_7`
-                Unit: m2/s
+                Units: m2/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -26454,7 +26895,7 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
 
         Args:
             value (float): value for IDD Field `moisture_content_8`
-                Unit: kg/m3
+                Units: kg/m3
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -26489,7 +26930,7 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
 
         Args:
             value (float): value for IDD Field `liquid_transport_coefficient_8`
-                Unit: m2/s
+                Units: m2/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -26524,7 +26965,7 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
 
         Args:
             value (float): value for IDD Field `moisture_content_9`
-                Unit: kg/m3
+                Units: kg/m3
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -26559,7 +27000,7 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
 
         Args:
             value (float): value for IDD Field `liquid_transport_coefficient_9`
-                Unit: m2/s
+                Units: m2/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -26594,7 +27035,7 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
 
         Args:
             value (float): value for IDD Field `moisture_content_10`
-                Unit: kg/m3
+                Units: kg/m3
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -26629,7 +27070,7 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
 
         Args:
             value (float): value for IDD Field `liquid_transport_coefficient_10`
-                Unit: m2/s
+                Units: m2/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -26664,7 +27105,7 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
 
         Args:
             value (float): value for IDD Field `moisture_content_11`
-                Unit: kg/m3
+                Units: kg/m3
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -26699,7 +27140,7 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
 
         Args:
             value (float): value for IDD Field `liquid_transport_coefficient_11`
-                Unit: m2/s
+                Units: m2/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -26734,7 +27175,7 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
 
         Args:
             value (float): value for IDD Field `moisture_content_12`
-                Unit: kg/m3
+                Units: kg/m3
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -26769,7 +27210,7 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
 
         Args:
             value (float): value for IDD Field `liquid_transport_coefficient_12`
-                Unit: m2/s
+                Units: m2/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -26804,7 +27245,7 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
 
         Args:
             value (float): value for IDD Field `moisture_content_13`
-                Unit: kg/m3
+                Units: kg/m3
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -26839,7 +27280,7 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
 
         Args:
             value (float): value for IDD Field `liquid_transport_coefficient_13`
-                Unit: m2/s
+                Units: m2/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -26874,7 +27315,7 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
 
         Args:
             value (float): value for IDD Field `moisture_content_14`
-                Unit: kg/m3
+                Units: kg/m3
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -26909,7 +27350,7 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
 
         Args:
             value (float): value for IDD Field `liquid_transport_coefficient_14`
-                Unit: m2/s
+                Units: m2/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -26944,7 +27385,7 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
 
         Args:
             value (float): value for IDD Field `moisture_content_15`
-                Unit: kg/m3
+                Units: kg/m3
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -26979,7 +27420,7 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
 
         Args:
             value (float): value for IDD Field `liquid_transport_coefficient_15`
-                Unit: m2/s
+                Units: m2/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -27014,7 +27455,7 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
 
         Args:
             value (float): value for IDD Field `moisture_content_16`
-                Unit: kg/m3
+                Units: kg/m3
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -27049,7 +27490,7 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
 
         Args:
             value (float): value for IDD Field `liquid_transport_coefficient_16`
-                Unit: m2/s
+                Units: m2/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -27084,7 +27525,7 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
 
         Args:
             value (float): value for IDD Field `moisture_content_17`
-                Unit: kg/m3
+                Units: kg/m3
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -27119,7 +27560,7 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
 
         Args:
             value (float): value for IDD Field `liquid_transport_coefficient_17`
-                Unit: m2/s
+                Units: m2/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -27154,7 +27595,7 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
 
         Args:
             value (float): value for IDD Field `moisture_content_18`
-                Unit: kg/m3
+                Units: kg/m3
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -27189,7 +27630,7 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
 
         Args:
             value (float): value for IDD Field `liquid_transport_coefficient_18`
-                Unit: m2/s
+                Units: m2/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -27224,7 +27665,7 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
 
         Args:
             value (float): value for IDD Field `moisture_content_19`
-                Unit: kg/m3
+                Units: kg/m3
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -27259,7 +27700,7 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
 
         Args:
             value (float): value for IDD Field `liquid_transport_coefficient_19`
-                Unit: m2/s
+                Units: m2/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -27294,7 +27735,7 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
 
         Args:
             value (float): value for IDD Field `moisture_content_20`
-                Unit: kg/m3
+                Units: kg/m3
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -27329,7 +27770,7 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
 
         Args:
             value (float): value for IDD Field `liquid_transport_coefficient_20`
-                Unit: m2/s
+                Units: m2/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -27364,7 +27805,7 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
 
         Args:
             value (float): value for IDD Field `moisture_content_21`
-                Unit: kg/m3
+                Units: kg/m3
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -27399,7 +27840,7 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
 
         Args:
             value (float): value for IDD Field `liquid_transport_coefficient_21`
-                Unit: m2/s
+                Units: m2/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -27434,7 +27875,7 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
 
         Args:
             value (float): value for IDD Field `moisture_content_22`
-                Unit: kg/m3
+                Units: kg/m3
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -27469,7 +27910,7 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
 
         Args:
             value (float): value for IDD Field `liquid_transport_coefficient_22`
-                Unit: m2/s
+                Units: m2/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -27504,7 +27945,7 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
 
         Args:
             value (float): value for IDD Field `moisture_content_23`
-                Unit: kg/m3
+                Units: kg/m3
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -27539,7 +27980,7 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
 
         Args:
             value (float): value for IDD Field `liquid_transport_coefficient_23`
-                Unit: m2/s
+                Units: m2/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -27574,7 +28015,7 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
 
         Args:
             value (float): value for IDD Field `moisture_content_24`
-                Unit: kg/m3
+                Units: kg/m3
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -27609,7 +28050,7 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
 
         Args:
             value (float): value for IDD Field `liquid_transport_coefficient_24`
-                Unit: m2/s
+                Units: m2/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -27644,7 +28085,7 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
 
         Args:
             value (float): value for IDD Field `moisture_content_25`
-                Unit: kg/m3
+                Units: kg/m3
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -27679,7 +28120,7 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
 
         Args:
             value (float): value for IDD Field `liquid_transport_coefficient_25`
-                Unit: m2/s
+                Units: m2/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -27698,6 +28139,16 @@ class MaterialPropertyHeatAndMoistureTransferRedistribution(object):
                                  'for field `liquid_transport_coefficient_25`')
 
         self._data["Liquid Transport Coefficient 25"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):
@@ -27772,9 +28223,11 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
         HeatBalanceAlgorithm = CombinedHeatAndMoistureFiniteElement solution algorithm only.
         Relationship between water vapor diffusion and relative humidity fraction
         Has no effect with other HeatBalanceAlgorithm solution algorithms
+    
     """
     internal_name = "MaterialProperty:HeatAndMoistureTransfer:Diffusion"
     field_count = 52
+    required_fields = ["Material Name", "Number of Data Pairs", "Relative Humidity Fraction 1", "Water Vapor Diffusion Resistance Factor 1"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `MaterialProperty:HeatAndMoistureTransfer:Diffusion`
@@ -28190,7 +28643,7 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
 
         Args:
             value (float): value for IDD Field `relative_humidity_fraction_1`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
@@ -28229,7 +28682,7 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
 
         Args:
             value (float): value for IDD Field `water_vapor_diffusion_resistance_factor_1`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -28265,7 +28718,7 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
 
         Args:
             value (float): value for IDD Field `relative_humidity_fraction_2`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
@@ -28304,7 +28757,7 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
 
         Args:
             value (float): value for IDD Field `water_vapor_diffusion_resistance_factor_2`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -28340,7 +28793,7 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
 
         Args:
             value (float): value for IDD Field `relative_humidity_fraction_3`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
@@ -28379,7 +28832,7 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
 
         Args:
             value (float): value for IDD Field `water_vapor_diffusion_resistance_factor_3`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -28415,7 +28868,7 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
 
         Args:
             value (float): value for IDD Field `relative_humidity_fraction_4`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
@@ -28454,7 +28907,7 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
 
         Args:
             value (float): value for IDD Field `water_vapor_diffusion_resistance_factor_4`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -28490,7 +28943,7 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
 
         Args:
             value (float): value for IDD Field `relative_humidity_fraction_5`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
@@ -28529,7 +28982,7 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
 
         Args:
             value (float): value for IDD Field `water_vapor_diffusion_resistance_factor_5`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -28565,7 +29018,7 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
 
         Args:
             value (float): value for IDD Field `relative_humidity_fraction_6`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
@@ -28604,7 +29057,7 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
 
         Args:
             value (float): value for IDD Field `water_vapor_diffusion_resistance_factor_6`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -28640,7 +29093,7 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
 
         Args:
             value (float): value for IDD Field `relative_humidity_fraction_7`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
@@ -28679,7 +29132,7 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
 
         Args:
             value (float): value for IDD Field `water_vapor_diffusion_resistance_factor_7`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -28715,7 +29168,7 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
 
         Args:
             value (float): value for IDD Field `relative_humidity_fraction_8`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
@@ -28754,7 +29207,7 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
 
         Args:
             value (float): value for IDD Field `water_vapor_diffusion_resistance_factor_8`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -28790,7 +29243,7 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
 
         Args:
             value (float): value for IDD Field `relative_humidity_fraction_9`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
@@ -28829,7 +29282,7 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
 
         Args:
             value (float): value for IDD Field `water_vapor_diffusion_resistance_factor_9`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -28865,7 +29318,7 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
 
         Args:
             value (float): value for IDD Field `relative_humidity_fraction_10`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
@@ -28904,7 +29357,7 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
 
         Args:
             value (float): value for IDD Field `water_vapor_diffusion_resistance_factor_10`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -28940,7 +29393,7 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
 
         Args:
             value (float): value for IDD Field `relative_humidity_fraction_11`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
@@ -28979,7 +29432,7 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
 
         Args:
             value (float): value for IDD Field `water_vapor_diffusion_resistance_factor_11`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -29015,7 +29468,7 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
 
         Args:
             value (float): value for IDD Field `relative_humidity_fraction_12`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
@@ -29054,7 +29507,7 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
 
         Args:
             value (float): value for IDD Field `water_vapor_diffusion_resistance_factor_12`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -29090,7 +29543,7 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
 
         Args:
             value (float): value for IDD Field `relative_humidity_fraction_13`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
@@ -29129,7 +29582,7 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
 
         Args:
             value (float): value for IDD Field `water_vapor_diffusion_resistance_factor_13`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -29165,7 +29618,7 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
 
         Args:
             value (float): value for IDD Field `relative_humidity_fraction_14`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
@@ -29204,7 +29657,7 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
 
         Args:
             value (float): value for IDD Field `water_vapor_diffusion_resistance_factor_14`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -29240,7 +29693,7 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
 
         Args:
             value (float): value for IDD Field `relative_humidity_fraction_15`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
@@ -29279,7 +29732,7 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
 
         Args:
             value (float): value for IDD Field `water_vapor_diffusion_resistance_factor_15`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -29315,7 +29768,7 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
 
         Args:
             value (float): value for IDD Field `relative_humidity_fraction_16`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
@@ -29354,7 +29807,7 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
 
         Args:
             value (float): value for IDD Field `water_vapor_diffusion_resistance_factor_16`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -29390,7 +29843,7 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
 
         Args:
             value (float): value for IDD Field `relative_humidity_fraction_17`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
@@ -29429,7 +29882,7 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
 
         Args:
             value (float): value for IDD Field `water_vapor_diffusion_resistance_factor_17`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -29465,7 +29918,7 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
 
         Args:
             value (float): value for IDD Field `relative_humidity_fraction_18`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
@@ -29504,7 +29957,7 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
 
         Args:
             value (float): value for IDD Field `water_vapor_diffusion_resistance_factor_18`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -29540,7 +29993,7 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
 
         Args:
             value (float): value for IDD Field `relative_humidity_fraction_19`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
@@ -29579,7 +30032,7 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
 
         Args:
             value (float): value for IDD Field `water_vapor_diffusion_resistance_factor_19`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -29615,7 +30068,7 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
 
         Args:
             value (float): value for IDD Field `relative_humidity_fraction_20`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
@@ -29654,7 +30107,7 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
 
         Args:
             value (float): value for IDD Field `water_vapor_diffusion_resistance_factor_20`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -29690,7 +30143,7 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
 
         Args:
             value (float): value for IDD Field `relative_humidity_fraction_21`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
@@ -29729,7 +30182,7 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
 
         Args:
             value (float): value for IDD Field `water_vapor_diffusion_resistance_factor_21`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -29765,7 +30218,7 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
 
         Args:
             value (float): value for IDD Field `relative_humidity_fraction_22`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
@@ -29804,7 +30257,7 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
 
         Args:
             value (float): value for IDD Field `water_vapor_diffusion_resistance_factor_22`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -29840,7 +30293,7 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
 
         Args:
             value (float): value for IDD Field `relative_humidity_fraction_23`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
@@ -29879,7 +30332,7 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
 
         Args:
             value (float): value for IDD Field `water_vapor_diffusion_resistance_factor_23`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -29915,7 +30368,7 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
 
         Args:
             value (float): value for IDD Field `relative_humidity_fraction_24`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
@@ -29954,7 +30407,7 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
 
         Args:
             value (float): value for IDD Field `water_vapor_diffusion_resistance_factor_24`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -29990,7 +30443,7 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
 
         Args:
             value (float): value for IDD Field `relative_humidity_fraction_25`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
@@ -30029,7 +30482,7 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
 
         Args:
             value (float): value for IDD Field `water_vapor_diffusion_resistance_factor_25`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -30048,6 +30501,16 @@ class MaterialPropertyHeatAndMoistureTransferDiffusion(object):
                                  'for field `water_vapor_diffusion_resistance_factor_25`')
 
         self._data["Water Vapor Diffusion Resistance Factor 25"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):
@@ -30122,9 +30585,11 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
         HeatBalanceAlgorithm = CombinedHeatAndMoistureFiniteElement solution algorithm only.
         Relationship between thermal conductivity and moisture content
         Has no effect with other HeatBalanceAlgorithm solution algorithms
+    
     """
     internal_name = "MaterialProperty:HeatAndMoistureTransfer:ThermalConductivity"
     field_count = 52
+    required_fields = ["Material Name", "Number of Thermal Coordinates", "Moisture Content 1", "Thermal Conductivity 1"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `MaterialProperty:HeatAndMoistureTransfer:ThermalConductivity`
@@ -30539,7 +31004,7 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
 
         Args:
             value (float): value for IDD Field `moisture_content_1`
-                Unit: kg/m3
+                Units: kg/m3
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -30574,7 +31039,7 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
 
         Args:
             value (float): value for IDD Field `thermal_conductivity_1`
-                Unit: W/m-K
+                Units: W/m-K
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -30609,7 +31074,7 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
 
         Args:
             value (float): value for IDD Field `moisture_content_2`
-                Unit: kg/m3
+                Units: kg/m3
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -30644,7 +31109,7 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
 
         Args:
             value (float): value for IDD Field `thermal_conductivity_2`
-                Unit: W/m-K
+                Units: W/m-K
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -30679,7 +31144,7 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
 
         Args:
             value (float): value for IDD Field `moisture_content_3`
-                Unit: kg/m3
+                Units: kg/m3
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -30714,7 +31179,7 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
 
         Args:
             value (float): value for IDD Field `thermal_conductivity_3`
-                Unit: W/m-K
+                Units: W/m-K
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -30749,7 +31214,7 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
 
         Args:
             value (float): value for IDD Field `moisture_content_4`
-                Unit: kg/m3
+                Units: kg/m3
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -30784,7 +31249,7 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
 
         Args:
             value (float): value for IDD Field `thermal_conductivity_4`
-                Unit: W/m-K
+                Units: W/m-K
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -30819,7 +31284,7 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
 
         Args:
             value (float): value for IDD Field `moisture_content_5`
-                Unit: kg/m3
+                Units: kg/m3
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -30854,7 +31319,7 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
 
         Args:
             value (float): value for IDD Field `thermal_conductivity_5`
-                Unit: W/m-K
+                Units: W/m-K
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -30889,7 +31354,7 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
 
         Args:
             value (float): value for IDD Field `moisture_content_6`
-                Unit: kg/m3
+                Units: kg/m3
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -30924,7 +31389,7 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
 
         Args:
             value (float): value for IDD Field `thermal_conductivity_6`
-                Unit: W/m-K
+                Units: W/m-K
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -30959,7 +31424,7 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
 
         Args:
             value (float): value for IDD Field `moisture_content_7`
-                Unit: kg/m3
+                Units: kg/m3
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -30994,7 +31459,7 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
 
         Args:
             value (float): value for IDD Field `thermal_conductivity_7`
-                Unit: W/m-K
+                Units: W/m-K
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -31029,7 +31494,7 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
 
         Args:
             value (float): value for IDD Field `moisture_content_8`
-                Unit: kg/m3
+                Units: kg/m3
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -31064,7 +31529,7 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
 
         Args:
             value (float): value for IDD Field `thermal_conductivity_8`
-                Unit: W/m-K
+                Units: W/m-K
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -31099,7 +31564,7 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
 
         Args:
             value (float): value for IDD Field `moisture_content_9`
-                Unit: kg/m3
+                Units: kg/m3
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -31134,7 +31599,7 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
 
         Args:
             value (float): value for IDD Field `thermal_conductivity_9`
-                Unit: W/m-K
+                Units: W/m-K
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -31169,7 +31634,7 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
 
         Args:
             value (float): value for IDD Field `moisture_content_10`
-                Unit: kg/m3
+                Units: kg/m3
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -31204,7 +31669,7 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
 
         Args:
             value (float): value for IDD Field `thermal_conductivity_10`
-                Unit: W/m-K
+                Units: W/m-K
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -31239,7 +31704,7 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
 
         Args:
             value (float): value for IDD Field `moisture_content_11`
-                Unit: kg/m3
+                Units: kg/m3
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -31274,7 +31739,7 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
 
         Args:
             value (float): value for IDD Field `thermal_conductivity_11`
-                Unit: W/m-K
+                Units: W/m-K
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -31309,7 +31774,7 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
 
         Args:
             value (float): value for IDD Field `moisture_content_12`
-                Unit: kg/m3
+                Units: kg/m3
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -31344,7 +31809,7 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
 
         Args:
             value (float): value for IDD Field `thermal_conductivity_12`
-                Unit: W/m-K
+                Units: W/m-K
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -31379,7 +31844,7 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
 
         Args:
             value (float): value for IDD Field `moisture_content_13`
-                Unit: kg/m3
+                Units: kg/m3
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -31414,7 +31879,7 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
 
         Args:
             value (float): value for IDD Field `thermal_conductivity_13`
-                Unit: W/m-K
+                Units: W/m-K
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -31449,7 +31914,7 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
 
         Args:
             value (float): value for IDD Field `moisture_content_14`
-                Unit: kg/m3
+                Units: kg/m3
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -31484,7 +31949,7 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
 
         Args:
             value (float): value for IDD Field `thermal_conductivity_14`
-                Unit: W/m-K
+                Units: W/m-K
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -31519,7 +31984,7 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
 
         Args:
             value (float): value for IDD Field `moisture_content_15`
-                Unit: kg/m3
+                Units: kg/m3
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -31554,7 +32019,7 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
 
         Args:
             value (float): value for IDD Field `thermal_conductivity_15`
-                Unit: W/m-K
+                Units: W/m-K
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -31589,7 +32054,7 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
 
         Args:
             value (float): value for IDD Field `moisture_content_16`
-                Unit: kg/m3
+                Units: kg/m3
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -31624,7 +32089,7 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
 
         Args:
             value (float): value for IDD Field `thermal_conductivity_16`
-                Unit: W/m-K
+                Units: W/m-K
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -31659,7 +32124,7 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
 
         Args:
             value (float): value for IDD Field `moisture_content_17`
-                Unit: kg/m3
+                Units: kg/m3
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -31694,7 +32159,7 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
 
         Args:
             value (float): value for IDD Field `thermal_conductivity_17`
-                Unit: W/m-K
+                Units: W/m-K
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -31729,7 +32194,7 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
 
         Args:
             value (float): value for IDD Field `moisture_content_18`
-                Unit: kg/m3
+                Units: kg/m3
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -31764,7 +32229,7 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
 
         Args:
             value (float): value for IDD Field `thermal_conductivity_18`
-                Unit: W/m-K
+                Units: W/m-K
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -31799,7 +32264,7 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
 
         Args:
             value (float): value for IDD Field `moisture_content_19`
-                Unit: kg/m3
+                Units: kg/m3
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -31834,7 +32299,7 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
 
         Args:
             value (float): value for IDD Field `thermal_conductivity_19`
-                Unit: W/m-K
+                Units: W/m-K
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -31869,7 +32334,7 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
 
         Args:
             value (float): value for IDD Field `moisture_content_20`
-                Unit: kg/m3
+                Units: kg/m3
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -31904,7 +32369,7 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
 
         Args:
             value (float): value for IDD Field `thermal_conductivity_20`
-                Unit: W/m-K
+                Units: W/m-K
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -31939,7 +32404,7 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
 
         Args:
             value (float): value for IDD Field `moisture_content_21`
-                Unit: kg/m3
+                Units: kg/m3
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -31974,7 +32439,7 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
 
         Args:
             value (float): value for IDD Field `thermal_conductivity_21`
-                Unit: W/m-K
+                Units: W/m-K
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -32009,7 +32474,7 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
 
         Args:
             value (float): value for IDD Field `moisture_content_22`
-                Unit: kg/m3
+                Units: kg/m3
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -32044,7 +32509,7 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
 
         Args:
             value (float): value for IDD Field `thermal_conductivity_22`
-                Unit: W/m-K
+                Units: W/m-K
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -32079,7 +32544,7 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
 
         Args:
             value (float): value for IDD Field `moisture_content_23`
-                Unit: kg/m3
+                Units: kg/m3
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -32114,7 +32579,7 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
 
         Args:
             value (float): value for IDD Field `thermal_conductivity_23`
-                Unit: W/m-K
+                Units: W/m-K
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -32149,7 +32614,7 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
 
         Args:
             value (float): value for IDD Field `moisture_content_24`
-                Unit: kg/m3
+                Units: kg/m3
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -32184,7 +32649,7 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
 
         Args:
             value (float): value for IDD Field `thermal_conductivity_24`
-                Unit: W/m-K
+                Units: W/m-K
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -32219,7 +32684,7 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
 
         Args:
             value (float): value for IDD Field `moisture_content_25`
-                Unit: kg/m3
+                Units: kg/m3
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -32254,7 +32719,7 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
 
         Args:
             value (float): value for IDD Field `thermal_conductivity_25`
-                Unit: W/m-K
+                Units: W/m-K
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -32273,6 +32738,16 @@ class MaterialPropertyHeatAndMoistureTransferThermalConductivity(object):
                                  'for field `thermal_conductivity_25`')
 
         self._data["Thermal Conductivity 25"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):
@@ -32347,9 +32822,11 @@ class Construction(object):
         Start with outside layer and work your way to the inside layer
         Up to 10 layers total, 8 for windows
         Enter the material name for each layer
+    
     """
     internal_name = "Construction"
     field_count = 11
+    required_fields = ["Name", "Outside Layer"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Construction`
@@ -32793,6 +33270,16 @@ class Construction(object):
 
         self._data["Layer 10"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -32823,9 +33310,11 @@ class Construction(object):
 class ConstructionCfactorUndergroundWall(object):
     """ Corresponds to IDD object `Construction:CfactorUndergroundWall`
         Alternate method of describing underground wall constructions
+    
     """
     internal_name = "Construction:CfactorUndergroundWall"
     field_count = 3
+    required_fields = ["Name", "C-Factor", "Height"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Construction:CfactorUndergroundWall`
@@ -32907,7 +33396,7 @@ class ConstructionCfactorUndergroundWall(object):
 
         Args:
             value (float): value for IDD Field `cfactor`
-                Unit: W/m2-K
+                Units: W/m2-K
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -32943,7 +33432,7 @@ class ConstructionCfactorUndergroundWall(object):
 
         Args:
             value (float): value for IDD Field `height`
-                Unit: m
+                Units: m
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -32962,6 +33451,16 @@ class ConstructionCfactorUndergroundWall(object):
                                  'for field `height`')
 
         self._data["Height"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):
@@ -32985,9 +33484,11 @@ class ConstructionCfactorUndergroundWall(object):
 class ConstructionFfactorGroundFloor(object):
     """ Corresponds to IDD object `Construction:FfactorGroundFloor`
         Alternate method of describing slab-on-grade or underground floor constructions
+    
     """
     internal_name = "Construction:FfactorGroundFloor"
     field_count = 4
+    required_fields = ["Name", "F-Factor", "Area", "PerimeterExposed"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Construction:FfactorGroundFloor`
@@ -33074,7 +33575,8 @@ class ConstructionFfactorGroundFloor(object):
 
         Args:
             value (float): value for IDD Field `ffactor`
-                Unit: W/m-K
+                Units: W/m-K
+                IP-Units: Btu/h-ft-F
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -33110,7 +33612,7 @@ class ConstructionFfactorGroundFloor(object):
 
         Args:
             value (float): value for IDD Field `area`
-                Unit: m2
+                Units: m2
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -33146,7 +33648,7 @@ class ConstructionFfactorGroundFloor(object):
 
         Args:
             value (float): value for IDD Field `perimeterexposed`
-                Unit: m
+                Units: m
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -33165,6 +33667,16 @@ class ConstructionFfactorGroundFloor(object):
                                  'for field `perimeterexposed`')
 
         self._data["PerimeterExposed"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):
@@ -33191,9 +33703,11 @@ class ConstructionInternalSource(object):
         Start with outside layer and work your way to the inside Layer
         Up to 10 layers total, 8 for windows
         Enter the material name for each layer
+    
     """
     internal_name = "Construction:InternalSource"
     field_count = 15
+    required_fields = ["Name", "Source Present After Layer Number", "Temperature Calculation Requested After Layer Number", "Dimensions for the CTF Calculation", "Tube Spacing", "Outside Layer"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Construction:InternalSource`
@@ -33453,7 +33967,7 @@ class ConstructionInternalSource(object):
 
         Args:
             value (float): value for IDD Field `tube_spacing`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -33799,6 +34313,16 @@ class ConstructionInternalSource(object):
 
         self._data["Layer 10"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -33833,9 +34357,11 @@ class ConstructionInternalSource(object):
 class WindowThermalModelParams(object):
     """ Corresponds to IDD object `WindowThermalModel:Params`
         object is used to select which thermal model should be used in tarcog simulations
+    
     """
     internal_name = "WindowThermalModel:Params"
     field_count = 8
+    required_fields = ["Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `WindowThermalModel:Params`
@@ -34122,7 +34648,7 @@ class WindowThermalModelParams(object):
 
         Args:
             value (float): value for IDD Field `vacuum_pressure_limit`
-                Unit: Pa
+                Units: Pa
                 Default value: 13.238
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -34155,7 +34681,7 @@ class WindowThermalModelParams(object):
 
         Args:
             value (float): value for IDD Field `initial_temperature`
-                Unit: C
+                Units: C
                 Default value: 25.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -34188,7 +34714,7 @@ class WindowThermalModelParams(object):
 
         Args:
             value (float): value for IDD Field `initial_pressure`
-                Unit: Pa
+                Units: Pa
                 Default value: 101325.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -34204,6 +34730,16 @@ class WindowThermalModelParams(object):
                                  'for field `initial_pressure`'.format(value))
 
         self._data["Initial pressure"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):
@@ -34233,9 +34769,11 @@ class ConstructionComplexFenestrationState(object):
     """ Corresponds to IDD object `Construction:ComplexFenestrationState`
         Describes one state for a complex glazing system
         These input objects are typically generated by using WINDOW software and export to IDF syntax
+    
     """
     internal_name = "Construction:ComplexFenestrationState"
     field_count = 36
+    required_fields = ["Name", "Window Thermal Model", "Basis Matrix Name", "Solar Optical Complex Front Transmittance Matrix Name", "Solar Optical Complex Back Reflectance Matrix Name", "Visible Optical Complex Front Transmittance Matrix Name", "Visible Optical Complex Back Transmittance Matrix Name", "Outside Layer Name", "Outside Layer Directional Front Absoptance Matrix Name", "Outside Layer Directional Back Absoptance Matrix Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Construction:ComplexFenestrationState`
@@ -35682,6 +36220,16 @@ class ConstructionComplexFenestrationState(object):
 
         self._data["Layer 5 Directional Back Absoptance Matrix Name"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -35737,9 +36285,11 @@ class ConstructionComplexFenestrationState(object):
 class ConstructionWindowDataFile(object):
     """ Corresponds to IDD object `Construction:WindowDataFile`
         Initiates search of the Window data file for a window called Name.
+    
     """
     internal_name = "Construction:WindowDataFile"
     field_count = 2
+    required_fields = ["Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Construction:WindowDataFile`
@@ -35833,6 +36383,16 @@ class ConstructionWindowDataFile(object):
                                  'for field `file_name`')
 
         self._data["File Name"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):

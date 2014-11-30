@@ -6,9 +6,11 @@ class AirLoopHvacUnitarySystem(object):
         configuration of coils and/or fan. This object is a replacement of other
         AirloopHVAC objects. This object can be used in outdoor air systems,
         outdoor air units, air loops, and as zone equipment if desired.
+    
     """
     internal_name = "AirLoopHVAC:UnitarySystem"
     field_count = 53
+    required_fields = ["Name", "Air Inlet Node Name", "Air Outlet Node Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `AirLoopHVAC:UnitarySystem`
@@ -1087,7 +1089,7 @@ class AirLoopHvacUnitarySystem(object):
 
         Args:
             value (float): value for IDD Field `doas_dx_cooling_coil_leaving_minimum_air_temperature`
-                Unit: C
+                Units: C
                 Default value: 2.0
                 value >= 0.0
                 value <= 7.2
@@ -1324,7 +1326,7 @@ class AirLoopHvacUnitarySystem(object):
 
         Args:
             value (float): value for IDD Field `supply_air_flow_rate_during_cooling_operation`
-                Unit: m3/s
+                Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -1362,7 +1364,7 @@ class AirLoopHvacUnitarySystem(object):
 
         Args:
             value (float): value for IDD Field `supply_air_flow_rate_per_floor_area_during_cooling_operation`
-                Unit: m3/s-m2
+                Units: m3/s-m2
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -1437,7 +1439,7 @@ class AirLoopHvacUnitarySystem(object):
 
         Args:
             value (float): value for IDD Field `design_supply_air_flow_rate_per_unit_of_capacity_during_cooling_operation`
-                Unit: m3/s-W
+                Units: m3/s-W
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -1532,7 +1534,7 @@ class AirLoopHvacUnitarySystem(object):
 
         Args:
             value (float): value for IDD Field `supply_air_flow_rate_during_heating_operation`
-                Unit: m3/s
+                Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -1570,7 +1572,7 @@ class AirLoopHvacUnitarySystem(object):
 
         Args:
             value (float): value for IDD Field `supply_air_flow_rate_per_floor_area_during_heating_operation`
-                Unit: m3/s-m2
+                Units: m3/s-m2
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -1645,7 +1647,7 @@ class AirLoopHvacUnitarySystem(object):
 
         Args:
             value (float): value for IDD Field `design_supply_air_flow_rate_per_unit_of_capacity_during_heating_operation`
-                Unit: m3/s-W
+                Units: m3/s-W
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -1747,7 +1749,7 @@ class AirLoopHvacUnitarySystem(object):
 
         Args:
             value (float): value for IDD Field `supply_air_flow_rate_when_no_cooling_or_heating_is_required`
-                Unit: m3/s
+                Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -1784,7 +1786,7 @@ class AirLoopHvacUnitarySystem(object):
 
         Args:
             value (float): value for IDD Field `supply_air_flow_rate_per_floor_area_when_no_cooling_or_heating_is_required`
-                Unit: m3/s-m2
+                Units: m3/s-m2
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -1893,7 +1895,7 @@ class AirLoopHvacUnitarySystem(object):
 
         Args:
             value (float): value for IDD Field `design_supply_air_flow_rate_per_unit_of_capacity_during_cooling_operation_v2`
-                Unit: m3/s-W
+                Units: m3/s-W
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -1930,7 +1932,7 @@ class AirLoopHvacUnitarySystem(object):
 
         Args:
             value (float): value for IDD Field `design_supply_air_flow_rate_per_unit_of_capacity_during_heating_operation_v2`
-                Unit: m3/s-W
+                Units: m3/s-W
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -1966,7 +1968,7 @@ class AirLoopHvacUnitarySystem(object):
 
         Args:
             value (float): value for IDD Field `maximum_supply_air_temperature`
-                Unit: C
+                Units: C
                 Default value: 80.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -1999,7 +2001,7 @@ class AirLoopHvacUnitarySystem(object):
 
         Args:
             value (float): value for IDD Field `maximum_outdoor_drybulb_temperature_for_supplemental_heater_operation`
-                Unit: C
+                Units: C
                 Default value: 21.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -2070,7 +2072,7 @@ class AirLoopHvacUnitarySystem(object):
 
         Args:
             value (float): value for IDD Field `maximum_cycling_rate`
-                Unit: cycles/hr
+                Units: cycles/hr
                 Default value: 2.5
                 value >= 0.0
                 value <= 5.0
@@ -2113,7 +2115,7 @@ class AirLoopHvacUnitarySystem(object):
 
         Args:
             value (float): value for IDD Field `heat_pump_time_constant`
-                Unit: s
+                Units: s
                 Default value: 60.0
                 value >= 0.0
                 value <= 500.0
@@ -2200,7 +2202,7 @@ class AirLoopHvacUnitarySystem(object):
 
         Args:
             value (float): value for IDD Field `heat_pump_fan_delay_time`
-                Unit: s
+                Units: s
                 Default value: 60.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -2237,7 +2239,7 @@ class AirLoopHvacUnitarySystem(object):
 
         Args:
             value (float): value for IDD Field `ancilliary_oncycle_electric_power`
-                Unit: W
+                Units: W
                 Default value: 0.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -2274,7 +2276,7 @@ class AirLoopHvacUnitarySystem(object):
 
         Args:
             value (float): value for IDD Field `ancilliary_offcycle_electric_power`
-                Unit: W
+                Units: W
                 Default value: 0.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -2312,7 +2314,7 @@ class AirLoopHvacUnitarySystem(object):
 
         Args:
             value (float): value for IDD Field `design_heat_recovery_water_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 Default value: 0.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -2349,7 +2351,7 @@ class AirLoopHvacUnitarySystem(object):
 
         Args:
             value (float): value for IDD Field `maximum_temperature_for_heat_recovery`
-                Unit: C
+                Units: C
                 Default value: 80.0
                 value >= 0.0
                 value <= 100.0
@@ -2517,6 +2519,16 @@ class AirLoopHvacUnitarySystem(object):
 
         self._data["Design Specification Multispeed Heat Pump Object Name"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -2591,9 +2603,11 @@ class UnitarySystemPerformanceHeatPumpMultispeed(object):
         The UnitarySystemPerformance object is used to specify the air flow ratio at each
         operating speed. This object is primarily used for multispeed coils to allow operation
         at alternate flow rates different from those specified in the coil object.
+    
     """
     internal_name = "UnitarySystemPerformance:HeatPump:Multispeed"
     field_count = 11
+    required_fields = ["Name", "Number of Speeds for Heating", "Number of Speeds for Cooling", "Speed 1 Supply Air Flow Ratio During Heating Operation", "Speed 1 Supply Air Flow Ratio During Cooling Operation"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `UnitarySystemPerformance:HeatPump:Multispeed`
@@ -2806,7 +2820,7 @@ class UnitarySystemPerformanceHeatPumpMultispeed(object):
 
         Args:
             value (float): value for IDD Field `speed_1_supply_air_flow_ratio_during_heating_operation`
-                Unit: m3/s
+                Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -2845,7 +2859,7 @@ class UnitarySystemPerformanceHeatPumpMultispeed(object):
 
         Args:
             value (float): value for IDD Field `speed_1_supply_air_flow_ratio_during_cooling_operation`
-                Unit: m3/s
+                Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -2884,7 +2898,7 @@ class UnitarySystemPerformanceHeatPumpMultispeed(object):
 
         Args:
             value (float): value for IDD Field `speed_2_supply_air_flow_ratio_during_heating_operation`
-                Unit: m3/s
+                Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -2923,7 +2937,7 @@ class UnitarySystemPerformanceHeatPumpMultispeed(object):
 
         Args:
             value (float): value for IDD Field `speed_2_supply_air_flow_ratio_during_cooling_operation`
-                Unit: m3/s
+                Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -2962,7 +2976,7 @@ class UnitarySystemPerformanceHeatPumpMultispeed(object):
 
         Args:
             value (float): value for IDD Field `speed_3_supply_air_flow_ratio_during_heating_operation`
-                Unit: m3/s
+                Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -3001,7 +3015,7 @@ class UnitarySystemPerformanceHeatPumpMultispeed(object):
 
         Args:
             value (float): value for IDD Field `speed_3_supply_air_flow_ratio_during_cooling_operation`
-                Unit: m3/s
+                Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -3040,7 +3054,7 @@ class UnitarySystemPerformanceHeatPumpMultispeed(object):
 
         Args:
             value (float): value for IDD Field `speed_4_supply_air_flow_ratio_during_heating_operation`
-                Unit: m3/s
+                Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -3079,7 +3093,7 @@ class UnitarySystemPerformanceHeatPumpMultispeed(object):
 
         Args:
             value (float): value for IDD Field `speed_4_supply_air_flow_ratio_during_cooling_operation`
-                Unit: m3/s
+                Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -3098,6 +3112,16 @@ class UnitarySystemPerformanceHeatPumpMultispeed(object):
                                  'for field `speed_4_supply_air_flow_ratio_during_cooling_operation`')
 
         self._data["Speed 4 Supply Air Flow Ratio During Cooling Operation"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):
@@ -3131,9 +3155,11 @@ class AirLoopHvacUnitaryFurnaceHeatOnly(object):
         Unitary system, heating-only with constant volume supply fan (continuous or cycling)
         and heating coil (gas, electric, hot water, or steam). Identical to
         AirLoopHVAC:UnitaryHeatOnly.
+    
     """
     internal_name = "AirLoopHVAC:Unitary:Furnace:HeatOnly"
     field_count = 13
+    required_fields = ["Name", "Furnace Air Inlet Node Name", "Furnace Air Outlet Node Name", "Supply Air Flow Rate", "Controlling Zone or Thermostat Location", "Supply Fan Object Type", "Supply Fan Name", "Heating Coil Object Type", "Heating Coil Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `AirLoopHVAC:Unitary:Furnace:HeatOnly`
@@ -3414,7 +3440,7 @@ class AirLoopHvacUnitaryFurnaceHeatOnly(object):
 
         Args:
             value (float): value for IDD Field `maximum_supply_air_temperature`
-                Unit: C
+                Units: C
                 Default value: 80.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -3447,7 +3473,7 @@ class AirLoopHvacUnitaryFurnaceHeatOnly(object):
 
         Args:
             value (float): value for IDD Field `supply_air_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -3700,6 +3726,16 @@ class AirLoopHvacUnitaryFurnaceHeatOnly(object):
 
         self._data["Heating Coil Name"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -3735,9 +3771,11 @@ class AirLoopHvacUnitaryFurnaceHeatCool(object):
         cycling), direct expansion (DX) cooling coil, heating coil (gas, electric,
         hot water, or steam), and optional reheat coil for dehumidification control.
         Identical to AirLoopHVAC:UnitaryHeatCool.
+    
     """
     internal_name = "AirLoopHVAC:Unitary:Furnace:HeatCool"
     field_count = 20
+    required_fields = ["Name", "Furnace Air Inlet Node Name", "Furnace Air Outlet Node Name", "Supply Air Flow Rate During Cooling Operation", "Supply Air Flow Rate During Heating Operation", "Controlling Zone or Thermostat Location", "Supply Fan Object Type", "Supply Fan Name", "Heating Coil Object Type", "Heating Coil Name", "Cooling Coil Object Type", "Cooling Coil Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `AirLoopHVAC:Unitary:Furnace:HeatCool`
@@ -4064,7 +4102,7 @@ class AirLoopHvacUnitaryFurnaceHeatCool(object):
 
         Args:
             value (float): value for IDD Field `maximum_supply_air_temperature`
-                Unit: C
+                Units: C
                 Default value: 80.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -4097,7 +4135,7 @@ class AirLoopHvacUnitaryFurnaceHeatCool(object):
 
         Args:
             value (float): value for IDD Field `supply_air_flow_rate_during_cooling_operation`
-                Unit: m3/s
+                Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -4133,7 +4171,7 @@ class AirLoopHvacUnitaryFurnaceHeatCool(object):
 
         Args:
             value (float): value for IDD Field `supply_air_flow_rate_during_heating_operation`
-                Unit: m3/s
+                Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -4173,7 +4211,7 @@ class AirLoopHvacUnitaryFurnaceHeatCool(object):
 
         Args:
             value (float): value for IDD Field `supply_air_flow_rate_when_no_cooling_or_heating_is_needed`
-                Unit: m3/s
+                Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -4643,6 +4681,16 @@ class AirLoopHvacUnitaryFurnaceHeatCool(object):
 
         self._data["Reheat Coil Name"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -4684,9 +4732,11 @@ class AirLoopHvacUnitaryHeatOnly(object):
         Unitary system, heating-only with constant volume supply fan (continuous or cycling)
         and heating coil (gas, electric, hot water, or steam). Identical to
         AirLoopHVAC:Unitary:Furnace:HeatOnly.
+    
     """
     internal_name = "AirLoopHVAC:UnitaryHeatOnly"
     field_count = 13
+    required_fields = ["Name", "Unitary System Air Inlet Node Name", "Unitary System Air Outlet Node Name", "Supply Air Flow Rate", "Controlling Zone or Thermostat Location", "Supply Fan Object Type", "Supply Fan Name", "Heating Coil Object Type", "Heating Coil Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `AirLoopHVAC:UnitaryHeatOnly`
@@ -4967,7 +5017,7 @@ class AirLoopHvacUnitaryHeatOnly(object):
 
         Args:
             value (float): value for IDD Field `maximum_supply_air_temperature`
-                Unit: C
+                Units: C
                 Default value: 80.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -5000,7 +5050,7 @@ class AirLoopHvacUnitaryHeatOnly(object):
 
         Args:
             value (float): value for IDD Field `supply_air_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -5253,6 +5303,16 @@ class AirLoopHvacUnitaryHeatOnly(object):
 
         self._data["Heating Coil Name"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -5288,9 +5348,11 @@ class AirLoopHvacUnitaryHeatCool(object):
         cycling), direct expansion (DX) cooling coil, heating coil (gas, electric,
         hot water, or steam), and optional reheat coil for dehumidification control.
         Identical to AirLoopHVAC:Unitary:Furnace:HeatCool.
+    
     """
     internal_name = "AirLoopHVAC:UnitaryHeatCool"
     field_count = 20
+    required_fields = ["Name", "Unitary System Air Inlet Node Name", "Unitary System Air Outlet Node Name", "Supply Air Flow Rate During Cooling Operation", "Supply Air Flow Rate During Heating Operation", "Controlling Zone or Thermostat Location", "Supply Fan Object Type", "Supply Fan Name", "Heating Coil Object Type", "Heating Coil Name", "Cooling Coil Object Type", "Cooling Coil Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `AirLoopHVAC:UnitaryHeatCool`
@@ -5614,7 +5676,7 @@ class AirLoopHvacUnitaryHeatCool(object):
 
         Args:
             value (float): value for IDD Field `maximum_supply_air_temperature`
-                Unit: C
+                Units: C
                 Default value: 80.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -5647,7 +5709,7 @@ class AirLoopHvacUnitaryHeatCool(object):
 
         Args:
             value (float): value for IDD Field `supply_air_flow_rate_during_cooling_operation`
-                Unit: m3/s
+                Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -5683,7 +5745,7 @@ class AirLoopHvacUnitaryHeatCool(object):
 
         Args:
             value (float): value for IDD Field `supply_air_flow_rate_during_heating_operation`
-                Unit: m3/s
+                Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -5723,7 +5785,7 @@ class AirLoopHvacUnitaryHeatCool(object):
 
         Args:
             value (float): value for IDD Field `supply_air_flow_rate_when_no_cooling_or_heating_is_needed`
-                Unit: m3/s
+                Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -6196,6 +6258,16 @@ class AirLoopHvacUnitaryHeatCool(object):
 
         self._data["Reheat Coil Name"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -6237,9 +6309,11 @@ class AirLoopHvacUnitaryHeatPumpAirToAir(object):
         Unitary heat pump system, heating and cooling, single-speed with supply fan, direct
         expansion (DX) cooling coil, DX heating coil (air-to-air heat pump), and supplemental
         heating coil (gas, electric, hot water, or steam).
+    
     """
     internal_name = "AirLoopHVAC:UnitaryHeatPump:AirToAir"
     field_count = 21
+    required_fields = ["Name", "Air Inlet Node Name", "Air Outlet Node Name", "Supply Air Flow Rate During Cooling Operation", "Supply Air Flow Rate During Heating Operation", "Controlling Zone or Thermostat Location", "Supply Air Fan Object Type", "Supply Air Fan Name", "Heating Coil Object Type", "Heating Coil Name", "Cooling Coil Object Type", "Cooling Coil Name", "Supplemental Heating Coil Object Type", "Supplemental Heating Coil Name", "Maximum Supply Air Temperature from Supplemental Heater"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `AirLoopHVAC:UnitaryHeatPump:AirToAir`
@@ -6533,7 +6607,7 @@ class AirLoopHvacUnitaryHeatPumpAirToAir(object):
 
         Args:
             value (float): value for IDD Field `supply_air_flow_rate_during_cooling_operation`
-                Unit: m3/s
+                Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -6569,7 +6643,7 @@ class AirLoopHvacUnitaryHeatPumpAirToAir(object):
 
         Args:
             value (float): value for IDD Field `supply_air_flow_rate_during_heating_operation`
-                Unit: m3/s
+                Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -6609,7 +6683,7 @@ class AirLoopHvacUnitaryHeatPumpAirToAir(object):
 
         Args:
             value (float): value for IDD Field `supply_air_flow_rate_when_no_cooling_or_heating_is_needed`
-                Unit: m3/s
+                Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -6996,7 +7070,7 @@ class AirLoopHvacUnitaryHeatPumpAirToAir(object):
 
         Args:
             value (float): value for IDD Field `maximum_supply_air_temperature_from_supplemental_heater`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7027,7 +7101,7 @@ class AirLoopHvacUnitaryHeatPumpAirToAir(object):
 
         Args:
             value (float): value for IDD Field `maximum_outdoor_drybulb_temperature_for_supplemental_heater_operation`
-                Unit: C
+                Units: C
                 Default value: 21.0
                 value <= 21.0
                 if `value` is None it will not be checked against the
@@ -7187,6 +7261,16 @@ class AirLoopHvacUnitaryHeatPumpAirToAir(object):
 
         self._data["Dehumidification Control Type"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -7230,9 +7314,11 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(object):
         supply fan (continuous or cycling), direct expansion (DX) cooling coil, DX heating
         coil (water-to-air heat pump), and supplemental heating coil (gas, electric,
         hot water, or steam).
+    
     """
     internal_name = "AirLoopHVAC:UnitaryHeatPump:WaterToAir"
     field_count = 27
+    required_fields = ["Name", "Air Inlet Node Name", "Air Outlet Node Name", "Supply Air Flow Rate", "Controlling Zone or Thermostat Location", "Supply Air Fan Object Type", "Supply Air Fan Name", "Heating Coil Object Type", "Heating Coil Name", "Heating Convergence", "Cooling Coil Object Type", "Cooling Coil Name", "Cooling Convergence", "Supplemental Heating Coil Object Type", "Supplemental Heating Coil Name", "Maximum Supply Air Temperature from Supplemental Heater"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `AirLoopHVAC:UnitaryHeatPump:WaterToAir`
@@ -7559,7 +7645,7 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(object):
 
         Args:
             value (float): value for IDD Field `supply_air_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -7930,7 +8016,7 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(object):
 
         Args:
             value (float): value for IDD Field `maximum_cycling_rate`
-                Unit: cycles/hr
+                Units: cycles/hr
                 Default value: 2.5
                 value >= 0.0
                 value <= 5.0
@@ -7972,7 +8058,7 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(object):
 
         Args:
             value (float): value for IDD Field `heat_pump_time_constant`
-                Unit: s
+                Units: s
                 Default value: 60.0
                 value >= 0.0
                 value <= 500.0
@@ -8057,7 +8143,7 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(object):
 
         Args:
             value (float): value for IDD Field `heat_pump_fan_delay_time`
-                Unit: s
+                Units: s
                 Default value: 60.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -8174,7 +8260,7 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(object):
 
         Args:
             value (float): value for IDD Field `maximum_supply_air_temperature_from_supplemental_heater`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8205,7 +8291,7 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(object):
 
         Args:
             value (float): value for IDD Field `maximum_outdoor_drybulb_temperature_for_supplemental_heater_operation`
-                Unit: C
+                Units: C
                 Default value: 21.0
                 value <= 21.0
                 if `value` is None it will not be checked against the
@@ -8436,6 +8522,16 @@ class AirLoopHvacUnitaryHeatPumpWaterToAir(object):
 
         self._data["Heat Pump Coil Water Flow Mode"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -8486,9 +8582,11 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(object):
         hot water, steam, or DX air-to-air heat pump) and bypass damper for variable volume
         flow to terminal units. Used with AirTerminal:SingleDuct:VAV:HeatAndCool:Reheat
         or AirTerminal:SingleDuct:VAV:HeatAndCool:NoReheat.
+    
     """
     internal_name = "AirLoopHVAC:UnitaryHeatCool:VAVChangeoverBypass"
     field_count = 27
+    required_fields = ["Name", "System Air Flow Rate During Cooling Operation", "System Air Flow Rate During Heating Operation", "Outdoor Air Flow Rate During Cooling Operation", "Outdoor Air Flow Rate During Heating Operation", "Air Inlet Node Name", "Bypass Duct Mixer Node Name", "Bypass Duct Splitter Node Name", "Air Outlet Node Name", "Outdoor Air Mixer Object Type", "Outdoor Air Mixer Name", "Supply Air Fan Object Type", "Supply Air Fan Name", "Supply Air Fan Placement", "Cooling Coil Object Type", "Cooling Coil Name", "Heating Coil Object Type", "Heating Coil Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `AirLoopHVAC:UnitaryHeatCool:VAVChangeoverBypass`
@@ -8753,7 +8851,7 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(object):
 
         Args:
             value (float): value for IDD Field `system_air_flow_rate_during_cooling_operation`
-                Unit: m3/s
+                Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -8790,7 +8888,7 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(object):
 
         Args:
             value (float): value for IDD Field `system_air_flow_rate_during_heating_operation`
-                Unit: m3/s
+                Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -8830,7 +8928,7 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(object):
 
         Args:
             value (float): value for IDD Field `system_air_flow_rate_when_no_cooling_or_heating_is_needed`
-                Unit: m3/s
+                Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -8867,7 +8965,7 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(object):
 
         Args:
             value (float): value for IDD Field `outdoor_air_flow_rate_during_cooling_operation`
-                Unit: m3/s
+                Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -8904,7 +9002,7 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(object):
 
         Args:
             value (float): value for IDD Field `outdoor_air_flow_rate_during_heating_operation`
-                Unit: m3/s
+                Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -8944,7 +9042,7 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(object):
 
         Args:
             value (float): value for IDD Field `outdoor_air_flow_rate_when_no_cooling_or_heating_is_needed`
-                Unit: m3/s
+                Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -9609,7 +9707,7 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(object):
 
         Args:
             value (float): value for IDD Field `minimum_outlet_air_temperature_during_cooling_operation`
-                Unit: C
+                Units: C
                 Default value: 8.0
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -9648,7 +9746,7 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(object):
 
         Args:
             value (float): value for IDD Field `maximum_outlet_air_temperature_during_heating_operation`
-                Unit: C
+                Units: C
                 Default value: 50.0
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -9727,6 +9825,16 @@ class AirLoopHvacUnitaryHeatCoolVavchangeoverBypass(object):
 
         self._data["Dehumidification Control Type"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -9776,9 +9884,11 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(object):
         (continuous or cycling), direct expansion (DX) cooling coil, heating coil
         (DX air-to-air heat pump, gas, electric, hot water, or steam), and supplemental
         heating coil (gas, electric, hot water, or steam).
+    
     """
     internal_name = "AirLoopHVAC:UnitaryHeatPump:AirToAir:MultiSpeed"
     field_count = 35
+    required_fields = ["Name", "Air Inlet Node Name", "Air Outlet Node Name", "Controlling Zone or Thermostat Location", "Supply Air Fan Object Type", "Supply Air Fan Name", "Supply Air Fan Placement", "Heating Coil Object Type", "Heating Coil Name", "Cooling Coil Object Type", "Cooling Coil Name", "Number of Speeds for Heating", "Number of Speeds for Cooling", "Speed 1 Supply Air Flow Rate During Heating Operation", "Speed 1 Supply Air Flow Rate During Cooling Operation", "Speed 2 Supply Air Flow Rate During Cooling Operation"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `AirLoopHVAC:UnitaryHeatPump:AirToAir:MultiSpeed`
@@ -10431,7 +10541,7 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(object):
 
         Args:
             value (float): value for IDD Field `minimum_outdoor_drybulb_temperature_for_compressor_operation`
-                Unit: C
+                Units: C
                 Default value: -8.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -10619,7 +10729,7 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(object):
 
         Args:
             value (float): value for IDD Field `maximum_supply_air_temperature_from_supplemental_heater`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -10650,7 +10760,7 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(object):
 
         Args:
             value (float): value for IDD Field `maximum_outdoor_drybulb_temperature_for_supplemental_heater_operation`
-                Unit: C
+                Units: C
                 Default value: 21.0
                 value <= 21.0
                 if `value` is None it will not be checked against the
@@ -10686,7 +10796,7 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(object):
 
         Args:
             value (float): value for IDD Field `auxiliary_oncycle_electric_power`
-                Unit: W
+                Units: W
                 Default value: 0.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -10722,7 +10832,7 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(object):
 
         Args:
             value (float): value for IDD Field `auxiliary_offcycle_electric_power`
-                Unit: W
+                Units: W
                 Default value: 0.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -10760,7 +10870,7 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(object):
 
         Args:
             value (float): value for IDD Field `design_heat_recovery_water_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 Default value: 0.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -10796,7 +10906,7 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(object):
 
         Args:
             value (float): value for IDD Field `maximum_temperature_for_heat_recovery`
-                Unit: C
+                Units: C
                 Default value: 80.0
                 value >= 0.0
                 value <= 100.0
@@ -10907,7 +11017,7 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(object):
 
         Args:
             value (float): value for IDD Field `supply_air_flow_rate_when_no_cooling_or_heating_is_needed`
-                Unit: m3/s
+                Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -11024,7 +11134,7 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(object):
 
         Args:
             value (float): value for IDD Field `speed_1_supply_air_flow_rate_during_heating_operation`
-                Unit: m3/s
+                Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -11061,7 +11171,7 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(object):
 
         Args:
             value (float): value for IDD Field `speed_2_supply_air_flow_rate_during_heating_operation`
-                Unit: m3/s
+                Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -11098,7 +11208,7 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(object):
 
         Args:
             value (float): value for IDD Field `speed_3_supply_air_flow_rate_during_heating_operation`
-                Unit: m3/s
+                Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -11135,7 +11245,7 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(object):
 
         Args:
             value (float): value for IDD Field `speed_4_supply_air_flow_rate_during_heating_operation`
-                Unit: m3/s
+                Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -11172,7 +11282,7 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(object):
 
         Args:
             value (float): value for IDD Field `speed_1_supply_air_flow_rate_during_cooling_operation`
-                Unit: m3/s
+                Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -11209,7 +11319,7 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(object):
 
         Args:
             value (float): value for IDD Field `speed_2_supply_air_flow_rate_during_cooling_operation`
-                Unit: m3/s
+                Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -11246,7 +11356,7 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(object):
 
         Args:
             value (float): value for IDD Field `speed_3_supply_air_flow_rate_during_cooling_operation`
-                Unit: m3/s
+                Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -11283,7 +11393,7 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(object):
 
         Args:
             value (float): value for IDD Field `speed_4_supply_air_flow_rate_during_cooling_operation`
-                Unit: m3/s
+                Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -11302,6 +11412,16 @@ class AirLoopHvacUnitaryHeatPumpAirToAirMultiSpeed(object):
                                  'for field `speed_4_supply_air_flow_rate_during_cooling_operation`')
 
         self._data["Speed 4 Supply Air Flow Rate During Cooling Operation"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):

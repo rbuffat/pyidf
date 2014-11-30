@@ -5,9 +5,11 @@ class Branch(object):
         List components on the branch in simulation and connection order
         Note: this should NOT include splitters or mixers which define
         endpoints of branches
+    
     """
     internal_name = "Branch"
     field_count = 58
+    required_fields = ["Name", "Component 1 Object Type", "Component 1 Name", "Component 1 Inlet Node Name", "Component 1 Outlet Node Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Branch`
@@ -418,7 +420,7 @@ class Branch(object):
 
         Args:
             value (float): value for IDD Field `maximum_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 Default value: 0.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -2304,6 +2306,16 @@ class Branch(object):
 
         self._data["Component 11 Branch Control Type"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -2382,9 +2394,11 @@ class ConnectorList(object):
     """ Corresponds to IDD object `ConnectorList`
         only two connectors allowed per loop
         if two entered, one must be Connector:Splitter and one must be Connector:Mixer
+    
     """
     internal_name = "ConnectorList"
     field_count = 5
+    required_fields = ["Name", "Connector 1 Object Type", "Connector 1 Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ConnectorList`
@@ -2612,6 +2626,16 @@ class ConnectorList(object):
 
         self._data["Connector 2 Name"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -2640,9 +2664,11 @@ class OutdoorAirNode(object):
         specified.  This object may be used more than once.
         The same node name may not appear in both an OutdoorAir:Node object and
         an OutdoorAir:NodeList object.
+    
     """
     internal_name = "OutdoorAir:Node"
     field_count = 2
+    required_fields = ["Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `OutdoorAir:Node`
@@ -2718,7 +2744,7 @@ class OutdoorAirNode(object):
 
         Args:
             value (float): value for IDD Field `height_above_ground`
-                Unit: m
+                Units: m
                 Default value: -1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -2734,6 +2760,16 @@ class OutdoorAirNode(object):
                                  'for field `height_above_ground`'.format(value))
 
         self._data["Height Above Ground"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):
@@ -2756,9 +2792,11 @@ class OutdoorAirNode(object):
 class PipeAdiabatic(object):
     """ Corresponds to IDD object `Pipe:Adiabatic`
         Passes Inlet Node state variables to Outlet Node state variables
+    
     """
     internal_name = "Pipe:Adiabatic"
     field_count = 3
+    required_fields = ["Name", "Inlet Node Name", "Outlet Node Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Pipe:Adiabatic`
@@ -2890,6 +2928,16 @@ class PipeAdiabatic(object):
 
         self._data["Outlet Node Name"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -2912,9 +2960,11 @@ class PipeAdiabatic(object):
 class PipeAdiabaticSteam(object):
     """ Corresponds to IDD object `Pipe:Adiabatic:Steam`
         Passes Inlet Node state variables to Outlet Node state variables
+    
     """
     internal_name = "Pipe:Adiabatic:Steam"
     field_count = 3
+    required_fields = ["Name", "Inlet Node Name", "Outlet Node Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Pipe:Adiabatic:Steam`
@@ -3046,6 +3096,16 @@ class PipeAdiabaticSteam(object):
 
         self._data["Outlet Node Name"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -3068,9 +3128,11 @@ class PipeAdiabaticSteam(object):
 class PipeIndoor(object):
     """ Corresponds to IDD object `Pipe:Indoor`
         Pipe model with transport delay and heat transfer to the environment.
+    
     """
     internal_name = "Pipe:Indoor"
     field_count = 10
+    required_fields = ["Name", "Construction Name", "Fluid Inlet Node Name", "Fluid Outlet Node Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Pipe:Indoor`
@@ -3434,7 +3496,8 @@ class PipeIndoor(object):
 
         Args:
             value (float): value for IDD Field `pipe_inside_diameter`
-                Unit: m
+                Units: m
+                IP-Units: in
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -3469,7 +3532,7 @@ class PipeIndoor(object):
 
         Args:
             value (float): value for IDD Field `pipe_length`
-                Unit: m
+                Units: m
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -3488,6 +3551,16 @@ class PipeIndoor(object):
                                  'for field `pipe_length`')
 
         self._data["Pipe Length"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):
@@ -3518,9 +3591,11 @@ class PipeIndoor(object):
 class PipeOutdoor(object):
     """ Corresponds to IDD object `Pipe:Outdoor`
         Pipe model with transport delay and heat transfer to the environment.
+    
     """
     internal_name = "Pipe:Outdoor"
     field_count = 7
+    required_fields = ["Name", "Construction Name", "Fluid Inlet Node Name", "Fluid Outlet Node Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Pipe:Outdoor`
@@ -3757,7 +3832,8 @@ class PipeOutdoor(object):
 
         Args:
             value (float): value for IDD Field `pipe_inside_diameter`
-                Unit: m
+                Units: m
+                IP-Units: in
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -3792,7 +3868,7 @@ class PipeOutdoor(object):
 
         Args:
             value (float): value for IDD Field `pipe_length`
-                Unit: m
+                Units: m
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -3811,6 +3887,16 @@ class PipeOutdoor(object):
                                  'for field `pipe_length`')
 
         self._data["Pipe Length"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):
@@ -3840,9 +3926,11 @@ class PipeUnderground(object):
         Buried Pipe model: For pipes buried at a depth less
         than one meter, this is an alternative object to:
         HeatExchanger:Surface
+    
     """
     internal_name = "Pipe:Underground"
     field_count = 11
+    required_fields = ["Name", "Construction Name", "Fluid Inlet Node Name", "Fluid Outlet Node Name", "Sun Exposure", "Soil Material Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Pipe:Underground`
@@ -4113,7 +4201,8 @@ class PipeUnderground(object):
 
         Args:
             value (float): value for IDD Field `pipe_inside_diameter`
-                Unit: m
+                Units: m
+                IP-Units: in
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -4148,7 +4237,7 @@ class PipeUnderground(object):
 
         Args:
             value (float): value for IDD Field `pipe_length`
-                Unit: m
+                Units: m
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -4217,7 +4306,7 @@ class PipeUnderground(object):
 
         Args:
             value (float): value for IDD Field `average_soil_surface_temperature`
-                Unit: C
+                Units: C
                 Default value: 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -4250,7 +4339,7 @@ class PipeUnderground(object):
 
         Args:
             value (float): value for IDD Field `amplitude_of_soil_surface_temperature`
-                Unit: C
+                Units: C
                 Default value: 0.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -4287,7 +4376,7 @@ class PipeUnderground(object):
 
         Args:
             value (float): value for IDD Field `phase_constant_of_soil_surface_temperature`
-                Unit: days
+                Units: days
                 Default value: 0.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -4307,6 +4396,16 @@ class PipeUnderground(object):
                                  'for field `phase_constant_of_soil_surface_temperature`')
 
         self._data["Phase Constant of Soil Surface Temperature"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):
@@ -4338,9 +4437,11 @@ class PipeUnderground(object):
 class PipingSystemUndergroundDomain(object):
     """ Corresponds to IDD object `PipingSystem:Underground:Domain`
         The ground domain object for underground piping system simulation.
+    
     """
     internal_name = "PipingSystem:Underground:Domain"
     field_count = 37
+    required_fields = ["Name", "Xmax", "Ymax", "Zmax", "X-Direction Mesh Type", "Y-Direction Mesh Type", "Z-Direction Mesh Type", "Soil Thermal Conductivity", "Soil Density", "Soil Specific Heat", "Kusuda-Achenbach Average Surface Temperature", "Kusuda-Achenbach Average Amplitude of Surface Temperature", "Kusuda-Achenbach Phase Shift of Minimum Surface Temperature", "Number of Pipe Circuits Entered for this Domain", "Pipe Circuit 1"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `PipingSystem:Underground:Domain`
@@ -4626,7 +4727,7 @@ class PipingSystemUndergroundDomain(object):
 
         Args:
             value (float): value for IDD Field `xmax`
-                Unit: m
+                Units: m
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -4662,7 +4763,7 @@ class PipingSystemUndergroundDomain(object):
 
         Args:
             value (float): value for IDD Field `ymax`
-                Unit: m
+                Units: m
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -4698,7 +4799,7 @@ class PipingSystemUndergroundDomain(object):
 
         Args:
             value (float): value for IDD Field `zmax`
-                Unit: m
+                Units: m
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -5090,7 +5191,7 @@ class PipingSystemUndergroundDomain(object):
 
         Args:
             value (float): value for IDD Field `soil_thermal_conductivity`
-                Unit: W/m-K
+                Units: W/m-K
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -5125,7 +5226,7 @@ class PipingSystemUndergroundDomain(object):
 
         Args:
             value (float): value for IDD Field `soil_density`
-                Unit: kg/m3
+                Units: kg/m3
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -5162,7 +5263,7 @@ class PipingSystemUndergroundDomain(object):
 
         Args:
             value (float): value for IDD Field `soil_specific_heat`
-                Unit: J/kg-K
+                Units: J/kg-K
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -5197,7 +5298,7 @@ class PipingSystemUndergroundDomain(object):
 
         Args:
             value (float): value for IDD Field `soil_moisture_content_volume_fraction`
-                Unit: percent
+                Units: percent
                 Default value: 30.0
                 value >= 0.0
                 value <= 100.0
@@ -5237,7 +5338,7 @@ class PipingSystemUndergroundDomain(object):
 
         Args:
             value (float): value for IDD Field `soil_moisture_content_volume_fraction_at_saturation`
-                Unit: percent
+                Units: percent
                 Default value: 50.0
                 value >= 0.0
                 value <= 100.0
@@ -5277,7 +5378,7 @@ class PipingSystemUndergroundDomain(object):
 
         Args:
             value (float): value for IDD Field `kusudaachenbach_average_surface_temperature`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5308,7 +5409,7 @@ class PipingSystemUndergroundDomain(object):
 
         Args:
             value (float): value for IDD Field `kusudaachenbach_average_amplitude_of_surface_temperature`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5339,7 +5440,7 @@ class PipingSystemUndergroundDomain(object):
 
         Args:
             value (float): value for IDD Field `kusudaachenbach_phase_shift_of_minimum_surface_temperature`
-                Unit: days
+                Units: days
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5416,7 +5517,7 @@ class PipingSystemUndergroundDomain(object):
 
         Args:
             value (float): value for IDD Field `width_of_basement_floor_in_ground_domain`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5448,7 +5549,7 @@ class PipingSystemUndergroundDomain(object):
 
         Args:
             value (float): value for IDD Field `depth_of_basement_wall_in_ground_domain`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5590,7 +5691,7 @@ class PipingSystemUndergroundDomain(object):
 
         Args:
             value (float): value for IDD Field `convergence_criterion_for_the_outer_cartesian_domain_iteration_loop`
-                Unit: deltaC
+                Units: deltaC
                 Default value: 0.001
                 value >= 1e-06
                 value <= 0.5
@@ -5942,6 +6043,16 @@ class PipingSystemUndergroundDomain(object):
 
         self._data["Pipe Circuit 6"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -6000,9 +6111,11 @@ class PipingSystemUndergroundPipeCircuit(object):
         The pipe circuit object in an underground piping system.
         This object is simulated within an underground piping domain object
         and connected on a branch on a plant loop.
+    
     """
     internal_name = "PipingSystem:Underground:PipeCircuit"
     field_count = 20
+    required_fields = ["Name", "Pipe Thermal Conductivity", "Pipe Density", "Pipe Specific Heat", "Pipe Inner Diameter", "Pipe Outer Diameter", "Design Flow Rate", "Circuit Inlet Node", "Circuit Outlet Node", "Radial Thickness of Inner Radial Near Pipe Mesh Region", "Number of Pipe Segments Entered for this Pipe Circuit", "Pipe Segment 1"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `PipingSystem:Underground:PipeCircuit`
@@ -6185,7 +6298,7 @@ class PipingSystemUndergroundPipeCircuit(object):
 
         Args:
             value (float): value for IDD Field `pipe_thermal_conductivity`
-                Unit: W/m-K
+                Units: W/m-K
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -6220,7 +6333,7 @@ class PipingSystemUndergroundPipeCircuit(object):
 
         Args:
             value (float): value for IDD Field `pipe_density`
-                Unit: kg/m3
+                Units: kg/m3
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -6255,7 +6368,7 @@ class PipingSystemUndergroundPipeCircuit(object):
 
         Args:
             value (float): value for IDD Field `pipe_specific_heat`
-                Unit: J/kg-K
+                Units: J/kg-K
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -6290,7 +6403,7 @@ class PipingSystemUndergroundPipeCircuit(object):
 
         Args:
             value (float): value for IDD Field `pipe_inner_diameter`
-                Unit: m
+                Units: m
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -6325,7 +6438,7 @@ class PipingSystemUndergroundPipeCircuit(object):
 
         Args:
             value (float): value for IDD Field `pipe_outer_diameter`
-                Unit: m
+                Units: m
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -6360,7 +6473,7 @@ class PipingSystemUndergroundPipeCircuit(object):
 
         Args:
             value (float): value for IDD Field `design_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -6461,7 +6574,7 @@ class PipingSystemUndergroundPipeCircuit(object):
 
         Args:
             value (float): value for IDD Field `convergence_criterion_for_the_inner_radial_iteration_loop`
-                Unit: deltaC
+                Units: deltaC
                 Default value: 0.001
                 value >= 1e-06
                 value <= 0.5
@@ -6843,6 +6956,16 @@ class PipingSystemUndergroundPipeCircuit(object):
 
         self._data["Pipe Segment 6"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -6884,9 +7007,11 @@ class PipingSystemUndergroundPipeSegment(object):
         The pipe segment to be used in an underground piping system
         This object represents a single pipe leg positioned axially
         in the local z-direction, at a given x, y location in the domain
+    
     """
     internal_name = "PipingSystem:Underground:PipeSegment"
     field_count = 4
+    required_fields = ["Name", "X Position", "Y Position", "Flow Direction"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `PipingSystem:Underground:PipeSegment`
@@ -6977,7 +7102,7 @@ class PipingSystemUndergroundPipeSegment(object):
 
         Args:
             value (float): value for IDD Field `x_position`
-                Unit: m
+                Units: m
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -7015,7 +7140,7 @@ class PipingSystemUndergroundPipeSegment(object):
 
         Args:
             value (float): value for IDD Field `y_position`
-                Unit: m
+                Units: m
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -7080,6 +7205,16 @@ class PipingSystemUndergroundPipeSegment(object):
 
         self._data["Flow Direction"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -7103,9 +7238,11 @@ class PipingSystemUndergroundPipeSegment(object):
 class Duct(object):
     """ Corresponds to IDD object `Duct`
         Passes inlet node state variables to outlet node state variables
+    
     """
     internal_name = "Duct"
     field_count = 3
+    required_fields = ["Name", "Inlet Node Name", "Outlet Node Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Duct`
@@ -7237,6 +7374,16 @@ class Duct(object):
 
         self._data["Outlet Node Name"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -7259,9 +7406,11 @@ class Duct(object):
 class PumpVariableSpeed(object):
     """ Corresponds to IDD object `Pump:VariableSpeed`
         This pump model is described in the ASHRAE secondary HVAC toolkit.
+    
     """
     internal_name = "Pump:VariableSpeed"
     field_count = 25
+    required_fields = ["Name", "Inlet Node Name", "Outlet Node Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Pump:VariableSpeed`
@@ -7540,7 +7689,8 @@ class PumpVariableSpeed(object):
 
         Args:
             value (float): value for IDD Field `rated_flow_rate`
-                Unit: m3/s
+                Units: m3/s
+                IP-Units: gal/min
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -7576,7 +7726,8 @@ class PumpVariableSpeed(object):
 
         Args:
             value (float): value for IDD Field `rated_pump_head`
-                Unit: Pa
+                Units: Pa
+                IP-Units: ftH2O
                 Default value: 179352.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -7610,7 +7761,8 @@ class PumpVariableSpeed(object):
 
         Args:
             value (float): value for IDD Field `rated_power_consumption`
-                Unit: W
+                Units: W
+                IP-Units: W
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7846,7 +7998,8 @@ class PumpVariableSpeed(object):
 
         Args:
             value (float): value for IDD Field `minimum_flow_rate`
-                Unit: m3/s
+                Units: m3/s
+                IP-Units: gal/min
                 Default value: 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -8000,7 +8153,7 @@ class PumpVariableSpeed(object):
 
         Args:
             value (float): value for IDD Field `impeller_diameter`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8109,7 +8262,7 @@ class PumpVariableSpeed(object):
 
         Args:
             value (str): value for IDD Field `minimum_pressure_schedule`
-                Unit: Pa
+                Units: Pa
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8143,7 +8296,7 @@ class PumpVariableSpeed(object):
 
         Args:
             value (str): value for IDD Field `maximum_pressure_schedule`
-                Unit: Pa
+                Units: Pa
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8177,7 +8330,7 @@ class PumpVariableSpeed(object):
 
         Args:
             value (str): value for IDD Field `minimum_rpm_schedule`
-                Unit: Rotations Per Minute
+                Units: Rotations Per Minute
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8211,7 +8364,7 @@ class PumpVariableSpeed(object):
 
         Args:
             value (str): value for IDD Field `maximum_rpm_schedule`
-                Unit: Rotations Per Minute
+                Units: Rotations Per Minute
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8304,6 +8457,16 @@ class PumpVariableSpeed(object):
 
         self._data["Skin Loss Radiative Fraction"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -8348,9 +8511,11 @@ class PumpVariableSpeed(object):
 class PumpConstantSpeed(object):
     """ Corresponds to IDD object `Pump:ConstantSpeed`
         This pump model is described in the ASHRAE secondary HVAC toolkit.
+    
     """
     internal_name = "Pump:ConstantSpeed"
     field_count = 15
+    required_fields = ["Name", "Inlet Node Name", "Outlet Node Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Pump:ConstantSpeed`
@@ -8569,7 +8734,8 @@ class PumpConstantSpeed(object):
 
         Args:
             value (float): value for IDD Field `rated_flow_rate`
-                Unit: m3/s
+                Units: m3/s
+                IP-Units: gal/min
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -8605,7 +8771,8 @@ class PumpConstantSpeed(object):
 
         Args:
             value (float): value for IDD Field `rated_pump_head`
-                Unit: Pa
+                Units: Pa
+                IP-Units: ftH2O
                 Default value: 179352.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -8639,7 +8806,8 @@ class PumpConstantSpeed(object):
 
         Args:
             value (float): value for IDD Field `rated_power_consumption`
-                Unit: W
+                Units: W
+                IP-Units: W
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8872,7 +9040,7 @@ class PumpConstantSpeed(object):
 
         Args:
             value (float): value for IDD Field `impeller_diameter`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8904,7 +9072,7 @@ class PumpConstantSpeed(object):
 
         Args:
             value (float): value for IDD Field `rotational_speed`
-                Unit: rev/min
+                Units: rev/min
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8994,6 +9162,16 @@ class PumpConstantSpeed(object):
 
         self._data["Skin Loss Radiative Fraction"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -9029,9 +9207,11 @@ class PumpVariableSpeedCondensate(object):
     """ Corresponds to IDD object `Pump:VariableSpeed:Condensate`
         This pump model is described in the ASHRAE secondary HVAC toolkit.
         Variable Speed Condensate pump for Steam Systems
+    
     """
     internal_name = "Pump:VariableSpeed:Condensate"
     field_count = 15
+    required_fields = ["Name", "Inlet Node Name", "Outlet Node Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Pump:VariableSpeed:Condensate`
@@ -9250,7 +9430,8 @@ class PumpVariableSpeedCondensate(object):
 
         Args:
             value (float): value for IDD Field `rated_flow_rate`
-                Unit: m3/s
+                Units: m3/s
+                IP-Units: gal/min
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -9286,7 +9467,8 @@ class PumpVariableSpeedCondensate(object):
 
         Args:
             value (float): value for IDD Field `rated_pump_head`
-                Unit: Pa
+                Units: Pa
+                IP-Units: ftH2O
                 Default value: 179352.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -9320,7 +9502,8 @@ class PumpVariableSpeedCondensate(object):
 
         Args:
             value (float): value for IDD Field `rated_power_consumption`
-                Unit: W
+                Units: W
+                IP-Units: W
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -9650,6 +9833,16 @@ class PumpVariableSpeedCondensate(object):
 
         self._data["Skin Loss Radiative Fraction"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -9684,9 +9877,11 @@ class PumpVariableSpeedCondensate(object):
 class HeaderedPumpsConstantSpeed(object):
     """ Corresponds to IDD object `HeaderedPumps:ConstantSpeed`
         This Headered pump object describes a pump bank with more than 1 pump in parallel
+    
     """
     internal_name = "HeaderedPumps:ConstantSpeed"
     field_count = 14
+    required_fields = ["Name", "Inlet Node Name", "Outlet Node Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `HeaderedPumps:ConstantSpeed`
@@ -9901,7 +10096,8 @@ class HeaderedPumpsConstantSpeed(object):
 
         Args:
             value (float): value for IDD Field `total_rated_flow_rate`
-                Unit: m3/s
+                Units: m3/s
+                IP-Units: gal/min
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -10008,7 +10204,8 @@ class HeaderedPumpsConstantSpeed(object):
 
         Args:
             value (float): value for IDD Field `rated_pump_head`
-                Unit: Pa
+                Units: Pa
+                IP-Units: ftH2O
                 Default value: 179352.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -10044,7 +10241,8 @@ class HeaderedPumpsConstantSpeed(object):
 
         Args:
             value (float): value for IDD Field `rated_power_consumption`
-                Unit: W
+                Units: W
+                IP-Units: W
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -10292,6 +10490,16 @@ class HeaderedPumpsConstantSpeed(object):
                                  'for field `skin_loss_radiative_fraction`')
 
         self._data["Skin Loss Radiative Fraction"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):

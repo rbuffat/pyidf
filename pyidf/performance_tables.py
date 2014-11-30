@@ -4,9 +4,11 @@ class FluidPropertiesName(object):
     """ Corresponds to IDD object `FluidProperties:Name`
         potential fluid name/type in the input file
         repeat this object for each fluid
+    
     """
     internal_name = "FluidProperties:Name"
     field_count = 2
+    required_fields = ["Fluid Name", "Fluid Type"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `FluidProperties:Name`
@@ -108,6 +110,16 @@ class FluidPropertiesName(object):
 
         self._data["Fluid Type"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -129,9 +141,11 @@ class FluidPropertiesName(object):
 class FluidPropertiesGlycolConcentration(object):
     """ Corresponds to IDD object `FluidProperties:GlycolConcentration`
         glycol and what concentration it is
+    
     """
     internal_name = "FluidProperties:GlycolConcentration"
     field_count = 4
+    required_fields = ["Name", "Glycol Type"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `FluidProperties:GlycolConcentration`
@@ -319,6 +333,16 @@ class FluidPropertiesGlycolConcentration(object):
 
         self._data["Glycol Concentration"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -346,9 +370,11 @@ class FluidPropertiesTemperatures(object):
         in other words, there must be a one-to-one correspondence between the property values in this list and
         the actual properties list in other syntax
         degrees C (for all temperature inputs)
+    
     """
     internal_name = "FluidProperties:Temperatures"
     field_count = 251
+    required_fields = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `FluidProperties:Temperatures`
@@ -1917,7 +1943,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_1`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1948,7 +1974,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_2`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1979,7 +2005,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_3`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2010,7 +2036,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_4`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2041,7 +2067,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_5`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2072,7 +2098,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_6`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2103,7 +2129,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_7`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2134,7 +2160,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_8`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2165,7 +2191,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_9`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2196,7 +2222,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_10`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2227,7 +2253,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_11`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2258,7 +2284,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_12`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2289,7 +2315,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_13`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2320,7 +2346,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_14`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2351,7 +2377,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_15`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2382,7 +2408,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_16`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2413,7 +2439,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_17`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2444,7 +2470,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_18`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2475,7 +2501,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_19`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2506,7 +2532,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_20`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2537,7 +2563,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_21`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2568,7 +2594,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_22`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2599,7 +2625,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_23`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2630,7 +2656,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_24`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2661,7 +2687,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_25`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2692,7 +2718,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_26`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2723,7 +2749,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_27`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2754,7 +2780,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_28`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2785,7 +2811,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_29`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2816,7 +2842,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_30`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2847,7 +2873,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_31`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2878,7 +2904,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_32`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2909,7 +2935,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_33`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2940,7 +2966,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_34`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2971,7 +2997,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_35`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3002,7 +3028,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_36`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3033,7 +3059,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_37`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3064,7 +3090,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_38`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3095,7 +3121,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_39`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3126,7 +3152,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_40`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3157,7 +3183,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_41`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3188,7 +3214,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_42`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3219,7 +3245,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_43`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3250,7 +3276,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_44`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3281,7 +3307,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_45`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3312,7 +3338,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_46`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3343,7 +3369,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_47`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3374,7 +3400,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_48`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3405,7 +3431,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_49`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3436,7 +3462,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_50`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3467,7 +3493,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_51`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3498,7 +3524,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_52`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3529,7 +3555,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_53`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3560,7 +3586,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_54`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3591,7 +3617,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_55`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3622,7 +3648,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_56`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3653,7 +3679,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_57`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3684,7 +3710,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_58`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3715,7 +3741,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_59`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3746,7 +3772,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_60`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3777,7 +3803,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_61`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3808,7 +3834,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_62`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3839,7 +3865,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_63`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3870,7 +3896,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_64`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3901,7 +3927,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_65`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3932,7 +3958,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_66`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3963,7 +3989,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_67`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3994,7 +4020,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_68`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4025,7 +4051,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_69`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4056,7 +4082,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_70`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4087,7 +4113,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_71`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4118,7 +4144,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_72`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4149,7 +4175,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_73`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4180,7 +4206,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_74`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4211,7 +4237,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_75`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4242,7 +4268,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_76`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4273,7 +4299,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_77`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4304,7 +4330,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_78`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4335,7 +4361,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_79`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4366,7 +4392,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_80`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4397,7 +4423,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_81`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4428,7 +4454,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_82`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4459,7 +4485,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_83`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4490,7 +4516,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_84`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4521,7 +4547,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_85`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4552,7 +4578,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_86`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4583,7 +4609,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_87`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4614,7 +4640,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_88`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4645,7 +4671,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_89`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4676,7 +4702,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_90`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4707,7 +4733,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_91`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4738,7 +4764,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_92`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4769,7 +4795,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_93`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4800,7 +4826,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_94`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4831,7 +4857,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_95`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4862,7 +4888,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_96`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4893,7 +4919,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_97`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4924,7 +4950,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_98`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4955,7 +4981,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_99`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4986,7 +5012,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_100`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5017,7 +5043,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_101`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5048,7 +5074,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_102`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5079,7 +5105,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_103`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5110,7 +5136,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_104`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5141,7 +5167,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_105`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5172,7 +5198,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_106`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5203,7 +5229,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_107`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5234,7 +5260,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_108`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5265,7 +5291,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_109`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5296,7 +5322,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_110`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5327,7 +5353,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_111`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5358,7 +5384,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_112`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5389,7 +5415,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_113`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5420,7 +5446,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_114`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5451,7 +5477,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_115`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5482,7 +5508,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_116`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5513,7 +5539,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_117`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5544,7 +5570,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_118`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5575,7 +5601,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_119`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5606,7 +5632,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_120`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5637,7 +5663,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_121`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5668,7 +5694,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_122`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5699,7 +5725,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_123`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5730,7 +5756,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_124`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5761,7 +5787,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_125`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5792,7 +5818,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_126`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5823,7 +5849,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_127`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5854,7 +5880,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_128`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5885,7 +5911,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_129`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5916,7 +5942,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_130`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5947,7 +5973,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_131`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5978,7 +6004,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_132`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6009,7 +6035,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_133`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6040,7 +6066,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_134`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6071,7 +6097,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_135`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6102,7 +6128,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_136`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6133,7 +6159,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_137`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6164,7 +6190,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_138`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6195,7 +6221,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_139`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6226,7 +6252,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_140`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6257,7 +6283,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_141`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6288,7 +6314,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_142`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6319,7 +6345,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_143`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6350,7 +6376,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_144`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6381,7 +6407,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_145`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6412,7 +6438,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_146`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6443,7 +6469,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_147`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6474,7 +6500,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_148`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6505,7 +6531,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_149`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6536,7 +6562,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_150`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6567,7 +6593,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_151`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6598,7 +6624,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_152`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6629,7 +6655,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_153`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6660,7 +6686,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_154`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6691,7 +6717,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_155`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6722,7 +6748,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_156`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6753,7 +6779,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_157`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6784,7 +6810,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_158`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6815,7 +6841,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_159`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6846,7 +6872,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_160`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6877,7 +6903,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_161`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6908,7 +6934,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_162`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6939,7 +6965,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_163`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6970,7 +6996,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_164`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7001,7 +7027,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_165`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7032,7 +7058,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_166`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7063,7 +7089,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_167`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7094,7 +7120,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_168`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7125,7 +7151,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_169`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7156,7 +7182,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_170`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7187,7 +7213,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_171`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7218,7 +7244,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_172`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7249,7 +7275,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_173`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7280,7 +7306,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_174`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7311,7 +7337,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_175`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7342,7 +7368,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_176`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7373,7 +7399,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_177`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7404,7 +7430,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_178`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7435,7 +7461,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_179`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7466,7 +7492,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_180`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7497,7 +7523,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_181`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7528,7 +7554,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_182`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7559,7 +7585,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_183`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7590,7 +7616,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_184`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7621,7 +7647,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_185`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7652,7 +7678,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_186`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7683,7 +7709,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_187`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7714,7 +7740,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_188`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7745,7 +7771,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_189`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7776,7 +7802,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_190`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7807,7 +7833,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_191`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7838,7 +7864,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_192`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7869,7 +7895,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_193`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7900,7 +7926,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_194`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7931,7 +7957,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_195`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7962,7 +7988,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_196`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7993,7 +8019,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_197`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8024,7 +8050,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_198`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8055,7 +8081,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_199`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8086,7 +8112,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_200`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8117,7 +8143,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_201`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8148,7 +8174,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_202`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8179,7 +8205,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_203`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8210,7 +8236,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_204`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8241,7 +8267,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_205`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8272,7 +8298,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_206`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8303,7 +8329,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_207`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8334,7 +8360,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_208`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8365,7 +8391,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_209`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8396,7 +8422,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_210`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8427,7 +8453,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_211`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8458,7 +8484,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_212`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8489,7 +8515,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_213`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8520,7 +8546,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_214`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8551,7 +8577,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_215`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8582,7 +8608,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_216`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8613,7 +8639,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_217`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8644,7 +8670,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_218`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8675,7 +8701,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_219`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8706,7 +8732,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_220`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8737,7 +8763,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_221`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8768,7 +8794,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_222`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8799,7 +8825,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_223`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8830,7 +8856,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_224`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8861,7 +8887,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_225`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8892,7 +8918,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_226`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8923,7 +8949,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_227`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8954,7 +8980,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_228`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8985,7 +9011,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_229`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -9016,7 +9042,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_230`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -9047,7 +9073,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_231`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -9078,7 +9104,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_232`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -9109,7 +9135,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_233`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -9140,7 +9166,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_234`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -9171,7 +9197,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_235`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -9202,7 +9228,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_236`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -9233,7 +9259,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_237`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -9264,7 +9290,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_238`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -9295,7 +9321,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_239`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -9326,7 +9352,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_240`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -9357,7 +9383,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_241`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -9388,7 +9414,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_242`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -9419,7 +9445,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_243`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -9450,7 +9476,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_244`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -9481,7 +9507,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_245`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -9512,7 +9538,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_246`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -9543,7 +9569,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_247`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -9574,7 +9600,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_248`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -9605,7 +9631,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_249`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -9636,7 +9662,7 @@ class FluidPropertiesTemperatures(object):
 
         Args:
             value (float): value for IDD Field `temperature_250`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -9651,6 +9677,16 @@ class FluidPropertiesTemperatures(object):
                                  'for field `temperature_250`'.format(value))
 
         self._data["Temperature 250"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):
@@ -9922,9 +9958,11 @@ class FluidPropertiesTemperatures(object):
 class FluidPropertiesSaturated(object):
     """ Corresponds to IDD object `FluidProperties:Saturated`
         fluid properties for the saturated region
+    
     """
     internal_name = "FluidProperties:Saturated"
     field_count = 254
+    required_fields = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `FluidProperties:Saturated`
@@ -19124,6 +19162,16 @@ class FluidPropertiesSaturated(object):
 
         self._data["Property Value 250"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -19397,9 +19445,11 @@ class FluidPropertiesSaturated(object):
 class FluidPropertiesSuperheated(object):
     """ Corresponds to IDD object `FluidProperties:Superheated`
         fluid properties for the superheated region
+    
     """
     internal_name = "FluidProperties:Superheated"
     field_count = 254
+    required_fields = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `FluidProperties:Superheated`
@@ -21065,7 +21115,7 @@ class FluidPropertiesSuperheated(object):
 
         Args:
             value (float): value for IDD Field `pressure`
-                Unit: Pa
+                Units: Pa
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -28585,6 +28635,16 @@ class FluidPropertiesSuperheated(object):
 
         self._data["Property Value 250"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -28858,9 +28918,11 @@ class FluidPropertiesSuperheated(object):
 class FluidPropertiesConcentration(object):
     """ Corresponds to IDD object `FluidProperties:Concentration`
         fluid properties for water/other fluid mixtures
+    
     """
     internal_name = "FluidProperties:Concentration"
     field_count = 254
+    required_fields = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `FluidProperties:Concentration`
@@ -30533,7 +30595,7 @@ class FluidPropertiesConcentration(object):
 
         Args:
             value (float): value for IDD Field `concentration`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
@@ -38057,6 +38119,16 @@ class FluidPropertiesConcentration(object):
 
         self._data["Property Value 250"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -38330,9 +38402,11 @@ class FluidPropertiesConcentration(object):
 class CurrencyType(object):
     """ Corresponds to IDD object `CurrencyType`
         If CurrencyType is not specified, it will default to USD and produce $ in the reports.
+    
     """
     internal_name = "CurrencyType"
     field_count = 1
+    required_fields = ["Monetary Unit"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `CurrencyType`
@@ -38615,6 +38689,16 @@ class CurrencyType(object):
 
         self._data["Monetary Unit"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -38637,9 +38721,11 @@ class ComponentCostAdjustments(object):
         Used to perform various modifications to the construction costs to arrive at an
         estimate for total project costs. This object allows extending the line item model
         so that the overall costs of the project will reflect various profit and fees.
+    
     """
     internal_name = "ComponentCost:Adjustments"
     field_count = 7
+    required_fields = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ComponentCost:Adjustments`
@@ -38713,7 +38799,7 @@ class ComponentCostAdjustments(object):
 
         Args:
             value (float): value for IDD Field `miscellaneous_cost_per_conditioned_area`
-                Unit: $/m2
+                Units: $/m2
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -38744,7 +38830,7 @@ class ComponentCostAdjustments(object):
 
         Args:
             value (float): value for IDD Field `design_and_engineering_fees`
-                Unit: dimensionless
+                Units: dimensionless
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -38775,7 +38861,7 @@ class ComponentCostAdjustments(object):
 
         Args:
             value (float): value for IDD Field `contractor_fee`
-                Unit: dimensionless
+                Units: dimensionless
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -38806,7 +38892,7 @@ class ComponentCostAdjustments(object):
 
         Args:
             value (float): value for IDD Field `contingency`
-                Unit: dimensionless
+                Units: dimensionless
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -38837,7 +38923,7 @@ class ComponentCostAdjustments(object):
 
         Args:
             value (float): value for IDD Field `permits_bonding_and_insurance`
-                Unit: dimensionless
+                Units: dimensionless
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -38868,7 +38954,7 @@ class ComponentCostAdjustments(object):
 
         Args:
             value (float): value for IDD Field `commissioning_fee`
-                Unit: dimensionless
+                Units: dimensionless
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -38900,7 +38986,7 @@ class ComponentCostAdjustments(object):
 
         Args:
             value (float): value for IDD Field `regional_adjustment_factor`
-                Unit: dimensionless
+                Units: dimensionless
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -38915,6 +39001,16 @@ class ComponentCostAdjustments(object):
                                  'for field `regional_adjustment_factor`'.format(value))
 
         self._data["Regional Adjustment Factor"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):
@@ -38947,9 +39043,11 @@ class ComponentCostReference(object):
         building. The factors entered in this object are applied to the reference building
         while the factors listed in the ComponentCost:Adjustments object are applied to the
         current building model cost estimate.
+    
     """
     internal_name = "ComponentCost:Reference"
     field_count = 8
+    required_fields = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ComponentCost:Reference`
@@ -39028,7 +39126,7 @@ class ComponentCostReference(object):
 
         Args:
             value (float): value for IDD Field `reference_building_line_item_costs`
-                Unit: $
+                Units: $
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -39061,7 +39159,7 @@ class ComponentCostReference(object):
 
         Args:
             value (float): value for IDD Field `reference_building_miscellaneous_cost_per_conditioned_area`
-                Unit: $/m2
+                Units: $/m2
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -39092,7 +39190,7 @@ class ComponentCostReference(object):
 
         Args:
             value (float): value for IDD Field `reference_building_design_and_engineering_fees`
-                Unit: dimensionless
+                Units: dimensionless
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -39123,7 +39221,7 @@ class ComponentCostReference(object):
 
         Args:
             value (float): value for IDD Field `reference_building_contractor_fee`
-                Unit: dimensionless
+                Units: dimensionless
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -39184,7 +39282,7 @@ class ComponentCostReference(object):
 
         Args:
             value (float): value for IDD Field `reference_building_permits_bonding_and_insurance`
-                Unit: dimensionless
+                Units: dimensionless
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -39215,7 +39313,7 @@ class ComponentCostReference(object):
 
         Args:
             value (float): value for IDD Field `reference_building_commissioning_fee`
-                Unit: dimensionless
+                Units: dimensionless
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -39247,7 +39345,7 @@ class ComponentCostReference(object):
 
         Args:
             value (float): value for IDD Field `reference_building_regional_adjustment_factor`
-                Unit: dimensionless
+                Units: dimensionless
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -39262,6 +39360,16 @@ class ComponentCostReference(object):
                                  'for field `reference_building_regional_adjustment_factor`'.format(value))
 
         self._data["Reference Building Regional Adjustment Factor"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):
@@ -39291,9 +39399,11 @@ class ComponentCostLineItem(object):
     """ Corresponds to IDD object `ComponentCost:LineItem`
         Each instance of this object creates a cost line item and will contribute to the total
         for a cost estimate.
+    
     """
     internal_name = "ComponentCost:LineItem"
     field_count = 13
+    required_fields = ["Line Item Type", "Item Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ComponentCost:LineItem`
@@ -39594,7 +39704,7 @@ class ComponentCostLineItem(object):
 
         Args:
             value (float): value for IDD Field `cost_per_each`
-                Unit: $
+                Units: $
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -39625,7 +39735,7 @@ class ComponentCostLineItem(object):
 
         Args:
             value (float): value for IDD Field `cost_per_area`
-                Unit: $/m2
+                Units: $/m2
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -39656,7 +39766,7 @@ class ComponentCostLineItem(object):
 
         Args:
             value (float): value for IDD Field `cost_per_unit_of_output_capacity`
-                Unit: $/kW
+                Units: $/kW
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -39688,7 +39798,7 @@ class ComponentCostLineItem(object):
 
         Args:
             value (float): value for IDD Field `cost_per_unit_of_output_capacity_per_cop`
-                Unit: $/kW
+                Units: $/kW
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -39719,7 +39829,7 @@ class ComponentCostLineItem(object):
 
         Args:
             value (float): value for IDD Field `cost_per_volume`
-                Unit: $/m3
+                Units: $/m3
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -39750,7 +39860,7 @@ class ComponentCostLineItem(object):
 
         Args:
             value (float): value for IDD Field `cost_per_volume_rate`
-                Unit: $/(m3/s)
+                Units: $/(m3/s)
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -39782,7 +39892,7 @@ class ComponentCostLineItem(object):
 
         Args:
             value (float): value for IDD Field `cost_per_energy_per_temperature_difference`
-                Unit: $/(W/K)
+                Units: $/(W/K)
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -39814,7 +39924,7 @@ class ComponentCostLineItem(object):
 
         Args:
             value (float): value for IDD Field `quantity`
-                Unit: dimensionless
+                Units: dimensionless
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -39829,6 +39939,16 @@ class ComponentCostLineItem(object):
                                  'for field `quantity`'.format(value))
 
         self._data["Quantity"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):
@@ -39866,9 +39986,11 @@ class UtilityCostTariff(object):
         references the tariff name.  See UtilityCost:Charge:Simple, UtilityCost:Charge:Block,
         UtilityCost:Ratchet, UtilityCost:Qualify, UtilityCost:Variable and
         UtilityCost:Computation objects.
+    
     """
     internal_name = "UtilityCost:Tariff"
     field_count = 15
+    required_fields = ["Name", "Output Meter Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `UtilityCost:Tariff`
@@ -40555,6 +40677,16 @@ class UtilityCostTariff(object):
 
         self._data["Buy Or Sell"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -40594,9 +40726,11 @@ class UtilityCostQualify(object):
         "Qualified" entry will say "No" and the UtilityCost:Qualify that caused its exclusion
         is shown. Multiple UtilityCost:Qualify objects can appear for the same tarriff and
         they can be based on any variable.
+    
     """
     internal_name = "UtilityCost:Qualify"
     field_count = 8
+    required_fields = ["Name", "Tariff Name", "Variable Name", "Threshold Value or Variable Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `UtilityCost:Qualify`
@@ -40980,6 +41114,16 @@ class UtilityCostQualify(object):
 
         self._data["Number of Months"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -41011,9 +41155,11 @@ class UtilityCostChargeSimple(object):
         It may also be used for taxes, surcharges and any other charges that occur on a
         utility bill. Multiple UtilityCost:Charge:Simple objects may be defined for a single
         tariff and they will be added together.
+    
     """
     internal_name = "UtilityCost:Charge:Simple"
     field_count = 6
+    required_fields = ["Name", "Tariff Name", "Source Variable", "Category Variable Name", "Cost per Unit Value or Variable Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `UtilityCost:Charge:Simple`
@@ -41325,6 +41471,16 @@ class UtilityCostChargeSimple(object):
 
         self._data["Cost per Unit Value or Variable Name"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -41352,9 +41508,11 @@ class UtilityCostChargeBlock(object):
         Used to compute energy and demand charges (or any other charges) that are structured
         in blocks of charges. Multiple UtilityCost:Charge:Block objects may be defined for a
         single tariff and they will be added together.
+    
     """
     internal_name = "UtilityCost:Charge:Block"
     field_count = 37
+    required_fields = ["Name", "Tariff Name", "Source Variable", "Category Variable Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `UtilityCost:Charge:Block`
@@ -42954,6 +43112,16 @@ class UtilityCostChargeBlock(object):
 
         self._data["Block 15 Cost per Unit Value or Variable Name"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -43013,9 +43181,11 @@ class UtilityCostRatchet(object):
         Ratchets are most common when used with electric demand charges. A ratchet is when a
         utility requires that the demand charge for a month with a low demand may be
         increased to be more consistent with a month that set a higher demand charge.
+    
     """
     internal_name = "UtilityCost:Ratchet"
     field_count = 8
+    required_fields = ["Name", "Tariff Name", "Baseline Source Variable", "Adjustment Source Variable"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `UtilityCost:Ratchet`
@@ -43398,6 +43568,16 @@ class UtilityCostRatchet(object):
 
         self._data["Offset Value or Variable Name"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -43425,9 +43605,11 @@ class UtilityCostRatchet(object):
 class UtilityCostVariable(object):
     """ Corresponds to IDD object `UtilityCost:Variable`
         Allows for the direct entry of monthly values into a utility tariff variable.
+    
     """
     internal_name = "UtilityCost:Variable"
     field_count = 15
+    required_fields = ["Name", "Tariff Name", "Variable Type"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `UtilityCost:Variable`
@@ -44006,6 +44188,16 @@ class UtilityCostVariable(object):
 
         self._data["December Value"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -44044,9 +44236,11 @@ class UtilityCostComputation(object):
         other way. For most utility tariffs, UtilityCost:Computation is unnecessary and
         should be avoided. If UtilityCost:Computation is used, it must contain references
         to all objects involved in the rate in the order that they should be computed.
+    
     """
     internal_name = "UtilityCost:Computation"
     field_count = 32
+    required_fields = ["Name", "Tariff Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `UtilityCost:Computation`
@@ -45312,6 +45506,16 @@ class UtilityCostComputation(object):
 
         self._data["Compute Step 30"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -45367,9 +45571,11 @@ class LifeCycleCostParameters(object):
         comparing the results of multiple simulations that the fields in the
         LifeCycleCost:Parameters objects are the same for all the simulations. When this
         object is present the tabular report file will contain the Life-Cycle Cost Report.
+    
     """
     internal_name = "LifeCycleCost:Parameters"
     field_count = 13
+    required_fields = ["Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `LifeCycleCost:Parameters`
@@ -46047,6 +46253,16 @@ class LifeCycleCostParameters(object):
 
         self._data["Depreciation Method"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -46081,9 +46297,11 @@ class LifeCycleCostRecurringCosts(object):
         Recurring costs are costs that repeat over time on a regular schedule during the
         study period. If costs associated with equipment do repeat but not on a regular
         schedule, use LifeCycleCost:NonrecurringCost objects instead.
+    
     """
     internal_name = "LifeCycleCost:RecurringCosts"
     field_count = 9
+    required_fields = ["Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `LifeCycleCost:RecurringCosts`
@@ -46527,6 +46745,16 @@ class LifeCycleCostRecurringCosts(object):
 
         self._data["Annual escalation rate"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -46557,9 +46785,11 @@ class LifeCycleCostNonrecurringCost(object):
         A non-recurring cost happens only once during the study period. For costs that occur
         more than once during the study period on a regular schedule, use the
         LifeCycleCost:RecurringCost object.
+    
     """
     internal_name = "LifeCycleCost:NonrecurringCost"
     field_count = 6
+    required_fields = ["Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `LifeCycleCost:NonrecurringCost`
@@ -46853,6 +47083,16 @@ class LifeCycleCostNonrecurringCost(object):
 
         self._data["Months from Start"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -46880,9 +47120,11 @@ class LifeCycleCostUsePriceEscalation(object):
         Life cycle cost escalation factors. The values for this object may be found in the
         annual supplement to NIST Handbook 135 in Tables Ca-1 to Ca-5 and are included in an
         EnergyPlus dataset file.
+    
     """
     internal_name = "LifeCycleCost:UsePriceEscalation"
     field_count = 34
+    required_fields = ["Name", "Resource"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `LifeCycleCost:UsePriceEscalation`
@@ -48245,6 +48487,16 @@ class LifeCycleCostUsePriceEscalation(object):
 
         self._data["Year 30 Escalation"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -48302,9 +48554,11 @@ class LifeCycleCostUseAdjustment(object):
         the costs of energy or water based on assumed changes to the actual usage, such as
         anticipated changes in the future function of the building. The adjustments begin at
         the start of the service period.
+    
     """
     internal_name = "LifeCycleCost:UseAdjustment"
     field_count = 32
+    required_fields = ["Name", "Resource"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `LifeCycleCost:UseAdjustment`
@@ -49575,6 +49829,16 @@ class LifeCycleCostUseAdjustment(object):
 
         self._data["Year 30 Multiplier"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -49631,9 +49895,11 @@ class ParametricSetValueForRun(object):
         The core parametric object is Parametric:SetValueForRun which defines the name
         of a parameters and sets the parameter to different values depending on which
         run is being simulated.
+    
     """
     internal_name = "Parametric:SetValueForRun"
     field_count = 101
+    required_fields = ["Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Parametric:SetValueForRun`
@@ -53590,6 +53856,16 @@ class ParametricSetValueForRun(object):
 
         self._data["Value for Run 100"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -53713,9 +53989,11 @@ class ParametricLogic(object):
         not for others. For example, you might want an overhang on a window in some
         parametric runs and not others. A single Parametric:Logic object is allowed per file.
         Consult the Input Output Reference for available commands and syntax.
+    
     """
     internal_name = "Parametric:Logic"
     field_count = 101
+    required_fields = ["Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Parametric:Logic`
@@ -57669,6 +57947,16 @@ class ParametricLogic(object):
 
         self._data["Parametric Logic Line 100"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -57790,9 +58078,11 @@ class ParametricRunControl(object):
     """ Corresponds to IDD object `Parametric:RunControl`
         Controls which parametric runs are simulated. This object is optional. If it is not
         included, then all parametric runs are performed.
+    
     """
     internal_name = "Parametric:RunControl"
     field_count = 101
+    required_fields = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Parametric:RunControl`
@@ -62647,6 +62937,16 @@ class ParametricRunControl(object):
 
         self._data["Perform Run 100"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -62768,9 +63068,11 @@ class ParametricFileNameSuffix(object):
     """ Corresponds to IDD object `Parametric:FileNameSuffix`
         Defines the suffixes to be appended to the idf and output file names for each
         parametric run. If this object is omitted, the suffix will default to the run number.
+    
     """
     internal_name = "Parametric:FileNameSuffix"
     field_count = 101
+    required_fields = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Parametric:FileNameSuffix`
@@ -66724,6 +67026,16 @@ class ParametricFileNameSuffix(object):
 
         self._data["Suffix for File Name in Run 100"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -66848,9 +67160,11 @@ class OutputVariableDictionary(object):
         on the types of objects present in the idf file.  For example, variables related to
         lights will only appear if a Lights object is present. The IDF option generates
         complete Output:Variable objects to simplify adding the desired output to the idf file.
+    
     """
     internal_name = "Output:VariableDictionary"
     field_count = 2
+    required_fields = ["Key Field"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Output:VariableDictionary`
@@ -66962,6 +67276,16 @@ class OutputVariableDictionary(object):
 
         self._data["Sort Option"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -66983,9 +67307,11 @@ class OutputVariableDictionary(object):
 class OutputSurfacesList(object):
     """ Corresponds to IDD object `Output:Surfaces:List`
         Produces a report summarizing the details of surfaces in the eio output file.
+    
     """
     internal_name = "Output:Surfaces:List"
     field_count = 2
+    required_fields = ["Report Type"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Output:Surfaces:List`
@@ -67106,6 +67432,16 @@ class OutputSurfacesList(object):
 
         self._data["Report Specifications"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -67129,9 +67465,11 @@ class OutputSurfacesDrawing(object):
         Produces reports/files that are capable of rendering graphically or
         being imported into other programs. Rendering does not alter the
         actual inputs/surfaces.
+    
     """
     internal_name = "Output:Surfaces:Drawing"
     field_count = 3
+    required_fields = ["Report Type"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Output:Surfaces:Drawing`
@@ -67289,6 +67627,16 @@ class OutputSurfacesDrawing(object):
 
         self._data["Report Specifications 2"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -67313,9 +67661,11 @@ class OutputSchedules(object):
         Produces a condensed reporting that illustrates the full range of schedule values in
         the eio output file. In the style of input: DaySchedule,  WeekSchedule, and
         Annual Schedule.
+    
     """
     internal_name = "Output:Schedules"
     field_count = 1
+    required_fields = ["Key Field"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Output:Schedules`
@@ -67378,6 +67728,16 @@ class OutputSchedules(object):
 
         self._data["Key Field"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -67400,9 +67760,11 @@ class OutputConstructions(object):
         Adds a report to the eio output file which shows details for each construction,
         including overall properties, a list of material layers, and calculated results
         related to conduction transfer functions.
+    
     """
     internal_name = "Output:Constructions"
     field_count = 2
+    required_fields = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Output:Constructions`
@@ -67513,6 +67875,16 @@ class OutputConstructions(object):
 
         self._data["Details Type 2"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -67534,9 +67906,11 @@ class OutputConstructions(object):
 class OutputEnergyManagementSystem(object):
     """ Corresponds to IDD object `Output:EnergyManagementSystem`
         This object is used to control the output produced by the Energy Management System
+    
     """
     internal_name = "Output:EnergyManagementSystem"
     field_count = 3
+    required_fields = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Output:EnergyManagementSystem`
@@ -67704,6 +68078,16 @@ class OutputEnergyManagementSystem(object):
 
         self._data["EMS Runtime Language Debug Output Level"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -67730,9 +68114,11 @@ class OutputControlSurfaceColorScheme(object):
         Therefore, we are limiting the colors in that range.  You can
         extend by editing the IDD but you do so on your own.  Colors not changed in any scheme will
         remain as the default scheme uses.
+    
     """
     internal_name = "OutputControl:SurfaceColorScheme"
     field_count = 31
+    required_fields = ["Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `OutputControl:SurfaceColorScheme`
@@ -69572,6 +69958,16 @@ class OutputControlSurfaceColorScheme(object):
 
         self._data["Color for Drawing Element 15"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -69627,9 +70023,11 @@ class OutputTableSummaryReports(object):
         of the predefined reports that should appear in the tabular report output file.
         There should be as many fields (A) in this object as there are keys in the following (minus
         AllSummary+AllMonthly+AllSummaryAndMonthly)
+    
     """
     internal_name = "Output:Table:SummaryReports"
     field_count = 83
+    required_fields = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Output:Table:SummaryReports`
@@ -88070,6 +88468,16 @@ class OutputTableSummaryReports(object):
 
         self._data["Report 83 Name"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -88174,9 +88582,11 @@ class OutputTableTimeBins(object):
         Produces a bin report in the table output file which shows the amount of time in hours
         that occurs in different bins for a single specific output variable or meter.
         Two different types of binning are reported: by month and by hour of the day.
+    
     """
     internal_name = "Output:Table:TimeBins"
     field_count = 7
+    required_fields = ["Variable Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Output:Table:TimeBins`
@@ -88485,6 +88895,16 @@ class OutputTableTimeBins(object):
 
         self._data["Variable Type"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -88515,9 +88935,11 @@ class OutputTableMonthly(object):
         tables in the output. A table is produced for every instance of a particular output
         variable. For example, a table defined with zone variables will be produced once for
         every zone.
+    
     """
     internal_name = "Output:Table:Monthly"
     field_count = 52
+    required_fields = ["Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Output:Table:Monthly`
@@ -91412,6 +91834,16 @@ class OutputTableMonthly(object):
 
         self._data["Aggregation Type for Variable or Meter 25"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -91487,9 +91919,11 @@ class OutputControlTableStyle(object):
         processing progams -- there tab may be a better choice.  fixed puts spaces between
         the "columns".  HTML produces tables in HTML. XML produces an XML file.
         note - if no OutputControl:Table:Style is included, the defaults are comma and None.
+    
     """
     internal_name = "OutputControl:Table:Style"
     field_count = 2
+    required_fields = ["Column Separator"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `OutputControl:Table:Style`
@@ -91624,6 +92058,16 @@ class OutputControlTableStyle(object):
 
         self._data["Unit Conversion"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -91646,9 +92090,11 @@ class OutputControlReportingTolerances(object):
     """ Corresponds to IDD object `OutputControl:ReportingTolerances`
         Calculations of the time that setpoints are not met use a tolerance of 0.2C.
         This object allows changing the tolerance used to determine when setpoints are being met.
+    
     """
     internal_name = "OutputControl:ReportingTolerances"
     field_count = 2
+    required_fields = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `OutputControl:ReportingTolerances`
@@ -91696,7 +92142,7 @@ class OutputControlReportingTolerances(object):
 
         Args:
             value (float): value for IDD Field `tolerance_for_time_heating_setpoint_not_met`
-                Unit: deltaC
+                Units: deltaC
                 Default value: 0.2
                 value >= 0.0
                 value <= 10.0
@@ -91742,7 +92188,7 @@ class OutputControlReportingTolerances(object):
 
         Args:
             value (float): value for IDD Field `tolerance_for_time_cooling_setpoint_not_met`
-                Unit: deltaC
+                Units: deltaC
                 Default value: 0.2
                 value >= 0.0
                 value <= 10.0
@@ -91766,6 +92212,16 @@ class OutputControlReportingTolerances(object):
                                  'for field `tolerance_for_time_cooling_setpoint_not_met`')
 
         self._data["Tolerance for Time Cooling Setpoint Not Met"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):
@@ -91791,9 +92247,11 @@ class OutputVariable(object):
         some variables may not be reported for every simulation.
         a list of variables that can be reported are available after a run on
         the report dictionary file (.rdd) if the Output:VariableDictionary has been requested.
+    
     """
     internal_name = "Output:Variable"
     field_count = 4
+    required_fields = ["Variable Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Output:Variable`
@@ -91992,6 +92450,16 @@ class OutputVariable(object):
 
         self._data["Schedule Name"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -92018,9 +92486,11 @@ class OutputMeter(object):
         meter file (.mtr). Not all meters are reported in every simulation. A list of
         a list of meters that can be reported are available after a run on
         the meter dictionary file (.mdd) if the Output:VariableDictionary has been requested.
+    
     """
     internal_name = "Output:Meter"
     field_count = 2
+    required_fields = ["Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Output:Meter`
@@ -92139,6 +92609,16 @@ class OutputMeter(object):
 
         self._data["Reporting Frequency"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -92163,9 +92643,11 @@ class OutputMeterMeterFileOnly(object):
         Not all meters are reported in every simulation. A list of meters that can be reported
         a list of meters that can be reported are available after a run on
         the meter dictionary file (.mdd) if the Output:VariableDictionary has been requested.
+    
     """
     internal_name = "Output:Meter:MeterFileOnly"
     field_count = 2
+    required_fields = ["Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Output:Meter:MeterFileOnly`
@@ -92284,6 +92766,16 @@ class OutputMeterMeterFileOnly(object):
 
         self._data["Reporting Frequency"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -92309,9 +92801,11 @@ class OutputMeterCumulative(object):
         simulation.
         a list of meters that can be reported are available after a run on
         the meter dictionary file (.mdd) if the Output:VariableDictionary has been requested.
+    
     """
     internal_name = "Output:Meter:Cumulative"
     field_count = 2
+    required_fields = ["Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Output:Meter:Cumulative`
@@ -92430,6 +92924,16 @@ class OutputMeterCumulative(object):
 
         self._data["Reporting Frequency"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -92455,9 +92959,11 @@ class OutputMeterCumulativeMeterFileOnly(object):
         every simulation.
         a list of meters that can be reported are available after a run on
         the meter dictionary file (.mdd) if the Output:VariableDictionary has been requested.
+    
     """
     internal_name = "Output:Meter:Cumulative:MeterFileOnly"
     field_count = 2
+    required_fields = ["Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Output:Meter:Cumulative:MeterFileOnly`
@@ -92576,6 +93082,16 @@ class OutputMeterCumulativeMeterFileOnly(object):
 
         self._data["Reporting Frequency"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -92599,9 +93115,11 @@ class MeterCustom(object):
         Used to allow users to combine specific variables and/or meters into
         "custom" meter configurations. To access these meters by name, one must
         first run a simulation to generate the RDD/MDD files and names.
+    
     """
     internal_name = "Meter:Custom"
     field_count = 46
+    required_fields = ["Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Meter:Custom`
@@ -94439,6 +94957,16 @@ class MeterCustom(object):
 
         self._data["Output Variable or Meter Name 22"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -94506,9 +95034,11 @@ class MeterCustomDecrement(object):
         Used to allow users to combine specific variables and/or meters into
         "custom" meter configurations. To access these meters by name, one must
         first run a simulation to generate the RDD/MDD files and names.
+    
     """
     internal_name = "Meter:CustomDecrement"
     field_count = 47
+    required_fields = ["Name", "Source Meter Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Meter:CustomDecrement`
@@ -96385,6 +96915,16 @@ class MeterCustomDecrement(object):
 
         self._data["Output Variable or Meter Name 22"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -96451,9 +96991,11 @@ class MeterCustomDecrement(object):
 class OutputSqlite(object):
     """ Corresponds to IDD object `Output:SQLite`
         Output from EnergyPlus can be written to an SQLite format file.
+    
     """
     internal_name = "Output:SQLite"
     field_count = 1
+    required_fields = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Output:SQLite`
@@ -96516,6 +97058,16 @@ class OutputSqlite(object):
 
         self._data["Option Type"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -96537,9 +97089,11 @@ class OutputEnvironmentalImpactFactors(object):
     """ Corresponds to IDD object `Output:EnvironmentalImpactFactors`
         This is used to Automatically report the facility meters and turn on the Environmental Impact Report calculations
         for all of the Environmental Factors.
+    
     """
     internal_name = "Output:EnvironmentalImpactFactors"
     field_count = 1
+    required_fields = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Output:EnvironmentalImpactFactors`
@@ -96608,6 +97162,16 @@ class OutputEnvironmentalImpactFactors(object):
 
         self._data["Reporting Frequency"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -96629,9 +97193,11 @@ class EnvironmentalImpactFactors(object):
     """ Corresponds to IDD object `EnvironmentalImpactFactors`
         Used to help convert district and ideal energy use to a fuel type and provide total carbon equivalent with coefficients
         Also used in Source=>Site conversions.
+    
     """
     internal_name = "EnvironmentalImpactFactors"
     field_count = 6
+    required_fields = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `EnvironmentalImpactFactors`
@@ -96734,7 +97300,7 @@ class EnvironmentalImpactFactors(object):
 
         Args:
             value (float): value for IDD Field `district_cooling_cop`
-                Unit: W/W
+                Units: W/W
                 Default value: 3.0
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -96806,7 +97372,7 @@ class EnvironmentalImpactFactors(object):
 
         Args:
             value (float): value for IDD Field `total_carbon_equivalent_emission_factor_from_n2o`
-                Unit: kg/kg
+                Units: kg/kg
                 Default value: 80.7272
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -96838,7 +97404,7 @@ class EnvironmentalImpactFactors(object):
 
         Args:
             value (float): value for IDD Field `total_carbon_equivalent_emission_factor_from_ch4`
-                Unit: kg/kg
+                Units: kg/kg
                 Default value: 6.2727
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -96870,7 +97436,7 @@ class EnvironmentalImpactFactors(object):
 
         Args:
             value (float): value for IDD Field `total_carbon_equivalent_emission_factor_from_co2`
-                Unit: kg/kg
+                Units: kg/kg
                 Default value: 0.2727
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -96886,6 +97452,16 @@ class EnvironmentalImpactFactors(object):
                                  'for field `total_carbon_equivalent_emission_factor_from_co2`'.format(value))
 
         self._data["Total Carbon Equivalent Emission Factor From CO2"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):
@@ -96914,9 +97490,11 @@ class FuelFactors(object):
         Provides Fuel Factors for Emissions as well as Source=>Site conversions.
         OtherFuel1, OtherFuel2 provide options for users who want to create and use
         fuels that may not be mainstream (biomass, wood, pellets).
+    
     """
     internal_name = "FuelFactors"
     field_count = 37
+    required_fields = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `FuelFactors`
@@ -97289,7 +97867,7 @@ class FuelFactors(object):
 
         Args:
             value (float): value for IDD Field `source_energy_factor`
-                Unit: J/J
+                Units: J/J
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -97353,7 +97931,7 @@ class FuelFactors(object):
 
         Args:
             value (float): value for IDD Field `co2_emission_factor`
-                Unit: g/MJ
+                Units: g/MJ
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -97417,7 +97995,7 @@ class FuelFactors(object):
 
         Args:
             value (float): value for IDD Field `co_emission_factor`
-                Unit: g/MJ
+                Units: g/MJ
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -97481,7 +98059,7 @@ class FuelFactors(object):
 
         Args:
             value (float): value for IDD Field `ch4_emission_factor`
-                Unit: g/MJ
+                Units: g/MJ
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -97545,7 +98123,7 @@ class FuelFactors(object):
 
         Args:
             value (float): value for IDD Field `nox_emission_factor`
-                Unit: g/MJ
+                Units: g/MJ
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -97609,7 +98187,7 @@ class FuelFactors(object):
 
         Args:
             value (float): value for IDD Field `n2o_emission_factor`
-                Unit: g/MJ
+                Units: g/MJ
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -97673,7 +98251,7 @@ class FuelFactors(object):
 
         Args:
             value (float): value for IDD Field `so2_emission_factor`
-                Unit: g/MJ
+                Units: g/MJ
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -97737,7 +98315,7 @@ class FuelFactors(object):
 
         Args:
             value (float): value for IDD Field `pm_emission_factor`
-                Unit: g/MJ
+                Units: g/MJ
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -97801,7 +98379,7 @@ class FuelFactors(object):
 
         Args:
             value (float): value for IDD Field `pm10_emission_factor`
-                Unit: g/MJ
+                Units: g/MJ
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -97865,7 +98443,7 @@ class FuelFactors(object):
 
         Args:
             value (float): value for IDD Field `pm2_5_emission_factor`
-                Unit: g/MJ
+                Units: g/MJ
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -97929,7 +98507,7 @@ class FuelFactors(object):
 
         Args:
             value (float): value for IDD Field `nh3_emission_factor`
-                Unit: g/MJ
+                Units: g/MJ
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -97993,7 +98571,7 @@ class FuelFactors(object):
 
         Args:
             value (float): value for IDD Field `nmvoc_emission_factor`
-                Unit: g/MJ
+                Units: g/MJ
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -98057,7 +98635,7 @@ class FuelFactors(object):
 
         Args:
             value (float): value for IDD Field `hg_emission_factor`
-                Unit: g/MJ
+                Units: g/MJ
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -98121,7 +98699,7 @@ class FuelFactors(object):
 
         Args:
             value (float): value for IDD Field `pb_emission_factor`
-                Unit: g/MJ
+                Units: g/MJ
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -98185,7 +98763,7 @@ class FuelFactors(object):
 
         Args:
             value (float): value for IDD Field `water_emission_factor`
-                Unit: L/MJ
+                Units: L/MJ
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -98249,7 +98827,7 @@ class FuelFactors(object):
 
         Args:
             value (float): value for IDD Field `nuclear_high_level_emission_factor`
-                Unit: g/MJ
+                Units: g/MJ
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -98313,7 +98891,7 @@ class FuelFactors(object):
 
         Args:
             value (float): value for IDD Field `nuclear_low_level_emission_factor`
-                Unit: m3/MJ
+                Units: m3/MJ
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -98361,6 +98939,16 @@ class FuelFactors(object):
                                  'for field `nuclear_low_level_emission_factor_schedule_name`')
 
         self._data["Nuclear Low Level Emission Factor Schedule Name"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):
@@ -98418,9 +99006,11 @@ class FuelFactors(object):
 class OutputDiagnostics(object):
     """ Corresponds to IDD object `Output:Diagnostics`
         Special keys to produce certain warning messages or effect certain simulation characteristics.
+    
     """
     internal_name = "Output:Diagnostics"
     field_count = 2
+    required_fields = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Output:Diagnostics`
@@ -98563,6 +99153,16 @@ class OutputDiagnostics(object):
 
         self._data["Key 2"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -98584,9 +99184,11 @@ class OutputDiagnostics(object):
 class OutputDebuggingData(object):
     """ Corresponds to IDD object `Output:DebuggingData`
         switch eplusout.dbg file on or off
+    
     """
     internal_name = "Output:DebuggingData"
     field_count = 2
+    required_fields = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Output:DebuggingData`
@@ -98675,6 +99277,16 @@ class OutputDebuggingData(object):
 
         self._data["Report During Warmup"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -98697,9 +99309,11 @@ class OutputPreprocessorMessage(object):
     """ Corresponds to IDD object `Output:PreprocessorMessage`
         This object does not come from a user input.  This is generated by a pre-processor
         so that various conditions can be gracefully passed on by the InputProcessor.
+    
     """
     internal_name = "Output:PreprocessorMessage"
     field_count = 12
+    required_fields = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Output:PreprocessorMessage`
@@ -99195,6 +99809,16 @@ class OutputPreprocessorMessage(object):
                                  'for field `message_line_10`')
 
         self._data["Message Line 10"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):

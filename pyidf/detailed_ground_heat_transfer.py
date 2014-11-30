@@ -4,9 +4,11 @@ class GroundHeatTransferControl(object):
     """ Corresponds to IDD object `GroundHeatTransfer:Control`
         Object determines if the Slab and Basement preprocessors
         are going to be executed.
+    
     """
     internal_name = "GroundHeatTransfer:Control"
     field_count = 3
+    required_fields = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `GroundHeatTransfer:Control`
@@ -159,6 +161,16 @@ class GroundHeatTransferControl(object):
 
         self._data["Run Slab Preprocessor"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -181,9 +193,11 @@ class GroundHeatTransferControl(object):
 class GroundHeatTransferSlabMaterials(object):
     """ Corresponds to IDD object `GroundHeatTransfer:Slab:Materials`
         Object gives an overall description of the slab ground heat transfer model.
+    
     """
     internal_name = "GroundHeatTransfer:Slab:Materials"
     field_count = 9
+    required_fields = ["NMAT: Number of materials"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `GroundHeatTransfer:Slab:Materials`
@@ -460,7 +474,7 @@ class GroundHeatTransferSlabMaterials(object):
 
         Args:
             value (float): value for IDD Field `z0_surface_roughness_no_snow`
-                Unit: cm
+                Units: cm
                 Default value: 0.75
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -497,7 +511,7 @@ class GroundHeatTransferSlabMaterials(object):
 
         Args:
             value (float): value for IDD Field `z0_surface_roughness_snow`
-                Unit: cm
+                Units: cm
                 Default value: 0.25
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -539,7 +553,7 @@ class GroundHeatTransferSlabMaterials(object):
 
         Args:
             value (float): value for IDD Field `hin_indoor_hconv_downward_flow`
-                Unit: W/m2-K
+                Units: W/m2-K
                 Default value: 6.13
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -576,7 +590,7 @@ class GroundHeatTransferSlabMaterials(object):
 
         Args:
             value (float): value for IDD Field `hin_indoor_hconv_upward`
-                Unit: W/m2-K
+                Units: W/m2-K
                 Default value: 9.26
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -596,6 +610,16 @@ class GroundHeatTransferSlabMaterials(object):
                                  'for field `hin_indoor_hconv_upward`')
 
         self._data["HIN: Indoor HConv: Upward"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):
@@ -626,9 +650,11 @@ class GroundHeatTransferSlabMatlProps(object):
     """ Corresponds to IDD object `GroundHeatTransfer:Slab:MatlProps`
         This object contains the material properties for the materials
         used in the model. The fields are mostly self explanatory.
+    
     """
     internal_name = "GroundHeatTransfer:Slab:MatlProps"
     field_count = 6
+    required_fields = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `GroundHeatTransfer:Slab:MatlProps`
@@ -696,7 +722,7 @@ class GroundHeatTransferSlabMatlProps(object):
 
         Args:
             value (float): value for IDD Field `rho_slab_material_density`
-                Unit: kg/m3
+                Units: kg/m3
                 Default value: 2300.0
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -734,7 +760,7 @@ class GroundHeatTransferSlabMatlProps(object):
 
         Args:
             value (float): value for IDD Field `rho_soil_density`
-                Unit: kg/m3
+                Units: kg/m3
                 Default value: 1200.0
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -772,7 +798,7 @@ class GroundHeatTransferSlabMatlProps(object):
 
         Args:
             value (float): value for IDD Field `cp_slab_cp`
-                Unit: J/kg-K
+                Units: J/kg-K
                 Default value: 650.0
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -810,7 +836,7 @@ class GroundHeatTransferSlabMatlProps(object):
 
         Args:
             value (float): value for IDD Field `cp_soil_cp`
-                Unit: J/kg-K
+                Units: J/kg-K
                 Default value: 1200.0
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -848,7 +874,7 @@ class GroundHeatTransferSlabMatlProps(object):
 
         Args:
             value (float): value for IDD Field `tcon_slab_k`
-                Unit: W/m-K
+                Units: W/m-K
                 Default value: 0.9
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -886,7 +912,7 @@ class GroundHeatTransferSlabMatlProps(object):
 
         Args:
             value (float): value for IDD Field `tcon_soil_k`
-                Unit: W/m-K
+                Units: W/m-K
                 Default value: 1.0
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -906,6 +932,16 @@ class GroundHeatTransferSlabMatlProps(object):
                                  'for field `tcon_soil_k`')
 
         self._data["TCON: Soil k"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):
@@ -932,9 +968,11 @@ class GroundHeatTransferSlabMatlProps(object):
 class GroundHeatTransferSlabBoundConds(object):
     """ Corresponds to IDD object `GroundHeatTransfer:Slab:BoundConds`
         Supplies some of the boundary conditions used in the ground heat transfer calculations.
+    
     """
     internal_name = "GroundHeatTransfer:Slab:BoundConds"
     field_count = 5
+    required_fields = ["EVTR: Is surface evapotranspiration modeled", "FIXBC: is the lower boundary at a fixed temperature", "USRHflag: Is the ground surface h specified by the user?"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `GroundHeatTransfer:Slab:BoundConds`
@@ -1089,7 +1127,7 @@ class GroundHeatTransferSlabBoundConds(object):
 
         Args:
             value (float): value for IDD Field `tdeepin`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1168,7 +1206,7 @@ class GroundHeatTransferSlabBoundConds(object):
 
         Args:
             value (float): value for IDD Field `userh_user_specified_ground_surface_heat_transfer_coefficient`
-                Unit: W/m2-K
+                Units: W/m2-K
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1183,6 +1221,16 @@ class GroundHeatTransferSlabBoundConds(object):
                                  'for field `userh_user_specified_ground_surface_heat_transfer_coefficient`'.format(value))
 
         self._data["USERH: User specified ground surface heat transfer coefficient"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):
@@ -1216,9 +1264,11 @@ class GroundHeatTransferSlabBldgProps(object):
         can be obtained by first running the model in EnergyPlus with an
         insulated floor boundary condition, and then using the resulting
         monthly average zone temperatures in these fields.
+    
     """
     internal_name = "GroundHeatTransfer:Slab:BldgProps"
     field_count = 17
+    required_fields = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `GroundHeatTransfer:Slab:BldgProps`
@@ -1432,7 +1482,7 @@ class GroundHeatTransferSlabBldgProps(object):
 
         Args:
             value (float): value for IDD Field `hbldg_building_height`
-                Unit: m
+                Units: m
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -1468,7 +1518,7 @@ class GroundHeatTransferSlabBldgProps(object):
 
         Args:
             value (float): value for IDD Field `tin1_january_indoor_average_temperature_setpoint`
-                Unit: C
+                Units: C
                 Default value: 22.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -1501,7 +1551,7 @@ class GroundHeatTransferSlabBldgProps(object):
 
         Args:
             value (float): value for IDD Field `tin2_february_indoor_average_temperature_setpoint`
-                Unit: C
+                Units: C
                 Default value: 22.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -1534,7 +1584,7 @@ class GroundHeatTransferSlabBldgProps(object):
 
         Args:
             value (float): value for IDD Field `tin3_march_indoor_average_temperature_setpoint`
-                Unit: C
+                Units: C
                 Default value: 22.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -1567,7 +1617,7 @@ class GroundHeatTransferSlabBldgProps(object):
 
         Args:
             value (float): value for IDD Field `tin4_april_indoor_average_temperature_setpoint`
-                Unit: C
+                Units: C
                 Default value: 22.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -1600,7 +1650,7 @@ class GroundHeatTransferSlabBldgProps(object):
 
         Args:
             value (float): value for IDD Field `tin5_may_indoor_average_temperature_setpoint`
-                Unit: C
+                Units: C
                 Default value: 22.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -1633,7 +1683,7 @@ class GroundHeatTransferSlabBldgProps(object):
 
         Args:
             value (float): value for IDD Field `tin6_june_indoor_average_temperature_setpoint`
-                Unit: C
+                Units: C
                 Default value: 22.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -1666,7 +1716,7 @@ class GroundHeatTransferSlabBldgProps(object):
 
         Args:
             value (float): value for IDD Field `tin7_july_indoor_average_temperature_setpoint`
-                Unit: C
+                Units: C
                 Default value: 22.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -1699,7 +1749,7 @@ class GroundHeatTransferSlabBldgProps(object):
 
         Args:
             value (float): value for IDD Field `tin8_august_indoor_average_temperature_setpoint`
-                Unit: C
+                Units: C
                 Default value: 22.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -1732,7 +1782,7 @@ class GroundHeatTransferSlabBldgProps(object):
 
         Args:
             value (float): value for IDD Field `tin9_september_indoor_average_temperature_setpoint`
-                Unit: C
+                Units: C
                 Default value: 22.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -1765,7 +1815,7 @@ class GroundHeatTransferSlabBldgProps(object):
 
         Args:
             value (float): value for IDD Field `tin10_october_indoor_average_temperature_setpoint`
-                Unit: C
+                Units: C
                 Default value: 22.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -1798,7 +1848,7 @@ class GroundHeatTransferSlabBldgProps(object):
 
         Args:
             value (float): value for IDD Field `tin11_november_indoor_average_temperature_setpoint`
-                Unit: C
+                Units: C
                 Default value: 22.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -1831,7 +1881,7 @@ class GroundHeatTransferSlabBldgProps(object):
 
         Args:
             value (float): value for IDD Field `tin12_december_indoor_average_temperature_setpoint`
-                Unit: C
+                Units: C
                 Default value: 22.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -1867,7 +1917,7 @@ class GroundHeatTransferSlabBldgProps(object):
 
         Args:
             value (float): value for IDD Field `tinamp_daily_indoor_sine_wave_variation_amplitude`
-                Unit: deltaC
+                Units: deltaC
                 Default value: 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -1918,6 +1968,16 @@ class GroundHeatTransferSlabBldgProps(object):
 
         self._data["ConvTol: Convergence Tolerance"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -1956,9 +2016,11 @@ class GroundHeatTransferSlabInsulation(object):
         This object supplies the information about insulation used around the slab.
         There are two possible configurations: under the slab or vertical insulation
         around the slab.
+    
     """
     internal_name = "GroundHeatTransfer:Slab:Insulation"
     field_count = 5
+    required_fields = ["IVINS: Flag: Is there vertical insulation"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `GroundHeatTransfer:Slab:Insulation`
@@ -2022,7 +2084,7 @@ class GroundHeatTransferSlabInsulation(object):
 
         Args:
             value (float): value for IDD Field `rins_r_value_of_under_slab_insulation`
-                Unit: m2-K/W
+                Units: m2-K/W
                 Default value: 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -2058,7 +2120,7 @@ class GroundHeatTransferSlabInsulation(object):
 
         Args:
             value (float): value for IDD Field `dins_width_of_strip_of_under_slab_insulation`
-                Unit: m
+                Units: m
                 Default value: 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -2094,7 +2156,7 @@ class GroundHeatTransferSlabInsulation(object):
 
         Args:
             value (float): value for IDD Field `rvins_r_value_of_vertical_insulation`
-                Unit: m2-K/W
+                Units: m2-K/W
                 Default value: 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -2132,7 +2194,7 @@ class GroundHeatTransferSlabInsulation(object):
 
         Args:
             value (float): value for IDD Field `zvins_depth_of_vertical_insulation`
-                Unit: m
+                Units: m
                 Default value: 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -2194,6 +2256,16 @@ class GroundHeatTransferSlabInsulation(object):
 
         self._data["IVINS: Flag: Is there vertical insulation"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -2221,9 +2293,11 @@ class GroundHeatTransferSlabEquivalentSlab(object):
         Object uses the area - perimeter (area/perimeter) ratio to determine the
         size of an equivalent rectangular slab.
         EnergyPlus users normally use this option.
+    
     """
     internal_name = "GroundHeatTransfer:Slab:EquivalentSlab"
     field_count = 4
+    required_fields = ["APRatio: The area to perimeter ratio for this slab"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `GroundHeatTransfer:Slab:EquivalentSlab`
@@ -2278,7 +2352,7 @@ class GroundHeatTransferSlabEquivalentSlab(object):
 
         Args:
             value (float): value for IDD Field `apratio_the_area_to_perimeter_ratio_for_this_slab`
-                Unit: m
+                Units: m
                 value >= 1.5
                 value <= 22.0
                 if `value` is None it will not be checked against the
@@ -2324,7 +2398,7 @@ class GroundHeatTransferSlabEquivalentSlab(object):
 
         Args:
             value (float): value for IDD Field `slabdepth_thickness_of_slab_on_grade`
-                Unit: m
+                Units: m
                 Default value: 0.1
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -2360,7 +2434,7 @@ class GroundHeatTransferSlabEquivalentSlab(object):
 
         Args:
             value (float): value for IDD Field `clearance_distance_from_edge_of_slab_to_domain_edge`
-                Unit: m
+                Units: m
                 Default value: 15.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -2395,7 +2469,7 @@ class GroundHeatTransferSlabEquivalentSlab(object):
 
         Args:
             value (float): value for IDD Field `zclearance_distance_from_bottom_of_slab_to_domain_bottom`
-                Unit: m
+                Units: m
                 Default value: 15.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -2411,6 +2485,16 @@ class GroundHeatTransferSlabEquivalentSlab(object):
                                  'for field `zclearance_distance_from_bottom_of_slab_to_domain_bottom`'.format(value))
 
         self._data["ZCLEARANCE: Distance from bottom of slab to domain bottom"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):
@@ -2438,9 +2522,11 @@ class GroundHeatTransferSlabAutoGrid(object):
         Not normally needed by EnergyPlus users.
         This object permits user selection of rectangular slab dimensions.
         NO SLAB DIMENSIONS LESS THAN 6 m.
+    
     """
     internal_name = "GroundHeatTransfer:Slab:AutoGrid"
     field_count = 5
+    required_fields = ["SLABX: X dimension of the building slab", "SLABY: Y dimension of the building slab"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `GroundHeatTransfer:Slab:AutoGrid`
@@ -2501,7 +2587,7 @@ class GroundHeatTransferSlabAutoGrid(object):
 
         Args:
             value (float): value for IDD Field `slabx_x_dimension_of_the_building_slab`
-                Unit: m
+                Units: m
                 value >= 6.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -2537,7 +2623,7 @@ class GroundHeatTransferSlabAutoGrid(object):
 
         Args:
             value (float): value for IDD Field `slaby_y_dimension_of_the_building_slab`
-                Unit: m
+                Units: m
                 value >= 6.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -2572,7 +2658,7 @@ class GroundHeatTransferSlabAutoGrid(object):
 
         Args:
             value (float): value for IDD Field `slabdepth_thickness_of_slab_on_grade`
-                Unit: m
+                Units: m
                 Default value: 0.1
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -2604,7 +2690,7 @@ class GroundHeatTransferSlabAutoGrid(object):
 
         Args:
             value (float): value for IDD Field `clearance_distance_from_edge_of_slab_to_domain_edge`
-                Unit: m
+                Units: m
                 Default value: 15.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -2636,7 +2722,7 @@ class GroundHeatTransferSlabAutoGrid(object):
 
         Args:
             value (float): value for IDD Field `zclearance_distance_from_bottom_of_slab_to_domain_bottom`
-                Unit: m
+                Units: m
                 Default value: 15.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -2652,6 +2738,16 @@ class GroundHeatTransferSlabAutoGrid(object):
                                  'for field `zclearance_distance_from_bottom_of_slab_to_domain_bottom`'.format(value))
 
         self._data["ZCLEARANCE: Distance from bottom of slab to domain bottom"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):
@@ -2679,9 +2775,11 @@ class GroundHeatTransferSlabManualGrid(object):
         Manual Grid only necessary when using manual gridding (not recommended)
         Used only in special cases when previous two objects are not used.
         User must input complete gridding information.
+    
     """
     internal_name = "GroundHeatTransfer:Slab:ManualGrid"
     field_count = 5
+    required_fields = ["NX: Number of cells in the X direction", "NY: Number of cells in the Y direction", "NZ: Number of cells in the Z direction", "IBOX: X direction cell indicator of slab edge", "JBOX: Y direction cell indicator of slab edge"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `GroundHeatTransfer:Slab:ManualGrid`
@@ -2890,6 +2988,16 @@ class GroundHeatTransferSlabManualGrid(object):
 
         self._data["JBOX: Y direction cell indicator of slab edge"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -2915,9 +3023,11 @@ class GroundHeatTransferBasementSimParameters(object):
     """ Corresponds to IDD object `GroundHeatTransfer:Basement:SimParameters`
         Specifies certain parameters that control the Basement preprocessor ground heat
         transfer simulation.
+    
     """
     internal_name = "GroundHeatTransfer:Basement:SimParameters"
     field_count = 2
+    required_fields = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `GroundHeatTransfer:Basement:SimParameters`
@@ -3020,6 +3130,16 @@ class GroundHeatTransferBasementSimParameters(object):
 
         self._data["IYRS: Maximum number of yearly iterations:"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -3043,9 +3163,11 @@ class GroundHeatTransferBasementMatlProps(object):
         Specifies the material properties for the Basement preprocessor ground heat
         transfer simulation. Only the Foundation Wall, Floor Slab, Soil,
         and Gravel properties are currently used.
+    
     """
     internal_name = "GroundHeatTransfer:Basement:MatlProps"
     field_count = 19
+    required_fields = ["NMAT: Number of materials in this domain"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `GroundHeatTransfer:Basement:MatlProps`
@@ -3223,7 +3345,7 @@ class GroundHeatTransferBasementMatlProps(object):
 
         Args:
             value (float): value for IDD Field `density_for_foundation_wall`
-                Unit: kg/m3
+                Units: kg/m3
                 Default value: 2243.0
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -3259,7 +3381,7 @@ class GroundHeatTransferBasementMatlProps(object):
 
         Args:
             value (float): value for IDD Field `density_for_floor_slab`
-                Unit: kg/m3
+                Units: kg/m3
                 Default value: 2243.0
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -3295,7 +3417,7 @@ class GroundHeatTransferBasementMatlProps(object):
 
         Args:
             value (float): value for IDD Field `density_for_ceiling`
-                Unit: kg/m3
+                Units: kg/m3
                 Default value: 311.0
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -3331,7 +3453,7 @@ class GroundHeatTransferBasementMatlProps(object):
 
         Args:
             value (float): value for IDD Field `density_for_soil`
-                Unit: kg/m3
+                Units: kg/m3
                 Default value: 1500.0
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -3367,7 +3489,7 @@ class GroundHeatTransferBasementMatlProps(object):
 
         Args:
             value (float): value for IDD Field `density_for_gravel`
-                Unit: kg/m3
+                Units: kg/m3
                 Default value: 2000.0
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -3403,7 +3525,7 @@ class GroundHeatTransferBasementMatlProps(object):
 
         Args:
             value (float): value for IDD Field `density_for_wood`
-                Unit: kg/m3
+                Units: kg/m3
                 Default value: 449.0
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -3439,7 +3561,7 @@ class GroundHeatTransferBasementMatlProps(object):
 
         Args:
             value (float): value for IDD Field `specific_heat_for_foundation_wall`
-                Unit: J/kg-K
+                Units: J/kg-K
                 Default value: 880.0
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -3475,7 +3597,7 @@ class GroundHeatTransferBasementMatlProps(object):
 
         Args:
             value (float): value for IDD Field `specific_heat_for_floor_slab`
-                Unit: J/kg-K
+                Units: J/kg-K
                 Default value: 880.0
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -3511,7 +3633,7 @@ class GroundHeatTransferBasementMatlProps(object):
 
         Args:
             value (float): value for IDD Field `specific_heat_for_ceiling`
-                Unit: J/kg-K
+                Units: J/kg-K
                 Default value: 1530.0
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -3547,7 +3669,7 @@ class GroundHeatTransferBasementMatlProps(object):
 
         Args:
             value (float): value for IDD Field `specific_heat_for_soil`
-                Unit: J/kg-K
+                Units: J/kg-K
                 Default value: 840.0
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -3583,7 +3705,7 @@ class GroundHeatTransferBasementMatlProps(object):
 
         Args:
             value (float): value for IDD Field `specific_heat_for_gravel`
-                Unit: J/kg-K
+                Units: J/kg-K
                 Default value: 720.0
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -3619,7 +3741,7 @@ class GroundHeatTransferBasementMatlProps(object):
 
         Args:
             value (float): value for IDD Field `specific_heat_for_wood`
-                Unit: J/kg-K
+                Units: J/kg-K
                 Default value: 1530.0
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -3655,7 +3777,7 @@ class GroundHeatTransferBasementMatlProps(object):
 
         Args:
             value (float): value for IDD Field `thermal_conductivity_for_foundation_wall`
-                Unit: W/m-K
+                Units: W/m-K
                 Default value: 1.4
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -3691,7 +3813,7 @@ class GroundHeatTransferBasementMatlProps(object):
 
         Args:
             value (float): value for IDD Field `thermal_conductivity_for_floor_slab`
-                Unit: W/m-K
+                Units: W/m-K
                 Default value: 1.4
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -3727,7 +3849,7 @@ class GroundHeatTransferBasementMatlProps(object):
 
         Args:
             value (float): value for IDD Field `thermal_conductivity_for_ceiling`
-                Unit: W/m-K
+                Units: W/m-K
                 Default value: 0.09
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -3763,7 +3885,7 @@ class GroundHeatTransferBasementMatlProps(object):
 
         Args:
             value (float): value for IDD Field `thermal_conductivity_for_soil`
-                Unit: W/m-K
+                Units: W/m-K
                 Default value: 1.1
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -3799,7 +3921,7 @@ class GroundHeatTransferBasementMatlProps(object):
 
         Args:
             value (float): value for IDD Field `thermal_conductivity_for_gravel`
-                Unit: W/m-K
+                Units: W/m-K
                 Default value: 1.9
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -3835,7 +3957,7 @@ class GroundHeatTransferBasementMatlProps(object):
 
         Args:
             value (float): value for IDD Field `thermal_conductivity_for_wood`
-                Unit: W/m-K
+                Units: W/m-K
                 Default value: 0.12
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -3855,6 +3977,16 @@ class GroundHeatTransferBasementMatlProps(object):
                                  'for field `thermal_conductivity_for_wood`')
 
         self._data["thermal conductivity for wood"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):
@@ -3895,9 +4027,11 @@ class GroundHeatTransferBasementInsulation(object):
     """ Corresponds to IDD object `GroundHeatTransfer:Basement:Insulation`
         Describes the insulation used on an exterior basement wall for the Basement
         preprocessor ground heat transfer simulation.
+    
     """
     internal_name = "GroundHeatTransfer:Basement:Insulation"
     field_count = 2
+    required_fields = ["INSFULL: Flag: Is the wall fully insulated?"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `GroundHeatTransfer:Basement:Insulation`
@@ -3939,7 +4073,7 @@ class GroundHeatTransferBasementInsulation(object):
 
         Args:
             value (float): value for IDD Field `rext_r_value_of_any_exterior_insulation`
-                Unit: m2-K/W
+                Units: m2-K/W
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -4003,6 +4137,16 @@ class GroundHeatTransferBasementInsulation(object):
 
         self._data["INSFULL: Flag: Is the wall fully insulated?"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -4025,9 +4169,11 @@ class GroundHeatTransferBasementSurfaceProps(object):
     """ Corresponds to IDD object `GroundHeatTransfer:Basement:SurfaceProps`
         Specifies the soil surface properties for the Basement preprocessor ground
         heat transfer simulation.
+    
     """
     internal_name = "GroundHeatTransfer:Basement:SurfaceProps"
     field_count = 7
+    required_fields = ["PET: Flag, Potential evapotranspiration on?"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `GroundHeatTransfer:Basement:SurfaceProps`
@@ -4255,7 +4401,7 @@ class GroundHeatTransferBasementSurfaceProps(object):
 
         Args:
             value (float): value for IDD Field `veght_surface_roughness_no_snow_conditions`
-                Unit: cm
+                Units: cm
                 Default value: 6.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -4291,7 +4437,7 @@ class GroundHeatTransferBasementSurfaceProps(object):
 
         Args:
             value (float): value for IDD Field `veght_surface_roughness_snow_conditions`
-                Unit: cm
+                Units: cm
                 Default value: 0.25
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -4356,6 +4502,16 @@ class GroundHeatTransferBasementSurfaceProps(object):
 
         self._data["PET: Flag, Potential evapotranspiration on?"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -4383,9 +4539,11 @@ class GroundHeatTransferBasementBldgData(object):
     """ Corresponds to IDD object `GroundHeatTransfer:Basement:BldgData`
         Specifies the surface and gravel thicknesses used for the Basement
         preprocessor ground heat transfer simulation.
+    
     """
     internal_name = "GroundHeatTransfer:Basement:BldgData"
     field_count = 5
+    required_fields = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `GroundHeatTransfer:Basement:BldgData`
@@ -4445,7 +4603,7 @@ class GroundHeatTransferBasementBldgData(object):
 
         Args:
             value (float): value for IDD Field `dwall_wall_thickness`
-                Unit: m
+                Units: m
                 Default value: 0.2
                 value >= 0.2
                 if `value` is None it will not be checked against the
@@ -4481,7 +4639,7 @@ class GroundHeatTransferBasementBldgData(object):
 
         Args:
             value (float): value for IDD Field `dslab_floor_slab_thickness`
-                Unit: m
+                Units: m
                 Default value: 0.1
                 value > 0.0
                 value <= 0.25
@@ -4521,7 +4679,7 @@ class GroundHeatTransferBasementBldgData(object):
 
         Args:
             value (float): value for IDD Field `dgravxy_width_of_gravel_pit_beside_basement_wall`
-                Unit: m
+                Units: m
                 Default value: 0.3
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -4557,7 +4715,7 @@ class GroundHeatTransferBasementBldgData(object):
 
         Args:
             value (float): value for IDD Field `dgravzn_gravel_depth_extending_above_the_floor_slab`
-                Unit: m
+                Units: m
                 Default value: 0.2
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -4593,7 +4751,7 @@ class GroundHeatTransferBasementBldgData(object):
 
         Args:
             value (float): value for IDD Field `dgravzp_gravel_depth_below_the_floor_slab`
-                Unit: m
+                Units: m
                 Default value: 0.1
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -4613,6 +4771,16 @@ class GroundHeatTransferBasementBldgData(object):
                                  'for field `dgravzp_gravel_depth_below_the_floor_slab`')
 
         self._data["DGRAVZP: Gravel depth below the floor slab"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):
@@ -4639,9 +4807,11 @@ class GroundHeatTransferBasementInterior(object):
     """ Corresponds to IDD object `GroundHeatTransfer:Basement:Interior`
         Provides the information needed to simulate the inside boundary conditions for
         the Basement preprocessor ground heat transfer simulation.
+    
     """
     internal_name = "GroundHeatTransfer:Basement:Interior"
     field_count = 7
+    required_fields = ["COND: Flag: Is the basement conditioned?"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `GroundHeatTransfer:Basement:Interior`
@@ -4757,7 +4927,7 @@ class GroundHeatTransferBasementInterior(object):
 
         Args:
             value (float): value for IDD Field `hin_downward_convection_only_heat_transfer_coefficient`
-                Unit: W/m2-K
+                Units: W/m2-K
                 Default value: 0.92
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -4793,7 +4963,7 @@ class GroundHeatTransferBasementInterior(object):
 
         Args:
             value (float): value for IDD Field `hin_upward_convection_only_heat_transfer_coefficient`
-                Unit: W/m2-K
+                Units: W/m2-K
                 Default value: 4.04
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -4829,7 +4999,7 @@ class GroundHeatTransferBasementInterior(object):
 
         Args:
             value (float): value for IDD Field `hin_horizontal_convection_only_heat_transfer_coefficient`
-                Unit: W/m2-K
+                Units: W/m2-K
                 Default value: 3.08
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -4865,7 +5035,7 @@ class GroundHeatTransferBasementInterior(object):
 
         Args:
             value (float): value for IDD Field `hin_downward_combined_convection_and_radiation_heat_transfer_coefficient`
-                Unit: W/m2-K
+                Units: W/m2-K
                 Default value: 6.13
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -4901,7 +5071,7 @@ class GroundHeatTransferBasementInterior(object):
 
         Args:
             value (float): value for IDD Field `hin_upward_combined_convection_and_radiation_heat_transfer_coefficient`
-                Unit: W/m2-K
+                Units: W/m2-K
                 Default value: 9.26
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -4937,7 +5107,7 @@ class GroundHeatTransferBasementInterior(object):
 
         Args:
             value (float): value for IDD Field `hin_horizontal_combined_convection_and_radiation_heat_transfer_coefficient`
-                Unit: W/m2-K
+                Units: W/m2-K
                 Default value: 8.29
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -4957,6 +5127,16 @@ class GroundHeatTransferBasementInterior(object):
                                  'for field `hin_horizontal_combined_convection_and_radiation_heat_transfer_coefficient`')
 
         self._data["HIN: Horizontal combined (convection and radiation) heat transfer coefficient"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):
@@ -4984,9 +5164,11 @@ class GroundHeatTransferBasementInterior(object):
 class GroundHeatTransferBasementComBldg(object):
     """ Corresponds to IDD object `GroundHeatTransfer:Basement:ComBldg`
         ComBldg contains the monthly average temperatures (C) and possibility of daily variation amplitude
+    
     """
     internal_name = "GroundHeatTransfer:Basement:ComBldg"
     field_count = 13
+    required_fields = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `GroundHeatTransfer:Basement:ComBldg`
@@ -5094,7 +5276,7 @@ class GroundHeatTransferBasementComBldg(object):
 
         Args:
             value (float): value for IDD Field `january_average_temperature`
-                Unit: C
+                Units: C
                 Default value: 22.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -5126,7 +5308,7 @@ class GroundHeatTransferBasementComBldg(object):
 
         Args:
             value (float): value for IDD Field `february_average_temperature`
-                Unit: C
+                Units: C
                 Default value: 22.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -5158,7 +5340,7 @@ class GroundHeatTransferBasementComBldg(object):
 
         Args:
             value (float): value for IDD Field `march_average_temperature`
-                Unit: C
+                Units: C
                 Default value: 22.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -5190,7 +5372,7 @@ class GroundHeatTransferBasementComBldg(object):
 
         Args:
             value (float): value for IDD Field `april_average_temperature`
-                Unit: C
+                Units: C
                 Default value: 22.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -5222,7 +5404,7 @@ class GroundHeatTransferBasementComBldg(object):
 
         Args:
             value (float): value for IDD Field `may_average_temperature`
-                Unit: C
+                Units: C
                 Default value: 22.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -5254,7 +5436,7 @@ class GroundHeatTransferBasementComBldg(object):
 
         Args:
             value (float): value for IDD Field `june_average_temperature`
-                Unit: C
+                Units: C
                 Default value: 22.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -5286,7 +5468,7 @@ class GroundHeatTransferBasementComBldg(object):
 
         Args:
             value (float): value for IDD Field `july_average_temperature`
-                Unit: C
+                Units: C
                 Default value: 22.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -5318,7 +5500,7 @@ class GroundHeatTransferBasementComBldg(object):
 
         Args:
             value (float): value for IDD Field `august_average_temperature`
-                Unit: C
+                Units: C
                 Default value: 22.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -5350,7 +5532,7 @@ class GroundHeatTransferBasementComBldg(object):
 
         Args:
             value (float): value for IDD Field `september_average_temperature`
-                Unit: C
+                Units: C
                 Default value: 22.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -5382,7 +5564,7 @@ class GroundHeatTransferBasementComBldg(object):
 
         Args:
             value (float): value for IDD Field `october_average_temperature`
-                Unit: C
+                Units: C
                 Default value: 22.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -5414,7 +5596,7 @@ class GroundHeatTransferBasementComBldg(object):
 
         Args:
             value (float): value for IDD Field `november_average_temperature`
-                Unit: C
+                Units: C
                 Default value: 22.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -5446,7 +5628,7 @@ class GroundHeatTransferBasementComBldg(object):
 
         Args:
             value (float): value for IDD Field `december_average_temperature`
-                Unit: C
+                Units: C
                 Default value: 22.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -5479,7 +5661,7 @@ class GroundHeatTransferBasementComBldg(object):
 
         Args:
             value (float): value for IDD Field `daily_variation_sine_wave_amplitude`
-                Unit: deltaC
+                Units: deltaC
                 Default value: 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -5495,6 +5677,16 @@ class GroundHeatTransferBasementComBldg(object):
                                  'for field `daily_variation_sine_wave_amplitude`'.format(value))
 
         self._data["Daily variation sine wave amplitude"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):
@@ -5530,9 +5722,11 @@ class GroundHeatTransferBasementEquivSlab(object):
         Using an equivalent slab allows non-rectangular shapes to be
         modeled accurately.
         The simulation default should be EquivSizing=True
+    
     """
     internal_name = "GroundHeatTransfer:Basement:EquivSlab"
     field_count = 2
+    required_fields = ["APRatio: The area to perimeter ratio for this slab", "EquivSizing: Flag"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `GroundHeatTransfer:Basement:EquivSlab`
@@ -5574,7 +5768,7 @@ class GroundHeatTransferBasementEquivSlab(object):
 
         Args:
             value (float): value for IDD Field `apratio_the_area_to_perimeter_ratio_for_this_slab`
-                Unit: m
+                Units: m
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -5639,6 +5833,16 @@ class GroundHeatTransferBasementEquivSlab(object):
 
         self._data["EquivSizing: Flag"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -5660,9 +5864,11 @@ class GroundHeatTransferBasementEquivSlab(object):
 class GroundHeatTransferBasementEquivAutoGrid(object):
     """ Corresponds to IDD object `GroundHeatTransfer:Basement:EquivAutoGrid`
         EquivAutoGrid necessary when EquivSizing=TRUE, TRUE is is the normal case.
+    
     """
     internal_name = "GroundHeatTransfer:Basement:EquivAutoGrid"
     field_count = 3
+    required_fields = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `GroundHeatTransfer:Basement:EquivAutoGrid`
@@ -5710,7 +5916,7 @@ class GroundHeatTransferBasementEquivAutoGrid(object):
 
         Args:
             value (float): value for IDD Field `clearance_distance_from_outside_of_wall_to_edge_of_3d_ground_domain`
-                Unit: m
+                Units: m
                 Default value: 15.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -5746,7 +5952,7 @@ class GroundHeatTransferBasementEquivAutoGrid(object):
 
         Args:
             value (float): value for IDD Field `slabdepth_thickness_of_the_floor_slab`
-                Unit: m
+                Units: m
                 Default value: 0.1
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -5782,7 +5988,7 @@ class GroundHeatTransferBasementEquivAutoGrid(object):
 
         Args:
             value (float): value for IDD Field `basedepth_depth_of_the_basement_wall_below_grade`
-                Unit: m
+                Units: m
                 Default value: 2.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -5802,6 +6008,16 @@ class GroundHeatTransferBasementEquivAutoGrid(object):
                                  'for field `basedepth_depth_of_the_basement_wall_below_grade`')
 
         self._data["BaseDepth: Depth of the basement wall below grade"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):
@@ -5827,9 +6043,11 @@ class GroundHeatTransferBasementAutoGrid(object):
         AutoGrid only necessary when EquivSizing is false
         If the modelled building is not a rectangle or square, Equivalent
         sizing MUST be used to get accurate results
+    
     """
     internal_name = "GroundHeatTransfer:Basement:AutoGrid"
     field_count = 6
+    required_fields = ["SLABX: X dimension of the building slab", "SLABY: Y dimension of the building slab"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `GroundHeatTransfer:Basement:AutoGrid`
@@ -5895,7 +6113,7 @@ class GroundHeatTransferBasementAutoGrid(object):
 
         Args:
             value (float): value for IDD Field `clearance_distance_from_outside_of_wall_to_edge_`
-                Unit: m
+                Units: m
                 Default value: 15.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -5931,7 +6149,7 @@ class GroundHeatTransferBasementAutoGrid(object):
 
         Args:
             value (float): value for IDD Field `slabx_x_dimension_of_the_building_slab`
-                Unit: m
+                Units: m
                 value >= 0.0
                 value <= 60.0
                 if `value` is None it will not be checked against the
@@ -5970,7 +6188,7 @@ class GroundHeatTransferBasementAutoGrid(object):
 
         Args:
             value (float): value for IDD Field `slaby_y_dimension_of_the_building_slab`
-                Unit: m
+                Units: m
                 value >= 0.0
                 value <= 60.0
                 if `value` is None it will not be checked against the
@@ -6009,7 +6227,7 @@ class GroundHeatTransferBasementAutoGrid(object):
 
         Args:
             value (float): value for IDD Field `concagheight_height_of_the_foundation_wall_above_grade`
-                Unit: m
+                Units: m
                 Default value: 0.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -6045,7 +6263,7 @@ class GroundHeatTransferBasementAutoGrid(object):
 
         Args:
             value (float): value for IDD Field `slabdepth_thickness_of_the_floor_slab`
-                Unit: m
+                Units: m
                 Default value: 0.1
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -6077,7 +6295,7 @@ class GroundHeatTransferBasementAutoGrid(object):
 
         Args:
             value (float): value for IDD Field `basedepth_depth_of_the_basement_wall_below_grade`
-                Unit: m
+                Units: m
                 Default value: 2.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -6097,6 +6315,16 @@ class GroundHeatTransferBasementAutoGrid(object):
                                  'for field `basedepth_depth_of_the_basement_wall_below_grade`')
 
         self._data["BaseDepth: Depth of the basement wall below grade"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):
@@ -6123,9 +6351,11 @@ class GroundHeatTransferBasementAutoGrid(object):
 class GroundHeatTransferBasementManualGrid(object):
     """ Corresponds to IDD object `GroundHeatTransfer:Basement:ManualGrid`
         Manual Grid only necessary using manual gridding (not recommended)
+    
     """
     internal_name = "GroundHeatTransfer:Basement:ManualGrid"
     field_count = 7
+    required_fields = ["NX: Number of cells in the X direction: 20]", "NY: Number of cells in the Y direction: 20]", "NZAG: Number of cells in the Z direction. above grade: 4 Always]", "NZBG: Number of cells in Z direction. below grade: 10-35]", "IBASE: X direction cell indicator of slab edge: 5-20]", "JBASE: Y direction cell indicator of slab edge: 5-20]", "KBASE: Z direction cell indicator of the top of the floor slab: 5-20]"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `GroundHeatTransfer:Basement:ManualGrid`
@@ -6407,6 +6637,16 @@ class GroundHeatTransferBasementManualGrid(object):
                                  'for field `kbase_z_direction_cell_indicator_of_the_top_of_the_floor_slab_520`'.format(value))
 
         self._data["KBASE: Z direction cell indicator of the top of the floor slab: 5-20]"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):

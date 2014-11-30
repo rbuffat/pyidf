@@ -5,9 +5,11 @@ class People(object):
         Sets internal gains and contaminant rates for occupants in the zone.
         If you use a ZoneList in the Zone or ZoneList name field then this definition applies
         to all the zones in the ZoneList.
+    
     """
     internal_name = "People"
     field_count = 24
+    required_fields = ["Name", "Zone or ZoneList Name", "Number of People Schedule Name", "Number of People Calculation Method", "Fraction Radiant", "Activity Level Schedule Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `People`
@@ -365,7 +367,7 @@ class People(object):
 
         Args:
             value (float): value for IDD Field `people_per_zone_floor_area`
-                Unit: person/m2
+                Units: person/m2
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -400,7 +402,7 @@ class People(object):
 
         Args:
             value (float): value for IDD Field `zone_floor_area_per_person`
-                Unit: m2/person
+                Units: m2/person
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -550,7 +552,7 @@ class People(object):
 
         Args:
             value (float): value for IDD Field `carbon_dioxide_generation_rate`
-                Unit: m3/s-W
+                Units: m3/s-W
                 Default value: 3.82e-08
                 value >= 0.0
                 value <= 3.82e-07
@@ -1127,6 +1129,16 @@ class People(object):
 
         self._data["Thermal Comfort Model 5 Type"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -1170,9 +1182,11 @@ class People(object):
 class ComfortViewFactorAngles(object):
     """ Corresponds to IDD object `ComfortViewFactorAngles`
         Used to specify radiant view factors for thermal comfort calculations.
+    
     """
     internal_name = "ComfortViewFactorAngles"
     field_count = 42
+    required_fields = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ComfortViewFactorAngles`
@@ -2925,6 +2939,16 @@ class ComfortViewFactorAngles(object):
 
         self._data["Angle Factor 20"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -2988,9 +3012,11 @@ class Lights(object):
         Sets internal gains for lights in the zone.
         If you use a ZoneList in the Zone or ZoneList name field then this definition applies
         to all the zones in the ZoneList.
+    
     """
     internal_name = "Lights"
     field_count = 15
+    required_fields = ["Name", "Zone or ZoneList Name", "Schedule Name", "Design Level Calculation Method", "Return Air Fraction", "Fraction Radiant", "Fraction Visible", "Fraction Replaceable"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Lights`
@@ -3260,7 +3286,8 @@ class Lights(object):
 
         Args:
             value (float): value for IDD Field `lighting_level`
-                Unit: W
+                Units: W
+                IP-Units: W
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -3295,7 +3322,8 @@ class Lights(object):
 
         Args:
             value (float): value for IDD Field `watts_per_zone_floor_area`
-                Unit: W/m2
+                Units: W/m2
+                IP-Units: W/ft2
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -3330,7 +3358,8 @@ class Lights(object):
 
         Args:
             value (float): value for IDD Field `watts_per_person`
-                Unit: W/person
+                Units: W/person
+                IP-Units: W/person
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -3641,7 +3670,7 @@ class Lights(object):
 
         Args:
             value (float): value for IDD Field `return_air_fraction_function_of_plenum_temperature_coefficient_2`
-                Unit: 1/K
+                Units: 1/K
                 Default value: 0.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -3661,6 +3690,16 @@ class Lights(object):
                                  'for field `return_air_fraction_function_of_plenum_temperature_coefficient_2`')
 
         self._data["Return Air Fraction Function of Plenum Temperature Coefficient 2"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):
@@ -3698,9 +3737,11 @@ class ElectricEquipment(object):
         Sets internal gains for electric equipment in the zone.
         If you use a ZoneList in the Zone or ZoneList name field then this definition applies
         to all the zones in the ZoneList.
+    
     """
     internal_name = "ElectricEquipment"
     field_count = 11
+    required_fields = ["Name", "Zone or ZoneList Name", "Schedule Name", "Design Level Calculation Method", "Fraction Latent", "Fraction Radiant", "Fraction Lost"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ElectricEquipment`
@@ -3946,7 +3987,8 @@ class ElectricEquipment(object):
 
         Args:
             value (float): value for IDD Field `design_level`
-                Unit: W
+                Units: W
+                IP-Units: W
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -3981,7 +4023,8 @@ class ElectricEquipment(object):
 
         Args:
             value (float): value for IDD Field `watts_per_zone_floor_area`
-                Unit: W/m2
+                Units: W/m2
+                IP-Units: W/ft2
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -4016,7 +4059,8 @@ class ElectricEquipment(object):
 
         Args:
             value (float): value for IDD Field `watts_per_person`
-                Unit: W/person
+                Units: W/person
+                IP-Units: W/person
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -4187,6 +4231,16 @@ class ElectricEquipment(object):
 
         self._data["End-Use Subcategory"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -4218,9 +4272,11 @@ class GasEquipment(object):
     """ Corresponds to IDD object `GasEquipment`
         Sets internal gains and contaminant rates for gas equipment in the zone.
         If you use a ZoneList in the Zone name field then this definition applies to all those zones.
+    
     """
     internal_name = "GasEquipment"
     field_count = 12
+    required_fields = ["Name", "Zone or ZoneList Name", "Schedule Name", "Design Level Calculation Method", "Fraction Latent", "Fraction Radiant", "Fraction Lost"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `GasEquipment`
@@ -4476,7 +4532,8 @@ class GasEquipment(object):
 
         Args:
             value (float): value for IDD Field `design_level`
-                Unit: W
+                Units: W
+                IP-Units: Btu/h
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -4511,7 +4568,8 @@ class GasEquipment(object):
 
         Args:
             value (float): value for IDD Field `power_per_zone_floor_area`
-                Unit: W/m2
+                Units: W/m2
+                IP-Units: Btu/h-ft2
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -4546,7 +4604,8 @@ class GasEquipment(object):
 
         Args:
             value (float): value for IDD Field `power_per_person`
-                Unit: W/Person
+                Units: W/Person
+                IP-Units: Btu/h-person
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -4703,7 +4762,8 @@ class GasEquipment(object):
 
         Args:
             value (float): value for IDD Field `carbon_dioxide_generation_rate`
-                Unit: m3/s-W
+                Units: m3/s-W
+                IP-Units: (ft3/min)/(Btu/h)
                 Default value: 0.0
                 value >= 0.0
                 value <= 4e-07
@@ -4762,6 +4822,16 @@ class GasEquipment(object):
 
         self._data["End-Use Subcategory"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -4794,9 +4864,11 @@ class HotWaterEquipment(object):
     """ Corresponds to IDD object `HotWaterEquipment`
         Sets internal gains for hot water equipment in the zone.
         If you use a ZoneList in the Zone name field then this definition applies to all those zones.
+    
     """
     internal_name = "HotWaterEquipment"
     field_count = 11
+    required_fields = ["Name", "Zone or ZoneList Name", "Schedule Name", "Design Level Calculation Method", "Fraction Latent", "Fraction Radiant", "Fraction Lost"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `HotWaterEquipment`
@@ -5046,7 +5118,8 @@ class HotWaterEquipment(object):
 
         Args:
             value (float): value for IDD Field `design_level`
-                Unit: W
+                Units: W
+                IP-Units: Btu/h
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -5081,7 +5154,8 @@ class HotWaterEquipment(object):
 
         Args:
             value (float): value for IDD Field `power_per_zone_floor_area`
-                Unit: W/m2
+                Units: W/m2
+                IP-Units: Btu/h-ft2
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -5116,7 +5190,8 @@ class HotWaterEquipment(object):
 
         Args:
             value (float): value for IDD Field `power_per_person`
-                Unit: W/Person
+                Units: W/Person
+                IP-Units: Btu/h-person
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -5287,6 +5362,16 @@ class HotWaterEquipment(object):
 
         self._data["End-Use Subcategory"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -5317,9 +5402,11 @@ class HotWaterEquipment(object):
 class SteamEquipment(object):
     """ Corresponds to IDD object `SteamEquipment`
         Sets internal gains for steam equipment in the zone.
+    
     """
     internal_name = "SteamEquipment"
     field_count = 11
+    required_fields = ["Name", "Zone or ZoneList Name", "Schedule Name", "Design Level Calculation Method", "Fraction Latent", "Fraction Radiant", "Fraction Lost"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `SteamEquipment`
@@ -5569,7 +5656,8 @@ class SteamEquipment(object):
 
         Args:
             value (float): value for IDD Field `design_level`
-                Unit: W
+                Units: W
+                IP-Units: Btu/h
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -5604,7 +5692,8 @@ class SteamEquipment(object):
 
         Args:
             value (float): value for IDD Field `power_per_zone_floor_area`
-                Unit: W/m2
+                Units: W/m2
+                IP-Units: Btu/h-ft2
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -5639,7 +5728,8 @@ class SteamEquipment(object):
 
         Args:
             value (float): value for IDD Field `power_per_person`
-                Unit: W/Person
+                Units: W/Person
+                IP-Units: Btu/h-person
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -5810,6 +5900,16 @@ class SteamEquipment(object):
 
         self._data["End-Use Subcategory"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -5840,9 +5940,11 @@ class SteamEquipment(object):
 class OtherEquipment(object):
     """ Corresponds to IDD object `OtherEquipment`
         Sets internal gains or losses for "other" equipment in the zone.
+    
     """
     internal_name = "OtherEquipment"
     field_count = 10
+    required_fields = ["Name", "Zone or ZoneList Name", "Schedule Name", "Design Level Calculation Method", "Fraction Latent", "Fraction Radiant", "Fraction Lost"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `OtherEquipment`
@@ -6087,7 +6189,8 @@ class OtherEquipment(object):
 
         Args:
             value (float): value for IDD Field `design_level`
-                Unit: W
+                Units: W
+                IP-Units: Btu/h
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6118,7 +6221,8 @@ class OtherEquipment(object):
 
         Args:
             value (float): value for IDD Field `power_per_zone_floor_area`
-                Unit: W/m2
+                Units: W/m2
+                IP-Units: Btu/h-ft2
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6149,7 +6253,8 @@ class OtherEquipment(object):
 
         Args:
             value (float): value for IDD Field `power_per_person`
-                Unit: W/Person
+                Units: W/Person
+                IP-Units: Btu/h-person
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6282,6 +6387,16 @@ class OtherEquipment(object):
 
         self._data["Fraction Lost"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -6311,9 +6426,11 @@ class OtherEquipment(object):
 class ZoneBaseboardOutdoorTemperatureControlled(object):
     """ Corresponds to IDD object `ZoneBaseboard:OutdoorTemperatureControlled`
         Specifies outside temperature-controlled electric baseboard heating.
+    
     """
     internal_name = "ZoneBaseboard:OutdoorTemperatureControlled"
     field_count = 9
+    required_fields = ["Name", "Zone Name", "Schedule Name", "Capacity at Low Temperature", "Low Temperature", "Capacity at High Temperature", "High Temperature", "Fraction Radiant"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ZoneBaseboard:OutdoorTemperatureControlled`
@@ -6497,7 +6614,7 @@ class ZoneBaseboardOutdoorTemperatureControlled(object):
 
         Args:
             value (float): value for IDD Field `capacity_at_low_temperature`
-                Unit: W
+                Units: W
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -6532,7 +6649,7 @@ class ZoneBaseboardOutdoorTemperatureControlled(object):
 
         Args:
             value (float): value for IDD Field `low_temperature`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6563,7 +6680,7 @@ class ZoneBaseboardOutdoorTemperatureControlled(object):
 
         Args:
             value (float): value for IDD Field `capacity_at_high_temperature`
-                Unit: W
+                Units: W
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -6598,7 +6715,7 @@ class ZoneBaseboardOutdoorTemperatureControlled(object):
 
         Args:
             value (float): value for IDD Field `high_temperature`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6687,6 +6804,16 @@ class ZoneBaseboardOutdoorTemperatureControlled(object):
 
         self._data["End-Use Subcategory"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -6715,9 +6842,11 @@ class ZoneBaseboardOutdoorTemperatureControlled(object):
 class ZoneContaminantSourceAndSinkCarbonDioxide(object):
     """ Corresponds to IDD object `ZoneContaminantSourceAndSink:CarbonDioxide`
         Represents internal CO2 gains and sinks in the zone.
+    
     """
     internal_name = "ZoneContaminantSourceAndSink:CarbonDioxide"
     field_count = 4
+    required_fields = ["Name", "Zone Name", "Schedule Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ZoneContaminantSourceAndSink:CarbonDioxide`
@@ -6837,7 +6966,7 @@ class ZoneContaminantSourceAndSinkCarbonDioxide(object):
 
         Args:
             value (float): value for IDD Field `design_generation_rate`
-                Unit: m3/s
+                Units: m3/s
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6887,6 +7016,16 @@ class ZoneContaminantSourceAndSinkCarbonDioxide(object):
 
         self._data["Schedule Name"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -6910,9 +7049,11 @@ class ZoneContaminantSourceAndSinkCarbonDioxide(object):
 class ZoneContaminantSourceAndSinkGenericConstant(object):
     """ Corresponds to IDD object `ZoneContaminantSourceAndSink:Generic:Constant`
         Sets internal generic contaminant gains and sinks in a zone with constant values.
+    
     """
     internal_name = "ZoneContaminantSourceAndSink:Generic:Constant"
     field_count = 6
+    required_fields = ["Name", "Zone Name", "Generation Schedule Name", "Removal Schedule Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ZoneContaminantSourceAndSink:Generic:Constant`
@@ -7044,7 +7185,7 @@ class ZoneContaminantSourceAndSinkGenericConstant(object):
 
         Args:
             value (float): value for IDD Field `design_generation_rate`
-                Unit: m3/s
+                Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -7113,7 +7254,7 @@ class ZoneContaminantSourceAndSinkGenericConstant(object):
 
         Args:
             value (float): value for IDD Field `design_removal_coefficient`
-                Unit: m3/s
+                Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -7168,6 +7309,16 @@ class ZoneContaminantSourceAndSinkGenericConstant(object):
 
         self._data["Removal Schedule Name"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -7193,9 +7344,11 @@ class ZoneContaminantSourceAndSinkGenericConstant(object):
 class SurfaceContaminantSourceAndSinkGenericPressureDriven(object):
     """ Corresponds to IDD object `SurfaceContaminantSourceAndSink:Generic:PressureDriven`
         Simulate generic contaminant source driven by the pressure difference across a surface.
+    
     """
     internal_name = "SurfaceContaminantSourceAndSink:Generic:PressureDriven"
     field_count = 5
+    required_fields = ["Name", "Surface Name", "Generation Schedule Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `SurfaceContaminantSourceAndSink:Generic:PressureDriven`
@@ -7321,7 +7474,7 @@ class SurfaceContaminantSourceAndSinkGenericPressureDriven(object):
 
         Args:
             value (float): value for IDD Field `design_generation_rate_coefficient`
-                Unit: m3/s
+                Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -7391,7 +7544,7 @@ class SurfaceContaminantSourceAndSinkGenericPressureDriven(object):
 
         Args:
             value (float): value for IDD Field `generation_exponent`
-                Unit: dimensionless
+                Units: dimensionless
                 value > 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
@@ -7414,6 +7567,16 @@ class SurfaceContaminantSourceAndSinkGenericPressureDriven(object):
                                  'for field `generation_exponent`')
 
         self._data["Generation Exponent"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):
@@ -7439,9 +7602,11 @@ class SurfaceContaminantSourceAndSinkGenericPressureDriven(object):
 class ZoneContaminantSourceAndSinkGenericCutoffModel(object):
     """ Corresponds to IDD object `ZoneContaminantSourceAndSink:Generic:CutoffModel`
         Simulate generic contaminant source driven by the cutoff concentration model.
+    
     """
     internal_name = "ZoneContaminantSourceAndSink:Generic:CutoffModel"
     field_count = 5
+    required_fields = ["Name", "Zone Name", "Schedule Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ZoneContaminantSourceAndSink:Generic:CutoffModel`
@@ -7567,7 +7732,7 @@ class ZoneContaminantSourceAndSinkGenericCutoffModel(object):
 
         Args:
             value (float): value for IDD Field `design_generation_rate_coefficient`
-                Unit: m3/s
+                Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -7639,7 +7804,7 @@ class ZoneContaminantSourceAndSinkGenericCutoffModel(object):
 
         Args:
             value (float): value for IDD Field `cutoff_generic_contaminant_at_which_emission_ceases`
-                Unit: ppm
+                Units: ppm
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -7658,6 +7823,16 @@ class ZoneContaminantSourceAndSinkGenericCutoffModel(object):
                                  'for field `cutoff_generic_contaminant_at_which_emission_ceases`')
 
         self._data["Cutoff Generic Contaminant at which Emission Ceases"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):
@@ -7683,9 +7858,11 @@ class ZoneContaminantSourceAndSinkGenericCutoffModel(object):
 class ZoneContaminantSourceAndSinkGenericDecaySource(object):
     """ Corresponds to IDD object `ZoneContaminantSourceAndSink:Generic:DecaySource`
         Simulate generic contaminant source driven by the cutoff concentration model.
+    
     """
     internal_name = "ZoneContaminantSourceAndSink:Generic:DecaySource"
     field_count = 5
+    required_fields = ["Name", "Zone Name", "Schedule Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ZoneContaminantSourceAndSink:Generic:DecaySource`
@@ -7811,7 +7988,7 @@ class ZoneContaminantSourceAndSinkGenericDecaySource(object):
 
         Args:
             value (float): value for IDD Field `initial_emission_rate`
-                Unit: m3/s
+                Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -7882,7 +8059,7 @@ class ZoneContaminantSourceAndSinkGenericDecaySource(object):
 
         Args:
             value (float): value for IDD Field `delay_time_constant`
-                Unit: s
+                Units: s
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -7901,6 +8078,16 @@ class ZoneContaminantSourceAndSinkGenericDecaySource(object):
                                  'for field `delay_time_constant`')
 
         self._data["Delay Time Constant"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):
@@ -7926,9 +8113,11 @@ class ZoneContaminantSourceAndSinkGenericDecaySource(object):
 class SurfaceContaminantSourceAndSinkGenericBoundaryLayerDiffusion(object):
     """ Corresponds to IDD object `SurfaceContaminantSourceAndSink:Generic:BoundaryLayerDiffusion`
         Simulate generic contaminant source driven by the boundary layer diffusion controlled model.
+    
     """
     internal_name = "SurfaceContaminantSourceAndSink:Generic:BoundaryLayerDiffusion"
     field_count = 5
+    required_fields = ["Name", "Surface Name", "Schedule Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `SurfaceContaminantSourceAndSink:Generic:BoundaryLayerDiffusion`
@@ -8054,7 +8243,7 @@ class SurfaceContaminantSourceAndSinkGenericBoundaryLayerDiffusion(object):
 
         Args:
             value (float): value for IDD Field `mass_transfer_coefficient`
-                Unit: m/s
+                Units: m/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -8125,7 +8314,7 @@ class SurfaceContaminantSourceAndSinkGenericBoundaryLayerDiffusion(object):
 
         Args:
             value (float): value for IDD Field `henry_adsorption_constant_or_partition_coefficient`
-                Unit: dimensionless
+                Units: dimensionless
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -8144,6 +8333,16 @@ class SurfaceContaminantSourceAndSinkGenericBoundaryLayerDiffusion(object):
                                  'for field `henry_adsorption_constant_or_partition_coefficient`')
 
         self._data["Henry adsorption constant or partition coefficient"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):
@@ -8169,9 +8368,11 @@ class SurfaceContaminantSourceAndSinkGenericBoundaryLayerDiffusion(object):
 class SurfaceContaminantSourceAndSinkGenericDepositionVelocitySink(object):
     """ Corresponds to IDD object `SurfaceContaminantSourceAndSink:Generic:DepositionVelocitySink`
         Simulate generic contaminant source driven by the boundary layer diffusion controlled model.
+    
     """
     internal_name = "SurfaceContaminantSourceAndSink:Generic:DepositionVelocitySink"
     field_count = 4
+    required_fields = ["Name", "Surface Name", "Schedule Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `SurfaceContaminantSourceAndSink:Generic:DepositionVelocitySink`
@@ -8291,7 +8492,7 @@ class SurfaceContaminantSourceAndSinkGenericDepositionVelocitySink(object):
 
         Args:
             value (float): value for IDD Field `deposition_velocity`
-                Unit: m/s
+                Units: m/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -8347,6 +8548,16 @@ class SurfaceContaminantSourceAndSinkGenericDepositionVelocitySink(object):
 
         self._data["Schedule Name"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -8370,9 +8581,11 @@ class SurfaceContaminantSourceAndSinkGenericDepositionVelocitySink(object):
 class ZoneContaminantSourceAndSinkGenericDepositionRateSink(object):
     """ Corresponds to IDD object `ZoneContaminantSourceAndSink:Generic:DepositionRateSink`
         Simulate generic contaminant source driven by the boundary layer diffusion controlled model.
+    
     """
     internal_name = "ZoneContaminantSourceAndSink:Generic:DepositionRateSink"
     field_count = 4
+    required_fields = ["Name", "Zone Name", "Schedule Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ZoneContaminantSourceAndSink:Generic:DepositionRateSink`
@@ -8492,7 +8705,7 @@ class ZoneContaminantSourceAndSinkGenericDepositionRateSink(object):
 
         Args:
             value (float): value for IDD Field `deposition_rate`
-                Unit: m/s
+                Units: m/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -8547,6 +8760,16 @@ class ZoneContaminantSourceAndSinkGenericDepositionRateSink(object):
                                  'for field `schedule_name`')
 
         self._data["Schedule Name"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):

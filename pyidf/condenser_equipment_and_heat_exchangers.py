@@ -8,9 +8,11 @@ class CoolingTowerSingleSpeed(object):
         through the tower (induced-draft configuration).
         Added fluid bypass as an additional capacity control. 8/2008.
         For a multi-cell tower, the capacity and air/water flow rate inputs are for the entire tower.
+    
     """
     internal_name = "CoolingTower:SingleSpeed"
     field_count = 33
+    required_fields = ["Name", "Water Inlet Node Name", "Water Outlet Node Name", "Design Air Flow Rate", "Design Fan Power", "Free Convection Air Flow Rate Sizing Factor", "Free Convection U-Factor Times Area Value Sizing Factor", "Heat Rejection Capacity and Nominal Capacity Sizing Ratio", "Free Convection Nominal Capacity Sizing Factor"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `CoolingTower:SingleSpeed`
@@ -341,7 +343,8 @@ class CoolingTowerSingleSpeed(object):
 
         Args:
             value (float): value for IDD Field `design_water_flow_rate`
-                Unit: m3/s
+                Units: m3/s
+                IP-Units: gal/min
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -376,7 +379,7 @@ class CoolingTowerSingleSpeed(object):
 
         Args:
             value (float): value for IDD Field `design_air_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -412,7 +415,8 @@ class CoolingTowerSingleSpeed(object):
 
         Args:
             value (float): value for IDD Field `design_fan_power`
-                Unit: W
+                Units: W
+                IP-Units: W
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -448,7 +452,7 @@ class CoolingTowerSingleSpeed(object):
 
         Args:
             value (float): value for IDD Field `design_ufactor_times_area_value`
-                Unit: W/K
+                Units: W/K
                 value > 0.0
                 value <= 2100000.0
                 if `value` is None it will not be checked against the
@@ -487,7 +491,7 @@ class CoolingTowerSingleSpeed(object):
 
         Args:
             value (float): value for IDD Field `free_convection_air_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 Default value: 0.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -563,7 +567,7 @@ class CoolingTowerSingleSpeed(object):
 
         Args:
             value (float): value for IDD Field `free_convection_ufactor_times_area_value`
-                Unit: W/K
+                Units: W/K
                 Default value: 0.0
                 value >= 0.0
                 value <= 300000.0
@@ -717,7 +721,7 @@ class CoolingTowerSingleSpeed(object):
 
         Args:
             value (float): value for IDD Field `nominal_capacity`
-                Unit: W
+                Units: W
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -758,7 +762,7 @@ class CoolingTowerSingleSpeed(object):
 
         Args:
             value (float): value for IDD Field `free_convection_capacity`
-                Unit: W
+                Units: W
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -836,7 +840,7 @@ class CoolingTowerSingleSpeed(object):
 
         Args:
             value (float): value for IDD Field `basin_heater_capacity`
-                Unit: W/K
+                Units: W/K
                 Default value: 0.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -873,7 +877,7 @@ class CoolingTowerSingleSpeed(object):
 
         Args:
             value (float): value for IDD Field `basin_heater_setpoint_temperature`
-                Unit: C
+                Units: C
                 Default value: 2.0
                 value >= 2.0
                 if `value` is None it will not be checked against the
@@ -992,7 +996,7 @@ class CoolingTowerSingleSpeed(object):
 
         Args:
             value (float): value for IDD Field `evaporation_loss_factor`
-                Unit: percent/K
+                Units: percent/K
                 Default value: 0.2
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -1026,7 +1030,7 @@ class CoolingTowerSingleSpeed(object):
 
         Args:
             value (float): value for IDD Field `drift_loss_percent`
-                Unit: percent
+                Units: percent
                 Default value: 0.008
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -1453,6 +1457,16 @@ class CoolingTowerSingleSpeed(object):
 
         self._data["Sizing Factor"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -1509,9 +1523,11 @@ class CoolingTowerTwoSpeed(object):
         is modeled as a counter flow heat exchanger with a two-speed fan drawing air
         through the tower (induced-draft configuration).
         For a multi-cell tower, the capacity and air/water flow rate inputs are for the entire tower.
+    
     """
     internal_name = "CoolingTower:TwoSpeed"
     field_count = 40
+    required_fields = ["Name", "Water Inlet Node Name", "Water Outlet Node Name", "High Fan Speed Air Flow Rate", "High Fan Speed Fan Power", "Low Fan Speed Air Flow Rate", "Low Fan Speed Air Flow Rate Sizing Factor", "Low Fan Speed Fan Power", "Low Fan Speed Fan Power Sizing Factor", "Low Fan Speed U-Factor Times Area Sizing Factor", "Free Convection Regime Air Flow Rate Sizing Factor", "Free Convection U-Factor Times Area Value Sizing Factor", "Heat Rejection Capacity and Nominal Capacity Sizing Ratio", "Low Speed Nominal Capacity Sizing Factor", "Free Convection Nominal Capacity Sizing Factor"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `CoolingTower:TwoSpeed`
@@ -1884,7 +1900,8 @@ class CoolingTowerTwoSpeed(object):
 
         Args:
             value (float): value for IDD Field `design_water_flow_rate`
-                Unit: m3/s
+                Units: m3/s
+                IP-Units: gal/min
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -1919,7 +1936,7 @@ class CoolingTowerTwoSpeed(object):
 
         Args:
             value (float): value for IDD Field `high_fan_speed_air_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -1955,7 +1972,8 @@ class CoolingTowerTwoSpeed(object):
 
         Args:
             value (float): value for IDD Field `high_fan_speed_fan_power`
-                Unit: W
+                Units: W
+                IP-Units: W
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -1991,7 +2009,7 @@ class CoolingTowerTwoSpeed(object):
 
         Args:
             value (float): value for IDD Field `high_fan_speed_ufactor_times_area_value`
-                Unit: W/K
+                Units: W/K
                 value > 0.0
                 value <= 2100000.0
                 if `value` is None it will not be checked against the
@@ -2032,7 +2050,7 @@ class CoolingTowerTwoSpeed(object):
 
         Args:
             value (float): value for IDD Field `low_fan_speed_air_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -2108,7 +2126,8 @@ class CoolingTowerTwoSpeed(object):
 
         Args:
             value (float): value for IDD Field `low_fan_speed_fan_power`
-                Unit: W
+                Units: W
+                IP-Units: W
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -2186,7 +2205,7 @@ class CoolingTowerTwoSpeed(object):
 
         Args:
             value (float): value for IDD Field `low_fan_speed_ufactor_times_area_value`
-                Unit: W/K
+                Units: W/K
                 value > 0.0
                 value <= 300000.0
                 if `value` is None it will not be checked against the
@@ -2266,7 +2285,7 @@ class CoolingTowerTwoSpeed(object):
 
         Args:
             value (float): value for IDD Field `free_convection_regime_air_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 Default value: 0.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -2343,7 +2362,7 @@ class CoolingTowerTwoSpeed(object):
 
         Args:
             value (float): value for IDD Field `free_convection_regime_ufactor_times_area_value`
-                Unit: W/K
+                Units: W/K
                 Default value: 0.0
                 value >= 0.0
                 value <= 300000.0
@@ -2498,7 +2517,7 @@ class CoolingTowerTwoSpeed(object):
 
         Args:
             value (float): value for IDD Field `high_speed_nominal_capacity`
-                Unit: W
+                Units: W
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -2540,7 +2559,7 @@ class CoolingTowerTwoSpeed(object):
 
         Args:
             value (float): value for IDD Field `low_speed_nominal_capacity`
-                Unit: W
+                Units: W
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -2621,7 +2640,7 @@ class CoolingTowerTwoSpeed(object):
 
         Args:
             value (float): value for IDD Field `free_convection_nominal_capacity`
-                Unit: W
+                Units: W
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -2699,7 +2718,7 @@ class CoolingTowerTwoSpeed(object):
 
         Args:
             value (float): value for IDD Field `basin_heater_capacity`
-                Unit: W/K
+                Units: W/K
                 Default value: 0.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -2736,7 +2755,7 @@ class CoolingTowerTwoSpeed(object):
 
         Args:
             value (float): value for IDD Field `basin_heater_setpoint_temperature`
-                Unit: C
+                Units: C
                 Default value: 2.0
                 value >= 2.0
                 if `value` is None it will not be checked against the
@@ -2855,7 +2874,7 @@ class CoolingTowerTwoSpeed(object):
 
         Args:
             value (float): value for IDD Field `evaporation_loss_factor`
-                Unit: percent/K
+                Units: percent/K
                 Default value: 0.2
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -2889,7 +2908,7 @@ class CoolingTowerTwoSpeed(object):
 
         Args:
             value (float): value for IDD Field `drift_loss_percent`
-                Unit: percent
+                Units: percent
                 Default value: 0.008
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -3273,6 +3292,16 @@ class CoolingTowerTwoSpeed(object):
 
         self._data["Sizing Factor"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -3336,9 +3365,11 @@ class CoolingTowerVariableSpeedMerkel(object):
         is modeled as a counter flow heat exchanger with a variable-speed fan drawing air
         through the tower (induced-draft configuration).
         For a multi-cell tower, the capacity and air/water flow rate inputs are for the entire tower.
+    
     """
     internal_name = "CoolingTower:VariableSpeed:Merkel"
     field_count = 40
+    required_fields = ["Name", "Water Inlet Node Name", "Water Outlet Node Name", "Performance Input Method", "Heat Rejection Capacity and Nominal Capacity Sizing Ratio", "Free Convection Nominal Capacity Sizing Factor", "Design Water Flow Rate", "Design Air Flow Rate", "Design Fan Power", "Fan Power Modifier Function of Air Flow Rate Ratio Curve Name", "Free Convection Regime Air Flow Rate Sizing Factor", "U-Factor Times Area Modifier Function of Air Flow Ratio Curve Name", "U-Factor Times Area Modifier Function of Wetbulb Temperature Difference Curve Name", "U-Factor Times Area Modifier Function of Water Flow Ratio Curve Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `CoolingTower:VariableSpeed:Merkel`
@@ -3784,7 +3815,7 @@ class CoolingTowerVariableSpeedMerkel(object):
 
         Args:
             value (float): value for IDD Field `nominal_capacity`
-                Unit: W
+                Units: W
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -3826,7 +3857,7 @@ class CoolingTowerVariableSpeedMerkel(object):
 
         Args:
             value (float): value for IDD Field `free_convection_nominal_capacity`
-                Unit: W
+                Units: W
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -3901,7 +3932,8 @@ class CoolingTowerVariableSpeedMerkel(object):
 
         Args:
             value (float): value for IDD Field `design_water_flow_rate`
-                Unit: m3/s
+                Units: m3/s
+                IP-Units: gal/min
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -3937,7 +3969,7 @@ class CoolingTowerVariableSpeedMerkel(object):
 
         Args:
             value (float): value for IDD Field `design_water_flow_rate_per_unit_of_nominal_capacity`
-                Unit: m3/s-W
+                Units: m3/s-W
                 Default value: 5.382e-08
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -3970,7 +4002,7 @@ class CoolingTowerVariableSpeedMerkel(object):
 
         Args:
             value (float): value for IDD Field `design_air_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -4008,7 +4040,7 @@ class CoolingTowerVariableSpeedMerkel(object):
 
         Args:
             value (float): value for IDD Field `design_air_flow_rate_per_unit_of_nominal_capacity`
-                Unit: m3/s-W
+                Units: m3/s-W
                 Default value: 2.76316e-05
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -4082,7 +4114,8 @@ class CoolingTowerVariableSpeedMerkel(object):
 
         Args:
             value (float): value for IDD Field `design_fan_power`
-                Unit: W
+                Units: W
+                IP-Units: W
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -4119,7 +4152,7 @@ class CoolingTowerVariableSpeedMerkel(object):
 
         Args:
             value (float): value for IDD Field `design_fan_power_per_unit_of_nominal_capacity`
-                Unit: dimensionless
+                Units: dimensionless
                 Default value: 0.0105
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -4192,7 +4225,7 @@ class CoolingTowerVariableSpeedMerkel(object):
 
         Args:
             value (float): value for IDD Field `free_convection_regime_air_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 Default value: 0.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -4270,7 +4303,7 @@ class CoolingTowerVariableSpeedMerkel(object):
 
         Args:
             value (float): value for IDD Field `design_air_flow_rate_ufactor_times_area_value`
-                Unit: W/K
+                Units: W/K
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4303,7 +4336,7 @@ class CoolingTowerVariableSpeedMerkel(object):
 
         Args:
             value (float): value for IDD Field `free_convection_regime_ufactor_times_area_value`
-                Unit: W/K
+                Units: W/K
                 Default value: 0.0
                 value >= 0.0
                 value <= 300000.0
@@ -4515,7 +4548,7 @@ class CoolingTowerVariableSpeedMerkel(object):
 
         Args:
             value (float): value for IDD Field `basin_heater_capacity`
-                Unit: W/K
+                Units: W/K
                 Default value: 0.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -4552,7 +4585,7 @@ class CoolingTowerVariableSpeedMerkel(object):
 
         Args:
             value (float): value for IDD Field `basin_heater_setpoint_temperature`
-                Unit: C
+                Units: C
                 Default value: 2.0
                 value >= 2.0
                 if `value` is None it will not be checked against the
@@ -4671,7 +4704,7 @@ class CoolingTowerVariableSpeedMerkel(object):
 
         Args:
             value (float): value for IDD Field `evaporation_loss_factor`
-                Unit: percent/K
+                Units: percent/K
                 Default value: 0.2
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -4705,7 +4738,7 @@ class CoolingTowerVariableSpeedMerkel(object):
 
         Args:
             value (float): value for IDD Field `drift_loss_percent`
-                Unit: percent
+                Units: percent
                 Default value: 0.008
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -5089,6 +5122,16 @@ class CoolingTowerVariableSpeedMerkel(object):
 
         self._data["Sizing Factor"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -5152,9 +5195,11 @@ class CoolingTowerVariableSpeed(object):
         algorithms (CoolTools or YorkCalc), or they can enter their own correlation for
         approach temperature by using a variable speed tower model coefficient object.
         For a multi-cell tower, the capacity and air/water flow rate inputs are for the entire tower.
+    
     """
     internal_name = "CoolingTower:VariableSpeed"
     field_count = 30
+    required_fields = ["Name", "Water Inlet Node Name", "Water Outlet Node Name", "Design Water Flow Rate", "Design Air Flow Rate", "Design Fan Power"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `CoolingTower:VariableSpeed`
@@ -5551,7 +5596,7 @@ class CoolingTowerVariableSpeed(object):
 
         Args:
             value (float): value for IDD Field `design_inlet_air_wetbulb_temperature`
-                Unit: C
+                Units: C
                 Default value: 25.6
                 value >= 20.0
                 if `value` is None it will not be checked against the
@@ -5591,7 +5636,7 @@ class CoolingTowerVariableSpeed(object):
 
         Args:
             value (float): value for IDD Field `design_approach_temperature`
-                Unit: deltaC
+                Units: deltaC
                 Default value: 3.9
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -5631,7 +5676,7 @@ class CoolingTowerVariableSpeed(object):
 
         Args:
             value (float): value for IDD Field `design_range_temperature`
-                Unit: deltaC
+                Units: deltaC
                 Default value: 5.6
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -5668,7 +5713,8 @@ class CoolingTowerVariableSpeed(object):
 
         Args:
             value (float): value for IDD Field `design_water_flow_rate`
-                Unit: m3/s
+                Units: m3/s
+                IP-Units: gal/min
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -5704,7 +5750,7 @@ class CoolingTowerVariableSpeed(object):
 
         Args:
             value (float): value for IDD Field `design_air_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -5741,7 +5787,8 @@ class CoolingTowerVariableSpeed(object):
 
         Args:
             value (float): value for IDD Field `design_fan_power`
-                Unit: W
+                Units: W
+                IP-Units: W
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -5903,7 +5950,7 @@ class CoolingTowerVariableSpeed(object):
 
         Args:
             value (float): value for IDD Field `basin_heater_capacity`
-                Unit: W/K
+                Units: W/K
                 Default value: 0.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -5940,7 +5987,7 @@ class CoolingTowerVariableSpeed(object):
 
         Args:
             value (float): value for IDD Field `basin_heater_setpoint_temperature`
-                Unit: C
+                Units: C
                 Default value: 2.0
                 value >= 2.0
                 if `value` is None it will not be checked against the
@@ -6059,7 +6106,7 @@ class CoolingTowerVariableSpeed(object):
 
         Args:
             value (float): value for IDD Field `evaporation_loss_factor`
-                Unit: percent/K
+                Units: percent/K
                 Default value: 0.2
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -6093,7 +6140,7 @@ class CoolingTowerVariableSpeed(object):
 
         Args:
             value (float): value for IDD Field `drift_loss_percent`
-                Unit: percent
+                Units: percent
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6476,6 +6523,16 @@ class CoolingTowerVariableSpeed(object):
 
         self._data["Sizing Factor"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -6527,9 +6584,11 @@ class CoolingTowerPerformanceCoolTools(object):
         This object is used to define coefficients for the approach temperature
         correlation for a variable speed cooling tower when tower Model Type is
         specified as CoolToolsUserDefined in the object CoolingTower:VariableSpeed.
+    
     """
     internal_name = "CoolingTowerPerformance:CoolTools"
     field_count = 44
+    required_fields = ["Name", "Minimum Inlet Air Wet-Bulb Temperature", "Maximum Inlet Air Wet-Bulb Temperature", "Minimum Range Temperature", "Maximum Range Temperature", "Minimum Approach Temperature", "Maximum Approach Temperature", "Minimum Water Flow Rate Ratio", "Maximum Water Flow Rate Ratio", "Coefficient 1", "Coefficient 2", "Coefficient 3", "Coefficient 4", "Coefficient 5", "Coefficient 6", "Coefficient 7", "Coefficient 8", "Coefficient 9", "Coefficient 10", "Coefficient 11", "Coefficient 12", "Coefficient 13", "Coefficient 14", "Coefficient 15", "Coefficient 16", "Coefficient 17", "Coefficient 18", "Coefficient 19", "Coefficient 20", "Coefficient 21", "Coefficient 22", "Coefficient 23", "Coefficient 24", "Coefficient 25", "Coefficient 26", "Coefficient 27", "Coefficient 28", "Coefficient 29", "Coefficient 30", "Coefficient 31", "Coefficient 32", "Coefficient 33", "Coefficient 34", "Coefficient 35"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `CoolingTowerPerformance:CoolTools`
@@ -6858,7 +6917,7 @@ class CoolingTowerPerformanceCoolTools(object):
 
         Args:
             value (float): value for IDD Field `minimum_inlet_air_wetbulb_temperature`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6891,7 +6950,7 @@ class CoolingTowerPerformanceCoolTools(object):
 
         Args:
             value (float): value for IDD Field `maximum_inlet_air_wetbulb_temperature`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6924,7 +6983,7 @@ class CoolingTowerPerformanceCoolTools(object):
 
         Args:
             value (float): value for IDD Field `minimum_range_temperature`
-                Unit: deltaC
+                Units: deltaC
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6957,7 +7016,7 @@ class CoolingTowerPerformanceCoolTools(object):
 
         Args:
             value (float): value for IDD Field `maximum_range_temperature`
-                Unit: deltaC
+                Units: deltaC
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6989,7 +7048,7 @@ class CoolingTowerPerformanceCoolTools(object):
 
         Args:
             value (float): value for IDD Field `minimum_approach_temperature`
-                Unit: deltaC
+                Units: deltaC
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7021,7 +7080,7 @@ class CoolingTowerPerformanceCoolTools(object):
 
         Args:
             value (float): value for IDD Field `maximum_approach_temperature`
-                Unit: deltaC
+                Units: deltaC
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8151,6 +8210,16 @@ class CoolingTowerPerformanceCoolTools(object):
 
         self._data["Coefficient 35"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -8216,9 +8285,11 @@ class CoolingTowerPerformanceYorkCalc(object):
         This object is used to define coefficients for the approach temperature
         correlation for a variable speed cooling tower when tower Model Type is
         specified as YorkCalcUserDefined in the object CoolingTower:VariableSpeed.
+    
     """
     internal_name = "CoolingTowerPerformance:YorkCalc"
     field_count = 37
+    required_fields = ["Name", "Minimum Inlet Air Wet-Bulb Temperature", "Maximum Inlet Air Wet-Bulb Temperature", "Minimum Range Temperature", "Maximum Range Temperature", "Minimum Approach Temperature", "Maximum Approach Temperature", "Minimum Water Flow Rate Ratio", "Maximum Water Flow Rate Ratio", "Maximum Liquid to Gas Ratio", "Coefficient 1", "Coefficient 2", "Coefficient 3", "Coefficient 4", "Coefficient 5", "Coefficient 6", "Coefficient 7", "Coefficient 8", "Coefficient 9", "Coefficient 10", "Coefficient 11", "Coefficient 12", "Coefficient 13", "Coefficient 14", "Coefficient 15", "Coefficient 16", "Coefficient 17", "Coefficient 18", "Coefficient 19", "Coefficient 20", "Coefficient 21", "Coefficient 22", "Coefficient 23", "Coefficient 24", "Coefficient 25", "Coefficient 26", "Coefficient 27"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `CoolingTowerPerformance:YorkCalc`
@@ -8505,7 +8576,7 @@ class CoolingTowerPerformanceYorkCalc(object):
 
         Args:
             value (float): value for IDD Field `minimum_inlet_air_wetbulb_temperature`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8538,7 +8609,7 @@ class CoolingTowerPerformanceYorkCalc(object):
 
         Args:
             value (float): value for IDD Field `maximum_inlet_air_wetbulb_temperature`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8571,7 +8642,7 @@ class CoolingTowerPerformanceYorkCalc(object):
 
         Args:
             value (float): value for IDD Field `minimum_range_temperature`
-                Unit: deltaC
+                Units: deltaC
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8604,7 +8675,7 @@ class CoolingTowerPerformanceYorkCalc(object):
 
         Args:
             value (float): value for IDD Field `maximum_range_temperature`
-                Unit: deltaC
+                Units: deltaC
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8636,7 +8707,7 @@ class CoolingTowerPerformanceYorkCalc(object):
 
         Args:
             value (float): value for IDD Field `minimum_approach_temperature`
-                Unit: deltaC
+                Units: deltaC
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8668,7 +8739,7 @@ class CoolingTowerPerformanceYorkCalc(object):
 
         Args:
             value (float): value for IDD Field `maximum_approach_temperature`
-                Unit: deltaC
+                Units: deltaC
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -9590,6 +9661,16 @@ class CoolingTowerPerformanceYorkCalc(object):
 
         self._data["Coefficient 27"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -9648,9 +9729,11 @@ class EvaporativeFluidCoolerSingleSpeed(object):
         This model is based on Merkel's theory, which is also the basis
         for the cooling tower model in EnergyPlus. The Evaporative fluid cooler
         is modeled as a counter flow heat exchanger.
+    
     """
     internal_name = "EvaporativeFluidCooler:SingleSpeed"
     field_count = 25
+    required_fields = ["Name", "Water Inlet Node Name", "Water Outlet Node Name", "Design Air Flow Rate", "Design Air Flow Rate Fan Power", "Design Spray Water Flow Rate", "Heat Rejection Capacity and Nominal Capacity Sizing Ratio"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `EvaporativeFluidCooler:SingleSpeed`
@@ -9932,7 +10015,7 @@ class EvaporativeFluidCoolerSingleSpeed(object):
 
         Args:
             value (float): value for IDD Field `design_air_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -9968,7 +10051,8 @@ class EvaporativeFluidCoolerSingleSpeed(object):
 
         Args:
             value (float): value for IDD Field `design_air_flow_rate_fan_power`
-                Unit: W
+                Units: W
+                IP-Units: W
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -10003,7 +10087,8 @@ class EvaporativeFluidCoolerSingleSpeed(object):
 
         Args:
             value (float): value for IDD Field `design_spray_water_flow_rate`
-                Unit: m3/s
+                Units: m3/s
+                IP-Units: gal/min
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -10153,7 +10238,7 @@ class EvaporativeFluidCoolerSingleSpeed(object):
 
         Args:
             value (float): value for IDD Field `standard_design_capacity`
-                Unit: W
+                Units: W
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -10190,7 +10275,7 @@ class EvaporativeFluidCoolerSingleSpeed(object):
 
         Args:
             value (float): value for IDD Field `design_air_flow_rate_ufactor_times_area_value`
-                Unit: W/K
+                Units: W/K
                 value > 0.0
                 value <= 2100000.0
                 if `value` is None it will not be checked against the
@@ -10230,7 +10315,8 @@ class EvaporativeFluidCoolerSingleSpeed(object):
 
         Args:
             value (float): value for IDD Field `design_water_flow_rate`
-                Unit: m3/s
+                Units: m3/s
+                IP-Units: gal/min
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -10267,7 +10353,7 @@ class EvaporativeFluidCoolerSingleSpeed(object):
 
         Args:
             value (float): value for IDD Field `user_specified_design_capacity`
-                Unit: W
+                Units: W
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -10305,7 +10391,8 @@ class EvaporativeFluidCoolerSingleSpeed(object):
 
         Args:
             value (float): value for IDD Field `design_entering_water_temperature`
-                Unit: C
+                Units: C
+                IP-Units: F
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -10344,7 +10431,8 @@ class EvaporativeFluidCoolerSingleSpeed(object):
 
         Args:
             value (float): value for IDD Field `design_entering_air_temperature`
-                Unit: C
+                Units: C
+                IP-Units: F
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -10383,7 +10471,8 @@ class EvaporativeFluidCoolerSingleSpeed(object):
 
         Args:
             value (float): value for IDD Field `design_entering_air_wetbulb_temperature`
-                Unit: C
+                Units: C
+                IP-Units: F
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -10542,7 +10631,7 @@ class EvaporativeFluidCoolerSingleSpeed(object):
 
         Args:
             value (float): value for IDD Field `evaporation_loss_factor`
-                Unit: percent/K
+                Units: percent/K
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -10576,7 +10665,7 @@ class EvaporativeFluidCoolerSingleSpeed(object):
 
         Args:
             value (float): value for IDD Field `drift_loss_percent`
-                Unit: percent
+                Units: percent
                 Default value: 0.008
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -10747,6 +10836,16 @@ class EvaporativeFluidCoolerSingleSpeed(object):
 
         self._data["Supply Water Storage Tank Name"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -10793,9 +10892,11 @@ class EvaporativeFluidCoolerTwoSpeed(object):
         This model is based on Merkel's theory, which is also the basis
         for the cooling tower model in EnergyPlus. The Evaporative fluid cooler
         is modeled as a counter flow heat exchanger.
+    
     """
     internal_name = "EvaporativeFluidCooler:TwoSpeed"
     field_count = 34
+    required_fields = ["Name", "Water Inlet Node Name", "Water Outlet Node Name", "High Fan Speed Air Flow Rate", "High Fan Speed Fan Power", "Low Fan Speed Air Flow Rate", "Low Fan Speed Air Flow Rate Sizing Factor", "Low Fan Speed Fan Power", "Low Fan Speed Fan Power Sizing Factor", "Design Spray Water Flow Rate", "Performance Input Method", "Heat Rejection Capacity and Nominal Capacity Sizing Ratio", "Low Speed Standard Capacity Sizing Factor", "Low Fan Speed U-Factor Times Area Sizing Factor", "Low Speed User Specified Design Capacity Sizing Factor"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `EvaporativeFluidCooler:TwoSpeed`
@@ -11131,7 +11232,7 @@ class EvaporativeFluidCoolerTwoSpeed(object):
 
         Args:
             value (float): value for IDD Field `high_fan_speed_air_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -11167,7 +11268,8 @@ class EvaporativeFluidCoolerTwoSpeed(object):
 
         Args:
             value (float): value for IDD Field `high_fan_speed_fan_power`
-                Unit: W
+                Units: W
+                IP-Units: W
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -11203,7 +11305,7 @@ class EvaporativeFluidCoolerTwoSpeed(object):
 
         Args:
             value (float): value for IDD Field `low_fan_speed_air_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -11271,7 +11373,8 @@ class EvaporativeFluidCoolerTwoSpeed(object):
 
         Args:
             value (float): value for IDD Field `low_fan_speed_fan_power`
-                Unit: W
+                Units: W
+                IP-Units: W
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -11338,7 +11441,8 @@ class EvaporativeFluidCoolerTwoSpeed(object):
 
         Args:
             value (float): value for IDD Field `design_spray_water_flow_rate`
-                Unit: m3/s
+                Units: m3/s
+                IP-Units: gal/min
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -11488,7 +11592,7 @@ class EvaporativeFluidCoolerTwoSpeed(object):
 
         Args:
             value (float): value for IDD Field `high_speed_standard_design_capacity`
-                Unit: W
+                Units: W
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -11537,7 +11641,7 @@ class EvaporativeFluidCoolerTwoSpeed(object):
 
         Args:
             value (float): value for IDD Field `low_speed_standard_design_capacity`
-                Unit: W
+                Units: W
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -11606,7 +11710,7 @@ class EvaporativeFluidCoolerTwoSpeed(object):
 
         Args:
             value (float): value for IDD Field `high_fan_speed_ufactor_times_area_value`
-                Unit: W/K
+                Units: W/K
                 value > 0.0
                 value <= 2100000.0
                 if `value` is None it will not be checked against the
@@ -11648,7 +11752,7 @@ class EvaporativeFluidCoolerTwoSpeed(object):
 
         Args:
             value (float): value for IDD Field `low_fan_speed_ufactor_times_area_value`
-                Unit: W/K
+                Units: W/K
                 value > 0.0
                 value <= 300000.0
                 if `value` is None it will not be checked against the
@@ -11721,7 +11825,8 @@ class EvaporativeFluidCoolerTwoSpeed(object):
 
         Args:
             value (float): value for IDD Field `design_water_flow_rate`
-                Unit: m3/s
+                Units: m3/s
+                IP-Units: gal/min
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -11758,7 +11863,7 @@ class EvaporativeFluidCoolerTwoSpeed(object):
 
         Args:
             value (float): value for IDD Field `high_speed_user_specified_design_capacity`
-                Unit: W
+                Units: W
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -11795,7 +11900,7 @@ class EvaporativeFluidCoolerTwoSpeed(object):
 
         Args:
             value (float): value for IDD Field `low_speed_user_specified_design_capacity`
-                Unit: W
+                Units: W
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -11865,7 +11970,8 @@ class EvaporativeFluidCoolerTwoSpeed(object):
 
         Args:
             value (float): value for IDD Field `design_entering_water_temperature`
-                Unit: C
+                Units: C
+                IP-Units: F
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -11904,7 +12010,8 @@ class EvaporativeFluidCoolerTwoSpeed(object):
 
         Args:
             value (float): value for IDD Field `design_entering_air_temperature`
-                Unit: C
+                Units: C
+                IP-Units: F
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -11943,7 +12050,8 @@ class EvaporativeFluidCoolerTwoSpeed(object):
 
         Args:
             value (float): value for IDD Field `design_entering_air_wetbulb_temperature`
-                Unit: C
+                Units: C
+                IP-Units: F
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -12059,7 +12167,7 @@ class EvaporativeFluidCoolerTwoSpeed(object):
 
         Args:
             value (float): value for IDD Field `evaporation_loss_factor`
-                Unit: percent/K
+                Units: percent/K
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -12091,7 +12199,7 @@ class EvaporativeFluidCoolerTwoSpeed(object):
 
         Args:
             value (float): value for IDD Field `drift_loss_percent`
-                Unit: percent
+                Units: percent
                 Default value: 0.008
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -12261,6 +12369,16 @@ class EvaporativeFluidCoolerTwoSpeed(object):
 
         self._data["Supply Water Storage Tank Name"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -12315,9 +12433,11 @@ class FluidCoolerSingleSpeed(object):
     """ Corresponds to IDD object `FluidCooler:SingleSpeed`
         The fluid cooler is modeled as a cross flow heat exchanger (both streams unmixed) with
         single-speed fans (induced draft configuration).
+    
     """
     internal_name = "FluidCooler:SingleSpeed"
     field_count = 13
+    required_fields = ["Name", "Water Inlet Node Name", "Water Outlet Node Name", "Design Entering Water Temperature", "Design Entering Air Temperature", "Design Entering Air Wetbulb Temperature", "Design Water Flow Rate", "Design Air Flow Rate", "Design Air Flow Rate Fan Power"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `FluidCooler:SingleSpeed`
@@ -12564,7 +12684,7 @@ class FluidCoolerSingleSpeed(object):
 
         Args:
             value (float): value for IDD Field `design_air_flow_rate_ufactor_times_area_value`
-                Unit: W/K
+                Units: W/K
                 value > 0.0
                 value <= 2100000.0
                 if `value` is None it will not be checked against the
@@ -12604,7 +12724,7 @@ class FluidCoolerSingleSpeed(object):
 
         Args:
             value (float): value for IDD Field `nominal_capacity`
-                Unit: W
+                Units: W
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -12641,7 +12761,8 @@ class FluidCoolerSingleSpeed(object):
 
         Args:
             value (float): value for IDD Field `design_entering_water_temperature`
-                Unit: C
+                Units: C
+                IP-Units: F
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -12678,7 +12799,8 @@ class FluidCoolerSingleSpeed(object):
 
         Args:
             value (float): value for IDD Field `design_entering_air_temperature`
-                Unit: C
+                Units: C
+                IP-Units: F
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -12715,7 +12837,8 @@ class FluidCoolerSingleSpeed(object):
 
         Args:
             value (float): value for IDD Field `design_entering_air_wetbulb_temperature`
-                Unit: C
+                Units: C
+                IP-Units: F
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -12750,7 +12873,8 @@ class FluidCoolerSingleSpeed(object):
 
         Args:
             value (float): value for IDD Field `design_water_flow_rate`
-                Unit: m3/s
+                Units: m3/s
+                IP-Units: gal/min
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -12785,7 +12909,7 @@ class FluidCoolerSingleSpeed(object):
 
         Args:
             value (float): value for IDD Field `design_air_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -12821,7 +12945,8 @@ class FluidCoolerSingleSpeed(object):
 
         Args:
             value (float): value for IDD Field `design_air_flow_rate_fan_power`
-                Unit: W
+                Units: W
+                IP-Units: W
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -12875,6 +13000,16 @@ class FluidCoolerSingleSpeed(object):
 
         self._data["Outdoor Air Inlet Node Name"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -12908,9 +13043,11 @@ class FluidCoolerTwoSpeed(object):
     """ Corresponds to IDD object `FluidCooler:TwoSpeed`
         The fluid cooler is modeled as a cross flow heat exchanger (both streams unmixed) with
         two-speed fans (induced draft configuration).
+    
     """
     internal_name = "FluidCooler:TwoSpeed"
     field_count = 21
+    required_fields = ["Name", "Water Inlet Node Name", "Water Outlet Node Name", "Low Fan Speed U-Factor Times Area Sizing Factor", "Low Speed Nominal Capacity Sizing Factor", "Design Entering Water Temperature", "Design Entering Air Temperature", "Design Entering Air Wet-bulb Temperature", "Design Water Flow Rate", "High Fan Speed Air Flow Rate", "High Fan Speed Fan Power", "Low Fan Speed Air Flow Rate", "Low Fan Speed Air Flow Rate Sizing Factor", "Low Fan Speed Fan Power", "Low Fan Speed Fan Power Sizing Factor"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `FluidCooler:TwoSpeed`
@@ -13205,7 +13342,7 @@ class FluidCoolerTwoSpeed(object):
 
         Args:
             value (float): value for IDD Field `high_fan_speed_ufactor_times_area_value`
-                Unit: W/K
+                Units: W/K
                 value > 0.0
                 value <= 2100000.0
                 if `value` is None it will not be checked against the
@@ -13247,7 +13384,7 @@ class FluidCoolerTwoSpeed(object):
 
         Args:
             value (float): value for IDD Field `low_fan_speed_ufactor_times_area_value`
-                Unit: W/K
+                Units: W/K
                 value > 0.0
                 value <= 300000.0
                 if `value` is None it will not be checked against the
@@ -13320,7 +13457,7 @@ class FluidCoolerTwoSpeed(object):
 
         Args:
             value (float): value for IDD Field `high_speed_nominal_capacity`
-                Unit: W
+                Units: W
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -13356,7 +13493,7 @@ class FluidCoolerTwoSpeed(object):
 
         Args:
             value (float): value for IDD Field `low_speed_nominal_capacity`
-                Unit: W
+                Units: W
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -13426,7 +13563,8 @@ class FluidCoolerTwoSpeed(object):
 
         Args:
             value (float): value for IDD Field `design_entering_water_temperature`
-                Unit: C
+                Units: C
+                IP-Units: F
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -13463,7 +13601,8 @@ class FluidCoolerTwoSpeed(object):
 
         Args:
             value (float): value for IDD Field `design_entering_air_temperature`
-                Unit: C
+                Units: C
+                IP-Units: F
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -13500,7 +13639,8 @@ class FluidCoolerTwoSpeed(object):
 
         Args:
             value (float): value for IDD Field `design_entering_air_wetbulb_temperature`
-                Unit: C
+                Units: C
+                IP-Units: F
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -13535,7 +13675,8 @@ class FluidCoolerTwoSpeed(object):
 
         Args:
             value (float): value for IDD Field `design_water_flow_rate`
-                Unit: m3/s
+                Units: m3/s
+                IP-Units: gal/min
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -13571,7 +13712,7 @@ class FluidCoolerTwoSpeed(object):
 
         Args:
             value (float): value for IDD Field `high_fan_speed_air_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -13607,7 +13748,8 @@ class FluidCoolerTwoSpeed(object):
 
         Args:
             value (float): value for IDD Field `high_fan_speed_fan_power`
-                Unit: W
+                Units: W
+                IP-Units: W
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -13643,7 +13785,7 @@ class FluidCoolerTwoSpeed(object):
 
         Args:
             value (float): value for IDD Field `low_fan_speed_air_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -13711,7 +13853,8 @@ class FluidCoolerTwoSpeed(object):
 
         Args:
             value (float): value for IDD Field `low_fan_speed_fan_power`
-                Unit: W
+                Units: W
+                IP-Units: W
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -13796,6 +13939,16 @@ class FluidCoolerTwoSpeed(object):
 
         self._data["Outdoor Air Inlet Node Name"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -13840,9 +13993,11 @@ class GroundHeatExchangerVertical(object):
         Vertical Ground Loop Heat Exchangers
         The Fluid Type in the associated condenser loop must be same for which the
         g-functions below are calculated.
+    
     """
     internal_name = "GroundHeatExchanger:Vertical"
     field_count = 219
+    required_fields = ["Name", "Inlet Node Name", "Outlet Node Name", "Number of Data Pairs of the G Function", "G-Function Ln(T/Ts) Value 1", "G-Function G Value 1"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `GroundHeatExchanger:Vertical`
@@ -15285,7 +15440,8 @@ class GroundHeatExchangerVertical(object):
 
         Args:
             value (float): value for IDD Field `maximum_flow_rate`
-                Unit: m3/s
+                Units: m3/s
+                IP-Units: gal/min
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -15354,7 +15510,7 @@ class GroundHeatExchangerVertical(object):
 
         Args:
             value (float): value for IDD Field `bore_hole_length`
-                Unit: m
+                Units: m
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -15389,7 +15545,7 @@ class GroundHeatExchangerVertical(object):
 
         Args:
             value (float): value for IDD Field `bore_hole_radius`
-                Unit: m
+                Units: m
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -15424,7 +15580,7 @@ class GroundHeatExchangerVertical(object):
 
         Args:
             value (float): value for IDD Field `ground_thermal_conductivity`
-                Unit: W/m-K
+                Units: W/m-K
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -15459,7 +15615,7 @@ class GroundHeatExchangerVertical(object):
 
         Args:
             value (float): value for IDD Field `ground_thermal_heat_capacity`
-                Unit: J/m3-K
+                Units: J/m3-K
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -15494,7 +15650,7 @@ class GroundHeatExchangerVertical(object):
 
         Args:
             value (float): value for IDD Field `ground_temperature`
-                Unit: C
+                Units: C
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -15529,7 +15685,8 @@ class GroundHeatExchangerVertical(object):
 
         Args:
             value (float): value for IDD Field `design_flow_rate`
-                Unit: m3/s
+                Units: m3/s
+                IP-Units: gal/min
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -15564,7 +15721,7 @@ class GroundHeatExchangerVertical(object):
 
         Args:
             value (float): value for IDD Field `grout_thermal_conductivity`
-                Unit: W/m-K
+                Units: W/m-K
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -15599,7 +15756,7 @@ class GroundHeatExchangerVertical(object):
 
         Args:
             value (float): value for IDD Field `pipe_thermal_conductivity`
-                Unit: W/m-K
+                Units: W/m-K
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -15634,7 +15791,8 @@ class GroundHeatExchangerVertical(object):
 
         Args:
             value (float): value for IDD Field `pipe_out_diameter`
-                Unit: m
+                Units: m
+                IP-Units: in
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -15669,7 +15827,7 @@ class GroundHeatExchangerVertical(object):
 
         Args:
             value (float): value for IDD Field `utube_distance`
-                Unit: m
+                Units: m
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -15704,7 +15862,8 @@ class GroundHeatExchangerVertical(object):
 
         Args:
             value (float): value for IDD Field `pipe_thickness`
-                Unit: m
+                Units: m
+                IP-Units: in
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -15773,7 +15932,7 @@ class GroundHeatExchangerVertical(object):
 
         Args:
             value (float): value for IDD Field `gfunction_reference_ratio`
-                Unit: dimensionless
+                Units: dimensionless
                 Default value: 0.0005
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -21832,6 +21991,16 @@ class GroundHeatExchangerVertical(object):
 
         self._data["G-Function G Value 100"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -22072,9 +22241,11 @@ class GroundHeatExchangerPond(object):
         A model of a shallow pond with immersed pipe loops.
         Typically used in hybrid geothermal systems and included in the condenser loop.
         This component may also be used as a simple solar collector.
+    
     """
     internal_name = "GroundHeatExchanger:Pond"
     field_count = 11
+    required_fields = ["Name", "Fluid Inlet Node Name", "Fluid Outlet Node Name", "Pond Depth", "Pond Area", "Hydronic Tubing Inside Diameter", "Hydronic Tubing Outside Diameter", "Hydronic Tubing Thermal Conductivity", "Ground Thermal Conductivity", "Number of Tubing Circuits", "Length of Each Tubing Circuit"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `GroundHeatExchanger:Pond`
@@ -22269,7 +22440,7 @@ class GroundHeatExchangerPond(object):
 
         Args:
             value (float): value for IDD Field `pond_depth`
-                Unit: m
+                Units: m
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -22304,7 +22475,7 @@ class GroundHeatExchangerPond(object):
 
         Args:
             value (float): value for IDD Field `pond_area`
-                Unit: m2
+                Units: m2
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -22339,7 +22510,8 @@ class GroundHeatExchangerPond(object):
 
         Args:
             value (float): value for IDD Field `hydronic_tubing_inside_diameter`
-                Unit: m
+                Units: m
+                IP-Units: in
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -22374,7 +22546,8 @@ class GroundHeatExchangerPond(object):
 
         Args:
             value (float): value for IDD Field `hydronic_tubing_outside_diameter`
-                Unit: m
+                Units: m
+                IP-Units: in
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -22409,7 +22582,7 @@ class GroundHeatExchangerPond(object):
 
         Args:
             value (float): value for IDD Field `hydronic_tubing_thermal_conductivity`
-                Unit: W/m-K
+                Units: W/m-K
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -22444,7 +22617,7 @@ class GroundHeatExchangerPond(object):
 
         Args:
             value (float): value for IDD Field `ground_thermal_conductivity`
-                Unit: W/m2-K
+                Units: W/m2-K
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -22513,7 +22686,7 @@ class GroundHeatExchangerPond(object):
 
         Args:
             value (float): value for IDD Field `length_of_each_tubing_circuit`
-                Unit: m
+                Units: m
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -22532,6 +22705,16 @@ class GroundHeatExchangerPond(object):
                                  'for field `length_of_each_tubing_circuit`')
 
         self._data["Length of Each Tubing Circuit"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):
@@ -22566,9 +22749,11 @@ class GroundHeatExchangerSurface(object):
         Typically used in hybrid geothermal systems and included in the condenser loop.
         This component may also be used as a simple solar collector.
         The bottom surface may be defined as ground-coupled or exposed to wind (eg. bridge deck).
+    
     """
     internal_name = "GroundHeatExchanger:Surface"
     field_count = 10
+    required_fields = ["Name", "Construction Name", "Fluid Inlet Node Name", "Fluid Outlet Node Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `GroundHeatExchanger:Surface`
@@ -22790,7 +22975,8 @@ class GroundHeatExchangerSurface(object):
 
         Args:
             value (float): value for IDD Field `hydronic_tubing_inside_diameter`
-                Unit: m
+                Units: m
+                IP-Units: in
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -22859,7 +23045,7 @@ class GroundHeatExchangerSurface(object):
 
         Args:
             value (float): value for IDD Field `hydronic_tube_spacing`
-                Unit: m
+                Units: m
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -22894,7 +23080,7 @@ class GroundHeatExchangerSurface(object):
 
         Args:
             value (float): value for IDD Field `surface_length`
-                Unit: m
+                Units: m
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -22929,7 +23115,7 @@ class GroundHeatExchangerSurface(object):
 
         Args:
             value (float): value for IDD Field `surface_width`
-                Unit: m
+                Units: m
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -22992,6 +23178,16 @@ class GroundHeatExchangerSurface(object):
 
         self._data["Lower Surface Environment"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -23023,9 +23219,11 @@ class GroundHeatExchangerHorizontalTrench(object):
         This models a horizontal heat exchanger placed in a series of trenches
         The model uses the PipingSystem:Underground underlying algorithms,
         but provides a more usable input interface.
+    
     """
     internal_name = "GroundHeatExchanger:HorizontalTrench"
     field_count = 22
+    required_fields = ["Name", "Inlet Node Name", "Outlet Node Name", "Design Flow Rate", "Soil Specific Heat"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `GroundHeatExchanger:HorizontalTrench`
@@ -23286,7 +23484,7 @@ class GroundHeatExchangerHorizontalTrench(object):
 
         Args:
             value (float): value for IDD Field `design_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -23325,7 +23523,8 @@ class GroundHeatExchangerHorizontalTrench(object):
 
         Args:
             value (float): value for IDD Field `trench_length_in_pipe_axial_direction`
-                Unit: m
+                Units: m
+                IP-Units: ft
                 Default value: 50.0
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -23400,7 +23599,7 @@ class GroundHeatExchangerHorizontalTrench(object):
 
         Args:
             value (float): value for IDD Field `horizontal_spacing_between_pipes`
-                Unit: m
+                Units: m
                 Default value: 1.0
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -23436,7 +23635,8 @@ class GroundHeatExchangerHorizontalTrench(object):
 
         Args:
             value (float): value for IDD Field `pipe_inner_diameter`
-                Unit: m
+                Units: m
+                IP-Units: in
                 Default value: 0.016
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -23472,7 +23672,8 @@ class GroundHeatExchangerHorizontalTrench(object):
 
         Args:
             value (float): value for IDD Field `pipe_outer_diameter`
-                Unit: m
+                Units: m
+                IP-Units: in
                 Default value: 0.026
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -23510,7 +23711,8 @@ class GroundHeatExchangerHorizontalTrench(object):
 
         Args:
             value (float): value for IDD Field `burial_depth`
-                Unit: m
+                Units: m
+                IP-Units: ft
                 Default value: 1.5
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -23546,7 +23748,7 @@ class GroundHeatExchangerHorizontalTrench(object):
 
         Args:
             value (float): value for IDD Field `soil_thermal_conductivity`
-                Unit: W/m-K
+                Units: W/m-K
                 Default value: 1.08
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -23582,7 +23784,7 @@ class GroundHeatExchangerHorizontalTrench(object):
 
         Args:
             value (float): value for IDD Field `soil_density`
-                Unit: kg/m3
+                Units: kg/m3
                 Default value: 962.0
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -23618,7 +23820,7 @@ class GroundHeatExchangerHorizontalTrench(object):
 
         Args:
             value (float): value for IDD Field `soil_specific_heat`
-                Unit: J/kg-K
+                Units: J/kg-K
                 Default value: 2576.0
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -23654,7 +23856,7 @@ class GroundHeatExchangerHorizontalTrench(object):
 
         Args:
             value (float): value for IDD Field `pipe_thermal_conductivity`
-                Unit: W/m-K
+                Units: W/m-K
                 Default value: 0.3895
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -23690,7 +23892,7 @@ class GroundHeatExchangerHorizontalTrench(object):
 
         Args:
             value (float): value for IDD Field `pipe_density`
-                Unit: kg/m3
+                Units: kg/m3
                 Default value: 641.0
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -23726,7 +23928,7 @@ class GroundHeatExchangerHorizontalTrench(object):
 
         Args:
             value (float): value for IDD Field `pipe_specific_heat`
-                Unit: J/kg-K
+                Units: J/kg-K
                 Default value: 2405.0
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -23762,7 +23964,7 @@ class GroundHeatExchangerHorizontalTrench(object):
 
         Args:
             value (float): value for IDD Field `soil_moisture_content_percent`
-                Unit: percent
+                Units: percent
                 Default value: 30.0
                 value >= 0.0
                 value <= 100.0
@@ -23802,7 +24004,7 @@ class GroundHeatExchangerHorizontalTrench(object):
 
         Args:
             value (float): value for IDD Field `soil_moisture_content_percent_at_saturation`
-                Unit: percent
+                Units: percent
                 Default value: 50.0
                 value >= 0.0
                 value <= 100.0
@@ -23846,7 +24048,7 @@ class GroundHeatExchangerHorizontalTrench(object):
 
         Args:
             value (float): value for IDD Field `kusudaachenbach_average_surface_temperature`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -23881,7 +24083,7 @@ class GroundHeatExchangerHorizontalTrench(object):
 
         Args:
             value (float): value for IDD Field `kusudaachenbach_average_amplitude_of_surface_temperature`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -23916,7 +24118,7 @@ class GroundHeatExchangerHorizontalTrench(object):
 
         Args:
             value (float): value for IDD Field `kusudaachenbach_phase_shift_of_minimum_surface_temperature`
-                Unit: days
+                Units: days
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -23977,6 +24179,16 @@ class GroundHeatExchangerHorizontalTrench(object):
 
         self._data["Evapotranspiration Ground Cover Parameter"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -24019,9 +24231,11 @@ class HeatExchangerFluidToFluid(object):
     """ Corresponds to IDD object `HeatExchanger:FluidToFluid`
         A fluid/fluid heat exchanger designed to couple the supply side of one loop to the demand side of another loop
         Loops can be either plant or condenser loops but no air side connections are allowed
+    
     """
     internal_name = "HeatExchanger:FluidToFluid"
     field_count = 20
+    required_fields = ["Name", "Loop Demand Side Inlet Node Name", "Loop Demand Side Outlet Node Name", "Loop Demand Side Design Flow Rate", "Loop Supply Side Inlet Node Name", "Loop Supply Side Outlet Node Name", "Loop Supply Side Design Flow Rate", "Heat Exchange Model Type", "Heat Exchanger U-Factor Times Area Value", "Control Type", "Heat Transfer Metering End Use Type"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `HeatExchanger:FluidToFluid`
@@ -24308,7 +24522,8 @@ class HeatExchangerFluidToFluid(object):
 
         Args:
             value (float): value for IDD Field `loop_demand_side_design_flow_rate`
-                Unit: m3/s
+                Units: m3/s
+                IP-Units: gal/min
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -24409,7 +24624,8 @@ class HeatExchangerFluidToFluid(object):
 
         Args:
             value (float): value for IDD Field `loop_supply_side_design_flow_rate`
-                Unit: m3/s
+                Units: m3/s
+                IP-Units: gal/min
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -24497,7 +24713,7 @@ class HeatExchangerFluidToFluid(object):
 
         Args:
             value (float): value for IDD Field `heat_exchanger_ufactor_times_area_value`
-                Unit: W/k
+                Units: W/k
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -24628,7 +24844,7 @@ class HeatExchangerFluidToFluid(object):
 
         Args:
             value (float): value for IDD Field `minimum_temperature_difference_to_activate_heat_exchanger`
-                Unit: deltaC
+                Units: deltaC
                 Default value: 0.01
                 value >= 0.0
                 value <= 50.0
@@ -24871,7 +25087,7 @@ class HeatExchangerFluidToFluid(object):
 
         Args:
             value (float): value for IDD Field `operation_minimum_temperature_limit`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -24903,7 +25119,7 @@ class HeatExchangerFluidToFluid(object):
 
         Args:
             value (float): value for IDD Field `operation_maximum_temperature_limit`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -24918,6 +25134,16 @@ class HeatExchangerFluidToFluid(object):
                                  'for field `operation_maximum_temperature_limit`'.format(value))
 
         self._data["Operation Maximum Temperature Limit"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):

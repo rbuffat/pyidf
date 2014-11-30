@@ -3,9 +3,11 @@ from collections import OrderedDict
 class AirLoopHvac(object):
     """ Corresponds to IDD object `AirLoopHVAC`
         Defines a central forced air system.
+    
     """
     internal_name = "AirLoopHVAC"
     field_count = 10
+    required_fields = ["Name", "Branch List Name", "Supply Side Inlet Node Name", "Demand Side Outlet Node Name", "Demand Side Inlet Node Names", "Supply Side Outlet Node Names"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `AirLoopHVAC`
@@ -196,7 +198,7 @@ class AirLoopHvac(object):
 
         Args:
             value (float): value for IDD Field `design_supply_air_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 Default value: 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -417,6 +419,16 @@ class AirLoopHvac(object):
 
         self._data["Supply Side Outlet Node Names"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -446,9 +458,11 @@ class AirLoopHvac(object):
 class AirLoopHvacOutdoorAirSystemEquipmentList(object):
     """ Corresponds to IDD object `AirLoopHVAC:OutdoorAirSystem:EquipmentList`
         List equipment in simulation order
+    
     """
     internal_name = "AirLoopHVAC:OutdoorAirSystem:EquipmentList"
     field_count = 19
+    required_fields = ["Name", "Component 1 Object Type", "Component 1 Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `AirLoopHVAC:OutdoorAirSystem:EquipmentList`
@@ -1204,6 +1218,16 @@ class AirLoopHvacOutdoorAirSystemEquipmentList(object):
 
         self._data["Component 9 Name"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -1245,9 +1269,11 @@ class AirLoopHvacOutdoorAirSystem(object):
         optional outdoor air conditioning equipment such as heat recovery, preheat, and precool
         coils. From the perspective of the primary air loop the outdoor air system is treated
         as a single component.
+    
     """
     internal_name = "AirLoopHVAC:OutdoorAirSystem"
     field_count = 4
+    required_fields = ["Name", "Controller List Name", "Outdoor Air Equipment List Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `AirLoopHVAC:OutdoorAirSystem`
@@ -1421,6 +1447,16 @@ class AirLoopHvacOutdoorAirSystem(object):
 
         self._data["Availability Manager List Name"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -1445,9 +1481,11 @@ class OutdoorAirMixer(object):
     """ Corresponds to IDD object `OutdoorAir:Mixer`
         Outdoor air mixer. Node names cannot be duplicated within a single OutdoorAir:Mixer
         object or across all outdoor air mixers.
+    
     """
     internal_name = "OutdoorAir:Mixer"
     field_count = 5
+    required_fields = ["Name", "Mixed Air Node Name", "Outdoor Air Stream Node Name", "Relief Air Stream Node Name", "Return Air Stream Node Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `OutdoorAir:Mixer`
@@ -1661,6 +1699,16 @@ class OutdoorAirMixer(object):
 
         self._data["Return Air Stream Node Name"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -1686,9 +1734,11 @@ class AirLoopHvacSupplyPath(object):
     """ Corresponds to IDD object `AirLoopHVAC:SupplyPath`
         A supply path can only contain AirLoopHVAC:ZoneSplitter and AirLoopHVAC:SupplyPlenum objects
         which may be in series or parallel.
+    
     """
     internal_name = "AirLoopHVAC:SupplyPath"
     field_count = 52
+    required_fields = ["Name", "Supply Air Path Inlet Node Name", "Component 1 Object Type", "Component 1 Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `AirLoopHVAC:SupplyPath`
@@ -3957,6 +4007,16 @@ class AirLoopHvacSupplyPath(object):
 
         self._data["Component 25 Name"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -4029,9 +4089,11 @@ class AirLoopHvacReturnPath(object):
     """ Corresponds to IDD object `AirLoopHVAC:ReturnPath`
         A return air path can only contain one AirLoopHVAC:ZoneMixer
         and one or more AirLoopHVAC:ReturnPlenum objects.
+    
     """
     internal_name = "AirLoopHVAC:ReturnPath"
     field_count = 52
+    required_fields = ["Name", "Return Air Path Outlet Node Name", "Component 1 Object Type", "Component 1 Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `AirLoopHVAC:ReturnPath`
@@ -6298,6 +6360,16 @@ class AirLoopHvacReturnPath(object):
                                  'for field `component_25_name`')
 
         self._data["Component 25 Name"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):

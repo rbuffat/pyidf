@@ -4,9 +4,11 @@ class DesignSpecificationOutdoorAir(object):
     """ Corresponds to IDD object `DesignSpecification:OutdoorAir`
         This object is used to describe general outdoor air requirements which
         are referenced by other objects.
+    
     """
     internal_name = "DesignSpecification:OutdoorAir"
     field_count = 7
+    required_fields = ["Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `DesignSpecification:OutdoorAir`
@@ -169,7 +171,7 @@ class DesignSpecificationOutdoorAir(object):
 
         Args:
             value (float): value for IDD Field `outdoor_air_flow_per_person`
-                Unit: m3/s-person
+                Units: m3/s-person
                 Default value: 0.00944
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -207,7 +209,7 @@ class DesignSpecificationOutdoorAir(object):
 
         Args:
             value (float): value for IDD Field `outdoor_air_flow_per_zone_floor_area`
-                Unit: m3/s-m2
+                Units: m3/s-m2
                 Default value: 0.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -245,7 +247,7 @@ class DesignSpecificationOutdoorAir(object):
 
         Args:
             value (float): value for IDD Field `outdoor_air_flow_per_zone`
-                Unit: m3/s
+                Units: m3/s
                 Default value: 0.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -283,7 +285,7 @@ class DesignSpecificationOutdoorAir(object):
 
         Args:
             value (float): value for IDD Field `outdoor_air_flow_air_changes_per_hour`
-                Unit: 1/hr
+                Units: 1/hr
                 Default value: 0.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -339,6 +341,16 @@ class DesignSpecificationOutdoorAir(object):
 
         self._data["Outdoor Air Flow Rate Fraction Schedule Name"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -367,9 +379,11 @@ class DesignSpecificationZoneAirDistribution(object):
         This object is used to describe zone air distribution in terms of air distribution
         effectiveness and secondary recirculation fraction. It is referenced by Sizing:Zone
         and Controller:MechanicalVentilation objects
+    
     """
     internal_name = "DesignSpecification:ZoneAirDistribution"
     field_count = 5
+    required_fields = ["Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `DesignSpecification:ZoneAirDistribution`
@@ -462,7 +476,7 @@ class DesignSpecificationZoneAirDistribution(object):
 
         Args:
             value (float): value for IDD Field `zone_air_distribution_effectiveness_in_cooling_mode`
-                Unit: dimensionless
+                Units: dimensionless
                 Default value: 1.0
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -498,7 +512,7 @@ class DesignSpecificationZoneAirDistribution(object):
 
         Args:
             value (float): value for IDD Field `zone_air_distribution_effectiveness_in_heating_mode`
-                Unit: dimensionless
+                Units: dimensionless
                 Default value: 1.0
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -569,7 +583,7 @@ class DesignSpecificationZoneAirDistribution(object):
 
         Args:
             value (float): value for IDD Field `zone_secondary_recirculation_fraction`
-                Unit: dimensionless
+                Units: dimensionless
                 Default value: 0.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -589,6 +603,16 @@ class DesignSpecificationZoneAirDistribution(object):
                                  'for field `zone_secondary_recirculation_fraction`')
 
         self._data["Zone Secondary Recirculation Fraction"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):
@@ -619,9 +643,11 @@ class SizingParameters(object):
         system level flow rates and capacities and are used in all component sizing calculations.
         Specifies the width (in load timesteps) of a moving average window
         which is used to smooth the peak load across more than one timestep.
+    
     """
     internal_name = "Sizing:Parameters"
     field_count = 3
+    required_fields = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Sizing:Parameters`
@@ -761,6 +787,16 @@ class SizingParameters(object):
 
         self._data["Timesteps in Averaging Window"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -786,9 +822,11 @@ class SizingZone(object):
         The calculation is done for every sizing period included in the input. The maximum
         cooling and heating load and cooling, heating, and ventilation air flows are then saved
         for system level and zone component design calculations.
+    
     """
     internal_name = "Sizing:Zone"
     field_count = 23
+    required_fields = ["Zone or ZoneList Name", "Zone Cooling Design Supply Air Temperature Input Method", "Zone Heating Design Supply Air Temperature Input Method", "Zone Cooling Design Supply Air Humidity Ratio", "Zone Heating Design Supply Air Humidity Ratio"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Sizing:Zone`
@@ -1034,7 +1072,7 @@ class SizingZone(object):
 
         Args:
             value (float): value for IDD Field `zone_cooling_design_supply_air_temperature`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1069,7 +1107,7 @@ class SizingZone(object):
 
         Args:
             value (float): value for IDD Field `zone_cooling_design_supply_air_temperature_difference`
-                Unit: deltaC
+                Units: deltaC
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1145,7 +1183,7 @@ class SizingZone(object):
 
         Args:
             value (float): value for IDD Field `zone_heating_design_supply_air_temperature`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1180,7 +1218,7 @@ class SizingZone(object):
 
         Args:
             value (float): value for IDD Field `zone_heating_design_supply_air_temperature_difference`
-                Unit: deltaC
+                Units: deltaC
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1211,7 +1249,7 @@ class SizingZone(object):
 
         Args:
             value (float): value for IDD Field `zone_cooling_design_supply_air_humidity_ratio`
-                Unit: kgWater/kgDryAir
+                Units: kgWater/kgDryAir
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -1246,7 +1284,7 @@ class SizingZone(object):
 
         Args:
             value (float): value for IDD Field `zone_heating_design_supply_air_humidity_ratio`
-                Unit: kgWater/kgDryAir
+                Units: kgWater/kgDryAir
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -1432,7 +1470,7 @@ class SizingZone(object):
 
         Args:
             value (float): value for IDD Field `cooling_design_air_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 Default value: 0.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -1470,7 +1508,7 @@ class SizingZone(object):
 
         Args:
             value (float): value for IDD Field `cooling_minimum_air_flow_per_zone_floor_area`
-                Unit: m3/s-m2
+                Units: m3/s-m2
                 Default value: 0.000762
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -1507,7 +1545,7 @@ class SizingZone(object):
 
         Args:
             value (float): value for IDD Field `cooling_minimum_air_flow`
-                Unit: m3/s
+                Units: m3/s
                 Default value: 0.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -1629,7 +1667,7 @@ class SizingZone(object):
 
         Args:
             value (float): value for IDD Field `heating_design_air_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 Default value: 0.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -1668,7 +1706,7 @@ class SizingZone(object):
 
         Args:
             value (float): value for IDD Field `heating_maximum_air_flow_per_zone_floor_area`
-                Unit: m3/s-m2
+                Units: m3/s-m2
                 Default value: 0.002032
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -1706,7 +1744,7 @@ class SizingZone(object):
 
         Args:
             value (float): value for IDD Field `heating_maximum_air_flow`
-                Unit: m3/s
+                Units: m3/s
                 Default value: 0.1415762
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -1797,6 +1835,16 @@ class SizingZone(object):
 
         self._data["Design Specification Zone Air Distribution Object Name"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -1840,9 +1888,11 @@ class DesignSpecificationZoneHvacSizing(object):
     """ Corresponds to IDD object `DesignSpecification:ZoneHVAC:Sizing`
         This object is used to describe general scalable zone HVAC equipment sizing which
         are referenced by other objects.
+    
     """
     internal_name = "DesignSpecification:ZoneHVAC:Sizing"
     field_count = 24
+    required_fields = ["Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `DesignSpecification:ZoneHVAC:Sizing`
@@ -2111,7 +2161,7 @@ class DesignSpecificationZoneHvacSizing(object):
 
         Args:
             value (float): value for IDD Field `cooling_design_supply_air_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -2149,7 +2199,7 @@ class DesignSpecificationZoneHvacSizing(object):
 
         Args:
             value (float): value for IDD Field `cooling_design_supply_air_flow_rate_per_floor_area`
-                Unit: m3/s-m2
+                Units: m3/s-m2
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -2226,7 +2276,7 @@ class DesignSpecificationZoneHvacSizing(object):
 
         Args:
             value (float): value for IDD Field `cooling_design_supply_air_flow_rate_per_unit_cooling_capacity`
-                Unit: m3/s-W
+                Units: m3/s-W
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -2323,7 +2373,7 @@ class DesignSpecificationZoneHvacSizing(object):
 
         Args:
             value (float): value for IDD Field `supply_air_flow_rate_when_no_cooling_or_heating_is_required`
-                Unit: m3/s
+                Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -2361,7 +2411,7 @@ class DesignSpecificationZoneHvacSizing(object):
 
         Args:
             value (float): value for IDD Field `supply_air_flow_rate_per_floor_area_when_no_clg_or_htg_is_required`
-                Unit: m3/s-m2
+                Units: m3/s-m2
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -2532,7 +2582,7 @@ class DesignSpecificationZoneHvacSizing(object):
 
         Args:
             value (float): value for IDD Field `heating_design_supply_air_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -2570,7 +2620,7 @@ class DesignSpecificationZoneHvacSizing(object):
 
         Args:
             value (float): value for IDD Field `heating_design_supply_air_flow_rate_per_floor_area`
-                Unit: m3/s-m2
+                Units: m3/s-m2
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -2647,7 +2697,7 @@ class DesignSpecificationZoneHvacSizing(object):
 
         Args:
             value (float): value for IDD Field `heating_design_supply_air_flow_rate_per_unit_heating_capacity`
-                Unit: m3/s-W
+                Units: m3/s-W
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -2739,7 +2789,7 @@ class DesignSpecificationZoneHvacSizing(object):
 
         Args:
             value (float): value for IDD Field `cooling_design_capacity`
-                Unit: W
+                Units: W
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -2776,7 +2826,7 @@ class DesignSpecificationZoneHvacSizing(object):
 
         Args:
             value (float): value for IDD Field `cooling_design_capacity_per_floor_area`
-                Unit: W/m2
+                Units: W/m2
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -2904,7 +2954,7 @@ class DesignSpecificationZoneHvacSizing(object):
 
         Args:
             value (float): value for IDD Field `heating_design_capacity`
-                Unit: W
+                Units: W
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -2941,7 +2991,7 @@ class DesignSpecificationZoneHvacSizing(object):
 
         Args:
             value (float): value for IDD Field `heating_design_capacity_per_floor_area`
-                Unit: W/m2
+                Units: W/m2
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -2997,6 +3047,16 @@ class DesignSpecificationZoneHvacSizing(object):
 
         self._data["Fraction of Autosized Heating Design Capacity"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -3041,9 +3101,11 @@ class SizingSystem(object):
     """ Corresponds to IDD object `Sizing:System`
         Specifies the input needed to perform sizing calculations for a central forced air
         system design air flow, heating capacity, and cooling capacity.
+    
     """
     internal_name = "Sizing:System"
     field_count = 36
+    required_fields = ["AirLoop Name", "Type of Load to Size On", "Minimum System Air Flow Ratio", "Preheat Design Temperature", "Preheat Design Humidity Ratio", "Precool Design Temperature", "Precool Design Humidity Ratio", "Central Cooling Design Supply Air Temperature", "Central Heating Design Supply Air Temperature", "Central Cooling Design Supply Air Humidity Ratio", "Central Heating Design Supply Air Humidity Ratio"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Sizing:System`
@@ -3369,7 +3431,7 @@ class SizingSystem(object):
 
         Args:
             value (float): value for IDD Field `design_outdoor_air_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -3442,7 +3504,7 @@ class SizingSystem(object):
 
         Args:
             value (float): value for IDD Field `preheat_design_temperature`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3473,7 +3535,7 @@ class SizingSystem(object):
 
         Args:
             value (float): value for IDD Field `preheat_design_humidity_ratio`
-                Unit: kgWater/kgDryAir
+                Units: kgWater/kgDryAir
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3504,7 +3566,7 @@ class SizingSystem(object):
 
         Args:
             value (float): value for IDD Field `precool_design_temperature`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3535,7 +3597,7 @@ class SizingSystem(object):
 
         Args:
             value (float): value for IDD Field `precool_design_humidity_ratio`
-                Unit: kgWater/kgDryAir
+                Units: kgWater/kgDryAir
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3566,7 +3628,7 @@ class SizingSystem(object):
 
         Args:
             value (float): value for IDD Field `central_cooling_design_supply_air_temperature`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3597,7 +3659,7 @@ class SizingSystem(object):
 
         Args:
             value (float): value for IDD Field `central_heating_design_supply_air_temperature`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3757,7 +3819,7 @@ class SizingSystem(object):
 
         Args:
             value (float): value for IDD Field `central_cooling_design_supply_air_humidity_ratio`
-                Unit: kgWater/kgDryAir
+                Units: kgWater/kgDryAir
                 Default value: 0.008
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -3789,7 +3851,7 @@ class SizingSystem(object):
 
         Args:
             value (float): value for IDD Field `central_heating_design_supply_air_humidity_ratio`
-                Unit: kgWater/kgDryAir
+                Units: kgWater/kgDryAir
                 Default value: 0.008
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -3873,7 +3935,7 @@ class SizingSystem(object):
 
         Args:
             value (float): value for IDD Field `cooling_design_air_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 Default value: 0.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -3911,7 +3973,7 @@ class SizingSystem(object):
 
         Args:
             value (float): value for IDD Field `supply_air_flow_rate_per_floor_area_during_cooling_operation`
-                Unit: m3/s-m2
+                Units: m3/s-m2
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -3986,7 +4048,7 @@ class SizingSystem(object):
 
         Args:
             value (float): value for IDD Field `design_supply_air_flow_rate_per_unit_cooling_capacity`
-                Unit: m3/s-W
+                Units: m3/s-W
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -4075,7 +4137,7 @@ class SizingSystem(object):
 
         Args:
             value (float): value for IDD Field `heating_design_air_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 Default value: 0.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -4113,7 +4175,7 @@ class SizingSystem(object):
 
         Args:
             value (float): value for IDD Field `supply_air_flow_rate_per_floor_area_during_heating_operation`
-                Unit: m3/s-m2
+                Units: m3/s-m2
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -4225,7 +4287,7 @@ class SizingSystem(object):
 
         Args:
             value (float): value for IDD Field `design_supply_air_flow_rate_per_unit_heating_capacity`
-                Unit: m3/s-W
+                Units: m3/s-W
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -4303,7 +4365,7 @@ class SizingSystem(object):
 
         Args:
             value (float): value for IDD Field `zone_maximum_outdoor_air_fraction`
-                Unit: dimensionless
+                Units: dimensionless
                 Default value: 1.0
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -4397,7 +4459,7 @@ class SizingSystem(object):
 
         Args:
             value (float): value for IDD Field `cooling_design_capacity`
-                Unit: W
+                Units: W
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -4434,7 +4496,7 @@ class SizingSystem(object):
 
         Args:
             value (float): value for IDD Field `cooling_design_capacity_per_floor_area`
-                Unit: W/m2
+                Units: W/m2
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -4563,7 +4625,7 @@ class SizingSystem(object):
 
         Args:
             value (float): value for IDD Field `heating_design_capacity`
-                Unit: W
+                Units: W
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -4600,7 +4662,7 @@ class SizingSystem(object):
 
         Args:
             value (float): value for IDD Field `heating_design_capacity_per_floor_area`
-                Unit: W/m2
+                Units: W/m2
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -4655,6 +4717,16 @@ class SizingSystem(object):
                                  'for field `fraction_of_autosized_heating_design_capacity`')
 
         self._data["Fraction of Autosized Heating Design Capacity"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):
@@ -4714,9 +4786,11 @@ class SizingPlant(object):
         This information is initially used by components that use water for heating or cooling
         such as hot or chilled water coils to calculate their maximum water flow rates. These
         flow rates are then summed for use in calculating the Plant Loop flow rates.
+    
     """
     internal_name = "Sizing:Plant"
     field_count = 4
+    required_fields = ["Plant or Condenser Loop Name", "Loop Type", "Design Loop Exit Temperature", "Loop Design Temperature Difference"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Sizing:Plant`
@@ -4850,7 +4924,7 @@ class SizingPlant(object):
 
         Args:
             value (float): value for IDD Field `design_loop_exit_temperature`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4881,7 +4955,7 @@ class SizingPlant(object):
 
         Args:
             value (float): value for IDD Field `loop_design_temperature_difference`
-                Unit: deltaC
+                Units: deltaC
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -4900,6 +4974,16 @@ class SizingPlant(object):
                                  'for field `loop_design_temperature_difference`')
 
         self._data["Loop Design Temperature Difference"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):
@@ -4927,9 +5011,11 @@ class OutputControlSizingStyle(object):
         importing into spreadsheet programs such as Excel(tm) but not so well for word
         processing progams -- there tab may be a better choice.  fixed puts spaces between
         the "columns"
+    
     """
     internal_name = "OutputControl:Sizing:Style"
     field_count = 1
+    required_fields = ["Column Separator"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `OutputControl:Sizing:Style`
@@ -4994,6 +5080,16 @@ class OutputControlSizingStyle(object):
 
         self._data["Column Separator"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -5014,9 +5110,11 @@ class OutputControlSizingStyle(object):
 class ZoneControlHumidistat(object):
     """ Corresponds to IDD object `ZoneControl:Humidistat`
         Specifies zone relative humidity setpoint schedules for humidifying and dehumidifying.
+    
     """
     internal_name = "ZoneControl:Humidistat"
     field_count = 4
+    required_fields = ["Name", "Zone Name", "Humidifying Relative Humidity Setpoint Schedule Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ZoneControl:Humidistat`
@@ -5189,6 +5287,16 @@ class ZoneControlHumidistat(object):
 
         self._data["Dehumidifying Relative Humidity Setpoint Schedule Name"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -5214,9 +5322,11 @@ class ZoneControlThermostat(object):
         Define the Thermostat settings for a zone or list of zones.
         If you use a ZoneList in the Zone or ZoneList name field then this definition applies
         to all the zones in the ZoneList.
+    
     """
     internal_name = "ZoneControl:Thermostat"
     field_count = 11
+    required_fields = ["Name", "Zone or ZoneList Name", "Control Type Schedule Name", "Control 1 Object Type", "Control 1 Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ZoneControl:Thermostat`
@@ -5723,6 +5833,16 @@ class ZoneControlThermostat(object):
 
         self._data["Control 4 Name"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -5755,9 +5875,11 @@ class ZoneControlThermostatOperativeTemperature(object):
         This object can be used with the ZoneList option on a thermostat or with one
         of the zones on that list (but you won't be able to use the object list to
         pick only one of those zones.  Thermostat names are <Zone Name> <global Thermostat name> internally.
+    
     """
     internal_name = "ZoneControl:Thermostat:OperativeTemperature"
     field_count = 4
+    required_fields = ["Thermostat Name", "Radiative Fraction Input Mode"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ZoneControl:Thermostat:OperativeTemperature`
@@ -5946,6 +6068,16 @@ class ZoneControlThermostatOperativeTemperature(object):
 
         self._data["Radiative Fraction Schedule Name"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -5970,9 +6102,11 @@ class ZoneControlThermostatThermalComfort(object):
     """ Corresponds to IDD object `ZoneControl:Thermostat:ThermalComfort`
         If you use a ZoneList in the Zone or ZoneList name field then this definition applies
         to all the zones in the ZoneList.
+    
     """
     internal_name = "ZoneControl:Thermostat:ThermalComfort"
     field_count = 15
+    required_fields = ["Name", "Zone or ZoneList Name", "Minimum Dry-Bulb Temperature Setpoint", "Maximum Dry-Bulb Temperature Setpoint", "Thermal Comfort Control Type Schedule Name", "Thermal Comfort Control 1 Object Type", "Thermal Comfort Control 1 Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ZoneControl:Thermostat:ThermalComfort`
@@ -6239,7 +6373,7 @@ class ZoneControlThermostatThermalComfort(object):
 
         Args:
             value (float): value for IDD Field `minimum_drybulb_temperature_setpoint`
-                Unit: C
+                Units: C
                 Default value: 0.0
                 value >= 0.0
                 value <= 50.0
@@ -6279,7 +6413,7 @@ class ZoneControlThermostatThermalComfort(object):
 
         Args:
             value (float): value for IDD Field `maximum_drybulb_temperature_setpoint`
-                Unit: C
+                Units: C
                 Default value: 50.0
                 value >= 0.0
                 value <= 50.0
@@ -6667,6 +6801,16 @@ class ZoneControlThermostatThermalComfort(object):
 
         self._data["Thermal Comfort Control 4 Name"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -6702,9 +6846,11 @@ class ZoneControlThermostatTemperatureAndHumidity(object):
     """ Corresponds to IDD object `ZoneControl:Thermostat:TemperatureAndHumidity`
         This object modifies a ZoneControl:Thermostat object to effect temperature control based on
         zone air humidity conditions.
+    
     """
     internal_name = "ZoneControl:Thermostat:TemperatureAndHumidity"
     field_count = 7
+    required_fields = ["Thermostat Name", "Dehumidifying Relative Humidity Setpoint Schedule Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ZoneControl:Thermostat:TemperatureAndHumidity`
@@ -6941,7 +7087,7 @@ class ZoneControlThermostatTemperatureAndHumidity(object):
 
         Args:
             value (float): value for IDD Field `overcool_constant_range`
-                Unit: deltaC
+                Units: deltaC
                 Default value: 1.7
                 value >= 0.0
                 value <= 3.0
@@ -7021,7 +7167,7 @@ class ZoneControlThermostatTemperatureAndHumidity(object):
 
         Args:
             value (float): value for IDD Field `overcool_control_ratio`
-                Unit: percent/K
+                Units: percent/K
                 Default value: 3.6
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -7041,6 +7187,16 @@ class ZoneControlThermostatTemperatureAndHumidity(object):
                                  'for field `overcool_control_ratio`')
 
         self._data["Overcool Control Ratio"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):
@@ -7069,9 +7225,11 @@ class ThermostatSetpointSingleHeating(object):
     """ Corresponds to IDD object `ThermostatSetpoint:SingleHeating`
         Used for a heating only thermostat. The setpoint can be scheduled and varied throughout
         the simulation but only heating is allowed with this control type.
+    
     """
     internal_name = "ThermostatSetpoint:SingleHeating"
     field_count = 2
+    required_fields = ["Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ThermostatSetpoint:SingleHeating`
@@ -7164,6 +7322,16 @@ class ThermostatSetpointSingleHeating(object):
 
         self._data["Setpoint Temperature Schedule Name"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -7186,9 +7354,11 @@ class ThermostatSetpointSingleCooling(object):
     """ Corresponds to IDD object `ThermostatSetpoint:SingleCooling`
         Used for a cooling only thermostat. The setpoint can be scheduled and varied throughout
         the simulation but only cooling is allowed.
+    
     """
     internal_name = "ThermostatSetpoint:SingleCooling"
     field_count = 2
+    required_fields = ["Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ThermostatSetpoint:SingleCooling`
@@ -7281,6 +7451,16 @@ class ThermostatSetpointSingleCooling(object):
 
         self._data["Setpoint Temperature Schedule Name"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -7303,9 +7483,11 @@ class ThermostatSetpointSingleHeatingOrCooling(object):
     """ Corresponds to IDD object `ThermostatSetpoint:SingleHeatingOrCooling`
         Used for a heating and cooling thermostat with a single setpoint. The setpoint can be
         scheduled and varied throughout the simulation for both heating and cooling.
+    
     """
     internal_name = "ThermostatSetpoint:SingleHeatingOrCooling"
     field_count = 2
+    required_fields = ["Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ThermostatSetpoint:SingleHeatingOrCooling`
@@ -7398,6 +7580,16 @@ class ThermostatSetpointSingleHeatingOrCooling(object):
 
         self._data["Setpoint Temperature Schedule Name"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -7420,9 +7612,11 @@ class ThermostatSetpointDualSetpoint(object):
     """ Corresponds to IDD object `ThermostatSetpoint:DualSetpoint`
         Used for a heating and cooling thermostat with dual setpoints. The setpoints can be
         scheduled and varied throughout the simulation for both heating and cooling.
+    
     """
     internal_name = "ThermostatSetpoint:DualSetpoint"
     field_count = 3
+    required_fields = ["Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ThermostatSetpoint:DualSetpoint`
@@ -7554,6 +7748,16 @@ class ThermostatSetpointDualSetpoint(object):
 
         self._data["Cooling Setpoint Temperature Schedule Name"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -7577,9 +7781,11 @@ class ThermostatSetpointThermalComfortFangerSingleHeating(object):
     """ Corresponds to IDD object `ThermostatSetpoint:ThermalComfort:Fanger:SingleHeating`
         Used for heating only thermal comfort control. The PMV setpoint can be scheduled and
         varied throughout the simulation but only heating is allowed with this control type.
+    
     """
     internal_name = "ThermostatSetpoint:ThermalComfort:Fanger:SingleHeating"
     field_count = 2
+    required_fields = ["Name", "Fanger Thermal Comfort Schedule Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ThermostatSetpoint:ThermalComfort:Fanger:SingleHeating`
@@ -7673,6 +7879,16 @@ class ThermostatSetpointThermalComfortFangerSingleHeating(object):
 
         self._data["Fanger Thermal Comfort Schedule Name"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -7695,9 +7911,11 @@ class ThermostatSetpointThermalComfortFangerSingleCooling(object):
     """ Corresponds to IDD object `ThermostatSetpoint:ThermalComfort:Fanger:SingleCooling`
         Used for cooling only thermal comfort control. The PMV setpoint can be scheduled and
         varied throughout the simulation but only cooling is allowed with this control type.
+    
     """
     internal_name = "ThermostatSetpoint:ThermalComfort:Fanger:SingleCooling"
     field_count = 2
+    required_fields = ["Name", "Fanger Thermal Comfort Schedule Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ThermostatSetpoint:ThermalComfort:Fanger:SingleCooling`
@@ -7791,6 +8009,16 @@ class ThermostatSetpointThermalComfortFangerSingleCooling(object):
 
         self._data["Fanger Thermal Comfort Schedule Name"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -7814,9 +8042,11 @@ class ThermostatSetpointThermalComfortFangerSingleHeatingOrCooling(object):
         Used for heating and cooling thermal comfort control with a single setpoint. The PMV
         setpoint can be scheduled and varied throughout the simulation for both heating and
         cooling.
+    
     """
     internal_name = "ThermostatSetpoint:ThermalComfort:Fanger:SingleHeatingOrCooling"
     field_count = 2
+    required_fields = ["Name", "Fanger Thermal Comfort Schedule Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ThermostatSetpoint:ThermalComfort:Fanger:SingleHeatingOrCooling`
@@ -7910,6 +8140,16 @@ class ThermostatSetpointThermalComfortFangerSingleHeatingOrCooling(object):
 
         self._data["Fanger Thermal Comfort Schedule Name"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -7933,9 +8173,11 @@ class ThermostatSetpointThermalComfortFangerDualSetpoint(object):
         Used for heating and cooling thermal comfort control with dual setpoints. The PMV
         setpoints can be scheduled and varied throughout the simulation for both heating and
         cooling.
+    
     """
     internal_name = "ThermostatSetpoint:ThermalComfort:Fanger:DualSetpoint"
     field_count = 3
+    required_fields = ["Name", "Fanger Thermal Comfort Heating Schedule Name", "Fanger Thermal Comfort Cooling Schedule Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ThermostatSetpoint:ThermalComfort:Fanger:DualSetpoint`
@@ -8069,6 +8311,16 @@ class ThermostatSetpointThermalComfortFangerDualSetpoint(object):
 
         self._data["Fanger Thermal Comfort Cooling Schedule Name"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -8093,9 +8345,11 @@ class ZoneControlThermostatStagedDualSetpoint(object):
         Define the Thermostat StagedDualSetpoint settings for a zone or list of zones.
         If you use a ZoneList in the Zone or ZoneList name field then this definition applies
         to all the zones in the ZoneList.
+    
     """
     internal_name = "ZoneControl:Thermostat:StagedDualSetpoint"
     field_count = 16
+    required_fields = ["Name", "Zone or ZoneList Name", "Number of Heating Stages", "Stage 1 Heating Temperature Offset", "Number of Cooling Stages", "Stage 1 Cooling Temperature Offset"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ZoneControl:Thermostat:StagedDualSetpoint`
@@ -8359,7 +8613,7 @@ class ZoneControlThermostatStagedDualSetpoint(object):
 
         Args:
             value (float): value for IDD Field `heating_throttling_temperature_range`
-                Unit: deltaC
+                Units: deltaC
                 Default value: 1.1
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -8400,7 +8654,7 @@ class ZoneControlThermostatStagedDualSetpoint(object):
 
         Args:
             value (float): value for IDD Field `stage_1_heating_temperature_offset`
-                Unit: deltaC
+                Units: deltaC
                 value <= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -8441,7 +8695,7 @@ class ZoneControlThermostatStagedDualSetpoint(object):
 
         Args:
             value (float): value for IDD Field `stage_2_heating_temperature_offset`
-                Unit: deltaC
+                Units: deltaC
                 value <= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -8482,7 +8736,7 @@ class ZoneControlThermostatStagedDualSetpoint(object):
 
         Args:
             value (float): value for IDD Field `stage_3_heating_temperature_offset`
-                Unit: deltaC
+                Units: deltaC
                 value <= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -8522,7 +8776,7 @@ class ZoneControlThermostatStagedDualSetpoint(object):
 
         Args:
             value (float): value for IDD Field `stage_4_heating_temperature_offset`
-                Unit: deltaC
+                Units: deltaC
                 value <= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -8629,7 +8883,7 @@ class ZoneControlThermostatStagedDualSetpoint(object):
 
         Args:
             value (float): value for IDD Field `cooling_throttling_temperature_range`
-                Unit: deltaC
+                Units: deltaC
                 Default value: 1.1
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -8670,7 +8924,7 @@ class ZoneControlThermostatStagedDualSetpoint(object):
 
         Args:
             value (float): value for IDD Field `stage_1_cooling_temperature_offset`
-                Unit: deltaC
+                Units: deltaC
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -8711,7 +8965,7 @@ class ZoneControlThermostatStagedDualSetpoint(object):
 
         Args:
             value (float): value for IDD Field `stage_2_cooling_temperature_offset`
-                Unit: deltaC
+                Units: deltaC
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -8752,7 +9006,7 @@ class ZoneControlThermostatStagedDualSetpoint(object):
 
         Args:
             value (float): value for IDD Field `stage_3_cooling_temperature_offset`
-                Unit: deltaC
+                Units: deltaC
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -8792,7 +9046,7 @@ class ZoneControlThermostatStagedDualSetpoint(object):
 
         Args:
             value (float): value for IDD Field `stage_4_cooling_temperature_offset`
-                Unit: deltaC
+                Units: deltaC
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -8811,6 +9065,16 @@ class ZoneControlThermostatStagedDualSetpoint(object):
                                  'for field `stage_4_cooling_temperature_offset`')
 
         self._data["Stage 4 Cooling Temperature Offset"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):
@@ -8848,9 +9112,11 @@ class ZoneControlContaminantController(object):
     """ Corresponds to IDD object `ZoneControl:ContaminantController`
         Used to control a zone to a specified indoor level of CO2 or generic contaminants, or
         to specify minimum CO2 concentration schedule name for a zone.
+    
     """
     internal_name = "ZoneControl:ContaminantController"
     field_count = 7
+    required_fields = ["Name", "Controlled Zone Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ZoneControl:ContaminantController`
@@ -9151,6 +9417,16 @@ class ZoneControlContaminantController(object):
                                  'for field `generic_contaminant_setpoint_schedule_name`')
 
         self._data["Generic Contaminant Setpoint Schedule Name"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):

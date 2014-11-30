@@ -4,9 +4,11 @@ class SiteLocation(object):
     """ Corresponds to IDD object `Site:Location`
         Specifies the building's location. Only one location is allowed.
         Weather data file location, if it exists, will override this object.
+    
     """
     internal_name = "Site:Location"
     field_count = 5
+    required_fields = ["Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Site:Location`
@@ -100,7 +102,7 @@ class SiteLocation(object):
 
         Args:
             value (float): value for IDD Field `latitude`
-                Unit: deg
+                Units: deg
                 Default value: 0.0
                 value >= -90.0
                 value <= 90.0
@@ -141,7 +143,7 @@ class SiteLocation(object):
 
         Args:
             value (float): value for IDD Field `longitude`
-                Unit: deg
+                Units: deg
                 Default value: 0.0
                 value >= -180.0
                 value <= 180.0
@@ -183,7 +185,7 @@ class SiteLocation(object):
 
         Args:
             value (float): value for IDD Field `time_zone`
-                Unit: hr
+                Units: hr
                 Default value: 0.0
                 value >= -12.0
                 value <= 14.0
@@ -223,7 +225,7 @@ class SiteLocation(object):
 
         Args:
             value (float): value for IDD Field `elevation`
-                Unit: m
+                Units: m
                 Default value: 0.0
                 value >= -300.0
                 value < 8900.0
@@ -247,6 +249,16 @@ class SiteLocation(object):
                                  'for field `elevation`')
 
         self._data["Elevation"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):
@@ -277,9 +289,11 @@ class SizingPeriodDesignDay(object):
         include a date (month and day), a day type (which uses the appropriate
         schedules for either sizing or simple tests), min/max temperatures,
         wind speeds, and solar radiation values.
+    
     """
     internal_name = "SizingPeriod:DesignDay"
     field_count = 26
+    required_fields = ["Name", "Month", "Day of Month", "Day Type", "Wind Speed", "Wind Direction"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `SizingPeriod:DesignDay`
@@ -640,7 +654,7 @@ class SizingPeriodDesignDay(object):
 
         Args:
             value (float): value for IDD Field `maximum_drybulb_temperature`
-                Unit: C
+                Units: C
                 value >= -90.0
                 value <= 70.0
                 if `value` is None it will not be checked against the
@@ -682,7 +696,7 @@ class SizingPeriodDesignDay(object):
 
         Args:
             value (float): value for IDD Field `daily_drybulb_temperature_range`
-                Unit: deltaC
+                Units: deltaC
                 Default value: 0.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -871,7 +885,7 @@ class SizingPeriodDesignDay(object):
 
         Args:
             value (float): value for IDD Field `wetbulb_or_dewpoint_at_maximum_drybulb`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -946,7 +960,7 @@ class SizingPeriodDesignDay(object):
 
         Args:
             value (float): value for IDD Field `humidity_ratio_at_maximum_drybulb`
-                Unit: kgWater/kgDryAir
+                Units: kgWater/kgDryAir
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -979,7 +993,7 @@ class SizingPeriodDesignDay(object):
 
         Args:
             value (float): value for IDD Field `enthalpy_at_maximum_drybulb_will_require_units_transition_`
-                Unit: J/kg
+                Units: J/kg
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1012,7 +1026,7 @@ class SizingPeriodDesignDay(object):
 
         Args:
             value (float): value for IDD Field `daily_wetbulb_temperature_range`
-                Unit: deltaC
+                Units: deltaC
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1045,7 +1059,8 @@ class SizingPeriodDesignDay(object):
 
         Args:
             value (float): value for IDD Field `barometric_pressure`
-                Unit: Pa
+                Units: Pa
+                IP-Units: inHg
                 value >= 31000.0
                 value <= 120000.0
                 if `value` is None it will not be checked against the
@@ -1084,7 +1099,8 @@ class SizingPeriodDesignDay(object):
 
         Args:
             value (float): value for IDD Field `wind_speed`
-                Unit: m/s
+                Units: m/s
+                IP-Units: miles/hr
                 value >= 0.0
                 value <= 40.0
                 if `value` is None it will not be checked against the
@@ -1125,7 +1141,7 @@ class SizingPeriodDesignDay(object):
 
         Args:
             value (float): value for IDD Field `wind_direction`
-                Unit: deg
+                Units: deg
                 value >= 0.0
                 value <= 360.0
                 if `value` is None it will not be checked against the
@@ -1413,7 +1429,7 @@ class SizingPeriodDesignDay(object):
 
         Args:
             value (float): value for IDD Field `ashrae_clear_sky_optical_depth_for_beam_irradiance_taub`
-                Unit: dimensionless
+                Units: dimensionless
                 Default value: 0.0
                 value >= 0.0
                 value <= 1.2
@@ -1454,7 +1470,7 @@ class SizingPeriodDesignDay(object):
 
         Args:
             value (float): value for IDD Field `ashrae_clear_sky_optical_depth_for_diffuse_irradiance_taud`
-                Unit: dimensionless
+                Units: dimensionless
                 Default value: 0.0
                 value >= 0.0
                 value <= 3.0
@@ -1520,6 +1536,16 @@ class SizingPeriodDesignDay(object):
 
         self._data["Sky Clearness"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -1565,9 +1591,11 @@ class SizingPeriodDesignDay(object):
 class SizingPeriodWeatherFileDays(object):
     """ Corresponds to IDD object `SizingPeriod:WeatherFileDays`
         Use a weather file period for design sizing calculations.
+    
     """
     internal_name = "SizingPeriod:WeatherFileDays"
     field_count = 8
+    required_fields = ["Name", "Begin Month", "Begin Day of Month", "End Month", "End Day of Month"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `SizingPeriod:WeatherFileDays`
@@ -1970,6 +1998,16 @@ class SizingPeriodWeatherFileDays(object):
 
         self._data["Use Weather File Rain and Snow Indicators"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -2000,9 +2038,11 @@ class SizingPeriodWeatherFileConditionType(object):
         EPW weather files are created with typical and extreme periods
         created heuristically from the weather file data.  For more
         details on these periods, see AuxiliaryPrograms document.
+    
     """
     internal_name = "SizingPeriod:WeatherFileConditionType"
     field_count = 5
+    required_fields = ["Name", "Period Selection"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `SizingPeriod:WeatherFileConditionType`
@@ -2308,6 +2348,16 @@ class SizingPeriodWeatherFileConditionType(object):
 
         self._data["Use Weather File Rain and Snow Indicators"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -2333,9 +2383,11 @@ class RunPeriod(object):
     """ Corresponds to IDD object `RunPeriod`
         Specified a range of dates and other parameters for a weather file simulation.
         Multiple run periods may be input, but they may not overlap.
+    
     """
     internal_name = "RunPeriod"
     field_count = 14
+    required_fields = ["Begin Month", "Begin Day of Month", "End Month", "End Day of Month"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `RunPeriod`
@@ -3009,6 +3061,16 @@ class RunPeriod(object):
 
         self._data["Start Year"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -3042,9 +3104,11 @@ class RunPeriod(object):
 class RunPeriodCustomRange(object):
     """ Corresponds to IDD object `RunPeriod:CustomRange`
         run simulation for a custom created weather file
+    
     """
     internal_name = "RunPeriod:CustomRange"
     field_count = 13
+    required_fields = ["Begin Month", "Begin Day of Month", "Begin Year", "End Month", "End Day of Month", "End Year"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `RunPeriod:CustomRange`
@@ -3663,6 +3727,16 @@ class RunPeriodCustomRange(object):
 
         self._data["Use Weather File Snow Indicators"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -3700,9 +3774,11 @@ class RunPeriodControlSpecialDays(object):
         be used.  However, the weather file specification will take precedence over
         any specification shown here.  (No error message on duplicate days or overlapping
         days).
+    
     """
     internal_name = "RunPeriodControl:SpecialDays"
     field_count = 4
+    required_fields = ["Name", "Start Date", "Special Day Type"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `RunPeriodControl:SpecialDays`
@@ -3832,7 +3908,7 @@ class RunPeriodControlSpecialDays(object):
 
         Args:
             value (float): value for IDD Field `duration`
-                Unit: days
+                Units: days
                 Default value: 1.0
                 value >= 1.0
                 value <= 366.0
@@ -3907,6 +3983,16 @@ class RunPeriodControlSpecialDays(object):
 
         self._data["Special Day Type"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -3933,9 +4019,11 @@ class RunPeriodControlDaylightSavingTime(object):
         Ignores any daylight saving time period on the weather file and uses this definition.
         These are not used with SizingPeriod:DesignDay objects.
         Use with SizingPeriod:WeatherFileDays object can be controlled in that object.
+    
     """
     internal_name = "RunPeriodControl:DaylightSavingTime"
     field_count = 2
+    required_fields = ["Start Date", "End Date"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `RunPeriodControl:DaylightSavingTime`
@@ -4038,6 +4126,16 @@ class RunPeriodControlDaylightSavingTime(object):
 
         self._data["End Date"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -4059,9 +4157,11 @@ class RunPeriodControlDaylightSavingTime(object):
 class WeatherPropertySkyTemperature(object):
     """ Corresponds to IDD object `WeatherProperty:SkyTemperature`
         This object is used to override internal sky temperature calculations.
+    
     """
     internal_name = "WeatherProperty:SkyTemperature"
     field_count = 3
+    required_fields = ["Calculation Type", "Schedule Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `WeatherProperty:SkyTemperature`
@@ -4210,6 +4310,16 @@ class WeatherPropertySkyTemperature(object):
 
         self._data["Schedule Name"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -4234,9 +4344,11 @@ class SiteWeatherStation(object):
         This object should only be used for non-standard weather data.  Standard weather data
         such as TMY2, IWEC, and ASHRAE design day data are all measured at the
         default conditions and do not require this object.
+    
     """
     internal_name = "Site:WeatherStation"
     field_count = 4
+    required_fields = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Site:WeatherStation`
@@ -4290,7 +4402,7 @@ class SiteWeatherStation(object):
 
         Args:
             value (float): value for IDD Field `wind_sensor_height_above_ground`
-                Unit: m
+                Units: m
                 Default value: 10.0
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -4361,7 +4473,7 @@ class SiteWeatherStation(object):
 
         Args:
             value (float): value for IDD Field `wind_speed_profile_boundary_layer_thickness`
-                Unit: m
+                Units: m
                 Default value: 270.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -4397,7 +4509,7 @@ class SiteWeatherStation(object):
 
         Args:
             value (float): value for IDD Field `air_temperature_sensor_height_above_ground`
-                Unit: m
+                Units: m
                 Default value: 1.5
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -4417,6 +4529,16 @@ class SiteWeatherStation(object):
                                  'for field `air_temperature_sensor_height_above_ground`')
 
         self._data["Air Temperature Sensor Height Above Ground"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):
@@ -4444,9 +4566,11 @@ class SiteHeightVariation(object):
         variations in wind speed and temperature.  When this object is not present, the default model
         for temperature dependence on height is used, and the wind speed is modeled according
         to the Terrain field of the BUILDING object.
+    
     """
     internal_name = "Site:HeightVariation"
     field_count = 3
+    required_fields = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Site:HeightVariation`
@@ -4530,7 +4654,7 @@ class SiteHeightVariation(object):
 
         Args:
             value (float): value for IDD Field `wind_speed_profile_boundary_layer_thickness`
-                Unit: m
+                Units: m
                 Default value: 370.0
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -4567,7 +4691,7 @@ class SiteHeightVariation(object):
 
         Args:
             value (float): value for IDD Field `air_temperature_gradient_coefficient`
-                Unit: K/m
+                Units: K/m
                 Default value: 0.0065
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -4587,6 +4711,16 @@ class SiteHeightVariation(object):
                                  'for field `air_temperature_gradient_coefficient`')
 
         self._data["Air Temperature Gradient Coefficient"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):
@@ -4617,9 +4751,11 @@ class SiteGroundTemperatureBuildingSurface(object):
         For best results, use the Slab or Basement program to calculate custom monthly
         average ground temperatures (see Auxiliary Programs).  For typical commercial
         buildings in the USA, a reasonable default value is 2C less than the average indoor space temperature.
+    
     """
     internal_name = "Site:GroundTemperature:BuildingSurface"
     field_count = 12
+    required_fields = ["January Ground Temperature", "February Ground Temperature", "March Ground Temperature", "April Ground Temperature", "May Ground Temperature", "June Ground Temperature", "July Ground Temperature", "August Ground Temperature", "September Ground Temperature", "October Ground Temperature", "November Ground Temperature", "December Ground Temperature"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Site:GroundTemperature:BuildingSurface`
@@ -4721,7 +4857,7 @@ class SiteGroundTemperatureBuildingSurface(object):
 
         Args:
             value (float): value for IDD Field `january_ground_temperature`
-                Unit: C
+                Units: C
                 Default value: 18.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -4753,7 +4889,7 @@ class SiteGroundTemperatureBuildingSurface(object):
 
         Args:
             value (float): value for IDD Field `february_ground_temperature`
-                Unit: C
+                Units: C
                 Default value: 18.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -4785,7 +4921,7 @@ class SiteGroundTemperatureBuildingSurface(object):
 
         Args:
             value (float): value for IDD Field `march_ground_temperature`
-                Unit: C
+                Units: C
                 Default value: 18.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -4817,7 +4953,7 @@ class SiteGroundTemperatureBuildingSurface(object):
 
         Args:
             value (float): value for IDD Field `april_ground_temperature`
-                Unit: C
+                Units: C
                 Default value: 18.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -4849,7 +4985,7 @@ class SiteGroundTemperatureBuildingSurface(object):
 
         Args:
             value (float): value for IDD Field `may_ground_temperature`
-                Unit: C
+                Units: C
                 Default value: 18.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -4881,7 +5017,7 @@ class SiteGroundTemperatureBuildingSurface(object):
 
         Args:
             value (float): value for IDD Field `june_ground_temperature`
-                Unit: C
+                Units: C
                 Default value: 18.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -4913,7 +5049,7 @@ class SiteGroundTemperatureBuildingSurface(object):
 
         Args:
             value (float): value for IDD Field `july_ground_temperature`
-                Unit: C
+                Units: C
                 Default value: 18.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -4945,7 +5081,7 @@ class SiteGroundTemperatureBuildingSurface(object):
 
         Args:
             value (float): value for IDD Field `august_ground_temperature`
-                Unit: C
+                Units: C
                 Default value: 18.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -4977,7 +5113,7 @@ class SiteGroundTemperatureBuildingSurface(object):
 
         Args:
             value (float): value for IDD Field `september_ground_temperature`
-                Unit: C
+                Units: C
                 Default value: 18.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -5009,7 +5145,7 @@ class SiteGroundTemperatureBuildingSurface(object):
 
         Args:
             value (float): value for IDD Field `october_ground_temperature`
-                Unit: C
+                Units: C
                 Default value: 18.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -5041,7 +5177,7 @@ class SiteGroundTemperatureBuildingSurface(object):
 
         Args:
             value (float): value for IDD Field `november_ground_temperature`
-                Unit: C
+                Units: C
                 Default value: 18.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -5073,7 +5209,7 @@ class SiteGroundTemperatureBuildingSurface(object):
 
         Args:
             value (float): value for IDD Field `december_ground_temperature`
-                Unit: C
+                Units: C
                 Default value: 18.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -5089,6 +5225,16 @@ class SiteGroundTemperatureBuildingSurface(object):
                                  'for field `december_ground_temperature`'.format(value))
 
         self._data["December Ground Temperature"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):
@@ -5123,9 +5269,11 @@ class SiteGroundTemperatureFcfactorMethod(object):
         These temperatures are specifically for underground walls and ground floors
         defined with the C-factor and F-factor methods, and should be close to the
         monthly average outdoor air temperature delayed by 3 months for the location.
+    
     """
     internal_name = "Site:GroundTemperature:FCfactorMethod"
     field_count = 12
+    required_fields = ["January Ground Temperature", "February Ground Temperature", "March Ground Temperature", "April Ground Temperature", "May Ground Temperature", "June Ground Temperature", "July Ground Temperature", "August Ground Temperature", "September Ground Temperature", "October Ground Temperature", "November Ground Temperature", "December Ground Temperature"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Site:GroundTemperature:FCfactorMethod`
@@ -5227,7 +5375,7 @@ class SiteGroundTemperatureFcfactorMethod(object):
 
         Args:
             value (float): value for IDD Field `january_ground_temperature`
-                Unit: C
+                Units: C
                 Default value: 13.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -5259,7 +5407,7 @@ class SiteGroundTemperatureFcfactorMethod(object):
 
         Args:
             value (float): value for IDD Field `february_ground_temperature`
-                Unit: C
+                Units: C
                 Default value: 13.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -5291,7 +5439,7 @@ class SiteGroundTemperatureFcfactorMethod(object):
 
         Args:
             value (float): value for IDD Field `march_ground_temperature`
-                Unit: C
+                Units: C
                 Default value: 13.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -5323,7 +5471,7 @@ class SiteGroundTemperatureFcfactorMethod(object):
 
         Args:
             value (float): value for IDD Field `april_ground_temperature`
-                Unit: C
+                Units: C
                 Default value: 13.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -5355,7 +5503,7 @@ class SiteGroundTemperatureFcfactorMethod(object):
 
         Args:
             value (float): value for IDD Field `may_ground_temperature`
-                Unit: C
+                Units: C
                 Default value: 13.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -5387,7 +5535,7 @@ class SiteGroundTemperatureFcfactorMethod(object):
 
         Args:
             value (float): value for IDD Field `june_ground_temperature`
-                Unit: C
+                Units: C
                 Default value: 13.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -5419,7 +5567,7 @@ class SiteGroundTemperatureFcfactorMethod(object):
 
         Args:
             value (float): value for IDD Field `july_ground_temperature`
-                Unit: C
+                Units: C
                 Default value: 13.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -5451,7 +5599,7 @@ class SiteGroundTemperatureFcfactorMethod(object):
 
         Args:
             value (float): value for IDD Field `august_ground_temperature`
-                Unit: C
+                Units: C
                 Default value: 13.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -5483,7 +5631,7 @@ class SiteGroundTemperatureFcfactorMethod(object):
 
         Args:
             value (float): value for IDD Field `september_ground_temperature`
-                Unit: C
+                Units: C
                 Default value: 13.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -5515,7 +5663,7 @@ class SiteGroundTemperatureFcfactorMethod(object):
 
         Args:
             value (float): value for IDD Field `october_ground_temperature`
-                Unit: C
+                Units: C
                 Default value: 13.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -5547,7 +5695,7 @@ class SiteGroundTemperatureFcfactorMethod(object):
 
         Args:
             value (float): value for IDD Field `november_ground_temperature`
-                Unit: C
+                Units: C
                 Default value: 13.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -5579,7 +5727,7 @@ class SiteGroundTemperatureFcfactorMethod(object):
 
         Args:
             value (float): value for IDD Field `december_ground_temperature`
-                Unit: C
+                Units: C
                 Default value: 13.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -5595,6 +5743,16 @@ class SiteGroundTemperatureFcfactorMethod(object):
                                  'for field `december_ground_temperature`'.format(value))
 
         self._data["December Ground Temperature"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):
@@ -5629,9 +5787,11 @@ class SiteGroundTemperatureShallow(object):
         These temperatures are specifically for the Surface Ground Heat Exchanger and
         should probably be close to the average outdoor air temperature for the location.
         They are not used in other models.
+    
     """
     internal_name = "Site:GroundTemperature:Shallow"
     field_count = 12
+    required_fields = ["January Surface Ground Temperature", "February Surface Ground Temperature", "March Surface Ground Temperature", "April Surface Ground Temperature", "May Surface Ground Temperature", "June Surface Ground Temperature", "July Surface Ground Temperature", "August Surface Ground Temperature", "September Surface Ground Temperature", "October Surface Ground Temperature", "November Surface Ground Temperature", "December Surface Ground Temperature"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Site:GroundTemperature:Shallow`
@@ -5733,7 +5893,7 @@ class SiteGroundTemperatureShallow(object):
 
         Args:
             value (float): value for IDD Field `january_surface_ground_temperature`
-                Unit: C
+                Units: C
                 Default value: 13.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -5765,7 +5925,7 @@ class SiteGroundTemperatureShallow(object):
 
         Args:
             value (float): value for IDD Field `february_surface_ground_temperature`
-                Unit: C
+                Units: C
                 Default value: 13.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -5797,7 +5957,7 @@ class SiteGroundTemperatureShallow(object):
 
         Args:
             value (float): value for IDD Field `march_surface_ground_temperature`
-                Unit: C
+                Units: C
                 Default value: 13.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -5829,7 +5989,7 @@ class SiteGroundTemperatureShallow(object):
 
         Args:
             value (float): value for IDD Field `april_surface_ground_temperature`
-                Unit: C
+                Units: C
                 Default value: 13.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -5861,7 +6021,7 @@ class SiteGroundTemperatureShallow(object):
 
         Args:
             value (float): value for IDD Field `may_surface_ground_temperature`
-                Unit: C
+                Units: C
                 Default value: 13.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -5893,7 +6053,7 @@ class SiteGroundTemperatureShallow(object):
 
         Args:
             value (float): value for IDD Field `june_surface_ground_temperature`
-                Unit: C
+                Units: C
                 Default value: 13.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -5925,7 +6085,7 @@ class SiteGroundTemperatureShallow(object):
 
         Args:
             value (float): value for IDD Field `july_surface_ground_temperature`
-                Unit: C
+                Units: C
                 Default value: 13.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -5957,7 +6117,7 @@ class SiteGroundTemperatureShallow(object):
 
         Args:
             value (float): value for IDD Field `august_surface_ground_temperature`
-                Unit: C
+                Units: C
                 Default value: 13.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -5989,7 +6149,7 @@ class SiteGroundTemperatureShallow(object):
 
         Args:
             value (float): value for IDD Field `september_surface_ground_temperature`
-                Unit: C
+                Units: C
                 Default value: 13.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -6021,7 +6181,7 @@ class SiteGroundTemperatureShallow(object):
 
         Args:
             value (float): value for IDD Field `october_surface_ground_temperature`
-                Unit: C
+                Units: C
                 Default value: 13.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -6053,7 +6213,7 @@ class SiteGroundTemperatureShallow(object):
 
         Args:
             value (float): value for IDD Field `november_surface_ground_temperature`
-                Unit: C
+                Units: C
                 Default value: 13.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -6085,7 +6245,7 @@ class SiteGroundTemperatureShallow(object):
 
         Args:
             value (float): value for IDD Field `december_surface_ground_temperature`
-                Unit: C
+                Units: C
                 Default value: 13.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -6101,6 +6261,16 @@ class SiteGroundTemperatureShallow(object):
                                  'for field `december_surface_ground_temperature`'.format(value))
 
         self._data["December Surface Ground Temperature"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):
@@ -6135,9 +6305,11 @@ class SiteGroundTemperatureDeep(object):
         These temperatures are specifically for the ground heat exchangers that would use
         "deep" (3-4 m depth) ground temperatures for their heat source.
         They are not used in other models.
+    
     """
     internal_name = "Site:GroundTemperature:Deep"
     field_count = 12
+    required_fields = ["January Deep Ground Temperature", "February Deep Ground Temperature", "March Deep Ground Temperature", "April Deep Ground Temperature", "May Deep Ground Temperature", "June Deep Ground Temperature", "July Deep Ground Temperature", "August Deep Ground Temperature", "September Deep Ground Temperature", "October Deep Ground Temperature", "November Deep Ground Temperature", "December Deep Ground Temperature"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Site:GroundTemperature:Deep`
@@ -6239,7 +6411,7 @@ class SiteGroundTemperatureDeep(object):
 
         Args:
             value (float): value for IDD Field `january_deep_ground_temperature`
-                Unit: C
+                Units: C
                 Default value: 16.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -6271,7 +6443,7 @@ class SiteGroundTemperatureDeep(object):
 
         Args:
             value (float): value for IDD Field `february_deep_ground_temperature`
-                Unit: C
+                Units: C
                 Default value: 16.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -6303,7 +6475,7 @@ class SiteGroundTemperatureDeep(object):
 
         Args:
             value (float): value for IDD Field `march_deep_ground_temperature`
-                Unit: C
+                Units: C
                 Default value: 16.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -6335,7 +6507,7 @@ class SiteGroundTemperatureDeep(object):
 
         Args:
             value (float): value for IDD Field `april_deep_ground_temperature`
-                Unit: C
+                Units: C
                 Default value: 16.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -6367,7 +6539,7 @@ class SiteGroundTemperatureDeep(object):
 
         Args:
             value (float): value for IDD Field `may_deep_ground_temperature`
-                Unit: C
+                Units: C
                 Default value: 16.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -6399,7 +6571,7 @@ class SiteGroundTemperatureDeep(object):
 
         Args:
             value (float): value for IDD Field `june_deep_ground_temperature`
-                Unit: C
+                Units: C
                 Default value: 16.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -6431,7 +6603,7 @@ class SiteGroundTemperatureDeep(object):
 
         Args:
             value (float): value for IDD Field `july_deep_ground_temperature`
-                Unit: C
+                Units: C
                 Default value: 16.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -6463,7 +6635,7 @@ class SiteGroundTemperatureDeep(object):
 
         Args:
             value (float): value for IDD Field `august_deep_ground_temperature`
-                Unit: C
+                Units: C
                 Default value: 16.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -6495,7 +6667,7 @@ class SiteGroundTemperatureDeep(object):
 
         Args:
             value (float): value for IDD Field `september_deep_ground_temperature`
-                Unit: C
+                Units: C
                 Default value: 16.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -6527,7 +6699,7 @@ class SiteGroundTemperatureDeep(object):
 
         Args:
             value (float): value for IDD Field `october_deep_ground_temperature`
-                Unit: C
+                Units: C
                 Default value: 16.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -6559,7 +6731,7 @@ class SiteGroundTemperatureDeep(object):
 
         Args:
             value (float): value for IDD Field `november_deep_ground_temperature`
-                Unit: C
+                Units: C
                 Default value: 16.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -6591,7 +6763,7 @@ class SiteGroundTemperatureDeep(object):
 
         Args:
             value (float): value for IDD Field `december_deep_ground_temperature`
-                Unit: C
+                Units: C
                 Default value: 16.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -6607,6 +6779,16 @@ class SiteGroundTemperatureDeep(object):
                                  'for field `december_deep_ground_temperature`'.format(value))
 
         self._data["December Deep Ground Temperature"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):
@@ -6640,9 +6822,11 @@ class SiteGroundDomain(object):
     """ Corresponds to IDD object `Site:GroundDomain`
         Ground coupled slab model for on-grade and
         in-grade cases with or without insulation.
+    
     """
     internal_name = "Site:GroundDomain"
     field_count = 24
+    required_fields = ["Name", "Ground Domain Depth", "Perimeter Offset", "Soil Thermal Conductivity", "Soil Density", "Soil Specific Heat", "Kusuda-Achenbach Average Surface Temperature", "Kusuda-Achenbach Average Amplitude of Surface Temperature", "Kusuda-Achenbach Phase Shift of Minimum Surface Temperature", "Slab Boundary Condition Model Name", "Slab Location", "Vertical Insulation", "Simulation Timestep"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Site:GroundDomain`
@@ -6849,7 +7033,7 @@ class SiteGroundDomain(object):
 
         Args:
             value (float): value for IDD Field `ground_domain_depth`
-                Unit: m
+                Units: m
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -6915,7 +7099,7 @@ class SiteGroundDomain(object):
 
         Args:
             value (float): value for IDD Field `perimeter_offset`
-                Unit: m
+                Units: m
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -6950,7 +7134,7 @@ class SiteGroundDomain(object):
 
         Args:
             value (float): value for IDD Field `soil_thermal_conductivity`
-                Unit: W/m-K
+                Units: W/m-K
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -6985,7 +7169,7 @@ class SiteGroundDomain(object):
 
         Args:
             value (float): value for IDD Field `soil_density`
-                Unit: kg/m3
+                Units: kg/m3
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -7020,7 +7204,7 @@ class SiteGroundDomain(object):
 
         Args:
             value (float): value for IDD Field `soil_specific_heat`
-                Unit: J/kg-K
+                Units: J/kg-K
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -7055,7 +7239,7 @@ class SiteGroundDomain(object):
 
         Args:
             value (float): value for IDD Field `soil_moisture_content_volume_fraction`
-                Unit: percent
+                Units: percent
                 Default value: 30.0
                 value >= 0.0
                 value <= 100.0
@@ -7095,7 +7279,7 @@ class SiteGroundDomain(object):
 
         Args:
             value (float): value for IDD Field `soil_moisture_content_volume_fraction_at_saturation`
-                Unit: percent
+                Units: percent
                 Default value: 50.0
                 value >= 0.0
                 value <= 100.0
@@ -7136,7 +7320,7 @@ class SiteGroundDomain(object):
 
         Args:
             value (float): value for IDD Field `kusudaachenbach_average_surface_temperature`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7168,7 +7352,7 @@ class SiteGroundDomain(object):
 
         Args:
             value (float): value for IDD Field `kusudaachenbach_average_amplitude_of_surface_temperature`
-                Unit: deltaC
+                Units: deltaC
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7201,7 +7385,7 @@ class SiteGroundDomain(object):
 
         Args:
             value (float): value for IDD Field `kusudaachenbach_phase_shift_of_minimum_surface_temperature`
-                Unit: days
+                Units: days
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7512,7 +7696,7 @@ class SiteGroundDomain(object):
 
         Args:
             value (float): value for IDD Field `perimeter_insulation_width`
-                Unit: m
+                Units: m
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -7627,7 +7811,7 @@ class SiteGroundDomain(object):
 
         Args:
             value (float): value for IDD Field `vertical_insulation_depth`
-                Unit: m
+                Units: m
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -7691,6 +7875,16 @@ class SiteGroundDomain(object):
 
         self._data["Simulation Timestep"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -7736,9 +7930,11 @@ class SiteGroundReflectance(object):
         Specifies the ground reflectance values used to calculate ground reflected solar.
         The ground reflectance can be further modified when snow is on the ground
         by Site:GroundReflectance:SnowModifier.
+    
     """
     internal_name = "Site:GroundReflectance"
     field_count = 12
+    required_fields = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Site:GroundReflectance`
@@ -7840,7 +8036,7 @@ class SiteGroundReflectance(object):
 
         Args:
             value (float): value for IDD Field `january_ground_reflectance`
-                Unit: dimensionless
+                Units: dimensionless
                 Default value: 0.2
                 value >= 0.0
                 value <= 1.0
@@ -7880,7 +8076,7 @@ class SiteGroundReflectance(object):
 
         Args:
             value (float): value for IDD Field `february_ground_reflectance`
-                Unit: dimensionless
+                Units: dimensionless
                 Default value: 0.2
                 value >= 0.0
                 value <= 1.0
@@ -7920,7 +8116,7 @@ class SiteGroundReflectance(object):
 
         Args:
             value (float): value for IDD Field `march_ground_reflectance`
-                Unit: dimensionless
+                Units: dimensionless
                 Default value: 0.2
                 value >= 0.0
                 value <= 1.0
@@ -7960,7 +8156,7 @@ class SiteGroundReflectance(object):
 
         Args:
             value (float): value for IDD Field `april_ground_reflectance`
-                Unit: dimensionless
+                Units: dimensionless
                 Default value: 0.2
                 value >= 0.0
                 value <= 1.0
@@ -8000,7 +8196,7 @@ class SiteGroundReflectance(object):
 
         Args:
             value (float): value for IDD Field `may_ground_reflectance`
-                Unit: dimensionless
+                Units: dimensionless
                 Default value: 0.2
                 value >= 0.0
                 value <= 1.0
@@ -8040,7 +8236,7 @@ class SiteGroundReflectance(object):
 
         Args:
             value (float): value for IDD Field `june_ground_reflectance`
-                Unit: dimensionless
+                Units: dimensionless
                 Default value: 0.2
                 value >= 0.0
                 value <= 1.0
@@ -8080,7 +8276,7 @@ class SiteGroundReflectance(object):
 
         Args:
             value (float): value for IDD Field `july_ground_reflectance`
-                Unit: dimensionless
+                Units: dimensionless
                 Default value: 0.2
                 value >= 0.0
                 value <= 1.0
@@ -8120,7 +8316,7 @@ class SiteGroundReflectance(object):
 
         Args:
             value (float): value for IDD Field `august_ground_reflectance`
-                Unit: dimensionless
+                Units: dimensionless
                 Default value: 0.2
                 value >= 0.0
                 value <= 1.0
@@ -8160,7 +8356,7 @@ class SiteGroundReflectance(object):
 
         Args:
             value (float): value for IDD Field `september_ground_reflectance`
-                Unit: dimensionless
+                Units: dimensionless
                 Default value: 0.2
                 value >= 0.0
                 value <= 1.0
@@ -8200,7 +8396,7 @@ class SiteGroundReflectance(object):
 
         Args:
             value (float): value for IDD Field `october_ground_reflectance`
-                Unit: dimensionless
+                Units: dimensionless
                 Default value: 0.2
                 value >= 0.0
                 value <= 1.0
@@ -8240,7 +8436,7 @@ class SiteGroundReflectance(object):
 
         Args:
             value (float): value for IDD Field `november_ground_reflectance`
-                Unit: dimensionless
+                Units: dimensionless
                 Default value: 0.2
                 value >= 0.0
                 value <= 1.0
@@ -8280,7 +8476,7 @@ class SiteGroundReflectance(object):
 
         Args:
             value (float): value for IDD Field `december_ground_reflectance`
-                Unit: dimensionless
+                Units: dimensionless
                 Default value: 0.2
                 value >= 0.0
                 value <= 1.0
@@ -8304,6 +8500,16 @@ class SiteGroundReflectance(object):
                                  'for field `december_ground_reflectance`')
 
         self._data["December Ground Reflectance"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):
@@ -8338,9 +8544,11 @@ class SiteGroundReflectanceSnowModifier(object):
         Specifies ground reflectance multipliers when snow resident on the ground.
         These multipliers are applied to the "normal" ground reflectances specified
         in Site:GroundReflectance.
+    
     """
     internal_name = "Site:GroundReflectance:SnowModifier"
     field_count = 2
+    required_fields = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Site:GroundReflectance:SnowModifier`
@@ -8451,6 +8659,16 @@ class SiteGroundReflectanceSnowModifier(object):
 
         self._data["Daylighting Ground Reflected Solar Modifier"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -8474,9 +8692,11 @@ class SiteWaterMainsTemperature(object):
         Used to calculate water mains temperatures delivered by underground water main pipes.
         Water mains temperatures are a function of outdoor climate conditions
         and vary with time of year.
+    
     """
     internal_name = "Site:WaterMainsTemperature"
     field_count = 4
+    required_fields = ["Calculation Method"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Site:WaterMainsTemperature`
@@ -8605,7 +8825,7 @@ class SiteWaterMainsTemperature(object):
 
         Args:
             value (float): value for IDD Field `annual_average_outdoor_air_temperature`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8636,7 +8856,7 @@ class SiteWaterMainsTemperature(object):
 
         Args:
             value (float): value for IDD Field `maximum_difference_in_monthly_average_outdoor_air_temperatures`
-                Unit: deltaC
+                Units: deltaC
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -8655,6 +8875,16 @@ class SiteWaterMainsTemperature(object):
                                  'for field `maximum_difference_in_monthly_average_outdoor_air_temperatures`')
 
         self._data["Maximum Difference In Monthly Average Outdoor Air Temperatures"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):
@@ -8680,9 +8910,11 @@ class SitePrecipitation(object):
     """ Corresponds to IDD object `Site:Precipitation`
         Used to describe the amount of water precipitation at the building site.
         Precipitation includes both rain and the equivalent water content of snow.
+    
     """
     internal_name = "Site:Precipitation"
     field_count = 4
+    required_fields = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Site:Precipitation`
@@ -8777,7 +9009,7 @@ class SitePrecipitation(object):
 
         Args:
             value (float): value for IDD Field `design_level_for_total_annual_precipitation`
-                Unit: m/yr
+                Units: m/yr
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8844,7 +9076,7 @@ class SitePrecipitation(object):
 
         Args:
             value (float): value for IDD Field `average_total_annual_precipitation`
-                Unit: m/yr
+                Units: m/yr
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -8863,6 +9095,16 @@ class SitePrecipitation(object):
                                  'for field `average_total_annual_precipitation`')
 
         self._data["Average Total Annual Precipitation"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):
@@ -8888,9 +9130,11 @@ class RoofIrrigation(object):
     """ Corresponds to IDD object `RoofIrrigation`
         Used to describe the amount of irrigation on the ecoroof surface over the course
         of the simulation runperiod.
+    
     """
     internal_name = "RoofIrrigation"
     field_count = 3
+    required_fields = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `RoofIrrigation`
@@ -9019,7 +9263,7 @@ class RoofIrrigation(object):
 
         Args:
             value (float): value for IDD Field `irrigation_maximum_saturation_threshold`
-                Unit: percent
+                Units: percent
                 Default value: 40.0
                 value >= 0.0
                 value <= 100.0
@@ -9044,6 +9288,16 @@ class RoofIrrigation(object):
 
         self._data["Irrigation Maximum Saturation Threshold"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -9066,9 +9320,11 @@ class RoofIrrigation(object):
 class SiteSolarAndVisibleSpectrum(object):
     """ Corresponds to IDD object `Site:SolarAndVisibleSpectrum`
         If this object is omitted, the default solar and visible spectrum data will be used.
+    
     """
     internal_name = "Site:SolarAndVisibleSpectrum"
     field_count = 4
+    required_fields = ["Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Site:SolarAndVisibleSpectrum`
@@ -9252,6 +9508,16 @@ class SiteSolarAndVisibleSpectrum(object):
 
         self._data["Visible Spectrum Data Object Name"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -9277,9 +9543,11 @@ class SiteSpectrumData(object):
         Spectrum Data Type is followed by up to 107 sets of normal-incidence measured values of
         [wavelength, spectrum] for wavelengths covering the solar (0.25 to 2.5 microns) or visible
         spectrum (0.38 to 0.78 microns)
+    
     """
     internal_name = "Site:SpectrumData"
     field_count = 216
+    required_fields = ["Name", "Spectrum Data Type"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Site:SpectrumData`
@@ -10680,7 +10948,7 @@ class SiteSpectrumData(object):
 
         Args:
             value (float): value for IDD Field `wavelength_1`
-                Unit: micron
+                Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -10741,7 +11009,7 @@ class SiteSpectrumData(object):
 
         Args:
             value (float): value for IDD Field `wavelength_2`
-                Unit: micron
+                Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -10802,7 +11070,7 @@ class SiteSpectrumData(object):
 
         Args:
             value (float): value for IDD Field `wavelength_3`
-                Unit: micron
+                Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -10863,7 +11131,7 @@ class SiteSpectrumData(object):
 
         Args:
             value (float): value for IDD Field `wavelength_4`
-                Unit: micron
+                Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -10924,7 +11192,7 @@ class SiteSpectrumData(object):
 
         Args:
             value (float): value for IDD Field `wavelength_5`
-                Unit: micron
+                Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -10985,7 +11253,7 @@ class SiteSpectrumData(object):
 
         Args:
             value (float): value for IDD Field `wavelength_6`
-                Unit: micron
+                Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -11046,7 +11314,7 @@ class SiteSpectrumData(object):
 
         Args:
             value (float): value for IDD Field `wavelength_7`
-                Unit: micron
+                Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -11107,7 +11375,7 @@ class SiteSpectrumData(object):
 
         Args:
             value (float): value for IDD Field `wavelength_8`
-                Unit: micron
+                Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -11168,7 +11436,7 @@ class SiteSpectrumData(object):
 
         Args:
             value (float): value for IDD Field `wavelength_9`
-                Unit: micron
+                Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -11229,7 +11497,7 @@ class SiteSpectrumData(object):
 
         Args:
             value (float): value for IDD Field `wavelength_10`
-                Unit: micron
+                Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -11290,7 +11558,7 @@ class SiteSpectrumData(object):
 
         Args:
             value (float): value for IDD Field `wavelength_11`
-                Unit: micron
+                Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -11351,7 +11619,7 @@ class SiteSpectrumData(object):
 
         Args:
             value (float): value for IDD Field `wavelength_12`
-                Unit: micron
+                Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -11412,7 +11680,7 @@ class SiteSpectrumData(object):
 
         Args:
             value (float): value for IDD Field `wavelength_13`
-                Unit: micron
+                Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -11473,7 +11741,7 @@ class SiteSpectrumData(object):
 
         Args:
             value (float): value for IDD Field `wavelength_14`
-                Unit: micron
+                Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -11534,7 +11802,7 @@ class SiteSpectrumData(object):
 
         Args:
             value (float): value for IDD Field `wavelength_15`
-                Unit: micron
+                Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -11595,7 +11863,7 @@ class SiteSpectrumData(object):
 
         Args:
             value (float): value for IDD Field `wavelength_16`
-                Unit: micron
+                Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -11656,7 +11924,7 @@ class SiteSpectrumData(object):
 
         Args:
             value (float): value for IDD Field `wavelength_17`
-                Unit: micron
+                Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -11717,7 +11985,7 @@ class SiteSpectrumData(object):
 
         Args:
             value (float): value for IDD Field `wavelength_18`
-                Unit: micron
+                Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -11778,7 +12046,7 @@ class SiteSpectrumData(object):
 
         Args:
             value (float): value for IDD Field `wavelength_19`
-                Unit: micron
+                Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -11839,7 +12107,7 @@ class SiteSpectrumData(object):
 
         Args:
             value (float): value for IDD Field `wavelength_20`
-                Unit: micron
+                Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -11900,7 +12168,7 @@ class SiteSpectrumData(object):
 
         Args:
             value (float): value for IDD Field `wavelength_21`
-                Unit: micron
+                Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -11961,7 +12229,7 @@ class SiteSpectrumData(object):
 
         Args:
             value (float): value for IDD Field `wavelength_22`
-                Unit: micron
+                Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -12022,7 +12290,7 @@ class SiteSpectrumData(object):
 
         Args:
             value (float): value for IDD Field `wavelength_23`
-                Unit: micron
+                Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -12083,7 +12351,7 @@ class SiteSpectrumData(object):
 
         Args:
             value (float): value for IDD Field `wavelength_24`
-                Unit: micron
+                Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -12144,7 +12412,7 @@ class SiteSpectrumData(object):
 
         Args:
             value (float): value for IDD Field `wavelength_25`
-                Unit: micron
+                Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -12205,7 +12473,7 @@ class SiteSpectrumData(object):
 
         Args:
             value (float): value for IDD Field `wavelength_26`
-                Unit: micron
+                Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -12266,7 +12534,7 @@ class SiteSpectrumData(object):
 
         Args:
             value (float): value for IDD Field `wavelength_27`
-                Unit: micron
+                Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -12327,7 +12595,7 @@ class SiteSpectrumData(object):
 
         Args:
             value (float): value for IDD Field `wavelength_28`
-                Unit: micron
+                Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -12388,7 +12656,7 @@ class SiteSpectrumData(object):
 
         Args:
             value (float): value for IDD Field `wavelength_29`
-                Unit: micron
+                Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -12449,7 +12717,7 @@ class SiteSpectrumData(object):
 
         Args:
             value (float): value for IDD Field `wavelength_30`
-                Unit: micron
+                Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -12510,7 +12778,7 @@ class SiteSpectrumData(object):
 
         Args:
             value (float): value for IDD Field `wavelength_31`
-                Unit: micron
+                Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -12571,7 +12839,7 @@ class SiteSpectrumData(object):
 
         Args:
             value (float): value for IDD Field `wavelength_32`
-                Unit: micron
+                Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -12632,7 +12900,7 @@ class SiteSpectrumData(object):
 
         Args:
             value (float): value for IDD Field `wavelength_33`
-                Unit: micron
+                Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -12693,7 +12961,7 @@ class SiteSpectrumData(object):
 
         Args:
             value (float): value for IDD Field `wavelength_34`
-                Unit: micron
+                Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -12754,7 +13022,7 @@ class SiteSpectrumData(object):
 
         Args:
             value (float): value for IDD Field `wavelength_35`
-                Unit: micron
+                Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -12815,7 +13083,7 @@ class SiteSpectrumData(object):
 
         Args:
             value (float): value for IDD Field `wavelength_36`
-                Unit: micron
+                Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -12876,7 +13144,7 @@ class SiteSpectrumData(object):
 
         Args:
             value (float): value for IDD Field `wavelength_37`
-                Unit: micron
+                Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -12937,7 +13205,7 @@ class SiteSpectrumData(object):
 
         Args:
             value (float): value for IDD Field `wavelength_38`
-                Unit: micron
+                Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -12998,7 +13266,7 @@ class SiteSpectrumData(object):
 
         Args:
             value (float): value for IDD Field `wavelength_39`
-                Unit: micron
+                Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -13059,7 +13327,7 @@ class SiteSpectrumData(object):
 
         Args:
             value (float): value for IDD Field `wavelength_40`
-                Unit: micron
+                Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -13120,7 +13388,7 @@ class SiteSpectrumData(object):
 
         Args:
             value (float): value for IDD Field `wavelength_41`
-                Unit: micron
+                Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -13181,7 +13449,7 @@ class SiteSpectrumData(object):
 
         Args:
             value (float): value for IDD Field `wavelength_42`
-                Unit: micron
+                Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -13242,7 +13510,7 @@ class SiteSpectrumData(object):
 
         Args:
             value (float): value for IDD Field `wavelength_43`
-                Unit: micron
+                Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -13303,7 +13571,7 @@ class SiteSpectrumData(object):
 
         Args:
             value (float): value for IDD Field `wavelength_44`
-                Unit: micron
+                Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -13364,7 +13632,7 @@ class SiteSpectrumData(object):
 
         Args:
             value (float): value for IDD Field `wavelength_45`
-                Unit: micron
+                Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -13425,7 +13693,7 @@ class SiteSpectrumData(object):
 
         Args:
             value (float): value for IDD Field `wavelength_46`
-                Unit: micron
+                Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -13486,7 +13754,7 @@ class SiteSpectrumData(object):
 
         Args:
             value (float): value for IDD Field `wavelength_47`
-                Unit: micron
+                Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -13547,7 +13815,7 @@ class SiteSpectrumData(object):
 
         Args:
             value (float): value for IDD Field `wavelength_48`
-                Unit: micron
+                Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -13608,7 +13876,7 @@ class SiteSpectrumData(object):
 
         Args:
             value (float): value for IDD Field `wavelength_49`
-                Unit: micron
+                Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -13669,7 +13937,7 @@ class SiteSpectrumData(object):
 
         Args:
             value (float): value for IDD Field `wavelength_50`
-                Unit: micron
+                Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -13730,7 +13998,7 @@ class SiteSpectrumData(object):
 
         Args:
             value (float): value for IDD Field `wavelength_51`
-                Unit: micron
+                Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -13791,7 +14059,7 @@ class SiteSpectrumData(object):
 
         Args:
             value (float): value for IDD Field `wavelength_52`
-                Unit: micron
+                Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -13852,7 +14120,7 @@ class SiteSpectrumData(object):
 
         Args:
             value (float): value for IDD Field `wavelength_53`
-                Unit: micron
+                Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -13913,7 +14181,7 @@ class SiteSpectrumData(object):
 
         Args:
             value (float): value for IDD Field `wavelength_54`
-                Unit: micron
+                Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -13974,7 +14242,7 @@ class SiteSpectrumData(object):
 
         Args:
             value (float): value for IDD Field `wavelength_55`
-                Unit: micron
+                Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -14035,7 +14303,7 @@ class SiteSpectrumData(object):
 
         Args:
             value (float): value for IDD Field `wavelength_56`
-                Unit: micron
+                Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -14096,7 +14364,7 @@ class SiteSpectrumData(object):
 
         Args:
             value (float): value for IDD Field `wavelength_57`
-                Unit: micron
+                Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -14157,7 +14425,7 @@ class SiteSpectrumData(object):
 
         Args:
             value (float): value for IDD Field `wavelength_58`
-                Unit: micron
+                Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -14218,7 +14486,7 @@ class SiteSpectrumData(object):
 
         Args:
             value (float): value for IDD Field `wavelength_59`
-                Unit: micron
+                Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -14279,7 +14547,7 @@ class SiteSpectrumData(object):
 
         Args:
             value (float): value for IDD Field `wavelength_60`
-                Unit: micron
+                Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -14340,7 +14608,7 @@ class SiteSpectrumData(object):
 
         Args:
             value (float): value for IDD Field `wavelength_61`
-                Unit: micron
+                Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -14401,7 +14669,7 @@ class SiteSpectrumData(object):
 
         Args:
             value (float): value for IDD Field `wavelength_62`
-                Unit: micron
+                Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -14462,7 +14730,7 @@ class SiteSpectrumData(object):
 
         Args:
             value (float): value for IDD Field `wavelength_63`
-                Unit: micron
+                Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -14523,7 +14791,7 @@ class SiteSpectrumData(object):
 
         Args:
             value (float): value for IDD Field `wavelength_64`
-                Unit: micron
+                Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -14584,7 +14852,7 @@ class SiteSpectrumData(object):
 
         Args:
             value (float): value for IDD Field `wavelength_65`
-                Unit: micron
+                Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -14645,7 +14913,7 @@ class SiteSpectrumData(object):
 
         Args:
             value (float): value for IDD Field `wavelength_66`
-                Unit: micron
+                Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -14706,7 +14974,7 @@ class SiteSpectrumData(object):
 
         Args:
             value (float): value for IDD Field `wavelength_67`
-                Unit: micron
+                Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -14767,7 +15035,7 @@ class SiteSpectrumData(object):
 
         Args:
             value (float): value for IDD Field `wavelength_68`
-                Unit: micron
+                Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -14828,7 +15096,7 @@ class SiteSpectrumData(object):
 
         Args:
             value (float): value for IDD Field `wavelength_69`
-                Unit: micron
+                Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -14889,7 +15157,7 @@ class SiteSpectrumData(object):
 
         Args:
             value (float): value for IDD Field `wavelength_70`
-                Unit: micron
+                Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -14950,7 +15218,7 @@ class SiteSpectrumData(object):
 
         Args:
             value (float): value for IDD Field `wavelength_71`
-                Unit: micron
+                Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -15011,7 +15279,7 @@ class SiteSpectrumData(object):
 
         Args:
             value (float): value for IDD Field `wavelength_72`
-                Unit: micron
+                Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -15072,7 +15340,7 @@ class SiteSpectrumData(object):
 
         Args:
             value (float): value for IDD Field `wavelength_73`
-                Unit: micron
+                Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -15133,7 +15401,7 @@ class SiteSpectrumData(object):
 
         Args:
             value (float): value for IDD Field `wavelength_74`
-                Unit: micron
+                Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -15194,7 +15462,7 @@ class SiteSpectrumData(object):
 
         Args:
             value (float): value for IDD Field `wavelength_75`
-                Unit: micron
+                Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -15255,7 +15523,7 @@ class SiteSpectrumData(object):
 
         Args:
             value (float): value for IDD Field `wavelength_76`
-                Unit: micron
+                Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -15316,7 +15584,7 @@ class SiteSpectrumData(object):
 
         Args:
             value (float): value for IDD Field `wavelength_77`
-                Unit: micron
+                Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -15377,7 +15645,7 @@ class SiteSpectrumData(object):
 
         Args:
             value (float): value for IDD Field `wavelength_78`
-                Unit: micron
+                Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -15438,7 +15706,7 @@ class SiteSpectrumData(object):
 
         Args:
             value (float): value for IDD Field `wavelength_79`
-                Unit: micron
+                Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -15499,7 +15767,7 @@ class SiteSpectrumData(object):
 
         Args:
             value (float): value for IDD Field `wavelength_80`
-                Unit: micron
+                Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -15560,7 +15828,7 @@ class SiteSpectrumData(object):
 
         Args:
             value (float): value for IDD Field `wavelength_81`
-                Unit: micron
+                Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -15621,7 +15889,7 @@ class SiteSpectrumData(object):
 
         Args:
             value (float): value for IDD Field `wavelength_82`
-                Unit: micron
+                Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -15682,7 +15950,7 @@ class SiteSpectrumData(object):
 
         Args:
             value (float): value for IDD Field `wavelength_83`
-                Unit: micron
+                Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -15743,7 +16011,7 @@ class SiteSpectrumData(object):
 
         Args:
             value (float): value for IDD Field `wavelength_84`
-                Unit: micron
+                Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -15804,7 +16072,7 @@ class SiteSpectrumData(object):
 
         Args:
             value (float): value for IDD Field `wavelength_85`
-                Unit: micron
+                Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -15865,7 +16133,7 @@ class SiteSpectrumData(object):
 
         Args:
             value (float): value for IDD Field `wavelength_86`
-                Unit: micron
+                Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -15926,7 +16194,7 @@ class SiteSpectrumData(object):
 
         Args:
             value (float): value for IDD Field `wavelength_87`
-                Unit: micron
+                Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -15987,7 +16255,7 @@ class SiteSpectrumData(object):
 
         Args:
             value (float): value for IDD Field `wavelength_88`
-                Unit: micron
+                Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -16048,7 +16316,7 @@ class SiteSpectrumData(object):
 
         Args:
             value (float): value for IDD Field `wavelength_89`
-                Unit: micron
+                Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -16109,7 +16377,7 @@ class SiteSpectrumData(object):
 
         Args:
             value (float): value for IDD Field `wavelength_90`
-                Unit: micron
+                Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -16170,7 +16438,7 @@ class SiteSpectrumData(object):
 
         Args:
             value (float): value for IDD Field `wavelength_91`
-                Unit: micron
+                Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -16231,7 +16499,7 @@ class SiteSpectrumData(object):
 
         Args:
             value (float): value for IDD Field `wavelength_92`
-                Unit: micron
+                Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -16292,7 +16560,7 @@ class SiteSpectrumData(object):
 
         Args:
             value (float): value for IDD Field `wavelength_93`
-                Unit: micron
+                Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -16353,7 +16621,7 @@ class SiteSpectrumData(object):
 
         Args:
             value (float): value for IDD Field `wavelength_94`
-                Unit: micron
+                Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -16414,7 +16682,7 @@ class SiteSpectrumData(object):
 
         Args:
             value (float): value for IDD Field `wavelength_95`
-                Unit: micron
+                Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -16475,7 +16743,7 @@ class SiteSpectrumData(object):
 
         Args:
             value (float): value for IDD Field `wavelength_96`
-                Unit: micron
+                Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -16536,7 +16804,7 @@ class SiteSpectrumData(object):
 
         Args:
             value (float): value for IDD Field `wavelength_97`
-                Unit: micron
+                Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -16597,7 +16865,7 @@ class SiteSpectrumData(object):
 
         Args:
             value (float): value for IDD Field `wavelength_98`
-                Unit: micron
+                Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -16658,7 +16926,7 @@ class SiteSpectrumData(object):
 
         Args:
             value (float): value for IDD Field `wavelength_99`
-                Unit: micron
+                Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -16719,7 +16987,7 @@ class SiteSpectrumData(object):
 
         Args:
             value (float): value for IDD Field `wavelength_100`
-                Unit: micron
+                Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -16780,7 +17048,7 @@ class SiteSpectrumData(object):
 
         Args:
             value (float): value for IDD Field `wavelength_101`
-                Unit: micron
+                Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -16841,7 +17109,7 @@ class SiteSpectrumData(object):
 
         Args:
             value (float): value for IDD Field `wavelength_102`
-                Unit: micron
+                Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -16902,7 +17170,7 @@ class SiteSpectrumData(object):
 
         Args:
             value (float): value for IDD Field `wavelength_103`
-                Unit: micron
+                Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -16963,7 +17231,7 @@ class SiteSpectrumData(object):
 
         Args:
             value (float): value for IDD Field `wavelength_104`
-                Unit: micron
+                Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -17024,7 +17292,7 @@ class SiteSpectrumData(object):
 
         Args:
             value (float): value for IDD Field `wavelength_105`
-                Unit: micron
+                Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -17085,7 +17353,7 @@ class SiteSpectrumData(object):
 
         Args:
             value (float): value for IDD Field `wavelength_106`
-                Unit: micron
+                Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -17146,7 +17414,7 @@ class SiteSpectrumData(object):
 
         Args:
             value (float): value for IDD Field `wavelength_107`
-                Unit: micron
+                Units: micron
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -17191,6 +17459,16 @@ class SiteSpectrumData(object):
                                  'for field `spectrum_107`'.format(value))
 
         self._data["Spectrum 107"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):

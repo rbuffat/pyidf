@@ -3,9 +3,11 @@ from collections import OrderedDict
 class ComplianceBuilding(object):
     """ Corresponds to IDD object `Compliance:Building`
         Building level inputs related to compliance to building standards, building codes, and beyond energy code programs.
+    
     """
     internal_name = "Compliance:Building"
     field_count = 1
+    required_fields = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Compliance:Building`
@@ -43,7 +45,7 @@ class ComplianceBuilding(object):
 
         Args:
             value (float): value for IDD Field `building_rotation_for_appendix_g`
-                Unit: deg
+                Units: deg
                 Default value: 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -59,6 +61,16 @@ class ComplianceBuilding(object):
                                  'for field `building_rotation_for_appendix_g`'.format(value))
 
         self._data["Building Rotation for Appendix G"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):

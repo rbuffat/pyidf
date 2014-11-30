@@ -7,9 +7,11 @@ class CurveLinear(object):
         maximum and minimum valid independent variable values. Optional inputs for
         curve minimum and maximum may be used to limit the output of the performance curve.
         curve = C1 + C2*x
+    
     """
     internal_name = "Curve:Linear"
     field_count = 9
+    required_fields = ["Name", "Coefficient1 Constant", "Coefficient2 x", "Minimum Value of x", "Maximum Value of x"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Curve:Linear`
@@ -391,6 +393,16 @@ class CurveLinear(object):
 
         self._data["Output Unit Type"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -423,9 +435,11 @@ class CurveQuadLinear(object):
         maximum and minimum valid independent variable values. Optional inputs for curve
         minimum and maximum may be used to limit the output of the performance curve.
         curve = C1 + C2*w + C3*x + C4*y + C5*z
+    
     """
     internal_name = "Curve:QuadLinear"
     field_count = 20
+    required_fields = ["Name", "Coefficient1 Constant", "Coefficient2 w", "Coefficient3 x", "Coefficient4 y", "Coefficient5 z", "Minimum Value of w", "Maximum Value of w", "Minimum Value of x", "Maximum Value of x", "Minimum Value of y", "Maximum Value of y", "Minimum Value of z", "Maximum Value of z"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Curve:QuadLinear`
@@ -1257,6 +1271,16 @@ class CurveQuadLinear(object):
 
         self._data["Input Unit Type for z"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -1300,9 +1324,11 @@ class CurveQuadratic(object):
         the maximum and minimum valid independent variable values. Optional inputs for curve
         minimum and maximum may be used to limit the output of the performance curve.
         curve = C1 + C2*x + C3*x**2
+    
     """
     internal_name = "Curve:Quadratic"
     field_count = 10
+    required_fields = ["Name", "Coefficient1 Constant", "Coefficient2 x", "Coefficient3 x**2", "Minimum Value of x", "Maximum Value of x"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Curve:Quadratic`
@@ -1718,6 +1744,16 @@ class CurveQuadratic(object):
 
         self._data["Output Unit Type"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -1751,9 +1787,11 @@ class CurveCubic(object):
         maximum and minimum valid independent variable values. Optional inputs for curve
         minimum and maximum may be used to limit the output of the performance curve.
         curve = C1 + C2*x + C3*x**2 + C4*x**3
+    
     """
     internal_name = "Curve:Cubic"
     field_count = 11
+    required_fields = ["Name", "Coefficient1 Constant", "Coefficient2 x", "Coefficient3 x**2", "Coefficient4 x**3", "Minimum Value of x", "Maximum Value of x"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Curve:Cubic`
@@ -2205,6 +2243,16 @@ class CurveCubic(object):
 
         self._data["Output Unit Type"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -2240,9 +2288,11 @@ class CurveQuartic(object):
         Optional inputs for curve minimum and maximum may be used to limit the
         output of the performance curve.
         curve = C1 + C2*x + C3*x**2 + C4*x**3 + C5*x**4
+    
     """
     internal_name = "Curve:Quartic"
     field_count = 12
+    required_fields = ["Name", "Coefficient1 Constant", "Coefficient2 x", "Coefficient3 x**2", "Coefficient4 x**3", "Coefficient5 x**4", "Minimum Value of x", "Maximum Value of x"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Curve:Quartic`
@@ -2730,6 +2780,16 @@ class CurveQuartic(object):
 
         self._data["Output Unit Type"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -2766,9 +2826,11 @@ class CurveExponent(object):
         minimum and maximum may be used to limit the output of the performance curve.
         curve = C1 + C2*x**C3
         The independent variable x is raised to the C3 power, multiplied by C2, and C1 is added to the result.
+    
     """
     internal_name = "Curve:Exponent"
     field_count = 10
+    required_fields = ["Name", "Coefficient1 Constant", "Coefficient2 Constant", "Coefficient3 Constant", "Minimum Value of x", "Maximum Value of x"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Curve:Exponent`
@@ -3186,6 +3248,16 @@ class CurveExponent(object):
 
         self._data["Output Unit Type"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -3220,9 +3292,11 @@ class CurveBicubic(object):
         be used to limit the output of the performance curve.
         curve = C1 + C2*x + C3*x**2 + C4*y + C5*y**2 + C6*x*y + C7*x**3 + C8*y**3 + C9*x**2*y
         + C10*x*y**2
+    
     """
     internal_name = "Curve:Bicubic"
     field_count = 20
+    required_fields = ["Name", "Coefficient1 Constant", "Coefficient2 x", "Coefficient3 x**2", "Coefficient4 y", "Coefficient5 y**2", "Coefficient6 x*y", "Coefficient7 x**3", "Coefficient8 y**3", "Coefficient9 x**2*y", "Coefficient10 x*y**2", "Minimum Value of x", "Maximum Value of x", "Minimum Value of y", "Maximum Value of y"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Curve:Bicubic`
@@ -4019,6 +4093,16 @@ class CurveBicubic(object):
 
         self._data["Output Unit Type"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -4062,9 +4146,11 @@ class CurveBiquadratic(object):
         Optional inputs for curve minimum and maximum may be used to limit the
         output of the performance curve.
         curve = C1 + C2*x + C3*x**2 + C4*y + C5*y**2 + C6*x*y
+    
     """
     internal_name = "Curve:Biquadratic"
     field_count = 16
+    required_fields = ["Name", "Coefficient1 Constant", "Coefficient2 x", "Coefficient3 x**2", "Coefficient4 y", "Coefficient5 y**2", "Coefficient6 x*y", "Minimum Value of x", "Maximum Value of x", "Minimum Value of y", "Maximum Value of y"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Curve:Biquadratic`
@@ -4717,6 +4803,16 @@ class CurveBiquadratic(object):
 
         self._data["Output Unit Type"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -4756,9 +4852,11 @@ class CurveQuadraticLinear(object):
         variables. Optional inputs for curve minimum and maximum may be used to limit the
         output of the performance curve.
         curve = (C1 + C2*x + C3*x**2) + (C4 + C5*x + C6*x**2)*y
+    
     """
     internal_name = "Curve:QuadraticLinear"
     field_count = 16
+    required_fields = ["Name", "Coefficient1 Constant", "Coefficient2 x", "Coefficient3 x**2", "Coefficient4 y", "Coefficient5 x*y", "Coefficient6 x**2*y", "Minimum Value of x", "Maximum Value of x", "Minimum Value of y", "Maximum Value of y"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Curve:QuadraticLinear`
@@ -5411,6 +5509,16 @@ class CurveQuadraticLinear(object):
 
         self._data["Output Unit Type"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -5456,9 +5564,11 @@ class CurveTriquadratic(object):
         + a16*y*z + a17*y*z**2 + a18*y**2*z + a19*x**2*y**2*z**2
         + a20*x**2*y**2*z + a21*x**2*y*z**2 + a22*x*y**2*z**2
         + a23*x**2*y*z + a24*x*y**2*z + a25*x*y*z**2 +a26*x*y*z
+    
     """
     internal_name = "Curve:Triquadratic"
     field_count = 40
+    required_fields = ["Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Curve:Triquadratic`
@@ -6996,6 +7106,16 @@ class CurveTriquadratic(object):
 
         self._data["Output Unit Type"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -7057,9 +7177,11 @@ class CurveFunctionalPressureDrop(object):
         Sets up curve information for minor loss and/or friction
         calculations in plant pressure simulations
         Expression: DeltaP = {K + f*(L/D)} * (rho * V^2) / 2
+    
     """
     internal_name = "Curve:Functional:PressureDrop"
     field_count = 6
+    required_fields = ["Name", "Diameter"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Curve:Functional:PressureDrop`
@@ -7159,7 +7281,7 @@ class CurveFunctionalPressureDrop(object):
 
         Args:
             value (float): value for IDD Field `diameter`
-                Unit: m
+                Units: m
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -7195,7 +7317,7 @@ class CurveFunctionalPressureDrop(object):
 
         Args:
             value (float): value for IDD Field `minor_loss_coefficient`
-                Unit: dimensionless
+                Units: dimensionless
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -7231,7 +7353,7 @@ class CurveFunctionalPressureDrop(object):
 
         Args:
             value (float): value for IDD Field `length`
-                Unit: m
+                Units: m
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -7267,7 +7389,7 @@ class CurveFunctionalPressureDrop(object):
 
         Args:
             value (float): value for IDD Field `roughness`
-                Unit: m
+                Units: m
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -7323,6 +7445,16 @@ class CurveFunctionalPressureDrop(object):
 
         self._data["Fixed Friction Factor"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -7355,9 +7487,11 @@ class CurveFanPressureRise(object):
         curve = C1*Qfan**2+C2*Qfan+C3*Qfan*(Psm-Po)**0.5+C4*(Psm-Po)
         Po assumed to be zero
         See InputOut Reference for curve details
+    
     """
     internal_name = "Curve:FanPressureRise"
     field_count = 11
+    required_fields = ["Name", "Coefficient1 C1", "Coefficient2 C2", "Coefficient3 C3", "Coefficient4 C4", "Minimum Value of Qfan", "Maximum Value of Qfan", "Minimum Value of Psm", "Maximum Value of Psm"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Curve:FanPressureRise`
@@ -7606,7 +7740,7 @@ class CurveFanPressureRise(object):
 
         Args:
             value (float): value for IDD Field `minimum_value_of_qfan`
-                Unit: m3/s
+                Units: m3/s
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7637,7 +7771,7 @@ class CurveFanPressureRise(object):
 
         Args:
             value (float): value for IDD Field `maximum_value_of_qfan`
-                Unit: m3/s
+                Units: m3/s
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7668,7 +7802,8 @@ class CurveFanPressureRise(object):
 
         Args:
             value (float): value for IDD Field `minimum_value_of_psm`
-                Unit: Pa
+                Units: Pa
+                IP-Units: Pa
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7699,7 +7834,8 @@ class CurveFanPressureRise(object):
 
         Args:
             value (float): value for IDD Field `maximum_value_of_psm`
-                Unit: Pa
+                Units: Pa
+                IP-Units: Pa
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7731,7 +7867,8 @@ class CurveFanPressureRise(object):
 
         Args:
             value (float): value for IDD Field `minimum_curve_output`
-                Unit: Pa
+                Units: Pa
+                IP-Units: Pa
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7763,7 +7900,8 @@ class CurveFanPressureRise(object):
 
         Args:
             value (float): value for IDD Field `maximum_curve_output`
-                Unit: Pa
+                Units: Pa
+                IP-Units: Pa
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7778,6 +7916,16 @@ class CurveFanPressureRise(object):
                                  'for field `maximum_curve_output`'.format(value))
 
         self._data["Maximum Curve Output"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):
@@ -7813,9 +7961,11 @@ class CurveExponentialSkewNormal(object):
         and minimum valid independent variable values. Optional inputs for the curve minimum
         and maximum may be used to limit the output of the performance curve.
         curve = see Input Output Reference
+    
     """
     internal_name = "Curve:ExponentialSkewNormal"
     field_count = 11
+    required_fields = ["Name", "Coefficient1 C1", "Coefficient2 C2", "Coefficient3 C3", "Coefficient4 C4", "Minimum Value of x", "Maximum Value of x"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Curve:ExponentialSkewNormal`
@@ -8254,6 +8404,16 @@ class CurveExponentialSkewNormal(object):
 
         self._data["Output Unit Type"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -8288,9 +8448,11 @@ class CurveSigmoid(object):
         valid independent variable values. Optional inputs for the curve minimum and maximum
         may be used to limit the output of the performance curve.
         curve = C1+C2/[1+exp((C3-x)/C4)]**C5
+    
     """
     internal_name = "Curve:Sigmoid"
     field_count = 12
+    required_fields = ["Name", "Coefficient1 C1", "Coefficient2 C2", "Coefficient3 C3", "Coefficient4 C4", "Coefficient5 C5", "Minimum Value of x", "Maximum Value of x"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Curve:Sigmoid`
@@ -8765,6 +8927,16 @@ class CurveSigmoid(object):
 
         self._data["Output Unit Type"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -8800,9 +8972,11 @@ class CurveRectangularHyperbola1(object):
         minimum valid independent variable values. Optional inputs for the curve minimum and
         maximum may be used to limit the output of the performance curve.
         curve = ((C1*x)/(C2+x))+C3
+    
     """
     internal_name = "Curve:RectangularHyperbola1"
     field_count = 10
+    required_fields = ["Name", "Coefficient1 C1", "Coefficient2 C2", "Coefficient3 C3", "Minimum Value of x", "Maximum Value of x"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Curve:RectangularHyperbola1`
@@ -9204,6 +9378,16 @@ class CurveRectangularHyperbola1(object):
 
         self._data["Output Unit Type"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -9237,9 +9421,11 @@ class CurveRectangularHyperbola2(object):
         minimum valid independent variable values. Optional inputs for the curve minimum and
         maximum may be used to limit the output of the performance curve.
         curve = ((C1*x)/(C2+x))+(C3*x)
+    
     """
     internal_name = "Curve:RectangularHyperbola2"
     field_count = 10
+    required_fields = ["Name", "Coefficient1 C1", "Coefficient2 C2", "Coefficient3 C3", "Minimum Value of x", "Maximum Value of x"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Curve:RectangularHyperbola2`
@@ -9641,6 +9827,16 @@ class CurveRectangularHyperbola2(object):
 
         self._data["Output Unit Type"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -9674,9 +9870,11 @@ class CurveExponentialDecay(object):
         valid independent variable values. Optional inputs for the curve minimum and
         maximum may be used to limit the output of the performance curve.
         curve = C1+C2*exp(C3*x)
+    
     """
     internal_name = "Curve:ExponentialDecay"
     field_count = 10
+    required_fields = ["Name", "Coefficient1 C1", "Coefficient2 C2", "Coefficient3 C3", "Minimum Value of x", "Maximum Value of x"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Curve:ExponentialDecay`
@@ -10078,6 +10276,16 @@ class CurveExponentialDecay(object):
 
         self._data["Output Unit Type"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -10111,9 +10319,11 @@ class CurveDoubleExponentialDecay(object):
         valid independent variable values. Optional inputs for the curve minimum and
         maximum may be used to limit the output of the performance curve.
         curve = C1+C2*exp(C3*x)+C4*exp(C5*x)
+    
     """
     internal_name = "Curve:DoubleExponentialDecay"
     field_count = 12
+    required_fields = ["Name", "Coefficient1 C1", "Coefficient2 C2", "Coefficient3 C3", "Coefficient3 C4", "Coefficient3 C5", "Minimum Value of x", "Maximum Value of x"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Curve:DoubleExponentialDecay`
@@ -10586,6 +10796,16 @@ class CurveDoubleExponentialDecay(object):
                                  'field `output_unit_type`'.format(value))
 
         self._data["Output Unit Type"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):

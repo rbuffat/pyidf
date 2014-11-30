@@ -3,9 +3,11 @@ from collections import OrderedDict
 class ExteriorLights(object):
     """ Corresponds to IDD object `Exterior:Lights`
         only used for Meter type reporting, does not affect building loads
+    
     """
     internal_name = "Exterior:Lights"
     field_count = 5
+    required_fields = ["Name", "Schedule Name", "Design Level"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Exterior:Lights`
@@ -132,7 +134,8 @@ class ExteriorLights(object):
 
         Args:
             value (float): value for IDD Field `design_level`
-                Unit: W
+                Units: W
+                IP-Units: W
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -229,6 +232,16 @@ class ExteriorLights(object):
 
         self._data["End-Use Subcategory"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -253,9 +266,11 @@ class ExteriorLights(object):
 class ExteriorFuelEquipment(object):
     """ Corresponds to IDD object `Exterior:FuelEquipment`
         only used for Meter type reporting, does not affect building loads
+    
     """
     internal_name = "Exterior:FuelEquipment"
     field_count = 5
+    required_fields = ["Name", "Fuel Use Type", "Schedule Name", "Design Level"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Exterior:FuelEquipment`
@@ -446,7 +461,8 @@ class ExteriorFuelEquipment(object):
 
         Args:
             value (float): value for IDD Field `design_level`
-                Unit: W
+                Units: W
+                IP-Units: W
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -500,6 +516,16 @@ class ExteriorFuelEquipment(object):
 
         self._data["End-Use Subcategory"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -524,9 +550,11 @@ class ExteriorFuelEquipment(object):
 class ExteriorWaterEquipment(object):
     """ Corresponds to IDD object `Exterior:WaterEquipment`
         only used for Meter type reporting, does not affect building loads
+    
     """
     internal_name = "Exterior:WaterEquipment"
     field_count = 5
+    required_fields = ["Name", "Schedule Name", "Design Level"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Exterior:WaterEquipment`
@@ -694,7 +722,7 @@ class ExteriorWaterEquipment(object):
 
         Args:
             value (float): value for IDD Field `design_level`
-                Unit: m3/s
+                Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -748,6 +776,16 @@ class ExteriorWaterEquipment(object):
 
         self._data["End-Use Subcategory"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -778,9 +816,11 @@ class HvactemplateThermostat(object):
         set of setpoint schedules.  For example, an office building
         may have two thermostat objects, one for "Office" and one
         for "Storage".
+    
     """
     internal_name = "HVACTemplate:Thermostat"
     field_count = 5
+    required_fields = ["Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `HVACTemplate:Thermostat`
@@ -909,7 +949,7 @@ class HvactemplateThermostat(object):
 
         Args:
             value (float): value for IDD Field `constant_heating_setpoint`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -975,7 +1015,7 @@ class HvactemplateThermostat(object):
 
         Args:
             value (float): value for IDD Field `constant_cooling_setpoint`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -990,6 +1030,16 @@ class HvactemplateThermostat(object):
                                  'for field `constant_cooling_setpoint`'.format(value))
 
         self._data["Constant Cooling Setpoint"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):
@@ -1015,9 +1065,11 @@ class HvactemplateThermostat(object):
 class HvactemplateZoneIdealLoadsAirSystem(object):
     """ Corresponds to IDD object `HVACTemplate:Zone:IdealLoadsAirSystem`
         Zone with ideal air system that meets heating or cooling loads
+    
     """
     internal_name = "HVACTemplate:Zone:IdealLoadsAirSystem"
     field_count = 30
+    required_fields = ["Zone Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `HVACTemplate:Zone:IdealLoadsAirSystem`
@@ -1331,7 +1383,7 @@ class HvactemplateZoneIdealLoadsAirSystem(object):
 
         Args:
             value (float): value for IDD Field `maximum_heating_supply_air_temperature`
-                Unit: C
+                Units: C
                 Default value: 50.0
                 value > 0.0
                 value < 100.0
@@ -1371,7 +1423,7 @@ class HvactemplateZoneIdealLoadsAirSystem(object):
 
         Args:
             value (float): value for IDD Field `minimum_cooling_supply_air_temperature`
-                Unit: C
+                Units: C
                 Default value: 13.0
                 value > -100.0
                 value < 50.0
@@ -1411,7 +1463,7 @@ class HvactemplateZoneIdealLoadsAirSystem(object):
 
         Args:
             value (float): value for IDD Field `maximum_heating_supply_air_humidity_ratio`
-                Unit: kgWater/kgDryAir
+                Units: kgWater/kgDryAir
                 Default value: 0.0156
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -1447,7 +1499,7 @@ class HvactemplateZoneIdealLoadsAirSystem(object):
 
         Args:
             value (float): value for IDD Field `minimum_cooling_supply_air_humidity_ratio`
-                Unit: kgWater/kgDryAir
+                Units: kgWater/kgDryAir
                 Default value: 0.0077
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -1532,7 +1584,7 @@ class HvactemplateZoneIdealLoadsAirSystem(object):
 
         Args:
             value (float): value for IDD Field `maximum_heating_air_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -1569,7 +1621,7 @@ class HvactemplateZoneIdealLoadsAirSystem(object):
 
         Args:
             value (float): value for IDD Field `maximum_sensible_heating_capacity`
-                Unit: W
+                Units: W
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -1653,7 +1705,7 @@ class HvactemplateZoneIdealLoadsAirSystem(object):
 
         Args:
             value (float): value for IDD Field `maximum_cooling_air_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -1689,7 +1741,7 @@ class HvactemplateZoneIdealLoadsAirSystem(object):
 
         Args:
             value (float): value for IDD Field `maximum_total_cooling_capacity`
-                Unit: W
+                Units: W
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -1849,7 +1901,7 @@ class HvactemplateZoneIdealLoadsAirSystem(object):
 
         Args:
             value (float): value for IDD Field `cooling_sensible_heat_ratio`
-                Unit: dimensionless
+                Units: dimensionless
                 Default value: 0.7
                 value > 0.0
                 value <= 1.0
@@ -1890,7 +1942,7 @@ class HvactemplateZoneIdealLoadsAirSystem(object):
 
         Args:
             value (float): value for IDD Field `dehumidification_setpoint`
-                Unit: percent
+                Units: percent
                 Default value: 60.0
                 value >= 0.0
                 value <= 100.0
@@ -1981,7 +2033,7 @@ class HvactemplateZoneIdealLoadsAirSystem(object):
 
         Args:
             value (float): value for IDD Field `humidification_setpoint`
-                Unit: percent
+                Units: percent
                 Default value: 30.0
                 value >= 0.0
                 value <= 100.0
@@ -2085,7 +2137,7 @@ class HvactemplateZoneIdealLoadsAirSystem(object):
 
         Args:
             value (float): value for IDD Field `outdoor_air_flow_rate_per_person`
-                Unit: m3/s
+                Units: m3/s
                 Default value: 0.00944
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -2119,7 +2171,7 @@ class HvactemplateZoneIdealLoadsAirSystem(object):
 
         Args:
             value (float): value for IDD Field `outdoor_air_flow_rate_per_zone_floor_area`
-                Unit: m3/s-m2
+                Units: m3/s-m2
                 Default value: 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -2153,7 +2205,7 @@ class HvactemplateZoneIdealLoadsAirSystem(object):
 
         Args:
             value (float): value for IDD Field `outdoor_air_flow_rate_per_zone`
-                Unit: m3/s
+                Units: m3/s
                 Default value: 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -2367,7 +2419,7 @@ class HvactemplateZoneIdealLoadsAirSystem(object):
 
         Args:
             value (float): value for IDD Field `sensible_heat_recovery_effectiveness`
-                Unit: dimensionless
+                Units: dimensionless
                 Default value: 0.7
                 value >= 0.0
                 value <= 1.0
@@ -2408,7 +2460,7 @@ class HvactemplateZoneIdealLoadsAirSystem(object):
 
         Args:
             value (float): value for IDD Field `latent_heat_recovery_effectiveness`
-                Unit: dimensionless
+                Units: dimensionless
                 Default value: 0.65
                 value >= 0.0
                 value <= 1.0
@@ -2432,6 +2484,16 @@ class HvactemplateZoneIdealLoadsAirSystem(object):
                                  'for field `latent_heat_recovery_effectiveness`')
 
         self._data["Latent Heat Recovery Effectiveness"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):
@@ -2482,9 +2544,11 @@ class HvactemplateZoneIdealLoadsAirSystem(object):
 class HvactemplateZoneBaseboardHeat(object):
     """ Corresponds to IDD object `HVACTemplate:Zone:BaseboardHeat`
         Zone baseboard heating system.
+    
     """
     internal_name = "HVACTemplate:Zone:BaseboardHeat"
     field_count = 13
+    required_fields = ["Zone Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `HVACTemplate:Zone:BaseboardHeat`
@@ -2774,7 +2838,7 @@ class HvactemplateZoneBaseboardHeat(object):
 
         Args:
             value (float): value for IDD Field `baseboard_heating_capacity`
-                Unit: W
+                Units: W
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2902,7 +2966,7 @@ class HvactemplateZoneBaseboardHeat(object):
 
         Args:
             value (float): value for IDD Field `outdoor_air_flow_rate_per_person`
-                Unit: m3/s
+                Units: m3/s
                 Default value: 0.00944
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -2936,7 +3000,7 @@ class HvactemplateZoneBaseboardHeat(object):
 
         Args:
             value (float): value for IDD Field `outdoor_air_flow_rate_per_zone_floor_area`
-                Unit: m3/s-m2
+                Units: m3/s-m2
                 Default value: 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -2970,7 +3034,7 @@ class HvactemplateZoneBaseboardHeat(object):
 
         Args:
             value (float): value for IDD Field `outdoor_air_flow_rate_per_zone`
-                Unit: m3/s
+                Units: m3/s
                 Default value: 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -3055,6 +3119,16 @@ class HvactemplateZoneBaseboardHeat(object):
 
         self._data["Design Specification Zone Air Distribution Object Name"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -3087,9 +3161,11 @@ class HvactemplateZoneBaseboardHeat(object):
 class HvactemplateZoneFanCoil(object):
     """ Corresponds to IDD object `HVACTemplate:Zone:FanCoil`
         4 pipe fan coil unit with optional outdoor air.
+    
     """
     internal_name = "HVACTemplate:Zone:FanCoil"
     field_count = 34
+    required_fields = ["Zone Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `HVACTemplate:Zone:FanCoil`
@@ -3395,7 +3471,7 @@ class HvactemplateZoneFanCoil(object):
 
         Args:
             value (float): value for IDD Field `supply_air_maximum_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3557,7 +3633,7 @@ class HvactemplateZoneFanCoil(object):
 
         Args:
             value (float): value for IDD Field `outdoor_air_flow_rate_per_person`
-                Unit: m3/s
+                Units: m3/s
                 Default value: 0.00944
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -3591,7 +3667,7 @@ class HvactemplateZoneFanCoil(object):
 
         Args:
             value (float): value for IDD Field `outdoor_air_flow_rate_per_zone_floor_area`
-                Unit: m3/s-m2
+                Units: m3/s-m2
                 Default value: 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -3625,7 +3701,7 @@ class HvactemplateZoneFanCoil(object):
 
         Args:
             value (float): value for IDD Field `outdoor_air_flow_rate_per_zone`
-                Unit: m3/s
+                Units: m3/s
                 Default value: 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -3730,7 +3806,8 @@ class HvactemplateZoneFanCoil(object):
 
         Args:
             value (float): value for IDD Field `supply_fan_delta_pressure`
-                Unit: Pa
+                Units: Pa
+                IP-Units: inH2O
                 Default value: 75.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -3923,7 +4000,7 @@ class HvactemplateZoneFanCoil(object):
 
         Args:
             value (float): value for IDD Field `cooling_coil_design_setpoint`
-                Unit: C
+                Units: C
                 Default value: 14.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -4032,7 +4109,7 @@ class HvactemplateZoneFanCoil(object):
 
         Args:
             value (float): value for IDD Field `heating_coil_design_setpoint`
-                Unit: C
+                Units: C
                 Default value: 50.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -4149,7 +4226,7 @@ class HvactemplateZoneFanCoil(object):
 
         Args:
             value (float): value for IDD Field `zone_cooling_design_supply_air_temperature_difference`
-                Unit: deltaC
+                Units: deltaC
                 Default value: 11.11
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -4230,7 +4307,7 @@ class HvactemplateZoneFanCoil(object):
 
         Args:
             value (float): value for IDD Field `zone_heating_design_supply_air_temperature_difference`
-                Unit: deltaC
+                Units: deltaC
                 Default value: 30.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -4565,7 +4642,7 @@ class HvactemplateZoneFanCoil(object):
 
         Args:
             value (float): value for IDD Field `baseboard_heating_capacity`
-                Unit: W
+                Units: W
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4580,6 +4657,16 @@ class HvactemplateZoneFanCoil(object):
                                  'for field `baseboard_heating_capacity`'.format(value))
 
         self._data["Baseboard Heating Capacity"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):
@@ -4634,9 +4721,11 @@ class HvactemplateZoneFanCoil(object):
 class HvactemplateZonePtac(object):
     """ Corresponds to IDD object `HVACTemplate:Zone:PTAC`
         Packaged Terminal Air Conditioner
+    
     """
     internal_name = "HVACTemplate:Zone:PTAC"
     field_count = 39
+    required_fields = ["Zone Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `HVACTemplate:Zone:PTAC`
@@ -4973,7 +5062,7 @@ class HvactemplateZonePtac(object):
 
         Args:
             value (float): value for IDD Field `cooling_supply_air_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -5011,7 +5100,7 @@ class HvactemplateZonePtac(object):
 
         Args:
             value (float): value for IDD Field `heating_supply_air_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -5053,7 +5142,7 @@ class HvactemplateZonePtac(object):
 
         Args:
             value (float): value for IDD Field `no_load_supply_air_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -5219,7 +5308,7 @@ class HvactemplateZonePtac(object):
 
         Args:
             value (float): value for IDD Field `outdoor_air_flow_rate_per_person`
-                Unit: m3/s
+                Units: m3/s
                 Default value: 0.00944
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -5253,7 +5342,7 @@ class HvactemplateZonePtac(object):
 
         Args:
             value (float): value for IDD Field `outdoor_air_flow_rate_per_zone_floor_area`
-                Unit: m3/s-m2
+                Units: m3/s-m2
                 Default value: 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -5287,7 +5376,7 @@ class HvactemplateZonePtac(object):
 
         Args:
             value (float): value for IDD Field `outdoor_air_flow_rate_per_zone`
-                Unit: m3/s
+                Units: m3/s
                 Default value: 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -5472,7 +5561,8 @@ class HvactemplateZonePtac(object):
 
         Args:
             value (float): value for IDD Field `supply_fan_delta_pressure`
-                Unit: Pa
+                Units: Pa
+                IP-Units: inH2O
                 Default value: 75.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -5625,7 +5715,7 @@ class HvactemplateZonePtac(object):
 
         Args:
             value (float): value for IDD Field `cooling_coil_gross_rated_total_capacity`
-                Unit: W
+                Units: W
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -5702,7 +5792,7 @@ class HvactemplateZonePtac(object):
 
         Args:
             value (float): value for IDD Field `cooling_coil_gross_rated_cooling_cop`
-                Unit: W/W
+                Units: W/W
                 Default value: 3.0
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -5817,7 +5907,7 @@ class HvactemplateZonePtac(object):
 
         Args:
             value (float): value for IDD Field `heating_coil_capacity`
-                Unit: W
+                Units: W
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5889,7 +5979,8 @@ class HvactemplateZonePtac(object):
 
         Args:
             value (float): value for IDD Field `gas_heating_coil_parasitic_electric_load`
-                Unit: W
+                Units: W
+                IP-Units: W
                 Default value: 0.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -6008,7 +6099,7 @@ class HvactemplateZonePtac(object):
 
         Args:
             value (float): value for IDD Field `zone_cooling_design_supply_air_temperature`
-                Unit: C
+                Units: C
                 Default value: 14.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -6044,7 +6135,7 @@ class HvactemplateZonePtac(object):
 
         Args:
             value (float): value for IDD Field `zone_cooling_design_supply_air_temperature_difference`
-                Unit: deltaC
+                Units: deltaC
                 Default value: 11.11
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -6123,7 +6214,7 @@ class HvactemplateZonePtac(object):
 
         Args:
             value (float): value for IDD Field `zone_heating_design_supply_air_temperature`
-                Unit: C
+                Units: C
                 Default value: 50.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -6159,7 +6250,7 @@ class HvactemplateZonePtac(object):
 
         Args:
             value (float): value for IDD Field `zone_heating_design_supply_air_temperature_difference`
-                Unit: deltaC
+                Units: deltaC
                 Default value: 30.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -6338,7 +6429,7 @@ class HvactemplateZonePtac(object):
 
         Args:
             value (float): value for IDD Field `baseboard_heating_capacity`
-                Unit: W
+                Units: W
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6353,6 +6444,16 @@ class HvactemplateZonePtac(object):
                                  'for field `baseboard_heating_capacity`'.format(value))
 
         self._data["Baseboard Heating Capacity"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):
@@ -6412,9 +6513,11 @@ class HvactemplateZonePtac(object):
 class HvactemplateZonePthp(object):
     """ Corresponds to IDD object `HVACTemplate:Zone:PTHP`
         Packaged Terminal Heat Pump
+    
     """
     internal_name = "HVACTemplate:Zone:PTHP"
     field_count = 49
+    required_fields = ["Zone Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `HVACTemplate:Zone:PTHP`
@@ -6811,7 +6914,7 @@ class HvactemplateZonePthp(object):
 
         Args:
             value (float): value for IDD Field `cooling_supply_air_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -6849,7 +6952,7 @@ class HvactemplateZonePthp(object):
 
         Args:
             value (float): value for IDD Field `heating_supply_air_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -6891,7 +6994,7 @@ class HvactemplateZonePthp(object):
 
         Args:
             value (float): value for IDD Field `no_load_supply_air_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -7057,7 +7160,7 @@ class HvactemplateZonePthp(object):
 
         Args:
             value (float): value for IDD Field `outdoor_air_flow_rate_per_person`
-                Unit: m3/s
+                Units: m3/s
                 Default value: 0.00944
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -7091,7 +7194,7 @@ class HvactemplateZonePthp(object):
 
         Args:
             value (float): value for IDD Field `outdoor_air_flow_rate_per_zone_floor_area`
-                Unit: m3/s-m2
+                Units: m3/s-m2
                 Default value: 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -7125,7 +7228,7 @@ class HvactemplateZonePthp(object):
 
         Args:
             value (float): value for IDD Field `outdoor_air_flow_rate_per_zone`
-                Unit: m3/s
+                Units: m3/s
                 Default value: 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -7310,7 +7413,8 @@ class HvactemplateZonePthp(object):
 
         Args:
             value (float): value for IDD Field `supply_fan_delta_pressure`
-                Unit: Pa
+                Units: Pa
+                IP-Units: inH2O
                 Default value: 75.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -7463,7 +7567,7 @@ class HvactemplateZonePthp(object):
 
         Args:
             value (float): value for IDD Field `cooling_coil_gross_rated_total_capacity`
-                Unit: W
+                Units: W
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -7540,7 +7644,7 @@ class HvactemplateZonePthp(object):
 
         Args:
             value (float): value for IDD Field `cooling_coil_gross_rated_cop`
-                Unit: W/W
+                Units: W/W
                 Default value: 3.0
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -7654,7 +7758,7 @@ class HvactemplateZonePthp(object):
 
         Args:
             value (float): value for IDD Field `heat_pump_heating_coil_gross_rated_capacity`
-                Unit: W
+                Units: W
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -7693,7 +7797,7 @@ class HvactemplateZonePthp(object):
 
         Args:
             value (float): value for IDD Field `heat_pump_heating_coil_gross_rated_cop`
-                Unit: W/W
+                Units: W/W
                 Default value: 2.75
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -7729,7 +7833,7 @@ class HvactemplateZonePthp(object):
 
         Args:
             value (float): value for IDD Field `heat_pump_heating_minimum_outdoor_drybulb_temperature`
-                Unit: C
+                Units: C
                 Default value: -8.0
                 value >= -20.0
                 if `value` is None it will not be checked against the
@@ -7765,7 +7869,7 @@ class HvactemplateZonePthp(object):
 
         Args:
             value (float): value for IDD Field `heat_pump_defrost_maximum_outdoor_drybulb_temperature`
-                Unit: C
+                Units: C
                 Default value: 5.0
                 value >= 0.0
                 value <= 7.22
@@ -8007,7 +8111,7 @@ class HvactemplateZonePthp(object):
 
         Args:
             value (float): value for IDD Field `supplemental_heating_coil_capacity`
-                Unit: W
+                Units: W
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8039,7 +8143,7 @@ class HvactemplateZonePthp(object):
 
         Args:
             value (float): value for IDD Field `supplemental_heating_coil_maximum_outdoor_drybulb_temperature`
-                Unit: C
+                Units: C
                 Default value: 21.0
                 value <= 21.0
                 if `value` is None it will not be checked against the
@@ -8116,7 +8220,8 @@ class HvactemplateZonePthp(object):
 
         Args:
             value (float): value for IDD Field `supplemental_gas_heating_coil_parasitic_electric_load`
-                Unit: W
+                Units: W
+                IP-Units: W
                 Default value: 0.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -8235,7 +8340,7 @@ class HvactemplateZonePthp(object):
 
         Args:
             value (float): value for IDD Field `zone_cooling_design_supply_air_temperature`
-                Unit: C
+                Units: C
                 Default value: 14.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -8271,7 +8376,7 @@ class HvactemplateZonePthp(object):
 
         Args:
             value (float): value for IDD Field `zone_cooling_design_supply_air_temperature_difference`
-                Unit: deltaC
+                Units: deltaC
                 Default value: 11.11
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -8350,7 +8455,7 @@ class HvactemplateZonePthp(object):
 
         Args:
             value (float): value for IDD Field `zone_heating_design_supply_air_temperature`
-                Unit: C
+                Units: C
                 Default value: 50.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -8386,7 +8491,7 @@ class HvactemplateZonePthp(object):
 
         Args:
             value (float): value for IDD Field `zone_heating_design_supply_air_temperature_difference`
-                Unit: deltaC
+                Units: deltaC
                 Default value: 30.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -8565,7 +8670,7 @@ class HvactemplateZonePthp(object):
 
         Args:
             value (float): value for IDD Field `baseboard_heating_capacity`
-                Unit: W
+                Units: W
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8580,6 +8685,16 @@ class HvactemplateZonePthp(object):
                                  'for field `baseboard_heating_capacity`'.format(value))
 
         self._data["Baseboard Heating Capacity"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):
@@ -8649,9 +8764,11 @@ class HvactemplateZonePthp(object):
 class HvactemplateZoneWaterToAirHeatPump(object):
     """ Corresponds to IDD object `HVACTemplate:Zone:WaterToAirHeatPump`
         Water to Air Heat Pump to be used with HVACTemplate:Plant:MixedWaterLoop
+    
     """
     internal_name = "HVACTemplate:Zone:WaterToAirHeatPump"
     field_count = 44
+    required_fields = ["Zone Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `HVACTemplate:Zone:WaterToAirHeatPump`
@@ -9018,7 +9135,7 @@ class HvactemplateZoneWaterToAirHeatPump(object):
 
         Args:
             value (float): value for IDD Field `cooling_supply_air_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -9056,7 +9173,7 @@ class HvactemplateZoneWaterToAirHeatPump(object):
 
         Args:
             value (float): value for IDD Field `heating_supply_air_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -9098,7 +9215,7 @@ class HvactemplateZoneWaterToAirHeatPump(object):
 
         Args:
             value (float): value for IDD Field `no_load_supply_air_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -9264,7 +9381,7 @@ class HvactemplateZoneWaterToAirHeatPump(object):
 
         Args:
             value (float): value for IDD Field `outdoor_air_flow_rate_per_person`
-                Unit: m3/s
+                Units: m3/s
                 Default value: 0.00944
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -9298,7 +9415,7 @@ class HvactemplateZoneWaterToAirHeatPump(object):
 
         Args:
             value (float): value for IDD Field `outdoor_air_flow_rate_per_zone_floor_area`
-                Unit: m3/s-m2
+                Units: m3/s-m2
                 Default value: 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -9332,7 +9449,7 @@ class HvactemplateZoneWaterToAirHeatPump(object):
 
         Args:
             value (float): value for IDD Field `outdoor_air_flow_rate_per_zone`
-                Unit: m3/s
+                Units: m3/s
                 Default value: 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -9517,7 +9634,8 @@ class HvactemplateZoneWaterToAirHeatPump(object):
 
         Args:
             value (float): value for IDD Field `supply_fan_delta_pressure`
-                Unit: Pa
+                Units: Pa
+                IP-Units: inH2O
                 Default value: 75.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -9634,7 +9752,7 @@ class HvactemplateZoneWaterToAirHeatPump(object):
 
         Args:
             value (float): value for IDD Field `cooling_coil_gross_rated_total_capacity`
-                Unit: W
+                Units: W
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -9711,7 +9829,7 @@ class HvactemplateZoneWaterToAirHeatPump(object):
 
         Args:
             value (float): value for IDD Field `cooling_coil_gross_rated_cop`
-                Unit: W/W
+                Units: W/W
                 Default value: 3.5
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -9789,7 +9907,7 @@ class HvactemplateZoneWaterToAirHeatPump(object):
 
         Args:
             value (float): value for IDD Field `heat_pump_heating_coil_gross_rated_capacity`
-                Unit: W
+                Units: W
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -9826,7 +9944,7 @@ class HvactemplateZoneWaterToAirHeatPump(object):
 
         Args:
             value (float): value for IDD Field `heat_pump_heating_coil_gross_rated_cop`
-                Unit: W/W
+                Units: W/W
                 Default value: 4.2
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -9896,7 +10014,7 @@ class HvactemplateZoneWaterToAirHeatPump(object):
 
         Args:
             value (float): value for IDD Field `supplemental_heating_coil_capacity`
-                Unit: W
+                Units: W
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -9929,7 +10047,7 @@ class HvactemplateZoneWaterToAirHeatPump(object):
 
         Args:
             value (float): value for IDD Field `maximum_cycling_rate`
-                Unit: cycles/hr
+                Units: cycles/hr
                 Default value: 2.5
                 value >= 0.0
                 value <= 5.0
@@ -9971,7 +10089,7 @@ class HvactemplateZoneWaterToAirHeatPump(object):
 
         Args:
             value (float): value for IDD Field `heat_pump_time_constant`
-                Unit: s
+                Units: s
                 Default value: 60.0
                 value >= 0.0
                 value <= 500.0
@@ -10056,7 +10174,7 @@ class HvactemplateZoneWaterToAirHeatPump(object):
 
         Args:
             value (float): value for IDD Field `heat_pump_fan_delay_time`
-                Unit: s
+                Units: s
                 Default value: 60.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -10218,7 +10336,7 @@ class HvactemplateZoneWaterToAirHeatPump(object):
 
         Args:
             value (float): value for IDD Field `zone_cooling_design_supply_air_temperature`
-                Unit: C
+                Units: C
                 Default value: 14.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -10254,7 +10372,7 @@ class HvactemplateZoneWaterToAirHeatPump(object):
 
         Args:
             value (float): value for IDD Field `zone_cooling_design_supply_air_temperature_difference`
-                Unit: deltaC
+                Units: deltaC
                 Default value: 11.11
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -10333,7 +10451,7 @@ class HvactemplateZoneWaterToAirHeatPump(object):
 
         Args:
             value (float): value for IDD Field `zone_heating_design_supply_air_temperature`
-                Unit: C
+                Units: C
                 Default value: 50.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -10369,7 +10487,7 @@ class HvactemplateZoneWaterToAirHeatPump(object):
 
         Args:
             value (float): value for IDD Field `zone_heating_design_supply_air_temperature_difference`
-                Unit: deltaC
+                Units: deltaC
                 Default value: 30.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -10597,7 +10715,7 @@ class HvactemplateZoneWaterToAirHeatPump(object):
 
         Args:
             value (float): value for IDD Field `baseboard_heating_capacity`
-                Unit: W
+                Units: W
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -10612,6 +10730,16 @@ class HvactemplateZoneWaterToAirHeatPump(object):
                                  'for field `baseboard_heating_capacity`'.format(value))
 
         self._data["Baseboard Heating Capacity"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):
@@ -10678,9 +10806,11 @@ class HvactemplateZoneVrf(object):
         Zone terminal unit with variable refrigerant flow (VRF) DX cooling and heating coils
         (air-to-air or water-to-air heat pump). The VRF terminal units are served by an
         HVACTemplate:System:VRF system.
+    
     """
     internal_name = "HVACTemplate:Zone:VRF"
     field_count = 44
+    required_fields = ["Zone Name", "Template VRF System Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `HVACTemplate:Zone:VRF`
@@ -11152,7 +11282,7 @@ class HvactemplateZoneVrf(object):
 
         Args:
             value (float): value for IDD Field `rated_total_heating_capacity_sizing_ratio`
-                Unit: W/W
+                Units: W/W
                 Default value: 1.0
                 value >= 1.0
                 if `value` is None it will not be checked against the
@@ -11190,7 +11320,7 @@ class HvactemplateZoneVrf(object):
 
         Args:
             value (float): value for IDD Field `supply_air_flow_rate_during_cooling_operation`
-                Unit: m3/s
+                Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -11228,7 +11358,7 @@ class HvactemplateZoneVrf(object):
 
         Args:
             value (float): value for IDD Field `supply_air_flow_rate_when_no_cooling_is_needed`
-                Unit: m3/s
+                Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -11265,7 +11395,7 @@ class HvactemplateZoneVrf(object):
 
         Args:
             value (float): value for IDD Field `supply_air_flow_rate_during_heating_operation`
-                Unit: m3/s
+                Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -11303,7 +11433,7 @@ class HvactemplateZoneVrf(object):
 
         Args:
             value (float): value for IDD Field `supply_air_flow_rate_when_no_heating_is_needed`
-                Unit: m3/s
+                Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -11341,7 +11471,7 @@ class HvactemplateZoneVrf(object):
 
         Args:
             value (float): value for IDD Field `outdoor_air_flow_rate_during_cooling_operation`
-                Unit: m3/s
+                Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -11379,7 +11509,7 @@ class HvactemplateZoneVrf(object):
 
         Args:
             value (float): value for IDD Field `outdoor_air_flow_rate_during_heating_operation`
-                Unit: m3/s
+                Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -11417,7 +11547,7 @@ class HvactemplateZoneVrf(object):
 
         Args:
             value (float): value for IDD Field `outdoor_air_flow_rate_when_no_cooling_or_heating_is_needed`
-                Unit: m3/s
+                Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -11513,7 +11643,7 @@ class HvactemplateZoneVrf(object):
 
         Args:
             value (float): value for IDD Field `outdoor_air_flow_rate_per_person`
-                Unit: m3/s
+                Units: m3/s
                 Default value: 0.00944
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -11547,7 +11677,7 @@ class HvactemplateZoneVrf(object):
 
         Args:
             value (float): value for IDD Field `outdoor_air_flow_rate_per_zone_floor_area`
-                Unit: m3/s-m2
+                Units: m3/s-m2
                 Default value: 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -11581,7 +11711,7 @@ class HvactemplateZoneVrf(object):
 
         Args:
             value (float): value for IDD Field `outdoor_air_flow_rate_per_zone`
-                Unit: m3/s
+                Units: m3/s
                 Default value: 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -11835,7 +11965,8 @@ class HvactemplateZoneVrf(object):
 
         Args:
             value (float): value for IDD Field `supply_fan_delta_pressure`
-                Unit: Pa
+                Units: Pa
+                IP-Units: inH2O
                 Default value: 75.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -11990,7 +12121,7 @@ class HvactemplateZoneVrf(object):
 
         Args:
             value (float): value for IDD Field `cooling_coil_gross_rated_total_capacity`
-                Unit: W
+                Units: W
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -12145,7 +12276,7 @@ class HvactemplateZoneVrf(object):
 
         Args:
             value (float): value for IDD Field `heat_pump_heating_coil_gross_rated_capacity`
-                Unit: W
+                Units: W
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -12180,7 +12311,7 @@ class HvactemplateZoneVrf(object):
 
         Args:
             value (float): value for IDD Field `zone_terminal_unit_on_parasitic_electric_energy_use`
-                Unit: W
+                Units: W
                 Default value: 0.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -12216,7 +12347,7 @@ class HvactemplateZoneVrf(object):
 
         Args:
             value (float): value for IDD Field `zone_terminal_unit_off_parasitic_electric_energy_use`
-                Unit: W
+                Units: W
                 Default value: 0.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -12335,7 +12466,7 @@ class HvactemplateZoneVrf(object):
 
         Args:
             value (float): value for IDD Field `zone_cooling_design_supply_air_temperature`
-                Unit: C
+                Units: C
                 Default value: 14.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -12371,7 +12502,7 @@ class HvactemplateZoneVrf(object):
 
         Args:
             value (float): value for IDD Field `zone_cooling_design_supply_air_temperature_difference`
-                Unit: deltaC
+                Units: deltaC
                 Default value: 11.11
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -12450,7 +12581,7 @@ class HvactemplateZoneVrf(object):
 
         Args:
             value (float): value for IDD Field `zone_heating_design_supply_air_temperature`
-                Unit: C
+                Units: C
                 Default value: 50.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -12486,7 +12617,7 @@ class HvactemplateZoneVrf(object):
 
         Args:
             value (float): value for IDD Field `zone_heating_design_supply_air_temperature_difference`
-                Unit: deltaC
+                Units: deltaC
                 Default value: 30.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -12597,7 +12728,7 @@ class HvactemplateZoneVrf(object):
 
         Args:
             value (float): value for IDD Field `baseboard_heating_capacity`
-                Unit: W
+                Units: W
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -12612,6 +12743,16 @@ class HvactemplateZoneVrf(object):
                                  'for field `baseboard_heating_capacity`'.format(value))
 
         self._data["Baseboard Heating Capacity"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):
@@ -12676,9 +12817,11 @@ class HvactemplateZoneVrf(object):
 class HvactemplateZoneUnitary(object):
     """ Corresponds to IDD object `HVACTemplate:Zone:Unitary`
         Zone terminal unit, constant volume, no controls.
+    
     """
     internal_name = "HVACTemplate:Zone:Unitary"
     field_count = 23
+    required_fields = ["Zone Name", "Template Unitary System Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `HVACTemplate:Zone:Unitary`
@@ -12953,7 +13096,7 @@ class HvactemplateZoneUnitary(object):
 
         Args:
             value (float): value for IDD Field `supply_air_maximum_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -13115,7 +13258,7 @@ class HvactemplateZoneUnitary(object):
 
         Args:
             value (float): value for IDD Field `outdoor_air_flow_rate_per_person`
-                Unit: m3/s
+                Units: m3/s
                 Default value: 0.00944
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -13149,7 +13292,7 @@ class HvactemplateZoneUnitary(object):
 
         Args:
             value (float): value for IDD Field `outdoor_air_flow_rate_per_zone_floor_area`
-                Unit: m3/s-m2
+                Units: m3/s-m2
                 Default value: 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -13183,7 +13326,7 @@ class HvactemplateZoneUnitary(object):
 
         Args:
             value (float): value for IDD Field `outdoor_air_flow_rate_per_zone`
-                Unit: m3/s
+                Units: m3/s
                 Default value: 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -13364,7 +13507,7 @@ class HvactemplateZoneUnitary(object):
 
         Args:
             value (float): value for IDD Field `baseboard_heating_capacity`
-                Unit: W
+                Units: W
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -13446,7 +13589,7 @@ class HvactemplateZoneUnitary(object):
 
         Args:
             value (float): value for IDD Field `zone_cooling_design_supply_air_temperature`
-                Unit: C
+                Units: C
                 Default value: 12.8
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -13482,7 +13625,7 @@ class HvactemplateZoneUnitary(object):
 
         Args:
             value (float): value for IDD Field `zone_cooling_design_supply_air_temperature_difference`
-                Unit: deltaC
+                Units: deltaC
                 Default value: 11.11
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -13565,7 +13708,7 @@ class HvactemplateZoneUnitary(object):
 
         Args:
             value (float): value for IDD Field `zone_heating_design_supply_air_temperature`
-                Unit: C
+                Units: C
                 Default value: 50.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -13601,7 +13744,7 @@ class HvactemplateZoneUnitary(object):
 
         Args:
             value (float): value for IDD Field `zone_heating_design_supply_air_temperature_difference`
-                Unit: deltaC
+                Units: deltaC
                 Default value: 30.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -13686,6 +13829,16 @@ class HvactemplateZoneUnitary(object):
 
         self._data["Design Specification Zone Air Distribution Object Name"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -13730,9 +13883,11 @@ class HvactemplateZoneVav(object):
         Zone terminal unit, variable volume, reheat optional.
         For heating, this unit activates reheat coil first, then increases airflow (if reverse
         action specified).
+    
     """
     internal_name = "HVACTemplate:Zone:VAV"
     field_count = 34
+    required_fields = ["Zone Name", "Template VAV System Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `HVACTemplate:Zone:VAV`
@@ -14073,7 +14228,7 @@ class HvactemplateZoneVav(object):
 
         Args:
             value (float): value for IDD Field `supply_air_maximum_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -14269,7 +14424,7 @@ class HvactemplateZoneVav(object):
 
         Args:
             value (float): value for IDD Field `fixed_minimum_air_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -14398,7 +14553,7 @@ class HvactemplateZoneVav(object):
 
         Args:
             value (float): value for IDD Field `outdoor_air_flow_rate_per_person`
-                Unit: m3/s
+                Units: m3/s
                 Default value: 0.00944
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -14432,7 +14587,7 @@ class HvactemplateZoneVav(object):
 
         Args:
             value (float): value for IDD Field `outdoor_air_flow_rate_per_zone_floor_area`
-                Unit: m3/s-m2
+                Units: m3/s-m2
                 Default value: 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -14466,7 +14621,7 @@ class HvactemplateZoneVav(object):
 
         Args:
             value (float): value for IDD Field `outdoor_air_flow_rate_per_zone`
-                Unit: m3/s
+                Units: m3/s
                 Default value: 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -14628,7 +14783,7 @@ class HvactemplateZoneVav(object):
 
         Args:
             value (float): value for IDD Field `maximum_flow_per_zone_floor_area_during_reheat`
-                Unit: m3/s-m2
+                Units: m3/s-m2
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -14699,7 +14854,7 @@ class HvactemplateZoneVav(object):
 
         Args:
             value (float): value for IDD Field `maximum_reheat_air_temperature`
-                Unit: C
+                Units: C
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -14925,7 +15080,7 @@ class HvactemplateZoneVav(object):
 
         Args:
             value (float): value for IDD Field `baseboard_heating_capacity`
-                Unit: W
+                Units: W
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -15006,7 +15161,7 @@ class HvactemplateZoneVav(object):
 
         Args:
             value (float): value for IDD Field `zone_cooling_design_supply_air_temperature`
-                Unit: C
+                Units: C
                 Default value: 12.8
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -15042,7 +15197,7 @@ class HvactemplateZoneVav(object):
 
         Args:
             value (float): value for IDD Field `zone_cooling_design_supply_air_temperature_difference`
-                Unit: deltaC
+                Units: deltaC
                 Default value: 11.11
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -15121,7 +15276,7 @@ class HvactemplateZoneVav(object):
 
         Args:
             value (float): value for IDD Field `zone_heating_design_supply_air_temperature`
-                Unit: C
+                Units: C
                 Default value: 50.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -15157,7 +15312,7 @@ class HvactemplateZoneVav(object):
 
         Args:
             value (float): value for IDD Field `zone_heating_design_supply_air_temperature_difference`
-                Unit: deltaC
+                Units: deltaC
                 Default value: 30.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -15245,6 +15400,16 @@ class HvactemplateZoneVav(object):
 
         self._data["Design Specification Zone Air Distribution Object Name"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -15299,9 +15464,11 @@ class HvactemplateZoneVavFanPowered(object):
     """ Corresponds to IDD object `HVACTemplate:Zone:VAV:FanPowered`
         Zone terminal unit, fan powered variable volume, reheat optional.
         Referenced schedules must be defined elsewhere in the idf.
+    
     """
     internal_name = "HVACTemplate:Zone:VAV:FanPowered"
     field_count = 33
+    required_fields = ["Zone Name", "Template VAV System Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `HVACTemplate:Zone:VAV:FanPowered`
@@ -15636,7 +15803,7 @@ class HvactemplateZoneVavFanPowered(object):
 
         Args:
             value (float): value for IDD Field `primary_supply_air_maximum_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -15777,7 +15944,7 @@ class HvactemplateZoneVavFanPowered(object):
 
         Args:
             value (float): value for IDD Field `secondary_supply_air_maximum_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -15948,7 +16115,7 @@ class HvactemplateZoneVavFanPowered(object):
 
         Args:
             value (float): value for IDD Field `outdoor_air_flow_rate_per_person`
-                Unit: m3/s
+                Units: m3/s
                 Default value: 0.00944
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -15982,7 +16149,7 @@ class HvactemplateZoneVavFanPowered(object):
 
         Args:
             value (float): value for IDD Field `outdoor_air_flow_rate_per_zone_floor_area`
-                Unit: m3/s-m2
+                Units: m3/s-m2
                 Default value: 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -16016,7 +16183,7 @@ class HvactemplateZoneVavFanPowered(object):
 
         Args:
             value (float): value for IDD Field `outdoor_air_flow_rate_per_zone`
-                Unit: m3/s
+                Units: m3/s
                 Default value: 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -16166,7 +16333,8 @@ class HvactemplateZoneVavFanPowered(object):
 
         Args:
             value (float): value for IDD Field `fan_delta_pressure`
-                Unit: Pa
+                Units: Pa
+                IP-Units: inH2O
                 Default value: 1000.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -16390,7 +16558,7 @@ class HvactemplateZoneVavFanPowered(object):
 
         Args:
             value (float): value for IDD Field `baseboard_heating_capacity`
-                Unit: W
+                Units: W
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -16471,7 +16639,7 @@ class HvactemplateZoneVavFanPowered(object):
 
         Args:
             value (float): value for IDD Field `zone_cooling_design_supply_air_temperature`
-                Unit: C
+                Units: C
                 Default value: 12.8
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -16507,7 +16675,7 @@ class HvactemplateZoneVavFanPowered(object):
 
         Args:
             value (float): value for IDD Field `zone_cooling_design_supply_air_temperature_difference`
-                Unit: deltaC
+                Units: deltaC
                 Default value: 11.11
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -16586,7 +16754,7 @@ class HvactemplateZoneVavFanPowered(object):
 
         Args:
             value (float): value for IDD Field `zone_heating_design_supply_air_temperature`
-                Unit: C
+                Units: C
                 Default value: 50.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -16622,7 +16790,7 @@ class HvactemplateZoneVavFanPowered(object):
 
         Args:
             value (float): value for IDD Field `zone_heating_design_supply_air_temperature_difference`
-                Unit: deltaC
+                Units: deltaC
                 Default value: 30.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -16746,6 +16914,16 @@ class HvactemplateZoneVavFanPowered(object):
 
         self._data["Design Specification Zone Air Distribution Object Name"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -16799,9 +16977,11 @@ class HvactemplateZoneVavHeatAndCool(object):
     """ Corresponds to IDD object `HVACTemplate:Zone:VAV:HeatAndCool`
         VAV system with VAV for both heating and cooling and optional rehaert coil.
         For heating, this unit increases airflow first, then activates reheat coil.
+    
     """
     internal_name = "HVACTemplate:Zone:VAV:HeatAndCool"
     field_count = 27
+    required_fields = ["Zone Name", "Template VAV System Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `HVACTemplate:Zone:VAV:HeatAndCool`
@@ -17100,7 +17280,7 @@ class HvactemplateZoneVavHeatAndCool(object):
 
         Args:
             value (float): value for IDD Field `supply_air_maximum_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -17305,7 +17485,7 @@ class HvactemplateZoneVavHeatAndCool(object):
 
         Args:
             value (float): value for IDD Field `outdoor_air_flow_rate_per_person`
-                Unit: m3/s
+                Units: m3/s
                 Default value: 0.00944
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -17339,7 +17519,7 @@ class HvactemplateZoneVavHeatAndCool(object):
 
         Args:
             value (float): value for IDD Field `outdoor_air_flow_rate_per_zone_floor_area`
-                Unit: m3/s-m2
+                Units: m3/s-m2
                 Default value: 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -17373,7 +17553,7 @@ class HvactemplateZoneVavHeatAndCool(object):
 
         Args:
             value (float): value for IDD Field `outdoor_air_flow_rate_per_zone`
-                Unit: m3/s
+                Units: m3/s
                 Default value: 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -17559,7 +17739,7 @@ class HvactemplateZoneVavHeatAndCool(object):
 
         Args:
             value (float): value for IDD Field `maximum_reheat_air_temperature`
-                Unit: C
+                Units: C
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -17743,7 +17923,7 @@ class HvactemplateZoneVavHeatAndCool(object):
 
         Args:
             value (float): value for IDD Field `baseboard_heating_capacity`
-                Unit: W
+                Units: W
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -17824,7 +18004,7 @@ class HvactemplateZoneVavHeatAndCool(object):
 
         Args:
             value (float): value for IDD Field `zone_cooling_design_supply_air_temperature`
-                Unit: C
+                Units: C
                 Default value: 12.8
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -17860,7 +18040,7 @@ class HvactemplateZoneVavHeatAndCool(object):
 
         Args:
             value (float): value for IDD Field `zone_cooling_design_supply_air_temperature_difference`
-                Unit: deltaC
+                Units: deltaC
                 Default value: 11.11
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -17940,7 +18120,7 @@ class HvactemplateZoneVavHeatAndCool(object):
 
         Args:
             value (float): value for IDD Field `zone_heating_design_supply_air_temperature`
-                Unit: C
+                Units: C
                 Default value: 50.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -17976,7 +18156,7 @@ class HvactemplateZoneVavHeatAndCool(object):
 
         Args:
             value (float): value for IDD Field `zone_heating_design_supply_air_temperature_difference`
-                Unit: deltaC
+                Units: deltaC
                 Default value: 30.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -17992,6 +18172,16 @@ class HvactemplateZoneVavHeatAndCool(object):
                                  'for field `zone_heating_design_supply_air_temperature_difference`'.format(value))
 
         self._data["Zone Heating Design Supply Air Temperature Difference"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):
@@ -18040,9 +18230,11 @@ class HvactemplateZoneConstantVolume(object):
     """ Corresponds to IDD object `HVACTemplate:Zone:ConstantVolume`
         Zone terminal unit, constant volume, reheat optional.
         Referenced schedules must be defined elsewhere in the idf.
+    
     """
     internal_name = "HVACTemplate:Zone:ConstantVolume"
     field_count = 26
+    required_fields = ["Zone Name", "Template Constant Volume System Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `HVACTemplate:Zone:ConstantVolume`
@@ -18334,7 +18526,7 @@ class HvactemplateZoneConstantVolume(object):
 
         Args:
             value (float): value for IDD Field `supply_air_maximum_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -18496,7 +18688,7 @@ class HvactemplateZoneConstantVolume(object):
 
         Args:
             value (float): value for IDD Field `outdoor_air_flow_rate_per_person`
-                Unit: m3/s
+                Units: m3/s
                 Default value: 0.00944
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -18530,7 +18722,7 @@ class HvactemplateZoneConstantVolume(object):
 
         Args:
             value (float): value for IDD Field `outdoor_air_flow_rate_per_zone_floor_area`
-                Unit: m3/s-m2
+                Units: m3/s-m2
                 Default value: 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -18564,7 +18756,7 @@ class HvactemplateZoneConstantVolume(object):
 
         Args:
             value (float): value for IDD Field `outdoor_air_flow_rate_per_zone`
-                Unit: m3/s
+                Units: m3/s
                 Default value: 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -18747,7 +18939,7 @@ class HvactemplateZoneConstantVolume(object):
 
         Args:
             value (float): value for IDD Field `maximum_reheat_air_temperature`
-                Unit: C
+                Units: C
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -18931,7 +19123,7 @@ class HvactemplateZoneConstantVolume(object):
 
         Args:
             value (float): value for IDD Field `baseboard_heating_capacity`
-                Unit: W
+                Units: W
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -19012,7 +19204,7 @@ class HvactemplateZoneConstantVolume(object):
 
         Args:
             value (float): value for IDD Field `zone_cooling_design_supply_air_temperature`
-                Unit: C
+                Units: C
                 Default value: 12.8
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -19048,7 +19240,7 @@ class HvactemplateZoneConstantVolume(object):
 
         Args:
             value (float): value for IDD Field `zone_cooling_design_supply_air_temperature_difference`
-                Unit: deltaC
+                Units: deltaC
                 Default value: 11.11
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -19127,7 +19319,7 @@ class HvactemplateZoneConstantVolume(object):
 
         Args:
             value (float): value for IDD Field `zone_heating_design_supply_air_temperature`
-                Unit: C
+                Units: C
                 Default value: 50.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -19163,7 +19355,7 @@ class HvactemplateZoneConstantVolume(object):
 
         Args:
             value (float): value for IDD Field `zone_heating_design_supply_air_temperature_difference`
-                Unit: deltaC
+                Units: deltaC
                 Default value: 30.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -19179,6 +19371,16 @@ class HvactemplateZoneConstantVolume(object):
                                  'for field `zone_heating_design_supply_air_temperature_difference`'.format(value))
 
         self._data["Zone Heating Design Supply Air Temperature Difference"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):
@@ -19225,9 +19427,11 @@ class HvactemplateZoneConstantVolume(object):
 class HvactemplateZoneDualDuct(object):
     """ Corresponds to IDD object `HVACTemplate:Zone:DualDuct`
         Zone terminal unit, dual-duct, constant or variable volume.
+    
     """
     internal_name = "HVACTemplate:Zone:DualDuct"
     field_count = 26
+    required_fields = ["Zone Name", "Template Dual Duct System Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `HVACTemplate:Zone:DualDuct`
@@ -19519,7 +19723,7 @@ class HvactemplateZoneDualDuct(object):
 
         Args:
             value (float): value for IDD Field `supply_air_maximum_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -19723,7 +19927,7 @@ class HvactemplateZoneDualDuct(object):
 
         Args:
             value (float): value for IDD Field `outdoor_air_flow_rate_per_person`
-                Unit: m3/s
+                Units: m3/s
                 Default value: 0.00944
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -19757,7 +19961,7 @@ class HvactemplateZoneDualDuct(object):
 
         Args:
             value (float): value for IDD Field `outdoor_air_flow_rate_per_zone_floor_area`
-                Unit: m3/s-m2
+                Units: m3/s-m2
                 Default value: 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -19791,7 +19995,7 @@ class HvactemplateZoneDualDuct(object):
 
         Args:
             value (float): value for IDD Field `outdoor_air_flow_rate_per_zone`
-                Unit: m3/s
+                Units: m3/s
                 Default value: 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -20120,7 +20324,7 @@ class HvactemplateZoneDualDuct(object):
 
         Args:
             value (float): value for IDD Field `baseboard_heating_capacity`
-                Unit: W
+                Units: W
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -20201,7 +20405,7 @@ class HvactemplateZoneDualDuct(object):
 
         Args:
             value (float): value for IDD Field `zone_cooling_design_supply_air_temperature`
-                Unit: C
+                Units: C
                 Default value: 12.8
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -20237,7 +20441,7 @@ class HvactemplateZoneDualDuct(object):
 
         Args:
             value (float): value for IDD Field `zone_cooling_design_supply_air_temperature_difference`
-                Unit: deltaC
+                Units: deltaC
                 Default value: 11.11
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -20319,7 +20523,7 @@ class HvactemplateZoneDualDuct(object):
 
         Args:
             value (float): value for IDD Field `zone_heating_design_supply_air_temperature`
-                Unit: C
+                Units: C
                 Default value: 50.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -20355,7 +20559,7 @@ class HvactemplateZoneDualDuct(object):
 
         Args:
             value (float): value for IDD Field `zone_heating_design_supply_air_temperature_difference`
-                Unit: deltaC
+                Units: deltaC
                 Default value: 30.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -20371,6 +20575,16 @@ class HvactemplateZoneDualDuct(object):
                                  'for field `zone_heating_design_supply_air_temperature_difference`'.format(value))
 
         self._data["Zone Heating Design Supply Air Temperature Difference"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):
@@ -20418,9 +20632,11 @@ class HvactemplateSystemVrf(object):
     """ Corresponds to IDD object `HVACTemplate:System:VRF`
         Variable refrigerant flow (VRF) heat pump condensing unit. Serves one or more VRF zone
         terminal units (HVACTemplate:Zone:VRF).
+    
     """
     internal_name = "HVACTemplate:System:VRF"
     field_count = 39
+    required_fields = ["Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `HVACTemplate:System:VRF`
@@ -20754,7 +20970,7 @@ class HvactemplateSystemVrf(object):
 
         Args:
             value (float): value for IDD Field `gross_rated_total_cooling_capacity`
-                Unit: W
+                Units: W
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -20792,7 +21008,7 @@ class HvactemplateSystemVrf(object):
 
         Args:
             value (float): value for IDD Field `gross_rated_cooling_cop`
-                Unit: W/W
+                Units: W/W
                 Default value: 3.3
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -20830,7 +21046,7 @@ class HvactemplateSystemVrf(object):
 
         Args:
             value (float): value for IDD Field `minimum_outdoor_temperature_in_cooling_mode`
-                Unit: C
+                Units: C
                 Default value: -6.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -20864,7 +21080,7 @@ class HvactemplateSystemVrf(object):
 
         Args:
             value (float): value for IDD Field `maximum_outdoor_temperature_in_cooling_mode`
-                Unit: C
+                Units: C
                 Default value: 43.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -20898,7 +21114,7 @@ class HvactemplateSystemVrf(object):
 
         Args:
             value (float): value for IDD Field `gross_rated_heating_capacity`
-                Unit: W
+                Units: W
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -20933,7 +21149,7 @@ class HvactemplateSystemVrf(object):
 
         Args:
             value (float): value for IDD Field `rated_heating_capacity_sizing_ratio`
-                Unit: W/W
+                Units: W/W
                 Default value: 1.0
                 value >= 1.0
                 if `value` is None it will not be checked against the
@@ -20971,7 +21187,7 @@ class HvactemplateSystemVrf(object):
 
         Args:
             value (float): value for IDD Field `gross_rated_heating_cop`
-                Unit: W/W
+                Units: W/W
                 Default value: 3.4
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -21004,7 +21220,7 @@ class HvactemplateSystemVrf(object):
 
         Args:
             value (float): value for IDD Field `minimum_outdoor_temperature_in_heating_mode`
-                Unit: C
+                Units: C
                 Default value: -20.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -21037,7 +21253,7 @@ class HvactemplateSystemVrf(object):
 
         Args:
             value (float): value for IDD Field `maximum_outdoor_temperature_in_heating_mode`
-                Unit: C
+                Units: C
                 Default value: 16.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -21072,7 +21288,7 @@ class HvactemplateSystemVrf(object):
 
         Args:
             value (float): value for IDD Field `minimum_heat_pump_partload_ratio`
-                Unit: dimensionless
+                Units: dimensionless
                 Default value: 0.15
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -21269,7 +21485,7 @@ class HvactemplateSystemVrf(object):
 
         Args:
             value (float): value for IDD Field `equivalent_piping_length_used_for_piping_correction_factor_in_cooling_mode`
-                Unit: m
+                Units: m
                 Default value: 30.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -21302,7 +21518,7 @@ class HvactemplateSystemVrf(object):
 
         Args:
             value (float): value for IDD Field `vertical_height_used_for_piping_correction_factor`
-                Unit: m
+                Units: m
                 Default value: 10.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -21335,7 +21551,7 @@ class HvactemplateSystemVrf(object):
 
         Args:
             value (float): value for IDD Field `equivalent_piping_length_used_for_piping_correction_factor_in_heating_mode`
-                Unit: m
+                Units: m
                 Default value: 30.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -21369,7 +21585,7 @@ class HvactemplateSystemVrf(object):
 
         Args:
             value (float): value for IDD Field `crankcase_heater_power_per_compressor`
-                Unit: W
+                Units: W
                 Default value: 33.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -21403,7 +21619,7 @@ class HvactemplateSystemVrf(object):
 
         Args:
             value (int): value for IDD Field `number_of_compressors`
-                Unit: dimensionless
+                Units: dimensionless
                 Default value: 2
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -21438,7 +21654,7 @@ class HvactemplateSystemVrf(object):
 
         Args:
             value (float): value for IDD Field `ratio_of_compressor_size_to_total_compressor_capacity`
-                Unit: W/W
+                Units: W/W
                 Default value: 0.5
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -21471,7 +21687,7 @@ class HvactemplateSystemVrf(object):
 
         Args:
             value (float): value for IDD Field `maximum_outdoor_drybulb_temperature_for_crankcase_heater`
-                Unit: C
+                Units: C
                 Default value: 5.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -21596,7 +21812,7 @@ class HvactemplateSystemVrf(object):
 
         Args:
             value (float): value for IDD Field `defrost_time_period_fraction`
-                Unit: dimensionless
+                Units: dimensionless
                 Default value: 0.058333
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -21634,7 +21850,8 @@ class HvactemplateSystemVrf(object):
 
         Args:
             value (float): value for IDD Field `resistive_defrost_heater_capacity`
-                Unit: W
+                Units: W
+                IP-Units: W
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -21670,7 +21887,7 @@ class HvactemplateSystemVrf(object):
 
         Args:
             value (float): value for IDD Field `maximum_outdoor_drybulb_temperature_for_defrost_operation`
-                Unit: C
+                Units: C
                 Default value: 5.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -21749,7 +21966,7 @@ class HvactemplateSystemVrf(object):
 
         Args:
             value (float): value for IDD Field `water_condenser_volume_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -21782,7 +21999,7 @@ class HvactemplateSystemVrf(object):
 
         Args:
             value (float): value for IDD Field `evaporative_condenser_effectiveness`
-                Unit: dimensionless
+                Units: dimensionless
                 Default value: 0.9
                 value >= 0.0
                 value <= 1.0
@@ -21824,7 +22041,7 @@ class HvactemplateSystemVrf(object):
 
         Args:
             value (float): value for IDD Field `evaporative_condenser_air_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -21861,7 +22078,7 @@ class HvactemplateSystemVrf(object):
 
         Args:
             value (float): value for IDD Field `evaporative_condenser_pump_rated_power_consumption`
-                Unit: W
+                Units: W
                 Default value: 0.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -21902,7 +22119,7 @@ class HvactemplateSystemVrf(object):
 
         Args:
             value (float): value for IDD Field `basin_heater_capacity`
-                Unit: W/K
+                Units: W/K
                 Default value: 0.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -21940,7 +22157,7 @@ class HvactemplateSystemVrf(object):
 
         Args:
             value (float): value for IDD Field `basin_heater_setpoint_temperature`
-                Unit: C
+                Units: C
                 Default value: 2.0
                 value >= 2.0
                 if `value` is None it will not be checked against the
@@ -22073,7 +22290,7 @@ class HvactemplateSystemVrf(object):
 
         Args:
             value (float): value for IDD Field `minimum_outdoor_temperature_in_heat_recovery_mode`
-                Unit: C
+                Units: C
                 Default value: -15.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -22107,7 +22324,7 @@ class HvactemplateSystemVrf(object):
 
         Args:
             value (float): value for IDD Field `maximum_outdoor_temperature_in_heat_recovery_mode`
-                Unit: C
+                Units: C
                 Default value: 45.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -22123,6 +22340,16 @@ class HvactemplateSystemVrf(object):
                                  'for field `maximum_outdoor_temperature_in_heat_recovery_mode`'.format(value))
 
         self._data["Maximum Outdoor Temperature in Heat Recovery Mode"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):
@@ -22182,9 +22409,11 @@ class HvactemplateSystemVrf(object):
 class HvactemplateSystemUnitary(object):
     """ Corresponds to IDD object `HVACTemplate:System:Unitary`
         Unitary furnace with air conditioner
+    
     """
     internal_name = "HVACTemplate:System:Unitary"
     field_count = 52
+    required_fields = ["Name", "Control Zone or Thermostat Location Name", "Heating Coil Type"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `HVACTemplate:System:Unitary`
@@ -22631,7 +22860,7 @@ class HvactemplateSystemUnitary(object):
 
         Args:
             value (float): value for IDD Field `supply_fan_maximum_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -22742,7 +22971,8 @@ class HvactemplateSystemUnitary(object):
 
         Args:
             value (float): value for IDD Field `supply_fan_delta_pressure`
-                Unit: Pa
+                Units: Pa
+                IP-Units: inH2O
                 Default value: 600.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -22934,7 +23164,7 @@ class HvactemplateSystemUnitary(object):
 
         Args:
             value (float): value for IDD Field `cooling_design_supply_air_temperature`
-                Unit: C
+                Units: C
                 Default value: 12.8
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -22967,7 +23197,7 @@ class HvactemplateSystemUnitary(object):
 
         Args:
             value (float): value for IDD Field `cooling_coil_gross_rated_total_capacity`
-                Unit: W
+                Units: W
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -23039,7 +23269,7 @@ class HvactemplateSystemUnitary(object):
 
         Args:
             value (float): value for IDD Field `cooling_coil_gross_rated_cop`
-                Unit: W/W
+                Units: W/W
                 Default value: 3.0
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -23154,7 +23384,7 @@ class HvactemplateSystemUnitary(object):
 
         Args:
             value (float): value for IDD Field `heating_design_supply_air_temperature`
-                Unit: C
+                Units: C
                 Default value: 50.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -23186,7 +23416,7 @@ class HvactemplateSystemUnitary(object):
 
         Args:
             value (float): value for IDD Field `heating_coil_capacity`
-                Unit: W
+                Units: W
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -23256,7 +23486,8 @@ class HvactemplateSystemUnitary(object):
 
         Args:
             value (float): value for IDD Field `gas_heating_coil_parasitic_electric_load`
-                Unit: W
+                Units: W
+                IP-Units: W
                 Default value: 0.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -23292,7 +23523,7 @@ class HvactemplateSystemUnitary(object):
 
         Args:
             value (float): value for IDD Field `maximum_outdoor_air_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -23327,7 +23558,7 @@ class HvactemplateSystemUnitary(object):
 
         Args:
             value (float): value for IDD Field `minimum_outdoor_air_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -23500,7 +23731,7 @@ class HvactemplateSystemUnitary(object):
 
         Args:
             value (float): value for IDD Field `economizer_upper_temperature_limit`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -23534,7 +23765,7 @@ class HvactemplateSystemUnitary(object):
 
         Args:
             value (float): value for IDD Field `economizer_lower_temperature_limit`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -23568,7 +23799,7 @@ class HvactemplateSystemUnitary(object):
 
         Args:
             value (float): value for IDD Field `economizer_upper_enthalpy_limit`
-                Unit: J/kg
+                Units: J/kg
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -23602,7 +23833,7 @@ class HvactemplateSystemUnitary(object):
 
         Args:
             value (float): value for IDD Field `economizer_maximum_limit_dewpoint_temperature`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -24034,7 +24265,7 @@ class HvactemplateSystemUnitary(object):
 
         Args:
             value (float): value for IDD Field `dehumidification_setpoint`
-                Unit: percent
+                Units: percent
                 Default value: 60.0
                 value >= 0.0
                 value <= 100.0
@@ -24154,7 +24385,8 @@ class HvactemplateSystemUnitary(object):
 
         Args:
             value (float): value for IDD Field `humidifier_rated_capacity`
-                Unit: m3/s
+                Units: m3/s
+                IP-Units: gal/min
                 Default value: 1e-06
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -24192,7 +24424,8 @@ class HvactemplateSystemUnitary(object):
 
         Args:
             value (float): value for IDD Field `humidifier_rated_electric_power`
-                Unit: W
+                Units: W
+                IP-Units: W
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -24262,7 +24495,7 @@ class HvactemplateSystemUnitary(object):
 
         Args:
             value (float): value for IDD Field `humidifier_setpoint`
-                Unit: percent
+                Units: percent
                 Default value: 30.0
                 value >= 0.0
                 value <= 100.0
@@ -24385,7 +24618,8 @@ class HvactemplateSystemUnitary(object):
 
         Args:
             value (float): value for IDD Field `return_fan_delta_pressure`
-                Unit: Pa
+                Units: Pa
+                IP-Units: inH2O
                 Default value: 500.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -24484,6 +24718,16 @@ class HvactemplateSystemUnitary(object):
 
         self._data["Return Fan Motor in Air Stream Fraction"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -24555,9 +24799,11 @@ class HvactemplateSystemUnitary(object):
 class HvactemplateSystemUnitaryHeatPumpAirToAir(object):
     """ Corresponds to IDD object `HVACTemplate:System:UnitaryHeatPump:AirToAir`
         Unitary furnace with electric air-to-air heat pump
+    
     """
     internal_name = "HVACTemplate:System:UnitaryHeatPump:AirToAir"
     field_count = 61
+    required_fields = ["Name", "Control Zone or Thermostat Location Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `HVACTemplate:System:UnitaryHeatPump:AirToAir`
@@ -25059,7 +25305,7 @@ class HvactemplateSystemUnitaryHeatPumpAirToAir(object):
 
         Args:
             value (float): value for IDD Field `cooling_supply_air_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -25098,7 +25344,7 @@ class HvactemplateSystemUnitaryHeatPumpAirToAir(object):
 
         Args:
             value (float): value for IDD Field `heating_supply_air_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -25141,7 +25387,7 @@ class HvactemplateSystemUnitaryHeatPumpAirToAir(object):
 
         Args:
             value (float): value for IDD Field `no_load_supply_air_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -25295,7 +25541,8 @@ class HvactemplateSystemUnitaryHeatPumpAirToAir(object):
 
         Args:
             value (float): value for IDD Field `supply_fan_delta_pressure`
-                Unit: Pa
+                Units: Pa
+                IP-Units: inH2O
                 Default value: 600.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -25485,7 +25732,7 @@ class HvactemplateSystemUnitaryHeatPumpAirToAir(object):
 
         Args:
             value (float): value for IDD Field `cooling_design_supply_air_temperature`
-                Unit: C
+                Units: C
                 Default value: 12.8
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -25520,7 +25767,7 @@ class HvactemplateSystemUnitaryHeatPumpAirToAir(object):
 
         Args:
             value (float): value for IDD Field `cooling_coil_gross_rated_total_capacity`
-                Unit: W
+                Units: W
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -25593,7 +25840,7 @@ class HvactemplateSystemUnitaryHeatPumpAirToAir(object):
 
         Args:
             value (float): value for IDD Field `cooling_coil_gross_rated_cop`
-                Unit: W/W
+                Units: W/W
                 Default value: 3.0
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -25705,7 +25952,7 @@ class HvactemplateSystemUnitaryHeatPumpAirToAir(object):
 
         Args:
             value (float): value for IDD Field `heating_design_supply_air_temperature`
-                Unit: C
+                Units: C
                 Default value: 50.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -25740,7 +25987,7 @@ class HvactemplateSystemUnitaryHeatPumpAirToAir(object):
 
         Args:
             value (float): value for IDD Field `heat_pump_heating_coil_gross_rated_capacity`
-                Unit: W
+                Units: W
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -25779,7 +26026,7 @@ class HvactemplateSystemUnitaryHeatPumpAirToAir(object):
 
         Args:
             value (float): value for IDD Field `heat_pump_heating_coil_rated_cop`
-                Unit: W/W
+                Units: W/W
                 Default value: 2.75
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -25815,7 +26062,7 @@ class HvactemplateSystemUnitaryHeatPumpAirToAir(object):
 
         Args:
             value (float): value for IDD Field `heat_pump_heating_minimum_outdoor_drybulb_temperature`
-                Unit: C
+                Units: C
                 Default value: -8.0
                 value >= -20.0
                 if `value` is None it will not be checked against the
@@ -25851,7 +26098,7 @@ class HvactemplateSystemUnitaryHeatPumpAirToAir(object):
 
         Args:
             value (float): value for IDD Field `heat_pump_defrost_maximum_outdoor_drybulb_temperature`
-                Unit: C
+                Units: C
                 Default value: 5.0
                 value >= 0.0
                 value <= 7.22
@@ -26093,7 +26340,7 @@ class HvactemplateSystemUnitaryHeatPumpAirToAir(object):
 
         Args:
             value (float): value for IDD Field `supplemental_heating_coil_capacity`
-                Unit: W
+                Units: W
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -26125,7 +26372,7 @@ class HvactemplateSystemUnitaryHeatPumpAirToAir(object):
 
         Args:
             value (float): value for IDD Field `supplemental_heating_coil_maximum_outdoor_drybulb_temperature`
-                Unit: C
+                Units: C
                 Default value: 21.0
                 value <= 21.0
                 if `value` is None it will not be checked against the
@@ -26202,7 +26449,8 @@ class HvactemplateSystemUnitaryHeatPumpAirToAir(object):
 
         Args:
             value (float): value for IDD Field `supplemental_gas_heating_coil_parasitic_electric_load`
-                Unit: W
+                Units: W
+                IP-Units: W
                 Default value: 0.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -26238,7 +26486,7 @@ class HvactemplateSystemUnitaryHeatPumpAirToAir(object):
 
         Args:
             value (float): value for IDD Field `maximum_outdoor_air_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -26273,7 +26521,7 @@ class HvactemplateSystemUnitaryHeatPumpAirToAir(object):
 
         Args:
             value (float): value for IDD Field `minimum_outdoor_air_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -26446,7 +26694,7 @@ class HvactemplateSystemUnitaryHeatPumpAirToAir(object):
 
         Args:
             value (float): value for IDD Field `economizer_maximum_limit_drybulb_temperature`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -26480,7 +26728,7 @@ class HvactemplateSystemUnitaryHeatPumpAirToAir(object):
 
         Args:
             value (float): value for IDD Field `economizer_maximum_limit_enthalpy`
-                Unit: J/kg
+                Units: J/kg
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -26514,7 +26762,7 @@ class HvactemplateSystemUnitaryHeatPumpAirToAir(object):
 
         Args:
             value (float): value for IDD Field `economizer_maximum_limit_dewpoint_temperature`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -26548,7 +26796,7 @@ class HvactemplateSystemUnitaryHeatPumpAirToAir(object):
 
         Args:
             value (float): value for IDD Field `economizer_minimum_limit_drybulb_temperature`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -26932,7 +27180,8 @@ class HvactemplateSystemUnitaryHeatPumpAirToAir(object):
 
         Args:
             value (float): value for IDD Field `humidifier_rated_capacity`
-                Unit: m3/s
+                Units: m3/s
+                IP-Units: gal/min
                 Default value: 1e-06
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -26970,7 +27219,8 @@ class HvactemplateSystemUnitaryHeatPumpAirToAir(object):
 
         Args:
             value (float): value for IDD Field `humidifier_rated_electric_power`
-                Unit: W
+                Units: W
+                IP-Units: W
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -27040,7 +27290,7 @@ class HvactemplateSystemUnitaryHeatPumpAirToAir(object):
 
         Args:
             value (float): value for IDD Field `humidifier_setpoint`
-                Unit: percent
+                Units: percent
                 Default value: 30.0
                 value >= 0.0
                 value <= 100.0
@@ -27163,7 +27413,8 @@ class HvactemplateSystemUnitaryHeatPumpAirToAir(object):
 
         Args:
             value (float): value for IDD Field `return_fan_delta_pressure`
-                Unit: Pa
+                Units: Pa
+                IP-Units: inH2O
                 Default value: 500.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -27262,6 +27513,16 @@ class HvactemplateSystemUnitaryHeatPumpAirToAir(object):
 
         self._data["Return Fan Motor in Air Stream Fraction"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -27343,9 +27604,11 @@ class HvactemplateSystemUnitarySystem(object):
     """ Corresponds to IDD object `HVACTemplate:System:UnitarySystem`
         Unitary HVAC system with optional cooling and heating. Supports DX and chilled water,
         cooling, gas, electric, and hot water heating, air-to-air and water-to-air heat pumps.
+    
     """
     internal_name = "HVACTemplate:System:UnitarySystem"
     field_count = 72
+    required_fields = ["Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `HVACTemplate:System:UnitarySystem`
@@ -27958,7 +28221,7 @@ class HvactemplateSystemUnitarySystem(object):
 
         Args:
             value (float): value for IDD Field `cooling_supply_air_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -27997,7 +28260,7 @@ class HvactemplateSystemUnitarySystem(object):
 
         Args:
             value (float): value for IDD Field `heating_supply_air_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -28040,7 +28303,7 @@ class HvactemplateSystemUnitarySystem(object):
 
         Args:
             value (float): value for IDD Field `no_load_supply_air_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -28194,7 +28457,8 @@ class HvactemplateSystemUnitarySystem(object):
 
         Args:
             value (float): value for IDD Field `supply_fan_delta_pressure`
-                Unit: Pa
+                Units: Pa
+                IP-Units: inH2O
                 Default value: 600.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -28444,7 +28708,7 @@ class HvactemplateSystemUnitarySystem(object):
 
         Args:
             value (float): value for IDD Field `cooling_design_supply_air_temperature`
-                Unit: C
+                Units: C
                 Default value: 12.8
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -28479,7 +28743,7 @@ class HvactemplateSystemUnitarySystem(object):
 
         Args:
             value (float): value for IDD Field `dx_cooling_coil_gross_rated_total_capacity`
-                Unit: W
+                Units: W
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -28552,7 +28816,7 @@ class HvactemplateSystemUnitarySystem(object):
 
         Args:
             value (float): value for IDD Field `dx_cooling_coil_gross_rated_cop`
-                Unit: W/W
+                Units: W/W
                 Default value: 3.0
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -28721,7 +28985,7 @@ class HvactemplateSystemUnitarySystem(object):
 
         Args:
             value (float): value for IDD Field `heating_design_supply_air_temperature`
-                Unit: C
+                Units: C
                 Default value: 50.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -28756,7 +29020,7 @@ class HvactemplateSystemUnitarySystem(object):
 
         Args:
             value (float): value for IDD Field `heating_coil_gross_rated_capacity`
-                Unit: W
+                Units: W
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -28830,7 +29094,8 @@ class HvactemplateSystemUnitarySystem(object):
 
         Args:
             value (float): value for IDD Field `gas_heating_coil_parasitic_electric_load`
-                Unit: W
+                Units: W
+                IP-Units: W
                 Default value: 0.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -28871,7 +29136,7 @@ class HvactemplateSystemUnitarySystem(object):
 
         Args:
             value (float): value for IDD Field `heat_pump_heating_coil_gross_rated_cop`
-                Unit: W/W
+                Units: W/W
                 Default value: 2.75
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -28907,7 +29172,7 @@ class HvactemplateSystemUnitarySystem(object):
 
         Args:
             value (float): value for IDD Field `heat_pump_heating_minimum_outdoor_drybulb_temperature`
-                Unit: C
+                Units: C
                 Default value: -8.0
                 value >= -20.0
                 if `value` is None it will not be checked against the
@@ -28943,7 +29208,7 @@ class HvactemplateSystemUnitarySystem(object):
 
         Args:
             value (float): value for IDD Field `heat_pump_defrost_maximum_outdoor_drybulb_temperature`
-                Unit: C
+                Units: C
                 Default value: 5.0
                 value >= 0.0
                 value <= 7.22
@@ -29189,7 +29454,7 @@ class HvactemplateSystemUnitarySystem(object):
 
         Args:
             value (float): value for IDD Field `supplemental_heating_or_reheat_coil_capacity`
-                Unit: W
+                Units: W
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -29221,7 +29486,7 @@ class HvactemplateSystemUnitarySystem(object):
 
         Args:
             value (float): value for IDD Field `supplemental_heating_or_reheat_coil_maximum_outdoor_drybulb_temperature`
-                Unit: C
+                Units: C
                 Default value: 21.0
                 value <= 21.0
                 if `value` is None it will not be checked against the
@@ -29298,7 +29563,8 @@ class HvactemplateSystemUnitarySystem(object):
 
         Args:
             value (float): value for IDD Field `supplemental_gas_heating_or_reheat_coil_parasitic_electric_load`
-                Unit: W
+                Units: W
+                IP-Units: W
                 Default value: 0.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -29334,7 +29600,7 @@ class HvactemplateSystemUnitarySystem(object):
 
         Args:
             value (float): value for IDD Field `maximum_outdoor_air_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -29369,7 +29635,7 @@ class HvactemplateSystemUnitarySystem(object):
 
         Args:
             value (float): value for IDD Field `minimum_outdoor_air_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -29542,7 +29808,7 @@ class HvactemplateSystemUnitarySystem(object):
 
         Args:
             value (float): value for IDD Field `economizer_maximum_limit_drybulb_temperature`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -29576,7 +29842,7 @@ class HvactemplateSystemUnitarySystem(object):
 
         Args:
             value (float): value for IDD Field `economizer_maximum_limit_enthalpy`
-                Unit: J/kg
+                Units: J/kg
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -29610,7 +29876,7 @@ class HvactemplateSystemUnitarySystem(object):
 
         Args:
             value (float): value for IDD Field `economizer_maximum_limit_dewpoint_temperature`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -29644,7 +29910,7 @@ class HvactemplateSystemUnitarySystem(object):
 
         Args:
             value (float): value for IDD Field `economizer_minimum_limit_drybulb_temperature`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -30045,7 +30311,7 @@ class HvactemplateSystemUnitarySystem(object):
 
         Args:
             value (float): value for IDD Field `dehumidification_relative_humidity_setpoint`
-                Unit: percent
+                Units: percent
                 Default value: 60.0
                 value >= 0.0
                 value <= 100.0
@@ -30200,7 +30466,8 @@ class HvactemplateSystemUnitarySystem(object):
 
         Args:
             value (float): value for IDD Field `humidifier_rated_capacity`
-                Unit: m3/s
+                Units: m3/s
+                IP-Units: gal/min
                 Default value: 1e-06
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -30238,7 +30505,8 @@ class HvactemplateSystemUnitarySystem(object):
 
         Args:
             value (float): value for IDD Field `humidifier_rated_electric_power`
-                Unit: W
+                Units: W
+                IP-Units: W
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -30309,7 +30577,7 @@ class HvactemplateSystemUnitarySystem(object):
 
         Args:
             value (float): value for IDD Field `humidifier_relative_humidity_setpoint`
-                Unit: percent
+                Units: percent
                 Default value: 30.0
                 value >= 0.0
                 value <= 100.0
@@ -30512,7 +30780,8 @@ class HvactemplateSystemUnitarySystem(object):
 
         Args:
             value (float): value for IDD Field `return_fan_delta_pressure`
-                Unit: Pa
+                Units: Pa
+                IP-Units: inH2O
                 Default value: 300.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -30611,6 +30880,16 @@ class HvactemplateSystemUnitarySystem(object):
 
         self._data["Return Fan Motor in Air Stream Fraction"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -30703,9 +30982,11 @@ class HvactemplateSystemVav(object):
     """ Corresponds to IDD object `HVACTemplate:System:VAV`
         Variable Air Volume (VAV) air loop with optional heating coil
         and optional preheat.
+    
     """
     internal_name = "HVACTemplate:System:VAV"
     field_count = 61
+    required_fields = ["Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `HVACTemplate:System:VAV`
@@ -31173,7 +31454,7 @@ class HvactemplateSystemVav(object):
 
         Args:
             value (float): value for IDD Field `supply_fan_maximum_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -31210,7 +31491,7 @@ class HvactemplateSystemVav(object):
 
         Args:
             value (float): value for IDD Field `supply_fan_minimum_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -31284,7 +31565,8 @@ class HvactemplateSystemVav(object):
 
         Args:
             value (float): value for IDD Field `supply_fan_delta_pressure`
-                Unit: Pa
+                Units: Pa
+                IP-Units: inH2O
                 Default value: 1000.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -31510,7 +31792,7 @@ class HvactemplateSystemVav(object):
 
         Args:
             value (float): value for IDD Field `cooling_coil_design_setpoint`
-                Unit: C
+                Units: C
                 Default value: 12.8
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -31658,7 +31940,7 @@ class HvactemplateSystemVav(object):
 
         Args:
             value (float): value for IDD Field `heating_coil_design_setpoint`
-                Unit: C
+                Units: C
                 Default value: 10.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -31729,7 +32011,8 @@ class HvactemplateSystemVav(object):
 
         Args:
             value (float): value for IDD Field `gas_heating_coil_parasitic_electric_load`
-                Unit: W
+                Units: W
+                IP-Units: W
                 Default value: 0.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -31879,7 +32162,7 @@ class HvactemplateSystemVav(object):
 
         Args:
             value (float): value for IDD Field `preheat_coil_design_setpoint`
-                Unit: C
+                Units: C
                 Default value: 7.2
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -31950,7 +32233,8 @@ class HvactemplateSystemVav(object):
 
         Args:
             value (float): value for IDD Field `gas_preheat_coil_parasitic_electric_load`
-                Unit: W
+                Units: W
+                IP-Units: W
                 Default value: 0.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -31986,7 +32270,7 @@ class HvactemplateSystemVav(object):
 
         Args:
             value (float): value for IDD Field `maximum_outdoor_air_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -32021,7 +32305,7 @@ class HvactemplateSystemVav(object):
 
         Args:
             value (float): value for IDD Field `minimum_outdoor_air_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -32233,7 +32517,7 @@ class HvactemplateSystemVav(object):
 
         Args:
             value (float): value for IDD Field `economizer_upper_temperature_limit`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -32267,7 +32551,7 @@ class HvactemplateSystemVav(object):
 
         Args:
             value (float): value for IDD Field `economizer_lower_temperature_limit`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -32301,7 +32585,7 @@ class HvactemplateSystemVav(object):
 
         Args:
             value (float): value for IDD Field `economizer_upper_enthalpy_limit`
-                Unit: J/kg
+                Units: J/kg
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -32335,7 +32619,7 @@ class HvactemplateSystemVav(object):
 
         Args:
             value (float): value for IDD Field `economizer_maximum_limit_dewpoint_temperature`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -32919,7 +33203,7 @@ class HvactemplateSystemVav(object):
 
         Args:
             value (float): value for IDD Field `dehumidification_setpoint`
-                Unit: percent
+                Units: percent
                 Default value: 60.0
                 value >= 0.0
                 value <= 100.0
@@ -33039,7 +33323,8 @@ class HvactemplateSystemVav(object):
 
         Args:
             value (float): value for IDD Field `humidifier_rated_capacity`
-                Unit: m3/s
+                Units: m3/s
+                IP-Units: gal/min
                 Default value: 1e-06
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -33077,7 +33362,8 @@ class HvactemplateSystemVav(object):
 
         Args:
             value (float): value for IDD Field `humidifier_rated_electric_power`
-                Unit: W
+                Units: W
+                IP-Units: W
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -33147,7 +33433,7 @@ class HvactemplateSystemVav(object):
 
         Args:
             value (float): value for IDD Field `humidifier_setpoint`
-                Unit: percent
+                Units: percent
                 Default value: 30.0
                 value >= 0.0
                 value <= 100.0
@@ -33315,7 +33601,8 @@ class HvactemplateSystemVav(object):
 
         Args:
             value (float): value for IDD Field `return_fan_delta_pressure`
-                Unit: Pa
+                Units: Pa
+                IP-Units: inH2O
                 Default value: 500.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -33467,6 +33754,16 @@ class HvactemplateSystemVav(object):
 
         self._data["Return Fan Part-Load Power Coefficients"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -33548,9 +33845,11 @@ class HvactemplateSystemPackagedVav(object):
     """ Corresponds to IDD object `HVACTemplate:System:PackagedVAV`
         Packaged Variable Air Volume (PVAV) air loop with optional heating coil
         and optional preheat.
+    
     """
     internal_name = "HVACTemplate:System:PackagedVAV"
     field_count = 59
+    required_fields = ["Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `HVACTemplate:System:PackagedVAV`
@@ -34006,7 +34305,7 @@ class HvactemplateSystemPackagedVav(object):
 
         Args:
             value (float): value for IDD Field `supply_fan_maximum_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -34043,7 +34342,7 @@ class HvactemplateSystemPackagedVav(object):
 
         Args:
             value (float): value for IDD Field `supply_fan_minimum_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -34160,7 +34459,8 @@ class HvactemplateSystemPackagedVav(object):
 
         Args:
             value (float): value for IDD Field `supply_fan_delta_pressure`
-                Unit: Pa
+                Units: Pa
+                IP-Units: inH2O
                 Default value: 1000.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -34386,7 +34686,7 @@ class HvactemplateSystemPackagedVav(object):
 
         Args:
             value (float): value for IDD Field `cooling_coil_design_setpoint`
-                Unit: C
+                Units: C
                 Default value: 12.8
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -34419,7 +34719,7 @@ class HvactemplateSystemPackagedVav(object):
 
         Args:
             value (float): value for IDD Field `cooling_coil_gross_rated_total_capacity`
-                Unit: W
+                Units: W
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -34491,7 +34791,7 @@ class HvactemplateSystemPackagedVav(object):
 
         Args:
             value (float): value for IDD Field `cooling_coil_gross_rated_cop`
-                Unit: W/W
+                Units: W/W
                 Default value: 3.0
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -34643,7 +34943,7 @@ class HvactemplateSystemPackagedVav(object):
 
         Args:
             value (float): value for IDD Field `heating_coil_design_setpoint`
-                Unit: C
+                Units: C
                 Default value: 10.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -34675,7 +34975,7 @@ class HvactemplateSystemPackagedVav(object):
 
         Args:
             value (float): value for IDD Field `heating_coil_capacity`
-                Unit: W
+                Units: W
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -34745,7 +35045,8 @@ class HvactemplateSystemPackagedVav(object):
 
         Args:
             value (float): value for IDD Field `gas_heating_coil_parasitic_electric_load`
-                Unit: W
+                Units: W
+                IP-Units: W
                 Default value: 0.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -34781,7 +35082,7 @@ class HvactemplateSystemPackagedVav(object):
 
         Args:
             value (float): value for IDD Field `maximum_outdoor_air_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -34816,7 +35117,7 @@ class HvactemplateSystemPackagedVav(object):
 
         Args:
             value (float): value for IDD Field `minimum_outdoor_air_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -35032,7 +35333,7 @@ class HvactemplateSystemPackagedVav(object):
 
         Args:
             value (float): value for IDD Field `economizer_maximum_limit_drybulb_temperature`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -35066,7 +35367,7 @@ class HvactemplateSystemPackagedVav(object):
 
         Args:
             value (float): value for IDD Field `economizer_maximum_limit_enthalpy`
-                Unit: J/kg
+                Units: J/kg
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -35100,7 +35401,7 @@ class HvactemplateSystemPackagedVav(object):
 
         Args:
             value (float): value for IDD Field `economizer_maximum_limit_dewpoint_temperature`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -35134,7 +35435,7 @@ class HvactemplateSystemPackagedVav(object):
 
         Args:
             value (float): value for IDD Field `economizer_minimum_limit_drybulb_temperature`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -35675,7 +35976,7 @@ class HvactemplateSystemPackagedVav(object):
 
         Args:
             value (float): value for IDD Field `dehumidification_setpoint`
-                Unit: percent
+                Units: percent
                 Default value: 60.0
                 value >= 0.0
                 value <= 100.0
@@ -35795,7 +36096,8 @@ class HvactemplateSystemPackagedVav(object):
 
         Args:
             value (float): value for IDD Field `humidifier_rated_capacity`
-                Unit: m3/s
+                Units: m3/s
+                IP-Units: gal/min
                 Default value: 1e-06
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -35833,7 +36135,8 @@ class HvactemplateSystemPackagedVav(object):
 
         Args:
             value (float): value for IDD Field `humidifier_rated_electric_power`
-                Unit: W
+                Units: W
+                IP-Units: W
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -35903,7 +36206,7 @@ class HvactemplateSystemPackagedVav(object):
 
         Args:
             value (float): value for IDD Field `humidifier_setpoint`
-                Unit: percent
+                Units: percent
                 Default value: 30.0
                 value >= 0.0
                 value <= 100.0
@@ -36071,7 +36374,8 @@ class HvactemplateSystemPackagedVav(object):
 
         Args:
             value (float): value for IDD Field `return_fan_delta_pressure`
-                Unit: Pa
+                Units: Pa
+                IP-Units: inH2O
                 Default value: 500.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -36223,6 +36527,16 @@ class HvactemplateSystemPackagedVav(object):
 
         self._data["Return Fan Part-Load Power Coefficients"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -36302,9 +36616,11 @@ class HvactemplateSystemConstantVolume(object):
     """ Corresponds to IDD object `HVACTemplate:System:ConstantVolume`
         Constant Air Volume air loop with optional chilled water cooling coil,
         optional heating coil and optional preheat.
+    
     """
     internal_name = "HVACTemplate:System:ConstantVolume"
     field_count = 70
+    required_fields = ["Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `HVACTemplate:System:ConstantVolume`
@@ -36826,7 +37142,7 @@ class HvactemplateSystemConstantVolume(object):
 
         Args:
             value (float): value for IDD Field `supply_fan_maximum_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -36900,7 +37216,8 @@ class HvactemplateSystemConstantVolume(object):
 
         Args:
             value (float): value for IDD Field `supply_fan_delta_pressure`
-                Unit: Pa
+                Units: Pa
+                IP-Units: inH2O
                 Default value: 600.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -37223,7 +37540,7 @@ class HvactemplateSystemConstantVolume(object):
 
         Args:
             value (float): value for IDD Field `cooling_coil_design_setpoint_temperature`
-                Unit: C
+                Units: C
                 Default value: 12.8
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -37290,7 +37607,7 @@ class HvactemplateSystemConstantVolume(object):
 
         Args:
             value (float): value for IDD Field `cooling_coil_setpoint_at_outdoor_drybulb_low`
-                Unit: C
+                Units: C
                 Default value: 15.6
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -37324,7 +37641,7 @@ class HvactemplateSystemConstantVolume(object):
 
         Args:
             value (float): value for IDD Field `cooling_coil_reset_outdoor_drybulb_low`
-                Unit: C
+                Units: C
                 Default value: 15.6
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -37357,7 +37674,7 @@ class HvactemplateSystemConstantVolume(object):
 
         Args:
             value (float): value for IDD Field `cooling_coil_setpoint_at_outdoor_drybulb_high`
-                Unit: C
+                Units: C
                 Default value: 12.8
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -37390,7 +37707,7 @@ class HvactemplateSystemConstantVolume(object):
 
         Args:
             value (float): value for IDD Field `cooling_coil_reset_outdoor_drybulb_high`
-                Unit: C
+                Units: C
                 Default value: 23.3
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -37586,7 +37903,7 @@ class HvactemplateSystemConstantVolume(object):
 
         Args:
             value (float): value for IDD Field `heating_coil_design_setpoint`
-                Unit: C
+                Units: C
                 Default value: 10.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -37653,7 +37970,7 @@ class HvactemplateSystemConstantVolume(object):
 
         Args:
             value (float): value for IDD Field `heating_coil_setpoint_at_outdoor_drybulb_low`
-                Unit: C
+                Units: C
                 Default value: 15.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -37687,7 +38004,7 @@ class HvactemplateSystemConstantVolume(object):
 
         Args:
             value (float): value for IDD Field `heating_coil_reset_outdoor_drybulb_low`
-                Unit: C
+                Units: C
                 Default value: 7.8
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -37720,7 +38037,7 @@ class HvactemplateSystemConstantVolume(object):
 
         Args:
             value (float): value for IDD Field `heating_coil_setpoint_at_outdoor_drybulb_high`
-                Unit: C
+                Units: C
                 Default value: 12.2
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -37753,7 +38070,7 @@ class HvactemplateSystemConstantVolume(object):
 
         Args:
             value (float): value for IDD Field `heating_coil_reset_outdoor_drybulb_high`
-                Unit: C
+                Units: C
                 Default value: 12.2
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -37785,7 +38102,7 @@ class HvactemplateSystemConstantVolume(object):
 
         Args:
             value (float): value for IDD Field `heating_coil_capacity`
-                Unit: W
+                Units: W
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -37855,7 +38172,8 @@ class HvactemplateSystemConstantVolume(object):
 
         Args:
             value (float): value for IDD Field `gas_heating_coil_parasitic_electric_load`
-                Unit: W
+                Units: W
+                IP-Units: W
                 Default value: 0.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -37971,7 +38289,7 @@ class HvactemplateSystemConstantVolume(object):
 
         Args:
             value (float): value for IDD Field `preheat_coil_design_setpoint`
-                Unit: C
+                Units: C
                 Default value: 7.2
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -38076,7 +38394,8 @@ class HvactemplateSystemConstantVolume(object):
 
         Args:
             value (float): value for IDD Field `gas_preheat_coil_parasitic_electric_load`
-                Unit: W
+                Units: W
+                IP-Units: W
                 Default value: 0.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -38112,7 +38431,7 @@ class HvactemplateSystemConstantVolume(object):
 
         Args:
             value (float): value for IDD Field `maximum_outdoor_air_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -38147,7 +38466,7 @@ class HvactemplateSystemConstantVolume(object):
 
         Args:
             value (float): value for IDD Field `minimum_outdoor_air_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -38275,7 +38594,7 @@ class HvactemplateSystemConstantVolume(object):
 
         Args:
             value (float): value for IDD Field `economizer_upper_temperature_limit`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -38309,7 +38628,7 @@ class HvactemplateSystemConstantVolume(object):
 
         Args:
             value (float): value for IDD Field `economizer_lower_temperature_limit`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -38343,7 +38662,7 @@ class HvactemplateSystemConstantVolume(object):
 
         Args:
             value (float): value for IDD Field `economizer_upper_enthalpy_limit`
-                Unit: J/kg
+                Units: J/kg
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -38377,7 +38696,7 @@ class HvactemplateSystemConstantVolume(object):
 
         Args:
             value (float): value for IDD Field `economizer_maximum_limit_dewpoint_temperature`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -38854,7 +39173,7 @@ class HvactemplateSystemConstantVolume(object):
 
         Args:
             value (float): value for IDD Field `dehumidification_relative_humidity_setpoint`
-                Unit: percent
+                Units: percent
                 Default value: 60.0
                 value >= 0.0
                 value <= 100.0
@@ -39009,7 +39328,8 @@ class HvactemplateSystemConstantVolume(object):
 
         Args:
             value (float): value for IDD Field `humidifier_rated_capacity`
-                Unit: m3/s
+                Units: m3/s
+                IP-Units: gal/min
                 Default value: 1e-06
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -39047,7 +39367,8 @@ class HvactemplateSystemConstantVolume(object):
 
         Args:
             value (float): value for IDD Field `humidifier_rated_electric_power`
-                Unit: W
+                Units: W
+                IP-Units: W
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -39118,7 +39439,7 @@ class HvactemplateSystemConstantVolume(object):
 
         Args:
             value (float): value for IDD Field `humidifier_relative_humidity_setpoint`
-                Unit: percent
+                Units: percent
                 Default value: 30.0
                 value >= 0.0
                 value <= 100.0
@@ -39276,7 +39597,8 @@ class HvactemplateSystemConstantVolume(object):
 
         Args:
             value (float): value for IDD Field `return_fan_delta_pressure`
-                Unit: Pa
+                Units: Pa
+                IP-Units: inH2O
                 Default value: 300.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -39375,6 +39697,16 @@ class HvactemplateSystemConstantVolume(object):
 
         self._data["Return Fan Motor in Air Stream Fraction"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -39464,9 +39796,11 @@ class HvactemplateSystemConstantVolume(object):
 class HvactemplateSystemDualDuct(object):
     """ Corresponds to IDD object `HVACTemplate:System:DualDuct`
         Dual-duct constant volume or variable volume air loop
+    
     """
     internal_name = "HVACTemplate:System:DualDuct"
     field_count = 91
+    required_fields = ["Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `HVACTemplate:System:DualDuct`
@@ -40165,7 +40499,7 @@ class HvactemplateSystemDualDuct(object):
 
         Args:
             value (float): value for IDD Field `main_supply_fan_maximum_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -40278,7 +40612,8 @@ class HvactemplateSystemDualDuct(object):
 
         Args:
             value (float): value for IDD Field `main_supply_fan_delta_pressure`
-                Unit: Pa
+                Units: Pa
+                IP-Units: inH2O
                 Default value: 1000.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -40448,7 +40783,7 @@ class HvactemplateSystemDualDuct(object):
 
         Args:
             value (float): value for IDD Field `cold_duct_supply_fan_maximum_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -40561,7 +40896,8 @@ class HvactemplateSystemDualDuct(object):
 
         Args:
             value (float): value for IDD Field `cold_duct_supply_fan_delta_pressure`
-                Unit: Pa
+                Units: Pa
+                IP-Units: inH2O
                 Default value: 1000.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -40774,7 +41110,7 @@ class HvactemplateSystemDualDuct(object):
 
         Args:
             value (float): value for IDD Field `hot_duct_supply_fan_maximum_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -40887,7 +41223,8 @@ class HvactemplateSystemDualDuct(object):
 
         Args:
             value (float): value for IDD Field `hot_duct_supply_fan_delta_pressure`
-                Unit: Pa
+                Units: Pa
+                IP-Units: inH2O
                 Default value: 1000.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -41224,7 +41561,7 @@ class HvactemplateSystemDualDuct(object):
 
         Args:
             value (float): value for IDD Field `cooling_coil_design_setpoint_temperature`
-                Unit: C
+                Units: C
                 Default value: 12.8
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -41291,7 +41628,7 @@ class HvactemplateSystemDualDuct(object):
 
         Args:
             value (float): value for IDD Field `cooling_coil_setpoint_at_outdoor_drybulb_low`
-                Unit: C
+                Units: C
                 Default value: 15.6
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -41325,7 +41662,7 @@ class HvactemplateSystemDualDuct(object):
 
         Args:
             value (float): value for IDD Field `cooling_coil_reset_outdoor_drybulb_low`
-                Unit: C
+                Units: C
                 Default value: 15.6
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -41358,7 +41695,7 @@ class HvactemplateSystemDualDuct(object):
 
         Args:
             value (float): value for IDD Field `cooling_coil_setpoint_at_outdoor_drybulb_high`
-                Unit: C
+                Units: C
                 Default value: 12.8
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -41391,7 +41728,7 @@ class HvactemplateSystemDualDuct(object):
 
         Args:
             value (float): value for IDD Field `cooling_coil_reset_outdoor_drybulb_high`
-                Unit: C
+                Units: C
                 Default value: 23.3
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -41552,7 +41889,7 @@ class HvactemplateSystemDualDuct(object):
 
         Args:
             value (float): value for IDD Field `heating_coil_design_setpoint`
-                Unit: C
+                Units: C
                 Default value: 50.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -41619,7 +41956,7 @@ class HvactemplateSystemDualDuct(object):
 
         Args:
             value (float): value for IDD Field `heating_coil_setpoint_at_outdoor_drybulb_low`
-                Unit: C
+                Units: C
                 Default value: 50.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -41653,7 +41990,7 @@ class HvactemplateSystemDualDuct(object):
 
         Args:
             value (float): value for IDD Field `heating_coil_reset_outdoor_drybulb_low`
-                Unit: C
+                Units: C
                 Default value: 7.8
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -41686,7 +42023,7 @@ class HvactemplateSystemDualDuct(object):
 
         Args:
             value (float): value for IDD Field `heating_coil_setpoint_at_outdoor_drybulb_high`
-                Unit: C
+                Units: C
                 Default value: 20.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -41719,7 +42056,7 @@ class HvactemplateSystemDualDuct(object):
 
         Args:
             value (float): value for IDD Field `heating_coil_reset_outdoor_drybulb_high`
-                Unit: C
+                Units: C
                 Default value: 12.2
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -41751,7 +42088,7 @@ class HvactemplateSystemDualDuct(object):
 
         Args:
             value (float): value for IDD Field `heating_coil_capacity`
-                Unit: W
+                Units: W
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -41821,7 +42158,8 @@ class HvactemplateSystemDualDuct(object):
 
         Args:
             value (float): value for IDD Field `gas_heating_coil_parasitic_electric_load`
-                Unit: W
+                Units: W
+                IP-Units: W
                 Default value: 0.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -41937,7 +42275,7 @@ class HvactemplateSystemDualDuct(object):
 
         Args:
             value (float): value for IDD Field `preheat_coil_design_setpoint`
-                Unit: C
+                Units: C
                 Default value: 7.2
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -42042,7 +42380,8 @@ class HvactemplateSystemDualDuct(object):
 
         Args:
             value (float): value for IDD Field `gas_preheat_coil_parasitic_electric_load`
-                Unit: W
+                Units: W
+                IP-Units: W
                 Default value: 0.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -42078,7 +42417,7 @@ class HvactemplateSystemDualDuct(object):
 
         Args:
             value (float): value for IDD Field `maximum_outdoor_air_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -42113,7 +42452,7 @@ class HvactemplateSystemDualDuct(object):
 
         Args:
             value (float): value for IDD Field `minimum_outdoor_air_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -42325,7 +42664,7 @@ class HvactemplateSystemDualDuct(object):
 
         Args:
             value (float): value for IDD Field `economizer_upper_temperature_limit`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -42359,7 +42698,7 @@ class HvactemplateSystemDualDuct(object):
 
         Args:
             value (float): value for IDD Field `economizer_lower_temperature_limit`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -42393,7 +42732,7 @@ class HvactemplateSystemDualDuct(object):
 
         Args:
             value (float): value for IDD Field `economizer_upper_enthalpy_limit`
-                Unit: J/kg
+                Units: J/kg
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -42427,7 +42766,7 @@ class HvactemplateSystemDualDuct(object):
 
         Args:
             value (float): value for IDD Field `economizer_maximum_limit_dewpoint_temperature`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -42937,7 +43276,7 @@ class HvactemplateSystemDualDuct(object):
 
         Args:
             value (float): value for IDD Field `dehumidification_relative_humidity_setpoint`
-                Unit: percent
+                Units: percent
                 Default value: 60.0
                 value >= 0.0
                 value <= 100.0
@@ -43092,7 +43431,8 @@ class HvactemplateSystemDualDuct(object):
 
         Args:
             value (float): value for IDD Field `humidifier_rated_capacity`
-                Unit: m3/s
+                Units: m3/s
+                IP-Units: gal/min
                 Default value: 1e-06
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -43130,7 +43470,8 @@ class HvactemplateSystemDualDuct(object):
 
         Args:
             value (float): value for IDD Field `humidifier_rated_electric_power`
-                Unit: W
+                Units: W
+                IP-Units: W
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -43201,7 +43542,7 @@ class HvactemplateSystemDualDuct(object):
 
         Args:
             value (float): value for IDD Field `humidifier_relative_humidity_setpoint`
-                Unit: percent
+                Units: percent
                 Default value: 30.0
                 value >= 0.0
                 value <= 100.0
@@ -43404,7 +43745,8 @@ class HvactemplateSystemDualDuct(object):
 
         Args:
             value (float): value for IDD Field `return_fan_delta_pressure`
-                Unit: Pa
+                Units: Pa
+                IP-Units: inH2O
                 Default value: 500.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -43556,6 +43898,16 @@ class HvactemplateSystemDualDuct(object):
 
         self._data["Return Fan Part-Load Power Coefficients"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -43668,9 +44020,11 @@ class HvactemplateSystemDedicatedOutdoorAir(object):
         This object creates a dedicated outdoor air system that must be used with
         HVACTemplate:Zone:* objects for BaseboardHeat FanCoil PTAC PTHP WaterToAirHeatPump and VRF.
         Does not support HVACTemplate:Zone:VAV or other central multizone systems
+    
     """
     internal_name = "HVACTemplate:System:DedicatedOutdoorAir"
     field_count = 46
+    required_fields = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `HVACTemplate:System:DedicatedOutdoorAir`
@@ -44085,7 +44439,7 @@ class HvactemplateSystemDedicatedOutdoorAir(object):
 
         Args:
             value (float): value for IDD Field `supply_fan_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -44159,7 +44513,8 @@ class HvactemplateSystemDedicatedOutdoorAir(object):
 
         Args:
             value (float): value for IDD Field `supply_fan_delta_pressure`
-                Unit: Pa
+                Units: Pa
+                IP-Units: inH2O
                 Default value: 1000.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -44453,7 +44808,7 @@ class HvactemplateSystemDedicatedOutdoorAir(object):
 
         Args:
             value (float): value for IDD Field `cooling_coil_design_setpoint`
-                Unit: C
+                Units: C
                 Default value: 12.8
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -44520,7 +44875,7 @@ class HvactemplateSystemDedicatedOutdoorAir(object):
 
         Args:
             value (float): value for IDD Field `cooling_coil_setpoint_at_outdoor_drybulb_low`
-                Unit: C
+                Units: C
                 Default value: 15.6
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -44554,7 +44909,7 @@ class HvactemplateSystemDedicatedOutdoorAir(object):
 
         Args:
             value (float): value for IDD Field `cooling_coil_reset_outdoor_drybulb_low`
-                Unit: C
+                Units: C
                 Default value: 15.6
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -44587,7 +44942,7 @@ class HvactemplateSystemDedicatedOutdoorAir(object):
 
         Args:
             value (float): value for IDD Field `cooling_coil_setpoint_at_outdoor_drybulb_high`
-                Unit: C
+                Units: C
                 Default value: 12.8
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -44620,7 +44975,7 @@ class HvactemplateSystemDedicatedOutdoorAir(object):
 
         Args:
             value (float): value for IDD Field `cooling_coil_reset_outdoor_drybulb_high`
-                Unit: C
+                Units: C
                 Default value: 23.3
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -44653,7 +45008,7 @@ class HvactemplateSystemDedicatedOutdoorAir(object):
 
         Args:
             value (float): value for IDD Field `dx_cooling_coil_gross_rated_total_capacity`
-                Unit: W
+                Units: W
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -44725,7 +45080,7 @@ class HvactemplateSystemDedicatedOutdoorAir(object):
 
         Args:
             value (float): value for IDD Field `dx_cooling_coil_gross_rated_cop`
-                Unit: W/W
+                Units: W/W
                 Default value: 3.0
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -44891,7 +45246,7 @@ class HvactemplateSystemDedicatedOutdoorAir(object):
 
         Args:
             value (float): value for IDD Field `heating_coil_design_setpoint`
-                Unit: C
+                Units: C
                 Default value: 12.2
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -44959,7 +45314,7 @@ class HvactemplateSystemDedicatedOutdoorAir(object):
 
         Args:
             value (float): value for IDD Field `heating_coil_setpoint_at_outdoor_drybulb_low`
-                Unit: C
+                Units: C
                 Default value: 15.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -44992,7 +45347,7 @@ class HvactemplateSystemDedicatedOutdoorAir(object):
 
         Args:
             value (float): value for IDD Field `heating_coil_reset_outdoor_drybulb_low`
-                Unit: C
+                Units: C
                 Default value: 7.8
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -45025,7 +45380,7 @@ class HvactemplateSystemDedicatedOutdoorAir(object):
 
         Args:
             value (float): value for IDD Field `heating_coil_setpoint_at_outdoor_drybulb_high`
-                Unit: C
+                Units: C
                 Default value: 12.2
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -45058,7 +45413,7 @@ class HvactemplateSystemDedicatedOutdoorAir(object):
 
         Args:
             value (float): value for IDD Field `heating_coil_reset_outdoor_drybulb_high`
-                Unit: C
+                Units: C
                 Default value: 12.2
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -45129,7 +45484,8 @@ class HvactemplateSystemDedicatedOutdoorAir(object):
 
         Args:
             value (float): value for IDD Field `gas_heating_coil_parasitic_electric_load`
-                Unit: W
+                Units: W
+                IP-Units: W
                 Default value: 0.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -45436,7 +45792,7 @@ class HvactemplateSystemDedicatedOutdoorAir(object):
 
         Args:
             value (float): value for IDD Field `dehumidification_setpoint`
-                Unit: kgWater/kgDryAir
+                Units: kgWater/kgDryAir
                 Default value: 0.00924
                 value >= 0.0
                 value <= 1.0
@@ -45556,7 +45912,8 @@ class HvactemplateSystemDedicatedOutdoorAir(object):
 
         Args:
             value (float): value for IDD Field `humidifier_rated_capacity`
-                Unit: m3/s
+                Units: m3/s
+                IP-Units: gal/min
                 Default value: 1e-06
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -45594,7 +45951,8 @@ class HvactemplateSystemDedicatedOutdoorAir(object):
 
         Args:
             value (float): value for IDD Field `humidifier_rated_electric_power`
-                Unit: W
+                Units: W
+                IP-Units: W
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -45631,7 +45989,7 @@ class HvactemplateSystemDedicatedOutdoorAir(object):
 
         Args:
             value (float): value for IDD Field `humidifier_constant_setpoint`
-                Unit: kgWater/kgDryAir
+                Units: kgWater/kgDryAir
                 Default value: 0.003
                 value >= 0.0
                 value <= 1.0
@@ -45726,6 +46084,16 @@ class HvactemplateSystemDedicatedOutdoorAir(object):
 
         self._data["Humidifier Setpoint Schedule Name"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -45792,9 +46160,11 @@ class HvactemplatePlantChilledWaterLoop(object):
     """ Corresponds to IDD object `HVACTemplate:Plant:ChilledWaterLoop`
         Plant and condenser loops to serve all HVACTemplate
         chilled water coils, chillers, and towers.
+    
     """
     internal_name = "HVACTemplate:Plant:ChilledWaterLoop"
     field_count = 33
+    required_fields = ["Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `HVACTemplate:Plant:ChilledWaterLoop`
@@ -46250,7 +46620,7 @@ class HvactemplatePlantChilledWaterLoop(object):
 
         Args:
             value (float): value for IDD Field `chilled_water_design_setpoint`
-                Unit: C
+                Units: C
                 Default value: 7.22
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -46332,7 +46702,8 @@ class HvactemplatePlantChilledWaterLoop(object):
 
         Args:
             value (float): value for IDD Field `primary_chilled_water_pump_rated_head`
-                Unit: Pa
+                Units: Pa
+                IP-Units: ftH2O
                 Default value: 179352.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -46369,7 +46740,8 @@ class HvactemplatePlantChilledWaterLoop(object):
 
         Args:
             value (float): value for IDD Field `secondary_chilled_water_pump_rated_head`
-                Unit: Pa
+                Units: Pa
+                IP-Units: ftH2O
                 Default value: 179352.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -46568,7 +46940,7 @@ class HvactemplatePlantChilledWaterLoop(object):
 
         Args:
             value (float): value for IDD Field `condenser_water_design_setpoint`
-                Unit: C
+                Units: C
                 Default value: 29.4
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -46602,7 +46974,8 @@ class HvactemplatePlantChilledWaterLoop(object):
 
         Args:
             value (float): value for IDD Field `condenser_water_pump_rated_head`
-                Unit: Pa
+                Units: Pa
+                IP-Units: ftH2O
                 Default value: 179352.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -46683,7 +47056,7 @@ class HvactemplatePlantChilledWaterLoop(object):
 
         Args:
             value (float): value for IDD Field `chilled_water_setpoint_at_outdoor_drybulb_low`
-                Unit: C
+                Units: C
                 Default value: 12.2
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -46716,7 +47089,7 @@ class HvactemplatePlantChilledWaterLoop(object):
 
         Args:
             value (float): value for IDD Field `chilled_water_reset_outdoor_drybulb_low`
-                Unit: C
+                Units: C
                 Default value: 15.6
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -46749,7 +47122,7 @@ class HvactemplatePlantChilledWaterLoop(object):
 
         Args:
             value (float): value for IDD Field `chilled_water_setpoint_at_outdoor_drybulb_high`
-                Unit: C
+                Units: C
                 Default value: 6.7
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -46782,7 +47155,7 @@ class HvactemplatePlantChilledWaterLoop(object):
 
         Args:
             value (float): value for IDD Field `chilled_water_reset_outdoor_drybulb_high`
-                Unit: C
+                Units: C
                 Default value: 26.7
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -47202,7 +47575,7 @@ class HvactemplatePlantChilledWaterLoop(object):
 
         Args:
             value (float): value for IDD Field `loop_design_delta_temperature`
-                Unit: deltaC
+                Units: deltaC
                 Default value: 6.67
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -47236,7 +47609,7 @@ class HvactemplatePlantChilledWaterLoop(object):
 
         Args:
             value (float): value for IDD Field `minimum_outdoor_dry_bulb_temperature`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -47360,6 +47733,16 @@ class HvactemplatePlantChilledWaterLoop(object):
 
         self._data["Condenser Water Load Distribution Scheme"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -47412,9 +47795,11 @@ class HvactemplatePlantChilledWaterLoop(object):
 class HvactemplatePlantChiller(object):
     """ Corresponds to IDD object `HVACTemplate:Plant:Chiller`
         This object adds a chiller to an HVACTemplate:Plant:ChilledWaterLoop.
+    
     """
     internal_name = "HVACTemplate:Plant:Chiller"
     field_count = 12
+    required_fields = ["Name", "Chiller Type", "Nominal COP"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `HVACTemplate:Plant:Chiller`
@@ -47595,7 +47980,7 @@ class HvactemplatePlantChiller(object):
 
         Args:
             value (float): value for IDD Field `capacity`
-                Unit: W
+                Units: W
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -47632,7 +48017,7 @@ class HvactemplatePlantChiller(object):
 
         Args:
             value (float): value for IDD Field `nominal_cop`
-                Unit: W/W
+                Units: W/W
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -47934,7 +48319,7 @@ class HvactemplatePlantChiller(object):
 
         Args:
             value (float): value for IDD Field `leaving_chilled_water_lower_temperature_limit`
-                Unit: C
+                Units: C
                 Default value: 5.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -47950,6 +48335,16 @@ class HvactemplatePlantChiller(object):
                                  'for field `leaving_chilled_water_lower_temperature_limit`'.format(value))
 
         self._data["Leaving Chilled Water Lower Temperature Limit"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):
@@ -47984,9 +48379,11 @@ class HvactemplatePlantChillerObjectReference(object):
         This object references a detailed chiller object and adds it to
         an HVACTemplate:Plant:ChilledWaterLoop. The user must create a complete
         detailed chiller object with all required curve or performance objects.
+    
     """
     internal_name = "HVACTemplate:Plant:Chiller:ObjectReference"
     field_count = 4
+    required_fields = ["Name", "Chiller Object Type", "Chiller Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `HVACTemplate:Plant:Chiller:ObjectReference`
@@ -48169,6 +48566,16 @@ class HvactemplatePlantChillerObjectReference(object):
 
         self._data["Priority"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -48192,9 +48599,11 @@ class HvactemplatePlantChillerObjectReference(object):
 class HvactemplatePlantTower(object):
     """ Corresponds to IDD object `HVACTemplate:Plant:Tower`
         This object adds a cooling tower to an HVACTemplate:Plant:ChilledWaterLoop or MixedWaterLoop.
+    
     """
     internal_name = "HVACTemplate:Plant:Tower"
     field_count = 10
+    required_fields = ["Name", "Tower Type"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `HVACTemplate:Plant:Tower`
@@ -48365,7 +48774,7 @@ class HvactemplatePlantTower(object):
 
         Args:
             value (float): value for IDD Field `high_speed_nominal_capacity`
-                Unit: W
+                Units: W
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -48401,7 +48810,8 @@ class HvactemplatePlantTower(object):
 
         Args:
             value (float): value for IDD Field `high_speed_fan_power`
-                Unit: W
+                Units: W
+                IP-Units: W
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -48443,7 +48853,7 @@ class HvactemplatePlantTower(object):
 
         Args:
             value (float): value for IDD Field `low_speed_nominal_capacity`
-                Unit: W
+                Units: W
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -48479,7 +48889,8 @@ class HvactemplatePlantTower(object):
 
         Args:
             value (float): value for IDD Field `low_speed_fan_power`
-                Unit: W
+                Units: W
+                IP-Units: W
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -48521,7 +48932,7 @@ class HvactemplatePlantTower(object):
 
         Args:
             value (float): value for IDD Field `free_convection_capacity`
-                Unit: W
+                Units: W
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -48659,6 +49070,16 @@ class HvactemplatePlantTower(object):
 
         self._data["Template Plant Loop Type"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -48690,9 +49111,11 @@ class HvactemplatePlantTowerObjectReference(object):
         This object references a detailed cooling tower object and adds it to
         an HVACTemplate:Plant:ChilledWaterLoop or MixedWaterLoop. The user must create a complete
         detailed cooling tower object with all required curve or performance objects.
+    
     """
     internal_name = "HVACTemplate:Plant:Tower:ObjectReference"
     field_count = 5
+    required_fields = ["Name", "Cooling Tower Object Type", "Cooling Tower Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `HVACTemplate:Plant:Tower:ObjectReference`
@@ -48928,6 +49351,16 @@ class HvactemplatePlantTowerObjectReference(object):
 
         self._data["Template Plant Loop Type"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -48953,9 +49386,11 @@ class HvactemplatePlantHotWaterLoop(object):
     """ Corresponds to IDD object `HVACTemplate:Plant:HotWaterLoop`
         Plant loop to serve all HVACTemplate
         hot water coils and boilers.
+    
     """
     internal_name = "HVACTemplate:Plant:HotWaterLoop"
     field_count = 21
+    required_fields = ["Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `HVACTemplate:Plant:HotWaterLoop`
@@ -49337,7 +49772,7 @@ class HvactemplatePlantHotWaterLoop(object):
 
         Args:
             value (float): value for IDD Field `hot_water_design_setpoint`
-                Unit: C
+                Units: C
                 Default value: 82.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -49415,7 +49850,8 @@ class HvactemplatePlantHotWaterLoop(object):
 
         Args:
             value (float): value for IDD Field `hot_water_pump_rated_head`
-                Unit: Pa
+                Units: Pa
+                IP-Units: ftH2O
                 Default value: 179352.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -49496,7 +49932,7 @@ class HvactemplatePlantHotWaterLoop(object):
 
         Args:
             value (float): value for IDD Field `hot_water_setpoint_at_outdoor_drybulb_low`
-                Unit: C
+                Units: C
                 Default value: 82.2
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -49529,7 +49965,7 @@ class HvactemplatePlantHotWaterLoop(object):
 
         Args:
             value (float): value for IDD Field `hot_water_reset_outdoor_drybulb_low`
-                Unit: C
+                Units: C
                 Default value: -6.7
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -49562,7 +49998,7 @@ class HvactemplatePlantHotWaterLoop(object):
 
         Args:
             value (float): value for IDD Field `hot_water_setpoint_at_outdoor_drybulb_high`
-                Unit: C
+                Units: C
                 Default value: 65.6
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -49595,7 +50031,7 @@ class HvactemplatePlantHotWaterLoop(object):
 
         Args:
             value (float): value for IDD Field `hot_water_reset_outdoor_drybulb_high`
-                Unit: C
+                Units: C
                 Default value: 10.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -49825,7 +50261,7 @@ class HvactemplatePlantHotWaterLoop(object):
 
         Args:
             value (float): value for IDD Field `loop_design_delta_temperature`
-                Unit: deltaC
+                Units: deltaC
                 Default value: 11.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -49859,7 +50295,7 @@ class HvactemplatePlantHotWaterLoop(object):
 
         Args:
             value (float): value for IDD Field `maximum_outdoor_dry_bulb_temperature`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -49929,6 +50365,16 @@ class HvactemplatePlantHotWaterLoop(object):
 
         self._data["Load Distribution Scheme"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -49969,9 +50415,11 @@ class HvactemplatePlantHotWaterLoop(object):
 class HvactemplatePlantBoiler(object):
     """ Corresponds to IDD object `HVACTemplate:Plant:Boiler`
         This object adds a boiler to an HVACTemplate:Plant:HotWaterLoop or MixedWaterLoop.
+    
     """
     internal_name = "HVACTemplate:Plant:Boiler"
     field_count = 12
+    required_fields = ["Name", "Boiler Type"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `HVACTemplate:Plant:Boiler`
@@ -50150,7 +50598,7 @@ class HvactemplatePlantBoiler(object):
 
         Args:
             value (float): value for IDD Field `capacity`
-                Unit: W
+                Units: W
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -50461,7 +50909,7 @@ class HvactemplatePlantBoiler(object):
 
         Args:
             value (float): value for IDD Field `water_outlet_upper_temperature_limit`
-                Unit: C
+                Units: C
                 Default value: 100.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -50523,6 +50971,16 @@ class HvactemplatePlantBoiler(object):
 
         self._data["Template Plant Loop Type"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -50556,9 +51014,11 @@ class HvactemplatePlantBoilerObjectReference(object):
         This object references a detailed boiler object and adds it to
         an HVACTemplate:Plant:HotWaterLoop or MixedWaterLoop. The user must create a complete
         detailed boiler object with all required curve or performance objects.
+    
     """
     internal_name = "HVACTemplate:Plant:Boiler:ObjectReference"
     field_count = 5
+    required_fields = ["Name", "Boiler Object Type", "Boiler Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `HVACTemplate:Plant:Boiler:ObjectReference`
@@ -50790,6 +51250,16 @@ class HvactemplatePlantBoilerObjectReference(object):
 
         self._data["Template Plant Loop Type"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -50814,9 +51284,11 @@ class HvactemplatePlantBoilerObjectReference(object):
 class HvactemplatePlantMixedWaterLoop(object):
     """ Corresponds to IDD object `HVACTemplate:Plant:MixedWaterLoop`
         Central plant loop portion of a water source heat pump system.
+    
     """
     internal_name = "HVACTemplate:Plant:MixedWaterLoop"
     field_count = 17
+    required_fields = ["Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `HVACTemplate:Plant:MixedWaterLoop`
@@ -51176,7 +51648,7 @@ class HvactemplatePlantMixedWaterLoop(object):
 
         Args:
             value (float): value for IDD Field `high_temperature_design_setpoint`
-                Unit: C
+                Units: C
                 Default value: 33.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -51245,7 +51717,7 @@ class HvactemplatePlantMixedWaterLoop(object):
 
         Args:
             value (float): value for IDD Field `low_temperature_design_setpoint`
-                Unit: C
+                Units: C
                 Default value: 20.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -51324,7 +51796,8 @@ class HvactemplatePlantMixedWaterLoop(object):
 
         Args:
             value (float): value for IDD Field `water_pump_rated_head`
-                Unit: Pa
+                Units: Pa
+                IP-Units: ftH2O
                 Default value: 179352.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -51558,7 +52031,7 @@ class HvactemplatePlantMixedWaterLoop(object):
 
         Args:
             value (float): value for IDD Field `loop_design_delta_temperature`
-                Unit: deltaC
+                Units: deltaC
                 Default value: 5.6
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -51628,6 +52101,16 @@ class HvactemplatePlantMixedWaterLoop(object):
                                  'field `load_distribution_scheme`'.format(value))
 
         self._data["Load Distribution Scheme"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):

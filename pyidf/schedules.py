@@ -3,9 +3,11 @@ from collections import OrderedDict
 class ScheduleTypeLimits(object):
     """ Corresponds to IDD object `ScheduleTypeLimits`
         ScheduleTypeLimits specifies the data types and limits for the values contained in schedules
+    
     """
     internal_name = "ScheduleTypeLimits"
     field_count = 5
+    required_fields = ["Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ScheduleTypeLimits`
@@ -268,6 +270,16 @@ class ScheduleTypeLimits(object):
 
         self._data["Unit Type"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -292,9 +304,11 @@ class ScheduleTypeLimits(object):
 class ScheduleDayHourly(object):
     """ Corresponds to IDD object `Schedule:Day:Hourly`
         A Schedule:Day:Hourly contains 24 values for each hour of the day.
+    
     """
     internal_name = "Schedule:Day:Hourly"
     field_count = 26
+    required_fields = ["Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Schedule:Day:Hourly`
@@ -1275,6 +1289,16 @@ class ScheduleDayHourly(object):
 
         self._data["Hour 24"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -1321,9 +1345,11 @@ class ScheduleDayInterval(object):
     """ Corresponds to IDD object `Schedule:Day:Interval`
         A Schedule:Day:Interval contains a full day of values with specified end times for each value
         Currently, is set up to allow for 10 minute intervals for an entire day.
+    
     """
     internal_name = "Schedule:Day:Interval"
     field_count = 291
+    required_fields = ["Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Schedule:Day:Interval`
@@ -3212,7 +3238,7 @@ class ScheduleDayInterval(object):
 
         Args:
             value (str): value for IDD Field `time_1`
-                Unit: hh:mm
+                Units: hh:mm
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3277,7 +3303,7 @@ class ScheduleDayInterval(object):
 
         Args:
             value (str): value for IDD Field `time_2`
-                Unit: hh:mm
+                Units: hh:mm
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3342,7 +3368,7 @@ class ScheduleDayInterval(object):
 
         Args:
             value (str): value for IDD Field `time_3`
-                Unit: hh:mm
+                Units: hh:mm
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3407,7 +3433,7 @@ class ScheduleDayInterval(object):
 
         Args:
             value (str): value for IDD Field `time_4`
-                Unit: hh:mm
+                Units: hh:mm
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3472,7 +3498,7 @@ class ScheduleDayInterval(object):
 
         Args:
             value (str): value for IDD Field `time_5`
-                Unit: hh:mm
+                Units: hh:mm
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3537,7 +3563,7 @@ class ScheduleDayInterval(object):
 
         Args:
             value (str): value for IDD Field `time_6`
-                Unit: hh:mm
+                Units: hh:mm
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3602,7 +3628,7 @@ class ScheduleDayInterval(object):
 
         Args:
             value (str): value for IDD Field `time_7`
-                Unit: hh:mm
+                Units: hh:mm
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3667,7 +3693,7 @@ class ScheduleDayInterval(object):
 
         Args:
             value (str): value for IDD Field `time_8`
-                Unit: hh:mm
+                Units: hh:mm
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3732,7 +3758,7 @@ class ScheduleDayInterval(object):
 
         Args:
             value (str): value for IDD Field `time_9`
-                Unit: hh:mm
+                Units: hh:mm
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3797,7 +3823,7 @@ class ScheduleDayInterval(object):
 
         Args:
             value (str): value for IDD Field `time_10`
-                Unit: hh:mm
+                Units: hh:mm
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3862,7 +3888,7 @@ class ScheduleDayInterval(object):
 
         Args:
             value (str): value for IDD Field `time_11`
-                Unit: hh:mm
+                Units: hh:mm
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3927,7 +3953,7 @@ class ScheduleDayInterval(object):
 
         Args:
             value (str): value for IDD Field `time_12`
-                Unit: hh:mm
+                Units: hh:mm
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3992,7 +4018,7 @@ class ScheduleDayInterval(object):
 
         Args:
             value (str): value for IDD Field `time_13`
-                Unit: hh:mm
+                Units: hh:mm
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4057,7 +4083,7 @@ class ScheduleDayInterval(object):
 
         Args:
             value (str): value for IDD Field `time_14`
-                Unit: hh:mm
+                Units: hh:mm
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4122,7 +4148,7 @@ class ScheduleDayInterval(object):
 
         Args:
             value (str): value for IDD Field `time_15`
-                Unit: hh:mm
+                Units: hh:mm
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4187,7 +4213,7 @@ class ScheduleDayInterval(object):
 
         Args:
             value (str): value for IDD Field `time_16`
-                Unit: hh:mm
+                Units: hh:mm
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4252,7 +4278,7 @@ class ScheduleDayInterval(object):
 
         Args:
             value (str): value for IDD Field `time_17`
-                Unit: hh:mm
+                Units: hh:mm
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4317,7 +4343,7 @@ class ScheduleDayInterval(object):
 
         Args:
             value (str): value for IDD Field `time_18`
-                Unit: hh:mm
+                Units: hh:mm
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4382,7 +4408,7 @@ class ScheduleDayInterval(object):
 
         Args:
             value (str): value for IDD Field `time_19`
-                Unit: hh:mm
+                Units: hh:mm
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4447,7 +4473,7 @@ class ScheduleDayInterval(object):
 
         Args:
             value (str): value for IDD Field `time_20`
-                Unit: hh:mm
+                Units: hh:mm
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4512,7 +4538,7 @@ class ScheduleDayInterval(object):
 
         Args:
             value (str): value for IDD Field `time_21`
-                Unit: hh:mm
+                Units: hh:mm
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4577,7 +4603,7 @@ class ScheduleDayInterval(object):
 
         Args:
             value (str): value for IDD Field `time_22`
-                Unit: hh:mm
+                Units: hh:mm
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4642,7 +4668,7 @@ class ScheduleDayInterval(object):
 
         Args:
             value (str): value for IDD Field `time_23`
-                Unit: hh:mm
+                Units: hh:mm
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4707,7 +4733,7 @@ class ScheduleDayInterval(object):
 
         Args:
             value (str): value for IDD Field `time_24`
-                Unit: hh:mm
+                Units: hh:mm
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4772,7 +4798,7 @@ class ScheduleDayInterval(object):
 
         Args:
             value (str): value for IDD Field `time_25`
-                Unit: hh:mm
+                Units: hh:mm
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4837,7 +4863,7 @@ class ScheduleDayInterval(object):
 
         Args:
             value (str): value for IDD Field `time_26`
-                Unit: hh:mm
+                Units: hh:mm
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4902,7 +4928,7 @@ class ScheduleDayInterval(object):
 
         Args:
             value (str): value for IDD Field `time_27`
-                Unit: hh:mm
+                Units: hh:mm
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4967,7 +4993,7 @@ class ScheduleDayInterval(object):
 
         Args:
             value (str): value for IDD Field `time_28`
-                Unit: hh:mm
+                Units: hh:mm
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5032,7 +5058,7 @@ class ScheduleDayInterval(object):
 
         Args:
             value (str): value for IDD Field `time_29`
-                Unit: hh:mm
+                Units: hh:mm
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5097,7 +5123,7 @@ class ScheduleDayInterval(object):
 
         Args:
             value (str): value for IDD Field `time_30`
-                Unit: hh:mm
+                Units: hh:mm
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5162,7 +5188,7 @@ class ScheduleDayInterval(object):
 
         Args:
             value (str): value for IDD Field `time_31`
-                Unit: hh:mm
+                Units: hh:mm
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5227,7 +5253,7 @@ class ScheduleDayInterval(object):
 
         Args:
             value (str): value for IDD Field `time_32`
-                Unit: hh:mm
+                Units: hh:mm
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5292,7 +5318,7 @@ class ScheduleDayInterval(object):
 
         Args:
             value (str): value for IDD Field `time_33`
-                Unit: hh:mm
+                Units: hh:mm
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5357,7 +5383,7 @@ class ScheduleDayInterval(object):
 
         Args:
             value (str): value for IDD Field `time_34`
-                Unit: hh:mm
+                Units: hh:mm
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5422,7 +5448,7 @@ class ScheduleDayInterval(object):
 
         Args:
             value (str): value for IDD Field `time_35`
-                Unit: hh:mm
+                Units: hh:mm
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5487,7 +5513,7 @@ class ScheduleDayInterval(object):
 
         Args:
             value (str): value for IDD Field `time_36`
-                Unit: hh:mm
+                Units: hh:mm
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5552,7 +5578,7 @@ class ScheduleDayInterval(object):
 
         Args:
             value (str): value for IDD Field `time_37`
-                Unit: hh:mm
+                Units: hh:mm
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5617,7 +5643,7 @@ class ScheduleDayInterval(object):
 
         Args:
             value (str): value for IDD Field `time_38`
-                Unit: hh:mm
+                Units: hh:mm
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5682,7 +5708,7 @@ class ScheduleDayInterval(object):
 
         Args:
             value (str): value for IDD Field `time_39`
-                Unit: hh:mm
+                Units: hh:mm
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5747,7 +5773,7 @@ class ScheduleDayInterval(object):
 
         Args:
             value (str): value for IDD Field `time_40`
-                Unit: hh:mm
+                Units: hh:mm
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5812,7 +5838,7 @@ class ScheduleDayInterval(object):
 
         Args:
             value (str): value for IDD Field `time_41`
-                Unit: hh:mm
+                Units: hh:mm
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5877,7 +5903,7 @@ class ScheduleDayInterval(object):
 
         Args:
             value (str): value for IDD Field `time_42`
-                Unit: hh:mm
+                Units: hh:mm
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5942,7 +5968,7 @@ class ScheduleDayInterval(object):
 
         Args:
             value (str): value for IDD Field `time_43`
-                Unit: hh:mm
+                Units: hh:mm
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6007,7 +6033,7 @@ class ScheduleDayInterval(object):
 
         Args:
             value (str): value for IDD Field `time_44`
-                Unit: hh:mm
+                Units: hh:mm
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6072,7 +6098,7 @@ class ScheduleDayInterval(object):
 
         Args:
             value (str): value for IDD Field `time_45`
-                Unit: hh:mm
+                Units: hh:mm
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6137,7 +6163,7 @@ class ScheduleDayInterval(object):
 
         Args:
             value (str): value for IDD Field `time_46`
-                Unit: hh:mm
+                Units: hh:mm
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6202,7 +6228,7 @@ class ScheduleDayInterval(object):
 
         Args:
             value (str): value for IDD Field `time_47`
-                Unit: hh:mm
+                Units: hh:mm
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6267,7 +6293,7 @@ class ScheduleDayInterval(object):
 
         Args:
             value (str): value for IDD Field `time_48`
-                Unit: hh:mm
+                Units: hh:mm
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6332,7 +6358,7 @@ class ScheduleDayInterval(object):
 
         Args:
             value (str): value for IDD Field `time_49`
-                Unit: hh:mm
+                Units: hh:mm
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6397,7 +6423,7 @@ class ScheduleDayInterval(object):
 
         Args:
             value (str): value for IDD Field `time_50`
-                Unit: hh:mm
+                Units: hh:mm
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6462,7 +6488,7 @@ class ScheduleDayInterval(object):
 
         Args:
             value (str): value for IDD Field `time_51`
-                Unit: hh:mm
+                Units: hh:mm
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6527,7 +6553,7 @@ class ScheduleDayInterval(object):
 
         Args:
             value (str): value for IDD Field `time_52`
-                Unit: hh:mm
+                Units: hh:mm
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6592,7 +6618,7 @@ class ScheduleDayInterval(object):
 
         Args:
             value (str): value for IDD Field `time_53`
-                Unit: hh:mm
+                Units: hh:mm
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6657,7 +6683,7 @@ class ScheduleDayInterval(object):
 
         Args:
             value (str): value for IDD Field `time_54`
-                Unit: hh:mm
+                Units: hh:mm
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6722,7 +6748,7 @@ class ScheduleDayInterval(object):
 
         Args:
             value (str): value for IDD Field `time_55`
-                Unit: hh:mm
+                Units: hh:mm
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6787,7 +6813,7 @@ class ScheduleDayInterval(object):
 
         Args:
             value (str): value for IDD Field `time_56`
-                Unit: hh:mm
+                Units: hh:mm
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6852,7 +6878,7 @@ class ScheduleDayInterval(object):
 
         Args:
             value (str): value for IDD Field `time_57`
-                Unit: hh:mm
+                Units: hh:mm
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6917,7 +6943,7 @@ class ScheduleDayInterval(object):
 
         Args:
             value (str): value for IDD Field `time_58`
-                Unit: hh:mm
+                Units: hh:mm
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6982,7 +7008,7 @@ class ScheduleDayInterval(object):
 
         Args:
             value (str): value for IDD Field `time_59`
-                Unit: hh:mm
+                Units: hh:mm
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7047,7 +7073,7 @@ class ScheduleDayInterval(object):
 
         Args:
             value (str): value for IDD Field `time_60`
-                Unit: hh:mm
+                Units: hh:mm
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7112,7 +7138,7 @@ class ScheduleDayInterval(object):
 
         Args:
             value (str): value for IDD Field `time_61`
-                Unit: hh:mm
+                Units: hh:mm
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7177,7 +7203,7 @@ class ScheduleDayInterval(object):
 
         Args:
             value (str): value for IDD Field `time_62`
-                Unit: hh:mm
+                Units: hh:mm
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7242,7 +7268,7 @@ class ScheduleDayInterval(object):
 
         Args:
             value (str): value for IDD Field `time_63`
-                Unit: hh:mm
+                Units: hh:mm
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7307,7 +7333,7 @@ class ScheduleDayInterval(object):
 
         Args:
             value (str): value for IDD Field `time_64`
-                Unit: hh:mm
+                Units: hh:mm
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7372,7 +7398,7 @@ class ScheduleDayInterval(object):
 
         Args:
             value (str): value for IDD Field `time_65`
-                Unit: hh:mm
+                Units: hh:mm
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7437,7 +7463,7 @@ class ScheduleDayInterval(object):
 
         Args:
             value (str): value for IDD Field `time_66`
-                Unit: hh:mm
+                Units: hh:mm
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7502,7 +7528,7 @@ class ScheduleDayInterval(object):
 
         Args:
             value (str): value for IDD Field `time_67`
-                Unit: hh:mm
+                Units: hh:mm
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7567,7 +7593,7 @@ class ScheduleDayInterval(object):
 
         Args:
             value (str): value for IDD Field `time_68`
-                Unit: hh:mm
+                Units: hh:mm
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7632,7 +7658,7 @@ class ScheduleDayInterval(object):
 
         Args:
             value (str): value for IDD Field `time_69`
-                Unit: hh:mm
+                Units: hh:mm
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7697,7 +7723,7 @@ class ScheduleDayInterval(object):
 
         Args:
             value (str): value for IDD Field `time_70`
-                Unit: hh:mm
+                Units: hh:mm
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7762,7 +7788,7 @@ class ScheduleDayInterval(object):
 
         Args:
             value (str): value for IDD Field `time_71`
-                Unit: hh:mm
+                Units: hh:mm
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7827,7 +7853,7 @@ class ScheduleDayInterval(object):
 
         Args:
             value (str): value for IDD Field `time_72`
-                Unit: hh:mm
+                Units: hh:mm
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7892,7 +7918,7 @@ class ScheduleDayInterval(object):
 
         Args:
             value (str): value for IDD Field `time_73`
-                Unit: hh:mm
+                Units: hh:mm
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7957,7 +7983,7 @@ class ScheduleDayInterval(object):
 
         Args:
             value (str): value for IDD Field `time_74`
-                Unit: hh:mm
+                Units: hh:mm
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8022,7 +8048,7 @@ class ScheduleDayInterval(object):
 
         Args:
             value (str): value for IDD Field `time_75`
-                Unit: hh:mm
+                Units: hh:mm
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8087,7 +8113,7 @@ class ScheduleDayInterval(object):
 
         Args:
             value (str): value for IDD Field `time_76`
-                Unit: hh:mm
+                Units: hh:mm
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8152,7 +8178,7 @@ class ScheduleDayInterval(object):
 
         Args:
             value (str): value for IDD Field `time_77`
-                Unit: hh:mm
+                Units: hh:mm
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8217,7 +8243,7 @@ class ScheduleDayInterval(object):
 
         Args:
             value (str): value for IDD Field `time_78`
-                Unit: hh:mm
+                Units: hh:mm
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8282,7 +8308,7 @@ class ScheduleDayInterval(object):
 
         Args:
             value (str): value for IDD Field `time_79`
-                Unit: hh:mm
+                Units: hh:mm
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8347,7 +8373,7 @@ class ScheduleDayInterval(object):
 
         Args:
             value (str): value for IDD Field `time_80`
-                Unit: hh:mm
+                Units: hh:mm
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8412,7 +8438,7 @@ class ScheduleDayInterval(object):
 
         Args:
             value (str): value for IDD Field `time_81`
-                Unit: hh:mm
+                Units: hh:mm
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8477,7 +8503,7 @@ class ScheduleDayInterval(object):
 
         Args:
             value (str): value for IDD Field `time_82`
-                Unit: hh:mm
+                Units: hh:mm
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8542,7 +8568,7 @@ class ScheduleDayInterval(object):
 
         Args:
             value (str): value for IDD Field `time_83`
-                Unit: hh:mm
+                Units: hh:mm
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8607,7 +8633,7 @@ class ScheduleDayInterval(object):
 
         Args:
             value (str): value for IDD Field `time_84`
-                Unit: hh:mm
+                Units: hh:mm
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8672,7 +8698,7 @@ class ScheduleDayInterval(object):
 
         Args:
             value (str): value for IDD Field `time_85`
-                Unit: hh:mm
+                Units: hh:mm
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8737,7 +8763,7 @@ class ScheduleDayInterval(object):
 
         Args:
             value (str): value for IDD Field `time_86`
-                Unit: hh:mm
+                Units: hh:mm
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8802,7 +8828,7 @@ class ScheduleDayInterval(object):
 
         Args:
             value (str): value for IDD Field `time_87`
-                Unit: hh:mm
+                Units: hh:mm
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8867,7 +8893,7 @@ class ScheduleDayInterval(object):
 
         Args:
             value (str): value for IDD Field `time_88`
-                Unit: hh:mm
+                Units: hh:mm
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8932,7 +8958,7 @@ class ScheduleDayInterval(object):
 
         Args:
             value (str): value for IDD Field `time_89`
-                Unit: hh:mm
+                Units: hh:mm
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8997,7 +9023,7 @@ class ScheduleDayInterval(object):
 
         Args:
             value (str): value for IDD Field `time_90`
-                Unit: hh:mm
+                Units: hh:mm
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -9062,7 +9088,7 @@ class ScheduleDayInterval(object):
 
         Args:
             value (str): value for IDD Field `time_91`
-                Unit: hh:mm
+                Units: hh:mm
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -9127,7 +9153,7 @@ class ScheduleDayInterval(object):
 
         Args:
             value (str): value for IDD Field `time_92`
-                Unit: hh:mm
+                Units: hh:mm
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -9192,7 +9218,7 @@ class ScheduleDayInterval(object):
 
         Args:
             value (str): value for IDD Field `time_93`
-                Unit: hh:mm
+                Units: hh:mm
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -9257,7 +9283,7 @@ class ScheduleDayInterval(object):
 
         Args:
             value (str): value for IDD Field `time_94`
-                Unit: hh:mm
+                Units: hh:mm
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -9322,7 +9348,7 @@ class ScheduleDayInterval(object):
 
         Args:
             value (str): value for IDD Field `time_95`
-                Unit: hh:mm
+                Units: hh:mm
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -9387,7 +9413,7 @@ class ScheduleDayInterval(object):
 
         Args:
             value (str): value for IDD Field `time_96`
-                Unit: hh:mm
+                Units: hh:mm
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -9452,7 +9478,7 @@ class ScheduleDayInterval(object):
 
         Args:
             value (str): value for IDD Field `time_97`
-                Unit: hh:mm
+                Units: hh:mm
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -9517,7 +9543,7 @@ class ScheduleDayInterval(object):
 
         Args:
             value (str): value for IDD Field `time_98`
-                Unit: hh:mm
+                Units: hh:mm
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -9582,7 +9608,7 @@ class ScheduleDayInterval(object):
 
         Args:
             value (str): value for IDD Field `time_99`
-                Unit: hh:mm
+                Units: hh:mm
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -9647,7 +9673,7 @@ class ScheduleDayInterval(object):
 
         Args:
             value (str): value for IDD Field `time_100`
-                Unit: hh:mm
+                Units: hh:mm
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -9712,7 +9738,7 @@ class ScheduleDayInterval(object):
 
         Args:
             value (str): value for IDD Field `time_101`
-                Unit: hh:mm
+                Units: hh:mm
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -9777,7 +9803,7 @@ class ScheduleDayInterval(object):
 
         Args:
             value (str): value for IDD Field `time_102`
-                Unit: hh:mm
+                Units: hh:mm
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -9842,7 +9868,7 @@ class ScheduleDayInterval(object):
 
         Args:
             value (str): value for IDD Field `time_103`
-                Unit: hh:mm
+                Units: hh:mm
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -9907,7 +9933,7 @@ class ScheduleDayInterval(object):
 
         Args:
             value (str): value for IDD Field `time_104`
-                Unit: hh:mm
+                Units: hh:mm
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -9972,7 +9998,7 @@ class ScheduleDayInterval(object):
 
         Args:
             value (str): value for IDD Field `time_105`
-                Unit: hh:mm
+                Units: hh:mm
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -10037,7 +10063,7 @@ class ScheduleDayInterval(object):
 
         Args:
             value (str): value for IDD Field `time_106`
-                Unit: hh:mm
+                Units: hh:mm
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -10102,7 +10128,7 @@ class ScheduleDayInterval(object):
 
         Args:
             value (str): value for IDD Field `time_107`
-                Unit: hh:mm
+                Units: hh:mm
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -10167,7 +10193,7 @@ class ScheduleDayInterval(object):
 
         Args:
             value (str): value for IDD Field `time_108`
-                Unit: hh:mm
+                Units: hh:mm
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -10232,7 +10258,7 @@ class ScheduleDayInterval(object):
 
         Args:
             value (str): value for IDD Field `time_109`
-                Unit: hh:mm
+                Units: hh:mm
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -10297,7 +10323,7 @@ class ScheduleDayInterval(object):
 
         Args:
             value (str): value for IDD Field `time_110`
-                Unit: hh:mm
+                Units: hh:mm
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -10362,7 +10388,7 @@ class ScheduleDayInterval(object):
 
         Args:
             value (str): value for IDD Field `time_111`
-                Unit: hh:mm
+                Units: hh:mm
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -10427,7 +10453,7 @@ class ScheduleDayInterval(object):
 
         Args:
             value (str): value for IDD Field `time_112`
-                Unit: hh:mm
+                Units: hh:mm
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -10492,7 +10518,7 @@ class ScheduleDayInterval(object):
 
         Args:
             value (str): value for IDD Field `time_113`
-                Unit: hh:mm
+                Units: hh:mm
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -10557,7 +10583,7 @@ class ScheduleDayInterval(object):
 
         Args:
             value (str): value for IDD Field `time_114`
-                Unit: hh:mm
+                Units: hh:mm
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -10622,7 +10648,7 @@ class ScheduleDayInterval(object):
 
         Args:
             value (str): value for IDD Field `time_115`
-                Unit: hh:mm
+                Units: hh:mm
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -10687,7 +10713,7 @@ class ScheduleDayInterval(object):
 
         Args:
             value (str): value for IDD Field `time_116`
-                Unit: hh:mm
+                Units: hh:mm
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -10752,7 +10778,7 @@ class ScheduleDayInterval(object):
 
         Args:
             value (str): value for IDD Field `time_117`
-                Unit: hh:mm
+                Units: hh:mm
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -10817,7 +10843,7 @@ class ScheduleDayInterval(object):
 
         Args:
             value (str): value for IDD Field `time_118`
-                Unit: hh:mm
+                Units: hh:mm
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -10882,7 +10908,7 @@ class ScheduleDayInterval(object):
 
         Args:
             value (str): value for IDD Field `time_119`
-                Unit: hh:mm
+                Units: hh:mm
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -10947,7 +10973,7 @@ class ScheduleDayInterval(object):
 
         Args:
             value (str): value for IDD Field `time_120`
-                Unit: hh:mm
+                Units: hh:mm
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -11012,7 +11038,7 @@ class ScheduleDayInterval(object):
 
         Args:
             value (str): value for IDD Field `time_121`
-                Unit: hh:mm
+                Units: hh:mm
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -11077,7 +11103,7 @@ class ScheduleDayInterval(object):
 
         Args:
             value (str): value for IDD Field `time_122`
-                Unit: hh:mm
+                Units: hh:mm
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -11142,7 +11168,7 @@ class ScheduleDayInterval(object):
 
         Args:
             value (str): value for IDD Field `time_123`
-                Unit: hh:mm
+                Units: hh:mm
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -11207,7 +11233,7 @@ class ScheduleDayInterval(object):
 
         Args:
             value (str): value for IDD Field `time_124`
-                Unit: hh:mm
+                Units: hh:mm
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -11272,7 +11298,7 @@ class ScheduleDayInterval(object):
 
         Args:
             value (str): value for IDD Field `time_125`
-                Unit: hh:mm
+                Units: hh:mm
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -11337,7 +11363,7 @@ class ScheduleDayInterval(object):
 
         Args:
             value (str): value for IDD Field `time_126`
-                Unit: hh:mm
+                Units: hh:mm
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -11402,7 +11428,7 @@ class ScheduleDayInterval(object):
 
         Args:
             value (str): value for IDD Field `time_127`
-                Unit: hh:mm
+                Units: hh:mm
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -11467,7 +11493,7 @@ class ScheduleDayInterval(object):
 
         Args:
             value (str): value for IDD Field `time_128`
-                Unit: hh:mm
+                Units: hh:mm
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -11532,7 +11558,7 @@ class ScheduleDayInterval(object):
 
         Args:
             value (str): value for IDD Field `time_129`
-                Unit: hh:mm
+                Units: hh:mm
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -11597,7 +11623,7 @@ class ScheduleDayInterval(object):
 
         Args:
             value (str): value for IDD Field `time_130`
-                Unit: hh:mm
+                Units: hh:mm
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -11662,7 +11688,7 @@ class ScheduleDayInterval(object):
 
         Args:
             value (str): value for IDD Field `time_131`
-                Unit: hh:mm
+                Units: hh:mm
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -11727,7 +11753,7 @@ class ScheduleDayInterval(object):
 
         Args:
             value (str): value for IDD Field `time_132`
-                Unit: hh:mm
+                Units: hh:mm
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -11792,7 +11818,7 @@ class ScheduleDayInterval(object):
 
         Args:
             value (str): value for IDD Field `time_133`
-                Unit: hh:mm
+                Units: hh:mm
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -11857,7 +11883,7 @@ class ScheduleDayInterval(object):
 
         Args:
             value (str): value for IDD Field `time_134`
-                Unit: hh:mm
+                Units: hh:mm
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -11922,7 +11948,7 @@ class ScheduleDayInterval(object):
 
         Args:
             value (str): value for IDD Field `time_135`
-                Unit: hh:mm
+                Units: hh:mm
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -11987,7 +12013,7 @@ class ScheduleDayInterval(object):
 
         Args:
             value (str): value for IDD Field `time_136`
-                Unit: hh:mm
+                Units: hh:mm
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -12052,7 +12078,7 @@ class ScheduleDayInterval(object):
 
         Args:
             value (str): value for IDD Field `time_137`
-                Unit: hh:mm
+                Units: hh:mm
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -12117,7 +12143,7 @@ class ScheduleDayInterval(object):
 
         Args:
             value (str): value for IDD Field `time_138`
-                Unit: hh:mm
+                Units: hh:mm
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -12182,7 +12208,7 @@ class ScheduleDayInterval(object):
 
         Args:
             value (str): value for IDD Field `time_139`
-                Unit: hh:mm
+                Units: hh:mm
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -12247,7 +12273,7 @@ class ScheduleDayInterval(object):
 
         Args:
             value (str): value for IDD Field `time_140`
-                Unit: hh:mm
+                Units: hh:mm
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -12312,7 +12338,7 @@ class ScheduleDayInterval(object):
 
         Args:
             value (str): value for IDD Field `time_141`
-                Unit: hh:mm
+                Units: hh:mm
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -12377,7 +12403,7 @@ class ScheduleDayInterval(object):
 
         Args:
             value (str): value for IDD Field `time_142`
-                Unit: hh:mm
+                Units: hh:mm
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -12442,7 +12468,7 @@ class ScheduleDayInterval(object):
 
         Args:
             value (str): value for IDD Field `time_143`
-                Unit: hh:mm
+                Units: hh:mm
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -12507,7 +12533,7 @@ class ScheduleDayInterval(object):
 
         Args:
             value (str): value for IDD Field `time_144`
-                Unit: hh:mm
+                Units: hh:mm
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -12555,6 +12581,16 @@ class ScheduleDayInterval(object):
                                  'for field `value_until_time_144`'.format(value))
 
         self._data["Value Until Time 144"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):
@@ -12866,9 +12902,11 @@ class ScheduleDayInterval(object):
 class ScheduleWeekDaily(object):
     """ Corresponds to IDD object `Schedule:Week:Daily`
         A Schedule:Week:Daily contains 12 Schedule:Day:Hourly objects, one for each day type.
+    
     """
     internal_name = "Schedule:Week:Daily"
     field_count = 13
+    required_fields = ["Name", "Sunday Schedule:Day Name", "Monday Schedule:Day Name", "Tuesday Schedule:Day Name", "Wednesday Schedule:Day Name", "Thursday Schedule:Day Name", "Friday Schedule:Day Name", "Saturday Schedule:Day Name", "Holiday Schedule:Day Name", "SummerDesignDay Schedule:Day Name", "WinterDesignDay Schedule:Day Name", "CustomDay1 Schedule:Day Name", "CustomDay2 Schedule:Day Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Schedule:Week:Daily`
@@ -13390,6 +13428,16 @@ class ScheduleWeekDaily(object):
 
         self._data["CustomDay2 Schedule:Day Name"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -13422,9 +13470,11 @@ class ScheduleWeekDaily(object):
 class ScheduleWeekCompact(object):
     """ Corresponds to IDD object `Schedule:Week:Compact`
         Compact definition for Schedule:Day:List
+    
     """
     internal_name = "Schedule:Week:Compact"
     field_count = 11
+    required_fields = ["Name", "DayType List 1", "Schedule:Day Name 1"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Schedule:Week:Compact`
@@ -14046,6 +14096,16 @@ class ScheduleWeekCompact(object):
 
         self._data["Schedule:Day Name 5"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -14076,9 +14136,11 @@ class ScheduleWeekCompact(object):
 class ScheduleConstant(object):
     """ Corresponds to IDD object `Schedule:Constant`
         Constant hourly value for entire year.
+    
     """
     internal_name = "Schedule:Constant"
     field_count = 3
+    required_fields = ["Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Schedule:Constant`
@@ -14208,6 +14270,16 @@ class ScheduleConstant(object):
 
         self._data["Hourly Value"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -14230,9 +14302,11 @@ class ScheduleConstant(object):
 class ScheduleFile(object):
     """ Corresponds to IDD object `Schedule:File`
         A Schedule:File points to a text computer file that has 8760-8784 hours of data.
+    
     """
     internal_name = "Schedule:File"
     field_count = 9
+    required_fields = ["Name", "File Name", "Column Number", "Rows to Skip at Top"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Schedule:File`
@@ -14640,6 +14714,16 @@ class ScheduleFile(object):
                                  'for field `minutes_per_item`')
 
         self._data["Minutes per Item"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):

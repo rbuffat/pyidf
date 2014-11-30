@@ -7,9 +7,11 @@ class DaylightingControls(object):
         reference points are given in coordinates specified in the GlobalGeometryRules object
         Daylighting Reference Point CoordinateSystem field
         Glare from daylighting is also calculated.
+    
     """
     internal_name = "Daylighting:Controls"
     field_count = 20
+    required_fields = ["Zone Name", "X-Coordinate of First Reference Point", "Y-Coordinate of First Reference Point", "Glare Calculation Azimuth Angle of View Direction Clockwise from Zone y-Axis"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Daylighting:Controls`
@@ -231,7 +233,7 @@ class DaylightingControls(object):
 
         Args:
             value (float): value for IDD Field `xcoordinate_of_first_reference_point`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -262,7 +264,7 @@ class DaylightingControls(object):
 
         Args:
             value (float): value for IDD Field `ycoordinate_of_first_reference_point`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -293,7 +295,7 @@ class DaylightingControls(object):
 
         Args:
             value (float): value for IDD Field `zcoordinate_of_first_reference_point`
-                Unit: m
+                Units: m
                 Default value: 0.8
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -326,7 +328,7 @@ class DaylightingControls(object):
 
         Args:
             value (float): value for IDD Field `xcoordinate_of_second_reference_point`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -358,7 +360,7 @@ class DaylightingControls(object):
 
         Args:
             value (float): value for IDD Field `ycoordinate_of_second_reference_point`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -389,7 +391,7 @@ class DaylightingControls(object):
 
         Args:
             value (float): value for IDD Field `zcoordinate_of_second_reference_point`
-                Unit: m
+                Units: m
                 Default value: 0.8
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -499,7 +501,7 @@ class DaylightingControls(object):
 
         Args:
             value (float): value for IDD Field `illuminance_setpoint_at_first_reference_point`
-                Unit: lux
+                Units: lux
                 Default value: 500.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -535,7 +537,7 @@ class DaylightingControls(object):
 
         Args:
             value (float): value for IDD Field `illuminance_setpoint_at_second_reference_point`
-                Unit: lux
+                Units: lux
                 Default value: 500.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -611,7 +613,7 @@ class DaylightingControls(object):
 
         Args:
             value (float): value for IDD Field `glare_calculation_azimuth_angle_of_view_direction_clockwise_from_zone_yaxis`
-                Unit: deg
+                Units: deg
                 value >= 0.0
                 value <= 360.0
                 if `value` is None it will not be checked against the
@@ -853,6 +855,16 @@ class DaylightingControls(object):
 
         self._data["Availability Schedule Name"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -893,9 +905,11 @@ class DaylightingDelightControls(object):
     """ Corresponds to IDD object `Daylighting:DELight:Controls`
         Dimming of overhead electric lighting is determined from
         DElight calculated interior daylight illuminance at one or more reference points.
+    
     """
     internal_name = "Daylighting:DELight:Controls"
     field_count = 8
+    required_fields = ["Name", "Zone Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Daylighting:DELight:Controls`
@@ -1234,7 +1248,7 @@ class DaylightingDelightControls(object):
 
         Args:
             value (float): value for IDD Field `gridding_resolution`
-                Unit: m2
+                Units: m2
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -1253,6 +1267,16 @@ class DaylightingDelightControls(object):
                                  'for field `gridding_resolution`')
 
         self._data["Gridding Resolution"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):
@@ -1284,9 +1308,11 @@ class DaylightingDelightReferencePoint(object):
         reference points are given in coordinates specified in the GlobalGeometryRules object
         Daylighting Reference Point CoordinateSystem field
         There is a maximum number of 100 reference points per DElight daylighting zone.
+    
     """
     internal_name = "Daylighting:DELight:ReferencePoint"
     field_count = 7
+    required_fields = ["DElight Name", "X-coordinate of Reference Point", "Y-coordinate of Reference Point", "Z-coordinate of Reference Point", "Fraction of Zone Controlled by Reference Point", "Illuminance Setpoint at Reference Point"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Daylighting:DELight:ReferencePoint`
@@ -1424,7 +1450,7 @@ class DaylightingDelightReferencePoint(object):
 
         Args:
             value (float): value for IDD Field `xcoordinate_of_reference_point`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1455,7 +1481,7 @@ class DaylightingDelightReferencePoint(object):
 
         Args:
             value (float): value for IDD Field `ycoordinate_of_reference_point`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1486,7 +1512,7 @@ class DaylightingDelightReferencePoint(object):
 
         Args:
             value (float): value for IDD Field `zcoordinate_of_reference_point`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1556,7 +1582,7 @@ class DaylightingDelightReferencePoint(object):
 
         Args:
             value (float): value for IDD Field `illuminance_setpoint_at_reference_point`
-                Unit: lux
+                Units: lux
                 Default value: 500.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -1576,6 +1602,16 @@ class DaylightingDelightReferencePoint(object):
                                  'for field `illuminance_setpoint_at_reference_point`')
 
         self._data["Illuminance Setpoint at Reference Point"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):
@@ -1603,9 +1639,11 @@ class DaylightingDelightReferencePoint(object):
 class DaylightingDelightComplexFenestration(object):
     """ Corresponds to IDD object `Daylighting:DELight:ComplexFenestration`
         Used for DElight Complex Fenestration of all types
+    
     """
     internal_name = "Daylighting:DELight:ComplexFenestration"
     field_count = 5
+    required_fields = ["Name", "Complex Fenestration Type", "Building Surface Name", "Window Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Daylighting:DELight:ComplexFenestration`
@@ -1809,7 +1847,7 @@ class DaylightingDelightComplexFenestration(object):
 
         Args:
             value (float): value for IDD Field `fenestration_rotation`
-                Unit: deg
+                Units: deg
                 Default value: 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -1825,6 +1863,16 @@ class DaylightingDelightComplexFenestration(object):
                                  'for field `fenestration_rotation`'.format(value))
 
         self._data["Fenestration Rotation"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):
@@ -1852,9 +1900,11 @@ class DaylightingDeviceTubular(object):
         Defines a tubular daylighting device (TDD) consisting of three components:
         a dome, a pipe, and a diffuser. The dome and diffuser are defined separately using the
         FenestrationSurface:Detailed object.
+    
     """
     internal_name = "DaylightingDevice:Tubular"
     field_count = 15
+    required_fields = ["Name", "Dome Name", "Diffuser Name", "Construction Name", "Diameter", "Total Length", "Effective Thermal Resistance"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `DaylightingDevice:Tubular`
@@ -2109,7 +2159,7 @@ class DaylightingDeviceTubular(object):
 
         Args:
             value (float): value for IDD Field `diameter`
-                Unit: m
+                Units: m
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -2145,7 +2195,7 @@ class DaylightingDeviceTubular(object):
 
         Args:
             value (float): value for IDD Field `total_length`
-                Unit: m
+                Units: m
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -2181,7 +2231,7 @@ class DaylightingDeviceTubular(object):
 
         Args:
             value (float): value for IDD Field `effective_thermal_resistance`
-                Unit: m2-K/W
+                Units: m2-K/W
                 Default value: 0.28
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -2250,7 +2300,7 @@ class DaylightingDeviceTubular(object):
 
         Args:
             value (float): value for IDD Field `transition_zone_1_length`
-                Unit: m
+                Units: m
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -2318,7 +2368,7 @@ class DaylightingDeviceTubular(object):
 
         Args:
             value (float): value for IDD Field `transition_zone_2_length`
-                Unit: m
+                Units: m
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -2386,7 +2436,7 @@ class DaylightingDeviceTubular(object):
 
         Args:
             value (float): value for IDD Field `transition_zone_3_length`
-                Unit: m
+                Units: m
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -2454,7 +2504,7 @@ class DaylightingDeviceTubular(object):
 
         Args:
             value (float): value for IDD Field `transition_zone_4_length`
-                Unit: m
+                Units: m
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -2473,6 +2523,16 @@ class DaylightingDeviceTubular(object):
                                  'for field `transition_zone_4_length`')
 
         self._data["Transition Zone 4 Length"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):
@@ -2510,9 +2570,11 @@ class DaylightingDeviceShelf(object):
         Defines a daylighting which can have an inside shelf, an outside shelf, or both.
         The inside shelf is defined as a building surface and the outside shelf is defined
         as a shading surface.
+    
     """
     internal_name = "DaylightingDevice:Shelf"
     field_count = 6
+    required_fields = ["Name", "Window Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `DaylightingDevice:Shelf`
@@ -2770,6 +2832,16 @@ class DaylightingDeviceShelf(object):
 
         self._data["View Factor to Outside Shelf"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -2797,9 +2869,11 @@ class DaylightingDeviceLightWell(object):
         Applies only to exterior windows in daylighting-controlled zones or
         in zones that share an interior window with a daylighting-controlled  zone.
         Generally used with skylights.
+    
     """
     internal_name = "DaylightingDevice:LightWell"
     field_count = 5
+    required_fields = ["Exterior Window Name", "Height of Well", "Perimeter of Bottom of Well", "Area of Bottom of Well", "Visible Reflectance of Well Walls"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `DaylightingDevice:LightWell`
@@ -2893,7 +2967,7 @@ class DaylightingDeviceLightWell(object):
 
         Args:
             value (float): value for IDD Field `height_of_well`
-                Unit: m
+                Units: m
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -2928,7 +3002,7 @@ class DaylightingDeviceLightWell(object):
 
         Args:
             value (float): value for IDD Field `perimeter_of_bottom_of_well`
-                Unit: m
+                Units: m
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -2963,7 +3037,7 @@ class DaylightingDeviceLightWell(object):
 
         Args:
             value (float): value for IDD Field `area_of_bottom_of_well`
-                Unit: m2
+                Units: m2
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -2998,7 +3072,7 @@ class DaylightingDeviceLightWell(object):
 
         Args:
             value (float): value for IDD Field `visible_reflectance_of_well_walls`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
@@ -3021,6 +3095,16 @@ class DaylightingDeviceLightWell(object):
                                  'for field `visible_reflectance_of_well_walls`')
 
         self._data["Visible Reflectance of Well Walls"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):
@@ -3047,9 +3131,11 @@ class OutputDaylightFactors(object):
     """ Corresponds to IDD object `Output:DaylightFactors`
         Reports hourly daylight factors for each exterior window for four sky types
         (clear, turbid clear, intermediate, and overcast).
+    
     """
     internal_name = "Output:DaylightFactors"
     field_count = 1
+    required_fields = ["Reporting Days"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Output:DaylightFactors`
@@ -3112,6 +3198,16 @@ class OutputDaylightFactors(object):
 
         self._data["Reporting Days"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -3133,9 +3229,11 @@ class OutputIlluminanceMap(object):
     """ Corresponds to IDD object `Output:IlluminanceMap`
         reference points are given in coordinates specified in the GlobalGeometryRules object
         Daylighting Reference Point CoordinateSystem field
+    
     """
     internal_name = "Output:IlluminanceMap"
     field_count = 9
+    required_fields = ["Name", "Zone Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Output:IlluminanceMap`
@@ -3285,7 +3383,7 @@ class OutputIlluminanceMap(object):
 
         Args:
             value (float): value for IDD Field `z_height`
-                Unit: m
+                Units: m
                 Default value: 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -3317,7 +3415,7 @@ class OutputIlluminanceMap(object):
 
         Args:
             value (float): value for IDD Field `x_minimum_coordinate`
-                Unit: m
+                Units: m
                 Default value: 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -3349,7 +3447,7 @@ class OutputIlluminanceMap(object):
 
         Args:
             value (float): value for IDD Field `x_maximum_coordinate`
-                Unit: m
+                Units: m
                 Default value: 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -3417,7 +3515,7 @@ class OutputIlluminanceMap(object):
 
         Args:
             value (float): value for IDD Field `y_minimum_coordinate`
-                Unit: m
+                Units: m
                 Default value: 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -3449,7 +3547,7 @@ class OutputIlluminanceMap(object):
 
         Args:
             value (float): value for IDD Field `y_maximum_coordinate`
-                Unit: m
+                Units: m
                 Default value: 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -3502,6 +3600,16 @@ class OutputIlluminanceMap(object):
 
         self._data["Number of Y Grid Points"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -3533,9 +3641,11 @@ class OutputControlIlluminanceMapStyle(object):
         importing into spreadsheet programs such as Excel(tm) but not so well for word
         processing progams -- there tab may be a better choice.  fixed puts spaces between
         the "columns"
+    
     """
     internal_name = "OutputControl:IlluminanceMap:Style"
     field_count = 1
+    required_fields = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `OutputControl:IlluminanceMap:Style`
@@ -3600,6 +3710,16 @@ class OutputControlIlluminanceMapStyle(object):
                                  'field `column_separator`'.format(value))
 
         self._data["Column Separator"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):

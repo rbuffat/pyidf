@@ -5,9 +5,11 @@ class AirConditionerVariableRefrigerantFlow(object):
         Variable refrigerant flow (VRF) air-to-air heat pump condensing unit (includes one
         or more electric compressors and outdoor fan). Serves one or more VRF zone terminal
         units. See ZoneHVAC:TerminalUnit:VariableRefrigerantFlow and ZoneTerminalUnitList.
+    
     """
     internal_name = "AirConditioner:VariableRefrigerantFlow"
     field_count = 81
+    required_fields = ["Heat Pump Name", "Zone Terminal Unit List Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `AirConditioner:VariableRefrigerantFlow`
@@ -597,7 +599,7 @@ class AirConditionerVariableRefrigerantFlow(object):
 
         Args:
             value (float): value for IDD Field `gross_rated_total_cooling_capacity`
-                Unit: W
+                Units: W
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -635,7 +637,7 @@ class AirConditionerVariableRefrigerantFlow(object):
 
         Args:
             value (float): value for IDD Field `gross_rated_cooling_cop`
-                Unit: W/W
+                Units: W/W
                 Default value: 3.3
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -673,7 +675,7 @@ class AirConditionerVariableRefrigerantFlow(object):
 
         Args:
             value (float): value for IDD Field `minimum_outdoor_temperature_in_cooling_mode`
-                Unit: C
+                Units: C
                 Default value: -6.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -707,7 +709,7 @@ class AirConditionerVariableRefrigerantFlow(object):
 
         Args:
             value (float): value for IDD Field `maximum_outdoor_temperature_in_cooling_mode`
-                Unit: C
+                Units: C
                 Default value: 43.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -1121,7 +1123,7 @@ class AirConditionerVariableRefrigerantFlow(object):
 
         Args:
             value (float): value for IDD Field `gross_rated_heating_capacity`
-                Unit: W
+                Units: W
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1156,7 +1158,7 @@ class AirConditionerVariableRefrigerantFlow(object):
 
         Args:
             value (float): value for IDD Field `rated_heating_capacity_sizing_ratio`
-                Unit: W/W
+                Units: W/W
                 Default value: 1.0
                 value >= 1.0
                 if `value` is None it will not be checked against the
@@ -1194,7 +1196,7 @@ class AirConditionerVariableRefrigerantFlow(object):
 
         Args:
             value (float): value for IDD Field `gross_rated_heating_cop`
-                Unit: W/W
+                Units: W/W
                 Default value: 3.4
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -1227,7 +1229,7 @@ class AirConditionerVariableRefrigerantFlow(object):
 
         Args:
             value (float): value for IDD Field `minimum_outdoor_temperature_in_heating_mode`
-                Unit: C
+                Units: C
                 Default value: -20.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -1260,7 +1262,7 @@ class AirConditionerVariableRefrigerantFlow(object):
 
         Args:
             value (float): value for IDD Field `maximum_outdoor_temperature_in_heating_mode`
-                Unit: C
+                Units: C
                 Default value: 16.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -1720,7 +1722,7 @@ class AirConditionerVariableRefrigerantFlow(object):
 
         Args:
             value (float): value for IDD Field `minimum_heat_pump_partload_ratio`
-                Unit: dimensionless
+                Units: dimensionless
                 Default value: 0.15
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -1952,7 +1954,7 @@ class AirConditionerVariableRefrigerantFlow(object):
 
         Args:
             value (float): value for IDD Field `equivalent_piping_length_used_for_piping_correction_factor_in_cooling_mode`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1984,7 +1986,7 @@ class AirConditionerVariableRefrigerantFlow(object):
 
         Args:
             value (float): value for IDD Field `vertical_height_used_for_piping_correction_factor`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2058,7 +2060,7 @@ class AirConditionerVariableRefrigerantFlow(object):
 
         Args:
             value (float): value for IDD Field `piping_correction_factor_for_height_in_cooling_mode_coefficient`
-                Unit: 1/m
+                Units: 1/m
                 Default value: 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -2091,7 +2093,7 @@ class AirConditionerVariableRefrigerantFlow(object):
 
         Args:
             value (float): value for IDD Field `equivalent_piping_length_used_for_piping_correction_factor_in_heating_mode`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2165,7 +2167,7 @@ class AirConditionerVariableRefrigerantFlow(object):
 
         Args:
             value (float): value for IDD Field `piping_correction_factor_for_height_in_heating_mode_coefficient`
-                Unit: 1/m
+                Units: 1/m
                 Default value: 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -2199,7 +2201,7 @@ class AirConditionerVariableRefrigerantFlow(object):
 
         Args:
             value (float): value for IDD Field `crankcase_heater_power_per_compressor`
-                Unit: W
+                Units: W
                 Default value: 33.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -2233,7 +2235,7 @@ class AirConditionerVariableRefrigerantFlow(object):
 
         Args:
             value (int): value for IDD Field `number_of_compressors`
-                Unit: dimensionless
+                Units: dimensionless
                 Default value: 2
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -2268,7 +2270,7 @@ class AirConditionerVariableRefrigerantFlow(object):
 
         Args:
             value (float): value for IDD Field `ratio_of_compressor_size_to_total_compressor_capacity`
-                Unit: W/W
+                Units: W/W
                 Default value: 0.5
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -2301,7 +2303,7 @@ class AirConditionerVariableRefrigerantFlow(object):
 
         Args:
             value (float): value for IDD Field `maximum_outdoor_drybulb_temperature_for_crankcase_heater`
-                Unit: C
+                Units: C
                 Default value: 5.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -2461,7 +2463,7 @@ class AirConditionerVariableRefrigerantFlow(object):
 
         Args:
             value (float): value for IDD Field `defrost_time_period_fraction`
-                Unit: dimensionless
+                Units: dimensionless
                 Default value: 0.058333
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -2499,7 +2501,8 @@ class AirConditionerVariableRefrigerantFlow(object):
 
         Args:
             value (float): value for IDD Field `resistive_defrost_heater_capacity`
-                Unit: W
+                Units: W
+                IP-Units: W
                 Default value: 0.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -2536,7 +2539,7 @@ class AirConditionerVariableRefrigerantFlow(object):
 
         Args:
             value (float): value for IDD Field `maximum_outdoor_drybulb_temperature_for_defrost_operation`
-                Unit: C
+                Units: C
                 Default value: 5.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -2686,7 +2689,7 @@ class AirConditionerVariableRefrigerantFlow(object):
 
         Args:
             value (float): value for IDD Field `water_condenser_volume_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2719,7 +2722,7 @@ class AirConditionerVariableRefrigerantFlow(object):
 
         Args:
             value (float): value for IDD Field `evaporative_condenser_effectiveness`
-                Unit: dimensionless
+                Units: dimensionless
                 Default value: 0.9
                 value >= 0.0
                 value <= 1.0
@@ -2761,7 +2764,7 @@ class AirConditionerVariableRefrigerantFlow(object):
 
         Args:
             value (float): value for IDD Field `evaporative_condenser_air_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -2798,7 +2801,7 @@ class AirConditionerVariableRefrigerantFlow(object):
 
         Args:
             value (float): value for IDD Field `evaporative_condenser_pump_rated_power_consumption`
-                Unit: W
+                Units: W
                 Default value: 0.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -2873,7 +2876,7 @@ class AirConditionerVariableRefrigerantFlow(object):
 
         Args:
             value (float): value for IDD Field `basin_heater_capacity`
-                Unit: W/K
+                Units: W/K
                 Default value: 0.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -2911,7 +2914,7 @@ class AirConditionerVariableRefrigerantFlow(object):
 
         Args:
             value (float): value for IDD Field `basin_heater_setpoint_temperature`
-                Unit: C
+                Units: C
                 Default value: 2.0
                 value >= 2.0
                 if `value` is None it will not be checked against the
@@ -3044,7 +3047,7 @@ class AirConditionerVariableRefrigerantFlow(object):
 
         Args:
             value (float): value for IDD Field `minimum_outdoor_temperature_in_heat_recovery_mode`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3077,7 +3080,7 @@ class AirConditionerVariableRefrigerantFlow(object):
 
         Args:
             value (float): value for IDD Field `maximum_outdoor_temperature_in_heat_recovery_mode`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3150,7 +3153,7 @@ class AirConditionerVariableRefrigerantFlow(object):
 
         Args:
             value (float): value for IDD Field `initial_heat_recovery_cooling_capacity_fraction`
-                Unit: W/W
+                Units: W/W
                 Default value: 0.5
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -3184,7 +3187,7 @@ class AirConditionerVariableRefrigerantFlow(object):
 
         Args:
             value (float): value for IDD Field `heat_recovery_cooling_capacity_time_constant`
-                Unit: hr
+                Units: hr
                 Default value: 0.15
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -3258,7 +3261,7 @@ class AirConditionerVariableRefrigerantFlow(object):
 
         Args:
             value (float): value for IDD Field `initial_heat_recovery_cooling_energy_fraction`
-                Unit: W/W
+                Units: W/W
                 Default value: 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -3292,7 +3295,7 @@ class AirConditionerVariableRefrigerantFlow(object):
 
         Args:
             value (float): value for IDD Field `heat_recovery_cooling_energy_time_constant`
-                Unit: hr
+                Units: hr
                 Default value: 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -3366,7 +3369,7 @@ class AirConditionerVariableRefrigerantFlow(object):
 
         Args:
             value (float): value for IDD Field `initial_heat_recovery_heating_capacity_fraction`
-                Unit: W/W
+                Units: W/W
                 Default value: 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -3400,7 +3403,7 @@ class AirConditionerVariableRefrigerantFlow(object):
 
         Args:
             value (float): value for IDD Field `heat_recovery_heating_capacity_time_constant`
-                Unit: hr
+                Units: hr
                 Default value: 0.15
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -3474,7 +3477,7 @@ class AirConditionerVariableRefrigerantFlow(object):
 
         Args:
             value (float): value for IDD Field `initial_heat_recovery_heating_energy_fraction`
-                Unit: W/W
+                Units: W/W
                 Default value: 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -3508,7 +3511,7 @@ class AirConditionerVariableRefrigerantFlow(object):
 
         Args:
             value (float): value for IDD Field `heat_recovery_heating_energy_time_constant`
-                Unit: hr
+                Units: hr
                 Default value: 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -3524,6 +3527,16 @@ class AirConditionerVariableRefrigerantFlow(object):
                                  'for field `heat_recovery_heating_energy_time_constant`'.format(value))
 
         self._data["Heat Recovery Heating Energy Time Constant"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):
@@ -3627,9 +3640,11 @@ class ZoneTerminalUnitList(object):
         List of variable refrigerant flow (VRF) terminal units served by a given VRF condensing
         unit. See ZoneHVAC:TerminalUnit:VariableRefrigerantFlow and
         AirConditioner:VariableRefrigerantFlow.
+    
     """
     internal_name = "ZoneTerminalUnitList"
     field_count = 21
+    required_fields = ["Zone Terminal Unit List Name", "Zone Terminal Unit Name 1"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ZoneTerminalUnitList`
@@ -4462,6 +4477,16 @@ class ZoneTerminalUnitList(object):
                                  'for field `zone_terminal_unit_name_20`')
 
         self._data["Zone Terminal Unit Name 20"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):

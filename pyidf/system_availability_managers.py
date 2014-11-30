@@ -4,9 +4,11 @@ class AvailabilityManagerScheduled(object):
     """ Corresponds to IDD object `AvailabilityManager:Scheduled`
         Determines the availability of a loop or system: whether it is on or off.
         Schedule overrides fan/pump schedule.
+    
     """
     internal_name = "AvailabilityManager:Scheduled"
     field_count = 2
+    required_fields = ["Name", "Schedule Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `AvailabilityManager:Scheduled`
@@ -99,6 +101,16 @@ class AvailabilityManagerScheduled(object):
 
         self._data["Schedule Name"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -121,9 +133,11 @@ class AvailabilityManagerScheduledOn(object):
     """ Corresponds to IDD object `AvailabilityManager:ScheduledOn`
         Determines the availability of a loop or system: only controls the turn on action.
         Schedule overrides fan/pump schedule.
+    
     """
     internal_name = "AvailabilityManager:ScheduledOn"
     field_count = 2
+    required_fields = ["Name", "Schedule Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `AvailabilityManager:ScheduledOn`
@@ -216,6 +230,16 @@ class AvailabilityManagerScheduledOn(object):
 
         self._data["Schedule Name"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -238,9 +262,11 @@ class AvailabilityManagerScheduledOff(object):
     """ Corresponds to IDD object `AvailabilityManager:ScheduledOff`
         Determines the availability of a loop or system: only controls the turn off action.
         Schedule overrides fan/pump schedule.
+    
     """
     internal_name = "AvailabilityManager:ScheduledOff"
     field_count = 2
+    required_fields = ["Name", "Schedule Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `AvailabilityManager:ScheduledOff`
@@ -333,6 +359,16 @@ class AvailabilityManagerScheduledOff(object):
 
         self._data["Schedule Name"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -354,9 +390,11 @@ class AvailabilityManagerScheduledOff(object):
 class AvailabilityManagerOptimumStart(object):
     """ Corresponds to IDD object `AvailabilityManager:OptimumStart`
         Determines the optimal start of HVAC systems before occupancy.
+    
     """
     internal_name = "AvailabilityManager:OptimumStart"
     field_count = 14
+    required_fields = ["Name", "Applicability Schedule Name", "Fan Schedule Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `AvailabilityManager:OptimumStart`
@@ -681,7 +719,7 @@ class AvailabilityManagerOptimumStart(object):
 
         Args:
             value (float): value for IDD Field `maximum_value_for_optimum_start_time`
-                Unit: hr
+                Units: hr
                 Default value: 6.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -760,7 +798,7 @@ class AvailabilityManagerOptimumStart(object):
 
         Args:
             value (float): value for IDD Field `constant_temperature_gradient_during_cooling`
-                Unit: deltaC/hr
+                Units: deltaC/hr
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -791,7 +829,7 @@ class AvailabilityManagerOptimumStart(object):
 
         Args:
             value (float): value for IDD Field `constant_temperature_gradient_during_heating`
-                Unit: deltaC/hr
+                Units: deltaC/hr
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -822,7 +860,7 @@ class AvailabilityManagerOptimumStart(object):
 
         Args:
             value (float): value for IDD Field `initial_temperature_gradient_during_cooling`
-                Unit: deltaC/hr
+                Units: deltaC/hr
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -853,7 +891,7 @@ class AvailabilityManagerOptimumStart(object):
 
         Args:
             value (float): value for IDD Field `initial_temperature_gradient_during_heating`
-                Unit: deltaC/hr
+                Units: deltaC/hr
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -885,7 +923,7 @@ class AvailabilityManagerOptimumStart(object):
 
         Args:
             value (float): value for IDD Field `constant_start_time`
-                Unit: hr
+                Units: hr
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -918,7 +956,7 @@ class AvailabilityManagerOptimumStart(object):
 
         Args:
             value (int): value for IDD Field `number_of_previous_days`
-                Unit: days
+                Units: days
                 Default value: 2
                 value >= 2
                 value <= 5
@@ -942,6 +980,16 @@ class AvailabilityManagerOptimumStart(object):
                                  'for field `number_of_previous_days`')
 
         self._data["Number of Previous Days"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):
@@ -977,9 +1025,11 @@ class AvailabilityManagerNightCycle(object):
     """ Corresponds to IDD object `AvailabilityManager:NightCycle`
         Determines the availability of a loop or system: whether it is on or off.
         Depending on zone temperatures, overrides Schedules and forces system Fans on.
+    
     """
     internal_name = "AvailabilityManager:NightCycle"
     field_count = 7
+    required_fields = ["Name", "Applicability Schedule Name", "Fan Schedule Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `AvailabilityManager:NightCycle`
@@ -1200,7 +1250,7 @@ class AvailabilityManagerNightCycle(object):
 
         Args:
             value (float): value for IDD Field `thermostat_tolerance`
-                Unit: deltaC
+                Units: deltaC
                 Default value: 1.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -1232,7 +1282,7 @@ class AvailabilityManagerNightCycle(object):
 
         Args:
             value (float): value for IDD Field `cycling_run_time`
-                Unit: s
+                Units: s
                 Default value: 3600.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -1285,6 +1335,16 @@ class AvailabilityManagerNightCycle(object):
 
         self._data["Control Zone Name"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -1311,9 +1371,11 @@ class AvailabilityManagerNightCycle(object):
 class AvailabilityManagerDifferentialThermostat(object):
     """ Corresponds to IDD object `AvailabilityManager:DifferentialThermostat`
         Overrides fan/pump schedules depending on temperature difference between two nodes.
+    
     """
     internal_name = "AvailabilityManager:DifferentialThermostat"
     field_count = 5
+    required_fields = ["Name", "Hot Node Name", "Cold Node Name", "Temperature Difference On Limit"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `AvailabilityManager:DifferentialThermostat`
@@ -1472,7 +1534,7 @@ class AvailabilityManagerDifferentialThermostat(object):
 
         Args:
             value (float): value for IDD Field `temperature_difference_on_limit`
-                Unit: deltaC
+                Units: deltaC
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1504,7 +1566,7 @@ class AvailabilityManagerDifferentialThermostat(object):
 
         Args:
             value (float): value for IDD Field `temperature_difference_off_limit`
-                Unit: deltaC
+                Units: deltaC
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1519,6 +1581,16 @@ class AvailabilityManagerDifferentialThermostat(object):
                                  'for field `temperature_difference_off_limit`'.format(value))
 
         self._data["Temperature Difference Off Limit"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):
@@ -1544,9 +1616,11 @@ class AvailabilityManagerDifferentialThermostat(object):
 class AvailabilityManagerHighTemperatureTurnOff(object):
     """ Corresponds to IDD object `AvailabilityManager:HighTemperatureTurnOff`
         Overrides fan/pump schedules depending on temperature at sensor node.
+    
     """
     internal_name = "AvailabilityManager:HighTemperatureTurnOff"
     field_count = 3
+    required_fields = ["Name", "Sensor Node Name", "Temperature"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `AvailabilityManager:HighTemperatureTurnOff`
@@ -1660,7 +1734,7 @@ class AvailabilityManagerHighTemperatureTurnOff(object):
 
         Args:
             value (float): value for IDD Field `temperature`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1675,6 +1749,16 @@ class AvailabilityManagerHighTemperatureTurnOff(object):
                                  'for field `temperature`'.format(value))
 
         self._data["Temperature"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):
@@ -1698,9 +1782,11 @@ class AvailabilityManagerHighTemperatureTurnOff(object):
 class AvailabilityManagerHighTemperatureTurnOn(object):
     """ Corresponds to IDD object `AvailabilityManager:HighTemperatureTurnOn`
         Overrides fan/pump schedules depending on temperature at sensor node.
+    
     """
     internal_name = "AvailabilityManager:HighTemperatureTurnOn"
     field_count = 3
+    required_fields = ["Name", "Sensor Node Name", "Temperature"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `AvailabilityManager:HighTemperatureTurnOn`
@@ -1814,7 +1900,7 @@ class AvailabilityManagerHighTemperatureTurnOn(object):
 
         Args:
             value (float): value for IDD Field `temperature`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1829,6 +1915,16 @@ class AvailabilityManagerHighTemperatureTurnOn(object):
                                  'for field `temperature`'.format(value))
 
         self._data["Temperature"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):
@@ -1852,9 +1948,11 @@ class AvailabilityManagerHighTemperatureTurnOn(object):
 class AvailabilityManagerLowTemperatureTurnOff(object):
     """ Corresponds to IDD object `AvailabilityManager:LowTemperatureTurnOff`
         Overrides fan/pump schedules depending on temperature at sensor node.
+    
     """
     internal_name = "AvailabilityManager:LowTemperatureTurnOff"
     field_count = 4
+    required_fields = ["Name", "Sensor Node Name", "Temperature"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `AvailabilityManager:LowTemperatureTurnOff`
@@ -1974,7 +2072,7 @@ class AvailabilityManagerLowTemperatureTurnOff(object):
 
         Args:
             value (float): value for IDD Field `temperature`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2024,6 +2122,16 @@ class AvailabilityManagerLowTemperatureTurnOff(object):
 
         self._data["Applicability Schedule Name"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -2047,9 +2155,11 @@ class AvailabilityManagerLowTemperatureTurnOff(object):
 class AvailabilityManagerLowTemperatureTurnOn(object):
     """ Corresponds to IDD object `AvailabilityManager:LowTemperatureTurnOn`
         Overrides fan/pump schedules depending on temperature at sensor node.
+    
     """
     internal_name = "AvailabilityManager:LowTemperatureTurnOn"
     field_count = 3
+    required_fields = ["Name", "Sensor Node Name", "Temperature"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `AvailabilityManager:LowTemperatureTurnOn`
@@ -2163,7 +2273,7 @@ class AvailabilityManagerLowTemperatureTurnOn(object):
 
         Args:
             value (float): value for IDD Field `temperature`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2178,6 +2288,16 @@ class AvailabilityManagerLowTemperatureTurnOn(object):
                                  'for field `temperature`'.format(value))
 
         self._data["Temperature"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):
@@ -2202,9 +2322,11 @@ class AvailabilityManagerNightVentilation(object):
     """ Corresponds to IDD object `AvailabilityManager:NightVentilation`
         depending on zone and outdoor conditions overides fan schedule to do
         precooling with outdoor air
+    
     """
     internal_name = "AvailabilityManager:NightVentilation"
     field_count = 8
+    required_fields = ["Name", "Applicability Schedule Name", "Fan Schedule Name", "Control Zone Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `AvailabilityManager:NightVentilation`
@@ -2418,7 +2540,7 @@ class AvailabilityManagerNightVentilation(object):
 
         Args:
             value (float): value for IDD Field `ventilation_temperature_difference`
-                Unit: deltaC
+                Units: deltaC
                 Default value: 2.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -2452,7 +2574,7 @@ class AvailabilityManagerNightVentilation(object):
 
         Args:
             value (float): value for IDD Field `ventilation_temperature_low_limit`
-                Unit: C
+                Units: C
                 Default value: 15.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -2542,6 +2664,16 @@ class AvailabilityManagerNightVentilation(object):
 
         self._data["Control Zone Name"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -2580,9 +2712,11 @@ class AvailabilityManagerHybridVentilation(object):
         through the air loop or directly to the zone. If hybrid ventilation manager is applied to an
         air loop and one of the zones served by that air loop also has hybrid ventilation manager,
         then zone hybrid ventilation manager is disabled.
+    
     """
     internal_name = "AvailabilityManager:HybridVentilation"
     field_count = 17
+    required_fields = ["Name", "Controlled Zone Name", "Ventilation Control Mode Schedule Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `AvailabilityManager:HybridVentilation`
@@ -2903,7 +3037,7 @@ class AvailabilityManagerHybridVentilation(object):
 
         Args:
             value (float): value for IDD Field `maximum_wind_speed`
-                Unit: m/s
+                Units: m/s
                 Default value: 40.0
                 value >= 0.0
                 value <= 40.0
@@ -2944,7 +3078,7 @@ class AvailabilityManagerHybridVentilation(object):
 
         Args:
             value (float): value for IDD Field `minimum_outdoor_temperature`
-                Unit: C
+                Units: C
                 Default value: -100.0
                 value >= -100.0
                 value <= 100.0
@@ -2985,7 +3119,7 @@ class AvailabilityManagerHybridVentilation(object):
 
         Args:
             value (float): value for IDD Field `maximum_outdoor_temperature`
-                Unit: C
+                Units: C
                 Default value: 100.0
                 value >= -100.0
                 value <= 100.0
@@ -3026,7 +3160,7 @@ class AvailabilityManagerHybridVentilation(object):
 
         Args:
             value (float): value for IDD Field `minimum_outdoor_enthalpy`
-                Unit: J/kg
+                Units: J/kg
                 value > 0.0
                 value < 300000.0
                 if `value` is None it will not be checked against the
@@ -3066,7 +3200,7 @@ class AvailabilityManagerHybridVentilation(object):
 
         Args:
             value (float): value for IDD Field `maximum_outdoor_enthalpy`
-                Unit: J/kg
+                Units: J/kg
                 value > 0.0
                 value < 300000.0
                 if `value` is None it will not be checked against the
@@ -3107,7 +3241,7 @@ class AvailabilityManagerHybridVentilation(object):
 
         Args:
             value (float): value for IDD Field `minimum_outdoor_dewpoint`
-                Unit: C
+                Units: C
                 Default value: -100.0
                 value >= -100.0
                 value <= 100.0
@@ -3149,7 +3283,7 @@ class AvailabilityManagerHybridVentilation(object):
 
         Args:
             value (float): value for IDD Field `maximum_outdoor_dewpoint`
-                Unit: C
+                Units: C
                 Default value: 100.0
                 value >= -100.0
                 value <= 100.0
@@ -3356,6 +3490,16 @@ class AvailabilityManagerHybridVentilation(object):
 
         self._data["ZoneVentilation Object Name"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -3395,9 +3539,11 @@ class AvailabilityManagerAssignmentList(object):
         availability managers is based on a set of rules and are specific to the type of loop.
         The output from each availability manager is an availability status flag:
         NoAction, ForceOff, CycleOn, or CycleOnZoneFansOnly (used only for air loops).
+    
     """
     internal_name = "AvailabilityManagerAssignmentList"
     field_count = 13
+    required_fields = ["Name", "Availability Manager 1 Object Type", "Availability Manager 1 Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `AvailabilityManagerAssignmentList`
@@ -4068,6 +4214,16 @@ class AvailabilityManagerAssignmentList(object):
                                  'for field `availability_manager_6_name`')
 
         self._data["Availability Manager 6 Name"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):

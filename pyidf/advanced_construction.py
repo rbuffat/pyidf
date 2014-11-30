@@ -8,9 +8,11 @@ class SurfacePropertyHeatTransferAlgorithm(object):
         EMPD (Effective Moisture Penetration Depth with Conduction Transfer Functions).
         Advanced/Research Usage: CondFD (Conduction Finite Difference)
         Advanced/Research Usage: HAMT (Combined Heat And Moisture Finite Element)
+    
     """
     internal_name = "SurfaceProperty:HeatTransferAlgorithm"
     field_count = 2
+    required_fields = ["Surface Name", "Algorithm"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `SurfaceProperty:HeatTransferAlgorithm`
@@ -117,6 +119,16 @@ class SurfacePropertyHeatTransferAlgorithm(object):
 
         self._data["Algorithm"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -143,9 +155,11 @@ class SurfacePropertyHeatTransferAlgorithmMultipleSurface(object):
         EMPD (Effective Moisture Penetration Depth with Conduction Transfer Functions).
         Advanced/Research Usage: CondFD (Conduction Finite Difference)
         Advanced/Research Usage: HAMT (Combined Heat And Moisture Finite Element)
+    
     """
     internal_name = "SurfaceProperty:HeatTransferAlgorithm:MultipleSurface"
     field_count = 3
+    required_fields = ["Name", "Surface Type", "Algorithm"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `SurfaceProperty:HeatTransferAlgorithm:MultipleSurface`
@@ -314,6 +328,16 @@ class SurfacePropertyHeatTransferAlgorithmMultipleSurface(object):
 
         self._data["Algorithm"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -341,9 +365,11 @@ class SurfacePropertyHeatTransferAlgorithmSurfaceList(object):
         EMPD (Effective Moisture Penetration Depth with Conduction Transfer Functions).
         Advanced/Research Usage: CondFD (Conduction Finite Difference)
         Advanced/Research Usage: HAMT (Combined Heat And Moisture Finite Element)
+    
     """
     internal_name = "SurfaceProperty:HeatTransferAlgorithm:SurfaceList"
     field_count = 8
+    required_fields = ["Name", "Algorithm", "Surface Name 1"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `SurfaceProperty:HeatTransferAlgorithm:SurfaceList`
@@ -684,6 +710,16 @@ class SurfacePropertyHeatTransferAlgorithmSurfaceList(object):
 
         self._data["Surface Name 6"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -716,9 +752,11 @@ class SurfacePropertyHeatTransferAlgorithmConstruction(object):
         EMPD (Effective Moisture Penetration Depth with Conduction Transfer Functions).
         Advanced/Research Usage: CondFD (Conduction Finite Difference)
         Advanced/Research Usage: HAMT (Combined Heat And Moisture Finite Element)
+    
     """
     internal_name = "SurfaceProperty:HeatTransferAlgorithm:Construction"
     field_count = 3
+    required_fields = ["Algorithm", "Construction Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `SurfaceProperty:HeatTransferAlgorithm:Construction`
@@ -864,6 +902,16 @@ class SurfacePropertyHeatTransferAlgorithmConstruction(object):
 
         self._data["Construction Name"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -886,9 +934,11 @@ class SurfacePropertyHeatTransferAlgorithmConstruction(object):
 class SurfaceControlMovableInsulation(object):
     """ Corresponds to IDD object `SurfaceControl:MovableInsulation`
         Exterior or Interior Insulation on opaque surfaces
+    
     """
     internal_name = "SurfaceControl:MovableInsulation"
     field_count = 4
+    required_fields = ["Insulation Type", "Surface Name", "Material Name", "Schedule Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `SurfaceControl:MovableInsulation`
@@ -1068,6 +1118,16 @@ class SurfaceControlMovableInsulation(object):
 
         self._data["Schedule Name"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -1091,9 +1151,11 @@ class SurfaceControlMovableInsulation(object):
 class SurfacePropertyOtherSideCoefficients(object):
     """ Corresponds to IDD object `SurfaceProperty:OtherSideCoefficients`
         This object sets the other side conditions for a surface in a variety of ways.
+    
     """
     internal_name = "SurfaceProperty:OtherSideCoefficients"
     field_count = 14
+    required_fields = ["Name", "Combined Convective/Radiative Film Coefficient"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `SurfaceProperty:OtherSideCoefficients`
@@ -1246,7 +1308,7 @@ class SurfacePropertyOtherSideCoefficients(object):
 
         Args:
             value (float): value for IDD Field `combined_convective_or_radiative_film_coefficient`
-                Unit: W/m2-K
+                Units: W/m2-K
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1278,7 +1340,7 @@ class SurfacePropertyOtherSideCoefficients(object):
 
         Args:
             value (float): value for IDD Field `constant_temperature`
-                Unit: C
+                Units: C
                 Default value: 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -1547,7 +1609,7 @@ class SurfacePropertyOtherSideCoefficients(object):
 
         Args:
             value (float): value for IDD Field `period_of_sinusoidal_variation`
-                Unit: hr
+                Units: hr
                 Default value: 24.0
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -1618,7 +1680,7 @@ class SurfacePropertyOtherSideCoefficients(object):
 
         Args:
             value (float): value for IDD Field `minimum_other_side_temperature_limit`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1651,7 +1713,7 @@ class SurfacePropertyOtherSideCoefficients(object):
 
         Args:
             value (float): value for IDD Field `maximum_other_side_temperature_limit`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1666,6 +1728,16 @@ class SurfacePropertyOtherSideCoefficients(object):
                                  'for field `maximum_other_side_temperature_limit`'.format(value))
 
         self._data["Maximum Other Side Temperature Limit"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):
@@ -1700,9 +1772,11 @@ class SurfacePropertyOtherSideCoefficients(object):
 class SurfacePropertyOtherSideConditionsModel(object):
     """ Corresponds to IDD object `SurfaceProperty:OtherSideConditionsModel`
         This object sets up modifying the other side conditions for a surface from other model results.
+    
     """
     internal_name = "SurfaceProperty:OtherSideConditionsModel"
     field_count = 2
+    required_fields = ["Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `SurfaceProperty:OtherSideConditionsModel`
@@ -1814,6 +1888,16 @@ class SurfacePropertyOtherSideConditionsModel(object):
 
         self._data["Type of Modeling"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -1837,9 +1921,11 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
         Options to change the individual convection model equations for dynamic selection when using AdaptiveConvectiongAlgorithm
         This object is only needed to make changes to the default model selections for any or all of the surface categories.
         This object is for the inside face, the side of the surface facing a thermal zone.
+    
     """
     internal_name = "SurfaceConvectionAlgorithm:Inside:AdaptiveModelSelections"
     field_count = 91
+    required_fields = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `SurfaceConvectionAlgorithm:Inside:AdaptiveModelSelections`
@@ -6226,6 +6312,16 @@ class SurfaceConvectionAlgorithmInsideAdaptiveModelSelections(object):
 
         self._data["Mixed Regime Window Equation User Curve Name"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -6338,9 +6434,11 @@ class SurfaceConvectionAlgorithmOutsideAdaptiveModelSelections(object):
         Options to change the individual convection model equations for dynamic selection when using AdaptiveConvectiongAlgorithm
         This object is only needed to make changes to the default model selections for any or all of the surface categories.
         This object is for the outside face, the side of the surface facing away from the thermal zone.
+    
     """
     internal_name = "SurfaceConvectionAlgorithm:Outside:AdaptiveModelSelections"
     field_count = 13
+    required_fields = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `SurfaceConvectionAlgorithm:Outside:AdaptiveModelSelections`
@@ -6994,6 +7092,16 @@ class SurfaceConvectionAlgorithmOutsideAdaptiveModelSelections(object):
 
         self._data["Natural Convection Unstable Horizontal Equation User Curve Name"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -7027,9 +7135,11 @@ class SurfaceConvectionAlgorithmInsideUserCurve(object):
     """ Corresponds to IDD object `SurfaceConvectionAlgorithm:Inside:UserCurve`
         Used to describe a custom model equation for surface convection heat transfer coefficient
         If more than one curve is referenced they are all used and added together.
+    
     """
     internal_name = "SurfaceConvectionAlgorithm:Inside:UserCurve"
     field_count = 6
+    required_fields = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `SurfaceConvectionAlgorithm:Inside:UserCurve`
@@ -7300,6 +7410,16 @@ class SurfaceConvectionAlgorithmInsideUserCurve(object):
 
         self._data["Hc Function of Air System Volume Flow Rate Divided by Zone Perimeter Length Curve Name"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -7326,9 +7446,11 @@ class SurfaceConvectionAlgorithmOutsideUserCurve(object):
     """ Corresponds to IDD object `SurfaceConvectionAlgorithm:Outside:UserCurve`
         Used to describe a custom model equation for surface convection heat transfer coefficient
         If more than one curve is referenced they are all used and added together.
+    
     """
     internal_name = "SurfaceConvectionAlgorithm:Outside:UserCurve"
     field_count = 5
+    required_fields = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `SurfaceConvectionAlgorithm:Outside:UserCurve`
@@ -7559,6 +7681,16 @@ class SurfaceConvectionAlgorithmOutsideUserCurve(object):
 
         self._data["Hn Function of Temperature Difference Divided by Height Curve Name"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -7589,9 +7721,11 @@ class SurfacePropertyConvectionCoefficients(object):
         for TARP interior convection, the lower limit is also .1
         Minimum and maximum limits are set in HeatBalanceAlgorithm object.
         Defaults in HeatBalanceAlgorithm object are [.1,1000].
+    
     """
     internal_name = "SurfaceProperty:ConvectionCoefficients"
     field_count = 11
+    required_fields = ["Surface Name", "Convection Coefficient 1 Location", "Convection Coefficient 1 Type"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `SurfaceProperty:ConvectionCoefficients`
@@ -7888,7 +8022,7 @@ class SurfacePropertyConvectionCoefficients(object):
 
         Args:
             value (float): value for IDD Field `convection_coefficient_1`
-                Unit: W/m2-K
+                Units: W/m2-K
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8156,7 +8290,7 @@ class SurfacePropertyConvectionCoefficients(object):
 
         Args:
             value (float): value for IDD Field `convection_coefficient_2`
-                Unit: W/m2-K
+                Units: W/m2-K
                 Default value: 0.1
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -8242,6 +8376,16 @@ class SurfacePropertyConvectionCoefficients(object):
 
         self._data["Convection Coefficient 2 User Curve Name"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -8278,9 +8422,11 @@ class SurfacePropertyConvectionCoefficientsMultipleSurface(object):
         for TARP interior convection, the lower limit is also .1
         Minimum and maximum limits are set in HeatBalanceAlgorithm object.
         Defaults in HeatBalanceAlgorithm object are [.1,1000].
+    
     """
     internal_name = "SurfaceProperty:ConvectionCoefficients:MultipleSurface"
     field_count = 11
+    required_fields = ["Surface Type", "Convection Coefficient 1 Location", "Convection Coefficient 1 Type"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `SurfaceProperty:ConvectionCoefficients:MultipleSurface`
@@ -8604,7 +8750,7 @@ class SurfacePropertyConvectionCoefficientsMultipleSurface(object):
 
         Args:
             value (float): value for IDD Field `convection_coefficient_1`
-                Unit: W/m2-K
+                Units: W/m2-K
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8874,7 +9020,7 @@ class SurfacePropertyConvectionCoefficientsMultipleSurface(object):
 
         Args:
             value (float): value for IDD Field `convection_coefficient_2`
-                Unit: W/m2-K
+                Units: W/m2-K
                 Default value: 0.1
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -8960,6 +9106,16 @@ class SurfacePropertyConvectionCoefficientsMultipleSurface(object):
 
         self._data["Convection Coefficient 2 User Curve Name"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -8995,9 +9151,11 @@ class SurfacePropertiesVaporCoefficients(object):
         Units are kg/Pa.s.m2
         This will only work with the CombinedHeatAndMoistureFiniteElement algorithm for surfaces.
         Other algorithms will ignore these coefficients
+    
     """
     internal_name = "SurfaceProperties:VaporCoefficients"
     field_count = 5
+    required_fields = ["Surface Name", "Constant External Vapor Transfer Coefficient", "Constant Internal vapor Transfer Coefficient"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `SurfaceProperties:VaporCoefficients`
@@ -9133,7 +9291,7 @@ class SurfacePropertiesVaporCoefficients(object):
 
         Args:
             value (float): value for IDD Field `external_vapor_coefficient_value`
-                Unit: kg/Pa-s-m2
+                Units: kg/Pa-s-m2
                 Default value: 0.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -9212,7 +9370,7 @@ class SurfacePropertiesVaporCoefficients(object):
 
         Args:
             value (float): value for IDD Field `internal_vapor_coefficient_value`
-                Unit: kg/Pa-s-m2
+                Units: kg/Pa-s-m2
                 Default value: 0.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -9232,6 +9390,16 @@ class SurfacePropertiesVaporCoefficients(object):
                                  'for field `internal_vapor_coefficient_value`')
 
         self._data["Internal Vapor Coefficient Value"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):
@@ -9259,9 +9427,11 @@ class SurfacePropertyExteriorNaturalVentedCavity(object):
         Used to describe the decoupled layer, or baffle, and the characteristics of the cavity
         and openings for naturally ventilated exterior surfaces. This object is also used in
         conjunction with the OtherSideConditionsModel.
+    
     """
     internal_name = "SurfaceProperty:ExteriorNaturalVentedCavity"
     field_count = 21
+    required_fields = ["Name", "Boundary Conditions Model Name", "Roughness of Exterior Surface", "Surface 1 Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `SurfaceProperty:ExteriorNaturalVentedCavity`
@@ -9484,7 +9654,7 @@ class SurfacePropertyExteriorNaturalVentedCavity(object):
 
         Args:
             value (float): value for IDD Field `area_fraction_of_openings`
-                Unit: dimensionless
+                Units: dimensionless
                 value > 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
@@ -9523,7 +9693,7 @@ class SurfacePropertyExteriorNaturalVentedCavity(object):
 
         Args:
             value (float): value for IDD Field `thermal_emissivity_of_exterior_baffle_material`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
@@ -9562,7 +9732,7 @@ class SurfacePropertyExteriorNaturalVentedCavity(object):
 
         Args:
             value (float): value for IDD Field `solar_absorbtivity_of_exterior_baffle`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
@@ -9601,7 +9771,7 @@ class SurfacePropertyExteriorNaturalVentedCavity(object):
 
         Args:
             value (float): value for IDD Field `height_scale_for_buoyancydriven_ventilation`
-                Unit: m
+                Units: m
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -9637,7 +9807,7 @@ class SurfacePropertyExteriorNaturalVentedCavity(object):
 
         Args:
             value (float): value for IDD Field `effective_thickness_of_cavity_behind_exterior_baffle`
-                Unit: m
+                Units: m
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -9673,7 +9843,7 @@ class SurfacePropertyExteriorNaturalVentedCavity(object):
 
         Args:
             value (float): value for IDD Field `ratio_of_actual_surface_area_to_projected_surface_area`
-                Unit: dimensionless
+                Units: dimensionless
                 Default value: 1.0
                 value >= 0.8
                 value <= 2.0
@@ -9763,7 +9933,7 @@ class SurfacePropertyExteriorNaturalVentedCavity(object):
 
         Args:
             value (float): value for IDD Field `effectiveness_for_perforations_with_respect_to_wind`
-                Unit: dimensionless
+                Units: dimensionless
                 Default value: 0.25
                 value > 0.0
                 value <= 1.5
@@ -9803,7 +9973,7 @@ class SurfacePropertyExteriorNaturalVentedCavity(object):
 
         Args:
             value (float): value for IDD Field `discharge_coefficient_for_openings_with_respect_to_buoyancy_driven_flow`
-                Unit: dimensionless
+                Units: dimensionless
                 Default value: 0.65
                 value > 0.0
                 value <= 1.5
@@ -10158,6 +10328,16 @@ class SurfacePropertyExteriorNaturalVentedCavity(object):
 
         self._data["Surface 10 Name"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -10199,9 +10379,11 @@ class SurfacePropertySolarIncidentInside(object):
     """ Corresponds to IDD object `SurfaceProperty:SolarIncidentInside`
         Used to provide incident solar radiation on the inside of the surface. Reference surface-construction pair
         and if that pair is used in a simulation, then program will use value provided in schedule instead of calculating it.
+    
     """
     internal_name = "SurfaceProperty:SolarIncidentInside"
     field_count = 4
+    required_fields = ["Name", "Surface Name", "Construction Name", "Inside Surface Incident Sun Solar Radiation Schedule Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `SurfaceProperty:SolarIncidentInside`
@@ -10372,6 +10554,16 @@ class SurfacePropertySolarIncidentInside(object):
 
         self._data["Inside Surface Incident Sun Solar Radiation Schedule Name"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -10396,9 +10588,11 @@ class ComplexFenestrationPropertySolarAbsorbedLayers(object):
     """ Corresponds to IDD object `ComplexFenestrationProperty:SolarAbsorbedLayers`
         Used to provide solar radiation absorbed in fenestration layers. References surface-construction pair
         and if that pair is used in a simulation, then program will use value provided in schedules instead of calculating it.
+    
     """
     internal_name = "ComplexFenestrationProperty:SolarAbsorbedLayers"
     field_count = 8
+    required_fields = ["Name", "Fenestration Surface", "Construction Name", "Layer 1 Solar Radiation Absorbed Schedule Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ComplexFenestrationProperty:SolarAbsorbedLayers`
@@ -10725,6 +10919,16 @@ class ComplexFenestrationPropertySolarAbsorbedLayers(object):
 
         self._data["Layer 5 Solar Radiation Absorbed Schedule Name"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -10753,9 +10957,11 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
     """ Corresponds to IDD object `ZoneProperty:UserViewFactors:bySurfaceName`
         View factors for Surface to Surface in a zone.
         (Number of Surfaces)**2 must be entered.
+    
     """
     internal_name = "ZoneProperty:UserViewFactors:bySurfaceName"
     field_count = 364
+    required_fields = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ZoneProperty:UserViewFactors:bySurfaceName`
@@ -25207,6 +25413,16 @@ class ZonePropertyUserViewFactorsBySurfaceName(object):
                                  'for field `view_factor_121`')
 
         self._data["View Factor 121"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):

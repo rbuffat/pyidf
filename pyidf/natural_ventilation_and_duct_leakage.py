@@ -3,9 +3,11 @@ from collections import OrderedDict
 class AirflowNetworkSimulationControl(object):
     """ Corresponds to IDD object `AirflowNetwork:SimulationControl`
         This object defines the global parameters used in an Airflow Network simulation.
+    
     """
     internal_name = "AirflowNetwork:SimulationControl"
     field_count = 14
+    required_fields = ["Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `AirflowNetwork:SimulationControl`
@@ -393,7 +395,7 @@ class AirflowNetworkSimulationControl(object):
 
         Args:
             value (int): value for IDD Field `maximum_number_of_iterations`
-                Unit: dimensionless
+                Units: dimensionless
                 Default value: 500
                 value > 10
                 value <= 30000
@@ -481,7 +483,7 @@ class AirflowNetworkSimulationControl(object):
 
         Args:
             value (float): value for IDD Field `relative_airflow_convergence_tolerance`
-                Unit: dimensionless
+                Units: dimensionless
                 Default value: 0.0001
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -521,7 +523,7 @@ class AirflowNetworkSimulationControl(object):
 
         Args:
             value (float): value for IDD Field `absolute_airflow_convergence_tolerance`
-                Unit: kg/s
+                Units: kg/s
                 Default value: 1e-06
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -558,7 +560,7 @@ class AirflowNetworkSimulationControl(object):
 
         Args:
             value (float): value for IDD Field `convergence_acceleration_limit`
-                Unit: dimensionless
+                Units: dimensionless
                 Default value: -0.5
                 value >= -1.0
                 value <= 1.0
@@ -600,7 +602,7 @@ class AirflowNetworkSimulationControl(object):
 
         Args:
             value (float): value for IDD Field `azimuth_angle_of_long_axis_of_building`
-                Unit: deg
+                Units: deg
                 Default value: 0.0
                 value >= 0.0
                 value <= 180.0
@@ -710,6 +712,16 @@ class AirflowNetworkSimulationControl(object):
 
         self._data["Height Dependence of External Node Temperature"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -744,9 +756,11 @@ class AirflowNetworkMultiZoneZone(object):
     """ Corresponds to IDD object `AirflowNetwork:MultiZone:Zone`
         This object is used to simultaneously control a thermal zone's window and door openings,
         both exterior and interior.
+    
     """
     internal_name = "AirflowNetwork:MultiZone:Zone"
     field_count = 11
+    required_fields = ["Zone Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `AirflowNetwork:MultiZone:Zone`
@@ -968,7 +982,7 @@ class AirflowNetworkMultiZoneZone(object):
 
         Args:
             value (float): value for IDD Field `minimum_venting_open_factor`
-                Unit: dimensionless
+                Units: dimensionless
                 Default value: 0.0
                 value >= 0.0
                 value <= 1.0
@@ -1010,7 +1024,7 @@ class AirflowNetworkMultiZoneZone(object):
 
         Args:
             value (float): value for IDD Field `indoor_and_outdoor_temperature_difference_lower_limit_for_maximum_venting_open_factor`
-                Unit: deltaC
+                Units: deltaC
                 Default value: 0.0
                 value >= 0.0
                 value < 100.0
@@ -1052,7 +1066,7 @@ class AirflowNetworkMultiZoneZone(object):
 
         Args:
             value (float): value for IDD Field `indoor_and_outdoor_temperature_difference_upper_limit_for_minimun_venting_open_factor`
-                Unit: deltaC
+                Units: deltaC
                 Default value: 100.0
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -1090,7 +1104,7 @@ class AirflowNetworkMultiZoneZone(object):
 
         Args:
             value (float): value for IDD Field `indoor_and_outdoor_enthalpy_difference_lower_limit_for_maximum_venting_open_factor`
-                Unit: deltaJ/kg
+                Units: deltaJ/kg
                 Default value: 0.0
                 value >= 0.0
                 value < 300000.0
@@ -1132,7 +1146,7 @@ class AirflowNetworkMultiZoneZone(object):
 
         Args:
             value (float): value for IDD Field `indoor_and_outdoor_enthalpy_difference_upper_limit_for_minimun_venting_open_factor`
-                Unit: deltaJ/kg
+                Units: deltaJ/kg
                 Default value: 300000.0
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -1254,7 +1268,7 @@ class AirflowNetworkMultiZoneZone(object):
 
         Args:
             value (float): value for IDD Field `facade_width`
-                Unit: m
+                Units: m
                 Default value: 10.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -1274,6 +1288,16 @@ class AirflowNetworkMultiZoneZone(object):
                                  'for field `facade_width`')
 
         self._data["Facade Width"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):
@@ -1307,9 +1331,11 @@ class AirflowNetworkMultiZoneSurface(object):
         This object specifies the properties of a surface linkage through which air flows.
         Airflow Report: Node 1 as an inside face zone;
         Node 2 as an outside face zone or external node.
+    
     """
     internal_name = "AirflowNetwork:MultiZone:Surface"
     field_count = 12
+    required_fields = ["Surface Name", "Leakage Component Name", "Window/Door Opening Factor, or Crack Factor"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `AirflowNetwork:MultiZone:Surface`
@@ -1524,7 +1550,7 @@ class AirflowNetworkMultiZoneSurface(object):
 
         Args:
             value (float): value for IDD Field `window_or_door_opening_factor_or_crack_factor`
-                Unit: dimensionless
+                Units: dimensionless
                 Default value: 1.0
                 value > 0.0
                 value <= 1.0
@@ -1668,7 +1694,7 @@ class AirflowNetworkMultiZoneSurface(object):
 
         Args:
             value (float): value for IDD Field `minimum_venting_open_factor`
-                Unit: dimensionless
+                Units: dimensionless
                 Default value: 0.0
                 value >= 0.0
                 value <= 1.0
@@ -1709,7 +1735,7 @@ class AirflowNetworkMultiZoneSurface(object):
 
         Args:
             value (float): value for IDD Field `indoor_and_outdoor_temperature_difference_lower_limit_for_maximum_venting_open_factor`
-                Unit: deltaC
+                Units: deltaC
                 Default value: 0.0
                 value >= 0.0
                 value < 100.0
@@ -1751,7 +1777,7 @@ class AirflowNetworkMultiZoneSurface(object):
 
         Args:
             value (float): value for IDD Field `indoor_and_outdoor_temperature_difference_upper_limit_for_minimun_venting_open_factor`
-                Unit: deltaC
+                Units: deltaC
                 Default value: 100.0
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -1789,7 +1815,7 @@ class AirflowNetworkMultiZoneSurface(object):
 
         Args:
             value (float): value for IDD Field `indoor_and_outdoor_enthalpy_difference_lower_limit_for_maximum_venting_open_factor`
-                Unit: deltaJ/kg
+                Units: deltaJ/kg
                 Default value: 0.0
                 value >= 0.0
                 value < 300000.0
@@ -1831,7 +1857,7 @@ class AirflowNetworkMultiZoneSurface(object):
 
         Args:
             value (float): value for IDD Field `indoor_and_outdoor_enthalpy_difference_upper_limit_for_minimun_venting_open_factor`
-                Unit: deltaJ/kg
+                Units: deltaJ/kg
                 Default value: 300000.0
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -1891,6 +1917,16 @@ class AirflowNetworkMultiZoneSurface(object):
 
         self._data["Venting Availability Schedule Name"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -1922,9 +1958,11 @@ class AirflowNetworkMultiZoneSurface(object):
 class AirflowNetworkMultiZoneReferenceCrackConditions(object):
     """ Corresponds to IDD object `AirflowNetwork:MultiZone:ReferenceCrackConditions`
         This object specifies the conditions under which the air mass flow coefficient was measured.
+    
     """
     internal_name = "AirflowNetwork:MultiZone:ReferenceCrackConditions"
     field_count = 4
+    required_fields = ["Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `AirflowNetwork:MultiZone:ReferenceCrackConditions`
@@ -2013,7 +2051,7 @@ class AirflowNetworkMultiZoneReferenceCrackConditions(object):
 
         Args:
             value (float): value for IDD Field `reference_temperature`
-                Unit: C
+                Units: C
                 Default value: 20.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -2046,7 +2084,8 @@ class AirflowNetworkMultiZoneReferenceCrackConditions(object):
 
         Args:
             value (float): value for IDD Field `reference_barometric_pressure`
-                Unit: Pa
+                Units: Pa
+                IP-Units: inHg
                 Default value: 101325.0
                 value >= 31000.0
                 value <= 120000.0
@@ -2087,7 +2126,7 @@ class AirflowNetworkMultiZoneReferenceCrackConditions(object):
 
         Args:
             value (float): value for IDD Field `reference_humidity_ratio`
-                Unit: kgWater/kgDryAir
+                Units: kgWater/kgDryAir
                 Default value: 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -2103,6 +2142,16 @@ class AirflowNetworkMultiZoneReferenceCrackConditions(object):
                                  'for field `reference_humidity_ratio`'.format(value))
 
         self._data["Reference Humidity Ratio"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):
@@ -2127,9 +2176,11 @@ class AirflowNetworkMultiZoneReferenceCrackConditions(object):
 class AirflowNetworkMultiZoneSurfaceCrack(object):
     """ Corresponds to IDD object `AirflowNetwork:MultiZone:Surface:Crack`
         This object specifies the properties of airflow through a crack.
+    
     """
     internal_name = "AirflowNetwork:MultiZone:Surface:Crack"
     field_count = 4
+    required_fields = ["Name", "Air Mass Flow Coefficient at Reference Conditions"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `AirflowNetwork:MultiZone:Surface:Crack`
@@ -2220,7 +2271,7 @@ class AirflowNetworkMultiZoneSurfaceCrack(object):
 
         Args:
             value (float): value for IDD Field `air_mass_flow_coefficient_at_reference_conditions`
-                Unit: kg/s
+                Units: kg/s
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -2256,7 +2307,7 @@ class AirflowNetworkMultiZoneSurfaceCrack(object):
 
         Args:
             value (float): value for IDD Field `air_mass_flow_exponent`
-                Unit: dimensionless
+                Units: dimensionless
                 Default value: 0.65
                 value >= 0.5
                 value <= 1.0
@@ -2316,6 +2367,16 @@ class AirflowNetworkMultiZoneSurfaceCrack(object):
 
         self._data["Reference Crack Conditions"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -2339,9 +2400,11 @@ class AirflowNetworkMultiZoneSurfaceCrack(object):
 class AirflowNetworkMultiZoneSurfaceEffectiveLeakageArea(object):
     """ Corresponds to IDD object `AirflowNetwork:MultiZone:Surface:EffectiveLeakageArea`
         This object is used to define surface air leakage.
+    
     """
     internal_name = "AirflowNetwork:MultiZone:Surface:EffectiveLeakageArea"
     field_count = 5
+    required_fields = ["Name", "Effective Leakage Area"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `AirflowNetwork:MultiZone:Surface:EffectiveLeakageArea`
@@ -2436,7 +2499,7 @@ class AirflowNetworkMultiZoneSurfaceEffectiveLeakageArea(object):
 
         Args:
             value (float): value for IDD Field `effective_leakage_area`
-                Unit: m2
+                Units: m2
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -2472,7 +2535,7 @@ class AirflowNetworkMultiZoneSurfaceEffectiveLeakageArea(object):
 
         Args:
             value (float): value for IDD Field `discharge_coefficient`
-                Unit: dimensionless
+                Units: dimensionless
                 Default value: 1.0
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -2509,7 +2572,7 @@ class AirflowNetworkMultiZoneSurfaceEffectiveLeakageArea(object):
 
         Args:
             value (float): value for IDD Field `reference_pressure_difference`
-                Unit: Pa
+                Units: Pa
                 Default value: 4.0
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -2546,7 +2609,7 @@ class AirflowNetworkMultiZoneSurfaceEffectiveLeakageArea(object):
 
         Args:
             value (float): value for IDD Field `air_mass_flow_exponent`
-                Unit: dimensionless
+                Units: dimensionless
                 Default value: 0.65
                 value >= 0.5
                 value <= 1.0
@@ -2570,6 +2633,16 @@ class AirflowNetworkMultiZoneSurfaceEffectiveLeakageArea(object):
                                  'for field `air_mass_flow_exponent`')
 
         self._data["Air Mass Flow Exponent"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):
@@ -2596,9 +2669,11 @@ class AirflowNetworkMultiZoneComponentDetailedOpening(object):
     """ Corresponds to IDD object `AirflowNetwork:MultiZone:Component:DetailedOpening`
         This object specifies the properties of airflow through windows and doors (window, door and
         glass door heat transfer subsurfaces) when they are closed or open.
+    
     """
     internal_name = "AirflowNetwork:MultiZone:Component:DetailedOpening"
     field_count = 26
+    required_fields = ["Name", "Air Mass Flow Coefficient When Opening is Closed", "Number of Sets of Opening Factor Data", "Opening Factor 2"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `AirflowNetwork:MultiZone:Component:DetailedOpening`
@@ -2822,7 +2897,7 @@ class AirflowNetworkMultiZoneComponentDetailedOpening(object):
 
         Args:
             value (float): value for IDD Field `air_mass_flow_coefficient_when_opening_is_closed`
-                Unit: kg/s-m
+                Units: kg/s-m
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -2860,7 +2935,7 @@ class AirflowNetworkMultiZoneComponentDetailedOpening(object):
 
         Args:
             value (float): value for IDD Field `air_mass_flow_exponent_when_opening_is_closed`
-                Unit: dimensionless
+                Units: dimensionless
                 Default value: 0.65
                 value >= 0.5
                 value <= 1.0
@@ -2952,7 +3027,7 @@ class AirflowNetworkMultiZoneComponentDetailedOpening(object):
 
         Args:
             value (float): value for IDD Field `extra_crack_length_or_height_of_pivoting_axis`
-                Unit: m
+                Units: m
                 Default value: 0.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -3029,7 +3104,7 @@ class AirflowNetworkMultiZoneComponentDetailedOpening(object):
 
         Args:
             value (float): value for IDD Field `opening_factor_1`
-                Unit: dimensionless
+                Units: dimensionless
                 Default value: 0.0
                 value >= 0.0
                 value <= 0.0
@@ -3071,7 +3146,7 @@ class AirflowNetworkMultiZoneComponentDetailedOpening(object):
 
         Args:
             value (float): value for IDD Field `discharge_coefficient_for_opening_factor_1`
-                Unit: dimensionless
+                Units: dimensionless
                 Default value: 0.001
                 value > 0.0
                 value <= 1.0
@@ -3112,7 +3187,7 @@ class AirflowNetworkMultiZoneComponentDetailedOpening(object):
 
         Args:
             value (float): value for IDD Field `width_factor_for_opening_factor_1`
-                Unit: dimensionless
+                Units: dimensionless
                 Default value: 0.0
                 value >= 0.0
                 value <= 1.0
@@ -3153,7 +3228,7 @@ class AirflowNetworkMultiZoneComponentDetailedOpening(object):
 
         Args:
             value (float): value for IDD Field `height_factor_for_opening_factor_1`
-                Unit: dimensionless
+                Units: dimensionless
                 Default value: 0.0
                 value >= 0.0
                 value <= 1.0
@@ -3198,7 +3273,7 @@ class AirflowNetworkMultiZoneComponentDetailedOpening(object):
 
         Args:
             value (float): value for IDD Field `start_height_factor_for_opening_factor_1`
-                Unit: dimensionless
+                Units: dimensionless
                 Default value: 0.0
                 value >= 0.0
                 value <= 1.0
@@ -3243,7 +3318,7 @@ class AirflowNetworkMultiZoneComponentDetailedOpening(object):
 
         Args:
             value (float): value for IDD Field `opening_factor_2`
-                Unit: dimensionless
+                Units: dimensionless
                 value > 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
@@ -3284,7 +3359,7 @@ class AirflowNetworkMultiZoneComponentDetailedOpening(object):
 
         Args:
             value (float): value for IDD Field `discharge_coefficient_for_opening_factor_2`
-                Unit: dimensionless
+                Units: dimensionless
                 Default value: 1.0
                 value > 0.0
                 value <= 1.0
@@ -3325,7 +3400,7 @@ class AirflowNetworkMultiZoneComponentDetailedOpening(object):
 
         Args:
             value (float): value for IDD Field `width_factor_for_opening_factor_2`
-                Unit: dimensionless
+                Units: dimensionless
                 Default value: 1.0
                 value > 0.0
                 value <= 1.0
@@ -3366,7 +3441,7 @@ class AirflowNetworkMultiZoneComponentDetailedOpening(object):
 
         Args:
             value (float): value for IDD Field `height_factor_for_opening_factor_2`
-                Unit: dimensionless
+                Units: dimensionless
                 Default value: 1.0
                 value > 0.0
                 value <= 1.0
@@ -3411,7 +3486,7 @@ class AirflowNetworkMultiZoneComponentDetailedOpening(object):
 
         Args:
             value (float): value for IDD Field `start_height_factor_for_opening_factor_2`
-                Unit: dimensionless
+                Units: dimensionless
                 Default value: 0.0
                 value >= 0.0
                 value < 1.0
@@ -3454,7 +3529,7 @@ class AirflowNetworkMultiZoneComponentDetailedOpening(object):
 
         Args:
             value (float): value for IDD Field `opening_factor_3`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
@@ -3495,7 +3570,7 @@ class AirflowNetworkMultiZoneComponentDetailedOpening(object):
 
         Args:
             value (float): value for IDD Field `discharge_coefficient_for_opening_factor_3`
-                Unit: dimensionless
+                Units: dimensionless
                 Default value: 0.0
                 value >= 0.0
                 value <= 1.0
@@ -3536,7 +3611,7 @@ class AirflowNetworkMultiZoneComponentDetailedOpening(object):
 
         Args:
             value (float): value for IDD Field `width_factor_for_opening_factor_3`
-                Unit: dimensionless
+                Units: dimensionless
                 Default value: 0.0
                 value >= 0.0
                 value <= 1.0
@@ -3577,7 +3652,7 @@ class AirflowNetworkMultiZoneComponentDetailedOpening(object):
 
         Args:
             value (float): value for IDD Field `height_factor_for_opening_factor_3`
-                Unit: dimensionless
+                Units: dimensionless
                 Default value: 0.0
                 value >= 0.0
                 value <= 1.0
@@ -3622,7 +3697,7 @@ class AirflowNetworkMultiZoneComponentDetailedOpening(object):
 
         Args:
             value (float): value for IDD Field `start_height_factor_for_opening_factor_3`
-                Unit: dimensionless
+                Units: dimensionless
                 Default value: 0.0
                 value >= 0.0
                 value <= 1.0
@@ -3663,7 +3738,7 @@ class AirflowNetworkMultiZoneComponentDetailedOpening(object):
 
         Args:
             value (float): value for IDD Field `opening_factor_4`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
@@ -3704,7 +3779,7 @@ class AirflowNetworkMultiZoneComponentDetailedOpening(object):
 
         Args:
             value (float): value for IDD Field `discharge_coefficient_for_opening_factor_4`
-                Unit: dimensionless
+                Units: dimensionless
                 Default value: 0.0
                 value >= 0.0
                 value <= 1.0
@@ -3745,7 +3820,7 @@ class AirflowNetworkMultiZoneComponentDetailedOpening(object):
 
         Args:
             value (float): value for IDD Field `width_factor_for_opening_factor_4`
-                Unit: dimensionless
+                Units: dimensionless
                 Default value: 0.0
                 value >= 0.0
                 value <= 1.0
@@ -3786,7 +3861,7 @@ class AirflowNetworkMultiZoneComponentDetailedOpening(object):
 
         Args:
             value (float): value for IDD Field `height_factor_for_opening_factor_4`
-                Unit: dimensionless
+                Units: dimensionless
                 Default value: 0.0
                 value >= 0.0
                 value <= 1.0
@@ -3831,7 +3906,7 @@ class AirflowNetworkMultiZoneComponentDetailedOpening(object):
 
         Args:
             value (float): value for IDD Field `start_height_factor_for_opening_factor_4`
-                Unit: dimensionless
+                Units: dimensionless
                 Default value: 0.0
                 value >= 0.0
                 value <= 1.0
@@ -3855,6 +3930,16 @@ class AirflowNetworkMultiZoneComponentDetailedOpening(object):
                                  'for field `start_height_factor_for_opening_factor_4`')
 
         self._data["Start Height Factor for Opening Factor 4"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):
@@ -3902,9 +3987,11 @@ class AirflowNetworkMultiZoneComponentSimpleOpening(object):
     """ Corresponds to IDD object `AirflowNetwork:MultiZone:Component:SimpleOpening`
         This object specifies the properties of air flow through windows and doors (window, door and
         glass door heat transfer subsurfaces) when they are closed or open.
+    
     """
     internal_name = "AirflowNetwork:MultiZone:Component:SimpleOpening"
     field_count = 5
+    required_fields = ["Name", "Air Mass Flow Coefficient When Opening is Closed", "Minimum Density Difference for Two-Way Flow", "Discharge Coefficient"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `AirflowNetwork:MultiZone:Component:SimpleOpening`
@@ -4001,7 +4088,7 @@ class AirflowNetworkMultiZoneComponentSimpleOpening(object):
 
         Args:
             value (float): value for IDD Field `air_mass_flow_coefficient_when_opening_is_closed`
-                Unit: kg/s-m
+                Units: kg/s-m
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -4039,7 +4126,7 @@ class AirflowNetworkMultiZoneComponentSimpleOpening(object):
 
         Args:
             value (float): value for IDD Field `air_mass_flow_exponent_when_opening_is_closed`
-                Unit: dimensionless
+                Units: dimensionless
                 Default value: 0.65
                 value >= 0.5
                 value <= 1.0
@@ -4080,7 +4167,7 @@ class AirflowNetworkMultiZoneComponentSimpleOpening(object):
 
         Args:
             value (float): value for IDD Field `minimum_density_difference_for_twoway_flow`
-                Unit: kg/m3
+                Units: kg/m3
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -4117,7 +4204,7 @@ class AirflowNetworkMultiZoneComponentSimpleOpening(object):
 
         Args:
             value (float): value for IDD Field `discharge_coefficient`
-                Unit: dimensionless
+                Units: dimensionless
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -4136,6 +4223,16 @@ class AirflowNetworkMultiZoneComponentSimpleOpening(object):
                                  'for field `discharge_coefficient`')
 
         self._data["Discharge Coefficient"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):
@@ -4161,9 +4258,11 @@ class AirflowNetworkMultiZoneComponentSimpleOpening(object):
 class AirflowNetworkMultiZoneComponentHorizontalOpening(object):
     """ Corresponds to IDD object `AirflowNetwork:MultiZone:Component:HorizontalOpening`
         This object specifies the properties of air flow through a horizontal opening
+    
     """
     internal_name = "AirflowNetwork:MultiZone:Component:HorizontalOpening"
     field_count = 5
+    required_fields = ["Name", "Air Mass Flow Coefficient When Opening is Closed", "Discharge Coefficient"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `AirflowNetwork:MultiZone:Component:HorizontalOpening`
@@ -4260,7 +4359,7 @@ class AirflowNetworkMultiZoneComponentHorizontalOpening(object):
 
         Args:
             value (float): value for IDD Field `air_mass_flow_coefficient_when_opening_is_closed`
-                Unit: kg/s-m
+                Units: kg/s-m
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -4298,7 +4397,7 @@ class AirflowNetworkMultiZoneComponentHorizontalOpening(object):
 
         Args:
             value (float): value for IDD Field `air_mass_flow_exponent_when_opening_is_closed`
-                Unit: dimensionless
+                Units: dimensionless
                 Default value: 0.65
                 value >= 0.5
                 value <= 1.0
@@ -4339,7 +4438,7 @@ class AirflowNetworkMultiZoneComponentHorizontalOpening(object):
 
         Args:
             value (float): value for IDD Field `sloping_plane_angle`
-                Unit: deg
+                Units: deg
                 Default value: 90.0
                 value > 0.0
                 value <= 90.0
@@ -4381,7 +4480,7 @@ class AirflowNetworkMultiZoneComponentHorizontalOpening(object):
 
         Args:
             value (float): value for IDD Field `discharge_coefficient`
-                Unit: dimensionless
+                Units: dimensionless
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -4400,6 +4499,16 @@ class AirflowNetworkMultiZoneComponentHorizontalOpening(object):
                                  'for field `discharge_coefficient`')
 
         self._data["Discharge Coefficient"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):
@@ -4426,9 +4535,11 @@ class AirflowNetworkMultiZoneComponentZoneExhaustFan(object):
     """ Corresponds to IDD object `AirflowNetwork:MultiZone:Component:ZoneExhaustFan`
         This object specifies the additional properties for a zone exhaust fan
         to perform multizone airflow calculations.
+    
     """
     internal_name = "AirflowNetwork:MultiZone:Component:ZoneExhaustFan"
     field_count = 4
+    required_fields = ["Name", "Air Mass Flow Coefficient When the Zone Exhaust Fan is Off at Reference Conditions"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `AirflowNetwork:MultiZone:Component:ZoneExhaustFan`
@@ -4522,7 +4633,7 @@ class AirflowNetworkMultiZoneComponentZoneExhaustFan(object):
 
         Args:
             value (float): value for IDD Field `air_mass_flow_coefficient_when_the_zone_exhaust_fan_is_off_at_reference_conditions`
-                Unit: kg/s
+                Units: kg/s
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -4560,7 +4671,7 @@ class AirflowNetworkMultiZoneComponentZoneExhaustFan(object):
 
         Args:
             value (float): value for IDD Field `air_mass_flow_exponent_when_the_zone_exhaust_fan_is_off`
-                Unit: dimensionless
+                Units: dimensionless
                 Default value: 0.65
                 value >= 0.5
                 value <= 1.0
@@ -4620,6 +4731,16 @@ class AirflowNetworkMultiZoneComponentZoneExhaustFan(object):
 
         self._data["Reference Crack Conditions"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -4643,9 +4764,11 @@ class AirflowNetworkMultiZoneComponentZoneExhaustFan(object):
 class AirflowNetworkMultiZoneExternalNode(object):
     """ Corresponds to IDD object `AirflowNetwork:MultiZone:ExternalNode`
         This object defines outdoor environmental conditions outside of the building.
+    
     """
     internal_name = "AirflowNetwork:MultiZone:ExternalNode"
     field_count = 3
+    required_fields = ["Name", "Wind Pressure Coefficient Values Object Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `AirflowNetwork:MultiZone:ExternalNode`
@@ -4729,7 +4852,7 @@ class AirflowNetworkMultiZoneExternalNode(object):
 
         Args:
             value (float): value for IDD Field `external_node_height`
-                Unit: m
+                Units: m
                 Default value: 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -4780,6 +4903,16 @@ class AirflowNetworkMultiZoneExternalNode(object):
 
         self._data["Wind Pressure Coefficient Values Object Name"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -4805,9 +4938,11 @@ class AirflowNetworkMultiZoneWindPressureCoefficientArray(object):
         object. Number of WPC Values in the corresponding AirflowNetwork:MultiZone:WindPressureCoefficientValues
         object must be the same as the number of wind directions specified for
         this AirflowNetwork:MultiZone:WindPressureCoefficientArray object.
+    
     """
     internal_name = "AirflowNetwork:MultiZone:WindPressureCoefficientArray"
     field_count = 37
+    required_fields = ["Name", "Wind Direction 1", "Wind Direction 2"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `AirflowNetwork:MultiZone:WindPressureCoefficientArray`
@@ -5094,7 +5229,7 @@ class AirflowNetworkMultiZoneWindPressureCoefficientArray(object):
 
         Args:
             value (float): value for IDD Field `wind_direction_1`
-                Unit: deg
+                Units: deg
                 value >= 0.0
                 value <= 360.0
                 if `value` is None it will not be checked against the
@@ -5134,7 +5269,7 @@ class AirflowNetworkMultiZoneWindPressureCoefficientArray(object):
 
         Args:
             value (float): value for IDD Field `wind_direction_2`
-                Unit: deg
+                Units: deg
                 value >= 0.0
                 value <= 360.0
                 if `value` is None it will not be checked against the
@@ -5174,7 +5309,7 @@ class AirflowNetworkMultiZoneWindPressureCoefficientArray(object):
 
         Args:
             value (float): value for IDD Field `wind_direction_3`
-                Unit: deg
+                Units: deg
                 value >= 0.0
                 value <= 360.0
                 if `value` is None it will not be checked against the
@@ -5214,7 +5349,7 @@ class AirflowNetworkMultiZoneWindPressureCoefficientArray(object):
 
         Args:
             value (float): value for IDD Field `wind_direction_4`
-                Unit: deg
+                Units: deg
                 value >= 0.0
                 value <= 360.0
                 if `value` is None it will not be checked against the
@@ -5254,7 +5389,7 @@ class AirflowNetworkMultiZoneWindPressureCoefficientArray(object):
 
         Args:
             value (float): value for IDD Field `wind_direction_5`
-                Unit: deg
+                Units: deg
                 value >= 0.0
                 value <= 360.0
                 if `value` is None it will not be checked against the
@@ -5294,7 +5429,7 @@ class AirflowNetworkMultiZoneWindPressureCoefficientArray(object):
 
         Args:
             value (float): value for IDD Field `wind_direction_6`
-                Unit: deg
+                Units: deg
                 value >= 0.0
                 value <= 360.0
                 if `value` is None it will not be checked against the
@@ -5334,7 +5469,7 @@ class AirflowNetworkMultiZoneWindPressureCoefficientArray(object):
 
         Args:
             value (float): value for IDD Field `wind_direction_7`
-                Unit: deg
+                Units: deg
                 value >= 0.0
                 value <= 360.0
                 if `value` is None it will not be checked against the
@@ -5374,7 +5509,7 @@ class AirflowNetworkMultiZoneWindPressureCoefficientArray(object):
 
         Args:
             value (float): value for IDD Field `wind_direction_8`
-                Unit: deg
+                Units: deg
                 value >= 0.0
                 value <= 360.0
                 if `value` is None it will not be checked against the
@@ -5414,7 +5549,7 @@ class AirflowNetworkMultiZoneWindPressureCoefficientArray(object):
 
         Args:
             value (float): value for IDD Field `wind_direction_9`
-                Unit: deg
+                Units: deg
                 value >= 0.0
                 value <= 360.0
                 if `value` is None it will not be checked against the
@@ -5454,7 +5589,7 @@ class AirflowNetworkMultiZoneWindPressureCoefficientArray(object):
 
         Args:
             value (float): value for IDD Field `wind_direction_10`
-                Unit: deg
+                Units: deg
                 value >= 0.0
                 value <= 360.0
                 if `value` is None it will not be checked against the
@@ -5494,7 +5629,7 @@ class AirflowNetworkMultiZoneWindPressureCoefficientArray(object):
 
         Args:
             value (float): value for IDD Field `wind_direction_11`
-                Unit: deg
+                Units: deg
                 value >= 0.0
                 value <= 360.0
                 if `value` is None it will not be checked against the
@@ -5534,7 +5669,7 @@ class AirflowNetworkMultiZoneWindPressureCoefficientArray(object):
 
         Args:
             value (float): value for IDD Field `wind_direction_12`
-                Unit: deg
+                Units: deg
                 value >= 0.0
                 value <= 360.0
                 if `value` is None it will not be checked against the
@@ -5574,7 +5709,7 @@ class AirflowNetworkMultiZoneWindPressureCoefficientArray(object):
 
         Args:
             value (float): value for IDD Field `wind_direction_13`
-                Unit: deg
+                Units: deg
                 value >= 0.0
                 value <= 360.0
                 if `value` is None it will not be checked against the
@@ -5614,7 +5749,7 @@ class AirflowNetworkMultiZoneWindPressureCoefficientArray(object):
 
         Args:
             value (float): value for IDD Field `wind_direction_14`
-                Unit: deg
+                Units: deg
                 value >= 0.0
                 value <= 360.0
                 if `value` is None it will not be checked against the
@@ -5654,7 +5789,7 @@ class AirflowNetworkMultiZoneWindPressureCoefficientArray(object):
 
         Args:
             value (float): value for IDD Field `wind_direction_15`
-                Unit: deg
+                Units: deg
                 value >= 0.0
                 value <= 360.0
                 if `value` is None it will not be checked against the
@@ -5694,7 +5829,7 @@ class AirflowNetworkMultiZoneWindPressureCoefficientArray(object):
 
         Args:
             value (float): value for IDD Field `wind_direction_16`
-                Unit: deg
+                Units: deg
                 value >= 0.0
                 value <= 360.0
                 if `value` is None it will not be checked against the
@@ -5734,7 +5869,7 @@ class AirflowNetworkMultiZoneWindPressureCoefficientArray(object):
 
         Args:
             value (float): value for IDD Field `wind_direction_17`
-                Unit: deg
+                Units: deg
                 value >= 0.0
                 value <= 360.0
                 if `value` is None it will not be checked against the
@@ -5774,7 +5909,7 @@ class AirflowNetworkMultiZoneWindPressureCoefficientArray(object):
 
         Args:
             value (float): value for IDD Field `wind_direction_18`
-                Unit: deg
+                Units: deg
                 value >= 0.0
                 value <= 360.0
                 if `value` is None it will not be checked against the
@@ -5814,7 +5949,7 @@ class AirflowNetworkMultiZoneWindPressureCoefficientArray(object):
 
         Args:
             value (float): value for IDD Field `wind_direction_19`
-                Unit: deg
+                Units: deg
                 value >= 0.0
                 value <= 360.0
                 if `value` is None it will not be checked against the
@@ -5854,7 +5989,7 @@ class AirflowNetworkMultiZoneWindPressureCoefficientArray(object):
 
         Args:
             value (float): value for IDD Field `wind_direction_20`
-                Unit: deg
+                Units: deg
                 value >= 0.0
                 value <= 360.0
                 if `value` is None it will not be checked against the
@@ -5894,7 +6029,7 @@ class AirflowNetworkMultiZoneWindPressureCoefficientArray(object):
 
         Args:
             value (float): value for IDD Field `wind_direction_21`
-                Unit: deg
+                Units: deg
                 value >= 0.0
                 value <= 360.0
                 if `value` is None it will not be checked against the
@@ -5934,7 +6069,7 @@ class AirflowNetworkMultiZoneWindPressureCoefficientArray(object):
 
         Args:
             value (float): value for IDD Field `wind_direction_22`
-                Unit: deg
+                Units: deg
                 value >= 0.0
                 value <= 360.0
                 if `value` is None it will not be checked against the
@@ -5974,7 +6109,7 @@ class AirflowNetworkMultiZoneWindPressureCoefficientArray(object):
 
         Args:
             value (float): value for IDD Field `wind_direction_23`
-                Unit: deg
+                Units: deg
                 value >= 0.0
                 value <= 360.0
                 if `value` is None it will not be checked against the
@@ -6014,7 +6149,7 @@ class AirflowNetworkMultiZoneWindPressureCoefficientArray(object):
 
         Args:
             value (float): value for IDD Field `wind_direction_24`
-                Unit: deg
+                Units: deg
                 value >= 0.0
                 value <= 360.0
                 if `value` is None it will not be checked against the
@@ -6054,7 +6189,7 @@ class AirflowNetworkMultiZoneWindPressureCoefficientArray(object):
 
         Args:
             value (float): value for IDD Field `wind_direction_25`
-                Unit: deg
+                Units: deg
                 value >= 0.0
                 value <= 360.0
                 if `value` is None it will not be checked against the
@@ -6094,7 +6229,7 @@ class AirflowNetworkMultiZoneWindPressureCoefficientArray(object):
 
         Args:
             value (float): value for IDD Field `wind_direction_26`
-                Unit: deg
+                Units: deg
                 value >= 0.0
                 value <= 360.0
                 if `value` is None it will not be checked against the
@@ -6134,7 +6269,7 @@ class AirflowNetworkMultiZoneWindPressureCoefficientArray(object):
 
         Args:
             value (float): value for IDD Field `wind_direction_27`
-                Unit: deg
+                Units: deg
                 value >= 0.0
                 value <= 360.0
                 if `value` is None it will not be checked against the
@@ -6174,7 +6309,7 @@ class AirflowNetworkMultiZoneWindPressureCoefficientArray(object):
 
         Args:
             value (float): value for IDD Field `wind_direction_28`
-                Unit: deg
+                Units: deg
                 value >= 0.0
                 value <= 360.0
                 if `value` is None it will not be checked against the
@@ -6214,7 +6349,7 @@ class AirflowNetworkMultiZoneWindPressureCoefficientArray(object):
 
         Args:
             value (float): value for IDD Field `wind_direction_29`
-                Unit: deg
+                Units: deg
                 value >= 0.0
                 value <= 360.0
                 if `value` is None it will not be checked against the
@@ -6254,7 +6389,7 @@ class AirflowNetworkMultiZoneWindPressureCoefficientArray(object):
 
         Args:
             value (float): value for IDD Field `wind_direction_30`
-                Unit: deg
+                Units: deg
                 value >= 0.0
                 value <= 360.0
                 if `value` is None it will not be checked against the
@@ -6294,7 +6429,7 @@ class AirflowNetworkMultiZoneWindPressureCoefficientArray(object):
 
         Args:
             value (float): value for IDD Field `wind_direction_31`
-                Unit: deg
+                Units: deg
                 value >= 0.0
                 value <= 360.0
                 if `value` is None it will not be checked against the
@@ -6334,7 +6469,7 @@ class AirflowNetworkMultiZoneWindPressureCoefficientArray(object):
 
         Args:
             value (float): value for IDD Field `wind_direction_32`
-                Unit: deg
+                Units: deg
                 value >= 0.0
                 value <= 360.0
                 if `value` is None it will not be checked against the
@@ -6374,7 +6509,7 @@ class AirflowNetworkMultiZoneWindPressureCoefficientArray(object):
 
         Args:
             value (float): value for IDD Field `wind_direction_33`
-                Unit: deg
+                Units: deg
                 value >= 0.0
                 value <= 360.0
                 if `value` is None it will not be checked against the
@@ -6414,7 +6549,7 @@ class AirflowNetworkMultiZoneWindPressureCoefficientArray(object):
 
         Args:
             value (float): value for IDD Field `wind_direction_34`
-                Unit: deg
+                Units: deg
                 value >= 0.0
                 value <= 360.0
                 if `value` is None it will not be checked against the
@@ -6454,7 +6589,7 @@ class AirflowNetworkMultiZoneWindPressureCoefficientArray(object):
 
         Args:
             value (float): value for IDD Field `wind_direction_35`
-                Unit: deg
+                Units: deg
                 value >= 0.0
                 value <= 360.0
                 if `value` is None it will not be checked against the
@@ -6494,7 +6629,7 @@ class AirflowNetworkMultiZoneWindPressureCoefficientArray(object):
 
         Args:
             value (float): value for IDD Field `wind_direction_36`
-                Unit: deg
+                Units: deg
                 value >= 0.0
                 value <= 360.0
                 if `value` is None it will not be checked against the
@@ -6517,6 +6652,16 @@ class AirflowNetworkMultiZoneWindPressureCoefficientArray(object):
                                  'for field `wind_direction_36`')
 
         self._data["Wind Direction 36"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):
@@ -6576,9 +6721,11 @@ class AirflowNetworkMultiZoneWindPressureCoefficientValues(object):
         Used only if Wind Pressure Coefficient (WPC) Type = INPUT in the AirflowNetwork:SimulationControl
         object. The number of WPC numeric inputs must correspond to the number of wind direction
         inputs in the AirflowNetwork:Multizone:WindPressureCoefficientArray object.
+    
     """
     internal_name = "AirflowNetwork:MultiZone:WindPressureCoefficientValues"
     field_count = 38
+    required_fields = ["Name", "AirflowNetwork:MultiZone:WindPressureCoefficientArray Name", "Wind Pressure Coefficient Value 1", "Wind Pressure Coefficient Value 2"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `AirflowNetwork:MultiZone:WindPressureCoefficientValues`
@@ -6905,7 +7052,7 @@ class AirflowNetworkMultiZoneWindPressureCoefficientValues(object):
 
         Args:
             value (float): value for IDD Field `wind_pressure_coefficient_value_1`
-                Unit: dimensionless
+                Units: dimensionless
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6937,7 +7084,7 @@ class AirflowNetworkMultiZoneWindPressureCoefficientValues(object):
 
         Args:
             value (float): value for IDD Field `wind_pressure_coefficient_value_2`
-                Unit: dimensionless
+                Units: dimensionless
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6969,7 +7116,7 @@ class AirflowNetworkMultiZoneWindPressureCoefficientValues(object):
 
         Args:
             value (float): value for IDD Field `wind_pressure_coefficient_value_3`
-                Unit: dimensionless
+                Units: dimensionless
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7001,7 +7148,7 @@ class AirflowNetworkMultiZoneWindPressureCoefficientValues(object):
 
         Args:
             value (float): value for IDD Field `wind_pressure_coefficient_value_4`
-                Unit: dimensionless
+                Units: dimensionless
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7033,7 +7180,7 @@ class AirflowNetworkMultiZoneWindPressureCoefficientValues(object):
 
         Args:
             value (float): value for IDD Field `wind_pressure_coefficient_value_5`
-                Unit: dimensionless
+                Units: dimensionless
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7065,7 +7212,7 @@ class AirflowNetworkMultiZoneWindPressureCoefficientValues(object):
 
         Args:
             value (float): value for IDD Field `wind_pressure_coefficient_value_6`
-                Unit: dimensionless
+                Units: dimensionless
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7097,7 +7244,7 @@ class AirflowNetworkMultiZoneWindPressureCoefficientValues(object):
 
         Args:
             value (float): value for IDD Field `wind_pressure_coefficient_value_7`
-                Unit: dimensionless
+                Units: dimensionless
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7129,7 +7276,7 @@ class AirflowNetworkMultiZoneWindPressureCoefficientValues(object):
 
         Args:
             value (float): value for IDD Field `wind_pressure_coefficient_value_8`
-                Unit: dimensionless
+                Units: dimensionless
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7161,7 +7308,7 @@ class AirflowNetworkMultiZoneWindPressureCoefficientValues(object):
 
         Args:
             value (float): value for IDD Field `wind_pressure_coefficient_value_9`
-                Unit: dimensionless
+                Units: dimensionless
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7193,7 +7340,7 @@ class AirflowNetworkMultiZoneWindPressureCoefficientValues(object):
 
         Args:
             value (float): value for IDD Field `wind_pressure_coefficient_value_10`
-                Unit: dimensionless
+                Units: dimensionless
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7225,7 +7372,7 @@ class AirflowNetworkMultiZoneWindPressureCoefficientValues(object):
 
         Args:
             value (float): value for IDD Field `wind_pressure_coefficient_value_11`
-                Unit: dimensionless
+                Units: dimensionless
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7257,7 +7404,7 @@ class AirflowNetworkMultiZoneWindPressureCoefficientValues(object):
 
         Args:
             value (float): value for IDD Field `wind_pressure_coefficient_value_12`
-                Unit: dimensionless
+                Units: dimensionless
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7289,7 +7436,7 @@ class AirflowNetworkMultiZoneWindPressureCoefficientValues(object):
 
         Args:
             value (float): value for IDD Field `wind_pressure_coefficient_value_13`
-                Unit: dimensionless
+                Units: dimensionless
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7321,7 +7468,7 @@ class AirflowNetworkMultiZoneWindPressureCoefficientValues(object):
 
         Args:
             value (float): value for IDD Field `wind_pressure_coefficient_value_14`
-                Unit: dimensionless
+                Units: dimensionless
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7353,7 +7500,7 @@ class AirflowNetworkMultiZoneWindPressureCoefficientValues(object):
 
         Args:
             value (float): value for IDD Field `wind_pressure_coefficient_value_15`
-                Unit: dimensionless
+                Units: dimensionless
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7385,7 +7532,7 @@ class AirflowNetworkMultiZoneWindPressureCoefficientValues(object):
 
         Args:
             value (float): value for IDD Field `wind_pressure_coefficient_value_16`
-                Unit: dimensionless
+                Units: dimensionless
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7417,7 +7564,7 @@ class AirflowNetworkMultiZoneWindPressureCoefficientValues(object):
 
         Args:
             value (float): value for IDD Field `wind_pressure_coefficient_value_17`
-                Unit: dimensionless
+                Units: dimensionless
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7449,7 +7596,7 @@ class AirflowNetworkMultiZoneWindPressureCoefficientValues(object):
 
         Args:
             value (float): value for IDD Field `wind_pressure_coefficient_value_18`
-                Unit: dimensionless
+                Units: dimensionless
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7481,7 +7628,7 @@ class AirflowNetworkMultiZoneWindPressureCoefficientValues(object):
 
         Args:
             value (float): value for IDD Field `wind_pressure_coefficient_value_19`
-                Unit: dimensionless
+                Units: dimensionless
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7513,7 +7660,7 @@ class AirflowNetworkMultiZoneWindPressureCoefficientValues(object):
 
         Args:
             value (float): value for IDD Field `wind_pressure_coefficient_value_20`
-                Unit: dimensionless
+                Units: dimensionless
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7545,7 +7692,7 @@ class AirflowNetworkMultiZoneWindPressureCoefficientValues(object):
 
         Args:
             value (float): value for IDD Field `wind_pressure_coefficient_value_21`
-                Unit: dimensionless
+                Units: dimensionless
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7577,7 +7724,7 @@ class AirflowNetworkMultiZoneWindPressureCoefficientValues(object):
 
         Args:
             value (float): value for IDD Field `wind_pressure_coefficient_value_22`
-                Unit: dimensionless
+                Units: dimensionless
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7609,7 +7756,7 @@ class AirflowNetworkMultiZoneWindPressureCoefficientValues(object):
 
         Args:
             value (float): value for IDD Field `wind_pressure_coefficient_value_23`
-                Unit: dimensionless
+                Units: dimensionless
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7641,7 +7788,7 @@ class AirflowNetworkMultiZoneWindPressureCoefficientValues(object):
 
         Args:
             value (float): value for IDD Field `wind_pressure_coefficient_value_24`
-                Unit: dimensionless
+                Units: dimensionless
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7673,7 +7820,7 @@ class AirflowNetworkMultiZoneWindPressureCoefficientValues(object):
 
         Args:
             value (float): value for IDD Field `wind_pressure_coefficient_value_25`
-                Unit: dimensionless
+                Units: dimensionless
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7705,7 +7852,7 @@ class AirflowNetworkMultiZoneWindPressureCoefficientValues(object):
 
         Args:
             value (float): value for IDD Field `wind_pressure_coefficient_value_26`
-                Unit: dimensionless
+                Units: dimensionless
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7737,7 +7884,7 @@ class AirflowNetworkMultiZoneWindPressureCoefficientValues(object):
 
         Args:
             value (float): value for IDD Field `wind_pressure_coefficient_value_27`
-                Unit: dimensionless
+                Units: dimensionless
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7769,7 +7916,7 @@ class AirflowNetworkMultiZoneWindPressureCoefficientValues(object):
 
         Args:
             value (float): value for IDD Field `wind_pressure_coefficient_value_28`
-                Unit: dimensionless
+                Units: dimensionless
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7801,7 +7948,7 @@ class AirflowNetworkMultiZoneWindPressureCoefficientValues(object):
 
         Args:
             value (float): value for IDD Field `wind_pressure_coefficient_value_29`
-                Unit: dimensionless
+                Units: dimensionless
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7833,7 +7980,7 @@ class AirflowNetworkMultiZoneWindPressureCoefficientValues(object):
 
         Args:
             value (float): value for IDD Field `wind_pressure_coefficient_value_30`
-                Unit: dimensionless
+                Units: dimensionless
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7865,7 +8012,7 @@ class AirflowNetworkMultiZoneWindPressureCoefficientValues(object):
 
         Args:
             value (float): value for IDD Field `wind_pressure_coefficient_value_31`
-                Unit: dimensionless
+                Units: dimensionless
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7897,7 +8044,7 @@ class AirflowNetworkMultiZoneWindPressureCoefficientValues(object):
 
         Args:
             value (float): value for IDD Field `wind_pressure_coefficient_value_32`
-                Unit: dimensionless
+                Units: dimensionless
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7929,7 +8076,7 @@ class AirflowNetworkMultiZoneWindPressureCoefficientValues(object):
 
         Args:
             value (float): value for IDD Field `wind_pressure_coefficient_value_33`
-                Unit: dimensionless
+                Units: dimensionless
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7961,7 +8108,7 @@ class AirflowNetworkMultiZoneWindPressureCoefficientValues(object):
 
         Args:
             value (float): value for IDD Field `wind_pressure_coefficient_value_34`
-                Unit: dimensionless
+                Units: dimensionless
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7993,7 +8140,7 @@ class AirflowNetworkMultiZoneWindPressureCoefficientValues(object):
 
         Args:
             value (float): value for IDD Field `wind_pressure_coefficient_value_35`
-                Unit: dimensionless
+                Units: dimensionless
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8025,7 +8172,7 @@ class AirflowNetworkMultiZoneWindPressureCoefficientValues(object):
 
         Args:
             value (float): value for IDD Field `wind_pressure_coefficient_value_36`
-                Unit: dimensionless
+                Units: dimensionless
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8040,6 +8187,16 @@ class AirflowNetworkMultiZoneWindPressureCoefficientValues(object):
                                  'for field `wind_pressure_coefficient_value_36`'.format(value))
 
         self._data["Wind Pressure Coefficient Value 36"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):
@@ -8098,9 +8255,11 @@ class AirflowNetworkMultiZoneWindPressureCoefficientValues(object):
 class AirflowNetworkDistributionNode(object):
     """ Corresponds to IDD object `AirflowNetwork:Distribution:Node`
         This object represents an air distribution node in the AirflowNetwork model.
+    
     """
     internal_name = "AirflowNetwork:Distribution:Node"
     field_count = 4
+    required_fields = ["Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `AirflowNetwork:Distribution:Node`
@@ -8290,7 +8449,7 @@ class AirflowNetworkDistributionNode(object):
 
         Args:
             value (float): value for IDD Field `node_height`
-                Unit: m
+                Units: m
                 Default value: 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -8306,6 +8465,16 @@ class AirflowNetworkDistributionNode(object):
                                  'for field `node_height`'.format(value))
 
         self._data["Node Height"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):
@@ -8330,9 +8499,11 @@ class AirflowNetworkDistributionNode(object):
 class AirflowNetworkDistributionComponentLeak(object):
     """ Corresponds to IDD object `AirflowNetwork:Distribution:Component:Leak`
         This object defines the characteristics of a supply or return air leak.
+    
     """
     internal_name = "AirflowNetwork:Distribution:Component:Leak"
     field_count = 3
+    required_fields = ["Name", "Air Mass Flow Coefficient"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `AirflowNetwork:Distribution:Component:Leak`
@@ -8417,7 +8588,7 @@ class AirflowNetworkDistributionComponentLeak(object):
 
         Args:
             value (float): value for IDD Field `air_mass_flow_coefficient`
-                Unit: kg/s
+                Units: kg/s
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -8454,7 +8625,7 @@ class AirflowNetworkDistributionComponentLeak(object):
 
         Args:
             value (float): value for IDD Field `air_mass_flow_exponent`
-                Unit: dimensionless
+                Units: dimensionless
                 Default value: 0.65
                 value >= 0.5
                 value <= 1.0
@@ -8479,6 +8650,16 @@ class AirflowNetworkDistributionComponentLeak(object):
 
         self._data["Air Mass Flow Exponent"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -8502,9 +8683,11 @@ class AirflowNetworkDistributionComponentLeakageRatio(object):
     """ Corresponds to IDD object `AirflowNetwork:Distribution:Component:LeakageRatio`
         This object is used to define supply and return air leaks with respect to the fan's maximum
         air flow rate.
+    
     """
     internal_name = "AirflowNetwork:Distribution:Component:LeakageRatio"
     field_count = 5
+    required_fields = ["Name", "Maximum Flow Rate", "Reference Pressure Difference"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `AirflowNetwork:Distribution:Component:LeakageRatio`
@@ -8599,7 +8782,7 @@ class AirflowNetworkDistributionComponentLeakageRatio(object):
 
         Args:
             value (float): value for IDD Field `effective_leakage_ratio`
-                Unit: dimensionless
+                Units: dimensionless
                 value > 0.0
                 value <= 1.0
                 if `value` is None it will not be checked against the
@@ -8639,7 +8822,7 @@ class AirflowNetworkDistributionComponentLeakageRatio(object):
 
         Args:
             value (float): value for IDD Field `maximum_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -8675,7 +8858,7 @@ class AirflowNetworkDistributionComponentLeakageRatio(object):
 
         Args:
             value (float): value for IDD Field `reference_pressure_difference`
-                Unit: Pa
+                Units: Pa
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -8711,7 +8894,7 @@ class AirflowNetworkDistributionComponentLeakageRatio(object):
 
         Args:
             value (float): value for IDD Field `air_mass_flow_exponent`
-                Unit: dimensionless
+                Units: dimensionless
                 Default value: 0.65
                 value >= 0.5
                 value <= 1.0
@@ -8735,6 +8918,16 @@ class AirflowNetworkDistributionComponentLeakageRatio(object):
                                  'for field `air_mass_flow_exponent`')
 
         self._data["Air Mass Flow Exponent"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):
@@ -8760,9 +8953,11 @@ class AirflowNetworkDistributionComponentLeakageRatio(object):
 class AirflowNetworkDistributionComponentDuct(object):
     """ Corresponds to IDD object `AirflowNetwork:Distribution:Component:Duct`
         This object defines the relationship between pressure and air flow through the duct.
+    
     """
     internal_name = "AirflowNetwork:Distribution:Component:Duct"
     field_count = 8
+    required_fields = ["Name", "Duct Length", "Hydraulic Diameter", "Cross Section Area"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `AirflowNetwork:Distribution:Component:Duct`
@@ -8875,7 +9070,7 @@ class AirflowNetworkDistributionComponentDuct(object):
 
         Args:
             value (float): value for IDD Field `duct_length`
-                Unit: m
+                Units: m
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -8912,7 +9107,7 @@ class AirflowNetworkDistributionComponentDuct(object):
 
         Args:
             value (float): value for IDD Field `hydraulic_diameter`
-                Unit: m
+                Units: m
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -8948,7 +9143,7 @@ class AirflowNetworkDistributionComponentDuct(object):
 
         Args:
             value (float): value for IDD Field `cross_section_area`
-                Unit: m2
+                Units: m2
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -8984,7 +9179,7 @@ class AirflowNetworkDistributionComponentDuct(object):
 
         Args:
             value (float): value for IDD Field `surface_roughness`
-                Unit: m
+                Units: m
                 Default value: 0.0009
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -9021,7 +9216,7 @@ class AirflowNetworkDistributionComponentDuct(object):
 
         Args:
             value (float): value for IDD Field `coefficient_for_local_dynamic_loss_due_to_fitting`
-                Unit: dimensionless
+                Units: dimensionless
                 Default value: 0.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -9061,7 +9256,7 @@ class AirflowNetworkDistributionComponentDuct(object):
 
         Args:
             value (float): value for IDD Field `overall_heat_transmittance_coefficient_ufactor_from_air_to_air`
-                Unit: W/m2-K
+                Units: W/m2-K
                 Default value: 0.772
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -9099,7 +9294,7 @@ class AirflowNetworkDistributionComponentDuct(object):
 
         Args:
             value (float): value for IDD Field `overall_moisture_transmittance_coefficient_from_air_to_air`
-                Unit: kg/m2
+                Units: kg/m2
                 Default value: 0.001
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -9119,6 +9314,16 @@ class AirflowNetworkDistributionComponentDuct(object):
                                  'for field `overall_moisture_transmittance_coefficient_from_air_to_air`')
 
         self._data["Overall Moisture Transmittance Coefficient from Air to Air"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):
@@ -9147,9 +9352,11 @@ class AirflowNetworkDistributionComponentDuct(object):
 class AirflowNetworkDistributionComponentFan(object):
     """ Corresponds to IDD object `AirflowNetwork:Distribution:Component:Fan`
         This object defines the name of the constant volume supply Air Fan used in an Air loop.
+    
     """
     internal_name = "AirflowNetwork:Distribution:Component:Fan"
     field_count = 2
+    required_fields = ["Fan Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `AirflowNetwork:Distribution:Component:Fan`
@@ -9255,6 +9462,16 @@ class AirflowNetworkDistributionComponentFan(object):
 
         self._data["Supply Fan Object Type"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -9276,9 +9493,11 @@ class AirflowNetworkDistributionComponentFan(object):
 class AirflowNetworkDistributionComponentCoil(object):
     """ Corresponds to IDD object `AirflowNetwork:Distribution:Component:Coil`
         This object defines the name of a coil used in an air loop.
+    
     """
     internal_name = "AirflowNetwork:Distribution:Component:Coil"
     field_count = 4
+    required_fields = ["Coil Name", "Coil Object Type", "Air Path Length", "Air Path Hydraulic Diameter"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `AirflowNetwork:Distribution:Component:Coil`
@@ -9428,7 +9647,7 @@ class AirflowNetworkDistributionComponentCoil(object):
 
         Args:
             value (float): value for IDD Field `air_path_length`
-                Unit: m
+                Units: m
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -9465,7 +9684,7 @@ class AirflowNetworkDistributionComponentCoil(object):
 
         Args:
             value (float): value for IDD Field `air_path_hydraulic_diameter`
-                Unit: m
+                Units: m
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -9484,6 +9703,16 @@ class AirflowNetworkDistributionComponentCoil(object):
                                  'for field `air_path_hydraulic_diameter`')
 
         self._data["Air Path Hydraulic Diameter"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):
@@ -9508,9 +9737,11 @@ class AirflowNetworkDistributionComponentCoil(object):
 class AirflowNetworkDistributionComponentHeatExchanger(object):
     """ Corresponds to IDD object `AirflowNetwork:Distribution:Component:HeatExchanger`
         This object defines the name of an air-to-air heat exchanger used in an air loop.
+    
     """
     internal_name = "AirflowNetwork:Distribution:Component:HeatExchanger"
     field_count = 4
+    required_fields = ["HeatExchanger Name", "HeatExchanger Object Type", "Air Path Length", "Air Path Hydraulic Diameter"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `AirflowNetwork:Distribution:Component:HeatExchanger`
@@ -9644,7 +9875,7 @@ class AirflowNetworkDistributionComponentHeatExchanger(object):
 
         Args:
             value (float): value for IDD Field `air_path_length`
-                Unit: m
+                Units: m
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -9681,7 +9912,7 @@ class AirflowNetworkDistributionComponentHeatExchanger(object):
 
         Args:
             value (float): value for IDD Field `air_path_hydraulic_diameter`
-                Unit: m
+                Units: m
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -9700,6 +9931,16 @@ class AirflowNetworkDistributionComponentHeatExchanger(object):
                                  'for field `air_path_hydraulic_diameter`')
 
         self._data["Air Path Hydraulic Diameter"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):
@@ -9724,9 +9965,11 @@ class AirflowNetworkDistributionComponentHeatExchanger(object):
 class AirflowNetworkDistributionComponentTerminalUnit(object):
     """ Corresponds to IDD object `AirflowNetwork:Distribution:Component:TerminalUnit`
         This object defines the name of a terminal unit in an air loop.
+    
     """
     internal_name = "AirflowNetwork:Distribution:Component:TerminalUnit"
     field_count = 4
+    required_fields = ["Terminal Unit Name", "Terminal Unit Object Type", "Air Path Length", "Air Path Hydraulic Diameter"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `AirflowNetwork:Distribution:Component:TerminalUnit`
@@ -9858,7 +10101,7 @@ class AirflowNetworkDistributionComponentTerminalUnit(object):
 
         Args:
             value (float): value for IDD Field `air_path_length`
-                Unit: m
+                Units: m
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -9895,7 +10138,7 @@ class AirflowNetworkDistributionComponentTerminalUnit(object):
 
         Args:
             value (float): value for IDD Field `air_path_hydraulic_diameter`
-                Unit: m
+                Units: m
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -9914,6 +10157,16 @@ class AirflowNetworkDistributionComponentTerminalUnit(object):
                                  'for field `air_path_hydraulic_diameter`')
 
         self._data["Air Path Hydraulic Diameter"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):
@@ -9940,9 +10193,11 @@ class AirflowNetworkDistributionComponentConstantPressureDrop(object):
         This object defines the characteristics of a constant pressure drop component (e.g. filter).
         Each node connected to this object can not be a node of mixer, splitter, a node of air primary
         loop, or zone equipment loop. It is recommended to connect to a duct component at both ends.
+    
     """
     internal_name = "AirflowNetwork:Distribution:Component:ConstantPressureDrop"
     field_count = 2
+    required_fields = ["Name", "Pressure Difference Across the Component"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `AirflowNetwork:Distribution:Component:ConstantPressureDrop`
@@ -10019,7 +10274,7 @@ class AirflowNetworkDistributionComponentConstantPressureDrop(object):
 
         Args:
             value (float): value for IDD Field `pressure_difference_across_the_component`
-                Unit: Pa
+                Units: Pa
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -10038,6 +10293,16 @@ class AirflowNetworkDistributionComponentConstantPressureDrop(object):
                                  'for field `pressure_difference_across_the_component`')
 
         self._data["Pressure Difference Across the Component"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):
@@ -10060,9 +10325,11 @@ class AirflowNetworkDistributionComponentConstantPressureDrop(object):
 class AirflowNetworkDistributionLinkage(object):
     """ Corresponds to IDD object `AirflowNetwork:Distribution:Linkage`
         This object defines the connection between two nodes and a component.
+    
     """
     internal_name = "AirflowNetwork:Distribution:Linkage"
     field_count = 5
+    required_fields = ["Name", "Node 1 Name", "Node 2 Name", "Component Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `AirflowNetwork:Distribution:Linkage`
@@ -10280,6 +10547,16 @@ class AirflowNetworkDistributionLinkage(object):
                                  'for field `thermal_zone_name`')
 
         self._data["Thermal Zone Name"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):

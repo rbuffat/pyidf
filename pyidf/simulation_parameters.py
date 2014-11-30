@@ -3,9 +3,11 @@ from collections import OrderedDict
 class Version(object):
     """ Corresponds to IDD object `Version`
         Specifies the EnergyPlus version of the IDF file.
+    
     """
     internal_name = "Version"
     field_count = 1
+    required_fields = ["Version Identifier"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Version`
@@ -60,6 +62,16 @@ class Version(object):
 
         self._data["Version Identifier"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -85,9 +97,11 @@ class SimulationControl(object):
         fields set to No, the corresponding Sizing object is ignored.
         Note also, if you want to do system sizing, you must also do zone sizing in the same
         run or an error will result.
+    
     """
     internal_name = "SimulationControl"
     field_count = 5
+    required_fields = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `SimulationControl`
@@ -356,6 +370,16 @@ class SimulationControl(object):
 
         self._data["Run Simulation for Weather File Run Periods"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -383,9 +407,11 @@ class Building(object):
         of the building. There are necessary correlations between the entries for
         this object and some entries in the Site:WeatherStation and
         Site:HeightVariation objects, specifically the Terrain field.
+    
     """
     internal_name = "Building"
     field_count = 8
+    required_fields = ["Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Building`
@@ -498,7 +524,7 @@ class Building(object):
 
         Args:
             value (float): value for IDD Field `north_axis`
-                Unit: deg
+                Units: deg
                 Default value: 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -620,7 +646,7 @@ class Building(object):
 
         Args:
             value (float): value for IDD Field `temperature_convergence_tolerance_value`
-                Unit: deltaC
+                Units: deltaC
                 Default value: 0.4
                 value > 0.0
                 value <= 0.5
@@ -772,6 +798,16 @@ class Building(object):
 
         self._data["Minimum Number of Warmup Days"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -799,9 +835,11 @@ class Building(object):
 class ShadowCalculation(object):
     """ Corresponds to IDD object `ShadowCalculation`
         This object is used to control details of the solar, shading, and daylighting models
+    
     """
     internal_name = "ShadowCalculation"
     field_count = 5
+    required_fields = ["Calculation Frequency"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ShadowCalculation`
@@ -1057,6 +1095,16 @@ class ShadowCalculation(object):
 
         self._data["Sky Diffuse Modeling Algorithm"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -1081,9 +1129,11 @@ class ShadowCalculation(object):
 class SurfaceConvectionAlgorithmInside(object):
     """ Corresponds to IDD object `SurfaceConvectionAlgorithm:Inside`
         Default indoor surface heat transfer convection algorithm to be used for all zones
+    
     """
     internal_name = "SurfaceConvectionAlgorithm:Inside"
     field_count = 1
+    required_fields = ["Algorithm"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `SurfaceConvectionAlgorithm:Inside`
@@ -1156,6 +1206,16 @@ class SurfaceConvectionAlgorithmInside(object):
 
         self._data["Algorithm"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -1176,9 +1236,11 @@ class SurfaceConvectionAlgorithmInside(object):
 class SurfaceConvectionAlgorithmOutside(object):
     """ Corresponds to IDD object `SurfaceConvectionAlgorithm:Outside`
         Default outside surface heat transfer convection algorithm to be used for all zones
+    
     """
     internal_name = "SurfaceConvectionAlgorithm:Outside"
     field_count = 1
+    required_fields = ["Algorithm"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `SurfaceConvectionAlgorithm:Outside`
@@ -1253,6 +1315,16 @@ class SurfaceConvectionAlgorithmOutside(object):
 
         self._data["Algorithm"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -1278,9 +1350,11 @@ class HeatBalanceAlgorithm(object):
         Advanced/Research Usage: CondFD (Conduction Finite Difference)
         Advanced/Research Usage: ConductionFiniteDifferenceSimplified
         Advanced/Research Usage: HAMT (Combined Heat And Moisture Finite Element)
+    
     """
     internal_name = "HeatBalanceAlgorithm"
     field_count = 4
+    required_fields = ["Algorithm"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `HeatBalanceAlgorithm`
@@ -1381,7 +1455,7 @@ class HeatBalanceAlgorithm(object):
 
         Args:
             value (float): value for IDD Field `surface_temperature_upper_limit`
-                Unit: C
+                Units: C
                 Default value: 200.0
                 value >= 200.0
                 if `value` is None it will not be checked against the
@@ -1417,7 +1491,7 @@ class HeatBalanceAlgorithm(object):
 
         Args:
             value (float): value for IDD Field `minimum_surface_convection_heat_transfer_coefficient_value`
-                Unit: W/m2-K
+                Units: W/m2-K
                 Default value: 0.1
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -1453,7 +1527,7 @@ class HeatBalanceAlgorithm(object):
 
         Args:
             value (float): value for IDD Field `maximum_surface_convection_heat_transfer_coefficient_value`
-                Unit: W/m2-K
+                Units: W/m2-K
                 Default value: 1000.0
                 value >= 1.0
                 if `value` is None it will not be checked against the
@@ -1473,6 +1547,16 @@ class HeatBalanceAlgorithm(object):
                                  'for field `maximum_surface_convection_heat_transfer_coefficient_value`')
 
         self._data["Maximum Surface Convection Heat Transfer Coefficient Value"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):
@@ -1498,9 +1582,11 @@ class HeatBalanceSettingsConductionFiniteDifference(object):
     """ Corresponds to IDD object `HeatBalanceSettings:ConductionFiniteDifference`
         Determines settings for the Conduction Finite Difference
         algorithm for surface heat transfer modeling.
+    
     """
     internal_name = "HeatBalanceSettings:ConductionFiniteDifference"
     field_count = 4
+    required_fields = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `HeatBalanceSettings:ConductionFiniteDifference`
@@ -1692,6 +1778,16 @@ class HeatBalanceSettingsConductionFiniteDifference(object):
 
         self._data["Inside Face Surface Temperature Convergence Criteria"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -1715,9 +1811,11 @@ class HeatBalanceSettingsConductionFiniteDifference(object):
 class ZoneAirHeatBalanceAlgorithm(object):
     """ Corresponds to IDD object `ZoneAirHeatBalanceAlgorithm`
         Determines which algorithm will be used to solve the zone air heat balance.
+    
     """
     internal_name = "ZoneAirHeatBalanceAlgorithm"
     field_count = 1
+    required_fields = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ZoneAirHeatBalanceAlgorithm`
@@ -1783,6 +1881,16 @@ class ZoneAirHeatBalanceAlgorithm(object):
 
         self._data["Algorithm"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -1803,9 +1911,11 @@ class ZoneAirHeatBalanceAlgorithm(object):
 class ZoneAirContaminantBalance(object):
     """ Corresponds to IDD object `ZoneAirContaminantBalance`
         Determines which contaminant concentration will be simulates.
+    
     """
     internal_name = "ZoneAirContaminantBalance"
     field_count = 4
+    required_fields = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ZoneAirContaminantBalance`
@@ -2001,6 +2111,16 @@ class ZoneAirContaminantBalance(object):
 
         self._data["Outdoor Generic Contaminant Schedule Name"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -2026,9 +2146,11 @@ class ZoneAirMassFlowConservation(object):
         Enforces the zone air mass flow balance by adjusting zone mixing object flow rates.
         The infiltration object mass flow rate may also be adjusted or may add infiltration
         air flow to the base infiltration air flow for source zones only.
+    
     """
     internal_name = "ZoneAirMassFlowConservation"
     field_count = 2
+    required_fields = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ZoneAirMassFlowConservation`
@@ -2168,6 +2290,16 @@ class ZoneAirMassFlowConservation(object):
 
         self._data["Source Zone Infiltration Treatment"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -2189,9 +2321,11 @@ class ZoneAirMassFlowConservation(object):
 class ZoneCapacitanceMultiplierResearchSpecial(object):
     """ Corresponds to IDD object `ZoneCapacitanceMultiplier:ResearchSpecial`
         Multiplier altering the relative capacitance of the air compared to an empty zone
+    
     """
     internal_name = "ZoneCapacitanceMultiplier:ResearchSpecial"
     field_count = 4
+    required_fields = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ZoneCapacitanceMultiplier:ResearchSpecial`
@@ -2374,6 +2508,16 @@ class ZoneCapacitanceMultiplierResearchSpecial(object):
 
         self._data["Generic Contaminant Capacity Multiplier"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -2400,9 +2544,11 @@ class Timestep(object):
         value entered here is also known as the Zone Timestep.  This is used in
         the Zone Heat Balance Model calculation as the driving timestep for heat
         transfer and load calculations.
+    
     """
     internal_name = "Timestep"
     field_count = 1
+    required_fields = ["Number of Timesteps per Hour"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Timestep`
@@ -2469,6 +2615,16 @@ class Timestep(object):
 
         self._data["Number of Timesteps per Hour"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -2490,9 +2646,11 @@ class ConvergenceLimits(object):
     """ Corresponds to IDD object `ConvergenceLimits`
         Specifies limits on HVAC system simulation timesteps and iterations.
         This item is an advanced feature that should be used only with caution.
+    
     """
     internal_name = "ConvergenceLimits"
     field_count = 4
+    required_fields = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ConvergenceLimits`
@@ -2549,7 +2707,7 @@ class ConvergenceLimits(object):
 
         Args:
             value (int): value for IDD Field `minimum_system_timestep`
-                Unit: minutes
+                Units: minutes
                 value >= 0
                 value <= 60
                 if `value` is None it will not be checked against the
@@ -2683,6 +2841,16 @@ class ConvergenceLimits(object):
 
         self._data["Maximum Plant Iterations"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -2706,9 +2874,11 @@ class ConvergenceLimits(object):
 class ProgramControl(object):
     """ Corresponds to IDD object `ProgramControl`
         used to support various efforts in time reduction for simulation including threading
+    
     """
     internal_name = "ProgramControl"
     field_count = 1
+    required_fields = []
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ProgramControl`
@@ -2764,6 +2934,16 @@ class ProgramControl(object):
                                  'for field `number_of_threads_allowed`')
 
         self._data["Number of Threads Allowed"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):

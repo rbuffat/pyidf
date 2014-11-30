@@ -8,9 +8,11 @@ class ZoneHvacIdealLoadsAirSystem(object):
         that mixes zone air with the specified amount of outdoor air and then adds or removes
         heat and moisture at 100% efficiency in order to meet the specified controls. Energy
         use is reported as DistrictHeating and DistrictCooling.
+    
     """
     internal_name = "ZoneHVAC:IdealLoadsAirSystem"
     field_count = 27
+    required_fields = ["Name", "Zone Supply Air Node Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ZoneHVAC:IdealLoadsAirSystem`
@@ -340,7 +342,7 @@ class ZoneHvacIdealLoadsAirSystem(object):
 
         Args:
             value (float): value for IDD Field `maximum_heating_supply_air_temperature`
-                Unit: C
+                Units: C
                 Default value: 50.0
                 value > 0.0
                 value < 100.0
@@ -380,7 +382,7 @@ class ZoneHvacIdealLoadsAirSystem(object):
 
         Args:
             value (float): value for IDD Field `minimum_cooling_supply_air_temperature`
-                Unit: C
+                Units: C
                 Default value: 13.0
                 value > -100.0
                 value < 50.0
@@ -420,7 +422,7 @@ class ZoneHvacIdealLoadsAirSystem(object):
 
         Args:
             value (float): value for IDD Field `maximum_heating_supply_air_humidity_ratio`
-                Unit: kgWater/kgDryAir
+                Units: kgWater/kgDryAir
                 Default value: 0.0156
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -456,7 +458,7 @@ class ZoneHvacIdealLoadsAirSystem(object):
 
         Args:
             value (float): value for IDD Field `minimum_cooling_supply_air_humidity_ratio`
-                Unit: kgWater/kgDryAir
+                Units: kgWater/kgDryAir
                 Default value: 0.0077
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -541,7 +543,7 @@ class ZoneHvacIdealLoadsAirSystem(object):
 
         Args:
             value (float): value for IDD Field `maximum_heating_air_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -578,7 +580,7 @@ class ZoneHvacIdealLoadsAirSystem(object):
 
         Args:
             value (float): value for IDD Field `maximum_sensible_heating_capacity`
-                Unit: W
+                Units: W
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -662,7 +664,7 @@ class ZoneHvacIdealLoadsAirSystem(object):
 
         Args:
             value (float): value for IDD Field `maximum_cooling_air_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -698,7 +700,7 @@ class ZoneHvacIdealLoadsAirSystem(object):
 
         Args:
             value (float): value for IDD Field `maximum_total_cooling_capacity`
-                Unit: W
+                Units: W
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -858,7 +860,7 @@ class ZoneHvacIdealLoadsAirSystem(object):
 
         Args:
             value (float): value for IDD Field `cooling_sensible_heat_ratio`
-                Unit: dimensionless
+                Units: dimensionless
                 Default value: 0.7
                 value > 0.0
                 value <= 1.0
@@ -1166,7 +1168,7 @@ class ZoneHvacIdealLoadsAirSystem(object):
 
         Args:
             value (float): value for IDD Field `sensible_heat_recovery_effectiveness`
-                Unit: dimensionless
+                Units: dimensionless
                 Default value: 0.7
                 value >= 0.0
                 value <= 1.0
@@ -1207,7 +1209,7 @@ class ZoneHvacIdealLoadsAirSystem(object):
 
         Args:
             value (float): value for IDD Field `latent_heat_recovery_effectiveness`
-                Unit: dimensionless
+                Units: dimensionless
                 Default value: 0.65
                 value >= 0.0
                 value <= 1.0
@@ -1266,6 +1268,16 @@ class ZoneHvacIdealLoadsAirSystem(object):
 
         self._data["Design Specification ZoneHVAC Sizing Object Name"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -1314,9 +1326,11 @@ class ZoneHvacFourPipeFanCoil(object):
         Four pipe fan coil system. Forced-convection hydronic heating-cooling unit with
         supply fan, hot water heating coil, chilled water cooling coil, and fixed-position
         outdoor air mixer.
+    
     """
     internal_name = "ZoneHVAC:FourPipeFanCoil"
     field_count = 26
+    required_fields = ["Name", "Capacity Control Method", "Maximum Supply Air Flow Rate", "Maximum Outdoor Air Flow Rate", "Air Inlet Node Name", "Air Outlet Node Name", "Supply Air Fan Object Type", "Supply Air Fan Name", "Cooling Coil Object Type", "Cooling Coil Name", "Maximum Cold Water Flow Rate", "Heating Coil Object Type", "Heating Coil Name", "Maximum Hot Water Flow Rate"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ZoneHVAC:FourPipeFanCoil`
@@ -1616,7 +1630,7 @@ class ZoneHvacFourPipeFanCoil(object):
 
         Args:
             value (float): value for IDD Field `maximum_supply_air_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1719,7 +1733,7 @@ class ZoneHvacFourPipeFanCoil(object):
 
         Args:
             value (float): value for IDD Field `maximum_outdoor_air_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2083,7 +2097,8 @@ class ZoneHvacFourPipeFanCoil(object):
 
         Args:
             value (float): value for IDD Field `maximum_cold_water_flow_rate`
-                Unit: m3/s
+                Units: m3/s
+                IP-Units: gal/min
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2114,7 +2129,8 @@ class ZoneHvacFourPipeFanCoil(object):
 
         Args:
             value (float): value for IDD Field `minimum_cold_water_flow_rate`
-                Unit: m3/s
+                Units: m3/s
+                IP-Units: gal/min
                 Default value: 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -2254,7 +2270,8 @@ class ZoneHvacFourPipeFanCoil(object):
 
         Args:
             value (float): value for IDD Field `maximum_hot_water_flow_rate`
-                Unit: m3/s
+                Units: m3/s
+                IP-Units: gal/min
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2285,7 +2302,8 @@ class ZoneHvacFourPipeFanCoil(object):
 
         Args:
             value (float): value for IDD Field `minimum_hot_water_flow_rate`
-                Unit: m3/s
+                Units: m3/s
+                IP-Units: gal/min
                 Default value: 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -2405,6 +2423,16 @@ class ZoneHvacFourPipeFanCoil(object):
 
         self._data["Design Specification ZoneHVAC Sizing Object Name"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -2451,9 +2479,11 @@ class ZoneHvacWindowAirConditioner(object):
     """ Corresponds to IDD object `ZoneHVAC:WindowAirConditioner`
         Window air conditioner. Forced-convection cooling-only unit with supply fan, direct
         expansion (DX) cooling coil, and fixed-position outdoor air mixer.
+    
     """
     internal_name = "ZoneHVAC:WindowAirConditioner"
     field_count = 17
+    required_fields = ["Name", "Maximum Supply Air Flow Rate", "Maximum Outdoor Air Flow Rate", "Air Inlet Node Name", "Air Outlet Node Name", "Outdoor Air Mixer Object Type", "Outdoor Air Mixer Name", "Supply Air Fan Object Type", "Supply Air Fan Name", "Cooling Coil Object Type", "DX Cooling Coil Name", "Fan Placement"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ZoneHVAC:WindowAirConditioner`
@@ -2653,7 +2683,7 @@ class ZoneHvacWindowAirConditioner(object):
 
         Args:
             value (float): value for IDD Field `maximum_supply_air_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2684,7 +2714,7 @@ class ZoneHvacWindowAirConditioner(object):
 
         Args:
             value (float): value for IDD Field `maximum_outdoor_air_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3177,6 +3207,16 @@ class ZoneHvacWindowAirConditioner(object):
 
         self._data["Design Specification ZoneHVAC Sizing Object Name"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -3215,9 +3255,11 @@ class ZoneHvacPackagedTerminalAirConditioner(object):
         Packaged terminal air conditioner (PTAC).  Forced-convection heating-cooling unit
         with supply fan, direct expansion (DX) cooling coil, heating coil (gas, electric, hot
         water, or steam) and fixed-position outdoor air mixer.
+    
     """
     internal_name = "ZoneHVAC:PackagedTerminalAirConditioner"
     field_count = 22
+    required_fields = ["Name", "Availability Schedule Name", "Air Inlet Node Name", "Air Outlet Node Name", "Outdoor Air Mixer Object Type", "Outdoor Air Mixer Name", "Supply Air Flow Rate During Cooling Operation", "Supply Air Flow Rate During Heating Operation", "Outdoor Air Flow Rate During Cooling Operation", "Outdoor Air Flow Rate During Heating Operation", "Supply Air Fan Object Type", "Supply Air Fan Name", "Heating Coil Object Type", "Heating Coil Name", "Cooling Coil Object Type", "Cooling Coil Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ZoneHVAC:PackagedTerminalAirConditioner`
@@ -3591,7 +3633,7 @@ class ZoneHvacPackagedTerminalAirConditioner(object):
 
         Args:
             value (float): value for IDD Field `supply_air_flow_rate_during_cooling_operation`
-                Unit: m3/s
+                Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -3627,7 +3669,7 @@ class ZoneHvacPackagedTerminalAirConditioner(object):
 
         Args:
             value (float): value for IDD Field `supply_air_flow_rate_during_heating_operation`
-                Unit: m3/s
+                Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -3668,7 +3710,7 @@ class ZoneHvacPackagedTerminalAirConditioner(object):
 
         Args:
             value (float): value for IDD Field `supply_air_flow_rate_when_no_cooling_or_heating_is_needed`
-                Unit: m3/s
+                Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -3704,7 +3746,7 @@ class ZoneHvacPackagedTerminalAirConditioner(object):
 
         Args:
             value (float): value for IDD Field `outdoor_air_flow_rate_during_cooling_operation`
-                Unit: m3/s
+                Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -3740,7 +3782,7 @@ class ZoneHvacPackagedTerminalAirConditioner(object):
 
         Args:
             value (float): value for IDD Field `outdoor_air_flow_rate_during_heating_operation`
-                Unit: m3/s
+                Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -3780,7 +3822,7 @@ class ZoneHvacPackagedTerminalAirConditioner(object):
 
         Args:
             value (float): value for IDD Field `outdoor_air_flow_rate_when_no_cooling_or_heating_is_needed`
-                Unit: m3/s
+                Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -4190,6 +4232,16 @@ class ZoneHvacPackagedTerminalAirConditioner(object):
 
         self._data["Design Specification ZoneHVAC Sizing Object Name"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -4234,9 +4286,11 @@ class ZoneHvacPackagedTerminalHeatPump(object):
         supply fan, direct expansion (DX) cooling coil, DX heating coil (air-to-air heat
         pump), supplemental heating coil (gas, electric, hot water, or steam), and
         fixed-position outdoor air mixer.
+    
     """
     internal_name = "ZoneHVAC:PackagedTerminalHeatPump"
     field_count = 29
+    required_fields = ["Name", "Air Inlet Node Name", "Air Outlet Node Name", "Outdoor Air Mixer Object Type", "Outdoor Air Mixer Name", "Supply Air Flow Rate During Cooling Operation", "Supply Air Flow Rate During Heating Operation", "Outdoor Air Flow Rate During Cooling Operation", "Outdoor Air Flow Rate During Heating Operation", "Supply Air Fan Object Type", "Supply Air Fan Name", "Heating Coil Object Type", "Heating Coil Name", "Cooling Coil Object Type", "Cooling Coil Name", "Supplemental Heating Coil Object Type", "Supplemental Heating Coil Name", "Maximum Supply Air Temperature from Supplemental Heater"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ZoneHVAC:PackagedTerminalHeatPump`
@@ -4654,7 +4708,7 @@ class ZoneHvacPackagedTerminalHeatPump(object):
 
         Args:
             value (float): value for IDD Field `supply_air_flow_rate_during_cooling_operation`
-                Unit: m3/s
+                Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -4690,7 +4744,7 @@ class ZoneHvacPackagedTerminalHeatPump(object):
 
         Args:
             value (float): value for IDD Field `supply_air_flow_rate_during_heating_operation`
-                Unit: m3/s
+                Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -4730,7 +4784,7 @@ class ZoneHvacPackagedTerminalHeatPump(object):
 
         Args:
             value (float): value for IDD Field `supply_air_flow_rate_when_no_cooling_or_heating_is_needed`
-                Unit: m3/s
+                Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -4766,7 +4820,7 @@ class ZoneHvacPackagedTerminalHeatPump(object):
 
         Args:
             value (float): value for IDD Field `outdoor_air_flow_rate_during_cooling_operation`
-                Unit: m3/s
+                Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -4802,7 +4856,7 @@ class ZoneHvacPackagedTerminalHeatPump(object):
 
         Args:
             value (float): value for IDD Field `outdoor_air_flow_rate_during_heating_operation`
-                Unit: m3/s
+                Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -4841,7 +4895,7 @@ class ZoneHvacPackagedTerminalHeatPump(object):
 
         Args:
             value (float): value for IDD Field `outdoor_air_flow_rate_when_no_cooling_or_heating_is_needed`
-                Unit: m3/s
+                Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -5032,7 +5086,7 @@ class ZoneHvacPackagedTerminalHeatPump(object):
 
         Args:
             value (float): value for IDD Field `heating_convergence_tolerance`
-                Unit: dimensionless
+                Units: dimensionless
                 Default value: 0.001
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -5070,7 +5124,7 @@ class ZoneHvacPackagedTerminalHeatPump(object):
 
         Args:
             value (float): value for IDD Field `minimum_outdoor_drybulb_temperature_for_compressor_operation`
-                Unit: C
+                Units: C
                 Default value: -8.0
                 value >= -20.0
                 if `value` is None it will not be checked against the
@@ -5188,7 +5242,7 @@ class ZoneHvacPackagedTerminalHeatPump(object):
 
         Args:
             value (float): value for IDD Field `cooling_convergence_tolerance`
-                Unit: dimensionless
+                Units: dimensionless
                 Default value: 0.001
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -5306,7 +5360,7 @@ class ZoneHvacPackagedTerminalHeatPump(object):
 
         Args:
             value (float): value for IDD Field `maximum_supply_air_temperature_from_supplemental_heater`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5338,7 +5392,7 @@ class ZoneHvacPackagedTerminalHeatPump(object):
 
         Args:
             value (float): value for IDD Field `maximum_outdoor_drybulb_temperature_for_supplemental_heater_operation`
-                Unit: C
+                Units: C
                 Default value: 21.0
                 value <= 21.0
                 if `value` is None it will not be checked against the
@@ -5508,6 +5562,16 @@ class ZoneHvacPackagedTerminalHeatPump(object):
 
         self._data["Design Specification ZoneHVAC Sizing Object Name"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -5558,9 +5622,11 @@ class ZoneHvacWaterToAirHeatPump(object):
         Water-to-air heat pump. Forced-convection heating-cooling unit with supply fan,
         water-to-air cooling and heating coils, supplemental heating coil (gas, electric, hot
         water, or steam), and fixed-position outdoor air mixer.
+    
     """
     internal_name = "ZoneHVAC:WaterToAirHeatPump"
     field_count = 32
+    required_fields = ["Name", "Air Inlet Node Name", "Air Outlet Node Name", "Supply Air Flow Rate During Cooling Operation", "Supply Air Flow Rate During Heating Operation", "Outdoor Air Flow Rate During Cooling Operation", "Outdoor Air Flow Rate During Heating Operation", "Supply Air Fan Object Type", "Supply Air Fan Name", "Heating Coil Object Type", "Heating Coil Name", "Cooling Coil Object Type", "Cooling Coil Name", "Supplemental Heating Coil Object Type", "Supplemental Heating Coil Name", "Maximum Supply Air Temperature from Supplemental Heater"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ZoneHVAC:WaterToAirHeatPump`
@@ -5993,7 +6059,7 @@ class ZoneHvacWaterToAirHeatPump(object):
 
         Args:
             value (float): value for IDD Field `supply_air_flow_rate_during_cooling_operation`
-                Unit: m3/s
+                Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -6029,7 +6095,7 @@ class ZoneHvacWaterToAirHeatPump(object):
 
         Args:
             value (float): value for IDD Field `supply_air_flow_rate_during_heating_operation`
-                Unit: m3/s
+                Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -6069,7 +6135,7 @@ class ZoneHvacWaterToAirHeatPump(object):
 
         Args:
             value (float): value for IDD Field `supply_air_flow_rate_when_no_cooling_or_heating_is_needed`
-                Unit: m3/s
+                Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -6105,7 +6171,7 @@ class ZoneHvacWaterToAirHeatPump(object):
 
         Args:
             value (float): value for IDD Field `outdoor_air_flow_rate_during_cooling_operation`
-                Unit: m3/s
+                Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -6141,7 +6207,7 @@ class ZoneHvacWaterToAirHeatPump(object):
 
         Args:
             value (float): value for IDD Field `outdoor_air_flow_rate_during_heating_operation`
-                Unit: m3/s
+                Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -6180,7 +6246,7 @@ class ZoneHvacWaterToAirHeatPump(object):
 
         Args:
             value (float): value for IDD Field `outdoor_air_flow_rate_when_no_cooling_or_heating_is_needed`
-                Unit: m3/s
+                Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -6444,7 +6510,7 @@ class ZoneHvacWaterToAirHeatPump(object):
 
         Args:
             value (float): value for IDD Field `maximum_cycling_rate`
-                Unit: cycles/hr
+                Units: cycles/hr
                 Default value: 2.5
                 value >= 0.0
                 value <= 5.0
@@ -6486,7 +6552,7 @@ class ZoneHvacWaterToAirHeatPump(object):
 
         Args:
             value (float): value for IDD Field `heat_pump_time_constant`
-                Unit: s
+                Units: s
                 Default value: 60.0
                 value >= 0.0
                 value <= 500.0
@@ -6571,7 +6637,7 @@ class ZoneHvacWaterToAirHeatPump(object):
 
         Args:
             value (float): value for IDD Field `heat_pump_fan_delay_time`
-                Unit: s
+                Units: s
                 Default value: 60.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -6688,7 +6754,7 @@ class ZoneHvacWaterToAirHeatPump(object):
 
         Args:
             value (float): value for IDD Field `maximum_supply_air_temperature_from_supplemental_heater`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6719,7 +6785,7 @@ class ZoneHvacWaterToAirHeatPump(object):
 
         Args:
             value (float): value for IDD Field `maximum_outdoor_drybulb_temperature_for_supplemental_heater_operation`
-                Unit: C
+                Units: C
                 Default value: 21.0
                 value <= 21.0
                 if `value` is None it will not be checked against the
@@ -6970,6 +7036,16 @@ class ZoneHvacWaterToAirHeatPump(object):
 
         self._data["Design Specification ZoneHVAC Sizing Object Name"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -7024,9 +7100,11 @@ class ZoneHvacDehumidifierDx(object):
         Meant to model conventional direct expansion (DX) cooling-based room air
         dehumidifiers (reject 100% of condenser heat to the zone air), but this
         object might be able to be used to model other room air dehumidifier types.
+    
     """
     internal_name = "ZoneHVAC:Dehumidifier:DX"
     field_count = 14
+    required_fields = ["Name", "Air Inlet Node Name", "Air Outlet Node Name", "Rated Water Removal", "Rated Energy Factor", "Rated Air Flow Rate", "Water Removal Curve Name", "Energy Factor Curve Name", "Part Load Fraction Correlation Curve Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ZoneHVAC:Dehumidifier:DX`
@@ -7280,7 +7358,7 @@ class ZoneHvacDehumidifierDx(object):
 
         Args:
             value (float): value for IDD Field `rated_water_removal`
-                Unit: L/day
+                Units: L/day
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -7316,7 +7394,7 @@ class ZoneHvacDehumidifierDx(object):
 
         Args:
             value (float): value for IDD Field `rated_energy_factor`
-                Unit: L/kWh
+                Units: L/kWh
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -7351,7 +7429,7 @@ class ZoneHvacDehumidifierDx(object):
 
         Args:
             value (float): value for IDD Field `rated_air_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -7510,7 +7588,7 @@ class ZoneHvacDehumidifierDx(object):
 
         Args:
             value (float): value for IDD Field `minimum_drybulb_temperature_for_dehumidifier_operation`
-                Unit: C
+                Units: C
                 Default value: 10.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -7544,7 +7622,7 @@ class ZoneHvacDehumidifierDx(object):
 
         Args:
             value (float): value for IDD Field `maximum_drybulb_temperature_for_dehumidifier_operation`
-                Unit: C
+                Units: C
                 Default value: 35.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -7580,7 +7658,7 @@ class ZoneHvacDehumidifierDx(object):
 
         Args:
             value (float): value for IDD Field `offcycle_parasitic_electric_load`
-                Unit: W
+                Units: W
                 Default value: 0.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -7635,6 +7713,16 @@ class ZoneHvacDehumidifierDx(object):
 
         self._data["Condensate Collection Water Storage Tank Name"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -7672,9 +7760,11 @@ class ZoneHvacEnergyRecoveryVentilator(object):
         The ERV unit is modeled as a collection of components: air-to-air heat exchanger,
         supply air fan, exhaust air fan and an optional controller to avoid overheating
         of the supply air (economizer or free cooling operation).
+    
     """
     internal_name = "ZoneHVAC:EnergyRecoveryVentilator"
     field_count = 11
+    required_fields = ["Name", "Heat Exchanger Name", "Supply Air Flow Rate", "Exhaust Air Flow Rate", "Supply Air Fan Name", "Exhaust Air Fan Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ZoneHVAC:EnergyRecoveryVentilator`
@@ -7873,7 +7963,7 @@ class ZoneHvacEnergyRecoveryVentilator(object):
 
         Args:
             value (float): value for IDD Field `supply_air_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -7909,7 +7999,7 @@ class ZoneHvacEnergyRecoveryVentilator(object):
 
         Args:
             value (float): value for IDD Field `exhaust_air_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -8048,7 +8138,7 @@ class ZoneHvacEnergyRecoveryVentilator(object):
 
         Args:
             value (float): value for IDD Field `ventilation_rate_per_unit_floor_area`
-                Unit: m3/s-m2
+                Units: m3/s-m2
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -8085,7 +8175,7 @@ class ZoneHvacEnergyRecoveryVentilator(object):
 
         Args:
             value (float): value for IDD Field `ventilation_rate_per_occupant`
-                Unit: m3/s-person
+                Units: m3/s-person
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -8139,6 +8229,16 @@ class ZoneHvacEnergyRecoveryVentilator(object):
 
         self._data["Availability Manager List Name"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -8170,9 +8270,11 @@ class ZoneHvacEnergyRecoveryVentilatorController(object):
     """ Corresponds to IDD object `ZoneHVAC:EnergyRecoveryVentilator:Controller`
         This controller is used exclusively by the ZoneHVAC:EnergyRecoveryVentilator object
         to allow economizer (free cooling) operation when possible.
+    
     """
     internal_name = "ZoneHVAC:EnergyRecoveryVentilator:Controller"
     field_count = 13
+    required_fields = ["Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ZoneHVAC:EnergyRecoveryVentilator:Controller`
@@ -8315,7 +8417,7 @@ class ZoneHvacEnergyRecoveryVentilatorController(object):
 
         Args:
             value (float): value for IDD Field `temperature_high_limit`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8348,7 +8450,7 @@ class ZoneHvacEnergyRecoveryVentilatorController(object):
 
         Args:
             value (float): value for IDD Field `temperature_low_limit`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8381,7 +8483,7 @@ class ZoneHvacEnergyRecoveryVentilatorController(object):
 
         Args:
             value (float): value for IDD Field `enthalpy_high_limit`
-                Unit: J/kg
+                Units: J/kg
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8414,7 +8516,7 @@ class ZoneHvacEnergyRecoveryVentilatorController(object):
 
         Args:
             value (float): value for IDD Field `dewpoint_temperature_limit`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8752,6 +8854,16 @@ class ZoneHvacEnergyRecoveryVentilatorController(object):
 
         self._data["Control High Indoor Humidity Based on Outdoor Humidity Ratio"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -8786,9 +8898,11 @@ class ZoneHvacUnitVentilator(object):
         Unit ventilator. Forced-convection ventilation unit with supply fan (constant-volume
         or variable-volume), optional chilled water cooling coil, optional heating coil
         (gas, electric, hot water, or steam) and controllable outdoor air mixer.
+    
     """
     internal_name = "ZoneHVAC:UnitVentilator"
     field_count = 25
+    required_fields = ["Name", "Maximum Supply Air Flow Rate", "Outdoor Air Control Type", "Minimum Outdoor Air Flow Rate", "Minimum Outdoor Air Schedule Name", "Maximum Outdoor Air Flow Rate", "Maximum Outdoor Air Fraction or Temperature Schedule Name", "Air Inlet Node Name", "Air Outlet Node Name", "Outdoor Air Node Name", "Exhaust Air Node Name", "Mixed Air Node Name", "Supply Air Fan Object Type", "Supply Air Fan Name", "Coil Option"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ZoneHVAC:UnitVentilator`
@@ -9036,7 +9150,7 @@ class ZoneHvacUnitVentilator(object):
 
         Args:
             value (float): value for IDD Field `maximum_supply_air_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -9115,7 +9229,7 @@ class ZoneHvacUnitVentilator(object):
 
         Args:
             value (float): value for IDD Field `minimum_outdoor_air_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -9184,7 +9298,7 @@ class ZoneHvacUnitVentilator(object):
 
         Args:
             value (float): value for IDD Field `maximum_outdoor_air_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -9862,6 +9976,16 @@ class ZoneHvacUnitVentilator(object):
 
         self._data["Design Specification ZoneHVAC Sizing Object Name"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -9907,9 +10031,11 @@ class ZoneHvacUnitHeater(object):
     """ Corresponds to IDD object `ZoneHVAC:UnitHeater`
         Unit heater. Forced-convection heating-only unit with supply fan, heating coil
         (gas, electric, hot water, or steam) and fixed-position outdoor air mixer.
+    
     """
     internal_name = "ZoneHVAC:UnitHeater"
     field_count = 16
+    required_fields = ["Name", "Availability Schedule Name", "Supply Air Fan Object Type", "Supply Air Fan Name", "Maximum Supply Air Flow Rate", "Heating Coil Object Type", "Heating Coil Name", "Supply Air Fan Operation During No Heating"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ZoneHVAC:UnitHeater`
@@ -10246,7 +10372,7 @@ class ZoneHvacUnitHeater(object):
 
         Args:
             value (float): value for IDD Field `maximum_supply_air_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -10449,7 +10575,8 @@ class ZoneHvacUnitHeater(object):
 
         Args:
             value (float): value for IDD Field `maximum_hot_water_or_steam_flow_rate`
-                Unit: m3/s
+                Units: m3/s
+                IP-Units: gal/min
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -10485,7 +10612,8 @@ class ZoneHvacUnitHeater(object):
 
         Args:
             value (float): value for IDD Field `minimum_hot_water_or_steam_flow_rate`
-                Unit: m3/s
+                Units: m3/s
+                IP-Units: gal/min
                 Default value: 0.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -10609,6 +10737,16 @@ class ZoneHvacUnitHeater(object):
 
         self._data["Design Specification ZoneHVAC Sizing Object Name"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -10645,9 +10783,11 @@ class ZoneHvacEvaporativeCoolerUnit(object):
     """ Corresponds to IDD object `ZoneHVAC:EvaporativeCoolerUnit`
         Zone evaporative cooler. Forced-convection cooling-only unit with supply fan,
         100% outdoor air supply.  Optional relief exaust node
+    
     """
     internal_name = "ZoneHVAC:EvaporativeCoolerUnit"
     field_count = 18
+    required_fields = ["Name", "Availability Schedule Name", "Outdoor Air Inlet Node Name", "Cooler Outlet Node Name", "Supply Air Fan Object Type", "Supply Air Fan Name", "Design Supply Air Flow Rate", "Fan Placement", "Cooler Unit Control Method", "First Evaporative Cooler Object Type", "First Evaporative Cooler Object Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ZoneHVAC:EvaporativeCoolerUnit`
@@ -11066,7 +11206,7 @@ class ZoneHvacEvaporativeCoolerUnit(object):
 
         Args:
             value (float): value for IDD Field `design_supply_air_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -11188,7 +11328,7 @@ class ZoneHvacEvaporativeCoolerUnit(object):
 
         Args:
             value (float): value for IDD Field `throttling_range_temperature_difference`
-                Unit: deltaC
+                Units: deltaC
                 Default value: 1.0
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -11225,7 +11365,7 @@ class ZoneHvacEvaporativeCoolerUnit(object):
 
         Args:
             value (float): value for IDD Field `cooling_load_control_threshold_heat_transfer_rate`
-                Unit: W
+                Units: W
                 Default value: 100.0
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -11445,6 +11585,16 @@ class ZoneHvacEvaporativeCoolerUnit(object):
 
         self._data["Design Specification ZoneHVAC Sizing Object Name"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -11484,9 +11634,11 @@ class ZoneHvacOutdoorAirUnit(object):
         The zone outdoor air unit models a single-zone dedicated outdoor air system (DOAS).
         Forced-convection 100% outdoor air unit with supply fan and optional equipment
         including exhaust fan, heating coil, cooling coil, and heat recovery.
+    
     """
     internal_name = "ZoneHVAC:OutdoorAirUnit"
     field_count = 19
+    required_fields = ["Name", "Zone Name", "Outdoor Air Flow Rate", "Outdoor Air Schedule Name", "Supply Fan Name", "Supply Fan Placement", "Unit Control Type", "Outdoor Air Node Name", "AirOutlet Node Name", "Supply FanOutlet Node Name", "Outdoor Air Unit List Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ZoneHVAC:OutdoorAirUnit`
@@ -11732,7 +11884,7 @@ class ZoneHvacOutdoorAirUnit(object):
 
         Args:
             value (float): value for IDD Field `outdoor_air_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -11913,7 +12065,7 @@ class ZoneHvacOutdoorAirUnit(object):
 
         Args:
             value (float): value for IDD Field `exhaust_air_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -12280,6 +12432,16 @@ class ZoneHvacOutdoorAirUnit(object):
 
         self._data["Availability Manager List Name"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -12319,9 +12481,11 @@ class ZoneHvacOutdoorAirUnitEquipmentList(object):
     """ Corresponds to IDD object `ZoneHVAC:OutdoorAirUnit:EquipmentList`
         Equipment list for components in a ZoneHVAC:OutdoorAirUnit. Components are simulated
         sequentially in the order given in the equipment list.
+    
     """
     internal_name = "ZoneHVAC:OutdoorAirUnit:EquipmentList"
     field_count = 17
+    required_fields = ["Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ZoneHVAC:OutdoorAirUnit:EquipmentList`
@@ -13231,6 +13395,16 @@ class ZoneHvacOutdoorAirUnitEquipmentList(object):
 
         self._data["Component 8 Name"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -13269,9 +13443,11 @@ class ZoneHvacTerminalUnitVariableRefrigerantFlow(object):
         Zone terminal unit with variable refrigerant flow (VRF) DX cooling and heating coils
         (air-to-air heat pump). The VRF terminal units are served by an
         AirConditioner:VariableRefrigerantFlow system.
+    
     """
     internal_name = "ZoneHVAC:TerminalUnit:VariableRefrigerantFlow"
     field_count = 26
+    required_fields = ["Zone Terminal Unit Name", "Terminal Unit Air Inlet Node Name", "Terminal Unit Air Outlet Node Name", "Supply Air Fan Operating Mode Schedule Name", "Supply Air Fan Object Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ZoneHVAC:TerminalUnit:VariableRefrigerantFlow`
@@ -13593,7 +13769,7 @@ class ZoneHvacTerminalUnitVariableRefrigerantFlow(object):
 
         Args:
             value (float): value for IDD Field `supply_air_flow_rate_during_cooling_operation`
-                Unit: m3/s
+                Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -13628,7 +13804,7 @@ class ZoneHvacTerminalUnitVariableRefrigerantFlow(object):
 
         Args:
             value (float): value for IDD Field `supply_air_flow_rate_when_no_cooling_is_needed`
-                Unit: m3/s
+                Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -13663,7 +13839,7 @@ class ZoneHvacTerminalUnitVariableRefrigerantFlow(object):
 
         Args:
             value (float): value for IDD Field `supply_air_flow_rate_during_heating_operation`
-                Unit: m3/s
+                Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -13698,7 +13874,7 @@ class ZoneHvacTerminalUnitVariableRefrigerantFlow(object):
 
         Args:
             value (float): value for IDD Field `supply_air_flow_rate_when_no_heating_is_needed`
-                Unit: m3/s
+                Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -13733,7 +13909,7 @@ class ZoneHvacTerminalUnitVariableRefrigerantFlow(object):
 
         Args:
             value (float): value for IDD Field `outdoor_air_flow_rate_during_cooling_operation`
-                Unit: m3/s
+                Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -13768,7 +13944,7 @@ class ZoneHvacTerminalUnitVariableRefrigerantFlow(object):
 
         Args:
             value (float): value for IDD Field `outdoor_air_flow_rate_during_heating_operation`
-                Unit: m3/s
+                Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -13803,7 +13979,7 @@ class ZoneHvacTerminalUnitVariableRefrigerantFlow(object):
 
         Args:
             value (float): value for IDD Field `outdoor_air_flow_rate_when_no_cooling_or_heating_is_needed`
-                Unit: m3/s
+                Units: m3/s
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -14220,7 +14396,7 @@ class ZoneHvacTerminalUnitVariableRefrigerantFlow(object):
 
         Args:
             value (float): value for IDD Field `zone_terminal_unit_on_parasitic_electric_energy_use`
-                Unit: W
+                Units: W
                 Default value: 0.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -14256,7 +14432,7 @@ class ZoneHvacTerminalUnitVariableRefrigerantFlow(object):
 
         Args:
             value (float): value for IDD Field `zone_terminal_unit_off_parasitic_electric_energy_use`
-                Unit: W
+                Units: W
                 Default value: 0.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -14296,7 +14472,7 @@ class ZoneHvacTerminalUnitVariableRefrigerantFlow(object):
 
         Args:
             value (float): value for IDD Field `rated_heating_capacity_sizing_ratio`
-                Unit: W/W
+                Units: W/W
                 Default value: 1.0
                 value >= 1.0
                 if `value` is None it will not be checked against the
@@ -14384,6 +14560,16 @@ class ZoneHvacTerminalUnitVariableRefrigerantFlow(object):
                                  'for field `design_specification_zonehvac_sizing_object_name`')
 
         self._data["Design Specification ZoneHVAC Sizing Object Name"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):

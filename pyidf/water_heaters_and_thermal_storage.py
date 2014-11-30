@@ -5,9 +5,11 @@ class WaterHeaterMixed(object):
         Water heater with well-mixed, single-node water tank. May be used to model a tankless
         water heater (small tank volume), a hot water storage tank (zero heater capacity), or
         a heat pump water heater (see WaterHeater:HeatPump.)
+    
     """
     internal_name = "WaterHeater:Mixed"
     field_count = 41
+    required_fields = ["Name", "Setpoint Temperature Schedule Name", "Heater Fuel Type", "Heater Thermal Efficiency", "Ambient Temperature Indicator"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `WaterHeater:Mixed`
@@ -316,7 +318,8 @@ class WaterHeaterMixed(object):
 
         Args:
             value (float): value for IDD Field `tank_volume`
-                Unit: m3
+                Units: m3
+                IP-Units: gal
                 Default value: 0.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -385,7 +388,7 @@ class WaterHeaterMixed(object):
 
         Args:
             value (float): value for IDD Field `deadband_temperature_difference`
-                Unit: deltaC
+                Units: deltaC
                 Default value: 0.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -421,7 +424,7 @@ class WaterHeaterMixed(object):
 
         Args:
             value (float): value for IDD Field `maximum_temperature_limit`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -495,7 +498,7 @@ class WaterHeaterMixed(object):
 
         Args:
             value (float): value for IDD Field `heater_maximum_capacity`
-                Unit: W
+                Units: W
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -531,7 +534,7 @@ class WaterHeaterMixed(object):
 
         Args:
             value (float): value for IDD Field `heater_minimum_capacity`
-                Unit: W
+                Units: W
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -567,7 +570,7 @@ class WaterHeaterMixed(object):
 
         Args:
             value (float): value for IDD Field `heater_ignition_minimum_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 Default value: 0.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -604,7 +607,7 @@ class WaterHeaterMixed(object):
 
         Args:
             value (float): value for IDD Field `heater_ignition_delay`
-                Unit: s
+                Units: s
                 Default value: 0.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -774,7 +777,7 @@ class WaterHeaterMixed(object):
 
         Args:
             value (float): value for IDD Field `off_cycle_parasitic_fuel_consumption_rate`
-                Unit: W
+                Units: W
                 Default value: 0.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -911,7 +914,7 @@ class WaterHeaterMixed(object):
 
         Args:
             value (float): value for IDD Field `on_cycle_parasitic_fuel_consumption_rate`
-                Unit: W
+                Units: W
                 Default value: 0.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -1192,7 +1195,7 @@ class WaterHeaterMixed(object):
 
         Args:
             value (float): value for IDD Field `off_cycle_loss_coefficient_to_ambient_temperature`
-                Unit: W/K
+                Units: W/K
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -1266,7 +1269,7 @@ class WaterHeaterMixed(object):
 
         Args:
             value (float): value for IDD Field `on_cycle_loss_coefficient_to_ambient_temperature`
-                Unit: W/K
+                Units: W/K
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -1341,7 +1344,8 @@ class WaterHeaterMixed(object):
 
         Args:
             value (float): value for IDD Field `peak_use_flow_rate`
-                Unit: m3/s
+                Units: m3/s
+                IP-Units: gal/min
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -1655,7 +1659,8 @@ class WaterHeaterMixed(object):
 
         Args:
             value (float): value for IDD Field `use_side_design_flow_rate`
-                Unit: m3/s
+                Units: m3/s
+                IP-Units: gal/min
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -1690,7 +1695,8 @@ class WaterHeaterMixed(object):
 
         Args:
             value (float): value for IDD Field `source_side_design_flow_rate`
-                Unit: m3/s
+                Units: m3/s
+                IP-Units: gal/min
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -1727,7 +1733,7 @@ class WaterHeaterMixed(object):
 
         Args:
             value (float): value for IDD Field `indirect_water_heating_recovery_time`
-                Unit: hr
+                Units: hr
                 Default value: 1.5
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -1830,6 +1836,16 @@ class WaterHeaterMixed(object):
 
         self._data["Indirect Alternate Setpoint Temperature Schedule Name"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -1892,9 +1908,11 @@ class WaterHeaterStratified(object):
         Water heater with stratified, multi-node water tank. May be used to model a tankless
         water heater (small tank volume), a hot water storage tank (zero heater capacity), or
         a heat pump water heater (see WaterHeater:HeatPump.)
+    
     """
     internal_name = "WaterHeater:Stratified"
     field_count = 65
+    required_fields = ["Name", "Tank Volume", "Tank Height", "Heater 1 Setpoint Temperature Schedule Name", "Heater 2 Setpoint Temperature Schedule Name", "Heater Fuel Type", "Heater Thermal Efficiency", "Ambient Temperature Indicator"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `WaterHeater:Stratified`
@@ -2381,7 +2399,8 @@ class WaterHeaterStratified(object):
 
         Args:
             value (float): value for IDD Field `tank_volume`
-                Unit: m3
+                Units: m3
+                IP-Units: gal
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -2417,7 +2436,7 @@ class WaterHeaterStratified(object):
 
         Args:
             value (float): value for IDD Field `tank_height`
-                Unit: m
+                Units: m
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -2498,7 +2517,7 @@ class WaterHeaterStratified(object):
 
         Args:
             value (float): value for IDD Field `tank_perimeter`
-                Unit: m
+                Units: m
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -2533,7 +2552,7 @@ class WaterHeaterStratified(object):
 
         Args:
             value (float): value for IDD Field `maximum_temperature_limit`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -2640,7 +2659,7 @@ class WaterHeaterStratified(object):
 
         Args:
             value (float): value for IDD Field `heater_1_deadband_temperature_difference`
-                Unit: deltaC
+                Units: deltaC
                 Default value: 0.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -2676,7 +2695,7 @@ class WaterHeaterStratified(object):
 
         Args:
             value (float): value for IDD Field `heater_1_capacity`
-                Unit: W
+                Units: W
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -2711,7 +2730,7 @@ class WaterHeaterStratified(object):
 
         Args:
             value (float): value for IDD Field `heater_1_height`
-                Unit: m
+                Units: m
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -2779,7 +2798,7 @@ class WaterHeaterStratified(object):
 
         Args:
             value (float): value for IDD Field `heater_2_deadband_temperature_difference`
-                Unit: deltaC
+                Units: deltaC
                 Default value: 0.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -2815,7 +2834,7 @@ class WaterHeaterStratified(object):
 
         Args:
             value (float): value for IDD Field `heater_2_capacity`
-                Unit: W
+                Units: W
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -2850,7 +2869,7 @@ class WaterHeaterStratified(object):
 
         Args:
             value (float): value for IDD Field `heater_2_height`
-                Unit: m
+                Units: m
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -2985,7 +3004,7 @@ class WaterHeaterStratified(object):
 
         Args:
             value (float): value for IDD Field `off_cycle_parasitic_fuel_consumption_rate`
-                Unit: W
+                Units: W
                 Default value: 0.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -3122,7 +3141,7 @@ class WaterHeaterStratified(object):
 
         Args:
             value (float): value for IDD Field `off_cycle_parasitic_height`
-                Unit: m
+                Units: m
                 Default value: 0.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -3158,7 +3177,7 @@ class WaterHeaterStratified(object):
 
         Args:
             value (float): value for IDD Field `on_cycle_parasitic_fuel_consumption_rate`
-                Unit: W
+                Units: W
                 Default value: 0.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -3295,7 +3314,7 @@ class WaterHeaterStratified(object):
 
         Args:
             value (float): value for IDD Field `on_cycle_parasitic_height`
-                Unit: m
+                Units: m
                 Default value: 0.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -3475,7 +3494,7 @@ class WaterHeaterStratified(object):
 
         Args:
             value (float): value for IDD Field `uniform_skin_loss_coefficient_per_unit_area_to_ambient_temperature`
-                Unit: W/m2-K
+                Units: W/m2-K
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -3549,7 +3568,7 @@ class WaterHeaterStratified(object):
 
         Args:
             value (float): value for IDD Field `off_cycle_flue_loss_coefficient_to_ambient_temperature`
-                Unit: W/K
+                Units: W/K
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -3624,7 +3643,8 @@ class WaterHeaterStratified(object):
 
         Args:
             value (float): value for IDD Field `peak_use_flow_rate`
-                Unit: m3/s
+                Units: m3/s
+                IP-Units: gal/min
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -3840,7 +3860,7 @@ class WaterHeaterStratified(object):
 
         Args:
             value (float): value for IDD Field `use_side_inlet_height`
-                Unit: m
+                Units: m
                 Default value: 0.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -3877,7 +3897,7 @@ class WaterHeaterStratified(object):
 
         Args:
             value (float): value for IDD Field `use_side_outlet_height`
-                Unit: m
+                Units: m
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -4023,7 +4043,7 @@ class WaterHeaterStratified(object):
 
         Args:
             value (float): value for IDD Field `source_side_inlet_height`
-                Unit: m
+                Units: m
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -4059,7 +4079,7 @@ class WaterHeaterStratified(object):
 
         Args:
             value (float): value for IDD Field `source_side_outlet_height`
-                Unit: m
+                Units: m
                 Default value: 0.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -4138,7 +4158,8 @@ class WaterHeaterStratified(object):
 
         Args:
             value (float): value for IDD Field `use_side_design_flow_rate`
-                Unit: m3/s
+                Units: m3/s
+                IP-Units: gal/min
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -4173,7 +4194,8 @@ class WaterHeaterStratified(object):
 
         Args:
             value (float): value for IDD Field `source_side_design_flow_rate`
-                Unit: m3/s
+                Units: m3/s
+                IP-Units: gal/min
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -4210,7 +4232,7 @@ class WaterHeaterStratified(object):
 
         Args:
             value (float): value for IDD Field `indirect_water_heating_recovery_time`
-                Unit: hr
+                Units: hr
                 Default value: 1.5
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -4285,7 +4307,7 @@ class WaterHeaterStratified(object):
 
         Args:
             value (float): value for IDD Field `additional_destratification_conductivity`
-                Unit: W/m-K
+                Units: W/m-K
                 Default value: 0.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -4321,7 +4343,7 @@ class WaterHeaterStratified(object):
 
         Args:
             value (float): value for IDD Field `node_1_additional_loss_coefficient`
-                Unit: W/m2-K
+                Units: W/m2-K
                 Default value: 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -4353,7 +4375,7 @@ class WaterHeaterStratified(object):
 
         Args:
             value (float): value for IDD Field `node_2_additional_loss_coefficient`
-                Unit: W/m2-K
+                Units: W/m2-K
                 Default value: 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -4385,7 +4407,7 @@ class WaterHeaterStratified(object):
 
         Args:
             value (float): value for IDD Field `node_3_additional_loss_coefficient`
-                Unit: W/m2-K
+                Units: W/m2-K
                 Default value: 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -4417,7 +4439,7 @@ class WaterHeaterStratified(object):
 
         Args:
             value (float): value for IDD Field `node_4_additional_loss_coefficient`
-                Unit: W/m2-K
+                Units: W/m2-K
                 Default value: 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -4449,7 +4471,7 @@ class WaterHeaterStratified(object):
 
         Args:
             value (float): value for IDD Field `node_5_additional_loss_coefficient`
-                Unit: W/m2-K
+                Units: W/m2-K
                 Default value: 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -4481,7 +4503,7 @@ class WaterHeaterStratified(object):
 
         Args:
             value (float): value for IDD Field `node_6_additional_loss_coefficient`
-                Unit: W/m2-K
+                Units: W/m2-K
                 Default value: 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -4513,7 +4535,7 @@ class WaterHeaterStratified(object):
 
         Args:
             value (float): value for IDD Field `node_7_additional_loss_coefficient`
-                Unit: W/m2-K
+                Units: W/m2-K
                 Default value: 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -4545,7 +4567,7 @@ class WaterHeaterStratified(object):
 
         Args:
             value (float): value for IDD Field `node_8_additional_loss_coefficient`
-                Unit: W/m2-K
+                Units: W/m2-K
                 Default value: 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -4577,7 +4599,7 @@ class WaterHeaterStratified(object):
 
         Args:
             value (float): value for IDD Field `node_9_additional_loss_coefficient`
-                Unit: W/m2-K
+                Units: W/m2-K
                 Default value: 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -4609,7 +4631,7 @@ class WaterHeaterStratified(object):
 
         Args:
             value (float): value for IDD Field `node_10_additional_loss_coefficient`
-                Unit: W/m2-K
+                Units: W/m2-K
                 Default value: 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -4708,6 +4730,16 @@ class WaterHeaterStratified(object):
 
         self._data["Indirect Alternate Setpoint Temperature Schedule Name"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -4794,9 +4826,11 @@ class WaterHeaterSizing(object):
         This input object is used with WaterHeater:Mixed or
         with WaterHeater:Stratified to autosize tank volume and heater capacity
         This object is not needed if water heaters are not autosized.
+    
     """
     internal_name = "WaterHeater:Sizing"
     field_count = 16
+    required_fields = ["WaterHeater Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `WaterHeater:Sizing`
@@ -5006,7 +5040,7 @@ class WaterHeaterSizing(object):
 
         Args:
             value (float): value for IDD Field `time_storage_can_meet_peak_draw`
-                Unit: hr
+                Units: hr
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -5042,7 +5076,7 @@ class WaterHeaterSizing(object):
 
         Args:
             value (float): value for IDD Field `time_for_tank_recovery`
-                Unit: hr
+                Units: hr
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -5079,7 +5113,7 @@ class WaterHeaterSizing(object):
 
         Args:
             value (float): value for IDD Field `nominal_tank_volume_for_autosizing_plant_connections`
-                Unit: m3
+                Units: m3
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5181,7 +5215,7 @@ class WaterHeaterSizing(object):
 
         Args:
             value (float): value for IDD Field `storage_capacity_per_person`
-                Unit: m3/Person
+                Units: m3/Person
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -5217,7 +5251,7 @@ class WaterHeaterSizing(object):
 
         Args:
             value (float): value for IDD Field `recovery_capacity_per_person`
-                Unit: m3/hr-person
+                Units: m3/hr-person
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -5253,7 +5287,7 @@ class WaterHeaterSizing(object):
 
         Args:
             value (float): value for IDD Field `storage_capacity_per_floor_area`
-                Unit: m3/m2
+                Units: m3/m2
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -5289,7 +5323,7 @@ class WaterHeaterSizing(object):
 
         Args:
             value (float): value for IDD Field `recovery_capacity_per_floor_area`
-                Unit: m3/hr-m2
+                Units: m3/hr-m2
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -5356,7 +5390,7 @@ class WaterHeaterSizing(object):
 
         Args:
             value (float): value for IDD Field `storage_capacity_per_unit`
-                Unit: m3
+                Units: m3
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -5392,7 +5426,7 @@ class WaterHeaterSizing(object):
 
         Args:
             value (float): value for IDD Field `recovery_capacity_perunit`
-                Unit: m3/hr
+                Units: m3/hr
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -5428,7 +5462,7 @@ class WaterHeaterSizing(object):
 
         Args:
             value (float): value for IDD Field `storage_capacity_per_collector_area`
-                Unit: m3/m2
+                Units: m3/m2
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -5483,6 +5517,16 @@ class WaterHeaterSizing(object):
 
         self._data["Height Aspect Ratio"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -5520,9 +5564,11 @@ class WaterHeaterHeatPump(object):
         This object models an air-source heat pump for water heating.
         WaterHeater:HeatPump is a compound object that references other component objects -
         Coil:WaterHeating:AirToWaterHeatPump, Fan:OnOff, WaterHeater:Mixed
+    
     """
     internal_name = "WaterHeater:HeatPump"
     field_count = 35
+    required_fields = ["Name", "Compressor Setpoint Temperature Schedule Name", "Condenser Water Inlet Node Name", "Condenser Water Outlet Node Name", "Inlet Air Configuration", "Tank Object Type", "Tank Name", "DX Coil Object Type", "DX Coil Name", "Compressor Location", "Fan Object Type", "Fan Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `WaterHeater:HeatPump`
@@ -5873,7 +5919,7 @@ class WaterHeaterHeatPump(object):
 
         Args:
             value (float): value for IDD Field `dead_band_temperature_difference`
-                Unit: deltaC
+                Units: deltaC
                 Default value: 5.0
                 value > 0.0
                 value <= 20.0
@@ -5988,7 +6034,7 @@ class WaterHeaterHeatPump(object):
 
         Args:
             value (float): value for IDD Field `condenser_water_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -6026,7 +6072,7 @@ class WaterHeaterHeatPump(object):
 
         Args:
             value (float): value for IDD Field `evaporator_air_flow_rate`
-                Unit: m3/s
+                Units: m3/s
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -6586,7 +6632,7 @@ class WaterHeaterHeatPump(object):
 
         Args:
             value (float): value for IDD Field `minimum_inlet_air_temperature_for_compressor_operation`
-                Unit: C
+                Units: C
                 Default value: 10.0
                 value >= 5.0
                 if `value` is None it will not be checked against the
@@ -6827,7 +6873,7 @@ class WaterHeaterHeatPump(object):
 
         Args:
             value (float): value for IDD Field `on_cycle_parasitic_electric_load`
-                Unit: W
+                Units: W
                 Default value: 0.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -6866,7 +6912,7 @@ class WaterHeaterHeatPump(object):
 
         Args:
             value (float): value for IDD Field `off_cycle_parasitic_electric_load`
-                Unit: W
+                Units: W
                 Default value: 0.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -7095,6 +7141,16 @@ class WaterHeaterHeatPump(object):
 
         self._data["Control Sensor Location In Stratified Tank"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -7153,9 +7209,11 @@ class ThermalStorageIceSimple(object):
         It should be placed in the chilled water supply side outlet branch
         followed by a pipe.
         Use the PlantEquipmentOperation:ComponentSetpoint plant operation scheme.
+    
     """
     internal_name = "ThermalStorage:Ice:Simple"
     field_count = 5
+    required_fields = ["Name", "Ice Storage Type", "Capacity", "Inlet Node Name", "Outlet Node Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ThermalStorage:Ice:Simple`
@@ -7292,7 +7350,8 @@ class ThermalStorageIceSimple(object):
 
         Args:
             value (float): value for IDD Field `capacity`
-                Unit: GJ
+                Units: GJ
+                IP-Units: ton-hrs
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7374,6 +7433,16 @@ class ThermalStorageIceSimple(object):
 
         self._data["Outlet Node Name"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -7401,9 +7470,11 @@ class ThermalStorageIceDetailed(object):
         includes smaller containers filled with water that are placed in a larger
         tank or series of tanks.
         The model uses polynomial equations to describe the system performance.
+    
     """
     internal_name = "ThermalStorage:Ice:Detailed"
     field_count = 15
+    required_fields = ["Name", "Capacity", "Inlet Node Name", "Outlet Node Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ThermalStorage:Ice:Detailed`
@@ -7592,7 +7663,7 @@ class ThermalStorageIceDetailed(object):
 
         Args:
             value (float): value for IDD Field `capacity`
-                Unit: GJ
+                Units: GJ
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7839,7 +7910,7 @@ class ThermalStorageIceDetailed(object):
 
         Args:
             value (float): value for IDD Field `timestep_of_the_curve_data`
-                Unit: hr
+                Units: hr
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7870,7 +7941,7 @@ class ThermalStorageIceDetailed(object):
 
         Args:
             value (float): value for IDD Field `parasitic_electric_load_during_discharging`
-                Unit: dimensionless
+                Units: dimensionless
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7901,7 +7972,7 @@ class ThermalStorageIceDetailed(object):
 
         Args:
             value (float): value for IDD Field `parasitic_electric_load_during_charging`
-                Unit: dimensionless
+                Units: dimensionless
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7934,7 +8005,7 @@ class ThermalStorageIceDetailed(object):
 
         Args:
             value (float): value for IDD Field `tank_loss_coefficient`
-                Unit: dimensionless
+                Units: dimensionless
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7968,7 +8039,7 @@ class ThermalStorageIceDetailed(object):
 
         Args:
             value (float): value for IDD Field `freezing_temperature_of_storage_medium`
-                Unit: C
+                Units: C
                 Default value: 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -8030,6 +8101,16 @@ class ThermalStorageIceDetailed(object):
 
         self._data["Thaw Process Indicator"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -8066,9 +8147,11 @@ class ThermalStorageChilledWaterMixed(object):
         Chilled water storage with a well-mixed, single-node tank. The chilled water is
         "used" by drawing from the "Use Side" of the water tank.  The tank is indirectly
         charged by circulating cold water through the "Source Side" of the water tank.
+    
     """
     internal_name = "ThermalStorage:ChilledWater:Mixed"
     field_count = 22
+    required_fields = ["Name", "Ambient Temperature Indicator"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ThermalStorage:ChilledWater:Mixed`
@@ -8263,7 +8346,8 @@ class ThermalStorageChilledWaterMixed(object):
 
         Args:
             value (float): value for IDD Field `tank_volume`
-                Unit: m3
+                Units: m3
+                IP-Units: gal
                 Default value: 0.1
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -8332,7 +8416,7 @@ class ThermalStorageChilledWaterMixed(object):
 
         Args:
             value (float): value for IDD Field `deadband_temperature_difference`
-                Unit: deltaC
+                Units: deltaC
                 Default value: 0.5
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -8368,7 +8452,7 @@ class ThermalStorageChilledWaterMixed(object):
 
         Args:
             value (float): value for IDD Field `minimum_temperature_limit`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8399,7 +8483,7 @@ class ThermalStorageChilledWaterMixed(object):
 
         Args:
             value (float): value for IDD Field `nominal_cooling_capacity`
-                Unit: W
+                Units: W
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8574,7 +8658,7 @@ class ThermalStorageChilledWaterMixed(object):
 
         Args:
             value (float): value for IDD Field `heat_gain_coefficient_from_ambient_temperature`
-                Unit: W/K
+                Units: W/K
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -8749,7 +8833,8 @@ class ThermalStorageChilledWaterMixed(object):
 
         Args:
             value (float): value for IDD Field `use_side_design_flow_rate`
-                Unit: m3/s
+                Units: m3/s
+                IP-Units: gal/min
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -8924,7 +9009,8 @@ class ThermalStorageChilledWaterMixed(object):
 
         Args:
             value (float): value for IDD Field `source_side_design_flow_rate`
-                Unit: m3/s
+                Units: m3/s
+                IP-Units: gal/min
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -8961,7 +9047,7 @@ class ThermalStorageChilledWaterMixed(object):
 
         Args:
             value (float): value for IDD Field `tank_recovery_time`
-                Unit: hr
+                Units: hr
                 Default value: 4.0
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -8981,6 +9067,16 @@ class ThermalStorageChilledWaterMixed(object):
                                  'for field `tank_recovery_time`')
 
         self._data["Tank Recovery Time"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):
@@ -9025,9 +9121,11 @@ class ThermalStorageChilledWaterStratified(object):
         Chilled water storage with astratified, multi-node tank. The chilled water is
         "used" by drawing from the "Use Side" of the water tank.  The tank is indirectly
         charged by circulating cold water through the "Source Side" of the water tank.
+    
     """
     internal_name = "ThermalStorage:ChilledWater:Stratified"
     field_count = 43
+    required_fields = ["Name", "Tank Volume", "Tank Height", "Ambient Temperature Indicator"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ThermalStorage:ChilledWater:Stratified`
@@ -9348,7 +9446,8 @@ class ThermalStorageChilledWaterStratified(object):
 
         Args:
             value (float): value for IDD Field `tank_volume`
-                Unit: m3
+                Units: m3
+                IP-Units: gal
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -9384,7 +9483,7 @@ class ThermalStorageChilledWaterStratified(object):
 
         Args:
             value (float): value for IDD Field `tank_height`
-                Unit: m
+                Units: m
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -9465,7 +9564,7 @@ class ThermalStorageChilledWaterStratified(object):
 
         Args:
             value (float): value for IDD Field `tank_perimeter`
-                Unit: m
+                Units: m
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -9533,7 +9632,7 @@ class ThermalStorageChilledWaterStratified(object):
 
         Args:
             value (float): value for IDD Field `deadband_temperature_difference`
-                Unit: deltaC
+                Units: deltaC
                 Default value: 0.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -9569,7 +9668,7 @@ class ThermalStorageChilledWaterStratified(object):
 
         Args:
             value (float): value for IDD Field `temperature_sensor_height`
-                Unit: m
+                Units: m
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -9604,7 +9703,7 @@ class ThermalStorageChilledWaterStratified(object):
 
         Args:
             value (float): value for IDD Field `minimum_temperature_limit`
-                Unit: C
+                Units: C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -9635,7 +9734,7 @@ class ThermalStorageChilledWaterStratified(object):
 
         Args:
             value (float): value for IDD Field `nominal_cooling_capacity`
-                Unit: W
+                Units: W
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -9810,7 +9909,7 @@ class ThermalStorageChilledWaterStratified(object):
 
         Args:
             value (float): value for IDD Field `uniform_skin_loss_coefficient_per_unit_area_to_ambient_temperature`
-                Unit: W/m2-K
+                Units: W/m2-K
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -9991,7 +10090,7 @@ class ThermalStorageChilledWaterStratified(object):
 
         Args:
             value (float): value for IDD Field `use_side_inlet_height`
-                Unit: m
+                Units: m
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -10027,7 +10126,7 @@ class ThermalStorageChilledWaterStratified(object):
 
         Args:
             value (float): value for IDD Field `use_side_outlet_height`
-                Unit: m
+                Units: m
                 Default value: 0.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -10063,7 +10162,8 @@ class ThermalStorageChilledWaterStratified(object):
 
         Args:
             value (float): value for IDD Field `use_side_design_flow_rate`
-                Unit: m3/s
+                Units: m3/s
+                IP-Units: gal/min
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -10244,7 +10344,7 @@ class ThermalStorageChilledWaterStratified(object):
 
         Args:
             value (float): value for IDD Field `source_side_inlet_height`
-                Unit: m
+                Units: m
                 Default value: 0.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -10281,7 +10381,7 @@ class ThermalStorageChilledWaterStratified(object):
 
         Args:
             value (float): value for IDD Field `source_side_outlet_height`
-                Unit: m
+                Units: m
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -10316,7 +10416,8 @@ class ThermalStorageChilledWaterStratified(object):
 
         Args:
             value (float): value for IDD Field `source_side_design_flow_rate`
-                Unit: m3/s
+                Units: m3/s
+                IP-Units: gal/min
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -10353,7 +10454,7 @@ class ThermalStorageChilledWaterStratified(object):
 
         Args:
             value (float): value for IDD Field `tank_recovery_time`
-                Unit: hr
+                Units: hr
                 Default value: 4.0
                 value > 0.0
                 if `value` is None it will not be checked against the
@@ -10471,7 +10572,7 @@ class ThermalStorageChilledWaterStratified(object):
 
         Args:
             value (float): value for IDD Field `additional_destratification_conductivity`
-                Unit: W/m-K
+                Units: W/m-K
                 Default value: 0.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -10507,7 +10608,7 @@ class ThermalStorageChilledWaterStratified(object):
 
         Args:
             value (float): value for IDD Field `node_1_additional_loss_coefficient`
-                Unit: W/m2-K
+                Units: W/m2-K
                 Default value: 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -10539,7 +10640,7 @@ class ThermalStorageChilledWaterStratified(object):
 
         Args:
             value (float): value for IDD Field `node_2_additional_loss_coefficient`
-                Unit: W/m2-K
+                Units: W/m2-K
                 Default value: 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -10571,7 +10672,7 @@ class ThermalStorageChilledWaterStratified(object):
 
         Args:
             value (float): value for IDD Field `node_3_additional_loss_coefficient`
-                Unit: W/m2-K
+                Units: W/m2-K
                 Default value: 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -10603,7 +10704,7 @@ class ThermalStorageChilledWaterStratified(object):
 
         Args:
             value (float): value for IDD Field `node_4_additional_loss_coefficient`
-                Unit: W/m2-K
+                Units: W/m2-K
                 Default value: 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -10635,7 +10736,7 @@ class ThermalStorageChilledWaterStratified(object):
 
         Args:
             value (float): value for IDD Field `node_5_additional_loss_coefficient`
-                Unit: W/m2-K
+                Units: W/m2-K
                 Default value: 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -10667,7 +10768,7 @@ class ThermalStorageChilledWaterStratified(object):
 
         Args:
             value (float): value for IDD Field `node_6_additional_loss_coefficient`
-                Unit: W/m2-K
+                Units: W/m2-K
                 Default value: 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -10699,7 +10800,7 @@ class ThermalStorageChilledWaterStratified(object):
 
         Args:
             value (float): value for IDD Field `node_7_additional_loss_coefficient`
-                Unit: W/m2-K
+                Units: W/m2-K
                 Default value: 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -10731,7 +10832,7 @@ class ThermalStorageChilledWaterStratified(object):
 
         Args:
             value (float): value for IDD Field `node_8_additional_loss_coefficient`
-                Unit: W/m2-K
+                Units: W/m2-K
                 Default value: 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -10763,7 +10864,7 @@ class ThermalStorageChilledWaterStratified(object):
 
         Args:
             value (float): value for IDD Field `node_9_additional_loss_coefficient`
-                Unit: W/m2-K
+                Units: W/m2-K
                 Default value: 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -10795,7 +10896,7 @@ class ThermalStorageChilledWaterStratified(object):
 
         Args:
             value (float): value for IDD Field `node_10_additional_loss_coefficient`
-                Unit: W/m2-K
+                Units: W/m2-K
                 Default value: 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -10811,6 +10912,16 @@ class ThermalStorageChilledWaterStratified(object):
                                  'for field `node_10_additional_loss_coefficient`'.format(value))
 
         self._data["Node 10 Additional Loss Coefficient"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):

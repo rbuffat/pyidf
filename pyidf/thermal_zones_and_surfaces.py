@@ -4,9 +4,11 @@ class GlobalGeometryRules(object):
     """ Corresponds to IDD object `GlobalGeometryRules`
         Specifes the geometric rules used to describe the input of surface vertices and
         daylighting reference points.
+    
     """
     internal_name = "GlobalGeometryRules"
     field_count = 5
+    required_fields = ["Starting Vertex Position", "Vertex Entry Direction", "Coordinate System"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `GlobalGeometryRules`
@@ -285,6 +287,16 @@ class GlobalGeometryRules(object):
 
         self._data["Rectangular Surface Coordinate System"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -311,9 +323,11 @@ class GeometryTransform(object):
         Provides a simple method of altering the footprint geometry of a model. The intent
         is to provide a single parameter that can be used to reshape the building description
         contained in the rest of the input file.
+    
     """
     internal_name = "GeometryTransform"
     field_count = 3
+    required_fields = ["Plane of Transform", "Current Aspect Ratio", "New Aspect Ratio"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `GeometryTransform`
@@ -458,6 +472,16 @@ class GeometryTransform(object):
 
         self._data["New Aspect Ratio"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -480,9 +504,11 @@ class GeometryTransform(object):
 class Zone(object):
     """ Corresponds to IDD object `Zone`
         Defines a thermal zone of the building.
+    
     """
     internal_name = "Zone"
     field_count = 13
+    required_fields = ["Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Zone`
@@ -623,7 +649,7 @@ class Zone(object):
 
         Args:
             value (float): value for IDD Field `direction_of_relative_north`
-                Unit: deg
+                Units: deg
                 Default value: 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -655,7 +681,7 @@ class Zone(object):
 
         Args:
             value (float): value for IDD Field `x_origin`
-                Unit: m
+                Units: m
                 Default value: 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -687,7 +713,7 @@ class Zone(object):
 
         Args:
             value (float): value for IDD Field `y_origin`
-                Unit: m
+                Units: m
                 Default value: 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -719,7 +745,7 @@ class Zone(object):
 
         Args:
             value (float): value for IDD Field `z_origin`
-                Unit: m
+                Units: m
                 Default value: 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -830,7 +856,7 @@ class Zone(object):
 
         Args:
             value (float): value for IDD Field `ceiling_height`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -864,7 +890,7 @@ class Zone(object):
 
         Args:
             value (float): value for IDD Field `volume`
-                Unit: m3
+                Units: m3
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -898,7 +924,7 @@ class Zone(object):
 
         Args:
             value (float): value for IDD Field `floor_area`
-                Unit: m2
+                Units: m2
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -1068,6 +1094,16 @@ class Zone(object):
 
         self._data["Part of Total Floor Area"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -1102,9 +1138,11 @@ class ZoneGroup(object):
         Adds a multiplier to a ZoneList. This can be used to reduce the amount of input
         necessary for simulating repetitive structures, such as the identical floors of a
         multi-story building.
+    
     """
     internal_name = "ZoneGroup"
     field_count = 3
+    required_fields = ["Name", "Zone List Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ZoneGroup`
@@ -1239,6 +1277,16 @@ class ZoneGroup(object):
 
         self._data["Zone List Multiplier"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -1261,9 +1309,11 @@ class ZoneGroup(object):
 class BuildingSurfaceDetailed(object):
     """ Corresponds to IDD object `BuildingSurface:Detailed`
         Allows for detailed entry of building heat transfer surfaces.  Does not include subsurfaces such as windows or doors.
+    
     """
     internal_name = "BuildingSurface:Detailed"
     field_count = 370
+    required_fields = ["Name", "Surface Type", "Construction Name", "Zone Name", "Outside Boundary Condition", "Sun Exposure", "Wind Exposure", "Vertex 1 X-coordinate", "Vertex 1 Y-coordinate", "Vertex 1 Z-coordinate", "Vertex 2 X-coordinate", "Vertex 2 Y-coordinate", "Vertex 2 Z-coordinate", "Vertex 3 X-coordinate", "Vertex 3 Y-coordinate", "Vertex 3 Z-coordinate"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `BuildingSurface:Detailed`
@@ -3939,7 +3989,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_1_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -3970,7 +4020,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_1_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4001,7 +4051,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_1_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4032,7 +4082,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_2_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4063,7 +4113,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_2_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4094,7 +4144,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_2_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4125,7 +4175,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_3_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4156,7 +4206,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_3_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4187,7 +4237,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_3_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4218,7 +4268,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_4_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4249,7 +4299,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_4_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4280,7 +4330,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_4_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4311,7 +4361,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_5_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4342,7 +4392,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_5_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4373,7 +4423,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_5_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4404,7 +4454,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_6_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4435,7 +4485,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_6_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4466,7 +4516,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_6_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4497,7 +4547,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_7_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4528,7 +4578,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_7_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4559,7 +4609,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_7_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4590,7 +4640,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_8_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4621,7 +4671,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_8_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4652,7 +4702,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_8_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4683,7 +4733,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_9_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4714,7 +4764,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_9_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4745,7 +4795,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_9_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4776,7 +4826,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_10_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4807,7 +4857,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_10_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4838,7 +4888,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_10_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4869,7 +4919,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_11_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4900,7 +4950,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_11_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4931,7 +4981,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_11_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4962,7 +5012,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_12_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -4993,7 +5043,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_12_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5024,7 +5074,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_12_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5055,7 +5105,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_13_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5086,7 +5136,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_13_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5117,7 +5167,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_13_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5148,7 +5198,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_14_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5179,7 +5229,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_14_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5210,7 +5260,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_14_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5241,7 +5291,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_15_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5272,7 +5322,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_15_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5303,7 +5353,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_15_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5334,7 +5384,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_16_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5365,7 +5415,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_16_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5396,7 +5446,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_16_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5427,7 +5477,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_17_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5458,7 +5508,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_17_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5489,7 +5539,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_17_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5520,7 +5570,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_18_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5551,7 +5601,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_18_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5582,7 +5632,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_18_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5613,7 +5663,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_19_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5644,7 +5694,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_19_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5675,7 +5725,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_19_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5706,7 +5756,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_20_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5737,7 +5787,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_20_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5768,7 +5818,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_20_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5799,7 +5849,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_21_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5830,7 +5880,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_21_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5861,7 +5911,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_21_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5892,7 +5942,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_22_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5923,7 +5973,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_22_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5954,7 +6004,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_22_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -5985,7 +6035,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_23_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6016,7 +6066,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_23_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6047,7 +6097,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_23_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6078,7 +6128,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_24_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6109,7 +6159,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_24_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6140,7 +6190,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_24_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6171,7 +6221,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_25_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6202,7 +6252,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_25_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6233,7 +6283,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_25_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6264,7 +6314,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_26_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6295,7 +6345,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_26_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6326,7 +6376,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_26_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6357,7 +6407,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_27_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6388,7 +6438,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_27_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6419,7 +6469,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_27_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6450,7 +6500,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_28_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6481,7 +6531,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_28_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6512,7 +6562,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_28_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6543,7 +6593,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_29_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6574,7 +6624,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_29_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6605,7 +6655,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_29_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6636,7 +6686,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_30_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6667,7 +6717,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_30_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6698,7 +6748,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_30_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6729,7 +6779,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_31_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6760,7 +6810,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_31_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6791,7 +6841,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_31_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6822,7 +6872,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_32_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6853,7 +6903,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_32_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6884,7 +6934,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_32_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6915,7 +6965,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_33_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6946,7 +6996,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_33_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -6977,7 +7027,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_33_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7008,7 +7058,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_34_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7039,7 +7089,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_34_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7070,7 +7120,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_34_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7101,7 +7151,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_35_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7132,7 +7182,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_35_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7163,7 +7213,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_35_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7194,7 +7244,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_36_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7225,7 +7275,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_36_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7256,7 +7306,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_36_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7287,7 +7337,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_37_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7318,7 +7368,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_37_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7349,7 +7399,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_37_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7380,7 +7430,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_38_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7411,7 +7461,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_38_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7442,7 +7492,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_38_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7473,7 +7523,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_39_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7504,7 +7554,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_39_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7535,7 +7585,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_39_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7566,7 +7616,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_40_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7597,7 +7647,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_40_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7628,7 +7678,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_40_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7659,7 +7709,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_41_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7690,7 +7740,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_41_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7721,7 +7771,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_41_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7752,7 +7802,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_42_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7783,7 +7833,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_42_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7814,7 +7864,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_42_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7845,7 +7895,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_43_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7876,7 +7926,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_43_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7907,7 +7957,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_43_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7938,7 +7988,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_44_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -7969,7 +8019,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_44_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8000,7 +8050,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_44_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8031,7 +8081,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_45_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8062,7 +8112,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_45_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8093,7 +8143,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_45_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8124,7 +8174,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_46_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8155,7 +8205,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_46_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8186,7 +8236,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_46_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8217,7 +8267,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_47_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8248,7 +8298,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_47_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8279,7 +8329,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_47_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8310,7 +8360,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_48_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8341,7 +8391,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_48_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8372,7 +8422,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_48_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8403,7 +8453,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_49_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8434,7 +8484,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_49_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8465,7 +8515,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_49_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8496,7 +8546,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_50_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8527,7 +8577,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_50_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8558,7 +8608,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_50_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8589,7 +8639,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_51_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8620,7 +8670,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_51_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8651,7 +8701,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_51_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8682,7 +8732,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_52_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8713,7 +8763,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_52_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8744,7 +8794,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_52_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8775,7 +8825,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_53_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8806,7 +8856,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_53_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8837,7 +8887,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_53_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8868,7 +8918,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_54_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8899,7 +8949,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_54_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8930,7 +8980,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_54_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8961,7 +9011,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_55_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -8992,7 +9042,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_55_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -9023,7 +9073,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_55_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -9054,7 +9104,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_56_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -9085,7 +9135,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_56_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -9116,7 +9166,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_56_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -9147,7 +9197,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_57_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -9178,7 +9228,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_57_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -9209,7 +9259,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_57_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -9240,7 +9290,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_58_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -9271,7 +9321,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_58_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -9302,7 +9352,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_58_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -9333,7 +9383,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_59_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -9364,7 +9414,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_59_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -9395,7 +9445,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_59_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -9426,7 +9476,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_60_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -9457,7 +9507,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_60_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -9488,7 +9538,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_60_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -9519,7 +9569,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_61_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -9550,7 +9600,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_61_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -9581,7 +9631,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_61_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -9612,7 +9662,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_62_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -9643,7 +9693,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_62_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -9674,7 +9724,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_62_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -9705,7 +9755,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_63_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -9736,7 +9786,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_63_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -9767,7 +9817,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_63_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -9798,7 +9848,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_64_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -9829,7 +9879,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_64_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -9860,7 +9910,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_64_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -9891,7 +9941,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_65_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -9922,7 +9972,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_65_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -9953,7 +10003,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_65_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -9984,7 +10034,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_66_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -10015,7 +10065,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_66_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -10046,7 +10096,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_66_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -10077,7 +10127,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_67_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -10108,7 +10158,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_67_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -10139,7 +10189,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_67_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -10170,7 +10220,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_68_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -10201,7 +10251,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_68_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -10232,7 +10282,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_68_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -10263,7 +10313,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_69_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -10294,7 +10344,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_69_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -10325,7 +10375,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_69_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -10356,7 +10406,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_70_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -10387,7 +10437,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_70_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -10418,7 +10468,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_70_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -10449,7 +10499,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_71_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -10480,7 +10530,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_71_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -10511,7 +10561,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_71_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -10542,7 +10592,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_72_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -10573,7 +10623,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_72_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -10604,7 +10654,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_72_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -10635,7 +10685,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_73_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -10666,7 +10716,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_73_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -10697,7 +10747,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_73_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -10728,7 +10778,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_74_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -10759,7 +10809,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_74_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -10790,7 +10840,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_74_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -10821,7 +10871,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_75_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -10852,7 +10902,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_75_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -10883,7 +10933,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_75_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -10914,7 +10964,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_76_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -10945,7 +10995,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_76_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -10976,7 +11026,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_76_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -11007,7 +11057,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_77_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -11038,7 +11088,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_77_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -11069,7 +11119,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_77_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -11100,7 +11150,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_78_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -11131,7 +11181,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_78_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -11162,7 +11212,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_78_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -11193,7 +11243,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_79_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -11224,7 +11274,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_79_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -11255,7 +11305,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_79_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -11286,7 +11336,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_80_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -11317,7 +11367,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_80_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -11348,7 +11398,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_80_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -11379,7 +11429,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_81_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -11410,7 +11460,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_81_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -11441,7 +11491,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_81_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -11472,7 +11522,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_82_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -11503,7 +11553,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_82_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -11534,7 +11584,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_82_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -11565,7 +11615,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_83_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -11596,7 +11646,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_83_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -11627,7 +11677,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_83_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -11658,7 +11708,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_84_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -11689,7 +11739,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_84_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -11720,7 +11770,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_84_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -11751,7 +11801,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_85_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -11782,7 +11832,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_85_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -11813,7 +11863,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_85_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -11844,7 +11894,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_86_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -11875,7 +11925,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_86_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -11906,7 +11956,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_86_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -11937,7 +11987,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_87_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -11968,7 +12018,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_87_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -11999,7 +12049,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_87_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -12030,7 +12080,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_88_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -12061,7 +12111,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_88_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -12092,7 +12142,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_88_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -12123,7 +12173,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_89_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -12154,7 +12204,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_89_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -12185,7 +12235,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_89_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -12216,7 +12266,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_90_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -12247,7 +12297,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_90_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -12278,7 +12328,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_90_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -12309,7 +12359,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_91_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -12340,7 +12390,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_91_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -12371,7 +12421,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_91_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -12402,7 +12452,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_92_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -12433,7 +12483,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_92_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -12464,7 +12514,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_92_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -12495,7 +12545,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_93_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -12526,7 +12576,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_93_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -12557,7 +12607,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_93_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -12588,7 +12638,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_94_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -12619,7 +12669,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_94_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -12650,7 +12700,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_94_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -12681,7 +12731,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_95_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -12712,7 +12762,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_95_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -12743,7 +12793,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_95_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -12774,7 +12824,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_96_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -12805,7 +12855,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_96_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -12836,7 +12886,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_96_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -12867,7 +12917,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_97_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -12898,7 +12948,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_97_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -12929,7 +12979,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_97_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -12960,7 +13010,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_98_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -12991,7 +13041,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_98_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -13022,7 +13072,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_98_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -13053,7 +13103,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_99_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -13084,7 +13134,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_99_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -13115,7 +13165,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_99_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -13146,7 +13196,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_100_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -13177,7 +13227,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_100_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -13208,7 +13258,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_100_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -13239,7 +13289,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_101_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -13270,7 +13320,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_101_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -13301,7 +13351,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_101_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -13332,7 +13382,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_102_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -13363,7 +13413,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_102_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -13394,7 +13444,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_102_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -13425,7 +13475,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_103_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -13456,7 +13506,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_103_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -13487,7 +13537,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_103_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -13518,7 +13568,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_104_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -13549,7 +13599,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_104_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -13580,7 +13630,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_104_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -13611,7 +13661,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_105_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -13642,7 +13692,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_105_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -13673,7 +13723,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_105_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -13704,7 +13754,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_106_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -13735,7 +13785,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_106_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -13766,7 +13816,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_106_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -13797,7 +13847,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_107_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -13828,7 +13878,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_107_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -13859,7 +13909,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_107_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -13890,7 +13940,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_108_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -13921,7 +13971,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_108_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -13952,7 +14002,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_108_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -13983,7 +14033,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_109_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -14014,7 +14064,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_109_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -14045,7 +14095,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_109_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -14076,7 +14126,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_110_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -14107,7 +14157,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_110_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -14138,7 +14188,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_110_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -14169,7 +14219,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_111_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -14200,7 +14250,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_111_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -14231,7 +14281,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_111_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -14262,7 +14312,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_112_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -14293,7 +14343,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_112_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -14324,7 +14374,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_112_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -14355,7 +14405,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_113_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -14386,7 +14436,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_113_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -14417,7 +14467,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_113_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -14448,7 +14498,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_114_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -14479,7 +14529,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_114_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -14510,7 +14560,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_114_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -14541,7 +14591,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_115_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -14572,7 +14622,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_115_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -14603,7 +14653,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_115_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -14634,7 +14684,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_116_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -14665,7 +14715,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_116_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -14696,7 +14746,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_116_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -14727,7 +14777,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_117_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -14758,7 +14808,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_117_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -14789,7 +14839,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_117_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -14820,7 +14870,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_118_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -14851,7 +14901,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_118_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -14882,7 +14932,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_118_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -14913,7 +14963,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_119_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -14944,7 +14994,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_119_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -14975,7 +15025,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_119_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -15006,7 +15056,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_120_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -15037,7 +15087,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_120_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -15068,7 +15118,7 @@ class BuildingSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_120_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -15083,6 +15133,16 @@ class BuildingSurfaceDetailed(object):
                                  'for field `vertex_120_zcoordinate`'.format(value))
 
         self._data["Vertex 120 Z-coordinate"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):
@@ -15473,9 +15533,11 @@ class BuildingSurfaceDetailed(object):
 class WallDetailed(object):
     """ Corresponds to IDD object `Wall:Detailed`
         Allows for detailed entry of wall heat transfer surfaces.
+    
     """
     internal_name = "Wall:Detailed"
     field_count = 39
+    required_fields = ["Name", "Construction Name", "Zone Name", "Outside Boundary Condition", "Sun Exposure", "Wind Exposure", "Vertex 1 X-coordinate", "Vertex 1 Y-coordinate", "Vertex 1 Z-coordinate", "Vertex 2 X-coordinate", "Vertex 2 Y-coordinate", "Vertex 2 Z-coordinate", "Vertex 3 X-coordinate", "Vertex 3 Y-coordinate", "Vertex 3 Z-coordinate"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Wall:Detailed`
@@ -16117,7 +16179,7 @@ class WallDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_1_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -16148,7 +16210,7 @@ class WallDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_1_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -16179,7 +16241,7 @@ class WallDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_1_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -16210,7 +16272,7 @@ class WallDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_2_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -16241,7 +16303,7 @@ class WallDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_2_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -16272,7 +16334,7 @@ class WallDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_2_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -16303,7 +16365,7 @@ class WallDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_3_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -16334,7 +16396,7 @@ class WallDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_3_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -16365,7 +16427,7 @@ class WallDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_3_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -16396,7 +16458,7 @@ class WallDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_4_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -16427,7 +16489,7 @@ class WallDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_4_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -16458,7 +16520,7 @@ class WallDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_4_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -16489,7 +16551,7 @@ class WallDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_5_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -16520,7 +16582,7 @@ class WallDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_5_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -16551,7 +16613,7 @@ class WallDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_5_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -16582,7 +16644,7 @@ class WallDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_6_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -16613,7 +16675,7 @@ class WallDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_6_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -16644,7 +16706,7 @@ class WallDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_6_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -16675,7 +16737,7 @@ class WallDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_7_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -16706,7 +16768,7 @@ class WallDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_7_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -16737,7 +16799,7 @@ class WallDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_7_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -16768,7 +16830,7 @@ class WallDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_8_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -16799,7 +16861,7 @@ class WallDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_8_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -16830,7 +16892,7 @@ class WallDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_8_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -16861,7 +16923,7 @@ class WallDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_9_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -16892,7 +16954,7 @@ class WallDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_9_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -16923,7 +16985,7 @@ class WallDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_9_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -16954,7 +17016,7 @@ class WallDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_10_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -16985,7 +17047,7 @@ class WallDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_10_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -17016,7 +17078,7 @@ class WallDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_10_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -17031,6 +17093,16 @@ class WallDetailed(object):
                                  'for field `vertex_10_zcoordinate`'.format(value))
 
         self._data["Vertex 10 Z-coordinate"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):
@@ -17090,9 +17162,11 @@ class WallDetailed(object):
 class RoofCeilingDetailed(object):
     """ Corresponds to IDD object `RoofCeiling:Detailed`
         Allows for detailed entry of roof/ceiling heat transfer surfaces.
+    
     """
     internal_name = "RoofCeiling:Detailed"
     field_count = 39
+    required_fields = ["Name", "Construction Name", "Zone Name", "Outside Boundary Condition", "Sun Exposure", "Wind Exposure", "Vertex 1 X-coordinate", "Vertex 1 Y-coordinate", "Vertex 1 Z-coordinate", "Vertex 2 X-coordinate", "Vertex 2 Y-coordinate", "Vertex 2 Z-coordinate", "Vertex 3 X-coordinate", "Vertex 3 Y-coordinate", "Vertex 3 Z-coordinate"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `RoofCeiling:Detailed`
@@ -17732,7 +17806,7 @@ class RoofCeilingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_1_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -17763,7 +17837,7 @@ class RoofCeilingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_1_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -17794,7 +17868,7 @@ class RoofCeilingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_1_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -17825,7 +17899,7 @@ class RoofCeilingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_2_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -17856,7 +17930,7 @@ class RoofCeilingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_2_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -17887,7 +17961,7 @@ class RoofCeilingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_2_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -17918,7 +17992,7 @@ class RoofCeilingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_3_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -17949,7 +18023,7 @@ class RoofCeilingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_3_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -17980,7 +18054,7 @@ class RoofCeilingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_3_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -18011,7 +18085,7 @@ class RoofCeilingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_4_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -18042,7 +18116,7 @@ class RoofCeilingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_4_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -18073,7 +18147,7 @@ class RoofCeilingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_4_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -18104,7 +18178,7 @@ class RoofCeilingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_5_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -18135,7 +18209,7 @@ class RoofCeilingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_5_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -18166,7 +18240,7 @@ class RoofCeilingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_5_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -18197,7 +18271,7 @@ class RoofCeilingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_6_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -18228,7 +18302,7 @@ class RoofCeilingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_6_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -18259,7 +18333,7 @@ class RoofCeilingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_6_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -18290,7 +18364,7 @@ class RoofCeilingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_7_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -18321,7 +18395,7 @@ class RoofCeilingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_7_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -18352,7 +18426,7 @@ class RoofCeilingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_7_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -18383,7 +18457,7 @@ class RoofCeilingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_8_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -18414,7 +18488,7 @@ class RoofCeilingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_8_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -18445,7 +18519,7 @@ class RoofCeilingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_8_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -18476,7 +18550,7 @@ class RoofCeilingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_9_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -18507,7 +18581,7 @@ class RoofCeilingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_9_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -18538,7 +18612,7 @@ class RoofCeilingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_9_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -18569,7 +18643,7 @@ class RoofCeilingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_10_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -18600,7 +18674,7 @@ class RoofCeilingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_10_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -18631,7 +18705,7 @@ class RoofCeilingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_10_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -18646,6 +18720,16 @@ class RoofCeilingDetailed(object):
                                  'for field `vertex_10_zcoordinate`'.format(value))
 
         self._data["Vertex 10 Z-coordinate"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):
@@ -18705,9 +18789,11 @@ class RoofCeilingDetailed(object):
 class FloorDetailed(object):
     """ Corresponds to IDD object `Floor:Detailed`
         Allows for detailed entry of floor heat transfer surfaces.
+    
     """
     internal_name = "Floor:Detailed"
     field_count = 39
+    required_fields = ["Name", "Construction Name", "Zone Name", "Outside Boundary Condition", "Sun Exposure", "Wind Exposure", "Vertex 1 X-coordinate", "Vertex 1 Y-coordinate", "Vertex 1 Z-coordinate", "Vertex 2 X-coordinate", "Vertex 2 Y-coordinate", "Vertex 2 Z-coordinate", "Vertex 3 X-coordinate", "Vertex 3 Y-coordinate", "Vertex 3 Z-coordinate"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Floor:Detailed`
@@ -19349,7 +19435,7 @@ class FloorDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_1_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -19380,7 +19466,7 @@ class FloorDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_1_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -19411,7 +19497,7 @@ class FloorDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_1_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -19442,7 +19528,7 @@ class FloorDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_2_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -19473,7 +19559,7 @@ class FloorDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_2_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -19504,7 +19590,7 @@ class FloorDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_2_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -19535,7 +19621,7 @@ class FloorDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_3_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -19566,7 +19652,7 @@ class FloorDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_3_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -19597,7 +19683,7 @@ class FloorDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_3_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -19628,7 +19714,7 @@ class FloorDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_4_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -19659,7 +19745,7 @@ class FloorDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_4_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -19690,7 +19776,7 @@ class FloorDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_4_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -19721,7 +19807,7 @@ class FloorDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_5_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -19752,7 +19838,7 @@ class FloorDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_5_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -19783,7 +19869,7 @@ class FloorDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_5_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -19814,7 +19900,7 @@ class FloorDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_6_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -19845,7 +19931,7 @@ class FloorDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_6_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -19876,7 +19962,7 @@ class FloorDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_6_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -19907,7 +19993,7 @@ class FloorDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_7_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -19938,7 +20024,7 @@ class FloorDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_7_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -19969,7 +20055,7 @@ class FloorDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_7_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -20000,7 +20086,7 @@ class FloorDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_8_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -20031,7 +20117,7 @@ class FloorDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_8_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -20062,7 +20148,7 @@ class FloorDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_8_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -20093,7 +20179,7 @@ class FloorDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_9_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -20124,7 +20210,7 @@ class FloorDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_9_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -20155,7 +20241,7 @@ class FloorDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_9_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -20186,7 +20272,7 @@ class FloorDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_10_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -20217,7 +20303,7 @@ class FloorDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_10_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -20248,7 +20334,7 @@ class FloorDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_10_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -20263,6 +20349,16 @@ class FloorDetailed(object):
                                  'for field `vertex_10_zcoordinate`'.format(value))
 
         self._data["Vertex 10 Z-coordinate"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):
@@ -20323,9 +20419,11 @@ class WallExterior(object):
     """ Corresponds to IDD object `Wall:Exterior`
         Allows for simplified entry of exterior walls.
         View Factor to Ground is automatically calculated.
+    
     """
     internal_name = "Wall:Exterior"
     field_count = 10
+    required_fields = ["Name", "Construction Name", "Zone Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Wall:Exterior`
@@ -20517,7 +20615,7 @@ class WallExterior(object):
 
         Args:
             value (float): value for IDD Field `azimuth_angle`
-                Unit: deg
+                Units: deg
                 value >= 0.0
                 value <= 360.0
                 if `value` is None it will not be checked against the
@@ -20557,7 +20655,7 @@ class WallExterior(object):
 
         Args:
             value (float): value for IDD Field `tilt_angle`
-                Unit: deg
+                Units: deg
                 Default value: 90.0
                 value >= 0.0
                 value <= 180.0
@@ -20598,7 +20696,7 @@ class WallExterior(object):
 
         Args:
             value (float): value for IDD Field `starting_x_coordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -20629,7 +20727,7 @@ class WallExterior(object):
 
         Args:
             value (float): value for IDD Field `starting_y_coordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -20660,7 +20758,7 @@ class WallExterior(object):
 
         Args:
             value (float): value for IDD Field `starting_z_coordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -20691,7 +20789,7 @@ class WallExterior(object):
 
         Args:
             value (float): value for IDD Field `length`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -20722,7 +20820,7 @@ class WallExterior(object):
 
         Args:
             value (float): value for IDD Field `height`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -20737,6 +20835,16 @@ class WallExterior(object):
                                  'for field `height`'.format(value))
 
         self._data["Height"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):
@@ -20767,9 +20875,11 @@ class WallExterior(object):
 class WallAdiabatic(object):
     """ Corresponds to IDD object `Wall:Adiabatic`
         Allows for simplified entry of interior walls.
+    
     """
     internal_name = "Wall:Adiabatic"
     field_count = 10
+    required_fields = ["Name", "Construction Name", "Zone Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Wall:Adiabatic`
@@ -20961,7 +21071,7 @@ class WallAdiabatic(object):
 
         Args:
             value (float): value for IDD Field `azimuth_angle`
-                Unit: deg
+                Units: deg
                 value >= 0.0
                 value <= 360.0
                 if `value` is None it will not be checked against the
@@ -21001,7 +21111,7 @@ class WallAdiabatic(object):
 
         Args:
             value (float): value for IDD Field `tilt_angle`
-                Unit: deg
+                Units: deg
                 Default value: 90.0
                 value >= 0.0
                 value <= 180.0
@@ -21042,7 +21152,7 @@ class WallAdiabatic(object):
 
         Args:
             value (float): value for IDD Field `starting_x_coordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -21073,7 +21183,7 @@ class WallAdiabatic(object):
 
         Args:
             value (float): value for IDD Field `starting_y_coordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -21104,7 +21214,7 @@ class WallAdiabatic(object):
 
         Args:
             value (float): value for IDD Field `starting_z_coordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -21135,7 +21245,7 @@ class WallAdiabatic(object):
 
         Args:
             value (float): value for IDD Field `length`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -21166,7 +21276,7 @@ class WallAdiabatic(object):
 
         Args:
             value (float): value for IDD Field `height`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -21181,6 +21291,16 @@ class WallAdiabatic(object):
                                  'for field `height`'.format(value))
 
         self._data["Height"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):
@@ -21211,9 +21331,11 @@ class WallAdiabatic(object):
 class WallUnderground(object):
     """ Corresponds to IDD object `Wall:Underground`
         Allows for simplified entry of underground walls.
+    
     """
     internal_name = "Wall:Underground"
     field_count = 10
+    required_fields = ["Name", "Construction Name", "Zone Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Wall:Underground`
@@ -21407,7 +21529,7 @@ class WallUnderground(object):
 
         Args:
             value (float): value for IDD Field `azimuth_angle`
-                Unit: deg
+                Units: deg
                 value >= 0.0
                 value <= 360.0
                 if `value` is None it will not be checked against the
@@ -21447,7 +21569,7 @@ class WallUnderground(object):
 
         Args:
             value (float): value for IDD Field `tilt_angle`
-                Unit: deg
+                Units: deg
                 Default value: 90.0
                 value >= 0.0
                 value <= 180.0
@@ -21488,7 +21610,7 @@ class WallUnderground(object):
 
         Args:
             value (float): value for IDD Field `starting_x_coordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -21519,7 +21641,7 @@ class WallUnderground(object):
 
         Args:
             value (float): value for IDD Field `starting_y_coordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -21550,7 +21672,7 @@ class WallUnderground(object):
 
         Args:
             value (float): value for IDD Field `starting_z_coordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -21581,7 +21703,7 @@ class WallUnderground(object):
 
         Args:
             value (float): value for IDD Field `length`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -21612,7 +21734,7 @@ class WallUnderground(object):
 
         Args:
             value (float): value for IDD Field `height`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -21627,6 +21749,16 @@ class WallUnderground(object):
                                  'for field `height`'.format(value))
 
         self._data["Height"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):
@@ -21657,9 +21789,11 @@ class WallUnderground(object):
 class WallInterzone(object):
     """ Corresponds to IDD object `Wall:Interzone`
         Allows for simplified entry of interzone walls (walls between zones).
+    
     """
     internal_name = "Wall:Interzone"
     field_count = 11
+    required_fields = ["Name", "Construction Name", "Zone Name", "Outside Boundary Condition Object"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Wall:Interzone`
@@ -21893,7 +22027,7 @@ class WallInterzone(object):
 
         Args:
             value (float): value for IDD Field `azimuth_angle`
-                Unit: deg
+                Units: deg
                 value >= 0.0
                 value <= 360.0
                 if `value` is None it will not be checked against the
@@ -21933,7 +22067,7 @@ class WallInterzone(object):
 
         Args:
             value (float): value for IDD Field `tilt_angle`
-                Unit: deg
+                Units: deg
                 Default value: 90.0
                 value >= 0.0
                 value <= 180.0
@@ -21974,7 +22108,7 @@ class WallInterzone(object):
 
         Args:
             value (float): value for IDD Field `starting_x_coordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -22005,7 +22139,7 @@ class WallInterzone(object):
 
         Args:
             value (float): value for IDD Field `starting_y_coordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -22036,7 +22170,7 @@ class WallInterzone(object):
 
         Args:
             value (float): value for IDD Field `starting_z_coordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -22067,7 +22201,7 @@ class WallInterzone(object):
 
         Args:
             value (float): value for IDD Field `length`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -22098,7 +22232,7 @@ class WallInterzone(object):
 
         Args:
             value (float): value for IDD Field `height`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -22113,6 +22247,16 @@ class WallInterzone(object):
                                  'for field `height`'.format(value))
 
         self._data["Height"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):
@@ -22145,9 +22289,11 @@ class Roof(object):
     """ Corresponds to IDD object `Roof`
         Allows for simplified entry of roofs (exterior).
         View Factor to Ground is automatically calculated.
+    
     """
     internal_name = "Roof"
     field_count = 10
+    required_fields = ["Name", "Construction Name", "Zone Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Roof`
@@ -22339,7 +22485,7 @@ class Roof(object):
 
         Args:
             value (float): value for IDD Field `azimuth_angle`
-                Unit: deg
+                Units: deg
                 value >= 0.0
                 value <= 360.0
                 if `value` is None it will not be checked against the
@@ -22379,7 +22525,7 @@ class Roof(object):
 
         Args:
             value (float): value for IDD Field `tilt_angle`
-                Unit: deg
+                Units: deg
                 Default value: 0.0
                 value >= 0.0
                 value <= 180.0
@@ -22420,7 +22566,7 @@ class Roof(object):
 
         Args:
             value (float): value for IDD Field `starting_x_coordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -22451,7 +22597,7 @@ class Roof(object):
 
         Args:
             value (float): value for IDD Field `starting_y_coordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -22482,7 +22628,7 @@ class Roof(object):
 
         Args:
             value (float): value for IDD Field `starting_z_coordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -22514,7 +22660,7 @@ class Roof(object):
 
         Args:
             value (float): value for IDD Field `length`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -22546,7 +22692,7 @@ class Roof(object):
 
         Args:
             value (float): value for IDD Field `width`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -22561,6 +22707,16 @@ class Roof(object):
                                  'for field `width`'.format(value))
 
         self._data["Width"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):
@@ -22591,9 +22747,11 @@ class Roof(object):
 class CeilingAdiabatic(object):
     """ Corresponds to IDD object `Ceiling:Adiabatic`
         Allows for simplified entry of interior ceilings.
+    
     """
     internal_name = "Ceiling:Adiabatic"
     field_count = 10
+    required_fields = ["Name", "Construction Name", "Zone Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Ceiling:Adiabatic`
@@ -22785,7 +22943,7 @@ class CeilingAdiabatic(object):
 
         Args:
             value (float): value for IDD Field `azimuth_angle`
-                Unit: deg
+                Units: deg
                 value >= 0.0
                 value <= 360.0
                 if `value` is None it will not be checked against the
@@ -22825,7 +22983,7 @@ class CeilingAdiabatic(object):
 
         Args:
             value (float): value for IDD Field `tilt_angle`
-                Unit: deg
+                Units: deg
                 Default value: 0.0
                 value >= 0.0
                 value <= 180.0
@@ -22866,7 +23024,7 @@ class CeilingAdiabatic(object):
 
         Args:
             value (float): value for IDD Field `starting_x_coordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -22897,7 +23055,7 @@ class CeilingAdiabatic(object):
 
         Args:
             value (float): value for IDD Field `starting_y_coordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -22928,7 +23086,7 @@ class CeilingAdiabatic(object):
 
         Args:
             value (float): value for IDD Field `starting_z_coordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -22960,7 +23118,7 @@ class CeilingAdiabatic(object):
 
         Args:
             value (float): value for IDD Field `length`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -22992,7 +23150,7 @@ class CeilingAdiabatic(object):
 
         Args:
             value (float): value for IDD Field `width`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -23007,6 +23165,16 @@ class CeilingAdiabatic(object):
                                  'for field `width`'.format(value))
 
         self._data["Width"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):
@@ -23038,9 +23206,11 @@ class CeilingInterzone(object):
     """ Corresponds to IDD object `Ceiling:Interzone`
         Allows for simplified entry of ceilings using adjacent zone
         (interzone) heat transfer - adjacent surface should be a floor
+    
     """
     internal_name = "Ceiling:Interzone"
     field_count = 11
+    required_fields = ["Name", "Construction Name", "Zone Name", "Outside Boundary Condition Object"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Ceiling:Interzone`
@@ -23274,7 +23444,7 @@ class CeilingInterzone(object):
 
         Args:
             value (float): value for IDD Field `azimuth_angle`
-                Unit: deg
+                Units: deg
                 value >= 0.0
                 value <= 360.0
                 if `value` is None it will not be checked against the
@@ -23314,7 +23484,7 @@ class CeilingInterzone(object):
 
         Args:
             value (float): value for IDD Field `tilt_angle`
-                Unit: deg
+                Units: deg
                 Default value: 0.0
                 value >= 0.0
                 value <= 180.0
@@ -23355,7 +23525,7 @@ class CeilingInterzone(object):
 
         Args:
             value (float): value for IDD Field `starting_x_coordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -23386,7 +23556,7 @@ class CeilingInterzone(object):
 
         Args:
             value (float): value for IDD Field `starting_y_coordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -23417,7 +23587,7 @@ class CeilingInterzone(object):
 
         Args:
             value (float): value for IDD Field `starting_z_coordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -23449,7 +23619,7 @@ class CeilingInterzone(object):
 
         Args:
             value (float): value for IDD Field `length`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -23481,7 +23651,7 @@ class CeilingInterzone(object):
 
         Args:
             value (float): value for IDD Field `width`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -23496,6 +23666,16 @@ class CeilingInterzone(object):
                                  'for field `width`'.format(value))
 
         self._data["Width"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):
@@ -23528,9 +23708,11 @@ class FloorGroundContact(object):
     """ Corresponds to IDD object `Floor:GroundContact`
         Allows for simplified entry of exterior floors with ground contact.
         View Factors to Ground is automatically calculated.
+    
     """
     internal_name = "Floor:GroundContact"
     field_count = 10
+    required_fields = ["Name", "Construction Name", "Zone Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Floor:GroundContact`
@@ -23723,7 +23905,7 @@ class FloorGroundContact(object):
 
         Args:
             value (float): value for IDD Field `azimuth_angle`
-                Unit: deg
+                Units: deg
                 value >= 0.0
                 value <= 360.0
                 if `value` is None it will not be checked against the
@@ -23763,7 +23945,7 @@ class FloorGroundContact(object):
 
         Args:
             value (float): value for IDD Field `tilt_angle`
-                Unit: deg
+                Units: deg
                 Default value: 180.0
                 value >= 0.0
                 value <= 180.0
@@ -23804,7 +23986,7 @@ class FloorGroundContact(object):
 
         Args:
             value (float): value for IDD Field `starting_x_coordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -23835,7 +24017,7 @@ class FloorGroundContact(object):
 
         Args:
             value (float): value for IDD Field `starting_y_coordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -23866,7 +24048,7 @@ class FloorGroundContact(object):
 
         Args:
             value (float): value for IDD Field `starting_z_coordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -23898,7 +24080,7 @@ class FloorGroundContact(object):
 
         Args:
             value (float): value for IDD Field `length`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -23930,7 +24112,7 @@ class FloorGroundContact(object):
 
         Args:
             value (float): value for IDD Field `width`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -23945,6 +24127,16 @@ class FloorGroundContact(object):
                                  'for field `width`'.format(value))
 
         self._data["Width"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):
@@ -23977,9 +24169,11 @@ class FloorAdiabatic(object):
         Allows for simplified entry of exterior floors
         ignoring ground contact or interior floors.
         View Factor to Ground is automatically calculated.
+    
     """
     internal_name = "Floor:Adiabatic"
     field_count = 10
+    required_fields = ["Name", "Construction Name", "Zone Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Floor:Adiabatic`
@@ -24170,7 +24364,7 @@ class FloorAdiabatic(object):
 
         Args:
             value (float): value for IDD Field `azimuth_angle`
-                Unit: deg
+                Units: deg
                 value >= 0.0
                 value <= 360.0
                 if `value` is None it will not be checked against the
@@ -24210,7 +24404,7 @@ class FloorAdiabatic(object):
 
         Args:
             value (float): value for IDD Field `tilt_angle`
-                Unit: deg
+                Units: deg
                 Default value: 180.0
                 value >= 0.0
                 value <= 180.0
@@ -24251,7 +24445,7 @@ class FloorAdiabatic(object):
 
         Args:
             value (float): value for IDD Field `starting_x_coordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -24282,7 +24476,7 @@ class FloorAdiabatic(object):
 
         Args:
             value (float): value for IDD Field `starting_y_coordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -24313,7 +24507,7 @@ class FloorAdiabatic(object):
 
         Args:
             value (float): value for IDD Field `starting_z_coordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -24345,7 +24539,7 @@ class FloorAdiabatic(object):
 
         Args:
             value (float): value for IDD Field `length`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -24377,7 +24571,7 @@ class FloorAdiabatic(object):
 
         Args:
             value (float): value for IDD Field `width`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -24392,6 +24586,16 @@ class FloorAdiabatic(object):
                                  'for field `width`'.format(value))
 
         self._data["Width"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):
@@ -24423,9 +24627,11 @@ class FloorInterzone(object):
     """ Corresponds to IDD object `Floor:Interzone`
         Allows for simplified entry of floors using adjacent zone
         (interzone) heat transfer - adjacent surface should be a ceiling.
+    
     """
     internal_name = "Floor:Interzone"
     field_count = 11
+    required_fields = ["Name", "Construction Name", "Zone Name", "Outside Boundary Condition Object"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Floor:Interzone`
@@ -24658,7 +24864,7 @@ class FloorInterzone(object):
 
         Args:
             value (float): value for IDD Field `azimuth_angle`
-                Unit: deg
+                Units: deg
                 value >= 0.0
                 value <= 360.0
                 if `value` is None it will not be checked against the
@@ -24698,7 +24904,7 @@ class FloorInterzone(object):
 
         Args:
             value (float): value for IDD Field `tilt_angle`
-                Unit: deg
+                Units: deg
                 Default value: 180.0
                 value >= 0.0
                 value <= 180.0
@@ -24739,7 +24945,7 @@ class FloorInterzone(object):
 
         Args:
             value (float): value for IDD Field `starting_x_coordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -24770,7 +24976,7 @@ class FloorInterzone(object):
 
         Args:
             value (float): value for IDD Field `starting_y_coordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -24801,7 +25007,7 @@ class FloorInterzone(object):
 
         Args:
             value (float): value for IDD Field `starting_z_coordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -24833,7 +25039,7 @@ class FloorInterzone(object):
 
         Args:
             value (float): value for IDD Field `length`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -24865,7 +25071,7 @@ class FloorInterzone(object):
 
         Args:
             value (float): value for IDD Field `width`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -24880,6 +25086,16 @@ class FloorInterzone(object):
                                  'for field `width`'.format(value))
 
         self._data["Width"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):
@@ -24912,9 +25128,11 @@ class FenestrationSurfaceDetailed(object):
     """ Corresponds to IDD object `FenestrationSurface:Detailed`
         Allows for detailed entry of subsurfaces
         (windows, doors, glass doors, tubular daylighting devices).
+    
     """
     internal_name = "FenestrationSurface:Detailed"
     field_count = 22
+    required_fields = ["Name", "Surface Type", "Construction Name", "Building Surface Name", "Vertex 1 X-coordinate", "Vertex 1 Y-coordinate", "Vertex 1 Z-coordinate", "Vertex 2 X-coordinate", "Vertex 2 Y-coordinate", "Vertex 2 Z-coordinate", "Vertex 3 X-coordinate", "Vertex 3 Y-coordinate", "Vertex 3 Z-coordinate"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `FenestrationSurface:Detailed`
@@ -25457,7 +25675,7 @@ class FenestrationSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_1_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -25488,7 +25706,7 @@ class FenestrationSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_1_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -25519,7 +25737,7 @@ class FenestrationSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_1_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -25550,7 +25768,7 @@ class FenestrationSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_2_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -25581,7 +25799,7 @@ class FenestrationSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_2_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -25612,7 +25830,7 @@ class FenestrationSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_2_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -25643,7 +25861,7 @@ class FenestrationSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_3_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -25674,7 +25892,7 @@ class FenestrationSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_3_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -25705,7 +25923,7 @@ class FenestrationSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_3_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -25737,7 +25955,7 @@ class FenestrationSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_4_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -25769,7 +25987,7 @@ class FenestrationSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_4_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -25801,7 +26019,7 @@ class FenestrationSurfaceDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_4_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -25816,6 +26034,16 @@ class FenestrationSurfaceDetailed(object):
                                  'for field `vertex_4_zcoordinate`'.format(value))
 
         self._data["Vertex 4 Z-coordinate"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):
@@ -25858,9 +26086,11 @@ class FenestrationSurfaceDetailed(object):
 class Window(object):
     """ Corresponds to IDD object `Window`
         Allows for simplified entry of Windows.
+    
     """
     internal_name = "Window"
     field_count = 10
+    required_fields = ["Name", "Construction Name", "Building Surface Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Window`
@@ -26164,7 +26394,7 @@ class Window(object):
 
         Args:
             value (float): value for IDD Field `starting_x_coordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -26196,7 +26426,7 @@ class Window(object):
 
         Args:
             value (float): value for IDD Field `starting_z_coordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -26227,7 +26457,7 @@ class Window(object):
 
         Args:
             value (float): value for IDD Field `length`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -26258,7 +26488,7 @@ class Window(object):
 
         Args:
             value (float): value for IDD Field `height`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -26273,6 +26503,16 @@ class Window(object):
                                  'for field `height`'.format(value))
 
         self._data["Height"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):
@@ -26303,9 +26543,11 @@ class Window(object):
 class Door(object):
     """ Corresponds to IDD object `Door`
         Allows for simplified entry of opaque Doors.
+    
     """
     internal_name = "Door"
     field_count = 8
+    required_fields = ["Name", "Construction Name", "Building Surface Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Door`
@@ -26523,7 +26765,7 @@ class Door(object):
 
         Args:
             value (float): value for IDD Field `starting_x_coordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -26555,7 +26797,7 @@ class Door(object):
 
         Args:
             value (float): value for IDD Field `starting_z_coordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -26586,7 +26828,7 @@ class Door(object):
 
         Args:
             value (float): value for IDD Field `length`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -26617,7 +26859,7 @@ class Door(object):
 
         Args:
             value (float): value for IDD Field `height`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -26632,6 +26874,16 @@ class Door(object):
                                  'for field `height`'.format(value))
 
         self._data["Height"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):
@@ -26660,9 +26912,11 @@ class Door(object):
 class GlazedDoor(object):
     """ Corresponds to IDD object `GlazedDoor`
         Allows for simplified entry of glass Doors.
+    
     """
     internal_name = "GlazedDoor"
     field_count = 10
+    required_fields = ["Name", "Construction Name", "Building Surface Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `GlazedDoor`
@@ -26966,7 +27220,7 @@ class GlazedDoor(object):
 
         Args:
             value (float): value for IDD Field `starting_x_coordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -26998,7 +27252,7 @@ class GlazedDoor(object):
 
         Args:
             value (float): value for IDD Field `starting_z_coordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -27029,7 +27283,7 @@ class GlazedDoor(object):
 
         Args:
             value (float): value for IDD Field `length`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -27060,7 +27314,7 @@ class GlazedDoor(object):
 
         Args:
             value (float): value for IDD Field `height`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -27075,6 +27329,16 @@ class GlazedDoor(object):
                                  'for field `height`'.format(value))
 
         self._data["Height"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):
@@ -27106,9 +27370,11 @@ class WindowInterzone(object):
     """ Corresponds to IDD object `Window:Interzone`
         Allows for simplified entry of interzone windows (adjacent to
         other zones).
+    
     """
     internal_name = "Window:Interzone"
     field_count = 9
+    required_fields = ["Name", "Construction Name", "Building Surface Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Window:Interzone`
@@ -27370,7 +27636,7 @@ class WindowInterzone(object):
 
         Args:
             value (float): value for IDD Field `starting_x_coordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -27402,7 +27668,7 @@ class WindowInterzone(object):
 
         Args:
             value (float): value for IDD Field `starting_z_coordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -27433,7 +27699,7 @@ class WindowInterzone(object):
 
         Args:
             value (float): value for IDD Field `length`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -27464,7 +27730,7 @@ class WindowInterzone(object):
 
         Args:
             value (float): value for IDD Field `height`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -27479,6 +27745,16 @@ class WindowInterzone(object):
                                  'for field `height`'.format(value))
 
         self._data["Height"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):
@@ -27509,9 +27785,11 @@ class DoorInterzone(object):
     """ Corresponds to IDD object `Door:Interzone`
         Allows for simplified entry of interzone (opaque interior) doors (adjacent to
         other zones).
+    
     """
     internal_name = "Door:Interzone"
     field_count = 9
+    required_fields = ["Name", "Construction Name", "Building Surface Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Door:Interzone`
@@ -27773,7 +28051,7 @@ class DoorInterzone(object):
 
         Args:
             value (float): value for IDD Field `starting_x_coordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -27805,7 +28083,7 @@ class DoorInterzone(object):
 
         Args:
             value (float): value for IDD Field `starting_z_coordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -27836,7 +28114,7 @@ class DoorInterzone(object):
 
         Args:
             value (float): value for IDD Field `length`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -27867,7 +28145,7 @@ class DoorInterzone(object):
 
         Args:
             value (float): value for IDD Field `height`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -27882,6 +28160,16 @@ class DoorInterzone(object):
                                  'for field `height`'.format(value))
 
         self._data["Height"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):
@@ -27912,9 +28200,11 @@ class GlazedDoorInterzone(object):
     """ Corresponds to IDD object `GlazedDoor:Interzone`
         Allows for simplified entry of interzone (glass interior) doors (adjacent to
         other zones).
+    
     """
     internal_name = "GlazedDoor:Interzone"
     field_count = 9
+    required_fields = ["Name", "Construction Name", "Building Surface Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `GlazedDoor:Interzone`
@@ -28176,7 +28466,7 @@ class GlazedDoorInterzone(object):
 
         Args:
             value (float): value for IDD Field `starting_x_coordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -28208,7 +28498,7 @@ class GlazedDoorInterzone(object):
 
         Args:
             value (float): value for IDD Field `starting_z_coordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -28239,7 +28529,7 @@ class GlazedDoorInterzone(object):
 
         Args:
             value (float): value for IDD Field `length`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -28270,7 +28560,7 @@ class GlazedDoorInterzone(object):
 
         Args:
             value (float): value for IDD Field `height`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -28285,6 +28575,16 @@ class GlazedDoorInterzone(object):
                                  'for field `height`'.format(value))
 
         self._data["Height"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):
@@ -28316,9 +28616,11 @@ class WindowPropertyShadingControl(object):
         Specifies the type, location, and controls for window shades, window blinds, and
         switchable glazing. Referenced by the surface objects for exterior windows and glass
         doors (ref: FenestrationSurface:Detailed, Window, and GlazedDoor).
+    
     """
     internal_name = "WindowProperty:ShadingControl"
     field_count = 12
+    required_fields = ["Name", "Shading Type", "Shading Control Type"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `WindowProperty:ShadingControl`
@@ -28689,7 +28991,7 @@ class WindowPropertyShadingControl(object):
 
         Args:
             value (float): value for IDD Field `setpoint`
-                Unit: W/m2, W or deg C
+                Units: W/m2, W or deg C
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -28937,7 +29239,8 @@ class WindowPropertyShadingControl(object):
 
         Args:
             value (float): value for IDD Field `setpoint_2`
-                Unit: W/m2 or deg C
+                Units: W/m2 or deg C
+                IP-Units: unknown
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -28952,6 +29255,16 @@ class WindowPropertyShadingControl(object):
                                  'for field `setpoint_2`'.format(value))
 
         self._data["Setpoint 2"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):
@@ -28986,9 +29299,11 @@ class WindowPropertyFrameAndDivider(object):
         Specifies the dimensions of a window frame, dividers, and inside reveal surfaces.
         Referenced by the surface objects for exterior windows and glass doors
         (ref: FenestrationSurface:Detailed, Window, and GlazedDoor).
+    
     """
     internal_name = "WindowProperty:FrameAndDivider"
     field_count = 25
+    required_fields = ["Name", "Divider Type"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `WindowProperty:FrameAndDivider`
@@ -29205,7 +29520,7 @@ class WindowPropertyFrameAndDivider(object):
 
         Args:
             value (float): value for IDD Field `frame_width`
-                Unit: m
+                Units: m
                 Default value: 0.0
                 value >= 0.0
                 value <= 1.0
@@ -29246,7 +29561,7 @@ class WindowPropertyFrameAndDivider(object):
 
         Args:
             value (float): value for IDD Field `frame_outside_projection`
-                Unit: m
+                Units: m
                 Default value: 0.0
                 value >= 0.0
                 value <= 0.5
@@ -29287,7 +29602,7 @@ class WindowPropertyFrameAndDivider(object):
 
         Args:
             value (float): value for IDD Field `frame_inside_projection`
-                Unit: m
+                Units: m
                 Default value: 0.0
                 value >= 0.0
                 value <= 0.5
@@ -29330,7 +29645,7 @@ class WindowPropertyFrameAndDivider(object):
 
         Args:
             value (float): value for IDD Field `frame_conductance`
-                Unit: W/m2-K
+                Units: W/m2-K
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -29567,7 +29882,7 @@ class WindowPropertyFrameAndDivider(object):
 
         Args:
             value (float): value for IDD Field `divider_width`
-                Unit: m
+                Units: m
                 Default value: 0.0
                 value >= 0.0
                 value <= 0.5
@@ -29681,7 +29996,7 @@ class WindowPropertyFrameAndDivider(object):
 
         Args:
             value (float): value for IDD Field `divider_outside_projection`
-                Unit: m
+                Units: m
                 Default value: 0.0
                 value >= 0.0
                 value <= 0.5
@@ -29723,7 +30038,7 @@ class WindowPropertyFrameAndDivider(object):
 
         Args:
             value (float): value for IDD Field `divider_inside_projection`
-                Unit: m
+                Units: m
                 Default value: 0.0
                 value >= 0.0
                 value <= 0.5
@@ -29766,7 +30081,7 @@ class WindowPropertyFrameAndDivider(object):
 
         Args:
             value (float): value for IDD Field `divider_conductance`
-                Unit: W/m2-K
+                Units: W/m2-K
                 Default value: 0.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -30002,7 +30317,7 @@ class WindowPropertyFrameAndDivider(object):
 
         Args:
             value (float): value for IDD Field `inside_sill_depth`
-                Unit: m
+                Units: m
                 Default value: 0.0
                 value >= 0.0
                 value <= 2.0
@@ -30087,7 +30402,7 @@ class WindowPropertyFrameAndDivider(object):
 
         Args:
             value (float): value for IDD Field `inside_reveal_depth`
-                Unit: m
+                Units: m
                 Default value: 0.0
                 value >= 0.0
                 value <= 2.0
@@ -30151,6 +30466,16 @@ class WindowPropertyFrameAndDivider(object):
 
         self._data["Inside Reveal Solar Absorptance"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -30195,9 +30520,11 @@ class WindowPropertyFrameAndDivider(object):
 class WindowPropertyAirflowControl(object):
     """ Corresponds to IDD object `WindowProperty:AirflowControl`
         Used to control forced airflow through a gap between glass layers
+    
     """
     internal_name = "WindowProperty:AirflowControl"
     field_count = 7
+    required_fields = ["Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `WindowProperty:AirflowControl`
@@ -30392,7 +30719,8 @@ class WindowPropertyAirflowControl(object):
 
         Args:
             value (float): value for IDD Field `maximum_flow_rate`
-                Unit: m3/s-m
+                Units: m3/s-m
+                IP-Units: ft3/min-ft
                 Default value: 0.0
                 value >= 0.0
                 if `value` is None it will not be checked against the
@@ -30539,6 +30867,16 @@ class WindowPropertyAirflowControl(object):
 
         self._data["Airflow Multiplier Schedule Name"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -30566,9 +30904,11 @@ class WindowPropertyStormWindow(object):
     """ Corresponds to IDD object `WindowProperty:StormWindow`
         This is a movable exterior glass layer that is usually applied in the winter
         and removed in the summer.
+    
     """
     internal_name = "WindowProperty:StormWindow"
     field_count = 7
+    required_fields = ["Window Name", "Storm Glass Layer Name", "Month that Storm Glass Layer is Put On", "Day of Month that Storm Glass Layer is Put On", "Month that Storm Glass Layer is Taken Off", "Day of Month that Storm Glass Layer is Taken Off"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `WindowProperty:StormWindow`
@@ -30711,7 +31051,7 @@ class WindowPropertyStormWindow(object):
 
         Args:
             value (float): value for IDD Field `distance_between_storm_glass_layer_and_adjacent_glass`
-                Unit: m
+                Units: m
                 Default value: 0.05
                 value > 0.0
                 value <= 0.5
@@ -30888,6 +31228,16 @@ class WindowPropertyStormWindow(object):
 
         self._data["Day of Month that Storm Glass Layer is Taken Off"] = value
 
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
+
     @classmethod
     def _to_str(cls, value):
         """ Represents values either as string or None values as empty string
@@ -30915,9 +31265,11 @@ class InternalMass(object):
     """ Corresponds to IDD object `InternalMass`
         Used to describe internal zone surface area that does not need to be part of geometric
         representation. This should be the total surface area exposed to the zone air.
+    
     """
     internal_name = "InternalMass"
     field_count = 4
+    required_fields = ["Name", "Construction Name", "Zone Name", "Surface Area"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `InternalMass`
@@ -31073,7 +31425,7 @@ class InternalMass(object):
 
         Args:
             value (float): value for IDD Field `surface_area`
-                Unit: m2
+                Units: m2
                 value > 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -31092,6 +31444,16 @@ class InternalMass(object):
                                  'for field `surface_area`')
 
         self._data["Surface Area"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):
@@ -31117,9 +31479,11 @@ class ShadingSite(object):
     """ Corresponds to IDD object `Shading:Site`
         used for shading elements such as trees
         these items are fixed in space and would not move with relative geometry
+    
     """
     internal_name = "Shading:Site"
     field_count = 8
+    required_fields = ["Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Shading:Site`
@@ -31231,7 +31595,7 @@ class ShadingSite(object):
 
         Args:
             value (float): value for IDD Field `azimuth_angle`
-                Unit: deg
+                Units: deg
                 value >= 0.0
                 value <= 360.0
                 if `value` is None it will not be checked against the
@@ -31270,7 +31634,7 @@ class ShadingSite(object):
 
         Args:
             value (float): value for IDD Field `tilt_angle`
-                Unit: deg
+                Units: deg
                 Default value: 90.0
                 value >= 0.0
                 value <= 180.0
@@ -31311,7 +31675,7 @@ class ShadingSite(object):
 
         Args:
             value (float): value for IDD Field `starting_x_coordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -31342,7 +31706,7 @@ class ShadingSite(object):
 
         Args:
             value (float): value for IDD Field `starting_y_coordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -31373,7 +31737,7 @@ class ShadingSite(object):
 
         Args:
             value (float): value for IDD Field `starting_z_coordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -31404,7 +31768,7 @@ class ShadingSite(object):
 
         Args:
             value (float): value for IDD Field `length`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -31435,7 +31799,7 @@ class ShadingSite(object):
 
         Args:
             value (float): value for IDD Field `height`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -31450,6 +31814,16 @@ class ShadingSite(object):
                                  'for field `height`'.format(value))
 
         self._data["Height"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):
@@ -31479,9 +31853,11 @@ class ShadingBuilding(object):
     """ Corresponds to IDD object `Shading:Building`
         used for shading elements such as trees, other buildings, parts of this building not being modeled
         these items are relative to the current building and would move with relative geometry
+    
     """
     internal_name = "Shading:Building"
     field_count = 8
+    required_fields = ["Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Shading:Building`
@@ -31593,7 +31969,7 @@ class ShadingBuilding(object):
 
         Args:
             value (float): value for IDD Field `azimuth_angle`
-                Unit: deg
+                Units: deg
                 value >= 0.0
                 value <= 360.0
                 if `value` is None it will not be checked against the
@@ -31632,7 +32008,7 @@ class ShadingBuilding(object):
 
         Args:
             value (float): value for IDD Field `tilt_angle`
-                Unit: deg
+                Units: deg
                 Default value: 90.0
                 value >= 0.0
                 value <= 180.0
@@ -31673,7 +32049,7 @@ class ShadingBuilding(object):
 
         Args:
             value (float): value for IDD Field `starting_x_coordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -31704,7 +32080,7 @@ class ShadingBuilding(object):
 
         Args:
             value (float): value for IDD Field `starting_y_coordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -31735,7 +32111,7 @@ class ShadingBuilding(object):
 
         Args:
             value (float): value for IDD Field `starting_z_coordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -31766,7 +32142,7 @@ class ShadingBuilding(object):
 
         Args:
             value (float): value for IDD Field `length`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -31797,7 +32173,7 @@ class ShadingBuilding(object):
 
         Args:
             value (float): value for IDD Field `height`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -31812,6 +32188,16 @@ class ShadingBuilding(object):
                                  'for field `height`'.format(value))
 
         self._data["Height"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):
@@ -31841,9 +32227,11 @@ class ShadingSiteDetailed(object):
     """ Corresponds to IDD object `Shading:Site:Detailed`
         used for shading elements such as trees
         these items are fixed in space and would not move with relative geometry
+    
     """
     internal_name = "Shading:Site:Detailed"
     field_count = 363
+    required_fields = ["Name", "Number of Vertices", "Vertex 1 X-coordinate", "Vertex 1 Y-coordinate", "Vertex 1 Z-coordinate", "Vertex 2 X-coordinate", "Vertex 2 Y-coordinate", "Vertex 2 Z-coordinate", "Vertex 3 X-coordinate", "Vertex 3 Y-coordinate", "Vertex 3 Z-coordinate"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Shading:Site:Detailed`
@@ -34155,7 +34543,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_1_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -34186,7 +34574,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_1_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -34217,7 +34605,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_1_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -34248,7 +34636,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_2_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -34279,7 +34667,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_2_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -34310,7 +34698,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_2_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -34341,7 +34729,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_3_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -34372,7 +34760,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_3_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -34403,7 +34791,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_3_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -34434,7 +34822,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_4_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -34465,7 +34853,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_4_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -34496,7 +34884,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_4_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -34527,7 +34915,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_5_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -34558,7 +34946,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_5_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -34589,7 +34977,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_5_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -34620,7 +35008,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_6_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -34651,7 +35039,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_6_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -34682,7 +35070,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_6_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -34713,7 +35101,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_7_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -34744,7 +35132,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_7_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -34775,7 +35163,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_7_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -34806,7 +35194,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_8_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -34837,7 +35225,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_8_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -34868,7 +35256,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_8_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -34899,7 +35287,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_9_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -34930,7 +35318,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_9_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -34961,7 +35349,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_9_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -34992,7 +35380,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_10_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -35023,7 +35411,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_10_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -35054,7 +35442,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_10_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -35085,7 +35473,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_11_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -35116,7 +35504,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_11_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -35147,7 +35535,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_11_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -35178,7 +35566,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_12_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -35209,7 +35597,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_12_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -35240,7 +35628,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_12_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -35271,7 +35659,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_13_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -35302,7 +35690,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_13_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -35333,7 +35721,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_13_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -35364,7 +35752,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_14_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -35395,7 +35783,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_14_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -35426,7 +35814,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_14_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -35457,7 +35845,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_15_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -35488,7 +35876,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_15_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -35519,7 +35907,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_15_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -35550,7 +35938,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_16_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -35581,7 +35969,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_16_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -35612,7 +36000,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_16_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -35643,7 +36031,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_17_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -35674,7 +36062,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_17_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -35705,7 +36093,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_17_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -35736,7 +36124,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_18_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -35767,7 +36155,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_18_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -35798,7 +36186,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_18_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -35829,7 +36217,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_19_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -35860,7 +36248,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_19_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -35891,7 +36279,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_19_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -35922,7 +36310,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_20_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -35953,7 +36341,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_20_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -35984,7 +36372,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_20_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -36015,7 +36403,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_21_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -36046,7 +36434,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_21_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -36077,7 +36465,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_21_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -36108,7 +36496,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_22_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -36139,7 +36527,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_22_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -36170,7 +36558,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_22_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -36201,7 +36589,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_23_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -36232,7 +36620,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_23_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -36263,7 +36651,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_23_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -36294,7 +36682,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_24_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -36325,7 +36713,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_24_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -36356,7 +36744,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_24_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -36387,7 +36775,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_25_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -36418,7 +36806,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_25_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -36449,7 +36837,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_25_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -36480,7 +36868,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_26_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -36511,7 +36899,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_26_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -36542,7 +36930,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_26_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -36573,7 +36961,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_27_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -36604,7 +36992,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_27_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -36635,7 +37023,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_27_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -36666,7 +37054,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_28_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -36697,7 +37085,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_28_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -36728,7 +37116,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_28_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -36759,7 +37147,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_29_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -36790,7 +37178,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_29_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -36821,7 +37209,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_29_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -36852,7 +37240,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_30_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -36883,7 +37271,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_30_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -36914,7 +37302,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_30_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -36945,7 +37333,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_31_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -36976,7 +37364,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_31_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -37007,7 +37395,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_31_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -37038,7 +37426,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_32_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -37069,7 +37457,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_32_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -37100,7 +37488,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_32_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -37131,7 +37519,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_33_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -37162,7 +37550,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_33_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -37193,7 +37581,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_33_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -37224,7 +37612,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_34_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -37255,7 +37643,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_34_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -37286,7 +37674,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_34_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -37317,7 +37705,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_35_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -37348,7 +37736,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_35_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -37379,7 +37767,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_35_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -37410,7 +37798,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_36_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -37441,7 +37829,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_36_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -37472,7 +37860,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_36_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -37503,7 +37891,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_37_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -37534,7 +37922,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_37_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -37565,7 +37953,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_37_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -37596,7 +37984,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_38_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -37627,7 +38015,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_38_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -37658,7 +38046,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_38_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -37689,7 +38077,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_39_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -37720,7 +38108,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_39_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -37751,7 +38139,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_39_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -37782,7 +38170,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_40_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -37813,7 +38201,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_40_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -37844,7 +38232,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_40_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -37875,7 +38263,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_41_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -37906,7 +38294,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_41_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -37937,7 +38325,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_41_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -37968,7 +38356,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_42_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -37999,7 +38387,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_42_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -38030,7 +38418,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_42_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -38061,7 +38449,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_43_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -38092,7 +38480,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_43_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -38123,7 +38511,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_43_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -38154,7 +38542,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_44_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -38185,7 +38573,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_44_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -38216,7 +38604,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_44_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -38247,7 +38635,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_45_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -38278,7 +38666,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_45_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -38309,7 +38697,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_45_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -38340,7 +38728,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_46_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -38371,7 +38759,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_46_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -38402,7 +38790,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_46_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -38433,7 +38821,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_47_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -38464,7 +38852,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_47_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -38495,7 +38883,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_47_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -38526,7 +38914,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_48_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -38557,7 +38945,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_48_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -38588,7 +38976,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_48_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -38619,7 +39007,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_49_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -38650,7 +39038,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_49_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -38681,7 +39069,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_49_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -38712,7 +39100,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_50_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -38743,7 +39131,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_50_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -38774,7 +39162,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_50_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -38805,7 +39193,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_51_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -38836,7 +39224,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_51_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -38867,7 +39255,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_51_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -38898,7 +39286,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_52_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -38929,7 +39317,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_52_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -38960,7 +39348,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_52_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -38991,7 +39379,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_53_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -39022,7 +39410,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_53_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -39053,7 +39441,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_53_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -39084,7 +39472,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_54_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -39115,7 +39503,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_54_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -39146,7 +39534,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_54_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -39177,7 +39565,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_55_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -39208,7 +39596,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_55_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -39239,7 +39627,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_55_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -39270,7 +39658,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_56_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -39301,7 +39689,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_56_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -39332,7 +39720,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_56_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -39363,7 +39751,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_57_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -39394,7 +39782,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_57_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -39425,7 +39813,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_57_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -39456,7 +39844,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_58_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -39487,7 +39875,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_58_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -39518,7 +39906,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_58_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -39549,7 +39937,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_59_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -39580,7 +39968,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_59_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -39611,7 +39999,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_59_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -39642,7 +40030,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_60_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -39673,7 +40061,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_60_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -39704,7 +40092,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_60_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -39735,7 +40123,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_61_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -39766,7 +40154,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_61_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -39797,7 +40185,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_61_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -39828,7 +40216,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_62_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -39859,7 +40247,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_62_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -39890,7 +40278,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_62_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -39921,7 +40309,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_63_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -39952,7 +40340,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_63_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -39983,7 +40371,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_63_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -40014,7 +40402,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_64_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -40045,7 +40433,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_64_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -40076,7 +40464,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_64_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -40107,7 +40495,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_65_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -40138,7 +40526,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_65_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -40169,7 +40557,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_65_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -40200,7 +40588,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_66_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -40231,7 +40619,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_66_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -40262,7 +40650,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_66_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -40293,7 +40681,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_67_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -40324,7 +40712,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_67_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -40355,7 +40743,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_67_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -40386,7 +40774,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_68_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -40417,7 +40805,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_68_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -40448,7 +40836,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_68_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -40479,7 +40867,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_69_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -40510,7 +40898,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_69_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -40541,7 +40929,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_69_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -40572,7 +40960,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_70_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -40603,7 +40991,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_70_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -40634,7 +41022,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_70_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -40665,7 +41053,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_71_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -40696,7 +41084,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_71_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -40727,7 +41115,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_71_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -40758,7 +41146,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_72_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -40789,7 +41177,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_72_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -40820,7 +41208,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_72_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -40851,7 +41239,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_73_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -40882,7 +41270,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_73_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -40913,7 +41301,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_73_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -40944,7 +41332,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_74_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -40975,7 +41363,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_74_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -41006,7 +41394,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_74_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -41037,7 +41425,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_75_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -41068,7 +41456,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_75_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -41099,7 +41487,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_75_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -41130,7 +41518,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_76_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -41161,7 +41549,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_76_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -41192,7 +41580,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_76_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -41223,7 +41611,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_77_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -41254,7 +41642,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_77_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -41285,7 +41673,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_77_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -41316,7 +41704,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_78_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -41347,7 +41735,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_78_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -41378,7 +41766,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_78_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -41409,7 +41797,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_79_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -41440,7 +41828,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_79_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -41471,7 +41859,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_79_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -41502,7 +41890,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_80_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -41533,7 +41921,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_80_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -41564,7 +41952,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_80_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -41595,7 +41983,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_81_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -41626,7 +42014,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_81_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -41657,7 +42045,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_81_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -41688,7 +42076,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_82_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -41719,7 +42107,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_82_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -41750,7 +42138,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_82_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -41781,7 +42169,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_83_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -41812,7 +42200,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_83_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -41843,7 +42231,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_83_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -41874,7 +42262,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_84_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -41905,7 +42293,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_84_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -41936,7 +42324,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_84_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -41967,7 +42355,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_85_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -41998,7 +42386,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_85_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -42029,7 +42417,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_85_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -42060,7 +42448,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_86_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -42091,7 +42479,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_86_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -42122,7 +42510,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_86_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -42153,7 +42541,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_87_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -42184,7 +42572,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_87_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -42215,7 +42603,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_87_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -42246,7 +42634,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_88_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -42277,7 +42665,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_88_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -42308,7 +42696,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_88_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -42339,7 +42727,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_89_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -42370,7 +42758,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_89_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -42401,7 +42789,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_89_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -42432,7 +42820,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_90_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -42463,7 +42851,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_90_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -42494,7 +42882,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_90_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -42525,7 +42913,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_91_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -42556,7 +42944,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_91_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -42587,7 +42975,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_91_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -42618,7 +43006,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_92_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -42649,7 +43037,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_92_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -42680,7 +43068,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_92_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -42711,7 +43099,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_93_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -42742,7 +43130,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_93_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -42773,7 +43161,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_93_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -42804,7 +43192,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_94_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -42835,7 +43223,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_94_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -42866,7 +43254,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_94_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -42897,7 +43285,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_95_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -42928,7 +43316,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_95_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -42959,7 +43347,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_95_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -42990,7 +43378,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_96_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -43021,7 +43409,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_96_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -43052,7 +43440,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_96_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -43083,7 +43471,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_97_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -43114,7 +43502,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_97_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -43145,7 +43533,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_97_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -43176,7 +43564,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_98_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -43207,7 +43595,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_98_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -43238,7 +43626,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_98_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -43269,7 +43657,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_99_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -43300,7 +43688,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_99_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -43331,7 +43719,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_99_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -43362,7 +43750,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_100_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -43393,7 +43781,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_100_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -43424,7 +43812,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_100_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -43455,7 +43843,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_101_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -43486,7 +43874,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_101_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -43517,7 +43905,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_101_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -43548,7 +43936,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_102_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -43579,7 +43967,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_102_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -43610,7 +43998,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_102_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -43641,7 +44029,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_103_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -43672,7 +44060,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_103_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -43703,7 +44091,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_103_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -43734,7 +44122,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_104_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -43765,7 +44153,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_104_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -43796,7 +44184,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_104_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -43827,7 +44215,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_105_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -43858,7 +44246,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_105_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -43889,7 +44277,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_105_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -43920,7 +44308,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_106_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -43951,7 +44339,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_106_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -43982,7 +44370,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_106_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -44013,7 +44401,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_107_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -44044,7 +44432,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_107_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -44075,7 +44463,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_107_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -44106,7 +44494,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_108_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -44137,7 +44525,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_108_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -44168,7 +44556,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_108_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -44199,7 +44587,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_109_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -44230,7 +44618,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_109_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -44261,7 +44649,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_109_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -44292,7 +44680,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_110_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -44323,7 +44711,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_110_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -44354,7 +44742,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_110_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -44385,7 +44773,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_111_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -44416,7 +44804,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_111_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -44447,7 +44835,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_111_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -44478,7 +44866,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_112_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -44509,7 +44897,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_112_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -44540,7 +44928,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_112_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -44571,7 +44959,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_113_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -44602,7 +44990,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_113_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -44633,7 +45021,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_113_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -44664,7 +45052,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_114_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -44695,7 +45083,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_114_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -44726,7 +45114,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_114_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -44757,7 +45145,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_115_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -44788,7 +45176,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_115_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -44819,7 +45207,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_115_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -44850,7 +45238,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_116_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -44881,7 +45269,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_116_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -44912,7 +45300,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_116_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -44943,7 +45331,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_117_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -44974,7 +45362,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_117_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -45005,7 +45393,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_117_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -45036,7 +45424,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_118_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -45067,7 +45455,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_118_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -45098,7 +45486,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_118_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -45129,7 +45517,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_119_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -45160,7 +45548,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_119_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -45191,7 +45579,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_119_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -45222,7 +45610,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_120_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -45253,7 +45641,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_120_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -45284,7 +45672,7 @@ class ShadingSiteDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_120_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -45299,6 +45687,16 @@ class ShadingSiteDetailed(object):
                                  'for field `vertex_120_zcoordinate`'.format(value))
 
         self._data["Vertex 120 Z-coordinate"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):
@@ -45683,9 +46081,11 @@ class ShadingBuildingDetailed(object):
     """ Corresponds to IDD object `Shading:Building:Detailed`
         used for shading elements such as trees, other buildings, parts of this building not being modeled
         these items are relative to the current building and would move with relative geometry
+    
     """
     internal_name = "Shading:Building:Detailed"
     field_count = 363
+    required_fields = ["Name", "Number of Vertices", "Vertex 1 X-coordinate", "Vertex 1 Y-coordinate", "Vertex 1 Z-coordinate", "Vertex 2 X-coordinate", "Vertex 2 Y-coordinate", "Vertex 2 Z-coordinate", "Vertex 3 X-coordinate", "Vertex 3 Y-coordinate", "Vertex 3 Z-coordinate"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Shading:Building:Detailed`
@@ -47998,7 +48398,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_1_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -48029,7 +48429,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_1_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -48060,7 +48460,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_1_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -48091,7 +48491,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_2_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -48122,7 +48522,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_2_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -48153,7 +48553,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_2_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -48184,7 +48584,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_3_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -48215,7 +48615,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_3_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -48246,7 +48646,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_3_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -48277,7 +48677,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_4_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -48308,7 +48708,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_4_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -48339,7 +48739,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_4_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -48370,7 +48770,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_5_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -48401,7 +48801,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_5_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -48432,7 +48832,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_5_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -48463,7 +48863,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_6_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -48494,7 +48894,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_6_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -48525,7 +48925,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_6_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -48556,7 +48956,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_7_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -48587,7 +48987,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_7_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -48618,7 +49018,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_7_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -48649,7 +49049,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_8_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -48680,7 +49080,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_8_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -48711,7 +49111,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_8_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -48742,7 +49142,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_9_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -48773,7 +49173,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_9_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -48804,7 +49204,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_9_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -48835,7 +49235,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_10_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -48866,7 +49266,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_10_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -48897,7 +49297,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_10_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -48928,7 +49328,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_11_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -48959,7 +49359,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_11_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -48990,7 +49390,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_11_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -49021,7 +49421,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_12_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -49052,7 +49452,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_12_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -49083,7 +49483,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_12_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -49114,7 +49514,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_13_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -49145,7 +49545,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_13_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -49176,7 +49576,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_13_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -49207,7 +49607,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_14_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -49238,7 +49638,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_14_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -49269,7 +49669,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_14_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -49300,7 +49700,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_15_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -49331,7 +49731,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_15_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -49362,7 +49762,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_15_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -49393,7 +49793,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_16_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -49424,7 +49824,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_16_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -49455,7 +49855,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_16_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -49486,7 +49886,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_17_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -49517,7 +49917,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_17_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -49548,7 +49948,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_17_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -49579,7 +49979,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_18_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -49610,7 +50010,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_18_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -49641,7 +50041,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_18_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -49672,7 +50072,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_19_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -49703,7 +50103,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_19_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -49734,7 +50134,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_19_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -49765,7 +50165,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_20_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -49796,7 +50196,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_20_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -49827,7 +50227,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_20_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -49858,7 +50258,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_21_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -49889,7 +50289,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_21_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -49920,7 +50320,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_21_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -49951,7 +50351,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_22_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -49982,7 +50382,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_22_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -50013,7 +50413,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_22_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -50044,7 +50444,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_23_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -50075,7 +50475,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_23_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -50106,7 +50506,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_23_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -50137,7 +50537,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_24_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -50168,7 +50568,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_24_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -50199,7 +50599,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_24_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -50230,7 +50630,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_25_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -50261,7 +50661,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_25_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -50292,7 +50692,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_25_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -50323,7 +50723,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_26_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -50354,7 +50754,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_26_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -50385,7 +50785,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_26_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -50416,7 +50816,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_27_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -50447,7 +50847,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_27_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -50478,7 +50878,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_27_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -50509,7 +50909,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_28_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -50540,7 +50940,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_28_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -50571,7 +50971,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_28_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -50602,7 +51002,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_29_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -50633,7 +51033,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_29_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -50664,7 +51064,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_29_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -50695,7 +51095,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_30_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -50726,7 +51126,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_30_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -50757,7 +51157,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_30_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -50788,7 +51188,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_31_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -50819,7 +51219,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_31_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -50850,7 +51250,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_31_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -50881,7 +51281,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_32_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -50912,7 +51312,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_32_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -50943,7 +51343,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_32_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -50974,7 +51374,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_33_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -51005,7 +51405,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_33_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -51036,7 +51436,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_33_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -51067,7 +51467,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_34_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -51098,7 +51498,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_34_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -51129,7 +51529,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_34_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -51160,7 +51560,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_35_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -51191,7 +51591,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_35_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -51222,7 +51622,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_35_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -51253,7 +51653,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_36_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -51284,7 +51684,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_36_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -51315,7 +51715,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_36_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -51346,7 +51746,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_37_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -51377,7 +51777,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_37_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -51408,7 +51808,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_37_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -51439,7 +51839,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_38_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -51470,7 +51870,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_38_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -51501,7 +51901,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_38_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -51532,7 +51932,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_39_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -51563,7 +51963,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_39_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -51594,7 +51994,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_39_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -51625,7 +52025,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_40_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -51656,7 +52056,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_40_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -51687,7 +52087,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_40_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -51718,7 +52118,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_41_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -51749,7 +52149,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_41_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -51780,7 +52180,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_41_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -51811,7 +52211,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_42_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -51842,7 +52242,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_42_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -51873,7 +52273,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_42_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -51904,7 +52304,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_43_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -51935,7 +52335,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_43_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -51966,7 +52366,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_43_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -51997,7 +52397,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_44_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -52028,7 +52428,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_44_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -52059,7 +52459,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_44_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -52090,7 +52490,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_45_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -52121,7 +52521,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_45_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -52152,7 +52552,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_45_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -52183,7 +52583,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_46_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -52214,7 +52614,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_46_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -52245,7 +52645,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_46_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -52276,7 +52676,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_47_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -52307,7 +52707,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_47_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -52338,7 +52738,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_47_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -52369,7 +52769,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_48_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -52400,7 +52800,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_48_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -52431,7 +52831,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_48_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -52462,7 +52862,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_49_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -52493,7 +52893,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_49_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -52524,7 +52924,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_49_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -52555,7 +52955,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_50_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -52586,7 +52986,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_50_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -52617,7 +53017,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_50_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -52648,7 +53048,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_51_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -52679,7 +53079,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_51_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -52710,7 +53110,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_51_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -52741,7 +53141,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_52_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -52772,7 +53172,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_52_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -52803,7 +53203,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_52_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -52834,7 +53234,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_53_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -52865,7 +53265,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_53_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -52896,7 +53296,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_53_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -52927,7 +53327,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_54_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -52958,7 +53358,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_54_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -52989,7 +53389,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_54_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -53020,7 +53420,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_55_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -53051,7 +53451,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_55_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -53082,7 +53482,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_55_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -53113,7 +53513,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_56_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -53144,7 +53544,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_56_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -53175,7 +53575,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_56_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -53206,7 +53606,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_57_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -53237,7 +53637,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_57_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -53268,7 +53668,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_57_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -53299,7 +53699,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_58_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -53330,7 +53730,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_58_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -53361,7 +53761,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_58_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -53392,7 +53792,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_59_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -53423,7 +53823,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_59_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -53454,7 +53854,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_59_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -53485,7 +53885,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_60_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -53516,7 +53916,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_60_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -53547,7 +53947,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_60_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -53578,7 +53978,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_61_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -53609,7 +54009,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_61_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -53640,7 +54040,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_61_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -53671,7 +54071,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_62_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -53702,7 +54102,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_62_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -53733,7 +54133,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_62_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -53764,7 +54164,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_63_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -53795,7 +54195,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_63_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -53826,7 +54226,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_63_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -53857,7 +54257,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_64_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -53888,7 +54288,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_64_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -53919,7 +54319,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_64_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -53950,7 +54350,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_65_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -53981,7 +54381,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_65_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -54012,7 +54412,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_65_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -54043,7 +54443,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_66_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -54074,7 +54474,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_66_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -54105,7 +54505,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_66_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -54136,7 +54536,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_67_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -54167,7 +54567,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_67_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -54198,7 +54598,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_67_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -54229,7 +54629,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_68_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -54260,7 +54660,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_68_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -54291,7 +54691,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_68_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -54322,7 +54722,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_69_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -54353,7 +54753,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_69_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -54384,7 +54784,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_69_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -54415,7 +54815,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_70_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -54446,7 +54846,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_70_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -54477,7 +54877,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_70_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -54508,7 +54908,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_71_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -54539,7 +54939,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_71_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -54570,7 +54970,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_71_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -54601,7 +55001,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_72_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -54632,7 +55032,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_72_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -54663,7 +55063,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_72_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -54694,7 +55094,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_73_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -54725,7 +55125,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_73_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -54756,7 +55156,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_73_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -54787,7 +55187,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_74_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -54818,7 +55218,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_74_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -54849,7 +55249,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_74_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -54880,7 +55280,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_75_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -54911,7 +55311,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_75_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -54942,7 +55342,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_75_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -54973,7 +55373,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_76_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -55004,7 +55404,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_76_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -55035,7 +55435,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_76_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -55066,7 +55466,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_77_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -55097,7 +55497,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_77_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -55128,7 +55528,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_77_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -55159,7 +55559,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_78_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -55190,7 +55590,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_78_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -55221,7 +55621,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_78_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -55252,7 +55652,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_79_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -55283,7 +55683,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_79_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -55314,7 +55714,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_79_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -55345,7 +55745,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_80_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -55376,7 +55776,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_80_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -55407,7 +55807,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_80_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -55438,7 +55838,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_81_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -55469,7 +55869,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_81_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -55500,7 +55900,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_81_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -55531,7 +55931,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_82_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -55562,7 +55962,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_82_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -55593,7 +55993,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_82_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -55624,7 +56024,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_83_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -55655,7 +56055,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_83_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -55686,7 +56086,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_83_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -55717,7 +56117,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_84_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -55748,7 +56148,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_84_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -55779,7 +56179,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_84_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -55810,7 +56210,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_85_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -55841,7 +56241,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_85_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -55872,7 +56272,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_85_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -55903,7 +56303,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_86_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -55934,7 +56334,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_86_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -55965,7 +56365,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_86_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -55996,7 +56396,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_87_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -56027,7 +56427,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_87_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -56058,7 +56458,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_87_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -56089,7 +56489,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_88_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -56120,7 +56520,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_88_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -56151,7 +56551,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_88_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -56182,7 +56582,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_89_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -56213,7 +56613,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_89_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -56244,7 +56644,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_89_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -56275,7 +56675,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_90_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -56306,7 +56706,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_90_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -56337,7 +56737,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_90_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -56368,7 +56768,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_91_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -56399,7 +56799,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_91_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -56430,7 +56830,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_91_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -56461,7 +56861,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_92_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -56492,7 +56892,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_92_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -56523,7 +56923,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_92_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -56554,7 +56954,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_93_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -56585,7 +56985,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_93_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -56616,7 +57016,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_93_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -56647,7 +57047,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_94_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -56678,7 +57078,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_94_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -56709,7 +57109,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_94_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -56740,7 +57140,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_95_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -56771,7 +57171,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_95_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -56802,7 +57202,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_95_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -56833,7 +57233,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_96_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -56864,7 +57264,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_96_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -56895,7 +57295,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_96_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -56926,7 +57326,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_97_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -56957,7 +57357,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_97_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -56988,7 +57388,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_97_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -57019,7 +57419,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_98_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -57050,7 +57450,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_98_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -57081,7 +57481,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_98_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -57112,7 +57512,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_99_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -57143,7 +57543,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_99_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -57174,7 +57574,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_99_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -57205,7 +57605,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_100_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -57236,7 +57636,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_100_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -57267,7 +57667,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_100_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -57298,7 +57698,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_101_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -57329,7 +57729,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_101_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -57360,7 +57760,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_101_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -57391,7 +57791,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_102_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -57422,7 +57822,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_102_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -57453,7 +57853,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_102_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -57484,7 +57884,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_103_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -57515,7 +57915,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_103_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -57546,7 +57946,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_103_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -57577,7 +57977,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_104_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -57608,7 +58008,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_104_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -57639,7 +58039,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_104_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -57670,7 +58070,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_105_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -57701,7 +58101,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_105_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -57732,7 +58132,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_105_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -57763,7 +58163,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_106_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -57794,7 +58194,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_106_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -57825,7 +58225,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_106_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -57856,7 +58256,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_107_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -57887,7 +58287,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_107_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -57918,7 +58318,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_107_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -57949,7 +58349,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_108_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -57980,7 +58380,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_108_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -58011,7 +58411,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_108_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -58042,7 +58442,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_109_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -58073,7 +58473,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_109_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -58104,7 +58504,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_109_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -58135,7 +58535,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_110_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -58166,7 +58566,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_110_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -58197,7 +58597,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_110_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -58228,7 +58628,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_111_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -58259,7 +58659,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_111_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -58290,7 +58690,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_111_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -58321,7 +58721,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_112_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -58352,7 +58752,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_112_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -58383,7 +58783,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_112_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -58414,7 +58814,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_113_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -58445,7 +58845,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_113_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -58476,7 +58876,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_113_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -58507,7 +58907,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_114_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -58538,7 +58938,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_114_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -58569,7 +58969,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_114_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -58600,7 +59000,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_115_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -58631,7 +59031,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_115_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -58662,7 +59062,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_115_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -58693,7 +59093,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_116_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -58724,7 +59124,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_116_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -58755,7 +59155,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_116_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -58786,7 +59186,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_117_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -58817,7 +59217,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_117_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -58848,7 +59248,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_117_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -58879,7 +59279,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_118_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -58910,7 +59310,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_118_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -58941,7 +59341,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_118_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -58972,7 +59372,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_119_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -59003,7 +59403,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_119_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -59034,7 +59434,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_119_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -59065,7 +59465,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_120_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -59096,7 +59496,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_120_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -59127,7 +59527,7 @@ class ShadingBuildingDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_120_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -59142,6 +59542,16 @@ class ShadingBuildingDetailed(object):
                                  'for field `vertex_120_zcoordinate`'.format(value))
 
         self._data["Vertex 120 Z-coordinate"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):
@@ -59525,9 +59935,11 @@ class ShadingBuildingDetailed(object):
 class ShadingOverhang(object):
     """ Corresponds to IDD object `Shading:Overhang`
         Overhangs are usually flat shading surfaces that reference a window or door.
+    
     """
     internal_name = "Shading:Overhang"
     field_count = 7
+    required_fields = ["Name", "Window or Door Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Shading:Overhang`
@@ -59665,7 +60077,7 @@ class ShadingOverhang(object):
 
         Args:
             value (float): value for IDD Field `height_above_window_or_door`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -59696,7 +60108,7 @@ class ShadingOverhang(object):
 
         Args:
             value (float): value for IDD Field `tilt_angle_from_window_or_door`
-                Unit: deg
+                Units: deg
                 Default value: 90.0
                 value >= 0.0
                 value <= 180.0
@@ -59736,7 +60148,7 @@ class ShadingOverhang(object):
 
         Args:
             value (float): value for IDD Field `left_extension_from_window_or_door_width`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -59768,7 +60180,7 @@ class ShadingOverhang(object):
 
         Args:
             value (float): value for IDD Field `right_extension_from_window_or_door_width`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -59799,7 +60211,7 @@ class ShadingOverhang(object):
 
         Args:
             value (float): value for IDD Field `depth`
-                Unit: m
+                Units: m
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -59818,6 +60230,16 @@ class ShadingOverhang(object):
                                  'for field `depth`')
 
         self._data["Depth"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):
@@ -59845,9 +60267,11 @@ class ShadingOverhang(object):
 class ShadingOverhangProjection(object):
     """ Corresponds to IDD object `Shading:Overhang:Projection`
         Overhangs are typically flat shading surfaces that reference a window or door.
+    
     """
     internal_name = "Shading:Overhang:Projection"
     field_count = 7
+    required_fields = ["Name", "Window or Door Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Shading:Overhang:Projection`
@@ -59985,7 +60409,7 @@ class ShadingOverhangProjection(object):
 
         Args:
             value (float): value for IDD Field `height_above_window_or_door`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -60016,7 +60440,7 @@ class ShadingOverhangProjection(object):
 
         Args:
             value (float): value for IDD Field `tilt_angle_from_window_or_door`
-                Unit: deg
+                Units: deg
                 Default value: 90.0
                 value >= 0.0
                 value <= 180.0
@@ -60056,7 +60480,7 @@ class ShadingOverhangProjection(object):
 
         Args:
             value (float): value for IDD Field `left_extension_from_window_or_door_width`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -60088,7 +60512,7 @@ class ShadingOverhangProjection(object):
 
         Args:
             value (float): value for IDD Field `right_extension_from_window_or_door_width`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -60119,7 +60543,7 @@ class ShadingOverhangProjection(object):
 
         Args:
             value (float): value for IDD Field `depth_as_fraction_of_window_or_door_height`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -60138,6 +60562,16 @@ class ShadingOverhangProjection(object):
                                  'for field `depth_as_fraction_of_window_or_door_height`')
 
         self._data["Depth as Fraction of Window/Door Height"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):
@@ -60165,9 +60599,11 @@ class ShadingOverhangProjection(object):
 class ShadingFin(object):
     """ Corresponds to IDD object `Shading:Fin`
         Fins are usually shading surfaces that are perpendicular to a window or door.
+    
     """
     internal_name = "Shading:Fin"
     field_count = 12
+    required_fields = ["Name", "Window or Door Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Shading:Fin`
@@ -60335,7 +60771,7 @@ class ShadingFin(object):
 
         Args:
             value (float): value for IDD Field `left_extension_from_window_or_door`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -60366,7 +60802,7 @@ class ShadingFin(object):
 
         Args:
             value (float): value for IDD Field `left_distance_above_top_of_window`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -60398,7 +60834,7 @@ class ShadingFin(object):
 
         Args:
             value (float): value for IDD Field `left_distance_below_bottom_of_window`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -60429,7 +60865,7 @@ class ShadingFin(object):
 
         Args:
             value (float): value for IDD Field `left_tilt_angle_from_window_or_door`
-                Unit: deg
+                Units: deg
                 Default value: 90.0
                 value >= 0.0
                 value <= 180.0
@@ -60469,7 +60905,7 @@ class ShadingFin(object):
 
         Args:
             value (float): value for IDD Field `left_depth`
-                Unit: m
+                Units: m
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -60504,7 +60940,7 @@ class ShadingFin(object):
 
         Args:
             value (float): value for IDD Field `right_extension_from_window_or_door`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -60535,7 +60971,7 @@ class ShadingFin(object):
 
         Args:
             value (float): value for IDD Field `right_distance_above_top_of_window`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -60567,7 +61003,7 @@ class ShadingFin(object):
 
         Args:
             value (float): value for IDD Field `right_distance_below_bottom_of_window`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -60598,7 +61034,7 @@ class ShadingFin(object):
 
         Args:
             value (float): value for IDD Field `right_tilt_angle_from_window_or_door`
-                Unit: deg
+                Units: deg
                 Default value: 90.0
                 value >= 0.0
                 value <= 180.0
@@ -60638,7 +61074,7 @@ class ShadingFin(object):
 
         Args:
             value (float): value for IDD Field `right_depth`
-                Unit: m
+                Units: m
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -60657,6 +61093,16 @@ class ShadingFin(object):
                                  'for field `right_depth`')
 
         self._data["Right Depth"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):
@@ -60689,9 +61135,11 @@ class ShadingFin(object):
 class ShadingFinProjection(object):
     """ Corresponds to IDD object `Shading:Fin:Projection`
         Fins are usually shading surfaces that are perpendicular to a window or door.
+    
     """
     internal_name = "Shading:Fin:Projection"
     field_count = 12
+    required_fields = ["Name", "Window or Door Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Shading:Fin:Projection`
@@ -60859,7 +61307,7 @@ class ShadingFinProjection(object):
 
         Args:
             value (float): value for IDD Field `left_extension_from_window_or_door`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -60890,7 +61338,7 @@ class ShadingFinProjection(object):
 
         Args:
             value (float): value for IDD Field `left_distance_above_top_of_window`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -60922,7 +61370,7 @@ class ShadingFinProjection(object):
 
         Args:
             value (float): value for IDD Field `left_distance_below_bottom_of_window`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -60953,7 +61401,7 @@ class ShadingFinProjection(object):
 
         Args:
             value (float): value for IDD Field `left_tilt_angle_from_window_or_door`
-                Unit: deg
+                Units: deg
                 Default value: 90.0
                 value >= 0.0
                 value <= 180.0
@@ -60993,7 +61441,7 @@ class ShadingFinProjection(object):
 
         Args:
             value (float): value for IDD Field `left_depth_as_fraction_of_window_or_door_width`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -61028,7 +61476,7 @@ class ShadingFinProjection(object):
 
         Args:
             value (float): value for IDD Field `right_extension_from_window_or_door`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -61059,7 +61507,7 @@ class ShadingFinProjection(object):
 
         Args:
             value (float): value for IDD Field `right_distance_above_top_of_window`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -61091,7 +61539,7 @@ class ShadingFinProjection(object):
 
         Args:
             value (float): value for IDD Field `right_distance_below_bottom_of_window`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -61122,7 +61570,7 @@ class ShadingFinProjection(object):
 
         Args:
             value (float): value for IDD Field `right_tilt_angle_from_window_or_door`
-                Unit: deg
+                Units: deg
                 Default value: 90.0
                 value >= 0.0
                 value <= 180.0
@@ -61162,7 +61610,7 @@ class ShadingFinProjection(object):
 
         Args:
             value (float): value for IDD Field `right_depth_as_fraction_of_window_or_door_width`
-                Unit: dimensionless
+                Units: dimensionless
                 value >= 0.0
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
@@ -61181,6 +61629,16 @@ class ShadingFinProjection(object):
                                  'for field `right_depth_as_fraction_of_window_or_door_width`')
 
         self._data["Right Depth as Fraction of Window/Door Width"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):
@@ -61214,9 +61672,11 @@ class ShadingZoneDetailed(object):
     """ Corresponds to IDD object `Shading:Zone:Detailed`
         used For fins, overhangs, elements that shade the building, are attached to the building
         but are not part of the heat transfer calculations
+    
     """
     internal_name = "Shading:Zone:Detailed"
     field_count = 364
+    required_fields = ["Name", "Base Surface Name", "Number of Vertices", "Vertex 1 X-coordinate", "Vertex 1 Y-coordinate", "Vertex 1 Z-coordinate", "Vertex 2 X-coordinate", "Vertex 2 Y-coordinate", "Vertex 2 Z-coordinate", "Vertex 3 X-coordinate", "Vertex 3 Y-coordinate", "Vertex 3 Z-coordinate"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `Shading:Zone:Detailed`
@@ -63568,7 +64028,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_1_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -63599,7 +64059,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_1_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -63630,7 +64090,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_1_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -63661,7 +64121,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_2_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -63692,7 +64152,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_2_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -63723,7 +64183,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_2_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -63754,7 +64214,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_3_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -63785,7 +64245,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_3_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -63816,7 +64276,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_3_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -63847,7 +64307,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_4_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -63878,7 +64338,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_4_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -63909,7 +64369,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_4_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -63940,7 +64400,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_5_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -63971,7 +64431,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_5_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -64002,7 +64462,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_5_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -64033,7 +64493,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_6_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -64064,7 +64524,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_6_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -64095,7 +64555,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_6_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -64126,7 +64586,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_7_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -64157,7 +64617,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_7_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -64188,7 +64648,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_7_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -64219,7 +64679,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_8_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -64250,7 +64710,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_8_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -64281,7 +64741,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_8_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -64312,7 +64772,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_9_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -64343,7 +64803,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_9_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -64374,7 +64834,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_9_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -64405,7 +64865,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_10_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -64436,7 +64896,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_10_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -64467,7 +64927,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_10_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -64498,7 +64958,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_11_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -64529,7 +64989,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_11_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -64560,7 +65020,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_11_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -64591,7 +65051,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_12_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -64622,7 +65082,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_12_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -64653,7 +65113,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_12_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -64684,7 +65144,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_13_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -64715,7 +65175,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_13_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -64746,7 +65206,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_13_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -64777,7 +65237,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_14_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -64808,7 +65268,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_14_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -64839,7 +65299,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_14_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -64870,7 +65330,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_15_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -64901,7 +65361,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_15_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -64932,7 +65392,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_15_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -64963,7 +65423,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_16_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -64994,7 +65454,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_16_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -65025,7 +65485,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_16_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -65056,7 +65516,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_17_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -65087,7 +65547,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_17_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -65118,7 +65578,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_17_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -65149,7 +65609,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_18_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -65180,7 +65640,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_18_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -65211,7 +65671,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_18_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -65242,7 +65702,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_19_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -65273,7 +65733,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_19_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -65304,7 +65764,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_19_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -65335,7 +65795,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_20_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -65366,7 +65826,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_20_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -65397,7 +65857,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_20_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -65428,7 +65888,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_21_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -65459,7 +65919,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_21_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -65490,7 +65950,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_21_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -65521,7 +65981,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_22_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -65552,7 +66012,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_22_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -65583,7 +66043,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_22_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -65614,7 +66074,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_23_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -65645,7 +66105,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_23_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -65676,7 +66136,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_23_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -65707,7 +66167,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_24_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -65738,7 +66198,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_24_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -65769,7 +66229,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_24_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -65800,7 +66260,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_25_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -65831,7 +66291,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_25_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -65862,7 +66322,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_25_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -65893,7 +66353,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_26_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -65924,7 +66384,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_26_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -65955,7 +66415,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_26_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -65986,7 +66446,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_27_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -66017,7 +66477,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_27_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -66048,7 +66508,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_27_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -66079,7 +66539,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_28_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -66110,7 +66570,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_28_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -66141,7 +66601,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_28_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -66172,7 +66632,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_29_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -66203,7 +66663,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_29_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -66234,7 +66694,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_29_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -66265,7 +66725,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_30_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -66296,7 +66756,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_30_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -66327,7 +66787,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_30_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -66358,7 +66818,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_31_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -66389,7 +66849,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_31_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -66420,7 +66880,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_31_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -66451,7 +66911,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_32_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -66482,7 +66942,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_32_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -66513,7 +66973,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_32_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -66544,7 +67004,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_33_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -66575,7 +67035,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_33_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -66606,7 +67066,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_33_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -66637,7 +67097,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_34_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -66668,7 +67128,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_34_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -66699,7 +67159,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_34_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -66730,7 +67190,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_35_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -66761,7 +67221,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_35_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -66792,7 +67252,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_35_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -66823,7 +67283,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_36_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -66854,7 +67314,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_36_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -66885,7 +67345,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_36_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -66916,7 +67376,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_37_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -66947,7 +67407,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_37_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -66978,7 +67438,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_37_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -67009,7 +67469,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_38_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -67040,7 +67500,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_38_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -67071,7 +67531,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_38_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -67102,7 +67562,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_39_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -67133,7 +67593,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_39_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -67164,7 +67624,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_39_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -67195,7 +67655,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_40_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -67226,7 +67686,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_40_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -67257,7 +67717,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_40_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -67288,7 +67748,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_41_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -67319,7 +67779,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_41_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -67350,7 +67810,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_41_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -67381,7 +67841,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_42_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -67412,7 +67872,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_42_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -67443,7 +67903,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_42_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -67474,7 +67934,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_43_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -67505,7 +67965,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_43_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -67536,7 +67996,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_43_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -67567,7 +68027,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_44_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -67598,7 +68058,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_44_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -67629,7 +68089,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_44_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -67660,7 +68120,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_45_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -67691,7 +68151,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_45_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -67722,7 +68182,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_45_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -67753,7 +68213,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_46_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -67784,7 +68244,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_46_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -67815,7 +68275,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_46_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -67846,7 +68306,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_47_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -67877,7 +68337,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_47_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -67908,7 +68368,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_47_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -67939,7 +68399,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_48_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -67970,7 +68430,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_48_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -68001,7 +68461,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_48_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -68032,7 +68492,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_49_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -68063,7 +68523,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_49_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -68094,7 +68554,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_49_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -68125,7 +68585,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_50_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -68156,7 +68616,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_50_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -68187,7 +68647,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_50_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -68218,7 +68678,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_51_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -68249,7 +68709,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_51_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -68280,7 +68740,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_51_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -68311,7 +68771,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_52_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -68342,7 +68802,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_52_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -68373,7 +68833,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_52_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -68404,7 +68864,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_53_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -68435,7 +68895,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_53_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -68466,7 +68926,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_53_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -68497,7 +68957,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_54_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -68528,7 +68988,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_54_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -68559,7 +69019,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_54_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -68590,7 +69050,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_55_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -68621,7 +69081,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_55_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -68652,7 +69112,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_55_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -68683,7 +69143,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_56_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -68714,7 +69174,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_56_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -68745,7 +69205,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_56_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -68776,7 +69236,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_57_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -68807,7 +69267,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_57_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -68838,7 +69298,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_57_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -68869,7 +69329,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_58_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -68900,7 +69360,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_58_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -68931,7 +69391,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_58_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -68962,7 +69422,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_59_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -68993,7 +69453,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_59_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -69024,7 +69484,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_59_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -69055,7 +69515,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_60_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -69086,7 +69546,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_60_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -69117,7 +69577,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_60_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -69148,7 +69608,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_61_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -69179,7 +69639,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_61_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -69210,7 +69670,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_61_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -69241,7 +69701,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_62_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -69272,7 +69732,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_62_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -69303,7 +69763,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_62_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -69334,7 +69794,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_63_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -69365,7 +69825,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_63_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -69396,7 +69856,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_63_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -69427,7 +69887,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_64_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -69458,7 +69918,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_64_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -69489,7 +69949,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_64_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -69520,7 +69980,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_65_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -69551,7 +70011,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_65_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -69582,7 +70042,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_65_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -69613,7 +70073,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_66_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -69644,7 +70104,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_66_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -69675,7 +70135,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_66_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -69706,7 +70166,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_67_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -69737,7 +70197,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_67_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -69768,7 +70228,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_67_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -69799,7 +70259,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_68_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -69830,7 +70290,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_68_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -69861,7 +70321,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_68_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -69892,7 +70352,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_69_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -69923,7 +70383,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_69_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -69954,7 +70414,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_69_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -69985,7 +70445,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_70_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -70016,7 +70476,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_70_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -70047,7 +70507,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_70_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -70078,7 +70538,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_71_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -70109,7 +70569,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_71_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -70140,7 +70600,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_71_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -70171,7 +70631,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_72_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -70202,7 +70662,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_72_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -70233,7 +70693,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_72_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -70264,7 +70724,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_73_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -70295,7 +70755,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_73_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -70326,7 +70786,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_73_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -70357,7 +70817,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_74_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -70388,7 +70848,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_74_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -70419,7 +70879,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_74_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -70450,7 +70910,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_75_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -70481,7 +70941,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_75_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -70512,7 +70972,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_75_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -70543,7 +71003,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_76_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -70574,7 +71034,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_76_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -70605,7 +71065,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_76_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -70636,7 +71096,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_77_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -70667,7 +71127,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_77_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -70698,7 +71158,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_77_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -70729,7 +71189,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_78_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -70760,7 +71220,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_78_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -70791,7 +71251,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_78_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -70822,7 +71282,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_79_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -70853,7 +71313,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_79_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -70884,7 +71344,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_79_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -70915,7 +71375,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_80_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -70946,7 +71406,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_80_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -70977,7 +71437,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_80_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -71008,7 +71468,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_81_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -71039,7 +71499,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_81_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -71070,7 +71530,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_81_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -71101,7 +71561,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_82_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -71132,7 +71592,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_82_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -71163,7 +71623,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_82_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -71194,7 +71654,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_83_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -71225,7 +71685,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_83_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -71256,7 +71716,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_83_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -71287,7 +71747,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_84_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -71318,7 +71778,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_84_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -71349,7 +71809,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_84_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -71380,7 +71840,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_85_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -71411,7 +71871,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_85_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -71442,7 +71902,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_85_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -71473,7 +71933,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_86_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -71504,7 +71964,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_86_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -71535,7 +71995,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_86_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -71566,7 +72026,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_87_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -71597,7 +72057,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_87_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -71628,7 +72088,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_87_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -71659,7 +72119,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_88_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -71690,7 +72150,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_88_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -71721,7 +72181,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_88_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -71752,7 +72212,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_89_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -71783,7 +72243,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_89_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -71814,7 +72274,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_89_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -71845,7 +72305,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_90_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -71876,7 +72336,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_90_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -71907,7 +72367,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_90_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -71938,7 +72398,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_91_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -71969,7 +72429,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_91_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -72000,7 +72460,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_91_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -72031,7 +72491,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_92_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -72062,7 +72522,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_92_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -72093,7 +72553,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_92_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -72124,7 +72584,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_93_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -72155,7 +72615,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_93_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -72186,7 +72646,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_93_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -72217,7 +72677,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_94_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -72248,7 +72708,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_94_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -72279,7 +72739,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_94_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -72310,7 +72770,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_95_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -72341,7 +72801,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_95_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -72372,7 +72832,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_95_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -72403,7 +72863,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_96_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -72434,7 +72894,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_96_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -72465,7 +72925,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_96_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -72496,7 +72956,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_97_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -72527,7 +72987,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_97_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -72558,7 +73018,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_97_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -72589,7 +73049,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_98_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -72620,7 +73080,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_98_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -72651,7 +73111,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_98_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -72682,7 +73142,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_99_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -72713,7 +73173,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_99_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -72744,7 +73204,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_99_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -72775,7 +73235,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_100_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -72806,7 +73266,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_100_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -72837,7 +73297,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_100_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -72868,7 +73328,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_101_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -72899,7 +73359,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_101_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -72930,7 +73390,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_101_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -72961,7 +73421,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_102_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -72992,7 +73452,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_102_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -73023,7 +73483,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_102_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -73054,7 +73514,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_103_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -73085,7 +73545,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_103_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -73116,7 +73576,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_103_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -73147,7 +73607,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_104_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -73178,7 +73638,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_104_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -73209,7 +73669,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_104_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -73240,7 +73700,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_105_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -73271,7 +73731,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_105_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -73302,7 +73762,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_105_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -73333,7 +73793,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_106_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -73364,7 +73824,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_106_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -73395,7 +73855,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_106_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -73426,7 +73886,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_107_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -73457,7 +73917,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_107_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -73488,7 +73948,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_107_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -73519,7 +73979,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_108_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -73550,7 +74010,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_108_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -73581,7 +74041,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_108_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -73612,7 +74072,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_109_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -73643,7 +74103,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_109_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -73674,7 +74134,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_109_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -73705,7 +74165,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_110_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -73736,7 +74196,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_110_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -73767,7 +74227,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_110_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -73798,7 +74258,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_111_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -73829,7 +74289,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_111_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -73860,7 +74320,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_111_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -73891,7 +74351,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_112_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -73922,7 +74382,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_112_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -73953,7 +74413,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_112_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -73984,7 +74444,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_113_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -74015,7 +74475,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_113_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -74046,7 +74506,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_113_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -74077,7 +74537,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_114_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -74108,7 +74568,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_114_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -74139,7 +74599,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_114_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -74170,7 +74630,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_115_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -74201,7 +74661,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_115_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -74232,7 +74692,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_115_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -74263,7 +74723,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_116_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -74294,7 +74754,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_116_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -74325,7 +74785,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_116_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -74356,7 +74816,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_117_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -74387,7 +74847,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_117_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -74418,7 +74878,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_117_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -74449,7 +74909,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_118_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -74480,7 +74940,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_118_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -74511,7 +74971,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_118_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -74542,7 +75002,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_119_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -74573,7 +75033,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_119_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -74604,7 +75064,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_119_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -74635,7 +75095,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_120_xcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -74666,7 +75126,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_120_ycoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -74697,7 +75157,7 @@ class ShadingZoneDetailed(object):
 
         Args:
             value (float): value for IDD Field `vertex_120_zcoordinate`
-                Unit: m
+                Units: m
                 if `value` is None it will not be checked against the
                 specification and is assumed to be a missing value
 
@@ -74712,6 +75172,16 @@ class ShadingZoneDetailed(object):
                                  'for field `vertex_120_zcoordinate`'.format(value))
 
         self._data["Vertex 120 Z-coordinate"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):
@@ -75097,9 +75567,11 @@ class ShadingPropertyReflectance(object):
     """ Corresponds to IDD object `ShadingProperty:Reflectance`
         If this object is not defined for a shading surface the default values
         listed in following fields will be used in the solar reflection calculation.
+    
     """
     internal_name = "ShadingProperty:Reflectance"
     field_count = 5
+    required_fields = ["Shading Surface Name"]
 
     def __init__(self):
         """ Init data dictionary object for IDD  `ShadingProperty:Reflectance`
@@ -75327,6 +75799,16 @@ class ShadingPropertyReflectance(object):
                                  'for field `glazing_construction_name`')
 
         self._data["Glazing Construction Name"] = value
+
+    def check(self):
+        """ Checks if all required fields are not None
+        """
+        good = True
+        for key in self.required_fields:
+            if self._data[key] is None:
+                good = False
+                break
+        return good
 
     @classmethod
     def _to_str(cls, value):

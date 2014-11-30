@@ -49,740 +49,829 @@ from energyplus import *
 
 
 class IDF(object):
+
     """ Represens an EnergyPlus IDF input file
     """
-    
-    required_objects = []
+
+    required_objects = ["Building", "GlobalGeometryRules"]
+    unique_objects = [
+        "HVACTemplate:Plant:MixedWaterLoop",
+        "SurfaceConvectionAlgorithm:Inside",
+        "Site:Location",
+        "RunPeriodControl:DaylightSavingTime",
+        "ShadowCalculation",
+        "ZoneAirContaminantBalance",
+        "Site:GroundTemperature:Shallow",
+        "Compliance:Building",
+        "Parametric:FileNameSuffix",
+        "Site:GroundReflectance",
+        "OutputControl:Sizing:Style",
+        "ZoneAirHeatBalanceAlgorithm",
+        "OutputControl:ReportingTolerances",
+        "SurfaceConvectionAlgorithm:Outside:AdaptiveModelSelections",
+        "Output:SQLite",
+        "HeatBalanceSettings:ConductionFiniteDifference",
+        "Building",
+        "SurfaceConvectionAlgorithm:Inside:AdaptiveModelSelections",
+        "GeometryTransform",
+        "SurfaceConvectionAlgorithm:Outside",
+        "CurrencyType",
+        "Site:GroundTemperature:Deep",
+        "Output:EnergyManagementSystem",
+        "HVACTemplate:Plant:HotWaterLoop",
+        "Timestep",
+        "Parametric:Logic",
+        "Sizing:Parameters",
+        "Version",
+        "LifeCycleCost:Parameters",
+        "HeatBalanceAlgorithm",
+        "Site:WeatherStation",
+        "Output:Table:SummaryReports",
+        "AirflowNetwork:SimulationControl",
+        "Site:GroundTemperature:BuildingSurface",
+        "HVACTemplate:Plant:ChilledWaterLoop",
+        "SimulationControl",
+        "Site:GroundTemperature:FCfactorMethod",
+        "ConvergenceLimits",
+        "ZoneAirMassFlowConservation",
+        "ZoneCapacitanceMultiplier:ResearchSpecial",
+        "OutputControl:Table:Style",
+        "Parametric:RunControl",
+        "Site:SolarAndVisibleSpectrum",
+        "Output:DebuggingData",
+        "GlobalGeometryRules",
+        "OutputControl:IlluminanceMap:Style",
+        "Site:HeightVariation"]
 
     def __init__(self):
         """ Inits IDF with no data dictionary set."""
         self._data = OrderedDict()
-        self._data["Lead Input"] = None
-        self._data["Simulation Data"] = None
-        self._data["Version"] = None
-        self._data["SimulationControl"] = None
-        self._data["Building"] = None
-        self._data["ShadowCalculation"] = None
-        self._data["SurfaceConvectionAlgorithm:Inside"] = None
-        self._data["SurfaceConvectionAlgorithm:Outside"] = None
-        self._data["HeatBalanceAlgorithm"] = None
-        self._data["HeatBalanceSettings:ConductionFiniteDifference"] = None
-        self._data["ZoneAirHeatBalanceAlgorithm"] = None
-        self._data["ZoneAirContaminantBalance"] = None
-        self._data["ZoneAirMassFlowConservation"] = None
-        self._data["ZoneCapacitanceMultiplier:ResearchSpecial"] = None
-        self._data["Timestep"] = None
-        self._data["ConvergenceLimits"] = None
-        self._data["ProgramControl"] = None
-        self._data["Compliance:Building"] = None
-        self._data["Site:Location"] = None
-        self._data["SizingPeriod:DesignDay"] = None
-        self._data["SizingPeriod:WeatherFileDays"] = None
-        self._data["SizingPeriod:WeatherFileConditionType"] = None
-        self._data["RunPeriod"] = None
-        self._data["RunPeriod:CustomRange"] = None
-        self._data["RunPeriodControl:SpecialDays"] = None
-        self._data["RunPeriodControl:DaylightSavingTime"] = None
-        self._data["WeatherProperty:SkyTemperature"] = None
-        self._data["Site:WeatherStation"] = None
-        self._data["Site:HeightVariation"] = None
-        self._data["Site:GroundTemperature:BuildingSurface"] = None
-        self._data["Site:GroundTemperature:FCfactorMethod"] = None
-        self._data["Site:GroundTemperature:Shallow"] = None
-        self._data["Site:GroundTemperature:Deep"] = None
-        self._data["Site:GroundDomain"] = None
-        self._data["Site:GroundReflectance"] = None
-        self._data["Site:GroundReflectance:SnowModifier"] = None
-        self._data["Site:WaterMainsTemperature"] = None
-        self._data["Site:Precipitation"] = None
-        self._data["RoofIrrigation"] = None
-        self._data["Site:SolarAndVisibleSpectrum"] = None
-        self._data["Site:SpectrumData"] = None
-        self._data["ScheduleTypeLimits"] = None
-        self._data["Schedule:Day:Hourly"] = None
-        self._data["Schedule:Day:Interval"] = None
-        self._data["Schedule:Week:Daily"] = None
-        self._data["Schedule:Week:Compact"] = None
-        self._data["Schedule:Constant"] = None
-        self._data["Schedule:File"] = None
-        self._data["Material"] = None
-        self._data["Material:NoMass"] = None
-        self._data["Material:InfraredTransparent"] = None
-        self._data["Material:AirGap"] = None
-        self._data["Material:RoofVegetation"] = None
-        self._data["WindowMaterial:SimpleGlazingSystem"] = None
-        self._data["WindowMaterial:Glazing"] = None
-        self._data["WindowMaterial:GlazingGroup:Thermochromic"] = None
-        self._data["WindowMaterial:Glazing:RefractionExtinctionMethod"] = None
-        self._data["WindowMaterial:Gas"] = None
-        self._data["WindowGap:SupportPillar"] = None
-        self._data["WindowGap:DeflectionState"] = None
-        self._data["WindowMaterial:GasMixture"] = None
-        self._data["WindowMaterial:Gap"] = None
-        self._data["WindowMaterial:Shade"] = None
-        self._data["WindowMaterial:ComplexShade"] = None
-        self._data["WindowMaterial:Blind"] = None
-        self._data["WindowMaterial:Screen"] = None
-        self._data["WindowMaterial:Shade:EquivalentLayer"] = None
-        self._data["WindowMaterial:Drape:EquivalentLayer"] = None
-        self._data["WindowMaterial:Blind:EquivalentLayer"] = None
-        self._data["WindowMaterial:Screen:EquivalentLayer"] = None
-        self._data["WindowMaterial:Glazing:EquivalentLayer"] = None
-        self._data["Construction:WindowEquivalentLayer"] = None
-        self._data["WindowMaterial:Gap:EquivalentLayer"] = None
-        self._data["MaterialProperty:MoisturePenetrationDepth:Settings"] = None
-        self._data["MaterialProperty:PhaseChange"] = None
-        self._data["MaterialProperty:VariableThermalConductivity"] = None
-        self._data["MaterialProperty:HeatAndMoistureTransfer:Settings"] = None
-        self._data["MaterialProperty:HeatAndMoistureTransfer:SorptionIsotherm"] = None
-        self._data["MaterialProperty:HeatAndMoistureTransfer:Suction"] = None
-        self._data["MaterialProperty:HeatAndMoistureTransfer:Redistribution"] = None
-        self._data["MaterialProperty:HeatAndMoistureTransfer:Diffusion"] = None
-        self._data["MaterialProperty:HeatAndMoistureTransfer:ThermalConductivity"] = None
-        self._data["Construction"] = None
-        self._data["Construction:CfactorUndergroundWall"] = None
-        self._data["Construction:FfactorGroundFloor"] = None
-        self._data["Construction:InternalSource"] = None
-        self._data["WindowThermalModel:Params"] = None
-        self._data["Construction:ComplexFenestrationState"] = None
-        self._data["Construction:WindowDataFile"] = None
-        self._data["GlobalGeometryRules"] = None
-        self._data["GeometryTransform"] = None
-        self._data["Zone"] = None
-        self._data["ZoneGroup"] = None
-        self._data["BuildingSurface:Detailed"] = None
-        self._data["Wall:Detailed"] = None
-        self._data["RoofCeiling:Detailed"] = None
-        self._data["Floor:Detailed"] = None
-        self._data["Wall:Exterior"] = None
-        self._data["Wall:Adiabatic"] = None
-        self._data["Wall:Underground"] = None
-        self._data["Wall:Interzone"] = None
-        self._data["Roof"] = None
-        self._data["Ceiling:Adiabatic"] = None
-        self._data["Ceiling:Interzone"] = None
-        self._data["Floor:GroundContact"] = None
-        self._data["Floor:Adiabatic"] = None
-        self._data["Floor:Interzone"] = None
-        self._data["FenestrationSurface:Detailed"] = None
-        self._data["Window"] = None
-        self._data["Door"] = None
-        self._data["GlazedDoor"] = None
-        self._data["Window:Interzone"] = None
-        self._data["Door:Interzone"] = None
-        self._data["GlazedDoor:Interzone"] = None
-        self._data["WindowProperty:ShadingControl"] = None
-        self._data["WindowProperty:FrameAndDivider"] = None
-        self._data["WindowProperty:AirflowControl"] = None
-        self._data["WindowProperty:StormWindow"] = None
-        self._data["InternalMass"] = None
-        self._data["Shading:Site"] = None
-        self._data["Shading:Building"] = None
-        self._data["Shading:Site:Detailed"] = None
-        self._data["Shading:Building:Detailed"] = None
-        self._data["Shading:Overhang"] = None
-        self._data["Shading:Overhang:Projection"] = None
-        self._data["Shading:Fin"] = None
-        self._data["Shading:Fin:Projection"] = None
-        self._data["Shading:Zone:Detailed"] = None
-        self._data["ShadingProperty:Reflectance"] = None
-        self._data["SurfaceProperty:HeatTransferAlgorithm"] = None
-        self._data["SurfaceProperty:HeatTransferAlgorithm:MultipleSurface"] = None
-        self._data["SurfaceProperty:HeatTransferAlgorithm:SurfaceList"] = None
-        self._data["SurfaceProperty:HeatTransferAlgorithm:Construction"] = None
-        self._data["SurfaceControl:MovableInsulation"] = None
-        self._data["SurfaceProperty:OtherSideCoefficients"] = None
-        self._data["SurfaceProperty:OtherSideConditionsModel"] = None
-        self._data["SurfaceConvectionAlgorithm:Inside:AdaptiveModelSelections"] = None
-        self._data["SurfaceConvectionAlgorithm:Outside:AdaptiveModelSelections"] = None
-        self._data["SurfaceConvectionAlgorithm:Inside:UserCurve"] = None
-        self._data["SurfaceConvectionAlgorithm:Outside:UserCurve"] = None
-        self._data["SurfaceProperty:ConvectionCoefficients"] = None
-        self._data["SurfaceProperty:ConvectionCoefficients:MultipleSurface"] = None
-        self._data["SurfaceProperties:VaporCoefficients"] = None
-        self._data["SurfaceProperty:ExteriorNaturalVentedCavity"] = None
-        self._data["SurfaceProperty:SolarIncidentInside"] = None
-        self._data["ComplexFenestrationProperty:SolarAbsorbedLayers"] = None
-        self._data["ZoneProperty:UserViewFactors:bySurfaceName"] = None
-        self._data["GroundHeatTransfer:Control"] = None
-        self._data["GroundHeatTransfer:Slab:Materials"] = None
-        self._data["GroundHeatTransfer:Slab:MatlProps"] = None
-        self._data["GroundHeatTransfer:Slab:BoundConds"] = None
-        self._data["GroundHeatTransfer:Slab:BldgProps"] = None
-        self._data["GroundHeatTransfer:Slab:Insulation"] = None
-        self._data["GroundHeatTransfer:Slab:EquivalentSlab"] = None
-        self._data["GroundHeatTransfer:Slab:AutoGrid"] = None
-        self._data["GroundHeatTransfer:Slab:ManualGrid"] = None
-        self._data["GroundHeatTransfer:Basement:SimParameters"] = None
-        self._data["GroundHeatTransfer:Basement:MatlProps"] = None
-        self._data["GroundHeatTransfer:Basement:Insulation"] = None
-        self._data["GroundHeatTransfer:Basement:SurfaceProps"] = None
-        self._data["GroundHeatTransfer:Basement:BldgData"] = None
-        self._data["GroundHeatTransfer:Basement:Interior"] = None
-        self._data["GroundHeatTransfer:Basement:ComBldg"] = None
-        self._data["GroundHeatTransfer:Basement:EquivSlab"] = None
-        self._data["GroundHeatTransfer:Basement:EquivAutoGrid"] = None
-        self._data["GroundHeatTransfer:Basement:AutoGrid"] = None
-        self._data["GroundHeatTransfer:Basement:ManualGrid"] = None
-        self._data["RoomAirModelType"] = None
-        self._data["RoomAir:TemperaturePattern:UserDefined"] = None
-        self._data["RoomAir:TemperaturePattern:ConstantGradient"] = None
-        self._data["RoomAir:TemperaturePattern:TwoGradient"] = None
-        self._data["RoomAir:TemperaturePattern:NondimensionalHeight"] = None
-        self._data["RoomAir:TemperaturePattern:SurfaceMapping"] = None
-        self._data["RoomAir:Node"] = None
-        self._data["RoomAirSettings:OneNodeDisplacementVentilation"] = None
-        self._data["RoomAirSettings:ThreeNodeDisplacementVentilation"] = None
-        self._data["RoomAirSettings:CrossVentilation"] = None
-        self._data["RoomAirSettings:UnderFloorAirDistributionInterior"] = None
-        self._data["RoomAirSettings:UnderFloorAirDistributionExterior"] = None
-        self._data["People"] = None
-        self._data["ComfortViewFactorAngles"] = None
-        self._data["Lights"] = None
-        self._data["ElectricEquipment"] = None
-        self._data["GasEquipment"] = None
-        self._data["HotWaterEquipment"] = None
-        self._data["SteamEquipment"] = None
-        self._data["OtherEquipment"] = None
-        self._data["ZoneBaseboard:OutdoorTemperatureControlled"] = None
-        self._data["ZoneContaminantSourceAndSink:CarbonDioxide"] = None
-        self._data["ZoneContaminantSourceAndSink:Generic:Constant"] = None
-        self._data["SurfaceContaminantSourceAndSink:Generic:PressureDriven"] = None
-        self._data["ZoneContaminantSourceAndSink:Generic:CutoffModel"] = None
-        self._data["ZoneContaminantSourceAndSink:Generic:DecaySource"] = None
-        self._data["SurfaceContaminantSourceAndSink:Generic:BoundaryLayerDiffusion"] = None
-        self._data["SurfaceContaminantSourceAndSink:Generic:DepositionVelocitySink"] = None
-        self._data["ZoneContaminantSourceAndSink:Generic:DepositionRateSink"] = None
-        self._data["Daylighting:Controls"] = None
-        self._data["Daylighting:DELight:Controls"] = None
-        self._data["Daylighting:DELight:ReferencePoint"] = None
-        self._data["Daylighting:DELight:ComplexFenestration"] = None
-        self._data["DaylightingDevice:Tubular"] = None
-        self._data["DaylightingDevice:Shelf"] = None
-        self._data["DaylightingDevice:LightWell"] = None
-        self._data["Output:DaylightFactors"] = None
-        self._data["Output:IlluminanceMap"] = None
-        self._data["OutputControl:IlluminanceMap:Style"] = None
-        self._data["ZoneInfiltration:DesignFlowRate"] = None
-        self._data["ZoneInfiltration:EffectiveLeakageArea"] = None
-        self._data["ZoneInfiltration:FlowCoefficient"] = None
-        self._data["ZoneVentilation:DesignFlowRate"] = None
-        self._data["ZoneVentilation:WindandStackOpenArea"] = None
-        self._data["ZoneAirBalance:OutdoorAir"] = None
-        self._data["ZoneMixing"] = None
-        self._data["ZoneCrossMixing"] = None
-        self._data["ZoneRefrigerationDoorMixing"] = None
-        self._data["ZoneEarthtube"] = None
-        self._data["ZoneCoolTower:Shower"] = None
-        self._data["ZoneThermalChimney"] = None
-        self._data["AirflowNetwork:SimulationControl"] = None
-        self._data["AirflowNetwork:MultiZone:Zone"] = None
-        self._data["AirflowNetwork:MultiZone:Surface"] = None
-        self._data["AirflowNetwork:MultiZone:ReferenceCrackConditions"] = None
-        self._data["AirflowNetwork:MultiZone:Surface:Crack"] = None
-        self._data["AirflowNetwork:MultiZone:Surface:EffectiveLeakageArea"] = None
-        self._data["AirflowNetwork:MultiZone:Component:DetailedOpening"] = None
-        self._data["AirflowNetwork:MultiZone:Component:SimpleOpening"] = None
-        self._data["AirflowNetwork:MultiZone:Component:HorizontalOpening"] = None
-        self._data["AirflowNetwork:MultiZone:Component:ZoneExhaustFan"] = None
-        self._data["AirflowNetwork:MultiZone:ExternalNode"] = None
-        self._data["AirflowNetwork:MultiZone:WindPressureCoefficientArray"] = None
-        self._data["AirflowNetwork:MultiZone:WindPressureCoefficientValues"] = None
-        self._data["AirflowNetwork:Distribution:Node"] = None
-        self._data["AirflowNetwork:Distribution:Component:Leak"] = None
-        self._data["AirflowNetwork:Distribution:Component:LeakageRatio"] = None
-        self._data["AirflowNetwork:Distribution:Component:Duct"] = None
-        self._data["AirflowNetwork:Distribution:Component:Fan"] = None
-        self._data["AirflowNetwork:Distribution:Component:Coil"] = None
-        self._data["AirflowNetwork:Distribution:Component:HeatExchanger"] = None
-        self._data["AirflowNetwork:Distribution:Component:TerminalUnit"] = None
-        self._data["AirflowNetwork:Distribution:Component:ConstantPressureDrop"] = None
-        self._data["AirflowNetwork:Distribution:Linkage"] = None
-        self._data["Exterior:Lights"] = None
-        self._data["Exterior:FuelEquipment"] = None
-        self._data["Exterior:WaterEquipment"] = None
-        self._data["HVACTemplate:Thermostat"] = None
-        self._data["HVACTemplate:Zone:IdealLoadsAirSystem"] = None
-        self._data["HVACTemplate:Zone:BaseboardHeat"] = None
-        self._data["HVACTemplate:Zone:FanCoil"] = None
-        self._data["HVACTemplate:Zone:PTAC"] = None
-        self._data["HVACTemplate:Zone:PTHP"] = None
-        self._data["HVACTemplate:Zone:WaterToAirHeatPump"] = None
-        self._data["HVACTemplate:Zone:VRF"] = None
-        self._data["HVACTemplate:Zone:Unitary"] = None
-        self._data["HVACTemplate:Zone:VAV"] = None
-        self._data["HVACTemplate:Zone:VAV:FanPowered"] = None
-        self._data["HVACTemplate:Zone:VAV:HeatAndCool"] = None
-        self._data["HVACTemplate:Zone:ConstantVolume"] = None
-        self._data["HVACTemplate:Zone:DualDuct"] = None
-        self._data["HVACTemplate:System:VRF"] = None
-        self._data["HVACTemplate:System:Unitary"] = None
-        self._data["HVACTemplate:System:UnitaryHeatPump:AirToAir"] = None
-        self._data["HVACTemplate:System:UnitarySystem"] = None
-        self._data["HVACTemplate:System:VAV"] = None
-        self._data["HVACTemplate:System:PackagedVAV"] = None
-        self._data["HVACTemplate:System:ConstantVolume"] = None
-        self._data["HVACTemplate:System:DualDuct"] = None
-        self._data["HVACTemplate:System:DedicatedOutdoorAir"] = None
-        self._data["HVACTemplate:Plant:ChilledWaterLoop"] = None
-        self._data["HVACTemplate:Plant:Chiller"] = None
-        self._data["HVACTemplate:Plant:Chiller:ObjectReference"] = None
-        self._data["HVACTemplate:Plant:Tower"] = None
-        self._data["HVACTemplate:Plant:Tower:ObjectReference"] = None
-        self._data["HVACTemplate:Plant:HotWaterLoop"] = None
-        self._data["HVACTemplate:Plant:Boiler"] = None
-        self._data["HVACTemplate:Plant:Boiler:ObjectReference"] = None
-        self._data["HVACTemplate:Plant:MixedWaterLoop"] = None
-        self._data["DesignSpecification:OutdoorAir"] = None
-        self._data["DesignSpecification:ZoneAirDistribution"] = None
-        self._data["Sizing:Parameters"] = None
-        self._data["Sizing:Zone"] = None
-        self._data["DesignSpecification:ZoneHVAC:Sizing"] = None
-        self._data["Sizing:System"] = None
-        self._data["Sizing:Plant"] = None
-        self._data["OutputControl:Sizing:Style"] = None
-        self._data["ZoneControl:Humidistat"] = None
-        self._data["ZoneControl:Thermostat"] = None
-        self._data["ZoneControl:Thermostat:OperativeTemperature"] = None
-        self._data["ZoneControl:Thermostat:ThermalComfort"] = None
-        self._data["ZoneControl:Thermostat:TemperatureAndHumidity"] = None
-        self._data["ThermostatSetpoint:SingleHeating"] = None
-        self._data["ThermostatSetpoint:SingleCooling"] = None
-        self._data["ThermostatSetpoint:SingleHeatingOrCooling"] = None
-        self._data["ThermostatSetpoint:DualSetpoint"] = None
-        self._data["ThermostatSetpoint:ThermalComfort:Fanger:SingleHeating"] = None
-        self._data["ThermostatSetpoint:ThermalComfort:Fanger:SingleCooling"] = None
-        self._data["ThermostatSetpoint:ThermalComfort:Fanger:SingleHeatingOrCooling"] = None
-        self._data["ThermostatSetpoint:ThermalComfort:Fanger:DualSetpoint"] = None
-        self._data["ZoneControl:Thermostat:StagedDualSetpoint"] = None
-        self._data["ZoneControl:ContaminantController"] = None
-        self._data["ZoneHVAC:IdealLoadsAirSystem"] = None
-        self._data["ZoneHVAC:FourPipeFanCoil"] = None
-        self._data["ZoneHVAC:WindowAirConditioner"] = None
-        self._data["ZoneHVAC:PackagedTerminalAirConditioner"] = None
-        self._data["ZoneHVAC:PackagedTerminalHeatPump"] = None
-        self._data["ZoneHVAC:WaterToAirHeatPump"] = None
-        self._data["ZoneHVAC:Dehumidifier:DX"] = None
-        self._data["ZoneHVAC:EnergyRecoveryVentilator"] = None
-        self._data["ZoneHVAC:EnergyRecoveryVentilator:Controller"] = None
-        self._data["ZoneHVAC:UnitVentilator"] = None
-        self._data["ZoneHVAC:UnitHeater"] = None
-        self._data["ZoneHVAC:EvaporativeCoolerUnit"] = None
-        self._data["ZoneHVAC:OutdoorAirUnit"] = None
-        self._data["ZoneHVAC:OutdoorAirUnit:EquipmentList"] = None
-        self._data["ZoneHVAC:TerminalUnit:VariableRefrigerantFlow"] = None
-        self._data["ZoneHVAC:Baseboard:RadiantConvective:Water"] = None
-        self._data["ZoneHVAC:Baseboard:RadiantConvective:Steam"] = None
-        self._data["ZoneHVAC:Baseboard:RadiantConvective:Electric"] = None
-        self._data["ZoneHVAC:Baseboard:Convective:Water"] = None
-        self._data["ZoneHVAC:Baseboard:Convective:Electric"] = None
-        self._data["ZoneHVAC:LowTemperatureRadiant:VariableFlow"] = None
-        self._data["ZoneHVAC:LowTemperatureRadiant:ConstantFlow"] = None
-        self._data["ZoneHVAC:LowTemperatureRadiant:Electric"] = None
-        self._data["ZoneHVAC:LowTemperatureRadiant:SurfaceGroup"] = None
-        self._data["ZoneHVAC:HighTemperatureRadiant"] = None
-        self._data["ZoneHVAC:VentilatedSlab"] = None
-        self._data["ZoneHVAC:VentilatedSlab:SlabGroup"] = None
-        self._data["AirTerminal:SingleDuct:Uncontrolled"] = None
-        self._data["AirTerminal:SingleDuct:ConstantVolume:Reheat"] = None
-        self._data["AirTerminal:SingleDuct:VAV:NoReheat"] = None
-        self._data["AirTerminal:SingleDuct:VAV:Reheat"] = None
-        self._data["AirTerminal:SingleDuct:VAV:Reheat:VariableSpeedFan"] = None
-        self._data["AirTerminal:SingleDuct:VAV:HeatAndCool:NoReheat"] = None
-        self._data["AirTerminal:SingleDuct:VAV:HeatAndCool:Reheat"] = None
-        self._data["AirTerminal:SingleDuct:SeriesPIU:Reheat"] = None
-        self._data["AirTerminal:SingleDuct:ParallelPIU:Reheat"] = None
-        self._data["AirTerminal:SingleDuct:ConstantVolume:FourPipeInduction"] = None
-        self._data["AirTerminal:SingleDuct:ConstantVolume:CooledBeam"] = None
-        self._data["AirTerminal:SingleDuct:InletSideMixer"] = None
-        self._data["AirTerminal:SingleDuct:SupplySideMixer"] = None
-        self._data["AirTerminal:DualDuct:ConstantVolume"] = None
-        self._data["AirTerminal:DualDuct:VAV"] = None
-        self._data["AirTerminal:DualDuct:VAV:OutdoorAir"] = None
-        self._data["ZoneHVAC:AirDistributionUnit"] = None
-        self._data["ZoneHVAC:EquipmentList"] = None
-        self._data["ZoneHVAC:EquipmentConnections"] = None
-        self._data["Fan:ConstantVolume"] = None
-        self._data["Fan:VariableVolume"] = None
-        self._data["Fan:OnOff"] = None
-        self._data["Fan:ZoneExhaust"] = None
-        self._data["FanPerformance:NightVentilation"] = None
-        self._data["Fan:ComponentModel"] = None
-        self._data["Coil:Cooling:Water"] = None
-        self._data["Coil:Cooling:Water:DetailedGeometry"] = None
-        self._data["Coil:Cooling:DX:SingleSpeed"] = None
-        self._data["Coil:Cooling:DX:TwoSpeed"] = None
-        self._data["Coil:Cooling:DX:MultiSpeed"] = None
-        self._data["Coil:Cooling:DX:VariableSpeed"] = None
-        self._data["Coil:Cooling:DX:TwoStageWithHumidityControlMode"] = None
-        self._data["CoilPerformance:DX:Cooling"] = None
-        self._data["Coil:Cooling:DX:VariableRefrigerantFlow"] = None
-        self._data["Coil:Heating:DX:VariableRefrigerantFlow"] = None
-        self._data["Coil:Heating:Water"] = None
-        self._data["Coil:Heating:Steam"] = None
-        self._data["Coil:Heating:Electric"] = None
-        self._data["Coil:Heating:Electric:MultiStage"] = None
-        self._data["Coil:Heating:Gas"] = None
-        self._data["Coil:Heating:Gas:MultiStage"] = None
-        self._data["Coil:Heating:Desuperheater"] = None
-        self._data["Coil:Heating:DX:SingleSpeed"] = None
-        self._data["Coil:Heating:DX:MultiSpeed"] = None
-        self._data["Coil:Heating:DX:VariableSpeed"] = None
-        self._data["Coil:Cooling:WaterToAirHeatPump:ParameterEstimation"] = None
-        self._data["Coil:Heating:WaterToAirHeatPump:ParameterEstimation"] = None
-        self._data["Coil:Cooling:WaterToAirHeatPump:EquationFit"] = None
-        self._data["Coil:Cooling:WaterToAirHeatPump:VariableSpeedEquationFit"] = None
-        self._data["Coil:Heating:WaterToAirHeatPump:EquationFit"] = None
-        self._data["Coil:Heating:WaterToAirHeatPump:VariableSpeedEquationFit"] = None
-        self._data["Coil:WaterHeating:AirToWaterHeatPump"] = None
-        self._data["Coil:WaterHeating:Desuperheater"] = None
-        self._data["CoilSystem:Cooling:DX"] = None
-        self._data["CoilSystem:Heating:DX"] = None
-        self._data["CoilSystem:Cooling:Water:HeatExchangerAssisted"] = None
-        self._data["CoilSystem:Cooling:DX:HeatExchangerAssisted"] = None
-        self._data["Coil:Cooling:DX:SingleSpeed:ThermalStorage"] = None
-        self._data["Humidifier:Steam:Electric"] = None
-        self._data["Dehumidifier:Desiccant:NoFans"] = None
-        self._data["Dehumidifier:Desiccant:System"] = None
-        self._data["HeatExchanger:AirToAir:FlatPlate"] = None
-        self._data["HeatExchanger:AirToAir:SensibleAndLatent"] = None
-        self._data["HeatExchanger:Desiccant:BalancedFlow"] = None
-        self._data["HeatExchanger:Desiccant:BalancedFlow:PerformanceDataType1"] = None
-        self._data["AirLoopHVAC:UnitarySystem"] = None
-        self._data["UnitarySystemPerformance:HeatPump:Multispeed"] = None
-        self._data["AirLoopHVAC:Unitary:Furnace:HeatOnly"] = None
-        self._data["AirLoopHVAC:Unitary:Furnace:HeatCool"] = None
-        self._data["AirLoopHVAC:UnitaryHeatOnly"] = None
-        self._data["AirLoopHVAC:UnitaryHeatCool"] = None
-        self._data["AirLoopHVAC:UnitaryHeatPump:AirToAir"] = None
-        self._data["AirLoopHVAC:UnitaryHeatPump:WaterToAir"] = None
-        self._data["AirLoopHVAC:UnitaryHeatCool:VAVChangeoverBypass"] = None
-        self._data["AirLoopHVAC:UnitaryHeatPump:AirToAir:MultiSpeed"] = None
-        self._data["AirConditioner:VariableRefrigerantFlow"] = None
-        self._data["ZoneTerminalUnitList"] = None
-        self._data["Controller:WaterCoil"] = None
-        self._data["Controller:OutdoorAir"] = None
-        self._data["Controller:MechanicalVentilation"] = None
-        self._data["AirLoopHVAC:ControllerList"] = None
-        self._data["AirLoopHVAC"] = None
-        self._data["AirLoopHVAC:OutdoorAirSystem:EquipmentList"] = None
-        self._data["AirLoopHVAC:OutdoorAirSystem"] = None
-        self._data["OutdoorAir:Mixer"] = None
-        self._data["AirLoopHVAC:SupplyPath"] = None
-        self._data["AirLoopHVAC:ReturnPath"] = None
-        self._data["Branch"] = None
-        self._data["ConnectorList"] = None
-        self._data["OutdoorAir:Node"] = None
-        self._data["Pipe:Adiabatic"] = None
-        self._data["Pipe:Adiabatic:Steam"] = None
-        self._data["Pipe:Indoor"] = None
-        self._data["Pipe:Outdoor"] = None
-        self._data["Pipe:Underground"] = None
-        self._data["PipingSystem:Underground:Domain"] = None
-        self._data["PipingSystem:Underground:PipeCircuit"] = None
-        self._data["PipingSystem:Underground:PipeSegment"] = None
-        self._data["Duct"] = None
-        self._data["Pump:VariableSpeed"] = None
-        self._data["Pump:ConstantSpeed"] = None
-        self._data["Pump:VariableSpeed:Condensate"] = None
-        self._data["HeaderedPumps:ConstantSpeed"] = None
-        self._data["TemperingValve"] = None
-        self._data["LoadProfile:Plant"] = None
-        self._data["SolarCollectorPerformance:FlatPlate"] = None
-        self._data["SolarCollector:FlatPlate:Water"] = None
-        self._data["SolarCollectorPerformance:PhotovoltaicThermal:Simple"] = None
-        self._data["SolarCollector:IntegralCollectorStorage"] = None
-        self._data["SolarCollectorPerformance:IntegralCollectorStorage"] = None
-        self._data["SolarCollector:UnglazedTranspired"] = None
-        self._data["SolarCollector:UnglazedTranspired:Multisystem"] = None
-        self._data["Boiler:HotWater"] = None
-        self._data["Boiler:Steam"] = None
-        self._data["Chiller:Electric:EIR"] = None
-        self._data["Chiller:Electric:ReformulatedEIR"] = None
-        self._data["Chiller:Electric"] = None
-        self._data["Chiller:Absorption:Indirect"] = None
-        self._data["Chiller:Absorption"] = None
-        self._data["Chiller:ConstantCOP"] = None
-        self._data["Chiller:EngineDriven"] = None
-        self._data["Chiller:CombustionTurbine"] = None
-        self._data["ChillerHeater:Absorption:DirectFired"] = None
-        self._data["ChillerHeater:Absorption:DoubleEffect"] = None
-        self._data["HeatPump:WaterToWater:EquationFit:Heating"] = None
-        self._data["HeatPump:WaterToWater:EquationFit:Cooling"] = None
-        self._data["HeatPump:WaterToWater:ParameterEstimation:Cooling"] = None
-        self._data["HeatPump:WaterToWater:ParameterEstimation:Heating"] = None
-        self._data["DistrictCooling"] = None
-        self._data["DistrictHeating"] = None
-        self._data["PlantComponent:TemperatureSource"] = None
-        self._data["CentralHeatPumpSystem"] = None
-        self._data["ChillerHeaterPerformance:Electric:EIR"] = None
-        self._data["CoolingTower:SingleSpeed"] = None
-        self._data["CoolingTower:TwoSpeed"] = None
-        self._data["CoolingTower:VariableSpeed:Merkel"] = None
-        self._data["CoolingTower:VariableSpeed"] = None
-        self._data["CoolingTowerPerformance:CoolTools"] = None
-        self._data["CoolingTowerPerformance:YorkCalc"] = None
-        self._data["EvaporativeFluidCooler:SingleSpeed"] = None
-        self._data["EvaporativeFluidCooler:TwoSpeed"] = None
-        self._data["FluidCooler:SingleSpeed"] = None
-        self._data["FluidCooler:TwoSpeed"] = None
-        self._data["GroundHeatExchanger:Vertical"] = None
-        self._data["GroundHeatExchanger:Pond"] = None
-        self._data["GroundHeatExchanger:Surface"] = None
-        self._data["GroundHeatExchanger:HorizontalTrench"] = None
-        self._data["HeatExchanger:FluidToFluid"] = None
-        self._data["WaterHeater:Mixed"] = None
-        self._data["WaterHeater:Stratified"] = None
-        self._data["WaterHeater:Sizing"] = None
-        self._data["WaterHeater:HeatPump"] = None
-        self._data["ThermalStorage:Ice:Simple"] = None
-        self._data["ThermalStorage:Ice:Detailed"] = None
-        self._data["ThermalStorage:ChilledWater:Mixed"] = None
-        self._data["ThermalStorage:ChilledWater:Stratified"] = None
-        self._data["PlantLoop"] = None
-        self._data["CondenserLoop"] = None
-        self._data["PlantEquipmentList"] = None
-        self._data["CondenserEquipmentList"] = None
-        self._data["PlantEquipmentOperation:Uncontrolled"] = None
-        self._data["PlantEquipmentOperation:CoolingLoad"] = None
-        self._data["PlantEquipmentOperation:HeatingLoad"] = None
-        self._data["PlantEquipmentOperation:OutdoorDryBulb"] = None
-        self._data["PlantEquipmentOperation:OutdoorWetBulb"] = None
-        self._data["PlantEquipmentOperation:OutdoorRelativeHumidity"] = None
-        self._data["PlantEquipmentOperation:OutdoorDewpoint"] = None
-        self._data["PlantEquipmentOperation:ComponentSetpoint"] = None
-        self._data["PlantEquipmentOperation:OutdoorDryBulbDifference"] = None
-        self._data["PlantEquipmentOperation:OutdoorWetBulbDifference"] = None
-        self._data["PlantEquipmentOperation:OutdoorDewpointDifference"] = None
-        self._data["PlantEquipmentOperationSchemes"] = None
-        self._data["CondenserEquipmentOperationSchemes"] = None
-        self._data["EnergyManagementSystem:Sensor"] = None
-        self._data["EnergyManagementSystem:Actuator"] = None
-        self._data["EnergyManagementSystem:ProgramCallingManager"] = None
-        self._data["EnergyManagementSystem:OutputVariable"] = None
-        self._data["EnergyManagementSystem:MeteredOutputVariable"] = None
-        self._data["EnergyManagementSystem:TrendVariable"] = None
-        self._data["EnergyManagementSystem:InternalVariable"] = None
-        self._data["EnergyManagementSystem:CurveOrTableIndexVariable"] = None
-        self._data["EnergyManagementSystem:ConstructionIndexVariable"] = None
-        self._data["ExternalInterface"] = None
-        self._data["ExternalInterface:Schedule"] = None
-        self._data["ExternalInterface:Variable"] = None
-        self._data["ExternalInterface:Actuator"] = None
-        self._data["ExternalInterface:FunctionalMockupUnitImport"] = None
-        self._data["ExternalInterface:FunctionalMockupUnitImport:From:Variable"] = None
-        self._data["ExternalInterface:FunctionalMockupUnitImport:To:Schedule"] = None
-        self._data["ExternalInterface:FunctionalMockupUnitImport:To:Actuator"] = None
-        self._data["ExternalInterface:FunctionalMockupUnitImport:To:Variable"] = None
-        self._data["ExternalInterface:FunctionalMockupUnitExport:From:Variable"] = None
-        self._data["ExternalInterface:FunctionalMockupUnitExport:To:Schedule"] = None
-        self._data["ExternalInterface:FunctionalMockupUnitExport:To:Actuator"] = None
-        self._data["ExternalInterface:FunctionalMockupUnitExport:To:Variable"] = None
-        self._data["ZoneHVAC:ForcedAir:UserDefined"] = None
-        self._data["AirTerminal:SingleDuct:UserDefined"] = None
-        self._data["Coil:UserDefined"] = None
-        self._data["PlantComponent:UserDefined"] = None
-        self._data["PlantEquipmentOperation:UserDefined"] = None
-        self._data["AvailabilityManager:Scheduled"] = None
-        self._data["AvailabilityManager:ScheduledOn"] = None
-        self._data["AvailabilityManager:ScheduledOff"] = None
-        self._data["AvailabilityManager:OptimumStart"] = None
-        self._data["AvailabilityManager:NightCycle"] = None
-        self._data["AvailabilityManager:DifferentialThermostat"] = None
-        self._data["AvailabilityManager:HighTemperatureTurnOff"] = None
-        self._data["AvailabilityManager:HighTemperatureTurnOn"] = None
-        self._data["AvailabilityManager:LowTemperatureTurnOff"] = None
-        self._data["AvailabilityManager:LowTemperatureTurnOn"] = None
-        self._data["AvailabilityManager:NightVentilation"] = None
-        self._data["AvailabilityManager:HybridVentilation"] = None
-        self._data["AvailabilityManagerAssignmentList"] = None
-        self._data["SetpointManager:Scheduled"] = None
-        self._data["SetpointManager:Scheduled:DualSetpoint"] = None
-        self._data["SetpointManager:OutdoorAirReset"] = None
-        self._data["SetpointManager:SingleZone:Reheat"] = None
-        self._data["SetpointManager:SingleZone:Heating"] = None
-        self._data["SetpointManager:SingleZone:Cooling"] = None
-        self._data["SetpointManager:SingleZone:Humidity:Minimum"] = None
-        self._data["SetpointManager:SingleZone:Humidity:Maximum"] = None
-        self._data["SetpointManager:MixedAir"] = None
-        self._data["SetpointManager:OutdoorAirPretreat"] = None
-        self._data["SetpointManager:Warmest"] = None
-        self._data["SetpointManager:Coldest"] = None
-        self._data["SetpointManager:ReturnAirBypassFlow"] = None
-        self._data["SetpointManager:WarmestTemperatureFlow"] = None
-        self._data["SetpointManager:MultiZone:Heating:Average"] = None
-        self._data["SetpointManager:MultiZone:Cooling:Average"] = None
-        self._data["SetpointManager:MultiZone:MinimumHumidity:Average"] = None
-        self._data["SetpointManager:MultiZone:MaximumHumidity:Average"] = None
-        self._data["SetpointManager:MultiZone:Humidity:Minimum"] = None
-        self._data["SetpointManager:MultiZone:Humidity:Maximum"] = None
-        self._data["SetpointManager:FollowOutdoorAirTemperature"] = None
-        self._data["SetpointManager:FollowSystemNodeTemperature"] = None
-        self._data["SetpointManager:FollowGroundTemperature"] = None
-        self._data["SetpointManager:CondenserEnteringReset"] = None
-        self._data["SetpointManager:CondenserEnteringReset:Ideal"] = None
-        self._data["SetpointManager:SingleZone:OneStageCooling"] = None
-        self._data["SetpointManager:SingleZone:OneStageHeating"] = None
-        self._data["Refrigeration:Case"] = None
-        self._data["Refrigeration:CompressorRack"] = None
-        self._data["Refrigeration:CaseAndWalkInList"] = None
-        self._data["Refrigeration:Condenser:AirCooled"] = None
-        self._data["Refrigeration:Condenser:EvaporativeCooled"] = None
-        self._data["Refrigeration:Condenser:WaterCooled"] = None
-        self._data["Refrigeration:Condenser:Cascade"] = None
-        self._data["Refrigeration:GasCooler:AirCooled"] = None
-        self._data["Refrigeration:TransferLoadList"] = None
-        self._data["Refrigeration:Subcooler"] = None
-        self._data["Refrigeration:Compressor"] = None
-        self._data["Refrigeration:CompressorList"] = None
-        self._data["Refrigeration:System"] = None
-        self._data["Refrigeration:TranscriticalSystem"] = None
-        self._data["Refrigeration:SecondarySystem"] = None
-        self._data["Refrigeration:WalkIn"] = None
-        self._data["Refrigeration:AirChiller"] = None
-        self._data["DemandManagerAssignmentList"] = None
-        self._data["DemandManager:ExteriorLights"] = None
-        self._data["DemandManager:Lights"] = None
-        self._data["DemandManager:ElectricEquipment"] = None
-        self._data["DemandManager:Thermostats"] = None
-        self._data["Generator:InternalCombustionEngine"] = None
-        self._data["Generator:CombustionTurbine"] = None
-        self._data["Generator:MicroTurbine"] = None
-        self._data["Generator:Photovoltaic"] = None
-        self._data["PhotovoltaicPerformance:Simple"] = None
-        self._data["PhotovoltaicPerformance:EquivalentOne-Diode"] = None
-        self._data["PhotovoltaicPerformance:Sandia"] = None
-        self._data["Generator:FuelCell"] = None
-        self._data["Generator:FuelCell:PowerModule"] = None
-        self._data["Generator:FuelCell:AirSupply"] = None
-        self._data["Generator:FuelCell:WaterSupply"] = None
-        self._data["Generator:FuelCell:AuxiliaryHeater"] = None
-        self._data["Generator:FuelCell:ExhaustGasToWaterHeatExchanger"] = None
-        self._data["Generator:FuelCell:ElectricalStorage"] = None
-        self._data["Generator:FuelCell:Inverter"] = None
-        self._data["Generator:FuelCell:StackCooler"] = None
-        self._data["Generator:MicroCHP"] = None
-        self._data["Generator:MicroCHP:NonNormalizedParameters"] = None
-        self._data["Generator:FuelSupply"] = None
-        self._data["Generator:WindTurbine"] = None
-        self._data["ElectricLoadCenter:Generators"] = None
-        self._data["ElectricLoadCenter:Inverter:Simple"] = None
-        self._data["ElectricLoadCenter:Inverter:FunctionOfPower"] = None
-        self._data["ElectricLoadCenter:Inverter:LookUpTable"] = None
-        self._data["ElectricLoadCenter:Storage:Simple"] = None
-        self._data["ElectricLoadCenter:Storage:Battery"] = None
-        self._data["ElectricLoadCenter:Transformer"] = None
-        self._data["ElectricLoadCenter:Distribution"] = None
-        self._data["WaterUse:Equipment"] = None
-        self._data["WaterUse:Connections"] = None
-        self._data["WaterUse:Storage"] = None
-        self._data["WaterUse:Well"] = None
-        self._data["WaterUse:RainCollector"] = None
-        self._data["FaultModel:TemperatureSensorOffset:OutdoorAir"] = None
-        self._data["FaultModel:HumiditySensorOffset:OutdoorAir"] = None
-        self._data["FaultModel:EnthalpySensorOffset:OutdoorAir"] = None
-        self._data["FaultModel:PressureSensorOffset:OutdoorAir"] = None
-        self._data["FaultModel:TemperatureSensorOffset:ReturnAir"] = None
-        self._data["FaultModel:EnthalpySensorOffset:ReturnAir"] = None
-        self._data["FaultModel:Fouling:Coil"] = None
-        self._data["Curve:Linear"] = None
-        self._data["Curve:QuadLinear"] = None
-        self._data["Curve:Quadratic"] = None
-        self._data["Curve:Cubic"] = None
-        self._data["Curve:Quartic"] = None
-        self._data["Curve:Exponent"] = None
-        self._data["Curve:Bicubic"] = None
-        self._data["Curve:Biquadratic"] = None
-        self._data["Curve:QuadraticLinear"] = None
-        self._data["Curve:Triquadratic"] = None
-        self._data["Curve:Functional:PressureDrop"] = None
-        self._data["Curve:FanPressureRise"] = None
-        self._data["Curve:ExponentialSkewNormal"] = None
-        self._data["Curve:Sigmoid"] = None
-        self._data["Curve:RectangularHyperbola1"] = None
-        self._data["Curve:RectangularHyperbola2"] = None
-        self._data["Curve:ExponentialDecay"] = None
-        self._data["Curve:DoubleExponentialDecay"] = None
-        self._data["FluidProperties:Name"] = None
-        self._data["FluidProperties:GlycolConcentration"] = None
-        self._data["FluidProperties:Temperatures"] = None
-        self._data["FluidProperties:Saturated"] = None
-        self._data["FluidProperties:Superheated"] = None
-        self._data["FluidProperties:Concentration"] = None
-        self._data["CurrencyType"] = None
-        self._data["ComponentCost:Adjustments"] = None
-        self._data["ComponentCost:Reference"] = None
-        self._data["ComponentCost:LineItem"] = None
-        self._data["UtilityCost:Tariff"] = None
-        self._data["UtilityCost:Qualify"] = None
-        self._data["UtilityCost:Charge:Simple"] = None
-        self._data["UtilityCost:Charge:Block"] = None
-        self._data["UtilityCost:Ratchet"] = None
-        self._data["UtilityCost:Variable"] = None
-        self._data["UtilityCost:Computation"] = None
-        self._data["LifeCycleCost:Parameters"] = None
-        self._data["LifeCycleCost:RecurringCosts"] = None
-        self._data["LifeCycleCost:NonrecurringCost"] = None
-        self._data["LifeCycleCost:UsePriceEscalation"] = None
-        self._data["LifeCycleCost:UseAdjustment"] = None
-        self._data["Parametric:SetValueForRun"] = None
-        self._data["Parametric:Logic"] = None
-        self._data["Parametric:RunControl"] = None
-        self._data["Parametric:FileNameSuffix"] = None
-        self._data["Output:VariableDictionary"] = None
-        self._data["Output:Surfaces:List"] = None
-        self._data["Output:Surfaces:Drawing"] = None
-        self._data["Output:Schedules"] = None
-        self._data["Output:Constructions"] = None
-        self._data["Output:EnergyManagementSystem"] = None
-        self._data["OutputControl:SurfaceColorScheme"] = None
-        self._data["Output:Table:SummaryReports"] = None
-        self._data["Output:Table:TimeBins"] = None
-        self._data["Output:Table:Monthly"] = None
-        self._data["OutputControl:Table:Style"] = None
-        self._data["OutputControl:ReportingTolerances"] = None
-        self._data["Output:Variable"] = None
-        self._data["Output:Meter"] = None
-        self._data["Output:Meter:MeterFileOnly"] = None
-        self._data["Output:Meter:Cumulative"] = None
-        self._data["Output:Meter:Cumulative:MeterFileOnly"] = None
-        self._data["Meter:Custom"] = None
-        self._data["Meter:CustomDecrement"] = None
-        self._data["Output:SQLite"] = None
-        self._data["Output:EnvironmentalImpactFactors"] = None
-        self._data["EnvironmentalImpactFactors"] = None
-        self._data["FuelFactors"] = None
-        self._data["Output:Diagnostics"] = None
-        self._data["Output:DebuggingData"] = None
-        self._data["Output:PreprocessorMessage"] = None
-
+        self._data["Lead Input"] = []
+        self._data["Simulation Data"] = []
+        self._data["Version"] = []
+        self._data["SimulationControl"] = []
+        self._data["Building"] = []
+        self._data["ShadowCalculation"] = []
+        self._data["SurfaceConvectionAlgorithm:Inside"] = []
+        self._data["SurfaceConvectionAlgorithm:Outside"] = []
+        self._data["HeatBalanceAlgorithm"] = []
+        self._data["HeatBalanceSettings:ConductionFiniteDifference"] = []
+        self._data["ZoneAirHeatBalanceAlgorithm"] = []
+        self._data["ZoneAirContaminantBalance"] = []
+        self._data["ZoneAirMassFlowConservation"] = []
+        self._data["ZoneCapacitanceMultiplier:ResearchSpecial"] = []
+        self._data["Timestep"] = []
+        self._data["ConvergenceLimits"] = []
+        self._data["ProgramControl"] = []
+        self._data["Compliance:Building"] = []
+        self._data["Site:Location"] = []
+        self._data["SizingPeriod:DesignDay"] = []
+        self._data["SizingPeriod:WeatherFileDays"] = []
+        self._data["SizingPeriod:WeatherFileConditionType"] = []
+        self._data["RunPeriod"] = []
+        self._data["RunPeriod:CustomRange"] = []
+        self._data["RunPeriodControl:SpecialDays"] = []
+        self._data["RunPeriodControl:DaylightSavingTime"] = []
+        self._data["WeatherProperty:SkyTemperature"] = []
+        self._data["Site:WeatherStation"] = []
+        self._data["Site:HeightVariation"] = []
+        self._data["Site:GroundTemperature:BuildingSurface"] = []
+        self._data["Site:GroundTemperature:FCfactorMethod"] = []
+        self._data["Site:GroundTemperature:Shallow"] = []
+        self._data["Site:GroundTemperature:Deep"] = []
+        self._data["Site:GroundDomain"] = []
+        self._data["Site:GroundReflectance"] = []
+        self._data["Site:GroundReflectance:SnowModifier"] = []
+        self._data["Site:WaterMainsTemperature"] = []
+        self._data["Site:Precipitation"] = []
+        self._data["RoofIrrigation"] = []
+        self._data["Site:SolarAndVisibleSpectrum"] = []
+        self._data["Site:SpectrumData"] = []
+        self._data["ScheduleTypeLimits"] = []
+        self._data["Schedule:Day:Hourly"] = []
+        self._data["Schedule:Day:Interval"] = []
+        self._data["Schedule:Week:Daily"] = []
+        self._data["Schedule:Week:Compact"] = []
+        self._data["Schedule:Constant"] = []
+        self._data["Schedule:File"] = []
+        self._data["Material"] = []
+        self._data["Material:NoMass"] = []
+        self._data["Material:InfraredTransparent"] = []
+        self._data["Material:AirGap"] = []
+        self._data["Material:RoofVegetation"] = []
+        self._data["WindowMaterial:SimpleGlazingSystem"] = []
+        self._data["WindowMaterial:Glazing"] = []
+        self._data["WindowMaterial:GlazingGroup:Thermochromic"] = []
+        self._data["WindowMaterial:Glazing:RefractionExtinctionMethod"] = []
+        self._data["WindowMaterial:Gas"] = []
+        self._data["WindowGap:SupportPillar"] = []
+        self._data["WindowGap:DeflectionState"] = []
+        self._data["WindowMaterial:GasMixture"] = []
+        self._data["WindowMaterial:Gap"] = []
+        self._data["WindowMaterial:Shade"] = []
+        self._data["WindowMaterial:ComplexShade"] = []
+        self._data["WindowMaterial:Blind"] = []
+        self._data["WindowMaterial:Screen"] = []
+        self._data["WindowMaterial:Shade:EquivalentLayer"] = []
+        self._data["WindowMaterial:Drape:EquivalentLayer"] = []
+        self._data["WindowMaterial:Blind:EquivalentLayer"] = []
+        self._data["WindowMaterial:Screen:EquivalentLayer"] = []
+        self._data["WindowMaterial:Glazing:EquivalentLayer"] = []
+        self._data["Construction:WindowEquivalentLayer"] = []
+        self._data["WindowMaterial:Gap:EquivalentLayer"] = []
+        self._data["MaterialProperty:MoisturePenetrationDepth:Settings"] = []
+        self._data["MaterialProperty:PhaseChange"] = []
+        self._data["MaterialProperty:VariableThermalConductivity"] = []
+        self._data["MaterialProperty:HeatAndMoistureTransfer:Settings"] = []
+        self._data[
+            "MaterialProperty:HeatAndMoistureTransfer:SorptionIsotherm"] = []
+        self._data["MaterialProperty:HeatAndMoistureTransfer:Suction"] = []
+        self._data[
+            "MaterialProperty:HeatAndMoistureTransfer:Redistribution"] = []
+        self._data["MaterialProperty:HeatAndMoistureTransfer:Diffusion"] = []
+        self._data[
+            "MaterialProperty:HeatAndMoistureTransfer:ThermalConductivity"] = []
+        self._data["Construction"] = []
+        self._data["Construction:CfactorUndergroundWall"] = []
+        self._data["Construction:FfactorGroundFloor"] = []
+        self._data["Construction:InternalSource"] = []
+        self._data["WindowThermalModel:Params"] = []
+        self._data["Construction:ComplexFenestrationState"] = []
+        self._data["Construction:WindowDataFile"] = []
+        self._data["GlobalGeometryRules"] = []
+        self._data["GeometryTransform"] = []
+        self._data["Zone"] = []
+        self._data["ZoneGroup"] = []
+        self._data["BuildingSurface:Detailed"] = []
+        self._data["Wall:Detailed"] = []
+        self._data["RoofCeiling:Detailed"] = []
+        self._data["Floor:Detailed"] = []
+        self._data["Wall:Exterior"] = []
+        self._data["Wall:Adiabatic"] = []
+        self._data["Wall:Underground"] = []
+        self._data["Wall:Interzone"] = []
+        self._data["Roof"] = []
+        self._data["Ceiling:Adiabatic"] = []
+        self._data["Ceiling:Interzone"] = []
+        self._data["Floor:GroundContact"] = []
+        self._data["Floor:Adiabatic"] = []
+        self._data["Floor:Interzone"] = []
+        self._data["FenestrationSurface:Detailed"] = []
+        self._data["Window"] = []
+        self._data["Door"] = []
+        self._data["GlazedDoor"] = []
+        self._data["Window:Interzone"] = []
+        self._data["Door:Interzone"] = []
+        self._data["GlazedDoor:Interzone"] = []
+        self._data["WindowProperty:ShadingControl"] = []
+        self._data["WindowProperty:FrameAndDivider"] = []
+        self._data["WindowProperty:AirflowControl"] = []
+        self._data["WindowProperty:StormWindow"] = []
+        self._data["InternalMass"] = []
+        self._data["Shading:Site"] = []
+        self._data["Shading:Building"] = []
+        self._data["Shading:Site:Detailed"] = []
+        self._data["Shading:Building:Detailed"] = []
+        self._data["Shading:Overhang"] = []
+        self._data["Shading:Overhang:Projection"] = []
+        self._data["Shading:Fin"] = []
+        self._data["Shading:Fin:Projection"] = []
+        self._data["Shading:Zone:Detailed"] = []
+        self._data["ShadingProperty:Reflectance"] = []
+        self._data["SurfaceProperty:HeatTransferAlgorithm"] = []
+        self._data[
+            "SurfaceProperty:HeatTransferAlgorithm:MultipleSurface"] = []
+        self._data["SurfaceProperty:HeatTransferAlgorithm:SurfaceList"] = []
+        self._data["SurfaceProperty:HeatTransferAlgorithm:Construction"] = []
+        self._data["SurfaceControl:MovableInsulation"] = []
+        self._data["SurfaceProperty:OtherSideCoefficients"] = []
+        self._data["SurfaceProperty:OtherSideConditionsModel"] = []
+        self._data[
+            "SurfaceConvectionAlgorithm:Inside:AdaptiveModelSelections"] = []
+        self._data[
+            "SurfaceConvectionAlgorithm:Outside:AdaptiveModelSelections"] = []
+        self._data["SurfaceConvectionAlgorithm:Inside:UserCurve"] = []
+        self._data["SurfaceConvectionAlgorithm:Outside:UserCurve"] = []
+        self._data["SurfaceProperty:ConvectionCoefficients"] = []
+        self._data[
+            "SurfaceProperty:ConvectionCoefficients:MultipleSurface"] = []
+        self._data["SurfaceProperties:VaporCoefficients"] = []
+        self._data["SurfaceProperty:ExteriorNaturalVentedCavity"] = []
+        self._data["SurfaceProperty:SolarIncidentInside"] = []
+        self._data["ComplexFenestrationProperty:SolarAbsorbedLayers"] = []
+        self._data["ZoneProperty:UserViewFactors:bySurfaceName"] = []
+        self._data["GroundHeatTransfer:Control"] = []
+        self._data["GroundHeatTransfer:Slab:Materials"] = []
+        self._data["GroundHeatTransfer:Slab:MatlProps"] = []
+        self._data["GroundHeatTransfer:Slab:BoundConds"] = []
+        self._data["GroundHeatTransfer:Slab:BldgProps"] = []
+        self._data["GroundHeatTransfer:Slab:Insulation"] = []
+        self._data["GroundHeatTransfer:Slab:EquivalentSlab"] = []
+        self._data["GroundHeatTransfer:Slab:AutoGrid"] = []
+        self._data["GroundHeatTransfer:Slab:ManualGrid"] = []
+        self._data["GroundHeatTransfer:Basement:SimParameters"] = []
+        self._data["GroundHeatTransfer:Basement:MatlProps"] = []
+        self._data["GroundHeatTransfer:Basement:Insulation"] = []
+        self._data["GroundHeatTransfer:Basement:SurfaceProps"] = []
+        self._data["GroundHeatTransfer:Basement:BldgData"] = []
+        self._data["GroundHeatTransfer:Basement:Interior"] = []
+        self._data["GroundHeatTransfer:Basement:ComBldg"] = []
+        self._data["GroundHeatTransfer:Basement:EquivSlab"] = []
+        self._data["GroundHeatTransfer:Basement:EquivAutoGrid"] = []
+        self._data["GroundHeatTransfer:Basement:AutoGrid"] = []
+        self._data["GroundHeatTransfer:Basement:ManualGrid"] = []
+        self._data["RoomAirModelType"] = []
+        self._data["RoomAir:TemperaturePattern:UserDefined"] = []
+        self._data["RoomAir:TemperaturePattern:ConstantGradient"] = []
+        self._data["RoomAir:TemperaturePattern:TwoGradient"] = []
+        self._data["RoomAir:TemperaturePattern:NondimensionalHeight"] = []
+        self._data["RoomAir:TemperaturePattern:SurfaceMapping"] = []
+        self._data["RoomAir:Node"] = []
+        self._data["RoomAirSettings:OneNodeDisplacementVentilation"] = []
+        self._data["RoomAirSettings:ThreeNodeDisplacementVentilation"] = []
+        self._data["RoomAirSettings:CrossVentilation"] = []
+        self._data["RoomAirSettings:UnderFloorAirDistributionInterior"] = []
+        self._data["RoomAirSettings:UnderFloorAirDistributionExterior"] = []
+        self._data["People"] = []
+        self._data["ComfortViewFactorAngles"] = []
+        self._data["Lights"] = []
+        self._data["ElectricEquipment"] = []
+        self._data["GasEquipment"] = []
+        self._data["HotWaterEquipment"] = []
+        self._data["SteamEquipment"] = []
+        self._data["OtherEquipment"] = []
+        self._data["ZoneBaseboard:OutdoorTemperatureControlled"] = []
+        self._data["ZoneContaminantSourceAndSink:CarbonDioxide"] = []
+        self._data["ZoneContaminantSourceAndSink:Generic:Constant"] = []
+        self._data[
+            "SurfaceContaminantSourceAndSink:Generic:PressureDriven"] = []
+        self._data["ZoneContaminantSourceAndSink:Generic:CutoffModel"] = []
+        self._data["ZoneContaminantSourceAndSink:Generic:DecaySource"] = []
+        self._data[
+            "SurfaceContaminantSourceAndSink:Generic:BoundaryLayerDiffusion"] = []
+        self._data[
+            "SurfaceContaminantSourceAndSink:Generic:DepositionVelocitySink"] = []
+        self._data[
+            "ZoneContaminantSourceAndSink:Generic:DepositionRateSink"] = []
+        self._data["Daylighting:Controls"] = []
+        self._data["Daylighting:DELight:Controls"] = []
+        self._data["Daylighting:DELight:ReferencePoint"] = []
+        self._data["Daylighting:DELight:ComplexFenestration"] = []
+        self._data["DaylightingDevice:Tubular"] = []
+        self._data["DaylightingDevice:Shelf"] = []
+        self._data["DaylightingDevice:LightWell"] = []
+        self._data["Output:DaylightFactors"] = []
+        self._data["Output:IlluminanceMap"] = []
+        self._data["OutputControl:IlluminanceMap:Style"] = []
+        self._data["ZoneInfiltration:DesignFlowRate"] = []
+        self._data["ZoneInfiltration:EffectiveLeakageArea"] = []
+        self._data["ZoneInfiltration:FlowCoefficient"] = []
+        self._data["ZoneVentilation:DesignFlowRate"] = []
+        self._data["ZoneVentilation:WindandStackOpenArea"] = []
+        self._data["ZoneAirBalance:OutdoorAir"] = []
+        self._data["ZoneMixing"] = []
+        self._data["ZoneCrossMixing"] = []
+        self._data["ZoneRefrigerationDoorMixing"] = []
+        self._data["ZoneEarthtube"] = []
+        self._data["ZoneCoolTower:Shower"] = []
+        self._data["ZoneThermalChimney"] = []
+        self._data["AirflowNetwork:SimulationControl"] = []
+        self._data["AirflowNetwork:MultiZone:Zone"] = []
+        self._data["AirflowNetwork:MultiZone:Surface"] = []
+        self._data["AirflowNetwork:MultiZone:ReferenceCrackConditions"] = []
+        self._data["AirflowNetwork:MultiZone:Surface:Crack"] = []
+        self._data[
+            "AirflowNetwork:MultiZone:Surface:EffectiveLeakageArea"] = []
+        self._data["AirflowNetwork:MultiZone:Component:DetailedOpening"] = []
+        self._data["AirflowNetwork:MultiZone:Component:SimpleOpening"] = []
+        self._data["AirflowNetwork:MultiZone:Component:HorizontalOpening"] = []
+        self._data["AirflowNetwork:MultiZone:Component:ZoneExhaustFan"] = []
+        self._data["AirflowNetwork:MultiZone:ExternalNode"] = []
+        self._data[
+            "AirflowNetwork:MultiZone:WindPressureCoefficientArray"] = []
+        self._data[
+            "AirflowNetwork:MultiZone:WindPressureCoefficientValues"] = []
+        self._data["AirflowNetwork:Distribution:Node"] = []
+        self._data["AirflowNetwork:Distribution:Component:Leak"] = []
+        self._data["AirflowNetwork:Distribution:Component:LeakageRatio"] = []
+        self._data["AirflowNetwork:Distribution:Component:Duct"] = []
+        self._data["AirflowNetwork:Distribution:Component:Fan"] = []
+        self._data["AirflowNetwork:Distribution:Component:Coil"] = []
+        self._data["AirflowNetwork:Distribution:Component:HeatExchanger"] = []
+        self._data["AirflowNetwork:Distribution:Component:TerminalUnit"] = []
+        self._data[
+            "AirflowNetwork:Distribution:Component:ConstantPressureDrop"] = []
+        self._data["AirflowNetwork:Distribution:Linkage"] = []
+        self._data["Exterior:Lights"] = []
+        self._data["Exterior:FuelEquipment"] = []
+        self._data["Exterior:WaterEquipment"] = []
+        self._data["HVACTemplate:Thermostat"] = []
+        self._data["HVACTemplate:Zone:IdealLoadsAirSystem"] = []
+        self._data["HVACTemplate:Zone:BaseboardHeat"] = []
+        self._data["HVACTemplate:Zone:FanCoil"] = []
+        self._data["HVACTemplate:Zone:PTAC"] = []
+        self._data["HVACTemplate:Zone:PTHP"] = []
+        self._data["HVACTemplate:Zone:WaterToAirHeatPump"] = []
+        self._data["HVACTemplate:Zone:VRF"] = []
+        self._data["HVACTemplate:Zone:Unitary"] = []
+        self._data["HVACTemplate:Zone:VAV"] = []
+        self._data["HVACTemplate:Zone:VAV:FanPowered"] = []
+        self._data["HVACTemplate:Zone:VAV:HeatAndCool"] = []
+        self._data["HVACTemplate:Zone:ConstantVolume"] = []
+        self._data["HVACTemplate:Zone:DualDuct"] = []
+        self._data["HVACTemplate:System:VRF"] = []
+        self._data["HVACTemplate:System:Unitary"] = []
+        self._data["HVACTemplate:System:UnitaryHeatPump:AirToAir"] = []
+        self._data["HVACTemplate:System:UnitarySystem"] = []
+        self._data["HVACTemplate:System:VAV"] = []
+        self._data["HVACTemplate:System:PackagedVAV"] = []
+        self._data["HVACTemplate:System:ConstantVolume"] = []
+        self._data["HVACTemplate:System:DualDuct"] = []
+        self._data["HVACTemplate:System:DedicatedOutdoorAir"] = []
+        self._data["HVACTemplate:Plant:ChilledWaterLoop"] = []
+        self._data["HVACTemplate:Plant:Chiller"] = []
+        self._data["HVACTemplate:Plant:Chiller:ObjectReference"] = []
+        self._data["HVACTemplate:Plant:Tower"] = []
+        self._data["HVACTemplate:Plant:Tower:ObjectReference"] = []
+        self._data["HVACTemplate:Plant:HotWaterLoop"] = []
+        self._data["HVACTemplate:Plant:Boiler"] = []
+        self._data["HVACTemplate:Plant:Boiler:ObjectReference"] = []
+        self._data["HVACTemplate:Plant:MixedWaterLoop"] = []
+        self._data["DesignSpecification:OutdoorAir"] = []
+        self._data["DesignSpecification:ZoneAirDistribution"] = []
+        self._data["Sizing:Parameters"] = []
+        self._data["Sizing:Zone"] = []
+        self._data["DesignSpecification:ZoneHVAC:Sizing"] = []
+        self._data["Sizing:System"] = []
+        self._data["Sizing:Plant"] = []
+        self._data["OutputControl:Sizing:Style"] = []
+        self._data["ZoneControl:Humidistat"] = []
+        self._data["ZoneControl:Thermostat"] = []
+        self._data["ZoneControl:Thermostat:OperativeTemperature"] = []
+        self._data["ZoneControl:Thermostat:ThermalComfort"] = []
+        self._data["ZoneControl:Thermostat:TemperatureAndHumidity"] = []
+        self._data["ThermostatSetpoint:SingleHeating"] = []
+        self._data["ThermostatSetpoint:SingleCooling"] = []
+        self._data["ThermostatSetpoint:SingleHeatingOrCooling"] = []
+        self._data["ThermostatSetpoint:DualSetpoint"] = []
+        self._data[
+            "ThermostatSetpoint:ThermalComfort:Fanger:SingleHeating"] = []
+        self._data[
+            "ThermostatSetpoint:ThermalComfort:Fanger:SingleCooling"] = []
+        self._data[
+            "ThermostatSetpoint:ThermalComfort:Fanger:SingleHeatingOrCooling"] = []
+        self._data[
+            "ThermostatSetpoint:ThermalComfort:Fanger:DualSetpoint"] = []
+        self._data["ZoneControl:Thermostat:StagedDualSetpoint"] = []
+        self._data["ZoneControl:ContaminantController"] = []
+        self._data["ZoneHVAC:IdealLoadsAirSystem"] = []
+        self._data["ZoneHVAC:FourPipeFanCoil"] = []
+        self._data["ZoneHVAC:WindowAirConditioner"] = []
+        self._data["ZoneHVAC:PackagedTerminalAirConditioner"] = []
+        self._data["ZoneHVAC:PackagedTerminalHeatPump"] = []
+        self._data["ZoneHVAC:WaterToAirHeatPump"] = []
+        self._data["ZoneHVAC:Dehumidifier:DX"] = []
+        self._data["ZoneHVAC:EnergyRecoveryVentilator"] = []
+        self._data["ZoneHVAC:EnergyRecoveryVentilator:Controller"] = []
+        self._data["ZoneHVAC:UnitVentilator"] = []
+        self._data["ZoneHVAC:UnitHeater"] = []
+        self._data["ZoneHVAC:EvaporativeCoolerUnit"] = []
+        self._data["ZoneHVAC:OutdoorAirUnit"] = []
+        self._data["ZoneHVAC:OutdoorAirUnit:EquipmentList"] = []
+        self._data["ZoneHVAC:TerminalUnit:VariableRefrigerantFlow"] = []
+        self._data["ZoneHVAC:Baseboard:RadiantConvective:Water"] = []
+        self._data["ZoneHVAC:Baseboard:RadiantConvective:Steam"] = []
+        self._data["ZoneHVAC:Baseboard:RadiantConvective:Electric"] = []
+        self._data["ZoneHVAC:Baseboard:Convective:Water"] = []
+        self._data["ZoneHVAC:Baseboard:Convective:Electric"] = []
+        self._data["ZoneHVAC:LowTemperatureRadiant:VariableFlow"] = []
+        self._data["ZoneHVAC:LowTemperatureRadiant:ConstantFlow"] = []
+        self._data["ZoneHVAC:LowTemperatureRadiant:Electric"] = []
+        self._data["ZoneHVAC:LowTemperatureRadiant:SurfaceGroup"] = []
+        self._data["ZoneHVAC:HighTemperatureRadiant"] = []
+        self._data["ZoneHVAC:VentilatedSlab"] = []
+        self._data["ZoneHVAC:VentilatedSlab:SlabGroup"] = []
+        self._data["AirTerminal:SingleDuct:Uncontrolled"] = []
+        self._data["AirTerminal:SingleDuct:ConstantVolume:Reheat"] = []
+        self._data["AirTerminal:SingleDuct:VAV:NoReheat"] = []
+        self._data["AirTerminal:SingleDuct:VAV:Reheat"] = []
+        self._data["AirTerminal:SingleDuct:VAV:Reheat:VariableSpeedFan"] = []
+        self._data["AirTerminal:SingleDuct:VAV:HeatAndCool:NoReheat"] = []
+        self._data["AirTerminal:SingleDuct:VAV:HeatAndCool:Reheat"] = []
+        self._data["AirTerminal:SingleDuct:SeriesPIU:Reheat"] = []
+        self._data["AirTerminal:SingleDuct:ParallelPIU:Reheat"] = []
+        self._data[
+            "AirTerminal:SingleDuct:ConstantVolume:FourPipeInduction"] = []
+        self._data["AirTerminal:SingleDuct:ConstantVolume:CooledBeam"] = []
+        self._data["AirTerminal:SingleDuct:InletSideMixer"] = []
+        self._data["AirTerminal:SingleDuct:SupplySideMixer"] = []
+        self._data["AirTerminal:DualDuct:ConstantVolume"] = []
+        self._data["AirTerminal:DualDuct:VAV"] = []
+        self._data["AirTerminal:DualDuct:VAV:OutdoorAir"] = []
+        self._data["ZoneHVAC:AirDistributionUnit"] = []
+        self._data["ZoneHVAC:EquipmentList"] = []
+        self._data["ZoneHVAC:EquipmentConnections"] = []
+        self._data["Fan:ConstantVolume"] = []
+        self._data["Fan:VariableVolume"] = []
+        self._data["Fan:OnOff"] = []
+        self._data["Fan:ZoneExhaust"] = []
+        self._data["FanPerformance:NightVentilation"] = []
+        self._data["Fan:ComponentModel"] = []
+        self._data["Coil:Cooling:Water"] = []
+        self._data["Coil:Cooling:Water:DetailedGeometry"] = []
+        self._data["Coil:Cooling:DX:SingleSpeed"] = []
+        self._data["Coil:Cooling:DX:TwoSpeed"] = []
+        self._data["Coil:Cooling:DX:MultiSpeed"] = []
+        self._data["Coil:Cooling:DX:VariableSpeed"] = []
+        self._data["Coil:Cooling:DX:TwoStageWithHumidityControlMode"] = []
+        self._data["CoilPerformance:DX:Cooling"] = []
+        self._data["Coil:Cooling:DX:VariableRefrigerantFlow"] = []
+        self._data["Coil:Heating:DX:VariableRefrigerantFlow"] = []
+        self._data["Coil:Heating:Water"] = []
+        self._data["Coil:Heating:Steam"] = []
+        self._data["Coil:Heating:Electric"] = []
+        self._data["Coil:Heating:Electric:MultiStage"] = []
+        self._data["Coil:Heating:Gas"] = []
+        self._data["Coil:Heating:Gas:MultiStage"] = []
+        self._data["Coil:Heating:Desuperheater"] = []
+        self._data["Coil:Heating:DX:SingleSpeed"] = []
+        self._data["Coil:Heating:DX:MultiSpeed"] = []
+        self._data["Coil:Heating:DX:VariableSpeed"] = []
+        self._data["Coil:Cooling:WaterToAirHeatPump:ParameterEstimation"] = []
+        self._data["Coil:Heating:WaterToAirHeatPump:ParameterEstimation"] = []
+        self._data["Coil:Cooling:WaterToAirHeatPump:EquationFit"] = []
+        self._data[
+            "Coil:Cooling:WaterToAirHeatPump:VariableSpeedEquationFit"] = []
+        self._data["Coil:Heating:WaterToAirHeatPump:EquationFit"] = []
+        self._data[
+            "Coil:Heating:WaterToAirHeatPump:VariableSpeedEquationFit"] = []
+        self._data["Coil:WaterHeating:AirToWaterHeatPump"] = []
+        self._data["Coil:WaterHeating:Desuperheater"] = []
+        self._data["CoilSystem:Cooling:DX"] = []
+        self._data["CoilSystem:Heating:DX"] = []
+        self._data["CoilSystem:Cooling:Water:HeatExchangerAssisted"] = []
+        self._data["CoilSystem:Cooling:DX:HeatExchangerAssisted"] = []
+        self._data["Coil:Cooling:DX:SingleSpeed:ThermalStorage"] = []
+        self._data["Humidifier:Steam:Electric"] = []
+        self._data["Dehumidifier:Desiccant:NoFans"] = []
+        self._data["Dehumidifier:Desiccant:System"] = []
+        self._data["HeatExchanger:AirToAir:FlatPlate"] = []
+        self._data["HeatExchanger:AirToAir:SensibleAndLatent"] = []
+        self._data["HeatExchanger:Desiccant:BalancedFlow"] = []
+        self._data[
+            "HeatExchanger:Desiccant:BalancedFlow:PerformanceDataType1"] = []
+        self._data["AirLoopHVAC:UnitarySystem"] = []
+        self._data["UnitarySystemPerformance:HeatPump:Multispeed"] = []
+        self._data["AirLoopHVAC:Unitary:Furnace:HeatOnly"] = []
+        self._data["AirLoopHVAC:Unitary:Furnace:HeatCool"] = []
+        self._data["AirLoopHVAC:UnitaryHeatOnly"] = []
+        self._data["AirLoopHVAC:UnitaryHeatCool"] = []
+        self._data["AirLoopHVAC:UnitaryHeatPump:AirToAir"] = []
+        self._data["AirLoopHVAC:UnitaryHeatPump:WaterToAir"] = []
+        self._data["AirLoopHVAC:UnitaryHeatCool:VAVChangeoverBypass"] = []
+        self._data["AirLoopHVAC:UnitaryHeatPump:AirToAir:MultiSpeed"] = []
+        self._data["AirConditioner:VariableRefrigerantFlow"] = []
+        self._data["ZoneTerminalUnitList"] = []
+        self._data["Controller:WaterCoil"] = []
+        self._data["Controller:OutdoorAir"] = []
+        self._data["Controller:MechanicalVentilation"] = []
+        self._data["AirLoopHVAC:ControllerList"] = []
+        self._data["AirLoopHVAC"] = []
+        self._data["AirLoopHVAC:OutdoorAirSystem:EquipmentList"] = []
+        self._data["AirLoopHVAC:OutdoorAirSystem"] = []
+        self._data["OutdoorAir:Mixer"] = []
+        self._data["AirLoopHVAC:SupplyPath"] = []
+        self._data["AirLoopHVAC:ReturnPath"] = []
+        self._data["Branch"] = []
+        self._data["ConnectorList"] = []
+        self._data["OutdoorAir:Node"] = []
+        self._data["Pipe:Adiabatic"] = []
+        self._data["Pipe:Adiabatic:Steam"] = []
+        self._data["Pipe:Indoor"] = []
+        self._data["Pipe:Outdoor"] = []
+        self._data["Pipe:Underground"] = []
+        self._data["PipingSystem:Underground:Domain"] = []
+        self._data["PipingSystem:Underground:PipeCircuit"] = []
+        self._data["PipingSystem:Underground:PipeSegment"] = []
+        self._data["Duct"] = []
+        self._data["Pump:VariableSpeed"] = []
+        self._data["Pump:ConstantSpeed"] = []
+        self._data["Pump:VariableSpeed:Condensate"] = []
+        self._data["HeaderedPumps:ConstantSpeed"] = []
+        self._data["TemperingValve"] = []
+        self._data["LoadProfile:Plant"] = []
+        self._data["SolarCollectorPerformance:FlatPlate"] = []
+        self._data["SolarCollector:FlatPlate:Water"] = []
+        self._data["SolarCollectorPerformance:PhotovoltaicThermal:Simple"] = []
+        self._data["SolarCollector:IntegralCollectorStorage"] = []
+        self._data["SolarCollectorPerformance:IntegralCollectorStorage"] = []
+        self._data["SolarCollector:UnglazedTranspired"] = []
+        self._data["SolarCollector:UnglazedTranspired:Multisystem"] = []
+        self._data["Boiler:HotWater"] = []
+        self._data["Boiler:Steam"] = []
+        self._data["Chiller:Electric:EIR"] = []
+        self._data["Chiller:Electric:ReformulatedEIR"] = []
+        self._data["Chiller:Electric"] = []
+        self._data["Chiller:Absorption:Indirect"] = []
+        self._data["Chiller:Absorption"] = []
+        self._data["Chiller:ConstantCOP"] = []
+        self._data["Chiller:EngineDriven"] = []
+        self._data["Chiller:CombustionTurbine"] = []
+        self._data["ChillerHeater:Absorption:DirectFired"] = []
+        self._data["ChillerHeater:Absorption:DoubleEffect"] = []
+        self._data["HeatPump:WaterToWater:EquationFit:Heating"] = []
+        self._data["HeatPump:WaterToWater:EquationFit:Cooling"] = []
+        self._data["HeatPump:WaterToWater:ParameterEstimation:Cooling"] = []
+        self._data["HeatPump:WaterToWater:ParameterEstimation:Heating"] = []
+        self._data["DistrictCooling"] = []
+        self._data["DistrictHeating"] = []
+        self._data["PlantComponent:TemperatureSource"] = []
+        self._data["CentralHeatPumpSystem"] = []
+        self._data["ChillerHeaterPerformance:Electric:EIR"] = []
+        self._data["CoolingTower:SingleSpeed"] = []
+        self._data["CoolingTower:TwoSpeed"] = []
+        self._data["CoolingTower:VariableSpeed:Merkel"] = []
+        self._data["CoolingTower:VariableSpeed"] = []
+        self._data["CoolingTowerPerformance:CoolTools"] = []
+        self._data["CoolingTowerPerformance:YorkCalc"] = []
+        self._data["EvaporativeFluidCooler:SingleSpeed"] = []
+        self._data["EvaporativeFluidCooler:TwoSpeed"] = []
+        self._data["FluidCooler:SingleSpeed"] = []
+        self._data["FluidCooler:TwoSpeed"] = []
+        self._data["GroundHeatExchanger:Vertical"] = []
+        self._data["GroundHeatExchanger:Pond"] = []
+        self._data["GroundHeatExchanger:Surface"] = []
+        self._data["GroundHeatExchanger:HorizontalTrench"] = []
+        self._data["HeatExchanger:FluidToFluid"] = []
+        self._data["WaterHeater:Mixed"] = []
+        self._data["WaterHeater:Stratified"] = []
+        self._data["WaterHeater:Sizing"] = []
+        self._data["WaterHeater:HeatPump"] = []
+        self._data["ThermalStorage:Ice:Simple"] = []
+        self._data["ThermalStorage:Ice:Detailed"] = []
+        self._data["ThermalStorage:ChilledWater:Mixed"] = []
+        self._data["ThermalStorage:ChilledWater:Stratified"] = []
+        self._data["PlantLoop"] = []
+        self._data["CondenserLoop"] = []
+        self._data["PlantEquipmentList"] = []
+        self._data["CondenserEquipmentList"] = []
+        self._data["PlantEquipmentOperation:Uncontrolled"] = []
+        self._data["PlantEquipmentOperation:CoolingLoad"] = []
+        self._data["PlantEquipmentOperation:HeatingLoad"] = []
+        self._data["PlantEquipmentOperation:OutdoorDryBulb"] = []
+        self._data["PlantEquipmentOperation:OutdoorWetBulb"] = []
+        self._data["PlantEquipmentOperation:OutdoorRelativeHumidity"] = []
+        self._data["PlantEquipmentOperation:OutdoorDewpoint"] = []
+        self._data["PlantEquipmentOperation:ComponentSetpoint"] = []
+        self._data["PlantEquipmentOperation:OutdoorDryBulbDifference"] = []
+        self._data["PlantEquipmentOperation:OutdoorWetBulbDifference"] = []
+        self._data["PlantEquipmentOperation:OutdoorDewpointDifference"] = []
+        self._data["PlantEquipmentOperationSchemes"] = []
+        self._data["CondenserEquipmentOperationSchemes"] = []
+        self._data["EnergyManagementSystem:Sensor"] = []
+        self._data["EnergyManagementSystem:Actuator"] = []
+        self._data["EnergyManagementSystem:ProgramCallingManager"] = []
+        self._data["EnergyManagementSystem:OutputVariable"] = []
+        self._data["EnergyManagementSystem:MeteredOutputVariable"] = []
+        self._data["EnergyManagementSystem:TrendVariable"] = []
+        self._data["EnergyManagementSystem:InternalVariable"] = []
+        self._data["EnergyManagementSystem:CurveOrTableIndexVariable"] = []
+        self._data["EnergyManagementSystem:ConstructionIndexVariable"] = []
+        self._data["ExternalInterface"] = []
+        self._data["ExternalInterface:Schedule"] = []
+        self._data["ExternalInterface:Variable"] = []
+        self._data["ExternalInterface:Actuator"] = []
+        self._data["ExternalInterface:FunctionalMockupUnitImport"] = []
+        self._data[
+            "ExternalInterface:FunctionalMockupUnitImport:From:Variable"] = []
+        self._data[
+            "ExternalInterface:FunctionalMockupUnitImport:To:Schedule"] = []
+        self._data[
+            "ExternalInterface:FunctionalMockupUnitImport:To:Actuator"] = []
+        self._data[
+            "ExternalInterface:FunctionalMockupUnitImport:To:Variable"] = []
+        self._data[
+            "ExternalInterface:FunctionalMockupUnitExport:From:Variable"] = []
+        self._data[
+            "ExternalInterface:FunctionalMockupUnitExport:To:Schedule"] = []
+        self._data[
+            "ExternalInterface:FunctionalMockupUnitExport:To:Actuator"] = []
+        self._data[
+            "ExternalInterface:FunctionalMockupUnitExport:To:Variable"] = []
+        self._data["ZoneHVAC:ForcedAir:UserDefined"] = []
+        self._data["AirTerminal:SingleDuct:UserDefined"] = []
+        self._data["Coil:UserDefined"] = []
+        self._data["PlantComponent:UserDefined"] = []
+        self._data["PlantEquipmentOperation:UserDefined"] = []
+        self._data["AvailabilityManager:Scheduled"] = []
+        self._data["AvailabilityManager:ScheduledOn"] = []
+        self._data["AvailabilityManager:ScheduledOff"] = []
+        self._data["AvailabilityManager:OptimumStart"] = []
+        self._data["AvailabilityManager:NightCycle"] = []
+        self._data["AvailabilityManager:DifferentialThermostat"] = []
+        self._data["AvailabilityManager:HighTemperatureTurnOff"] = []
+        self._data["AvailabilityManager:HighTemperatureTurnOn"] = []
+        self._data["AvailabilityManager:LowTemperatureTurnOff"] = []
+        self._data["AvailabilityManager:LowTemperatureTurnOn"] = []
+        self._data["AvailabilityManager:NightVentilation"] = []
+        self._data["AvailabilityManager:HybridVentilation"] = []
+        self._data["AvailabilityManagerAssignmentList"] = []
+        self._data["SetpointManager:Scheduled"] = []
+        self._data["SetpointManager:Scheduled:DualSetpoint"] = []
+        self._data["SetpointManager:OutdoorAirReset"] = []
+        self._data["SetpointManager:SingleZone:Reheat"] = []
+        self._data["SetpointManager:SingleZone:Heating"] = []
+        self._data["SetpointManager:SingleZone:Cooling"] = []
+        self._data["SetpointManager:SingleZone:Humidity:Minimum"] = []
+        self._data["SetpointManager:SingleZone:Humidity:Maximum"] = []
+        self._data["SetpointManager:MixedAir"] = []
+        self._data["SetpointManager:OutdoorAirPretreat"] = []
+        self._data["SetpointManager:Warmest"] = []
+        self._data["SetpointManager:Coldest"] = []
+        self._data["SetpointManager:ReturnAirBypassFlow"] = []
+        self._data["SetpointManager:WarmestTemperatureFlow"] = []
+        self._data["SetpointManager:MultiZone:Heating:Average"] = []
+        self._data["SetpointManager:MultiZone:Cooling:Average"] = []
+        self._data["SetpointManager:MultiZone:MinimumHumidity:Average"] = []
+        self._data["SetpointManager:MultiZone:MaximumHumidity:Average"] = []
+        self._data["SetpointManager:MultiZone:Humidity:Minimum"] = []
+        self._data["SetpointManager:MultiZone:Humidity:Maximum"] = []
+        self._data["SetpointManager:FollowOutdoorAirTemperature"] = []
+        self._data["SetpointManager:FollowSystemNodeTemperature"] = []
+        self._data["SetpointManager:FollowGroundTemperature"] = []
+        self._data["SetpointManager:CondenserEnteringReset"] = []
+        self._data["SetpointManager:CondenserEnteringReset:Ideal"] = []
+        self._data["SetpointManager:SingleZone:OneStageCooling"] = []
+        self._data["SetpointManager:SingleZone:OneStageHeating"] = []
+        self._data["Refrigeration:Case"] = []
+        self._data["Refrigeration:CompressorRack"] = []
+        self._data["Refrigeration:CaseAndWalkInList"] = []
+        self._data["Refrigeration:Condenser:AirCooled"] = []
+        self._data["Refrigeration:Condenser:EvaporativeCooled"] = []
+        self._data["Refrigeration:Condenser:WaterCooled"] = []
+        self._data["Refrigeration:Condenser:Cascade"] = []
+        self._data["Refrigeration:GasCooler:AirCooled"] = []
+        self._data["Refrigeration:TransferLoadList"] = []
+        self._data["Refrigeration:Subcooler"] = []
+        self._data["Refrigeration:Compressor"] = []
+        self._data["Refrigeration:CompressorList"] = []
+        self._data["Refrigeration:System"] = []
+        self._data["Refrigeration:TranscriticalSystem"] = []
+        self._data["Refrigeration:SecondarySystem"] = []
+        self._data["Refrigeration:WalkIn"] = []
+        self._data["Refrigeration:AirChiller"] = []
+        self._data["DemandManagerAssignmentList"] = []
+        self._data["DemandManager:ExteriorLights"] = []
+        self._data["DemandManager:Lights"] = []
+        self._data["DemandManager:ElectricEquipment"] = []
+        self._data["DemandManager:Thermostats"] = []
+        self._data["Generator:InternalCombustionEngine"] = []
+        self._data["Generator:CombustionTurbine"] = []
+        self._data["Generator:MicroTurbine"] = []
+        self._data["Generator:Photovoltaic"] = []
+        self._data["PhotovoltaicPerformance:Simple"] = []
+        self._data["PhotovoltaicPerformance:EquivalentOne-Diode"] = []
+        self._data["PhotovoltaicPerformance:Sandia"] = []
+        self._data["Generator:FuelCell"] = []
+        self._data["Generator:FuelCell:PowerModule"] = []
+        self._data["Generator:FuelCell:AirSupply"] = []
+        self._data["Generator:FuelCell:WaterSupply"] = []
+        self._data["Generator:FuelCell:AuxiliaryHeater"] = []
+        self._data["Generator:FuelCell:ExhaustGasToWaterHeatExchanger"] = []
+        self._data["Generator:FuelCell:ElectricalStorage"] = []
+        self._data["Generator:FuelCell:Inverter"] = []
+        self._data["Generator:FuelCell:StackCooler"] = []
+        self._data["Generator:MicroCHP"] = []
+        self._data["Generator:MicroCHP:NonNormalizedParameters"] = []
+        self._data["Generator:FuelSupply"] = []
+        self._data["Generator:WindTurbine"] = []
+        self._data["ElectricLoadCenter:Generators"] = []
+        self._data["ElectricLoadCenter:Inverter:Simple"] = []
+        self._data["ElectricLoadCenter:Inverter:FunctionOfPower"] = []
+        self._data["ElectricLoadCenter:Inverter:LookUpTable"] = []
+        self._data["ElectricLoadCenter:Storage:Simple"] = []
+        self._data["ElectricLoadCenter:Storage:Battery"] = []
+        self._data["ElectricLoadCenter:Transformer"] = []
+        self._data["ElectricLoadCenter:Distribution"] = []
+        self._data["WaterUse:Equipment"] = []
+        self._data["WaterUse:Connections"] = []
+        self._data["WaterUse:Storage"] = []
+        self._data["WaterUse:Well"] = []
+        self._data["WaterUse:RainCollector"] = []
+        self._data["FaultModel:TemperatureSensorOffset:OutdoorAir"] = []
+        self._data["FaultModel:HumiditySensorOffset:OutdoorAir"] = []
+        self._data["FaultModel:EnthalpySensorOffset:OutdoorAir"] = []
+        self._data["FaultModel:PressureSensorOffset:OutdoorAir"] = []
+        self._data["FaultModel:TemperatureSensorOffset:ReturnAir"] = []
+        self._data["FaultModel:EnthalpySensorOffset:ReturnAir"] = []
+        self._data["FaultModel:Fouling:Coil"] = []
+        self._data["Curve:Linear"] = []
+        self._data["Curve:QuadLinear"] = []
+        self._data["Curve:Quadratic"] = []
+        self._data["Curve:Cubic"] = []
+        self._data["Curve:Quartic"] = []
+        self._data["Curve:Exponent"] = []
+        self._data["Curve:Bicubic"] = []
+        self._data["Curve:Biquadratic"] = []
+        self._data["Curve:QuadraticLinear"] = []
+        self._data["Curve:Triquadratic"] = []
+        self._data["Curve:Functional:PressureDrop"] = []
+        self._data["Curve:FanPressureRise"] = []
+        self._data["Curve:ExponentialSkewNormal"] = []
+        self._data["Curve:Sigmoid"] = []
+        self._data["Curve:RectangularHyperbola1"] = []
+        self._data["Curve:RectangularHyperbola2"] = []
+        self._data["Curve:ExponentialDecay"] = []
+        self._data["Curve:DoubleExponentialDecay"] = []
+        self._data["FluidProperties:Name"] = []
+        self._data["FluidProperties:GlycolConcentration"] = []
+        self._data["FluidProperties:Temperatures"] = []
+        self._data["FluidProperties:Saturated"] = []
+        self._data["FluidProperties:Superheated"] = []
+        self._data["FluidProperties:Concentration"] = []
+        self._data["CurrencyType"] = []
+        self._data["ComponentCost:Adjustments"] = []
+        self._data["ComponentCost:Reference"] = []
+        self._data["ComponentCost:LineItem"] = []
+        self._data["UtilityCost:Tariff"] = []
+        self._data["UtilityCost:Qualify"] = []
+        self._data["UtilityCost:Charge:Simple"] = []
+        self._data["UtilityCost:Charge:Block"] = []
+        self._data["UtilityCost:Ratchet"] = []
+        self._data["UtilityCost:Variable"] = []
+        self._data["UtilityCost:Computation"] = []
+        self._data["LifeCycleCost:Parameters"] = []
+        self._data["LifeCycleCost:RecurringCosts"] = []
+        self._data["LifeCycleCost:NonrecurringCost"] = []
+        self._data["LifeCycleCost:UsePriceEscalation"] = []
+        self._data["LifeCycleCost:UseAdjustment"] = []
+        self._data["Parametric:SetValueForRun"] = []
+        self._data["Parametric:Logic"] = []
+        self._data["Parametric:RunControl"] = []
+        self._data["Parametric:FileNameSuffix"] = []
+        self._data["Output:VariableDictionary"] = []
+        self._data["Output:Surfaces:List"] = []
+        self._data["Output:Surfaces:Drawing"] = []
+        self._data["Output:Schedules"] = []
+        self._data["Output:Constructions"] = []
+        self._data["Output:EnergyManagementSystem"] = []
+        self._data["OutputControl:SurfaceColorScheme"] = []
+        self._data["Output:Table:SummaryReports"] = []
+        self._data["Output:Table:TimeBins"] = []
+        self._data["Output:Table:Monthly"] = []
+        self._data["OutputControl:Table:Style"] = []
+        self._data["OutputControl:ReportingTolerances"] = []
+        self._data["Output:Variable"] = []
+        self._data["Output:Meter"] = []
+        self._data["Output:Meter:MeterFileOnly"] = []
+        self._data["Output:Meter:Cumulative"] = []
+        self._data["Output:Meter:Cumulative:MeterFileOnly"] = []
+        self._data["Meter:Custom"] = []
+        self._data["Meter:CustomDecrement"] = []
+        self._data["Output:SQLite"] = []
+        self._data["Output:EnvironmentalImpactFactors"] = []
+        self._data["EnvironmentalImpactFactors"] = []
+        self._data["FuelFactors"] = []
+        self._data["Output:Diagnostics"] = []
+        self._data["Output:DebuggingData"] = []
+        self._data["Output:PreprocessorMessage"] = []
 
     def set(self, data):
-        self._data[data.internal_name] = data        
-   
+        self._data[data.internal_name].append(data)
 
     def save(self, path, check=True):
         """ Save data to path
-        
+
             Args:
-                path (str): path where data should be saved
+                path (str): path where data should be save
+
+            Raises:
+                ValueError: if required objects are not present or
+                    unique objects are not unique
         """
         with open(path, 'w') as f:
             if check:
                 for key in self._data:
-                    if self._data[key] is None and key in self.required_objects:
+                    if len(
+                            self._data[key]) == 0 and key in self.required_objects:
                         raise ValueError('{} is not valid.'.format(key))
+                    if key in self.unique_objects and len(self._data[key]) > 0:
+                        raise ValueError(
+                            '{} is not unique: {}'.format(
+                                key, len(
+                                    self._data[key])))
             for key in self._data:
-                if self._data[key] is not None:
-                    f.write(self._data[key].export() + "\n")
+                if len(self._data[key]) > 0:
+                    for data_object in self._data[key]:
+                        f.write(self._data[key].export() + "\n")
 
     @classmethod
     def _create_datadict(cls, internal_name):
         """ Creates an object depending on `internal_name`
-        
+
             Args:
                 internal_name (str): IDD name
-                
+
             Raises:
                 ValueError: if `internal_name` cannot be matched to a data dictionary object
         """
@@ -2182,11 +2271,12 @@ class IDF(object):
             return OutputDebuggingData()
         if internal_name == "Output:PreprocessorMessage":
             return OutputPreprocessorMessage()
-        raise ValueError("No DataDictionary known for {}".format(internal_name))
+        raise ValueError(
+            "No DataDictionary known for {}".format(internal_name))
 
     def read(self, path):
         """Read IDF data from path
-        
+
            Args:
                path (str): path to read data from
         """
@@ -2197,7 +2287,8 @@ class IDF(object):
                 if match_obj_name is not None:
                     internal_name = match_obj_name.group(1)
                     if internal_name in self._data:
-                        self._data[internal_name] = self._create_datadict(internal_name)
+                        self._data[internal_name] = self._create_datadict(
+                            internal_name)
                         data_line = line[len(internal_name) + 1:]
                         vals = data_line.strip().split(',')
                         self._data[internal_name].read(vals)
