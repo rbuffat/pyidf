@@ -26,10 +26,14 @@ def generate_class(obj):
 def generate_idf(objs):
     source_files = set()
     required_objects = set()
+    unique_objects = set()
     for obj in objs:
         source_files.add(obj.file_name)
         if "required-object" in obj.attributes:
             required_objects.add('"{}"'.format(obj.internal_name))
+            
+        if "unique-object" in obj.attributes:
+            unique_objects.add('"{}"'.format(obj.internal_name))
 
     template = env.get_template('idf.py')
     context = {}
@@ -37,6 +41,7 @@ def generate_idf(objs):
     context["objs"] = objs
     context["file_names"] = list(source_files)
     context["required_objects"] = ", ".join(required_objects)
+    context["unique_objects"] = ", ".join(unique_objects)
     return template.render(context)
 
 if __name__ == '__main__':

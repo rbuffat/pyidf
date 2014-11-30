@@ -8,7 +8,6 @@ Python library to read, modify and create EnergyPlus idf files
 ##Todos:
 
 
-* field attributes
 * read / write support
 * handle \note fields as indicated in idd (ignore corresponding objects for the moment?)
 * unit tests
@@ -24,7 +23,6 @@ Python library to read, modify and create EnergyPlus idf files
   * external-list
   * reference
 * object level comments not yet implemented
-  * unique-object
   * min-fields
   * obsolete
   * extensible

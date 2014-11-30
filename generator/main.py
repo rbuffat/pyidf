@@ -34,11 +34,11 @@ if __name__ == '__main__':
             f.write(source_file)
 
     source_file = generate_idf(objs)
-#     source_file = autopep8.fix_code(
-#         source_file, options=autopep8.parse_args(['--aggressive',
-#                                                   '--aggressive',
-#                                                   '--aggressive',
-#                                                   '']))
+    source_file = autopep8.fix_code(
+        source_file, options=autopep8.parse_args(['--aggressive',
+                                                  '--aggressive',
+                                                  '--aggressive',
+                                                  '']))
 #     source_file = format_code(source_file)
 #  
     with open("../pyidf/idf.py", 'w') as f:

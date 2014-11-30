@@ -20,33 +20,42 @@ class IDF(object):
     """
     
     required_objects = [{{required_objects}}]
+    unique_objects = [{{unique_objects}}]
 
     def __init__(self):
         """ Inits IDF with no data dictionary set."""
         self._data = OrderedDict()
         {%- for obj in objs %}
-        self._data["{{obj.internal_name}}"] = None
+        self._data["{{obj.internal_name}}"] = []
         {%- endfor %}
    
    
     def set(self, data):
-        self._data[data.internal_name] = data        
+        self._data[data.internal_name].append(data)        
    
 
     def save(self, path, check=True):
         """ Save data to path
         
             Args:
-                path (str): path where data should be saved
+                path (str): path where data should be save
+            
+            Raises:
+                ValueError: if required objects are not present or 
+                    unique objects are not unique
         """
         with open(path, 'w') as f:
             if check:
                 for key in self._data:
-                    if self._data[key] is None and key in self.required_objects:
+                    if len(self._data[key]) == 0 and key in self.required_objects:
                         raise ValueError('{} is not valid.'.format(key))
+                    if key in self.unique_objects and len(self._data[key]) > 0:
+                        raise ValueError('{} is not unique: {}'.format(key,
+                                                                       len(self._data[key])))
             for key in self._data:
-                if self._data[key] is not None:
-                    f.write(self._data[key].export() + "\n")
+                if len(self._data[key]) > 0:
+                    for data_object in self._data[key]:
+                        f.write(self._data[key].export() + "\n")
 
     @classmethod
     def _create_datadict(cls, internal_name):
