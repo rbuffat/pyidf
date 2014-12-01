@@ -15,7 +15,6 @@ Python library to read, modify and create EnergyPlus idf files
   * unitsBasedOnField
   * deprecated
   * autosizeable
-  * autocalculatabel
   * type: object-list, external-list, node
   * retaincase
   * object-list
@@ -29,7 +28,7 @@ Python library to read, modify and create EnergyPlus idf files
   * format
   * reference-class-name
 
-Currently ignored objects (incomplete specification of repeating fields):
+Currently ignored objects (begin-extensible and lists not yet supported):
 * Schedule:Day:List
 * Schedule:Year
 * Schedule:Compact

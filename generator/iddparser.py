@@ -74,7 +74,8 @@ class IDDParser():
 
             no_value_attributes = ["required-field",
                                    "unique-object",
-                                   "required-object"]
+                                   "required-object",
+                                   "autocalculatable"]
 
             if attribute_name in no_value_attributes:
                 return attribute_name, True
@@ -175,8 +176,8 @@ class IDDParser():
 
                     if field.internal_name in fields:
                         fields[field.internal_name].append(field)
-                        logging.warn("duplicated field name: {}->{}".format(field.dataobject.internal_name,
-                                                                            field.internal_name))
+#                         logging.warn("duplicated field name: {}->{}".format(field.dataobject.internal_name,
+#                                                                             field.internal_name))
                         new_name = "{} v{}".format(field.internal_name,
                                                    str(len(fields[field.internal_name]) + 1))
                         field.set_internal_name(new_name)
@@ -185,7 +186,8 @@ class IDDParser():
                     field.conv_vals()
                 good_objs.append(obj)
             else:
-                logging.warn("ignore object: {}".format(obj.internal_name))
+                pass
+#                 logging.warn("ignore object: {}".format(obj.internal_name))
 
         return good_objs
 

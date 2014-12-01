@@ -111,6 +111,8 @@ class DataField(object):
             if self.ftype == "A":
                 self.attributes["type"] = "alpha"
             elif self.ftype == "N":
+                logging.warn("number field without definition of int / real: {}->{}".format(self.dataobject.internal_name,
+                                                                   self.internal_name))
                 self.attributes["type"] = "real"
 
         # Convert some values to python representation
@@ -126,21 +128,11 @@ class DataField(object):
                     self.attributes[attribute_name] = self.value2py(value,
                                                                     self.attributes["type"])
                 except Exception:
-                    pass
+                    self.attributes[attribute_name] = '"{}"'.format(value)
 #                     logging.warn("cast to py value failed for {} {} {}: {}->{}".format(attribute_name,
 #                                                                                        value,
 #                                                                                        self.attributes["type"],
 #                                                                                        self.dataobject.internal_name,
 #                                                                                        self.internal_name))
 
-                    self.attributes.pop(attribute_name, None)
             self.attributes["pytype"] = self.pytype(self.attributes["type"])
-
-
-class ListField(DataField):
-
-    def __init__(self, internal_name):
-        super(ListField, self).__init__(internal_name, "list")
-        self.is_list = True
-        self.object_name = normalize_object_name(internal_name)
-        self.field_name = normalize_field_name(internal_name)
