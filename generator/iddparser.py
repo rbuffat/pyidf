@@ -76,7 +76,8 @@ class IDDParser():
                                    "unique-object",
                                    "required-object",
                                    "autocalculatable",
-                                   "autosizable"]
+                                   "autosizable",
+                                   "deprecated"]
 
             if attribute_name in no_value_attributes:
                 return attribute_name, True

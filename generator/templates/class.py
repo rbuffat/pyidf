@@ -53,6 +53,12 @@ class {{ obj.class_name }}(object):
     def {{field.field_name}}(self, value={%- if field.attributes.default and not field.attributes.pytype == "str" %}{{ field.attributes.default}}{% elif field.attributes.default and (field.attributes.pytype == "str") %}"{{field.attributes.default}}"{% else %}None{% endif %}):
         """  Corresponds to IDD Field `{{field.internal_name}}`
 
+        {%- if field.attributes.deprecated %}
+        This field is not really used and will be deleted from the object.
+        The required information is gotten internally or
+        not needed by the program.
+        {%- endif %}
+
         {%- for comment in field.attributes.note %}
         {{comment}}
         {%- endfor %}
