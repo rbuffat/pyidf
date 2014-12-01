@@ -12,7 +12,6 @@ Python library to read, modify and create EnergyPlus idf files
 * unit tests
 * field comments not implemented:
   * begin-extensible
-  * unitsBasedOnField
   * type: object-list, external-list, node
   * retaincase
   * object-list

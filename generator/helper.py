@@ -58,12 +58,13 @@ class DataObject:
 
 class DataField(object):
 
-    def __init__(self, internal_name, ftype, dataobject):
+    def __init__(self, internal_name, ftype, fid, dataobject):
 
         self.attributes = {}
         self.set_internal_name(internal_name)
         self.is_list = False
         self.ftype = ftype
+        self.fid = fid
         self.dataobject = dataobject
 
     def set_internal_name(self, internal_name):
@@ -111,8 +112,8 @@ class DataField(object):
             if self.ftype == "A":
                 self.attributes["type"] = "alpha"
             elif self.ftype == "N":
-                logging.warn("number field without definition of int / real: {}->{}".format(self.dataobject.internal_name,
-                                                                   self.internal_name))
+#                 logging.warn("number field without definition of int / real: {}->{}".format(self.dataobject.internal_name,
+#                                                                    self.internal_name))
                 self.attributes["type"] = "real"
 
         # Convert some values to python representation
@@ -136,3 +137,14 @@ class DataField(object):
 #                                                                                        self.internal_name))
 
             self.attributes["pytype"] = self.pytype(self.attributes["type"])
+
+        # unitsBasedOnField
+        if "unitsBasedOnField" in self.attributes:
+            fv = self.attributes["unitsBasedOnField"]
+
+            for field in self.dataobject.fields:
+                if field.fid == fv:
+                    self.attributes["unitsBasedOnField"] = field.field_name
+            if self.attributes["unitsBasedOnField"] == fv:
+                logging.warn("did not found units based on field field for {}->{}".format(self.dataobject.internal_name,
+                                                                   self.internal_name))

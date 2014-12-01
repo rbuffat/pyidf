@@ -54,14 +54,16 @@ class IDDParser():
         # print "NewField:\t", line
         match_field_name = re.search(r"\\field\s(.*)$", line, re.IGNORECASE)
         match_field_type = re.search(r"^\s*([AN])", line)
+        match_field_id = re.search(r"^\s*([AN0-9]+)", line)
 
-        if match_field_name is None or match_field_type is None:
+        if match_field_name is None or match_field_type is None or match_field_id is None:
 #             print "Did not match field name: ", line, match_field_name, match_field_type
             return None
 
         ftype = match_field_type.group(1)
         internal_name = match_field_name.group(1).strip()
-        return ftype, internal_name
+        fid = match_field_id.group(1).strip()
+        return ftype, internal_name, fid
 
     def _parse_attribute(self, line):
 
@@ -127,8 +129,8 @@ class IDDParser():
                         self.current_object.fields.append(self.current_field)
 
                     try:
-                        ftype, internal_name = self._parse_field_name(line)
-                        self.current_field = DataField(internal_name, ftype, self.current_object)
+                        ftype, internal_name, fid = self._parse_field_name(line)
+                        self.current_field = DataField(internal_name, ftype, fid, self.current_object)
                     except Exception as e:
                         self.current_object.ignored = True
 #                         print self.current_object.internal_name, line

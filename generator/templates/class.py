@@ -77,6 +77,9 @@ class {{ obj.class_name }}(object):
                 {%- if field.attributes['ip-units'] %}
                 IP-Units: {{ field.attributes['ip-units'] }}
                 {%- endif %}
+                {%- if field.attributes['unitsBasedOnField'] %}
+                Units are based on field `{{ field.attributes['unitsBasedOnField'] }}`
+                {%- endif %}
                 {%- if field.attributes.default %}
                 Default value: {{ field.attributes.default }}
                 {%- endif %}
